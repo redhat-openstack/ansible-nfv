@@ -1,0 +1,31 @@
+---
+
+- name: Configure Nova Scheduler Filter
+  ini_file:
+      dest: /etc/nova/nova.conf
+      section: DEFAULT
+      option: scheduler_default_filters
+      value: "RetryFilter, AvailabilityZoneFilter, RamFilter, ComputeFilter, ComputeCapabilitiesFilter, ImagePropertiesFilter, ServerGroupAntiAffinityFilter, ServerGroupAffinityFilter ,PciPassthroughFilter"
+
+- name: Neutron-server service configuration
+  lineinfile:
+    dest: /usr/lib/systemd/system/neutron-server.service
+    backrefs: True
+    state: present
+    regexp: "^ExecStart"
+    line: "ExecStart=/usr/bin/neutron-server --config-file /usr/share/neutron/neutron-dist.conf --config-file /etc/neutron/neutron.conf --config-file /etc/neutron/plugin.ini --config-file /etc/neutron/plugins/ml2/ml2_conf_sriov.ini --log-file /var/log/neutron/server.log"
+
+- name: Configure neutron server
+  ini_file:
+    dest: "{{ item.file }}"
+    section: "{{ item.section }}"
+    option: "{{ item.option }}"
+    value: "{{item.value}}"
+  with_items:
+    - { file: '/etc/neutron/plugins/ml2/ml2_conf.ini', section: 'ml2', option: 'mechanism_drivers',value: 'openvswitch,sriovnicswitch' }
+    - { file: '/etc/neutron/plugins/ml2/ml2_conf_sriov.ini', section: 'ml2_sriov', option: 'agent_required',value: 'False' }
+    - { file: '/etc/neutron/plugins/ml2/ml2_conf_sriov.ini', section: 'ml2_sriov', option: 'supported_pci_vendor_devs',value: "{{ pci }}" }
+  notify:
+    - 'Reload the systemctl daemon'
+    - 'Restart the neutron service'
+

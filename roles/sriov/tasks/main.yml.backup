@@ -1,0 +1,103 @@
+---
+
+- name: Add parameter to the grub
+  lineinfile:
+    dest: /etc/default/grub
+    backrefs: True
+    state: present
+    regexp: '^GRUB_CMDLINE_LINUX="(([^i]*(-(?!ntel_iommu=on).)+[^-]*)*)"'
+    line: 'GRUB_CMDLINE_LINUX="intel_iommu=on \1"' 
+
+- name: make grub
+    command: "grub2-mkconfig -o /boot/grub2/grub.cfg"
+
+- name: chmod rclocal
+  file:
+    path: /etc/rc.d/rc.local
+    owner: root
+    group: root
+    mode: "755"
+
+##can be dynamic with "ansible localhost -m setup"
+- name: Set configuration option for rc.local
+  lineinfile:
+    dest: {{ item.file }}
+    regexp: {{ item.regexp }}
+    line: {{ item.context }}
+  with_items:
+    - { file: '/etc/rc.local', regexp: '^ip link set eno2 up', context: 'ip link set eno2 up' }
+    - { file: '/etc/rc.local', regexp: '^echo 64', context: 'echo 64 > /sys/class/net/<device name>/device/sriov_numvfs' }
+    - { file: '/etc/modprobe.d/dist.conf', regexp: '^options vfio_iommu_type1', context: 'options vfio_iommu_type1 allow_unsafe_interrupts=1' }
+    - { file: '/etc/modprobe.d/bnx2x.conf', regexp: '^options bnx2x max_vfs=64', context: 'options bnx2x max_vfs=64"' }
+
+- name: restart machine
+  shell: sleep 2 && shutdown -r now "Ansible updates triggered"
+  async: 1
+  poll: 0
+  sudo: true
+  ignore_errors: true
+
+- name: waiting for server to come back
+  local_action: wait_for
+  host: {{ inventory_hostname }}
+  state: started
+  delay: 30
+  timeout: 300
+  sudo: false
+
+- name: Configure nova conf file
+  ini_file:
+    dest: {{ item.file }}
+    section: {{ item.section }}
+    option: {{ item.option }}
+    value: {{item.value}}
+  with_items:
+    - { file: '/etc/nova/nova.conf', section: 'DEFAULT', option: 'pci_passthrough_whitelist',value: '{"devname": "eno2", "physical_network":"physnet"}' }
+    - { file: '/etc/rc.local', section: '^ip link set eno2 up', option: 'ip link set eno2 up',value: }
+    - { file: '/etc/rc.local', section: '^ip link set eno2 up', option: 'ip link set eno2 up',value: }
+    - { file: '/etc/rc.local', section: '^ip link set eno2 up', option: 'ip link set eno2 up',value: }
+
+
+- name: Configure Nova Scheduler
+  ini_file:
+    dest: /etc/nova/nova.conf
+    section: DEFAULT
+    option: pci_passthrough_whitelist
+    value: {"devname": "eno2", "physical_network":"physnet"}
+
+- name: config ml2_conf.ini file
+  ini_file:
+    dest: /etc/neutron/plugins/ml2/ml2_conf.ini
+    section: ml2
+    option: mechanism_drivers
+    value: openvswitch,sriovnicswitch
+
+- name: config ml2_conf_sriov.ini file
+  ini_file:
+    dest: /etc/neutron/plugins/ml2/ml2_conf_sriov.ini
+    section: ml2_sriov
+    option: supported_pci_vendor_devs
+    value: 14e4:16ae, 14e4:16af
+
+- name: config sriov agent to false
+  ini_file:
+    dest: /etc/neutron/plugins/ml2/ml2_conf.ini
+    section: ml2_sriov
+    option: agent_required
+    value: False
+
+- name: reload the neutron service
+  service:
+    name: neutron-server.service
+    state: reloaded
+
+- name: restart the neutron service
+  service:
+    name: neutron-server.service
+    state: restarted
+
+- name: restart the nova compute service
+  service:
+    name: openstack-nova-compute.service
+    state: restarted
+

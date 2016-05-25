@@ -1,0 +1,75 @@
+---
+
+- name: Add parameter to the grub
+  lineinfile:
+    dest: /etc/default/grub
+    backrefs: True
+    state: present
+    regexp: '^GRUB_CMDLINE_LINUX="(([^i]*(-(?!ntel_iommu=on).)+[^-]*)*)"'
+    line: 'GRUB_CMDLINE_LINUX="intel_iommu=on \1"'
+  register: grub
+  changed_when: False
+
+- name: make grub
+  command: "grub2-mkconfig -o /boot/grub2/grub.cfg"
+  when: grub == 0
+
+- name: chmod rclocal
+  file:
+    path: /etc/rc.d/rc.local
+    owner: root
+    group: root
+    mode: "755"
+
+- name: check the existence of bnx2x.conf file
+  stat: 
+    path: /etc/modprobe.d/bnx2x.conf
+  register: bnx2x
+
+- name: check the existence of dist.conf file
+  stat: 
+    path: /etc/modprobe.d/dist.conf
+  register: dist
+
+- name: Create a new configuration file
+  file: 
+    path: "/etc/modprobe.d/{{ item }}"
+    state: touch
+  with_items:
+    - bnx2x.conf
+    - dist.conf
+  when: bnx2x.stat.exists == false or dist.stat.exists == false
+
+- name: Set configuration option for rc.local
+  lineinfile:
+    dest: "{{ item.file }}"
+    regexp: "{{ item.regexp }}"
+    line: "{{ item.context }}"
+  with_items:
+    - { file: '/etc/rc.local', regexp: '^ip link set "{{ interface }}" up', context: 'ip link set "{{ interface }}" up' }
+    - { file: '/etc/rc.local', regexp: '^echo 64', context: 'echo 64 > /sys/class/net/"{{ interface }}"/device/sriov_numvfs' }
+    - { file: '/etc/modprobe.d/dist.conf', regexp: '^options vfio_iommu_type1', context: 'options vfio_iommu_type1 allow_unsafe_interrupts=1' }
+    - { file: '/etc/modprobe.d/bnx2x.conf', regexp: '^options "{{ driver }}" max_vfs=64', context: 'options "{{ driver }}" max_vfs=64"' }
+
+- name: restart machine
+  shell: sleep 2 && shutdown -r now "Ansible updates triggered"
+  async: 1
+  poll: 0
+  sudo: true
+  ignore_errors: true
+
+- name: Wait for server to restart successfully
+  tags: test
+  wait_for: host="{{ ansible_default_ipv4.address }}" port=22 timeout=30 delay=30 state=started
+  connection: local
+
+- name: Configure nova conf file
+  ini_file:
+    dest: "{{ item.file }}"
+    section: "{{ item.section }}"
+    option: "{{ item.option }}"
+    value: "{{item.value}}"
+  with_items:
+    - { file: '/etc/nova/nova.conf', section: 'DEFAULT', option: 'pci_passthrough_whitelist',value: '{"devname": "{{ interface }}", "physical_network":"physnet"}' }
+  notify: 'Restart nova compute service'
+
