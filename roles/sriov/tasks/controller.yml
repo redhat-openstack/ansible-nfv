@@ -5,7 +5,7 @@
       dest: /etc/nova/nova.conf
       section: DEFAULT
       option: scheduler_default_filters
-      value: "RetryFilter, AvailabilityZoneFilter, RamFilter, ComputeFilter, ComputeCapabilitiesFilter, ImagePropertiesFilter, ServerGroupAntiAffinityFilter, ServerGroupAffinityFilter ,PciPassthroughFilter"
+      value: "RetryFilter,AvailabilityZoneFilter,RamFilter,ComputeFilter,ComputeCapabilitiesFilter,ImagePropertiesFilter,CoreFilter,PciPassthroughFilterFilter"
 
 - name: Neutron-server service configuration
   lineinfile:
