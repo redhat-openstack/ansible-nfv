@@ -6,6 +6,8 @@
       section: DEFAULT
       option: scheduler_default_filters
       value: "RetryFilter,AvailabilityZoneFilter,RamFilter,ComputeFilter,ComputeCapabilitiesFilter,ImagePropertiesFilter,CoreFilter,PciPassthroughFilterFilter"
+  notify:
+    - 'Restart controller service'
 
 - name: Neutron-server service configuration
   lineinfile:
