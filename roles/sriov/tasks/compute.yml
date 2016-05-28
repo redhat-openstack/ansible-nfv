@@ -3,10 +3,10 @@
 - name: Add parameter to the grub
   lineinfile:
     dest: /etc/default/grub
-    backrefs: True
+    backrefs: yes
     state: present
-    regexp: '^GRUB_CMDLINE_LINUX="(([^i]*(.(?!ntel_iommu=on).)+[^.]*)*)"'
-    line: 'GRUB_CMDLINE_LINUX="intel_iommu=on \1"'
+    regexp: '^GRUB_CMDLINE_LINUX="(?!.* intel_iommu=on)(.*)"'
+    line: 'GRUB_CMDLINE_LINUX="\1 intel_iommu=on"'
   register: grub
 
 - name: make grub
