@@ -17,6 +17,8 @@
     state: present
     regexp: "^ExecStart"
     line: "ExecStart=/usr/bin/neutron-server --config-file /usr/share/neutron/neutron-dist.conf --config-file /etc/neutron/neutron.conf --config-file /etc/neutron/plugin.ini --config-file /etc/neutron/plugins/ml2/ml2_conf_sriov.ini --log-file /var/log/neutron/server.log"
+  notify:
+    - 'Restart the neutron service'
 
 - name: Configure neutron server
   ini_file:
