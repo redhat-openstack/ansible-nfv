@@ -5,8 +5,8 @@
     dest: /etc/nova/nova.conf
     backrefs: yes
     state: present
-    regexp: '^scheduler_default_filters.*=(?!.*,PciPassthroughFilterFilter)(.*)'
-    line: 'scheduler_default_filters=\1,PciPassthroughFilterFilter'
+    regexp: '^scheduler_default_filters.*=(?!.*,PciPassthroughFilter)(.*)'
+    line: 'scheduler_default_filters=\1,PciPassthroughFilter'
   notify:
     - 'Restart controller service'
 
