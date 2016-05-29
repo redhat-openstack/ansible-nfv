@@ -1,11 +1,12 @@
 ---
 
 - name: Configure Nova Scheduler Filter
-  ini_file:
-      dest: /etc/nova/nova.conf
-      section: DEFAULT
-      option: scheduler_default_filters
-      value: "RetryFilter,AvailabilityZoneFilter,RamFilter,ComputeFilter,ComputeCapabilitiesFilter,ImagePropertiesFilter,CoreFilter,PciPassthroughFilterFilter"
+  lineinfile:
+    dest: /etc/nova/nova.conf
+    backrefs: yes
+    state: present
+    regexp: '^scheduler_default_filters.*=(?!.*,PciPassthroughFilterFilter)(.*)'
+    line: 'scheduler_default_filters=\1,PciPassthroughFilterFilter'
   notify:
     - 'Restart controller service'
 
