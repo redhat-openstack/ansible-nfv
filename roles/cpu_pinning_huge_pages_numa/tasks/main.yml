@@ -1,0 +1,9 @@
+---
+
+- name: Include Controller configuration
+  include: controller.yml
+  when: inventory_hostname in groups ['controller']
+
+- name: Include Compute configuration
+  include: compute.yml
+  when: inventory_hostname in groups ['compute']
