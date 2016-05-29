@@ -1,0 +1,20 @@
+---
+
+- name: Configure NUMA scheduler filter
+  lineinfile:
+    dest: /etc/nova/nova.conf
+    regexp: '^scheduler_default_filters.*=(?!.*,NUMATopologyFilter)(.*)'
+    line: 'scheduler_default_filters=\1,NUMATopologyFilter'
+    state: present
+    backrefs: yes
+  notify: 'Restart controller service'
+
+- name: Configure Aggregate scheduler filter
+  lineinfile:
+    dest: /etc/nova/nova.conf
+    regexp: '^scheduler_default_filters.*=(?!.*,AggregateInstanceExtraSpecsFilter)(.*)'
+    line: 'scheduler_default_filters=\1,AggregateInstanceExtraSpecsFilter'
+    state: present
+    backrefs: yes
+  notify: 'Restart controller service'
+

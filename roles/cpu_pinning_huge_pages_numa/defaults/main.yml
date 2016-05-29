@@ -1,0 +1,10 @@
+---
+
+### Controller variable
+
+
+### Compute variables
+vcpu_pin: 3-8
+reserved_host_memory: 2048
+hugepages_size: 1GB
+hugepages_count: 4

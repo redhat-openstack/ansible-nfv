@@ -1,0 +1,12 @@
+---
+
+- name: Restart controller service
+  service:
+    name: openstack-nova-scheduler.service
+    state: restarted
+
+- name: Restart nova compute service
+  service:
+    name: openstack-nova-compute.service
+    state: restarted
+
