@@ -1,0 +1,6 @@
+---
+
+- name: Cpu pinning huge pages numa
+  hosts: openstack
+  roles:
+    - cpu_pinning_huge_pages_numa

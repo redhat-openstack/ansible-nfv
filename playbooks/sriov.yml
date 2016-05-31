@@ -1,0 +1,6 @@
+---
+
+- name: SRIOV
+  hosts: openstack
+  roles:
+    - sriov
