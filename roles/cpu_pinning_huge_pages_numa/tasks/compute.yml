@@ -38,7 +38,7 @@
   lineinfile:
     dest: /etc/nova/nova.conf
     regexp: '^reserved_host_memory_mb=512'
-    line: 'reserved_host_memory_mb={{ reserved_host_memory }}'
+    line: 'reserved_host_memory_mb={{ reserved_host_memory_mb }}'
     state: present
     backrefs: yes
   notify: 'Restart nova compute service'
