@@ -1,6 +1,11 @@
 ---
 
-- name: Cpu pinning huge pages numa
-  hosts: openstack
+- name: Controller - Cpu pinning huge pages numa
+  hosts: controller
   roles:
-    - cpu_pinning_huge_pages_numa
+    - controller/cpu_pinning_huge_pages_numa
+
+- name: Compute - Cpu pinning huge pages numa
+  hosts: compute
+  roles:
+    - compute/cpu_pinning_huge_pages_numa
