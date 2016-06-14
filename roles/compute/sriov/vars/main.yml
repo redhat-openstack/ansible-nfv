@@ -1,0 +1,4 @@
+---
+
+### Interface used for hosts communications
+interface: eno2

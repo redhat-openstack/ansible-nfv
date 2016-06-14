@@ -1,7 +1,0 @@
----
-
-### Controller variables
-pci: 14e4:16ae, 14e4:16af
-
-### Compute variables
-interface: eno2

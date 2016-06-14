@@ -1,6 +1,11 @@
 ---
 
-- name: SRIOV
-  hosts: openstack
+- name: Controller - SRIOV
+  hosts: controller
   roles:
-    - sriov
+    - controller/sriov
+
+- name: Compute - SRIOV
+  hosts: compute
+  roles:
+    - compute/sriov
