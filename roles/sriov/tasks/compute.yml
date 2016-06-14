@@ -9,24 +9,24 @@
     line: 'GRUB_CMDLINE_LINUX="\1 intel_iommu=on"'
   register: grub
 
-- name: make grub
+- name: Perform - make grub
   command: "grub2-mkconfig -o /boot/grub2/grub.cfg"
   when: grub.changed
   register: makegrub
 
-- name: chmod rclocal
+- name: Set rc.local permissions
   file:
     path: /etc/rc.d/rc.local
     owner: root
     group: root
     mode: "755"
 
-- name: check the existence of bnx2x.conf file
+- name: Check the existence of dirver config file
   stat: 
-    path: /etc/modprobe.d/bnx2x.conf
-  register: bnx2x
+    path: "/etc/modprobe.d/{{ hostvars[inventory_hostname]['ansible_{0}'.format(interface)].module }}.conf"
+  register: driver_module
 
-- name: check the existence of dist.conf file
+- name: Check the existence of dist.conf file
   stat: 
     path: /etc/modprobe.d/dist.conf
   register: dist
@@ -36,11 +36,11 @@
     path: "/etc/modprobe.d/{{ item }}"
     state: touch
   with_items:
-    - bnx2x.conf
+    - "{{ hostvars[inventory_hostname]['ansible_{0}'.format(interface)].module }}.conf"
     - dist.conf
-  when: bnx2x.stat.exists == false or dist.stat.exists == false
+  when: driver_module.stat.exists == false or dist.stat.exists == false
 
-- name: Set configuration option for rc.local
+- name: Set configuration files
   lineinfile:
     dest: "{{ item.file }}"
     regexp: "{{ item.regexp }}"
@@ -49,10 +49,10 @@
     - { file: '/etc/rc.local', regexp: '^ip link set {{ interface }} up', context: 'ip link set {{ interface }} up' }
     - { file: '/etc/rc.local', regexp: '^echo 64', context: 'echo 64 > /sys/class/net/{{ interface }}/device/sriov_numvfs' }
     - { file: '/etc/modprobe.d/dist.conf', regexp: '^options vfio_iommu_type1', context: 'options vfio_iommu_type1 allow_unsafe_interrupts=1' }
-    - { file: '/etc/modprobe.d/bnx2x.conf', regexp: '^options {{ driver }} max_vfs=64', context: 'options {{ driver }} max_vfs=64' }
+    - { file: '/etc/modprobe.d/{{ hostvars[inventory_hostname]["ansible_{0}".format(interface)].module }}.conf', regexp: '^options {{ hostvars[inventory_hostname]["ansible_{0}".format(interface)].module }} max_vfs=64', context: 'options {{ hostvars[inventory_hostname]["ansible_{0}".format(interface)].module }} max_vfs=64' }
   register: conffiles
 
-- name: restart machine
+- name: Restart the server
   shell: sleep 2 && shutdown -r now "Ansible updates triggered"
   async: 1
   poll: 0
@@ -71,4 +71,3 @@
   with_items:
     - { file: '/etc/nova/nova.conf', section: 'DEFAULT', option: 'pci_passthrough_whitelist',value: '"{"devname": "{{ interface }}", "physical_network":"physnet"}"' }
   notify: 'Restart nova compute service'
-
