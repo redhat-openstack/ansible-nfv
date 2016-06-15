@@ -14,10 +14,16 @@
 - name: Add parameter to the grub
   lineinfile:
     dest: /etc/default/grub
-    regexp: '^GRUB_CMDLINE_LINUX="(?!.* isolcpus)(.*)"'
-    line: 'GRUB_CMDLINE_LINUX="\1 isolcpus={{ vcpu_pin }} default_hugepagesz={{ hugepages_size }} hugepagesz={{ hugepages_size }} hugepages={{ hugepages_count }} transparent_hugepage=never"'
+    regexp: '^GRUB_CMDLINE_LINUX="(?!.* {{ item.regex }})(.*)"'
+    line: 'GRUB_CMDLINE_LINUX="\1 {{ item.context }}"'
     state: present
     backrefs: yes
+  with_items:
+    - { regex: 'isolcpus=', context: 'isolcpus={{ vcpu_pin }}' }
+    - { regex: 'hugepages=', context: 'hugepages={{ hugepages_count }}' }
+    - { regex: 'default_hugepagesz=', context: 'default_hugepagesz={{ hugepages_size }}' }
+    - { regex: 'hugepagesz=', context: 'hugepagesz={{ hugepages_size }}' }
+    - { regex: 'transparent_hugepage=never', context: 'transparent_hugepage=never' }
   register: grub
 
 - name: Make grub
