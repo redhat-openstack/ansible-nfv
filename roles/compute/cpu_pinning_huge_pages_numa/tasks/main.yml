@@ -20,10 +20,7 @@
     backrefs: yes
   with_items:
     - { regex: 'isolcpus=', context: 'isolcpus={{ vcpu_pin }}' }
-    - { regex: 'hugepages=', context: 'hugepages={{ hugepages_count }}' }
-    - { regex: 'default_hugepagesz=', context: 'default_hugepagesz={{ hugepages_size }}' }
-    - { regex: 'hugepagesz=', context: 'hugepagesz={{ hugepages_size }}' }
-    - { regex: 'transparent_hugepage=never', context: 'transparent_hugepage=never' }
+    - { regex: 'hugepagesz=', context: 'hugepagesz={{ hugepages_size }} default_hugepagesz={{ hugepages_size }} transparent_hugepage=never hugepages={{ hugepages_count }}' }
   register: grub
 
 - name: Make grub
