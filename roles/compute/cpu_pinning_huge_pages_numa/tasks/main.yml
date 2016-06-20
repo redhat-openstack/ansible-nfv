@@ -10,6 +10,7 @@
     - hwloc-gui
     - hwloc-devel
     - hwloc-debuginfo
+    - xorg-x11-xauth
 
 - name: Add parameter to the grub
   lineinfile:
