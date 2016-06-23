@@ -1,0 +1,200 @@
+---
+
+- name: Disable Selinux
+  selinux:
+    policy: targeted
+    state: permissive
+
+- name: Add parameter to the grub
+  lineinfile:
+    dest: /etc/default/grub
+    regexp: '^GRUB_CMDLINE_LINUX="(?!.* {{ item.regex }})(.*)"'
+    line: 'GRUB_CMDLINE_LINUX="\1 {{ item.context }}"'
+    state: present
+    backrefs: yes
+  with_items:
+    - { regex: 'intel_iommu=on', context: 'intel_iommu=on' }
+    - { regex: 'iommu=on', context: 'iommu=on' }
+    - { regex: 'hugepagesz=', context: 'hugepagesz={{ hugepages_size }} default_hugepagesz={{ hugepages_size }} hugepages={{ hugepages_count }}' }
+  register: grub
+
+- name: Make grub
+  command: "grub2-mkconfig -o /boot/grub2/grub.cfg"
+  when: grub.changed
+  register: makegrub
+
+- name: Check for the openvswitch-dpdk package
+  yum:
+   list: openvswitch
+  register: ovs_dpdk_pkg
+
+- name: Remove old openvswitch package
+  yum:
+    name: openvswitch
+    state: absent
+  when: item.repo == 'installed' and item.name == 'openvswitch'
+  with_items: "{{ ovs_dpdk_pkg.results }}"
+
+- name: Switch OVS package to OVDK package
+  yum: 
+    name: "{{ item.name }}"
+    state: "{{ item.state }}"
+  with_items:
+    - { name: '{{ openvswitch_dpdk_package_url }}', state: 'installed' }
+    - { name: 'openstack-neutron-openvswitch', state: 'installed' }
+  register: ovdk_install
+  notify:
+    - 'Restart and enable neutron-openvswitch-agent service'
+    - 'Restart and enable OVDK service'
+
+- meta: flush_handlers
+
+- name: Install DPDK and management packages
+  yum: 
+    name: "{{ item.package }}"
+    update_cache: yes
+    state: latest
+  with_items:
+    - { package: 'dpdk' }
+    - { package: 'dpdk-tools' }
+    - { package: 'driverctl' }
+
+- name: Set DPDK_OPTIONS
+  lineinfile: 
+    dest: /etc/sysconfig/openvswitch
+    regexp: "^DPDK_OPTIONS"
+    line: 'DPDK_OPTIONS="-l 2,4 -n 4 --socket-mem 1024,0"'
+  notify: 'Restart and enable OVDK service'
+
+- name: Load vfio_pci module to the kernel
+  modprobe:
+    name: vfio_pci
+    state: present
+
+- name: Set the vfio_pci module to load on boot
+  lineinfile:
+    dest: /etc/modules-load.d/vfio_pci.conf
+    regexp: "^vfio_pci"
+    line: "vfio_pci"
+    create: yes
+
+- name: Set DPDK interface to ONBOOT=no
+  lineinfile:
+    dest: "/etc/sysconfig/network-scripts/ifcfg-{{ dpdk_nic_name }}"
+    regexp: "^ONBOOT=yes"
+    line: "ONBOOT=no"
+    backrefs: yes
+
+- name: Copy openvswitch_agent.ini.rpmsave to openvswitch_agent.ini
+  copy:
+    remote_src: True
+    src: /etc/neutron/plugins/ml2/openvswitch_agent.ini.rpmsave
+    dest: /etc/neutron/plugins/ml2/openvswitch_agent.ini
+    owner: root
+    group: neutron
+    mode: 0640
+  when: ovdk_install.changed
+
+- name: Enable OVS+DPDK in openvswitch agent
+  ini_file:
+    dest: /etc/neutron/plugins/ml2/openvswitch_agent.ini
+    section: 'ovs'
+    option: '{{ item.key }}'
+    value: '{{ item.value }}'
+  with_items:
+    - { key: 'datapath_type', value: 'netdev' }
+    - { key: 'vhostuser_socket_dir', value: '/var/run/openvswitch' }
+    - { key: 'bridge_mappings', value: 'physnet:{{ bridge_vlan_name }}' }
+
+- name: Uncomment scheduler_default_filters line
+  lineinfile:
+    dest: /etc/nova/nova.conf
+    regexp: '^#scheduler_default_filters.*=(.*)'
+    line: 'scheduler_default_filters=\1'
+    state: present
+    backrefs: yes
+
+- name: Configure NUMA and PciPassthroughFilter scheduler filter
+  lineinfile:
+    dest: /etc/nova/nova.conf
+    regexp: '^scheduler_default_filters.*=(?!.*,{{ item.context }})(.*)'
+    line: 'scheduler_default_filters=\1,{{ item.context }}'
+    state: present
+    backrefs: yes
+  with_items:
+    - { context: 'NUMATopologyFilter' }
+    - { context: 'PciPassthroughFilter' }
+  notify: 'Restart openstack-nova-compute service'
+
+- name: Set vhostuser ports ownership to qemu
+  ini_file:
+    dest: /usr/lib/systemd/system/openvswitch-nonetwork.service
+    section: Service
+    option: '{{ item.key }}'
+    value: '{{ item.value }}'
+#    no_extra_spaces: True   #The option should be enabled when Automation team will upgrade Jensins ansible to 2.1.0.0 version.
+  with_items:
+    - { key: 'RuntimeDirectoryMode', value: '0775' }
+    - { key: 'Group', value: 'qemu' }
+    - { key: 'UMask', value: '0002' }
+  notify:
+    - 'Reload the systemctl daemon'
+    - 'Restart the openvswitch-nonetwork service'
+
+- name: Set vhostuser ports umask
+  lineinfile:
+    dest: /usr/share/openvswitch/scripts/ovs-ctl
+    regexp: '(?!.*umask 002 && )start_daemon.*OVS_VSWITCHD_PRIORITY(.*)'
+    line: '            umask 0002 && start_daemon "$OVS_VSWITCHD_PRIORITY\1'
+    backrefs: yes
+  notify:
+    - 'Reload the systemctl daemon'
+    - 'Restart the openvswitch-nonetwork service'
+
+- name: Restart machine
+  shell: sleep 2 && shutdown -r now "Ansible updates triggered"
+  async: 1
+  poll: 0
+  ignore_errors: true
+  when: makegrub.changed
+
+- name: Wait for server to restart successfully
+  local_action: wait_for host="{{ ansible_default_ipv4.address }}" search_regex="OpenSSH" port=22 timeout=300 connect_timeout=30 delay=5
+
+- name: Check device for DPDK
+  shell: "dpdk_nic_bind -s | awk '/{{ dpdk_nic_name }}/ {print $1}'"
+  register: dpdk_bind_check
+  changed_when: False
+  always_run: yes
+
+- name: Set dpdk nic to bind on boot
+  command: /usr/sbin/driverctl set-override "{{ dpdk_bind_check.stdout }}" vfio-pci
+  register: dpdk_bind
+  when: dpdk_bind_check.stdout.strip() != ""
+  notify: 'Restart and enable OVDK service'
+
+- meta: flush_handlers
+
+- name: Remove old ovs port
+  openvswitch_port:
+    bridge: "{{ bridge_vlan_name }}"
+    port: "{{ dpdk_nic_name }}"
+    state: absent
+
+- name: Check OVS "{{ bridge_vlan_name }}" datapath_type
+  shell: ovs-vsctl list bridge "{{ bridge_vlan_name }}" | awk '/datapath_type/ {print $3}'
+  register: ovs_datapath_type
+  changed_when: False
+  always_run: yes
+
+- name: Set OVS "{{ bridge_vlan_name }}" datapath_type
+  command: ovs-vsctl set bridge "{{ bridge_vlan_name }}" datapath_type=netdev
+  when: ovs_datapath_type.stdout != "netdev"
+
+- name: Bind a NIC to a DPDK port
+  openvswitch_port:
+    bridge: "{{ bridge_vlan_name }}"
+    port: dpdk0
+    set: "Interface dpdk0 type=dpdk"
+    state: present
+  when: dpdk_bind.changed
