@@ -1,0 +1,6 @@
+---
+
+- name: Compute - DPDK
+  hosts: compute
+  roles:
+    - compute/dpdk

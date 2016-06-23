@@ -1,0 +1,9 @@
+---
+
+hugepages_size: 1GB
+hugepages_count: 8
+
+dpdk_nic_name: enp5s0f1
+bridge_vlan_name: br-vlan
+
+openvswitch_dpdk_package_url: 'http://download.eng.bos.redhat.com/brewroot/packages/openvswitch-dpdk/2.4.0/0.10346.git97bab959.2.el7/x86_64/openvswitch-dpdk-2.4.0-0.10346.git97bab959.2.el7.x86_64.rpm'
