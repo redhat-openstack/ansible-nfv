@@ -29,7 +29,7 @@
   with_items:
     - { file: '/etc/neutron/plugins/ml2/ml2_conf.ini', section: 'ml2', option: 'mechanism_drivers',value: 'openvswitch,sriovnicswitch' }
     - { file: '/etc/neutron/plugins/ml2/ml2_conf_sriov.ini', section: 'ml2_sriov', option: 'agent_required',value: 'False' }
-    - { file: '/etc/neutron/plugins/ml2/ml2_conf_sriov.ini', section: 'ml2_sriov', option: 'supported_pci_vendor_devs',value: "{{ pci }}" }
+    - { file: '/etc/neutron/plugins/ml2/ml2_conf_sriov.ini', section: 'ml2_sriov', option: 'supported_pci_vendor_devs',value: '{{ lookup("file", "/tmp/bus_id") }}' }
   notify:
     - 'Reload the systemctl daemon'
     - 'Restart the neutron service'
