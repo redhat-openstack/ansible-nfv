@@ -1,5 +1,15 @@
 ---
 
+- name: Check if SRIOV is enabled
+  stat:
+    path: "/sys/class/net/{{ interface }}/device/sriov_totalvfs"
+  register: sriov_status
+
+- name: Fail the play if SRIOV deature is disabled
+  fail:
+    msg: "SRIOV feaure is disabled on {{ interface }} interface. Please, enable the feature in BIOS and rerun the playbook"
+  when: sriov_status.stat.exists == false
+
 - name: Add parameter to the grub
   lineinfile:
     dest: /etc/default/grub
