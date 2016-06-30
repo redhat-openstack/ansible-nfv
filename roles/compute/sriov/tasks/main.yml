@@ -67,6 +67,18 @@
 
 - meta: flush_handlers
 
+- name: Check the interface PCI bus ID
+  shell: lspci -nn | grep -e "Ethernet.*Virtual" | grep -oE "\[([a-z0-9A-Z]{1,6}):([a-z0-9A-Z]{1,6})\]" | uniq | egrep -o '[^][]+'
+  register: bus_id
+  changed_when: False
+  always_run: yes
+
+- name: Writing fact into a file
+  copy:
+    content: "{{ bus_id.stdout }}"
+    dest: /tmp/bus_id
+  delegate_to: localhost
+
 - name: Restart the server
   shell: sleep 2 && shutdown -r now "Ansible updates triggered"
   async: 1
