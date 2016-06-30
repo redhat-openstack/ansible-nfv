@@ -1,0 +1,13 @@
+[Unit]
+Description=Virtual function of {{ interface }} interface.
+Wants=network-online.target
+After=network.target network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/bash -c '/usr/bin/echo {{ virtual_function_number | default(total_vfs.stdout) }} > /sys/class/net/{{ interface }}/device/sriov_numvfs'
+ExecStop=/usr/bin/bash -c '/usr/bin/echo 0 > /sys/class/net/{{ interface }}/device/sriov_numvfs'
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
