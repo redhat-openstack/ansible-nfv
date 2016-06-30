@@ -24,6 +24,11 @@
   when: grub.changed
   register: makegrub
 
+- name: Check the amount of Virtual Functions available
+  shell: /usr/bin/cat "/sys/class/net/{{ interface }}/device/sriov_totalvfs"
+  register: total_vfs
+  changed_when: False
+  always_run: yes
 
 - name: Check the existence of dirver config file
   stat: 
@@ -51,7 +56,7 @@
     line: "{{ item.context }}"
   with_items:
     - { file: '/etc/modprobe.d/dist.conf', regexp: '^options vfio_iommu_type1', context: 'options vfio_iommu_type1 allow_unsafe_interrupts=1' }
-    - { file: '/etc/modprobe.d/{{ hostvars[inventory_hostname]["ansible_{0}".format(interface)].module }}.conf', regexp: '^options {{ hostvars[inventory_hostname]["ansible_{0}".format(interface)].module }} max_vfs=64', context: 'options {{ hostvars[inventory_hostname]["ansible_{0}".format(interface)].module }} max_vfs=64' }
+    - { file: '/etc/modprobe.d/{{ hostvars[inventory_hostname]["ansible_{0}".format(interface)].module }}.conf', regexp: '^options {{ hostvars[inventory_hostname]["ansible_{0}".format(interface)].module }} max_vfs={{ virtual_function_number | default(total_vfs.stdout) }}', context: 'options {{ hostvars[inventory_hostname]["ansible_{0}".format(interface)].module }} max_vfs={{ virtual_function_number | default(total_vfs.stdout) }}' }
   register: conffiles
 
 - name: Create a systemd service for virtual function boot
