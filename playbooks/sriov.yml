@@ -1,11 +1,12 @@
 ---
 
+- name: Compute - SRIOV
+  hosts: compute
+  roles:
+    - compute/sriov
+
 - name: Controller - SRIOV
   hosts: controller
   roles:
     - controller/sriov
 
-- name: Compute - SRIOV
-  hosts: compute
-  roles:
-    - compute/sriov
