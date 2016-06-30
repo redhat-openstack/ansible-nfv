@@ -24,12 +24,6 @@
   when: grub.changed
   register: makegrub
 
-- name: Set rc.local permissions
-  file:
-    path: /etc/rc.d/rc.local
-    owner: root
-    group: root
-    mode: "755"
 
 - name: Check the existence of dirver config file
   stat: 
@@ -56,11 +50,22 @@
     regexp: "{{ item.regexp }}"
     line: "{{ item.context }}"
   with_items:
-    - { file: '/etc/rc.local', regexp: '^ip link set {{ interface }} up', context: 'ip link set {{ interface }} up' }
-    - { file: '/etc/rc.local', regexp: '^echo 64', context: 'echo 64 > /sys/class/net/{{ interface }}/device/sriov_numvfs' }
     - { file: '/etc/modprobe.d/dist.conf', regexp: '^options vfio_iommu_type1', context: 'options vfio_iommu_type1 allow_unsafe_interrupts=1' }
     - { file: '/etc/modprobe.d/{{ hostvars[inventory_hostname]["ansible_{0}".format(interface)].module }}.conf', regexp: '^options {{ hostvars[inventory_hostname]["ansible_{0}".format(interface)].module }} max_vfs=64', context: 'options {{ hostvars[inventory_hostname]["ansible_{0}".format(interface)].module }} max_vfs=64' }
   register: conffiles
+
+- name: Create a systemd service for virtual function boot
+  template:
+    src: virtual-function.service.j2
+    dest: /etc/systemd/system/virtual-function.service
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - 'Reload the systemctl daemon'
+    - 'Start virtual-function service'
+
+- meta: flush_handlers
 
 - name: Restart the server
   shell: sleep 2 && shutdown -r now "Ansible updates triggered"
