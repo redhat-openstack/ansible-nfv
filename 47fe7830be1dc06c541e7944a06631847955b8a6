@@ -1,0 +1,7 @@
+Code-Review+2: <maximb@redhat.com>
+Verified+1: <maximb@redhat.com>
+Submitted-by: <maximb@redhat.com>
+Submitted-at: Mon, 11 Jul 2016 16:54:40 -0400
+Reviewed-on: https://review.gerrithub.io/283627
+Project: redhat-openstack/ansible-nfv
+Branch: refs/heads/master
