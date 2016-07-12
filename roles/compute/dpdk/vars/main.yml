@@ -1,7 +1,7 @@
 ---
 
 hugepages_size: 1GB
-hugepages_count: 8
+hugepages_count: 16
 
 dpdk_nic_name: enp5s0f1
 bridge_vlan_name: br-vlan
