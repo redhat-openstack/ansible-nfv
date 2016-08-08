@@ -1,0 +1,6 @@
+---
+
+- name: Tempest installation and configuration
+  hosts: controller
+  roles:
+    - controller/tempest
