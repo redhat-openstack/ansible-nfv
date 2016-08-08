@@ -1,0 +1,61 @@
+- name: Create the base overcloud deploy script
+  template:
+    src: "templates/clouds.yml.j2"
+    dest: "/etc/openstack/clouds.yml"
+    mode: 0755
+
+- name: Create network
+  vars:
+    ansible_python_interpreter: "/mnt/tempest/.venv/bin/python"
+  os_network:
+    cloud: openstack  
+    name: external
+    state: present
+    external: true
+    provider_network_type: "{{ provider_network_type }}"
+    provider_physical_network: "{{ provider_physical_network }}"
+    provider_segmentation_id: "{{ provider_segmentation_id }}"
+
+- name: Create subnet
+  vars:
+    ansible_python_interpreter: "/mnt/tempest/.venv/bin/python"
+  os_subnet:
+    cloud: openstack
+    name: external_subnet
+    allocation_pool_start: "{{ allocation_pool_start }}"
+    allocation_pool_end: "{{ allocation_pool_end }}"
+    cidr: "{{ cidr }}"
+    dns_nameservers: "{{ dns_nameservers }}"
+    enable_dhcp: True
+    network_name: external
+    state: present
+
+- name: Get network-id
+  vars:
+    ansible_python_interpreter: "/mnt/tempest/.venv/bin/python"
+  os_networks_facts:
+    cloud: openstack
+    name:  external
+- debug: var=openstack_networks
+
+- name: Run config_tempest script
+  vars:
+    ansible_python_interpreter: "/mnt/tempest/.venv/bin/python"
+  shell: '{{ tempest_dir }}tempest/.venv/bin/python {{ tempest_dir }}tempest/tools/config_tempest.py --create --debug --image {{ osp_image }} identity.uri {{ osp_auth.stdout }} identity.admin_password {{ osp_password.stdout }}  --network-id {{ openstack_networks[0].id }}'
+  args:
+    chdir: '{{ tempest_dir }}/tempest'
+
+- name: Changing the image_ssh_user value
+  lineinfile: 
+    dest: /mnt/tempest/etc/tempest.conf 
+    regexp: "^image_ssh_user"
+    line: image_ssh_user = cloud-user
+
+- name: Adding port_vnic_type variable
+  tags: test1
+  ini_file:
+    dest: /mnt/tempest/etc/tempest.conf
+    section: network
+    option: port_vnic_type
+    value: direct
+  when: port_vnic_type == True
