@@ -1,0 +1,10 @@
+---
+
+### MoonGen variables
+vcpu_pin: 2,4,6,8,10,12,14,16,18,20,22,24,26,28,30
+hugepages_size: 1GB
+hugepages_count: 20
+dpdk_nic_name: enp6s0f0
+
+### Static variables
+moongen_url: https://github.com/atheurer/MoonGen.git
