@@ -1,0 +1,17 @@
+---
+
+- name: Add user to AllowUsers
+  tags: test3
+  replace:
+    backup: yes
+    dest: /etc/neutron/plugins/ml2/ml2_conf.ini
+    regexp: '^(network_vlan_ranges(?!.*\b{{ vlan_ids }}\b).*)$'
+    replace: '\1,physnet2:{{ vlan_ids }}'
+  register: network
+
+- name: 'Restart the neutron service'
+  tags: test3
+  service:
+    name: neutron-server.service
+    state: restarted
+  when: network.changed

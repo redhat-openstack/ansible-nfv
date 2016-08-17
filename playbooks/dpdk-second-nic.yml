@@ -1,0 +1,12 @@
+---
+
+- name: Configure controller - DPDK second nic
+  hosts: controller
+  roles:
+    - controller/secondbridge
+
+- name: Configure compute - DPDK second nic
+  hosts: compute
+  roles:
+    - compute/secondbridge
+
