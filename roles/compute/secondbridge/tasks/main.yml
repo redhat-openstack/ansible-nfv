@@ -1,0 +1,64 @@
+---
+
+- name: Set DPDK interface to ONBOOT=no
+  lineinfile:
+    dest: "/etc/sysconfig/network-scripts/ifcfg-{{ dpdk_nic_name }}"
+    regexp: "^ONBOOT=yes"
+    line: "ONBOOT=no"
+    backrefs: yes
+
+- name: Add second bridge using physnet2
+  replace:
+    backup: yes
+    dest: /etc/neutron/plugins/ml2/openvswitch_agent.ini
+    regexp: '^(bridge_mappings(?!.*\b{{ bridge_vlan_name }}\b).*)$'
+    replace: '\1,physnet2:{{ bridge_vlan_name }}'
+
+
+- name: Check device for DPDK
+  shell: "dpdk_nic_bind -s | awk '/{{ dpdk_nic_name }}/ {print $1}'"
+  register: dpdk_bind_check
+  changed_when: False
+  always_run: yes
+
+- name: Set dpdk nic to bind on boot
+  command: /usr/sbin/driverctl set-override "{{ dpdk_bind_check.stdout }}" vfio-pci
+  register: dpdk_bind
+  when: dpdk_bind_check.stdout.strip() != ""
+  notify: 'Restart and enable OVDK service'
+
+- meta: flush_handlers
+
+- name: Create new bridge
+  openvswitch_bridge: 
+    bridge: "{{ bridge_vlan_name }}"
+    state: present
+
+- name: Check OVS "{{ bridge_vlan_name }}" datapath_type
+  shell: ovs-vsctl list bridge "{{ bridge_vlan_name }}" | awk '/datapath_type/ {print $3}'
+  register: ovs_datapath_type
+  changed_when: False
+  always_run: yes
+
+- name: Set OVS "{{ bridge_vlan_name }}" datapath_type
+  command: ovs-vsctl set bridge "{{ bridge_vlan_name }}" datapath_type=netdev
+  when: ovs_datapath_type.stdout != "netdev"
+
+- name: Bind a NIC to a DPDK port
+  openvswitch_port:
+    bridge: "{{ bridge_vlan_name }}"
+    port: dpdk1
+    set: "Interface dpdk1 type=dpdk"
+    state: present
+  register: nic_bind
+  when: dpdk_bind.changed
+
+- name: Restart machine
+  shell: sleep 2 && shutdown -r now "Ansible updates triggered"
+  async: 1
+  poll: 0
+  ignore_errors: true
+  when: nic_bind.changed
+
+- name: Wait for server to restart successfully
+  local_action: wait_for host="{{ ansible_default_ipv4.address }}" search_regex="OpenSSH" port=22 timeout=300 connect_timeout=30 delay=5
