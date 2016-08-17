@@ -73,7 +73,6 @@
     line: image_ssh_user = cloud-user
 
 - name: Adding port_vnic_type variable
-  tags: test1
   ini_file:
     dest: /mnt/tempest/etc/tempest.conf
     section: network
