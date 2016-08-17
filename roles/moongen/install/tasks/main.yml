@@ -1,0 +1,109 @@
+---
+
+- name: Disable Selinux
+  selinux:
+    policy: targeted
+    state: permissive
+
+- name: Add parameter to the grub
+  lineinfile:
+    dest: /etc/default/grub
+    regexp: '^GRUB_CMDLINE_LINUX="(?!.* {{ item.regex }})(.*)"'
+    line: 'GRUB_CMDLINE_LINUX="\1 {{ item.context }}"'
+    state: present
+    backrefs: yes
+  with_items:
+    - { regex: 'intel_iommu=on', context: 'intel_iommu=on' }
+    - { regex: 'hugepagesz=', context: 'hugepagesz={{ hugepages_size }} default_hugepagesz={{ hugepages_size }} hugepages={{ hugepages_count }}' }
+    - { regex: 'isolcpus=', context: 'isolcpus={{ vcpu_pin }} rcu_nocbs={{ vcpu_pin }} nohz_full={{ vcpu_pin }}' }
+  register: grub
+
+- name: Make grub
+  command: "grub2-mkconfig -o /boot/grub2/grub.cfg"
+  when: grub.changed
+  register: makegrub
+
+- name: Install packages and dependency
+  yum: 
+    name: "{{ item.name }}"
+    state: "{{ item.state }}"
+  with_items:
+    - { name: 'gcc', state: 'installed' }
+    - { name: 'make', state: 'installed' }
+    - { name: 'cmake', state: 'installed' }
+    - { name: 'kernel-headers', state: 'installed' }
+    - { name: 'gcc-c++', state: 'installed' }
+    - { name: 'kernel-headers.x86_64', state: 'installed' }
+    - { name: 'kernel-devel', state: 'installed' }
+    - { name: 'glibc-headers', state: 'installed' }
+    - { name: 'glibc-devel', state: 'installed' }
+    - { name: 'git', state: 'installed' }
+    - { name: 'driverctl', state: 'installed' }
+
+- name: Load vfio_pci module to the kernel
+  modprobe:
+    name: vfio_pci
+    state: present
+
+- name: Set the vfio_pci module to load on boot
+  lineinfile:
+    dest: /etc/modules-load.d/vfio_pci.conf
+    regexp: "^vfio_pci"
+    line: "vfio_pci"
+    create: yes
+
+- name: Check device for DPDK
+  shell: "/mnt/MoonGen/deps/dpdk/tools/dpdk_nic_bind.py -s | awk '/{{ dpdk_nic_name }}/ {print $1}'"
+  register: dpdk_bind_check
+  changed_when: False
+  always_run: yes
+
+- name: Set nic to bind on boot
+  command: /usr/sbin/driverctl set-override "{{ dpdk_bind_check.stdout }}" vfio-pci
+  register: dpdk_bind
+  when: dpdk_bind_check.stdout.strip() != ""
+
+- name: Restart machine
+  shell: sleep 2 && shutdown -r now "Ansible updates triggered"
+  async: 1
+  poll: 0
+  ignore_errors: true
+  when: makegrub.changed
+
+- name: Wait for server to restart successfully
+  local_action: wait_for host="{{ ansible_default_ipv4.address }}" search_regex="OpenSSH" port=22 timeout=300 connect_timeout=30 delay=5
+
+- name: Git clone MoonGen
+  tags: test
+  git: 
+    repo: "{{ moongen_url }}"
+    dest: /mnt/MoonGen
+    clone: yes 
+    update: yes
+
+- name: Set permmisions to relevant scripts 
+  file:
+    path: "{{ item.dir }}"
+    mode: 0755
+  with_items:
+    - { dir: '/mnt/MoonGen/build.sh' }
+    - { dir: '/mnt/MoonGen/setup-hugetlbfs.sh' }
+
+- name: Run build.sh script 
+  shell: /mnt/MoonGen/build.sh 
+  always_run: yes
+
+#- name: Run setup-hugetlbfs.sh script
+#  shell: /mnt/MoonGen/setup-hugetlbfs.sh 
+#  always_run: yes
+
+- name: Copy configuration file
+  copy:
+    src: files/opnfv-vsperf-cfg.lua
+    dest: /mnt/MoonGen/
+
+- name: Copy lua example file
+  copy:
+    src: files/examples/opnfv-vsperf.lua
+    dest: /mnt/MoonGen/
+

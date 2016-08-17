@@ -1,0 +1,6 @@
+---
+
+- name: Install a rhel guest with TestPMD
+  hosts: controller
+  roles:
+    - controller/testpmdinstall
