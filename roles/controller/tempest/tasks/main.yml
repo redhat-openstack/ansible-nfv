@@ -68,13 +68,13 @@
 
 - name: Changing the image_ssh_user value
   lineinfile:
-    dest: /mnt/tempest/etc/tempest.conf
+    dest: '{{ tempest_dir }}tempest/etc/tempest.conf'
     regexp: "^image_ssh_user"
     line: image_ssh_user = cloud-user
 
 - name: Adding port_vnic_type variable
   ini_file:
-    dest: /mnt/tempest/etc/tempest.conf
+    dest: '{{ tempest_dir }}tempest/etc/tempest.conf'
     section: network
     option: port_vnic_type
     value: direct
