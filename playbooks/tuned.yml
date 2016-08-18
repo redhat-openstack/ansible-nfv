@@ -1,6 +1,0 @@
----
-
-- name: Tune the compute
-  hosts: compute
-  roles:
-    - compute/tuned_configuration
