@@ -1,0 +1,58 @@
+---
+
+- name: Register Auth URL
+  shell: "cat {{ keystone }} | grep AUTH | cut -d '=' -f 2"
+  register: osp_auth
+
+- name: Register Username
+  shell: "cat {{ keystone }} | grep USERNAME | cut -d '=' -f 2"
+  register: osp_username
+
+- name: Register Tenant name
+  shell: "cat {{ keystone }} | grep TENANT | cut -d '=' -f 2"
+  register: osp_tenant
+
+- name: Register Password
+  shell: "cat {{ keystone }} | grep OS_PASSWORD | cut -d '=' -f 2"
+  register: osp_password
+
+- name: Creating Openstack env folder
+  file:
+    path: /etc/openstack
+    state: directory
+    mode: 0755
+
+- name: Install packages and dependency
+  yum:
+    name: "{{ item.name }}"
+    state: 'installed'
+  with_items:
+    - { name: 'git' }
+    - { name: 'wget' }
+    - { name: 'python-devel' }
+    - { name: 'gcc' }
+    - { name: 'libffi-devel' }
+    - { name: 'libxml2-devel' }
+    - { name: 'libxslt-devel' }
+    - { name: 'mariadb-devel' }
+    - { name: 'openssl-devel' }
+    - { name: 'python-virtualenv' }
+    - { name: '@Development tools' }
+
+- name: Create virutal env
+  pip:
+    virtualenv: "/root/.venv"
+    name: "{{ item.name }}"
+    extra_args: '--upgrade'
+  with_items:
+    - { name: 'setuptools' }
+    - { name: 'ansible' }
+    - { name: 'pytz' }
+    - { name: 'shade' }
+    - { name: 'functools32' }
+
+- name: Create the clouds.yml file for future tasks
+  template:
+    src: "clouds.yml.j2"
+    dest: "/etc/openstack/clouds.yml"
+    mode: 0755
