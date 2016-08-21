@@ -1,5 +1,10 @@
 ---
 
+- name: Creates network
+  hosts: controller
+  roles:
+    - { role: controller/openstack_tasks, create_external_network: True, setup_openstack_env: True }
+
 - name: Tempest installation and configuration
   hosts: controller
   roles:

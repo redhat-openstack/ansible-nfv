@@ -1,0 +1,7 @@
+clouds:
+  openstack:
+    auth:
+      auth_url: {{ osp_auth.stdout }}
+      username: {{ osp_username.stdout }}
+      password: {{ osp_password.stdout }}
+      project_name: {{ osp_tenant.stdout }}

@@ -19,28 +19,26 @@
 
 - name: Create the base overcloud deploy script
   template:
-    src: "templates/clouds.yml.j2"
+    src: "clouds.yml.j2"
     dest: "/etc/openstack/clouds.yml"
     mode: 0755
 
 - name: Install packages and dependency
   yum:
     name: "{{ item.name }}"
-    state: "{{ item.state }}"
+    state: 'installed' 
   with_items:
-    - { name: 'git', state: 'installed' }
-    - { name: 'wget', state: 'installed' }
-    - { name: 'python-devel', state: 'installed' }
-#    - { name: 'sshpass', state: 'installed' }
-    - { name: 'gcc', state: 'installed' }
-    - { name: 'libffi-devel', state: 'installed' }
-    - { name: 'libxml2-devel', state: 'installed' }
-    - { name: 'libxslt-devel', state: 'installed' }
-    - { name: 'mariadb-devel', state: 'installed' }
-    - { name: 'openssl-devel', state: 'installed' }
-#   - { name: 'python-pip', state: 'installed' }
-    - { name: 'python-virtualenv', state: 'installed' }
-    - { name: '@Development tools', state: 'installed' }
+    - { name: 'git' }
+    - { name: 'wget' }
+    - { name: 'python-devel' }
+    - { name: 'gcc' }
+    - { name: 'libffi-devel' }
+    - { name: 'libxml2-devel' }
+    - { name: 'libxslt-devel' }
+    - { name: 'mariadb-devel' }
+    - { name: 'openssl-devel' }
+    - { name: 'python-virtualenv' }
+    - { name: '@Development tools' }
 
 - name: get repo requirements
   pip:
@@ -103,7 +101,7 @@
     allocation_pool_start: "{{ allocation_pool_start2 }}"
     allocation_pool_end: "{{ allocation_pool_end2 }}"
     cidr: "{{ cidr2 }}"
-    dns_nameservers: "{{ dns_nameservers2 }}"
+    dns_nameservers: "{{ dns_nameservers }}"
     enable_dhcp: True
     network_name: external2
     state: present
@@ -151,7 +149,6 @@
     filename: /root/rheltestpmd.qcow2
   register: image_id
 
-
 - name: Boot the VM
   vars:
     ansible_python_interpreter: "/root/.venv/bin/python"
@@ -167,3 +164,4 @@
       - net-id: "{{ network_id2.id }}"
     meta:
       hostname: vm1
+
