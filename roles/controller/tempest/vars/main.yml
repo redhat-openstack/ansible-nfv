@@ -1,7 +1,8 @@
 ---
 
 ### variables
-tempest_dir: /mnt/
+tempest_dir: /mnt
+image_ssh_user: cloud-user
 
 ### Static variables
 tempest_url: https://github.com/redhat-openstack/tempest 

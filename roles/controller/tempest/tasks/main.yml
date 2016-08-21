@@ -15,21 +15,19 @@
 - name: Install packages and dependency
   yum: 
     name: "{{ item.name }}"
-    state: "{{ item.state }}"
+    state: 'installed'
   with_items:
-    - { name: 'git', state: 'installed' }
-    - { name: 'wget', state: 'installed' }
-    - { name: 'python-devel', state: 'installed' }
-#    - { name: 'sshpass', state: 'installed' }
-    - { name: 'gcc', state: 'installed' }
-    - { name: 'libffi-devel', state: 'installed' }
-    - { name: 'libxml2-devel', state: 'installed' }
-    - { name: 'libxslt-devel', state: 'installed' }
-    - { name: 'mariadb-devel', state: 'installed' }
-    - { name: 'openssl-devel', state: 'installed' }
-#    - { name: 'python-pip', state: 'installed' }
-    - { name: 'python-virtualenv', state: 'installed' }
-    - { name: '@Development tools', state: 'installed' }
+    - { name: 'git' }
+    - { name: 'wget' }
+    - { name: 'python-devel' }
+    - { name: 'gcc' }
+    - { name: 'libffi-devel' }
+    - { name: 'libxml2-devel' }
+    - { name: 'libxslt-devel' }
+    - { name: 'mariadb-devel' }
+    - { name: 'openssl-devel' }
+    - { name: 'python-virtualenv' }
+    - { name: '@Development tools' }
 
 - name: Git clone Tempest & Tempest-NFV-plugin
   git: 
@@ -38,8 +36,8 @@
     clone: yes 
     update: yes
   with_items:
-    - { url: '{{ tempest_url }}', dest: "{{ tempest_dir }}tempest" }
-    - { url: '{{ plugin_url }}', dest: "{{ tempest_dir }}tempest-nfv-plugin" }
+    - { url: '{{ tempest_url }}', dest: "{{ tempest_dir }}/tempest" }
+    - { url: '{{ plugin_url }}', dest: "{{ tempest_dir }}/tempest-nfv-plugin" }
 
 - name: Run install_venv.py script
   command: 'python {{ tempest_dir }}/tempest/tools/install_venv.py'
@@ -54,23 +52,24 @@
 
 - name: Copy requirments file
   copy:
-    src: files/pip_ansible_openstack_packages.txt
+    src: pip_ansible_openstack_packages.txt
     dest: '{{ tempest_dir }}' 
 
 - name: Install requirments for ansible
   pip:
-    name: '{{ tempest_dir }}pip_ansible_openstack_packages.txt'
-    virtualenv: '{{ tempest_dir }}tempest/.venv'
+    name: '{{ tempest_dir }}/pip_ansible_openstack_packages.txt'
+    virtualenv: '{{ tempest_dir }}/tempest/.venv'
     extra_args: -r
 
 - name: External network config
   include: create_external_network.yml
 
+### Set image user as variable
 - name: Changing the image_ssh_user value
   lineinfile:
     dest: /mnt/tempest/etc/tempest.conf
     regexp: "^image_ssh_user"
-    line: image_ssh_user = cloud-user
+    line: "image_ssh_user = {{ image_ssh_user }}"
 
 - name: Adding port_vnic_type variable
   ini_file:
