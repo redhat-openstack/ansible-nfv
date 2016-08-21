@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "baa041b7_9b3cfcc0",
+        "filename": "roles/controller/tempest/tasks/create_external_network.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2016-08-21T12:45:36Z",
+      "side": 1,
+      "message": "Move to the tasks/main.yml after the include statement.",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 38
+      },
+      "revId": "0812859523703fd63c03287a185e41e3cf77abac",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "baa041b7_db596437",
+        "filename": "roles/controller/tempest/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2016-08-21T12:45:36Z",
+      "side": 1,
+      "message": "Remove this line",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 30
+      },
+      "revId": "0812859523703fd63c03287a185e41e3cf77abac",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "baa041b7_db7044a7",
+        "filename": "roles/moongen/install/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2016-08-21T12:45:36Z",
+      "side": 1,
+      "message": "If it exists in the previous grubby task, maybe delete it?",
+      "range": {
+        "startLine": 96,
+        "startChar": 0,
+        "endLine": 100,
+        "endChar": 18
+      },
+      "revId": "0812859523703fd63c03287a185e41e3cf77abac",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
