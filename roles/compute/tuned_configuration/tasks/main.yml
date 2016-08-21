@@ -35,7 +35,6 @@
     mode: 0644
   register: configuration
 
-
 - name: Copy requirments file
   copy:
     src: "{{ item.src }}"
@@ -50,7 +49,6 @@
     - { src: "files/script.sh" , dest: "/usr/lib/tuned/cpu-partitioning/" , mode: "0755"}
     - { src: "files/tuned.conf" , dest: "/usr/lib/tuned/cpu-partitioning/" , mode: "0644"}
   register: configuration2
-
 
 - name: Activate the profile
   shell: "/usr/sbin/tuned-adm profile cpu-partitioning"
