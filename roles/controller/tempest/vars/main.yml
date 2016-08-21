@@ -1,7 +1,8 @@
 ---
 
 ### variables
-tempest_dir: /mnt/
+tempest_dir: /mnt
+image_ssh_user: cloud-user
 
 ### Static variables
 tempest_url: https://github.com/redhat-openstack/tempest 
@@ -10,17 +11,6 @@ plugin_url: https://review.gerrithub.io/redhat-openstack/tempest-nfv-plugin
 ### Openstack variables
 osp_image: http://file.tlv.redhat.com/~itbrown/images/rhel-guest-image-7.2-20151102.0.x86_64.qcow2
 keystone: /root/keystonerc_admin
-
-### Network variables
-provider_network_type: vlan
-provider_physical_network: physnet
-provider_segmentation_id: 523
-
-### Subnet variables
-allocation_pool_start: 10.10.10.10
-allocation_pool_end: 10.10.10.50
-cidr: 10.10.10.0/24
-dns_nameservers: 10.35.28.28
 
 ## Port_vnic_type direct
 port_vnic_type: True

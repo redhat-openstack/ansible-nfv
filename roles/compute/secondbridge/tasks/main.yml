@@ -14,7 +14,6 @@
     regexp: '^(bridge_mappings(?!.*\b{{ bridge_vlan_name }}\b).*)$'
     replace: '\1,physnet2:{{ bridge_vlan_name }}'
 
-
 - name: Check device for DPDK
   shell: "dpdk_nic_bind -s | awk '/{{ dpdk_nic_name }}/ {print $1}'"
   register: dpdk_bind_check

@@ -23,22 +23,23 @@
   when: grub.changed
   register: makegrub
 
+
 - name: Install packages and dependency
   yum: 
     name: "{{ item.name }}"
-    state: "{{ item.state }}"
+    state: 'installed'
   with_items:
-    - { name: 'gcc', state: 'installed' }
-    - { name: 'make', state: 'installed' }
-    - { name: 'cmake', state: 'installed' }
-    - { name: 'kernel-headers', state: 'installed' }
-    - { name: 'gcc-c++', state: 'installed' }
-    - { name: 'kernel-headers.x86_64', state: 'installed' }
-    - { name: 'kernel-devel', state: 'installed' }
-    - { name: 'glibc-headers', state: 'installed' }
-    - { name: 'glibc-devel', state: 'installed' }
-    - { name: 'git', state: 'installed' }
-    - { name: 'driverctl', state: 'installed' }
+    - { name: 'gcc' }
+    - { name: 'make' }
+    - { name: 'cmake' }
+    - { name: 'kernel-headers' }
+    - { name: 'gcc-c++' }
+    - { name: 'kernel-headers.x86_64' }
+    - { name: 'kernel-devel' }
+    - { name: 'glibc-headers' }
+    - { name: 'glibc-devel' }
+    - { name: 'git' }
+    - { name: 'driverctl' }
 
 - name: Load vfio_pci module to the kernel
   modprobe:
@@ -74,7 +75,6 @@
   local_action: wait_for host="{{ ansible_default_ipv4.address }}" search_regex="OpenSSH" port=22 timeout=300 connect_timeout=30 delay=5
 
 - name: Git clone MoonGen
-  tags: test
   git: 
     repo: "{{ moongen_url }}"
     dest: /mnt/MoonGen
@@ -93,17 +93,19 @@
   shell: /mnt/MoonGen/build.sh 
   always_run: yes
 
+### The following script sets the Huge-pages on the server, currently we're doing it 
+### in the previous grubby task.
 #- name: Run setup-hugetlbfs.sh script
 #  shell: /mnt/MoonGen/setup-hugetlbfs.sh 
 #  always_run: yes
 
 - name: Copy configuration file
   copy:
-    src: files/opnfv-vsperf-cfg.lua
+    src: opnfv-vsperf-cfg.lua
     dest: /mnt/MoonGen/
 
 - name: Copy lua example file
   copy:
-    src: files/examples/opnfv-vsperf.lua
+    src: opnfv-vsperf.lua
     dest: /mnt/MoonGen/
 
