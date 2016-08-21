@@ -1,0 +1,6 @@
+---
+
+- name: Creates router, network, and host aggrigation
+  hosts: controller
+  roles:
+    - controller/openstack_tasks

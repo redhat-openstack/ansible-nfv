@@ -61,10 +61,27 @@
     virtualenv: '{{ tempest_dir }}/tempest/.venv'
     extra_args: -r
 
-- name: External network config
-  include: create_external_network.yml
+- name: Create the clouds.yml file for future tasks
+  template:
+    src: "clouds.yml.j2"
+    dest: "/etc/openstack/clouds.yml"
+    mode: 0755
 
-### Set image user as variable
+- name: Get network-id
+  vars:
+    ansible_python_interpreter: "/mnt/tempest/.venv/bin/python"
+  os_networks_facts:
+    cloud: openstack
+    name:  external
+- debug: var=openstack_networks
+
+- name: Run config_tempest script
+  vars:
+    ansible_python_interpreter: "/mnt/tempest/.venv/bin/python"
+  shell: '{{ tempest_dir }}/tempest/.venv/bin/python {{ tempest_dir }}/tempest/tools/config_tempest.py --create --debug --image {{ osp_image }} identity.uri {{ osp_auth.stdout }} identity.admin_password {{ osp_password.stdout }}  --network-id {{ openstack_networks.id }}'
+  args:
+    chdir: '{{ tempest_dir }}/tempest'
+
 - name: Changing the image_ssh_user value
   lineinfile:
     dest: /mnt/tempest/etc/tempest.conf
