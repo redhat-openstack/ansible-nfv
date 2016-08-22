@@ -80,6 +80,7 @@
     dest: /mnt/MoonGen
     clone: yes 
     update: yes
+    force: yes
 
 - name: Set permmisions to relevant scripts 
   file:
