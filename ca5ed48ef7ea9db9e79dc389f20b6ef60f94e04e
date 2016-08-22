@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "baa041b7_fb0f8837",
+        "filename": "playbooks/tempest.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2016-08-22T07:29:39Z",
+      "side": 1,
+      "message": "Add \u0027setup_openstack_env: True\u0027 definition.",
+      "revId": "ca5ed48ef7ea9db9e79dc389f20b6ef60f94e04e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
