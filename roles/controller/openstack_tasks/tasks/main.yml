@@ -7,3 +7,7 @@
 - name: Create external network and subnet
   include: create_external_network.yml
   when: create_external_network is defined
+
+- name: Create router and set their externel
+  include: create_external_router.yml
+  when: create_external_router is defined
