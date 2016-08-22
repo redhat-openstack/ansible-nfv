@@ -200,6 +200,15 @@
   register: nic_bind
   when: dpdk_bind.changed
 
+- name: Set forward-bpdu to True
+  tags: test1
+  openvswitch_db: 
+    table: Bridge 
+    record: "{{ bridge_vlan_name }}"
+    col: other_config
+    key: forward-bpdu 
+    value: true
+
 - name: Restart machine
   shell: sleep 2 && shutdown -r now "Ansible updates triggered"
   async: 1
