@@ -53,17 +53,6 @@
     line: "vfio_pci"
     create: yes
 
-- name: Check device for DPDK
-  shell: "/mnt/MoonGen/deps/dpdk/tools/dpdk_nic_bind.py -s | awk '/{{ dpdk_nic_name }}/ {print $1}'"
-  register: dpdk_bind_check
-  changed_when: False
-  always_run: yes
-
-- name: Set nic to bind on boot
-  command: /usr/sbin/driverctl set-override "{{ dpdk_bind_check.stdout }}" vfio-pci
-  register: dpdk_bind
-  when: dpdk_bind_check.stdout.strip() != ""
-
 - name: Restart machine
   shell: sleep 2 && shutdown -r now "Ansible updates triggered"
   async: 1
@@ -81,6 +70,17 @@
     clone: yes 
     update: yes
     force: yes
+
+- name: Check device for DPDK
+  shell: "/mnt/MoonGen/deps/dpdk/tools/dpdk_nic_bind.py -s | awk '/{{ dpdk_nic_name }}/ {print $1}'"
+  register: dpdk_bind_check
+  changed_when: False
+  always_run: yes
+
+- name: Set nic to bind on boot
+  command: /usr/sbin/driverctl set-override "{{ dpdk_bind_check.stdout }}" vfio-pci
+  register: dpdk_bind
+  when: dpdk_bind_check.stdout.strip() != ""
 
 - name: Set permmisions to relevant scripts 
   file:
