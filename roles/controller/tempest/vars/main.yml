@@ -13,4 +13,4 @@ osp_image: http://file.tlv.redhat.com/~itbrown/images/rhel-guest-image-7.2-20151
 keystone: /root/keystonerc_admin
 
 ## Port_vnic_type direct
-port_vnic_type: True
+port_vnic_type: False
