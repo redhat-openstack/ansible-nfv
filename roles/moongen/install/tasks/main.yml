@@ -90,6 +90,12 @@
     - { dir: '/mnt/MoonGen/build.sh' }
     - { dir: '/mnt/MoonGen/setup-hugetlbfs.sh' }
 
+- name: Delete execution of bind-interfaces.sh
+  lineinfile:
+    dest: '/mnt/MoonGen/bind-interfaces.sh'
+    regexp: "tools/dpdk_nic_bind"
+    state: absent
+
 - name: Run build.sh script 
   shell: /mnt/MoonGen/build.sh 
   always_run: yes
