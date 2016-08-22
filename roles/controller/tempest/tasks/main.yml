@@ -1,15 +1,19 @@
 ---
 
-- shell: "cat {{ keystone }} | grep AUTH | cut -d '=' -f 2"
+- name: Register Auth URL
+  shell: "cat {{ keystone }} | grep AUTH | cut -d '=' -f 2"
   register: osp_auth
 
-- shell: "cat {{ keystone }} | grep USERNAME | cut -d '=' -f 2"
+- name: Register Username
+  shell: "cat {{ keystone }} | grep USERNAME | cut -d '=' -f 2"
   register: osp_username
 
-- shell: "cat {{ keystone }} | grep TENANT | cut -d '=' -f 2"
+- name: Register Tenant name
+  shell: "cat {{ keystone }} | grep TENANT | cut -d '=' -f 2"
   register: osp_tenant
 
-- shell: "cat {{ keystone }} | grep OS_PASSWORD | cut -d '=' -f 2"
+- name: Register Password
+  shell: "cat {{ keystone }} | grep OS_PASSWORD | cut -d '=' -f 2"
   register: osp_password
 
 - name: Install packages and dependency
@@ -39,16 +43,23 @@
     - { url: '{{ tempest_url }}', dest: "{{ tempest_dir }}/tempest" }
     - { url: '{{ plugin_url }}', dest: "{{ tempest_dir }}/tempest-nfv-plugin" }
 
+- name: check if tempest.conf exists
+  stat:
+    path: '{{ tempest_dir }}/tempest/.venv/'
+  register: venv
+
 - name: Run install_venv.py script
   command: 'python {{ tempest_dir }}/tempest/tools/install_venv.py'
   args:
     chdir: '{{ tempest_dir }}/tempest'
+  when: venv.stat.exists == False
 
 - name: Install Tempest_plugin in our Virtual env
   pip:
     name: '{{ tempest_dir }}/tempest-nfv-plugin/tempest_plugin/'
     virtualenv: '{{ tempest_dir }}/tempest/.venv'
     extra_args: -e
+  when: venv.stat.exists == False
 
 - name: Copy requirments file
   copy:
@@ -60,6 +71,12 @@
     name: '{{ tempest_dir }}/pip_ansible_openstack_packages.txt'
     virtualenv: '{{ tempest_dir }}/tempest/.venv'
     extra_args: -r
+
+- name: Creating Openstack env folder
+  file:
+    path: /etc/openstack
+    state: directory
+    mode: 0755
 
 - name: Create the clouds.yml file for future tasks
   template:
@@ -75,22 +92,29 @@
     name:  external
 - debug: var=openstack_networks
 
+- name: check if tempest.conf exists
+  stat: 
+    path: '{{ tempest_dir }}/tempest/etc/tempest.conf'
+  register: tempestconf
+
 - name: Run config_tempest script
   vars:
     ansible_python_interpreter: "/mnt/tempest/.venv/bin/python"
   shell: '{{ tempest_dir }}/tempest/.venv/bin/python {{ tempest_dir }}/tempest/tools/config_tempest.py --create --debug --image {{ osp_image }} identity.uri {{ osp_auth.stdout }} identity.admin_password {{ osp_password.stdout }}  --network-id {{ openstack_networks.id }}'
   args:
     chdir: '{{ tempest_dir }}/tempest'
+  when: tempestconf.stat.exists == False
 
 - name: Changing the image_ssh_user value
   lineinfile:
-    dest: /mnt/tempest/etc/tempest.conf
+    dest: '{{ tempest_dir }}/tempest/etc/tempest.conf'
     regexp: "^image_ssh_user"
     line: "image_ssh_user = {{ image_ssh_user }}"
+  when: port_vnic_type == True
 
 - name: Adding port_vnic_type variable
   ini_file:
-    dest: /mnt/tempest/etc/tempest.conf
+    dest: '{{ tempest_dir }}/tempest/etc/tempest.conf'
     section: network
     option: port_vnic_type
     value: direct
