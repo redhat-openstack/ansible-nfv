@@ -99,6 +99,8 @@
 - name: Run build.sh script 
   shell: /mnt/MoonGen/build.sh 
   always_run: yes
+  register: build_result
+  failed_when: "'Error' in build_result.stderr"
 
 ### The following script sets the Huge-pages on the server, currently we're doing it 
 ### in the previous grubby task.
