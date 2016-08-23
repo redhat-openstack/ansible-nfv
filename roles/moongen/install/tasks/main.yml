@@ -5,7 +5,7 @@
     policy: targeted
     state: permissive
 
-- name: Add parameter to the grub
+- name: Add cpu & iommu parameters to the grub
   lineinfile:
     dest: /etc/default/grub
     regexp: '^GRUB_CMDLINE_LINUX="(?!.* {{ item.regex }})(.*)"'
@@ -14,15 +14,25 @@
     backrefs: yes
   with_items:
     - { regex: 'intel_iommu=on', context: 'intel_iommu=on' }
-    - { regex: 'hugepagesz=', context: 'hugepagesz={{ hugepages_size }} default_hugepagesz={{ hugepages_size }} hugepages={{ hugepages_count }}' }
     - { regex: 'isolcpus=', context: 'isolcpus={{ vcpu_pin }} rcu_nocbs={{ vcpu_pin }} nohz_full={{ vcpu_pin }}' }
-  register: grub
+  register: grub_cpu_iommu
+
+- name: Add 1GB hugepage parameter to the grub
+  lineinfile:
+    dest: /etc/default/grub
+    regexp: '^GRUB_CMDLINE_LINUX="(?!.* {{ item.regex }})(.*)"'
+    line: 'GRUB_CMDLINE_LINUX="\1 {{ item.context }}"'
+    state: present
+    backrefs: yes
+  with_items:
+    - { regex: 'hugepagesz=', context: 'hugepagesz={{ hugepages_size }} default_hugepagesz={{ hugepages_size }} hugepages={{ hugepages_count }}' }
+  when: "'{{ hugepages_size }}' == '1GB'"
+  register: grub_hugepage
 
 - name: Make grub
   command: "grub2-mkconfig -o /boot/grub2/grub.cfg"
-  when: grub.changed
+  when: grub_cpu_iommu.changed or grub_hugepage.changed
   register: makegrub
-
 
 - name: Install packages and dependency
   yum: 
@@ -100,11 +110,9 @@
   shell: /mnt/MoonGen/build.sh 
   always_run: yes
 
-### The following script sets the Huge-pages on the server, currently we're doing it 
-### in the previous grubby task.
-#- name: Run setup-hugetlbfs.sh script
-#  shell: /mnt/MoonGen/setup-hugetlbfs.sh 
-#  always_run: yes
+- name: Run setup-hugetlbfs.sh script
+  shell: /mnt/MoonGen/setup-hugetlbfs.sh
+  when: "'{{ hugepages_size }}' == '2MB'"
 
 - name: Copy configuration file
   copy:
