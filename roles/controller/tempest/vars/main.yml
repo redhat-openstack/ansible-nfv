@@ -14,3 +14,6 @@ keystone: /root/keystonerc_admin
 
 ## Port_vnic_type direct
 port_vnic_type: False
+
+## Run tests which got Run Value
+TestServerBasicOps: DontRun
