@@ -15,5 +15,6 @@ keystone: /root/keystonerc_admin
 ## Port_vnic_type direct
 port_vnic_type: False
 
-## Run tests which got Run Value
-TestServerBasicOps: DontRun
+## The test location tempest will run, NONE argument will run nothing!
+# tempest_test_location: NONE
+tempest_test_location: tempest.scenario.test_server_basic_ops.TestServerBasicOps

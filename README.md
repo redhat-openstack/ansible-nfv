@@ -43,6 +43,10 @@
     Install and configure downstreams tempest with RHOS-NFV-QE tempest plugin.
 
     Specifying "port_vnic_type: True" value, the playbook configures the tempest.conf for SR-IOV test cases.
+    
+    After finishing tempest configuration, the playbook will run a single test(for now) which configured in the variables,
+    By specifying "NONE" argument, this task will be skipped, otherwise - please specify full path to wished scenario[starting from tempest directory].
+    for example: tempest.scenario.test_server_basic_ops.TestServerBasicOps
 
 * Guest TestPMD Role
 

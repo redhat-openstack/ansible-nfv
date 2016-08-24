@@ -120,6 +120,6 @@
     value: direct
   when: port_vnic_type == 'True'
 
-- name: Run TestServerBasicOps Test
-  shell: "source /root/keystonerc_admin;source /mnt/tempest/.venv/bin/activate;cd /mnt/tempest;/usr/bin/bash /mnt/tempest/tools/run-tests.sh tempest.scenario.test_server_basic_ops.TestServerBasicOps >> /mnt/tempest/tempest-output.txt"
-  when: TestServerBasicOps == 'Run'
+- name: Run Tempest Test
+  shell: "source /root/keystonerc_admin;source /mnt/tempest/.venv/bin/activate;cd /mnt/tempest;/usr/bin/bash /mnt/tempest/tools/run-tests.sh {{ tempest_test_location }} >> /mnt/tempest/tempest-output.txt"
+  when: tempest_test_location != 'NONE'
