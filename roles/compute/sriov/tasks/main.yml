@@ -84,16 +84,6 @@
     dest: /tmp/bus_id
   delegate_to: localhost
 
-- name: Restart the server
-  shell: sleep 2 && shutdown -r now "Ansible updates triggered"
-  async: 1
-  poll: 0
-  ignore_errors: true
-  when: conffiles.changed or makegrub.changed
-
-- name: Wait for server to restart successfully
-  local_action: wait_for host="{{ ansible_default_ipv4.address }}" search_regex="OpenSSH" port=22 timeout=300 connect_timeout=30 delay=5
-
 - name: Configure nova conf file
   ini_file:
     dest: "{{ item.file }}"
@@ -103,3 +93,35 @@
   with_items:
     - { file: '/etc/nova/nova.conf', section: 'DEFAULT', option: 'pci_passthrough_whitelist',value: '"{"devname": "{{ interface }}", "physical_network":"physnet"}"' }
   notify: 'Restart nova compute service'
+
+- name: Install the latest version of openstack-neutron-sriov-nic-agent
+  yum: 
+    name: openstack-neutron-sriov-nic-agent 
+    state: latest
+
+- name:  Configure SR-IOV agent
+  ini_file:
+    dest: "{{ item.file }}"
+    section: "{{ item.section }}"
+    option: "{{ item.option }}"
+    value: "{{item.value}}"
+  with_items:
+    - { file: '/etc/neutron/plugins/ml2/sriov_agent.ini', section: 'sriov_nic', option: 'physical_device_mappings',value: "physnet:{{ interface }}" }
+    - { file: '/etc/neutron/plugins/ml2/openvswitch_agent.ini', section: 'securitygroup', option: 'firewall_driver',value: 'neutron.agent.firewall.NoopFirewallDriver' }
+  register: sriov_agent
+
+- name: Start and enable neutron-sriov-nic-agent
+  service:
+    name: neutron-sriov-nic-agent
+    state: started
+    enabled: True
+
+- name: Restart the server
+  shell: sleep 2 && shutdown -r now "Ansible updates triggered"
+  async: 1
+  poll: 0
+  ignore_errors: true
+  when: conffiles.changed or makegrub.changed or sriov_agent.changed
+
+- name: Wait for server to restart successfully
+  local_action: wait_for host="{{ ansible_default_ipv4.address }}" search_regex="OpenSSH" port=22 timeout=300 connect_timeout=30 delay=5
