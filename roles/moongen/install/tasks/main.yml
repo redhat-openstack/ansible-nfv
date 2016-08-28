@@ -53,16 +53,6 @@
     line: "vfio_pci"
     create: yes
 
-- name: Restart machine
-  shell: sleep 2 && shutdown -r now "Ansible updates triggered"
-  async: 1
-  poll: 0
-  ignore_errors: true
-  when: makegrub.changed
-
-- name: Wait for server to restart successfully
-  local_action: wait_for host="{{ ansible_default_ipv4.address }}" search_regex="OpenSSH" port=22 timeout=300 connect_timeout=30 delay=5
-
 - name: Git clone MoonGen
   git: 
     repo: "{{ moongen_url }}"
@@ -107,6 +97,16 @@
 #- name: Run setup-hugetlbfs.sh script
 #  shell: /mnt/MoonGen/setup-hugetlbfs.sh 
 #  always_run: yes
+
+- name: Restart machine
+  shell: sleep 2 && shutdown -r now "Ansible updates triggered"
+  async: 1
+  poll: 0
+  ignore_errors: true
+  when: makegrub.changed or dpdk_bind.changed
+
+- name: Wait for server to restart successfully
+  local_action: wait_for host="{{ ansible_default_ipv4.address }}" search_regex="OpenSSH" port=22 timeout=300 connect_timeout=30 delay=5
 
 - name: Copy configuration file
   copy:
