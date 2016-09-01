@@ -63,7 +63,7 @@
   lineinfile: 
     dest: /etc/sysconfig/openvswitch
     regexp: "^DPDK_OPTIONS"
-    line: 'DPDK_OPTIONS="-l 2,4 -n 4 --socket-mem 1024,0"'
+    line: 'DPDK_OPTIONS="-l {{ cores_ovs }} -n 4 --socket-mem 1024,0"'
   notify: 'Restart and enable OVDK service'
 
 - name: Load vfio_pci module to the kernel
@@ -201,13 +201,25 @@
   register: nic_bind
   when: dpdk_bind.changed
 
-#- name: Set forward-bpdu to True
-#  openvswitch_db: 
-#    table: Bridge 
-#    record: "{{ bridge_vlan_name }}"
-#    col: other_config
-#    key: forward-bpdu 
-#    value: true
+- name: Create Script calculates number of PMDs
+  template:
+    src: translate-pmds-to-hex.py.j2
+    dest: /tmp/translate-pmds-to-hex.py
+    owner: root
+    group: root
+    mode: 0755
+
+- name : Execute script and calculate Hex PMDs
+  command : '/usr/bin/python /tmp/translate-pmds-to-hex.py'
+  register: hex_pmds
+
+- name: Set the number of PMDs
+  openvswitch_db: 
+    table: Open_vSwitch
+    record: .
+    col: other_config
+    key: pmd-cpu-mask 
+    value: "0x{{ hex_pmds.stdout }}"
 
 - name: Restart machine
   shell: sleep 2 && shutdown -r now "Ansible updates triggered"

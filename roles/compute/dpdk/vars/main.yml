@@ -2,6 +2,8 @@
 
 hugepages_size: 1GB
 hugepages_count: 16
+list_pmds: 4,20,6,22
+cores_ovs: 2
 
 dpdk_nic_name: enp5s0f1
 bridge_vlan_name: br-vlan
