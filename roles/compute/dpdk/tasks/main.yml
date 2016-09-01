@@ -105,6 +105,7 @@
     - { key: 'datapath_type', value: 'netdev' }
     - { key: 'vhostuser_socket_dir', value: '/var/run/openvswitch' }
     - { key: 'bridge_mappings', value: 'physnet:{{ bridge_vlan_name }}' }
+    - { key: 'prevent_arp_spoofing', value: 'False' }
 
 - name: Uncomment scheduler_default_filters line
   lineinfile:
