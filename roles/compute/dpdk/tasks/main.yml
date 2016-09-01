@@ -1,9 +1,9 @@
 ---
 
-- name: Disable Selinux
-  selinux:
-    policy: targeted
-    state: permissive
+#- name: Disable Selinux
+#  selinux:
+#    policy: targeted
+#    state: permissive
 
 - name: Add parameter to the grub
   lineinfile:
