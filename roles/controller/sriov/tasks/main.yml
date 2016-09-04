@@ -18,6 +18,7 @@
     regexp: "^ExecStart"
     line: "ExecStart=/usr/bin/neutron-server --config-file /usr/share/neutron/neutron-dist.conf --config-file /etc/neutron/neutron.conf --config-file /etc/neutron/plugin.ini --config-file /etc/neutron/plugins/ml2/ml2_conf_sriov.ini --log-file /var/log/neutron/server.log"
   notify:
+    - 'Reload the systemctl daemon'
     - 'Restart the neutron service'
 
 - name: Configure neutron server
@@ -31,6 +32,5 @@
     - { file: '/etc/neutron/plugins/ml2/ml2_conf_sriov.ini', section: 'ml2_sriov', option: 'agent_required',value: 'False' }
     - { file: '/etc/neutron/plugins/ml2/ml2_conf_sriov.ini', section: 'ml2_sriov', option: 'supported_pci_vendor_devs',value: '{{ lookup("file", "/tmp/bus_id") }}' }
   notify:
-    - 'Reload the systemctl daemon'
     - 'Restart the neutron service'
 
