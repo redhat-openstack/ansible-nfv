@@ -112,14 +112,14 @@
   os_nova_flavor:
     cloud: openstack
     state: present
-    name: m1.medium_testpmd_4cpu
+    name: m1.medium_testpmd_6cpu
     ram: 4096
-    vcpus: 4
+    vcpus: 6
     disk: 20
   register: flavor_id
 
 - name: Set flavor's keys
-  shell: "source {{ keystone }}; openstack flavor set --property hw:mem_page_size=1GB --property hw:numa_mempolicy=preferred --property hw:numa_mem.0=4096 --property hw:numa_nodes=1 --property hw:numa_cpus.0=0,1,2,3 --property hw:cpu_policy=dedicated m1.medium_testpmd_4cpu"
+  shell: "source {{ keystone }}; openstack flavor set --property hw:mem_page_size=1GB --property hw:numa_mempolicy=preferred --property hw:numa_mem.0=4096 --property hw:numa_nodes=1 --property hw:numa_cpus.0=0,1,2,3,4,5 --property hw:cpu_policy=dedicated m1.medium_testpmd_6cpu"
 
 - name: Check if RHEL image exists
   stat:
