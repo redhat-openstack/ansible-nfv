@@ -6,6 +6,6 @@
     - { role: controller/openstack_tasks, create_external_network: True, setup_openstack_env: True }
 
 - name: Tempest installation and configuration
-  hosts: controller
+  hosts: tester
   roles:
-    - controller/tempest
+    - tester/tempest
