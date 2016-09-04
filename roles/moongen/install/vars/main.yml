@@ -6,8 +6,8 @@ hugepages_size: 1GB
 hugepages_count: 20
 dpdk_nic_name: enp6s0f0
 
-# the number of memory channels (defaults to auto-detect)
-# memory_channels: 2
+# the number of memory channels (defaults to 4)
+memory_channels: 4
 
 # A string to specify the socket memory allocation, corresponding to EAL argument "--socket-mem"
 # socketmem: "2048,2048"
