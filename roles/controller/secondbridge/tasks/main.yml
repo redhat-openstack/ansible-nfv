@@ -1,6 +1,6 @@
 ---
 
-- name: Add user to AllowUsers
+- name: Configure physnet2 vlan ids
   replace:
     backup: yes
     dest: /etc/neutron/plugins/ml2/ml2_conf.ini
