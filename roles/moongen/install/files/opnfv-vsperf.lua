@@ -71,7 +71,8 @@ local TX_QUEUES_PER_DEV = 3
 local RX_QUEUES_PER_DEV = 1
 local MAX_CALIBRATION_ATTEMPTS = 20
 local VLAN_ID = 0
-local MPPS_PER_QUEUE = 4 
+local MPPS_PER_QUEUE = 5
+local QUEUES_PER_TASK = 3
 local PCI_ID_X710 = 0x80861572
 local PCI_ID_XL710 = 0x80861583
 
@@ -113,7 +114,7 @@ function master(...)
 	local txStats = {}
 	local rxStats = {}
         local devs = {}
-	testParams.rate = getMaxRateMpps(devs, testParams, getLineRateMpps(devs, testParams), testParams.startRate)
+	testParams.rate = getMaxRateMpps(devs, testParams, getLineRateMpps(testParams), testParams.startRate)
 	if testParams.startRate and testParams.rate < testParams.startRate then
 		log:warn("Start rate has been reduced from %.2f to %.2f because the original start rate could not be achieved.", testParams.startRate, testParams.rate)
 	end
@@ -138,9 +139,10 @@ function master(...)
 			end
 			while ( math.abs(testParams.rate - prevRate) >= testParams.rate_granularity or finalValidation ) do
 				if launchTest(finalValidation, devs, testParams, txStats, rxStats) then
-					if not acceptableLoss(testParams, rxStats, txStats) or acceptableRate(tx_rate_tolerance, testParams.rate, txStats, maxRateAttempts, rateAttempts) then
+					local acceptableLossResult = acceptableLoss(testParams, rxStats, txStats)
+					if not acceptableLossResult or acceptableRate(tx_rate_tolerance, testParams.rate, txStats, maxRateAttempts, rateAttempts) then
 						prevRate = testParams.rate
-						if testParams.oneShot or acceptableLoss(testParams, rxStats, txStats) then
+						if testParams.oneShot or acceptableLossResult then
 							if finalValidation then
 								showReport(rxStats, txStats, testParams)
 								return
@@ -218,7 +220,7 @@ function showReport(rxStats, txStats, testParams)
 		printf("[PARAMETERS] startRate: %f nrFlows: %d frameSize: %d runBidirec: %s latencyRunTime: %d searchRunTime: %d validationRunTime: %d acceptableLossPct: %f ports: %s",
 			testParams.startRate, testParams.nrFlows, testParams.frameSize, testParams.runBidirec, testParams.latencyRunTime, testParams.searchRunTime, testParams.validationRunTime, testParams.acceptableLossPct, portList) 
 	end
-	for i, v in ipairs(txStats) do
+	for i, v in pairs(txStats) do
 		if testParams.connections[i] then
 			local lostFrames = txStats[i].totalFrames - rxStats[testParams.connections[i]].totalFrames
 			local lostFramePct = 100 * lostFrames / txStats[i].totalFrames
@@ -341,8 +343,6 @@ function getTestParams(testParams)
 	testParams.rate_granularity = testParams.rate_granularity or RATE_GRANULARITY
 	testParams.ports = testParams.ports or {0,1}
 	testParams.flowMods = testParams.flowMods or {"srcIp"}
-	testParams.txQueuesPerDev = testParams.txQueuesPerDev or TX_QUEUES_PER_DEV
-	testParams.rxQueuesPerDev = testParams.rxQueuesPerDev or RX_QUEUES_PER_DEV
 	testParams.srcIp = testParams.srcIp or SRC_IP
 	testParams.dstIp = testParams.dstIp or DST_IP
 	testParams.srcPort = testParams.srcPort or SRC_PORT
@@ -354,6 +354,9 @@ function getTestParams(testParams)
 	testParams.dstIp = parseIPAddress(testParams.dstIp)
 	testParams.oneShot = testParams.oneShot or false
 	testParams.mppsPerQueue = testParams.mppsPerQueue or MPPS_PER_QUEUE
+	testParams.queuesPerTask = testParams.queuesPerTask or QUEUES_PER_TASK
+	testParams.rxQueuesPerDev = 1
+	testParams.linkSpeed = testParams.linkSpeed or LINK_SPEED
 
 	return testParams
 end
@@ -368,17 +371,22 @@ end
 
 function acceptableLoss(testParams, rxStats, txStats)
 	local pass = true
-	for i, v in ipairs(txStats) do
+	local i
+	for i, v in pairs(txStats) do
 		if testParams.connections[i] then
-			local lostFrames = txStats[i].totalFrames - rxStats[testParams.connections[i]].totalFrames
-			local lostFramePct = 100 * lostFrames / txStats[i].totalFrames
-			if (lostFramePct > testParams.acceptableLossPct) then
-				log:warn("Device %d->%d: FAILED - frame loss (%d, %.8f%%) is greater than the maximum (%.8f%%)",
-				 (i-1), (testParams.connections[i]-1), lostFrames, lostFramePct, testParams.acceptableLossPct);
-				pass = false
-			else
-				log:info("Device %d->%d PASSED - frame loss (%d, %.8f%%) is less than or equal to the maximum (%.8f%%)",
-				 (i-1), (testParams.connections[i]-1), lostFrames, lostFramePct, testParams.acceptableLossPct);
+			for q = 0, testParams.txQueuesPerDev - 1 do
+				if q == 0 then
+					local lostFrames = txStats[i].totalFrames - rxStats[testParams.connections[i]].totalFrames
+					local lostFramePct = 100 * lostFrames / txStats[i].totalFrames
+					if (lostFramePct > testParams.acceptableLossPct) then
+						log:warn("Device %d->%d: FAILED - frame loss (%d, %.8f%%) is greater than the maximum (%.8f%%)",
+				 		testParams.ports[i], testParams.ports[testParams.connections[i]], lostFrames, lostFramePct, testParams.acceptableLossPct);
+						pass = false
+					else
+						log:info("Device %d->%d PASSED - frame loss (%d, %.8f%%) is less than or equal to the maximum (%.8f%%)",
+				 		testParams.ports[i], testParams.ports[testParams.connections[i]], lostFrames, lostFramePct, testParams.acceptableLossPct);
+					end
+				end
 			end
 		end
 	end
@@ -409,9 +417,13 @@ function acceptableRate(tx_rate_tolerance, rate, txStats, maxRateAttempts, t)
 	return true
 end
 
-function getLineRateMpps(devs, testParams)
-	-- TODO: check actual link rate instead of using LINK_SPEED
-	return  (LINK_SPEED /(testParams.frameSize*8 +64 +96) /1000000)
+function getLineRateMpps(testParams)
+	-- TODO: check actual link rate instead of using linkSpeed
+	return  (testParams.linkSpeed /(testParams.frameSize*8 +64 +96) /1000000)
+end
+
+function calcTxTasks(queues, testParams)
+	return math.ceil(queues / testParams.queuesPerTask)
 end
 
 function calcTxQueues(rate, testParams)
@@ -429,8 +441,11 @@ function getMaxRateMpps(devs, testParams, lineRate, rate)
 	local macs = {}
 	local runTime = 10
 
-	-- set the number of transmit queues based on the transmit rate
-	testParams.txQueuesPerDev = calcTxQueues(rate or lineRate, testParams)
+	-- set the number of transmit queues & tasks based on the transmit rate
+	testParams.txQueuesPerDev = calcTxQueues(lineRate, testParams)
+	log:info("testparams.txQueuesPerDev: %d", testParams.txQueuesPerDev)
+	testParams.txTasks = calcTxTasks(testParams.txQueuesPerDev, testParams)
+	log:info("testparams.txTasks: %d", testParams.txTasks)
         devs = prepareDevs(testParams)
 	-- find the maximum transmit rate
 	local perDevCalibratedRate = {}
@@ -452,14 +467,13 @@ function getMaxRateMpps(devs, testParams, lineRate, rate)
 				rate = lineRate
 			end
 			log:info("Finding maximum Tx Rate",  testParams.txMethod, rate)
-			--log:info("num flows: %d",  testParams.nrFlows)
-			-- launch a process to transmit packets per queue
-			for q = 0, testParams.txQueuesPerDev - 1 do
-				calTasks[q] = dpdk.launchLua("calibrateSlave", devs, devId, calibratedRate, testParams, q)
+			local taskId
+			for taskId = 0, testParams.txTasks - 1 do
+				calTasks[taskId] = dpdk.launchLua("calibrateSlave", devs, devId, calibratedRate, testParams, taskId)
 			end
 			-- wait for all jobs to complete
-			for q = 0, testParams.txQueuesPerDev - 1 do
-				calStats[q] = calTasks[q]:wait()
+			for taskId = 0, testParams.txTasks - 1 do
+				calStats[taskId] = calTasks[taskId]:wait()
 			end
 			local measuredRate = calStats[0].avgMpps -- only the first queue provides the measured rate [for all queues]
 			log:info("Max Tx rate: %.2f",  measuredRate)
@@ -470,17 +484,17 @@ function getMaxRateMpps(devs, testParams, lineRate, rate)
 			-- next try to achieve the maximum rate by using a calibrated rate value
 			testParams.rate = rate
 			calibratedRate = rate
+			testParams.txQueuesPerDev = calcTxQueues(testParams.rate, testParams)
+			log:info("testparams.txQueuesPerDev: %d", testParams.txQueuesPerDev)
+			testParams.txTasks = calcTxTasks(testParams.txQueuesPerDev, testParams)
+			log:info("testparams.txTasks: %d", testParams.txTasks)
 			repeat
-				--log:info("Calibrating %s tx rate for %.2f Mfs",  testParams.txMethod , testParams.rate)
-				--log:info("num flows: %d",  testParams.nrFlows)
-				-- launch 1 process per Tx queue to transmit packets
-				for q = 0, testParams.txQueuesPerDev - 1 do
-					--log:info("Calibrating %s tx rate for %.2f Mfs",  testParams.txMethod , testParams.rate)
-					calTasks[q] = dpdk.launchLua("calibrateSlave", devs, devId, calibratedRate, testParams, q)
+				for taskId = 0, testParams.txTasks - 1 do
+					calTasks[taskId] = dpdk.launchLua("calibrateSlave", devs, devId, calibratedRate, testParams, taskId)
 				end
 				-- wait for all jobs to complete
-				for q = 0, testParams.txQueuesPerDev - 1 do
-					calStats[q] = calTasks[q]:wait()
+				for taskId = 0, testParams.txTasks - 1 do
+					calStats[taskId] = calTasks[taskId]:wait()
 				end
 				local measuredRate = calStats[0].avgMpps -- only the first queue provides the measured rate [for all queues]
 				-- the measured rate must be within the tolerance window but also not exceed the desired rate
@@ -534,8 +548,11 @@ function launchTest(final, devs, testParams, txStats, rxStats)
 			runTime = testParams.latencyRunTime
 		end
 	end
-	-- set the number of transmit queues based on the transmit rate
+	-- set the number of transmit queues & tasks based on the transmit rate
 	testParams.txQueuesPerDev = calcTxQueues(testParams.rate, testParams)
+	log:info("testparams.txQueuesPerDev: %d", testParams.txQueuesPerDev)
+	testParams.txTasks = calcTxTasks(testParams.txQueuesPerDev, testParams)
+	log:info("testparams.txTasks: %d", testParams.txTasks)
         devs = prepareDevs(testParams)
 	-- calibrate transmit rate
 	local calibratedRate = testParams.rate
@@ -549,16 +566,16 @@ function launchTest(final, devs, testParams, txStats, rxStats)
 			local calibrated = false
 			local calibrationCount = 0
 			local overcorrection = 1
+			log:info("Starting tramsnit rate calibration for device %d", testParams.ports[devId])
 			repeat
-				--log:info("Calibrating %s tx rate for %.2f Mfs",  testParams.txMethod , testParams.rate)
-				--log:info("num flows: %d",  testParams.nrFlows)
+				local taskId
 				-- launch a process to transmit packets per queue
-				for q = 0, testParams.txQueuesPerDev - 1 do
-					calTasks[q] = dpdk.launchLua("calibrateSlave", devs, devId, calibratedRate, testParams, q)
+				for taskId = 0, testParams.txTasks - 1 do
+					calTasks[taskId] = dpdk.launchLua("calibrateSlave", devs, devId, calibratedRate, testParams, taskId)
 				end
 				-- wait for all jobs to complete
-				for q = 0, testParams.txQueuesPerDev - 1 do
-					calStats[q] = calTasks[q]:wait()
+				for taskId = 0, testParams.txTasks - 1 do
+					calStats[taskId] = calTasks[taskId]:wait()
 				end
 				local measuredRate = calStats[0].avgMpps -- only the first queue provides the measured rate [for all queues]
 				-- the measured rate must be within the tolerance window but also not exceed the desired rate
@@ -573,8 +590,8 @@ function launchTest(final, devs, testParams, txStats, rxStats)
 					end
 					calibratedRate = calibratedRate * correction_ratio
 						prevMeasuredRate = measuredRate
-                        		log:info("measuredRate: %.4f  desiredRate:%.4f  new correction_ratio: %.4f  new calibratedRate: %.4f ",
-			 		measuredRate, testParams.rate, correction_ratio, calibratedRate)
+                        		log:info("Device %d measuredRate: %.4f  desiredRate:%.4f  new correction_ratio: %.4f  new calibratedRate: %.4f ",
+			 		testParams.connections[devId], measuredRate, testParams.rate, correction_ratio, calibratedRate)
 				else
 					calibrated = true
 					end
@@ -582,9 +599,9 @@ function launchTest(final, devs, testParams, txStats, rxStats)
 			until ( calibrated or calibrationCount > MAX_CALIBRATION_ATTEMPTS )
 			if calibrated then
 				perDevCalibratedRate[devId] = calibratedRate
-				log:info("Rate calibration complete") 
+				log:info("Device %d rate calibration complete", testParams.ports[devId]) 
 			else
-				log:error("Could not achive Tx packet rate") 
+				log:error("Device %d could not achive Tx packet rate", testParams.ports[devId]) 
 				return
 			end
 		end
@@ -601,11 +618,15 @@ function launchTest(final, devs, testParams, txStats, rxStats)
 	end
 	-- start devices which transmit
 	idx = 1
+	local txTaskId = 1
 	for devId, v in ipairs(devs) do
 		if testParams.connections[devId] then
 			printf("Testing %.2f Mfps", testParams.rate)
-			for q = 0, testParams.txQueuesPerDev - 1 do
-				txTasks[devId*q+q] = dpdk.launchLua("loadSlave", devs, devId, perDevCalibratedRate[devId], runTime, testParams, q)
+			--for q = 0, testParams.txQueuesPerDev - 1 do
+			for perDevTaskId = 0, testParams.txTasks - 1 do
+				--log:info("calibrateSlave: devId: %d  taskId: %d  perDevTaskId: %d", devId, txTaskId, perDevTaskId)
+				txTasks[txTaskId] = dpdk.launchLua("loadSlave", devs, devId, perDevCalibratedRate[devId], runTime, testParams, perDevTaskId)
+				txTaskId = txTaskId + 1
 			end
 			if testParams.testType == "latency" or
 				( testParams.testType == "throughput-latency" and final ) then
@@ -617,17 +638,20 @@ function launchTest(final, devs, testParams, txStats, rxStats)
 		end
 	end
 	-- wait for transmit devices to finish
+	local txTaskId = 1
 	for devId, v in ipairs(devs) do
 		if testParams.connections[devId] then
-			for q = 0, testParams.txQueuesPerDev - 1 do
-				if q == 0 then
-					txStats[devId] = txTasks[devId*q+q]:wait()
+			for perDevTaskId = 0, testParams.txTasks - 1 do
+				if perDevTaskId == 0 then
+					txStats[devId] = txTasks[txTaskId]:wait()
 				else
-					txTasks[devId*q+q]:wait()
+					txTasks[txTaskId]:wait()
 				end
+				txTaskId = txTaskId + 1
 			end
 		end
 	end
+
 	if final then
 		log:info("Stopping final validation");
 	end
@@ -713,22 +737,30 @@ function getBuffers(devId, testParams)
 	return bufs
 end
 
-function calibrateSlave(devs, devId, calibratedRate, testParams, qid)
+function calibrateSlave(devs, devId, calibratedRate, testParams, taskId)
 	local dev = devs[devId]
 	local frame_size_without_crc = testParams.frameSize - 4
 	local bufs = getBuffers(devId, testParams)
 	local packetCount = 0
 	local overcorrection = 1
 	local id = dev:getPciId()
+	local firstQueueId = taskId * testParams.queuesPerTask
+	local lastQueueId = firstQueueId + testParams.queuesPerTask - 1
+	if lastQueueId > (testParams.txQueuesPerDev - 1) then
+		lastQueueId = testParams.txQueuesPerDev - 1
+	end
+	log:info("calibrateSlave: devId: %d  taskId: %d  queues: %d-%d", devId, taskId, firstQueueId, lastQueueId)
 	-- only the first process tracks stats for the device
-	if qid == 0 then
+	if taskId == 0 then
 		txStats = stats:newDevTxCounter(dev, "plain")
 	end
 	if ( testParams.txMethod == "hardware"  and calibratedRate > 0 ) then
         	if id == PCI_ID_X710 or id == PCI_ID_XL710 then
                 	dev:setRate(calibratedRate * (testParams.frameSize + 4) * 8)
 		else
-			dev:getTxQueue(qid):setRateMpps(calibratedRate / testParams.txQueuesPerDev, testParams.frameSize)
+			for qid = firstQueueId, lastQueueId, 1 do
+				dev:getTxQueue(qid):setRateMpps(calibratedRate / testParams.txQueuesPerDev, testParams.frameSize)
+			end
 		end
 		runtime = timer:new(5)
 	else
@@ -743,21 +775,25 @@ function calibrateSlave(devs, devId, calibratedRate, testParams, qid)
 		end
                	bufs:offloadUdpChecksums()
 		if ( testParams.txMethod == "hardware" ) then
-			dev:getTxQueue(qid):send(bufs)
+			for qid=firstQueueId,lastQueueId,1 do
+				dev:getTxQueue(qid):send(bufs)
+			end
 		else
 			if calibratedRate > 0 then
 				for _, buf in ipairs(bufs) do
 					buf:setRate(calibratedRate)
 				end
 			end
-			dev:getTxQueue(qid):sendWithDelay(bufs)
+			for qid=firstQueueId,lastQueueId,1 do
+				dev:getTxQueue(qid):sendWithDelay(bufs)
+			end
 		end
-		if qid == 0 then
+		if taskId == 0 then
 			txStats:update(0.5, false)
 		end
 	end
 	local results = {}
-	if qid == 0 then
+	if taskId == 0 then
 		txStats:finalize()
 		results.avgMpps = txStats.mpps.avg
 	end
@@ -779,22 +815,32 @@ function counterSlave(rxQueue, runTime)
         return results
 end
 
-function loadSlave(devs, devId, calibratedRate, runTime, testParams, qid)
+function loadSlave(devs, devId, calibratedRate, runTime, testParams, taskId)
 	local dev = devs[devId]
 	local frame_size_without_crc = testParams.frameSize - 4
 	local bufs = getBuffers(devId, testParams)
+	local firstQueueId = taskId * testParams.queuesPerTask
+	local lastQueueId = firstQueueId + testParams.queuesPerTask - 1
+	if lastQueueId > (testParams.txQueuesPerDev - 1) then
+		lastQueueId = testParams.txQueuesPerDev - 1
+	end
+	log:info("loadSlave: devId: %d  taskId: %d  queues: %d-%d", devId, taskId, firstQueueId, lastQueueId)
 	if runTime > 0 then
 		runtime = timer:new(runTime)
 	end
 	
-	local txStats = stats:newDevTxCounter(dev, "plain")
+	if taskId == 0 then
+		txStats = stats:newDevTxCounter(dev, "plain")
+	end
 	local count = 0
 	local pci_id = dev:getPciId()
 	if ( testParams.txMethod == "hardware" ) then
         	if pci_id == PCI_ID_X710 or pci_id == PCI_ID_XL710 then
                 	dev:setRate(calibratedRate * (testParams.frameSize + 4) * 8)
 		else
-			dev:getTxQueue(qid):setRateMpps(calibratedRate / testParams.txQueuesPerDev, testParams.frameSize)
+			for qid=firstQueueId,lastQueueId,1 do
+				dev:getTxQueue(qid):setRateMpps(calibratedRate / testParams.txQueuesPerDev, testParams.frameSize)
+			end
 		end
 	end
 	local packetCount = 0
@@ -806,19 +852,23 @@ function loadSlave(devs, devId, calibratedRate, runTime, testParams, qid)
 		end
                 bufs:offloadUdpChecksums()
 		if ( testParams.txMethod == "hardware" ) then
-			dev:getTxQueue(qid):send(bufs)
+			for qid=firstQueueId,lastQueueId,1 do
+				dev:getTxQueue(qid):send(bufs)
+			end
 		else
 			for _, buf in ipairs(bufs) do
 				buf:setRate(calibratedRate)
 			end
-			dev:getTxQueue(qid):sendWithDelay(bufs)
+			for qid=firstQueueId,lastQueueId,1 do
+				dev:getTxQueue(qid):sendWithDelay(bufs)
+			end
 		end
-		if qid == 0 then
+		if taskId == 0 then
 			txStats:update(0.5, false)
 		end
 	end
         local results = {}
-	if qid == 0 then
+	if taskId == 0 then
 		txStats:finalize()
 		results.totalFrames = txStats.total
 		results.avgMpps = txStats.mpps.avg
@@ -858,9 +908,13 @@ function timerSlave(devs, dev1Id, dev2Id, runTime, testParams)
 	local haveHisto = false
 	local haveHisto1 = false
 	local haveHisto2 = false
+	local counter = 0
+	local counter1 = 0
+	local counter2 = 0
 	while (runTime == 0 or runTimer:running()) and dpdk.running() do
 		for count = 0, transactionsPerDirection - 1 do -- inner loop tests in one direction
 			rateLimit:wait()
+			counter = counter + 1
 			local lat = timestamper:measureLatency();
 			if (lat) then
 				haveHisto = true;
@@ -874,31 +928,44 @@ function timerSlave(devs, dev1Id, dev2Id, runTime, testParams)
 				hist = hist1
 				haveHisto2 = haveHisto
 				haveHisto = haveHisto1
+				counter2 = counter
+				counter = counter1
 			else
 				timestamper = timestamper2
 				hist = hist2
 				haveHisto1 = haveHisto
 				haveHisto = haveHisto2
+				counter1 = counter
+				counter = counter2
 			end
 		else
 			haveHisto1 = haveHisto
+			counter1 = counter
 		end
 	end
 	dpdk.sleepMillis(LATENCY_TRIM + 1000) -- the extra 1000 ms ensures the stats are output after the throughput stats
 	local histDesc = "Histogram port " .. testParams.ports[dev1Id] .. " to port " .. testParams.ports[testParams.connections[dev1Id]]
-	local histFile = "hist:" .. testParams.ports[deb1Id] .. "-" .. testParams.ports[testParams.connections[dev1Id]] .. ".csv"
+	local histFile = "hist:" .. testParams.ports[dev1Id] .. "-" .. testParams.ports[testParams.connections[dev1Id]] .. ".csv"
 	if haveHisto1 then
 		hist1:print(histDesc)
 		hist1:save(histFile)
+		local hist_size = hist1:totals()
+		if hist_size ~= counter1 then
+		   log:warn("[%s] Lost %d samples (%.2f%%)!", histDesc, counter1 - hist_size, (counter1 - hist_size)/counter1*100)
+		end
 	else
 		log:warn("no latency samples found for %s", histDesc)
 	end
 	if testParams.runBidirec then
-		local histDesc = "Histogram port " .. testParams.ports[testParams.connections[dev1Id]] .. " to port " .. testParams.ports[deb1Id]
+		local histDesc = "Histogram port " .. testParams.ports[testParams.connections[dev1Id]] .. " to port " .. testParams.ports[dev1Id]
 		local histFile = "hist:" .. testParams.ports[testParams.connections[dev1Id]] .. "-" .. testParams.ports[dev1Id] .. ".csv"
 		if haveHisto2 then
 			hist2:print(histDesc)
 			hist2:save(histFile)
+			local hist_size = hist2:totals()
+			if hist_size ~= counter2 then
+			   log:warn("[%s] Lost %d samples (%.2f%%)!", histDesc, counter2 - hist_size, (counter2 - hist_size)/counter2*100) 
+			end
 		else
 			log:warn("no latency samples found for %s", histDesc)
 		end
