@@ -201,25 +201,27 @@
   register: nic_bind
   when: dpdk_bind.changed
 
-- name: Create Script calculates number of PMDs
-  template:
-    src: translate-pmds-to-hex.py.j2
-    dest: /tmp/translate-pmds-to-hex.py
-    owner: root
-    group: root
-    mode: 0755
-
-- name : Execute script and calculate Hex PMDs
-  command : '/usr/bin/python /tmp/translate-pmds-to-hex.py'
-  register: hex_pmds
-
-- name: Set the number of PMDs
-  openvswitch_db: 
-    table: Open_vSwitch
-    record: .
-    col: other_config
-    key: pmd-cpu-mask 
-    value: "0x{{ hex_pmds.stdout }}"
+- block:
+  - name: Create Script calculates number of PMDs
+    template:
+      src: translate-pmds-to-hex.py.j2
+      dest: /tmp/translate-pmds-to-hex.py
+      owner: root
+      group: root
+      mode: 0755
+  
+  - name : Execute script and calculate Hex PMDs
+    command : '/usr/bin/python /tmp/translate-pmds-to-hex.py'
+    register: hex_pmds
+  
+  - name: Set the number of PMDs
+    openvswitch_db: 
+      table: Open_vSwitch
+      record: .
+      col: other_config
+      key: pmd-cpu-mask 
+      value: "0x{{ hex_pmds.stdout }}"
+  when: list_pmds is defined
 
 - name: Restart machine
   shell: sleep 2 && shutdown -r now "Ansible updates triggered"
