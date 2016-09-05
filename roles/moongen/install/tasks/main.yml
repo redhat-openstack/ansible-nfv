@@ -23,7 +23,6 @@
   when: grub.changed
   register: makegrub
 
-
 - name: Install packages and dependency
   yum: 
     name: "{{ item.name }}"
@@ -71,6 +70,19 @@
   command: /usr/sbin/driverctl set-override "{{ dpdk_bind_check.stdout }}" vfio-pci
   register: dpdk_bind
   when: dpdk_bind_check.stdout.strip() != ""
+
+- block:
+  - name: Check second device for DPDK
+    shell: "/mnt/MoonGen/deps/dpdk/tools/dpdk_nic_bind.py -s | awk '/{{ dpdk_second_nic_name }}/ {print $1}'"
+    register: dpdk_bind_check
+    changed_when: False
+    always_run: yes
+  
+  - name: Set second nic to bind on boot
+    command: /usr/sbin/driverctl set-override "{{ dpdk_bind_check.stdout }}" vfio-pci
+    register: dpdk_bind
+    when: dpdk_bind_check.stdout.strip() != ""
+  when: dpdk_second_nic_name is defined
 
 - name: Set permmisions to relevant scripts 
   file:
