@@ -125,13 +125,11 @@
     src: dpdk-conf.lua.j2
     dest: '/mnt/MoonGen/lua/dpdk-conf.lua'
 
-- name: Copy configuration file
+- name:  Copy lua example files
   copy:
-    src: opnfv-vsperf-cfg.lua
-    dest: /mnt/MoonGen/
-
-- name: Copy lua example file
-  copy:
-    src: opnfv-vsperf.lua
-    dest: /mnt/MoonGen/
+    src: "{{ item.source }}"
+    dest: "{{ item.destination }}"
+  with_items:
+    - { src: 'opnfv-vsperf-cfg.lua', destination: '/mnt/MoonGen/' }
+    - { src: 'opnfv-vsperf.lua', destination: '/mnt/MoonGen/examples/' }
 
