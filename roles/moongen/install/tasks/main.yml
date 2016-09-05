@@ -130,6 +130,6 @@
     src: "{{ item.source }}"
     dest: "{{ item.destination }}"
   with_items:
-    - { src: 'opnfv-vsperf-cfg.lua', destination: '/mnt/MoonGen/' }
-    - { src: 'opnfv-vsperf.lua', destination: '/mnt/MoonGen/examples/' }
+    - { source: 'opnfv-vsperf-cfg.lua', destination: '/mnt/MoonGen/' }
+    - { source: 'opnfv-vsperf.lua', destination: '/mnt/MoonGen/examples/' }
 
