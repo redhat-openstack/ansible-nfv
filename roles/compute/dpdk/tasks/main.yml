@@ -176,11 +176,17 @@
 
 - meta: flush_handlers
 
+- name: Get old interface name
+  shell: "ovs-vsctl list-ports {{ bridge_vlan_name }} | grep -v 'phy-{{ bridge_vlan_name }}' | grep -v 'dpdk'"
+  ignore_errors: True
+  register: old_port
+
 - name: Remove old ovs port
   openvswitch_port:
     bridge: "{{ bridge_vlan_name }}"
-    port: "{{ dpdk_nic_name }}"
+    port: "{{ old_port.stdout }}"
     state: absent
+  when: old_port.stdout != ""
 
 - name: Check OVS "{{ bridge_vlan_name }}" datapath_type
   shell: ovs-vsctl list bridge "{{ bridge_vlan_name }}" | awk '/datapath_type/ {print $3}'
