@@ -17,6 +17,7 @@
   register: osp_password
 
 - name: Install packages and dependency
+  sudo: True
   yum: 
     name: "{{ item.name }}"
     state: 'installed'
