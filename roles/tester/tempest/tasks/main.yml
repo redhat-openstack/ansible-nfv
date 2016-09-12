@@ -18,20 +18,20 @@
 
 - name: Install packages and dependency
   yum: 
-    name: "{{ item.name }}"
+    name: "{{ item }}"
     state: 'installed'
   with_items:
-    - { name: 'git' }
-    - { name: 'wget' }
-    - { name: 'python-devel' }
-    - { name: 'gcc' }
-    - { name: 'libffi-devel' }
-    - { name: 'libxml2-devel' }
-    - { name: 'libxslt-devel' }
-    - { name: 'mariadb-devel' }
-    - { name: 'openssl-devel' }
-    - { name: 'python-virtualenv' }
-    - { name: '@Development tools' }
+    - 'git'
+    - 'wget'
+    - 'python-devel'
+    - 'gcc'
+    - 'libffi-devel'
+    - 'libxml2-devel'
+    - 'libxslt-devel'
+    - 'mariadb-devel'
+    - 'openssl-devel'
+    - 'python-virtualenv'
+    - '@Development tools'
 
 - name: Git clone Tempest & Tempest-NFV-plugin
   git: 
@@ -95,7 +95,7 @@
 - name: check if tempest.conf exists
   stat: 
     path: '{{ tempest_dir }}/tempest/etc/tempest.conf'
-  register: tempestconf
+  register: tempest_conf
 
 - name: Run config_tempest script
   vars:
@@ -103,7 +103,7 @@
   shell: '{{ tempest_dir }}/tempest/.venv/bin/python {{ tempest_dir }}/tempest/tools/config_tempest.py --create --debug --image {{ osp_image }} identity.uri {{ osp_auth.stdout }} identity.admin_password {{ osp_password.stdout }}  --network-id {{ openstack_networks.id }}'
   args:
     chdir: '{{ tempest_dir }}/tempest'
-  when: tempestconf.stat.exists == False
+  when: tempest_conf.stat.exists == False
 
 - name: Changing the image_ssh_user value
   lineinfile:
@@ -121,5 +121,9 @@
   when: port_vnic_type == 'True'
 
 - name: Run TestServerBasicOps Test
-  shell: "source /root/keystonerc_admin;source /mnt/tempest/.venv/bin/activate;cd /mnt/tempest;/usr/bin/bash /mnt/tempest/tools/run-tests.sh tempest.scenario.test_server_basic_ops.TestServerBasicOps >> /mnt/tempest/tempest-output.txt"
+  shell: >
+    source /root/keystonerc_admin;
+    source /mnt/tempest/.venv/bin/activate;
+    cd /mnt/tempest;
+    /usr/bin/bash /mnt/tempest/tools/run-tests.sh tempest.scenario.test_server_basic_ops.TestServerBasicOps >> /mnt/tempest/tempest-output.txt
   when: TestServerBasicOps == 'Run'
