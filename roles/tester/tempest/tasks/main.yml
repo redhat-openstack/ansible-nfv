@@ -100,7 +100,7 @@
 - name: Run config_tempest script
   vars:
     ansible_python_interpreter: "/mnt/tempest/.venv/bin/python"
-  shell: '{{ tempest_dir }}/tempest/.venv/bin/python {{ tempest_dir }}/tempest/tools/config_tempest.py --create --debug --image {{ osp_image }} identity.uri {{ osp_auth.stdout }} identity.admin_password {{ osp_password.stdout }}  --network-id {{ openstack_networks.id }}'
+  shell: '{{ tempest_dir }}/tempest/.venv/bin/python {{ tempest_dir }}/tempest/tools/config_tempest.py --create --debug --image {{ osp_image }} identity.uri {{ osp_auth.stdout }} identity.admin_password {{ osp_password.stdout }}  --network-id {{ openstack_networks[0].id }}'
   args:
     chdir: '{{ tempest_dir }}/tempest'
   when: tempest_conf.stat.exists == False
@@ -110,7 +110,7 @@
     dest: '{{ tempest_dir }}/tempest/etc/tempest.conf'
     regexp: "^image_ssh_user"
     line: "image_ssh_user = {{ image_ssh_user }}"
-  when: port_vnic_type == 'True'
+  when: port_vnic_type == 'true'
 
 - name: Adding port_vnic_type variable
   ini_file:
@@ -118,7 +118,7 @@
     section: network
     option: port_vnic_type
     value: direct
-  when: port_vnic_type == 'True'
+  when: port_vnic_type == 'true'
 
 - name: Run TestServerBasicOps Test
   shell: >
@@ -126,4 +126,4 @@
     source /mnt/tempest/.venv/bin/activate;
     cd /mnt/tempest;
     /usr/bin/bash /mnt/tempest/tools/run-tests.sh tempest.scenario.test_server_basic_ops.TestServerBasicOps >> /mnt/tempest/tempest-output.txt
-  when: TestServerBasicOps == 'Run'
+  when: TestServerBasicOps == 'run'
