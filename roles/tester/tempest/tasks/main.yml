@@ -100,7 +100,7 @@
 - name: Run config_tempest script
   vars:
     ansible_python_interpreter: "/mnt/tempest/.venv/bin/python"
-  shell: '{{ tempest_dir }}/tempest/.venv/bin/python {{ tempest_dir }}/tempest/tools/config_tempest.py --create --debug --image {{ osp_image }} identity.uri {{ osp_auth.stdout }} identity.admin_password {{ osp_password.stdout }}  --network-id {{ openstack_networks.id }}'
+  shell: '{{ tempest_dir }}/tempest/.venv/bin/python {{ tempest_dir }}/tempest/tools/config_tempest.py --create --debug --image {{ osp_image }} identity.uri {{ osp_auth.stdout }} identity.admin_password {{ osp_password.stdout }}  --network-id {{ openstack_networks.0.id }}'
   args:
     chdir: '{{ tempest_dir }}/tempest'
   when: tempestconf.stat.exists == False
