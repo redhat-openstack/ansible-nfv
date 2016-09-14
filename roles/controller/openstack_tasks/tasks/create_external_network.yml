@@ -4,7 +4,7 @@
   vars:
     ansible_python_interpreter: "/root/.venv/bin/python"
   os_network:
-    cloud: openstack  
+    cloud: openstack
     name: external
     state: present
     external: true
@@ -23,6 +23,7 @@
     allocation_pool_end: "{{ allocation_pool_end }}"
     cidr: "{{ cidr }}"
     dns_nameservers: "{{ dns_nameservers }}"
-    enable_dhcp: True
+    enable_dhcp: False
     network_name: external
+    gateway_ip: "{{ gateway_ip }}"
     state: present
