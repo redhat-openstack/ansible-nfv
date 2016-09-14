@@ -9,3 +9,4 @@ allocation_pool_start: 10.10.10.10
 allocation_pool_end: 10.10.10.50
 cidr: 10.10.10.0/24
 dns_nameservers: 10.35.28.28
+gateway_ip: 10.10.10.1
