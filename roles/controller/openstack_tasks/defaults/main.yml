@@ -1,0 +1,11 @@
+---
+## Network variables
+provider_network_type: vlan
+provider_physical_network: physnet
+provider_segmentation_id: 523
+
+### Subnet variables
+allocation_pool_start: 10.10.10.10
+allocation_pool_end: 10.10.10.50
+cidr: 10.10.10.0/24
+dns_nameservers: 10.35.28.28
