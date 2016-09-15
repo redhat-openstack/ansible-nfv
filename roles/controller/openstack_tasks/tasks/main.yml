@@ -2,12 +2,12 @@
 
 - name: Setup Openstack environment
   include: setup_openstack_env.yml
-  when: setup_openstack_env is defined
+  when: setup_openstack_env
 
 - name: Create external network and subnet
   include: create_external_network.yml
-  when: create_external_network is defined
+  when: create_external_network
 
 - name: Create router and set their externel
   include: create_external_router.yml
-  when: create_external_router is defined
+  when: create_external_router
