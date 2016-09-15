@@ -15,3 +15,10 @@ gateway_ip: 10.10.10.1
 create_external_network: True
 setup_openstack_env: True
 create_external_router: True
+upload_images: False
+
+#Default images to upload
+images:
+  - name: cirros
+    url: http://download.cirros-cloud.net/0.3.4/cirros-0.3.4-x86_64-disk.img
+    file: /tmp/cirros-0.3.4-x86_64-disk.img

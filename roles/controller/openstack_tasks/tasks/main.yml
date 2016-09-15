@@ -11,3 +11,7 @@
 - name: Create router and set their externel
   include: create_external_router.yml
   when: create_external_router
+
+- name: Upload images
+  include: upload_images.yml
+  when: upload_images
