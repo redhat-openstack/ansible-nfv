@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "baa041b7_ba6085a5",
+        "filename": "playbooks/openstack_tasks.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2016-09-15T11:59:49Z",
+      "side": 1,
+      "message": "Please, revert it to the original state.",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 34
+      },
+      "revId": "3044096211e8c91855267b741bf01c4035cd3539",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "baa041b7_da5d89ed",
+        "filename": "roles/controller/openstack_tasks/defaults/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2016-09-15T11:59:49Z",
+      "side": 1,
+      "message": "Please, change the name to the: ### Task execution variables",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 17
+      },
+      "revId": "3044096211e8c91855267b741bf01c4035cd3539",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
