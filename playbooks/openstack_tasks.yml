@@ -7,3 +7,4 @@
       create_external_network: True
       setup_openstack_env: True
       create_external_router: True
+      upload_images: False

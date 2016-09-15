@@ -1,0 +1,20 @@
+- name: Download images
+  get_url: url="{{ item.url }}" dest="{{ item.file }}"
+  with_items: "{{ images }}"
+
+- name: Upload images
+  vars:
+    ansible_python_interpreter: "/root/.venv/bin/python"
+  os_image:
+    cloud: openstack
+    name: "{{ item.name }}"
+    container_format: bare
+    disk_format: qcow2
+    state: present
+    filename: "{{ item.file }}"
+    is_public: yes
+  with_items: "{{ images }}"
+
+- name: Remove images files
+  file: path="{{ item.file }}"
+  with_items: "{{ images }}"
