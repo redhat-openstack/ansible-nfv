@@ -10,3 +10,8 @@ allocation_pool_end: 10.10.10.50
 cidr: 10.10.10.0/24
 dns_nameservers: 10.35.28.28
 gateway_ip: 10.10.10.1
+
+##Tasks variables
+create_external_network: True
+setup_openstack_env: True
+create_external_router: True
