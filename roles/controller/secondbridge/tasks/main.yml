@@ -1,5 +1,12 @@
 ---
 
+- name: Set default range
+  set_fact: vlan_ids="{{ vlan_id }}:{{ vlan_id }}"
+
+- name: Set Max range if defined
+  set_fact: vlan_ids="{{ vlan_id }}:{{ vlan_max_range }}"
+  when: "{{ vlan_max_range }} is defined"
+
 - name: Configure physnet2 vlan ids
   replace:
     backup: yes
