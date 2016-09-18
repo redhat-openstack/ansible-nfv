@@ -1,3 +1,6 @@
 ---
 
-vlan_ids: 506:506
+## Set the following arguments for physnet2 VLAN ids range
+## For 1 VLAN id, set only "provider_segmentation_id" variable.
+#provider_segmentation_id: 398
+#provider2_segmentation_id: 399
