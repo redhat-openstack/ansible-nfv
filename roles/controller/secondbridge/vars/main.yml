@@ -1,3 +1,7 @@
 ---
 
-vlan_ids: 506:506
+## Set the following arguments for physnet2 VLAN ids range
+## For 1 VLAN id, set only "vlan_id" variable, 
+##the "vlan_max_range" will set the maximum of the range
+#vlan_id: 398
+#vlan_max_range: 399
