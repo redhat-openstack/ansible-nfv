@@ -9,6 +9,12 @@ compute1 ansible_host=host_ip
 [tester]
 tester1 ansible_host=host_ip
 
+[moongen]
+moongen ansible_host=host_ip
+
 [openstack_nodes:children]
 controller
 compute
+
+[tester:children]
+moongen
