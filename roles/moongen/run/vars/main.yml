@@ -1,0 +1,15 @@
+---
+
+##MoonGen variables
+startRate: 11
+#Provide the VLANs of your network providers
+vlan_id: 396
+vlan_max_range: 400
+runBidirec: "true"
+searchRunTime: 30
+validationRunTime: 30
+acceptableLossPct: 0
+frameSize: 64
+srcMac: '{"a0:36:9f:22:e6:86", "a0:36:9f:22:e6:84"}'
+dstMac: '{"fa:16:3e:44:83:e9", "fa:16:3e:85:fd:14"}'
+ports: "{1,0}"

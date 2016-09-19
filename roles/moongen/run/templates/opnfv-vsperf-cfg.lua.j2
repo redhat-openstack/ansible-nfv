@@ -1,0 +1,14 @@
+VSPERF {
+startRate = {{ startRate }},
+nrFlows = 256,
+vlanIds = { {{ vlan_id }},{{ vlan_max_range }} },
+testType = "throughput",
+runBidirec = {{ runBidirec }},
+searchRunTime = {{ searchRunTime }},
+validationRunTime = {{ validationRunTime }},
+acceptableLossPct = {{ acceptableLossPct }},
+frameSize = 64,
+srcMacs = {{ srcMac }},
+dstMacs = {{ dstMac }},
+ports = {{ ports }},
+}
