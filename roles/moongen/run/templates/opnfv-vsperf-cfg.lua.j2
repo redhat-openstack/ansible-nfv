@@ -1,0 +1,14 @@
+VSPERF {
+startRate = {{ startRate }},
+nrFlows = 256,
+vlanIds = { {{ provider_segmentation_id }},{{ provider2_segmentation_id }} },
+testType = "throughput",
+runBidirec = {{ runBidirec }},
+searchRunTime = {{ searchRunTime }},
+validationRunTime = {{ validationRunTime }},
+acceptableLossPct = {{ acceptableLossPct }},
+frameSize = 64,
+srcMacs = {{ srcMac }},
+dstMacs = {{ dstMac }},
+ports = {{ ports }},
+}

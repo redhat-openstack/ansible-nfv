@@ -1,0 +1,32 @@
+---
+#- name: Tune the compute
+#  hosts: compute
+#  roles:
+#    - compute/tuned_configuration
+#
+#- name: Configure controller - DPDK second nic
+#  hosts: controller
+#  roles:
+#    - controller/secondbridge
+##vlan_ids: 506:506
+#
+#- name: Configure compute - DPDK second nic
+#  hosts: compute
+#  roles:
+#    - compute/secondbridge
+##bridge_vlan_name: br-vlan2
+#
+#- name: Install a rhel guest with TestPMD
+#  hosts: controller
+#  roles:
+#    - controller/testpmdinstall
+##provider_segmentation_id: 398
+##provider2_segmentation_id: 399
+#
+- name: MoonGen installation
+  hosts: moongen
+  roles:
+    - moongen/run
+#provider_segmentation_id: 398
+#provider2_segmentation_id: 399
+
