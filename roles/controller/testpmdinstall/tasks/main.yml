@@ -62,7 +62,7 @@
     external: true
     provider_network_type: "{{ provider_network_type }}"
     provider_physical_network: "{{ provider_physical_network }}"
-    provider_segmentation_id: "{{ provider_segmentation_id }}"
+    provider_segmentation_id: "{{ vlan_id }}"
   register: network_id
 
 - name: Create subnet
@@ -89,7 +89,7 @@
     external: true
     provider_network_type: "{{ provider2_network_type }}"
     provider_physical_network: "{{ provider2_physical_network }}"
-    provider_segmentation_id: "{{ provider2_segmentation_id }}"
+    provider_segmentation_id: "{{ vlan_max_range }}"
   register: network_id2
 
 - name: Create second subnet
@@ -146,7 +146,7 @@
     name: rhel
     container_format: bare
     disk_format: qcow2
-    filename: /root/rheltestpmd.qcow2
+    filename: "/root/{{ osp_image_name }}"
   register: image_id
 
 - name: Boot the VM
