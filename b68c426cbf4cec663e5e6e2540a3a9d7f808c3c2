@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "baa041b7_6584950a",
+        "filename": "roles/moongen/run/vars/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2016-09-20T07:09:13Z",
+      "side": 1,
+      "message": "Why this is hardcoded?\nMaybe it should be also commented in order to ensure, user providing the relevant srcMac addresses.\nWhat do you think?",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 52
+      },
+      "revId": "b68c426cbf4cec663e5e6e2540a3a9d7f808c3c2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
