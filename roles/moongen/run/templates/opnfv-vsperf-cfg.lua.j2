@@ -8,7 +8,11 @@ searchRunTime = {{ searchRunTime }},
 validationRunTime = {{ validationRunTime }},
 acceptableLossPct = {{ acceptableLossPct }},
 frameSize = 64,
-srcMacs = {{ srcMac }},
+{% if srcMac is not defined or srcMac == "" %}
+--srcMac = ,
+{% else %}
+srcMac = {{ srcMac }},
+{% endif %}
 {% if dstMac is not defined or dstMac == "" %}
 --dstMacs = ,
 {% else %}

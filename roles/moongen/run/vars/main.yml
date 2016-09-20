@@ -10,7 +10,8 @@ searchRunTime: 30
 validationRunTime: 30
 acceptableLossPct: 0
 frameSize: 64
+## Provide the Dst and Src MACs addr in case of SR-IOV use-cases
+## Provide the Dst MAC addr in case of DPDK use-cases
 #srcMac: '{"a0:36:9f:22:e6:86", "a0:36:9f:22:e6:84"}'
-## Provide the Dst MAC addr in case of SR-IOV use-cases
 #dstMac: '{"fa:16:3e:44:83:e9", "fa:16:3e:85:fd:14"}'
 ports: "{1,0}"
