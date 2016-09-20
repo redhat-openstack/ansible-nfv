@@ -2,12 +2,14 @@
 
 ### Openstack variables
 osp_image: http://file.tlv.redhat.com/~edannon/images/rhel72_testpmd_6cpus.qcow2
+osp_image_name: rhel72_testpmd_6cpus.qcow2
 keystone: /root/keystonerc_admin
 
 ### First Network variables
 provider_network_type: vlan
 provider_physical_network: physnet
-provider_segmentation_id: 398
+#provider_segmentation_id: 398
+vlan_id: 398
 
 ### First Subnet variables
 allocation_pool_start: 10.10.10.10
@@ -18,7 +20,8 @@ dns_nameservers: 10.35.28.28
 ### Second Network variables
 provider2_network_type: vlan
 provider2_physical_network: physnet2
-provider2_segmentation_id: 399
+#provider2_segmentation_id: 399
+vlan_max_range: 399
 
 ### Second Subnet variables
 allocation_pool_start2: 10.20.10.10
