@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "baa041b7_3ab8e374",
+        "filename": "roles/controller/openstack_tasks/tasks/port_security.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1008570
+      },
+      "writtenOn": "2016-09-21T10:29:03Z",
+      "side": 1,
+      "message": "Please see the following module:\nhttp://docs.ansible.com/ansible/os_network_module.html\n\nport_security_enabled \tThe port security status \t\tbool \tTrue",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 120
+      },
+      "revId": "39768e732dd441008a38933ed45b0f45e95eac7c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
