@@ -15,3 +15,7 @@
 - name: Upload images
   include: upload_images.yml
   when: upload_images
+
+- name: Enable port_security and Disable port_security for external network
+  include: port_security.yml
+  when: port_security
