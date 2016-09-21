@@ -177,15 +177,22 @@
 - meta: flush_handlers
 
 - name: Get old interface name
-  shell: "ovs-vsctl list-ports {{ bridge_vlan_name }} | grep -v 'phy-{{ bridge_vlan_name }}' | grep -v 'dpdk'"
+  shell: "ovs-vsctl list-ports {{ bridge_vlan_name }} | grep -v 'phy-' | grep -v 'dpdk'"
   ignore_errors: True
   register: old_port
 
-- name: Remove old ovs port
-  openvswitch_port:
-    bridge: "{{ bridge_vlan_name }}"
-    port: "{{ old_port.stdout }}"
-    state: absent
+- block:
+  - name: Remove old ovs port
+    openvswitch_port:
+      bridge: "{{ bridge_vlan_name }}"
+      port: "{{ old_port.stdout }}"
+      state: absent
+  
+  - name: Set the port ONBOOT state
+    lineinfile: 
+      dest: "/etc/sysconfig/network-scripts/ifcfg-{{ old_port.stdout }}"
+      regexp: "^ONBOOT="
+      line: "ONBOOT=no"
   when: old_port.stdout != ""
 
 - name: Check OVS "{{ bridge_vlan_name }}" datapath_type
