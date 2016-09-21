@@ -1,0 +1,12 @@
+---
+
+- name: Configure port security
+  hosts: controller
+  roles:
+#    - role: controller/openstack_tasks
+#      create_external_network: False
+#      setup_openstack_env: True
+#      create_external_router: False
+#      upload_images: False
+
+    - role: controller/port_security
