@@ -8,3 +8,4 @@
       setup_openstack_env: True
       create_external_router: True
       upload_images: False
+      port_security: False
