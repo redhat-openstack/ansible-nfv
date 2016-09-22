@@ -9,9 +9,9 @@ validationRunTime = {{ validationRunTime }},
 acceptableLossPct = {{ acceptableLossPct }},
 frameSize = 64,
 {% if srcMac is not defined or srcMac == "" %}
---srcMac = ,
+--srcMacs = ,
 {% else %}
-srcMac = {{ srcMac }},
+srcMacs = {{ srcMac }},
 {% endif %}
 {% if dstMac is not defined or dstMac == "" %}
 --dstMacs = ,
