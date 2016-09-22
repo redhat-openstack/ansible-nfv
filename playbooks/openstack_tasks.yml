@@ -3,7 +3,7 @@
 - name: Creates router, network, and host aggregation
   hosts: controller
   roles:
-    - role: controller/openstack_tasks
+    - role: openstack_tasks
       create_external_network: True
       setup_openstack_env: True
       create_external_router: True
