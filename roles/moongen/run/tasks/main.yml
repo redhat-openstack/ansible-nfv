@@ -3,15 +3,15 @@
 - name: Copy configuration file
   template:
     src: opnfv-vsperf-cfg.lua.j2
-    dest: /root/MoonGen/opnfv-vsperf-cfg.lua
+    dest: /mnt/MoonGen/opnfv-vsperf-cfg.lua
     owner: root
     group: root
     mode: 0644
 
 - name: Run MoonGen and save the output
-  shell: "/root/MoonGen/build/MoonGen /root/MoonGen/examples/opnfv-vsperf.lua | tee /tmp/MoonGenOutput.txt "
+  shell: "/mnt/MoonGen/build/MoonGen /mnt/MoonGen/examples/opnfv-vsperf.lua | tee /tmp/MoonGenOutput.txt "
   args:
-    chdir: '/root/MoonGen'
+    chdir: '/mnt/MoonGen'
 
 - wait_for: path=/tmp/MoonGenOutput.txt search_regex="Stopping final validation"
 
