@@ -1,0 +1,6 @@
+---
+
+- name: Restart Neutron server
+  service:
+    name: neutron-server
+    state: restarted
