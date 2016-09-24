@@ -1,5 +1,7 @@
 - name: Download images
-  get_url: url="{{ item.url }}" dest="{{ item.file }}"
+  get_url:
+    url: "{{ item.url }}"
+    dest: "{{ item.file }}"
   with_items: "{{ images }}"
 
 - name: Upload images
@@ -16,5 +18,7 @@
   with_items: "{{ images }}"
 
 - name: Remove images files
-  file: path="{{ item.file }}"
+  file:
+    path: "{{ item.file }}"
+    state: absent
   with_items: "{{ images }}"
