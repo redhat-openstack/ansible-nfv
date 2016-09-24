@@ -1,24 +1,42 @@
 ---
 
+- name: Check the existance of rc file
+  stat:
+    path: "{{ item }}"
+  with_items:
+    - "{{ ospd_rc_file }}"
+    - "{{ packstack_rc_file }}"
+  register: ospd_rc_file_locate
+
+- name: Set OSPD rc file to use
+  set_fact:
+    rc_file: "{{ ospd_rc_file }}"
+  when: ospd_rc_file_locate.results[0].stat.exists == True
+
+- name: Set Packstack rc file to use
+  set_fact:
+    rc_file: "{{ packstack_rc_file }}"
+  when: ospd_rc_file_locate.results[1].stat.exists == True
+
 - name: Register Auth URL
-  shell: "cat {{ keystone }} | grep AUTH | cut -d '=' -f 2"
+  shell: "cat {{ rc_file }} | grep AUTH | cut -d '=' -f 2"
   register: osp_auth
 
 - name: Register Username
-  shell: "cat {{ keystone }} | grep USERNAME | cut -d '=' -f 2"
+  shell: "cat {{ rc_file }} | grep USERNAME | cut -d '=' -f 2"
   register: osp_username
 
 - name: Register Tenant name
-  shell: "cat {{ keystone }} | grep TENANT | cut -d '=' -f 2"
+  shell: "cat {{ rc_file }} | grep TENANT | cut -d '=' -f 2"
   register: osp_tenant
 
 - name: Register Password
-  shell: "cat {{ keystone }} | grep OS_PASSWORD | cut -d '=' -f 2"
+  shell: "cat {{ rc_file }} | grep OS_PASSWORD | cut -d '=' -f 2"
   register: osp_password
 
 - name: Install packages and dependency
-  sudo: True
-  yum: 
+  become: True
+  yum:
     name: "{{ item }}"
     state: 'installed'
   with_items:
@@ -35,16 +53,16 @@
     - '@Development tools'
 
 - name: Git clone Tempest & Tempest-NFV-plugin
-  git: 
+  git:
     repo: "{{ item.url }}"
     dest: "{{ item.dest }}"
-    clone: yes 
+    clone: yes
     update: yes
   with_items:
     - { url: '{{ tempest_url }}', dest: "{{ tempest_dir }}/tempest" }
-    - { url: '{{ plugin_url }}', dest: "{{ tempest_dir }}/tempest-nfv-plugin" }
+    - { url: '{{ nfv_plugin_url }}', dest: "{{ tempest_dir }}/tempest-nfv-plugin" }
 
-- name: check if tempest.conf exists
+- name: Check if tempest.conf exists
   stat:
     path: '{{ tempest_dir }}/tempest/.venv/'
   register: venv
@@ -65,7 +83,7 @@
 - name: Copy requirments file
   copy:
     src: pip_ansible_openstack_packages.txt
-    dest: '{{ tempest_dir }}' 
+    dest: '{{ tempest_dir }}'
 
 - name: Install requirments for ansible
   pip:
@@ -91,10 +109,11 @@
   os_networks_facts:
     cloud: openstack
     name:  external
-- debug: var=openstack_networks
+- debug:
+    var: openstack_networks
 
-- name: check if tempest.conf exists
-  stat: 
+- name: Generate tempest.conf file
+  stat:
     path: '{{ tempest_dir }}/tempest/etc/tempest.conf'
   register: tempest_conf
 
@@ -104,14 +123,13 @@
   shell: '{{ tempest_dir }}/tempest/.venv/bin/python {{ tempest_dir }}/tempest/tools/config_tempest.py --create --debug --image {{ osp_image }} identity.uri {{ osp_auth.stdout }} identity.admin_password {{ osp_password.stdout }}  --network-id {{ openstack_networks[0].id }}'
   args:
     chdir: '{{ tempest_dir }}/tempest'
-  when: tempest_conf.stat.exists == False
 
 - name: Changing the image_ssh_user value
   lineinfile:
     dest: '{{ tempest_dir }}/tempest/etc/tempest.conf'
     regexp: "^image_ssh_user"
     line: "image_ssh_user = {{ image_ssh_user }}"
-  when: port_vnic_type == 'true'
+  when: image_ssh_user is defined
 
 - name: Adding port_vnic_type variable
   ini_file:
@@ -119,11 +137,11 @@
     section: network
     option: port_vnic_type
     value: direct
-  when: port_vnic_type == 'true'
+  when: 'port_vnic_type|bool == true'
 
 - name: Run TestServerBasicOps Test
   shell: >
-    source /root/keystonerc_admin;
+    source "{{rc_file}}";
     source /mnt/tempest/.venv/bin/activate;
     cd /mnt/tempest;
     /usr/bin/bash /mnt/tempest/tools/run-tests.sh tempest.scenario.test_server_basic_ops.TestServerBasicOps >> /mnt/tempest/tempest-output.txt

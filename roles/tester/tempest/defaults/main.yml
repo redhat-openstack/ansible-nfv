@@ -1,0 +1,13 @@
+---
+## Tempest variables
+## If you would like to change an image to other than cirros,
+## uncomment the 'image_ssh_user' var and define the username for your image.
+#image_ssh_user: centos
+osp_image: http://download.cirros-cloud.net/0.3.4/cirros-0.3.4-x86_64-disk.img
+
+## Port_vnic_type direct
+## To use the port_vnic_type direct, please use image other that cirros for driver compability.
+port_vnic_type: false
+
+## Run tests which got 'run' Value
+TestServerBasicOps: dont_run
