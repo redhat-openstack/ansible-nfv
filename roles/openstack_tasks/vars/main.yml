@@ -1,3 +1,4 @@
 ---
 ## Openstack variables
-keystone: /root/keystonerc_admin
+ospd_rc_file: /home/stack/overcloudrc
+packstack_rc_file: /root/keystonerc_admin
