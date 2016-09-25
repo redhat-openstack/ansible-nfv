@@ -123,7 +123,7 @@
 
 - name: Check if RHEL image exists
   stat:
-    path: /root/rheltestpmd.qcow2
+    path: "/root/{{ osp_image_name }}"
   register: image
 
 - name: Download image
