@@ -59,6 +59,13 @@
     clone: yes 
     update: yes
     force: yes
+    version: opnfv-stable
+
+- name: Remove KNI module
+  lineinfile: 
+    dest: /mnt/MoonGen/CMakeLists.txt 
+    state: absent 
+    regexp: "src/kni.c"
 
 - name: Check device for DPDK
   shell: "/mnt/MoonGen/deps/dpdk/tools/dpdk_nic_bind.py -s | awk '/{{ dpdk_nic_name }}/ {print $1}'"
