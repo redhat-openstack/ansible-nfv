@@ -1,0 +1,10 @@
+---
+## Tempest variables
+image_ssh_user: centos
+osp_image: http://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud.qcow2
+
+## Port_vnic_type direct
+port_vnic_type: false
+
+## Run tests which got 'run' Value
+TestServerBasicOps: dont_run
