@@ -31,17 +31,17 @@
   always_run: yes
 
 - name: Check the existence of dirver config file
-  stat: 
+  stat:
     path: "/etc/modprobe.d/{{ hostvars[inventory_hostname]['ansible_{0}'.format(interface)].module }}.conf"
   register: driver_module
 
 - name: Check the existence of dist.conf file
-  stat: 
+  stat:
     path: /etc/modprobe.d/dist.conf
   register: dist
 
 - name: Create a new configuration file
-  file: 
+  file:
     path: "/etc/modprobe.d/{{ item }}"
     state: touch
   with_items:
@@ -94,27 +94,29 @@
     - { file: '/etc/nova/nova.conf', section: 'DEFAULT', option: 'pci_passthrough_whitelist',value: '"{"devname": "{{ interface }}", "physical_network":"physnet"}"' }
   notify: 'Restart nova compute service'
 
-- name: Install the latest version of openstack-neutron-sriov-nic-agent
-  yum: 
-    name: openstack-neutron-sriov-nic-agent 
-    state: latest
+- block:
+    - name: Install the latest version of openstack-neutron-sriov-nic-agent
+      yum:
+        name: openstack-neutron-sriov-nic-agent
+        state: latest
 
-- name:  Configure SR-IOV agent
-  ini_file:
-    dest: "{{ item.file }}"
-    section: "{{ item.section }}"
-    option: "{{ item.option }}"
-    value: "{{item.value}}"
-  with_items:
-    - { file: '/etc/neutron/plugins/ml2/sriov_agent.ini', section: 'sriov_nic', option: 'physical_device_mappings',value: "physnet:{{ interface }}" }
-    - { file: '/etc/neutron/plugins/ml2/openvswitch_agent.ini', section: 'securitygroup', option: 'firewall_driver',value: 'neutron.agent.firewall.NoopFirewallDriver' }
-  register: sriov_agent
+    - name:  Configure SR-IOV agent
+      ini_file:
+        dest: "{{ item.file }}"
+        section: "{{ item.section }}"
+        option: "{{ item.option }}"
+        value: "{{item.value}}"
+      with_items:
+        - { file: '/etc/neutron/plugins/ml2/sriov_agent.ini', section: 'sriov_nic', option: 'physical_device_mappings',value: "physnet:{{ interface }}" }
+        - { file: '/etc/neutron/plugins/ml2/openvswitch_agent.ini', section: 'securitygroup', option: 'firewall_driver',value: 'neutron.agent.firewall.NoopFirewallDriver' }
+      register: sriov_agent
 
-- name: Start and enable neutron-sriov-nic-agent
-  service:
-    name: neutron-sriov-nic-agent
-    state: started
-    enabled: True
+    - name: Start and enable neutron-sriov-nic-agent
+      service:
+        name: neutron-sriov-nic-agent
+        state: started
+        enabled: True
+  when: 'sriov_agent_install|bool == true'
 
 - name: Restart the server
   shell: sleep 2 && shutdown -r now "Ansible updates triggered"
