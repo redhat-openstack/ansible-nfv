@@ -1,6 +1,6 @@
 ---
 
-- name: Compute - DPDK
+- name: DPDK
   hosts: compute
   roles:
-    - compute/dpdk
+    - dpdk/compute
