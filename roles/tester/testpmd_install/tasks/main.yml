@@ -1,0 +1,51 @@
+---
+
+- name: Verifying the current branch
+  shell: >
+    /usr/bin/git branch  | sed 's/[()]//g' | grep v | awk '{print $4}'
+  args:
+    chdir: /root/dpdk
+  register: git_branch
+
+- block:
+  - name: Installing packages for the DPDK tools
+    yum:
+      state: latest
+      name: "{{ item }}"
+    with_items:
+      - git
+      - gcc
+      - make
+      - cmake
+      - gcc-c++
+      - pciutils
+      - glibc-devel
+      - libpcap-devel
+      - glibc-headers
+      - kernel-headers
+      - "kernel-devel-{{ ansible_kernel }}"
+
+  - name: Clonning the DPDK tools "{{ version }}"
+    git:
+      repo: git://dpdk.org/dpdk
+      version: '"{{ version }}"'
+      dest: /root/dpdk
+      clone: yes
+      force: yes
+
+  - name: Configuring the "/root/dpdk/config/common_linuxapp" file
+    lineinfile:
+      dest: /root/dpdk/config/common_linuxapp
+      regexp: "{{ item.regexp }}"
+      line: "{{ item.line }}"
+    with_items:
+      - { regexp: 'CONFIG_RTE_KNI_KMOD=', line: 'CONFIG_RTE_KNI_KMOD=n' }
+      - { regexp: 'CONFIG_RTE_LIBRTE_KNI=', line: 'CONFIG_RTE_LIBRTE_KNI=n' }
+
+  - name: Compiling and installing the DPDK tools "{{ version }}"
+    shell: >
+      /usr/bin/make config T=x86_64-native-linuxapp-gcc;
+      /usr/bin/make
+    args:
+      chdir: /root/dpdk
+  when:  git_branch.stdout != version
