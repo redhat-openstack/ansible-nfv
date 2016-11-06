@@ -4,7 +4,7 @@
     dest: /etc/neutron/plugins/ml2/ml2_conf.ini
     backrefs: yes
     state: present
-    regexp: 'extension_drivers.*=(?!.*port_security)(.*)'
+    regexp: '^extension_drivers.*=(?!.*port_security)(.*)'
     line: 'extension_drivers=\1,port_security'
   register: port_sec
   notify: Restart Neutron server
