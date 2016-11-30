@@ -14,7 +14,7 @@
     backrefs: yes
   with_items:
     - { regex: 'intel_iommu=on', context: 'intel_iommu=on' }
-    - { regex: 'iommu=on', context: 'iommu=on' }
+    - { regex: 'iommu=pt', context: 'iommu=pt' }
     - { regex: 'hugepagesz=', context: 'hugepagesz={{ hugepages_size }} default_hugepagesz={{ hugepages_size }} hugepages={{ hugepages_count }}' }
   register: grub
 
@@ -34,9 +34,10 @@
     state: absent
   when: item.repo == 'installed' and item.name == 'openvswitch'
   with_items: "{{ ovs_dpdk_pkg.results }}"
+  register: ovs_package_remove
 
 - name: Switch OVS package to OVDK package
-  yum: 
+  yum:
     name: "{{ item.name }}"
     state: "{{ item.state }}"
   with_items:
@@ -50,7 +51,7 @@
 - meta: flush_handlers
 
 - name: Install DPDK and management packages
-  yum: 
+  yum:
     name: "{{ item.package }}"
     update_cache: yes
     state: latest
@@ -60,7 +61,7 @@
     - { package: 'driverctl' }
 
 - name: Set DPDK_OPTIONS
-  lineinfile: 
+  lineinfile:
     dest: /etc/sysconfig/openvswitch
     regexp: "^DPDK_OPTIONS"
     line: 'DPDK_OPTIONS="-l {{ cores_ovs }} -n 4 --socket-mem 1024,0"'
@@ -93,7 +94,7 @@
     owner: root
     group: neutron
     mode: 0640
-  when: ovdk_install.changed
+  when: ovdk_install.changed and ovs_package_remove.changed
 
 - name: Enable OVS+DPDK in openvswitch agent
   ini_file:
@@ -187,9 +188,9 @@
       bridge: "{{ bridge_vlan_name }}"
       port: "{{ old_port.stdout }}"
       state: absent
-  
+
   - name: Set the port ONBOOT state
-    lineinfile: 
+    lineinfile:
       dest: "/etc/sysconfig/network-scripts/ifcfg-{{ old_port.stdout }}"
       regexp: "^ONBOOT="
       line: "ONBOOT=no"
@@ -222,17 +223,17 @@
       owner: root
       group: root
       mode: 0755
-  
+
   - name : Execute script and calculate Hex PMDs
     command : '/usr/bin/python /tmp/translate-pmds-to-hex.py'
     register: hex_pmds
-  
+
   - name: Set the number of PMDs
-    openvswitch_db: 
+    openvswitch_db:
       table: Open_vSwitch
       record: .
       col: other_config
-      key: pmd-cpu-mask 
+      key: pmd-cpu-mask
       value: "0x{{ hex_pmds.stdout }}"
   when: list_pmds is defined
 
@@ -247,6 +248,6 @@
   local_action: wait_for host="{{ ansible_default_ipv4.address }}" search_regex="OpenSSH" port=22 timeout=300 connect_timeout=30 delay=5
 
 - name: Delete python script
-  file: 
+  file:
     path: /tmp/translate-pmds-to-hex.py
     state: absent
