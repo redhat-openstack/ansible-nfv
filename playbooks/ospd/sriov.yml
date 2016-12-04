@@ -1,0 +1,17 @@
+---
+
+- name: SRIOV - Compute
+  hosts: compute
+  roles:
+    - sriov/compute
+  become: True
+  become_method: sudo
+  become_user: root
+
+- name: SRIOV - Controller
+  hosts: controller
+  roles:
+    - sriov/controller
+  become: True
+  become_method: sudo
+  become_user: root
