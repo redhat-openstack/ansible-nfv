@@ -7,8 +7,8 @@ cores_ovs: 2
 dpdk_nic_name: enp5s0f1
 bridge_vlan_name: br-vlan
 
-openvswitch_dpdk_package_url: 'http://download.eng.bos.redhat.com/brewroot/packages/openvswitch-dpdk/2.4.0/0.10346.git97bab959.2.el7/x86_64/openvswitch-dpdk-2.4.0-0.10346.git97bab959.2.el7.x86_64.rpm'
- 
+## Physical network that is used for sriov
+physical_network: physnet
 
 ## The following value sets the number of PMD the openvswitch will use, please provide them as list.
 ## In case of HT mode, please use sibling threads.
