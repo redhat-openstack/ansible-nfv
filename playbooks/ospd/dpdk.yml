@@ -1,0 +1,10 @@
+---
+
+- name: DPDK - Compute
+  hosts: compute
+  roles:
+    - dpdk/compute
+  become: True
+  become_method: sudo
+  become_user: root
+
