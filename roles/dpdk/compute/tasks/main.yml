@@ -23,33 +23,6 @@
   when: grub.changed
   register: makegrub
 
-- name: Check for the openvswitch-dpdk package
-  yum:
-   list: openvswitch
-  register: ovs_dpdk_pkg
-
-- name: Remove old openvswitch package
-  yum:
-    name: openvswitch
-    state: absent
-  when: item.repo == 'installed' and item.name == 'openvswitch'
-  with_items: "{{ ovs_dpdk_pkg.results }}"
-  register: ovs_package_remove
-
-- name: Switch OVS package to OVDK package
-  yum:
-    name: "{{ item.name }}"
-    state: "{{ item.state }}"
-  with_items:
-    - { name: '{{ openvswitch_dpdk_package_url }}', state: 'installed' }
-    - { name: 'openstack-neutron-openvswitch', state: 'installed' }
-  register: ovdk_install
-  notify:
-    - 'Restart and enable neutron-openvswitch-agent service'
-    - 'Restart and enable OVDK service'
-
-- meta: flush_handlers
-
 - name: Install DPDK and management packages
   yum:
     name: "{{ item.package }}"
@@ -86,16 +59,6 @@
     line: "ONBOOT=no"
     backrefs: yes
 
-- name: Copy openvswitch_agent.ini.rpmsave to openvswitch_agent.ini
-  copy:
-    remote_src: True
-    src: /etc/neutron/plugins/ml2/openvswitch_agent.ini.rpmsave
-    dest: /etc/neutron/plugins/ml2/openvswitch_agent.ini
-    owner: root
-    group: neutron
-    mode: 0640
-  when: ovdk_install.changed and ovs_package_remove.changed
-
 - name: Enable OVS+DPDK in openvswitch agent
   ini_file:
     dest: /etc/neutron/plugins/ml2/openvswitch_agent.ini
@@ -105,7 +68,7 @@
   with_items:
     - { sec: 'ovs', key: 'datapath_type', value: 'netdev' }
     - { sec: 'ovs', key: 'vhostuser_socket_dir', value: '/var/run/openvswitch' }
-    - { sec: 'ovs', key: 'bridge_mappings', value: 'physnet:{{ bridge_vlan_name }}' }
+    - { sec: 'ovs', key: 'bridge_mappings', value: '{{ physical_network }}:{{ bridge_vlan_name }}' }
     - { sec: 'agent', key: 'prevent_arp_spoofing', value: 'False' }
 
 - name: Uncomment scheduler_default_filters line
@@ -134,7 +97,7 @@
     section: Service
     option: '{{ item.key }}'
     value: '{{ item.value }}'
-#    no_extra_spaces: True   #The option should be enabled when Automation team will upgrade Jensins ansible to 2.1.0.0 version.
+    no_extra_spaces: True
   with_items:
     - { key: 'RuntimeDirectoryMode', value: '0775' }
     - { key: 'Group', value: 'qemu' }
@@ -162,6 +125,7 @@
 
 - name: Wait for server to restart successfully
   local_action: wait_for host="{{ ansible_default_ipv4.address }}" search_regex="OpenSSH" port=22 timeout=300 connect_timeout=30 delay=5
+  become: false
 
 - name: Check device for DPDK
   shell: "dpdk_nic_bind -s | awk '/{{ dpdk_nic_name }}/ {print $1}'"
@@ -224,8 +188,8 @@
       group: root
       mode: 0755
 
-  - name : Execute script and calculate Hex PMDs
-    command : '/usr/bin/python /tmp/translate-pmds-to-hex.py'
+  - name: Execute script and calculate Hex PMDs
+    command: '/usr/bin/python /tmp/translate-pmds-to-hex.py'
     register: hex_pmds
 
   - name: Set the number of PMDs
@@ -246,6 +210,7 @@
 
 - name: Wait for server to restart successfully
   local_action: wait_for host="{{ ansible_default_ipv4.address }}" search_regex="OpenSSH" port=22 timeout=300 connect_timeout=30 delay=5
+  become: false
 
 - name: Delete python script
   file:
