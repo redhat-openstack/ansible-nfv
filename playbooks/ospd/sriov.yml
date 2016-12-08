@@ -1,5 +1,8 @@
 ---
 
+- name: Overcloud repo install
+  include: overcloud_repo_install.yml
+
 - name: SRIOV - Compute
   hosts: compute
   roles:
