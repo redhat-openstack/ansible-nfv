@@ -38,7 +38,7 @@
     dest: /etc/sysconfig/openvswitch
     regexp: "^DPDK_OPTIONS"
     line: 'DPDK_OPTIONS="-l {{ cores_ovs }} -n 4 --socket-mem 1024,0"'
-  notify: 'Restart and enable OVDK service'
+  notify: 'Restart and enable OVS service'
 
 - name: Load vfio_pci module to the kernel
   modprobe:
@@ -91,20 +91,41 @@
     - { context: 'PciPassthroughFilter' }
   notify: 'Restart openstack-nova-compute service'
 
-- name: Set vhostuser ports ownership to qemu
-  ini_file:
-    dest: /usr/lib/systemd/system/openvswitch-nonetwork.service
-    section: Service
-    option: '{{ item.key }}'
-    value: '{{ item.value }}'
-    no_extra_spaces: True
-  with_items:
-    - { key: 'RuntimeDirectoryMode', value: '0775' }
-    - { key: 'Group', value: 'qemu' }
-    - { key: 'UMask', value: '0002' }
-  notify:
-    - 'Reload the systemctl daemon'
-    - 'Restart the openvswitch-nonetwork service'
+# Start from OVS version 2.5.0-22, there is a service change from openvswitch-nonetwork
+# to ovs-vswitchd. The proper existing path to service should to be identified.
+- block:
+    - name: Check if openvswitch-nonetwork service exists
+      stat:
+        path: /usr/lib/systemd/system/openvswitch-nonetwork.service
+      register: nonetwork_service_path
+
+    - set_fact:
+        service_path: /usr/lib/systemd/system/openvswitch-nonetwork.service
+      when: nonetwork_service_path.stat.exists
+
+    - name: Check if ovs-vswitchd service exists
+      stat:
+        path: /usr/lib/systemd/system/ovs-vswitchd.service
+      register: ovs_vswitchd_service_path
+
+    - set_fact:
+        service_path: /usr/lib/systemd/system/ovs-vswitchd.service
+      when: ovs_vswitchd_service_path.stat.exists
+
+    - name: Set vhostuser ports ownership to qemu
+      ini_file:
+        dest: "{{ service_path }}"
+        section: Service
+        option: '{{ item.key }}'
+        value: '{{ item.value }}'
+        no_extra_spaces: True
+      with_items:
+        - { key: 'RuntimeDirectoryMode', value: '0775' }
+        - { key: 'Group', value: 'qemu' }
+        - { key: 'UMask', value: '0002' }
+      notify:
+        - 'Reload the systemctl daemon'
+        - 'Restart and enable OVS service'
 
 - name: Set vhostuser ports umask
   lineinfile:
@@ -114,7 +135,7 @@
     backrefs: yes
   notify:
     - 'Reload the systemctl daemon'
-    - 'Restart the openvswitch-nonetwork service'
+    - 'Restart and enable OVS service'
 
 - name: Restart machine
   shell: sleep 2 && shutdown -r now "Ansible updates triggered"
@@ -137,7 +158,7 @@
   command: /usr/sbin/driverctl set-override "{{ dpdk_bind_check.stdout }}" vfio-pci
   register: dpdk_bind
   when: dpdk_bind_check.stdout.strip() != ""
-  notify: 'Restart and enable OVDK service'
+  notify: 'Restart and enable OVS service'
 
 - meta: flush_handlers
 
