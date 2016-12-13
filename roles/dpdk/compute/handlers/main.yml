@@ -3,11 +3,6 @@
 - name: 'Reload the systemctl daemon'
   command: systemctl daemon-reload
 
-- name: 'Restart the openvswitch-nonetwork service'
-  service:
-    name: openvswitch-nonetwork.service
-    state: restarted
-
 - name: 'Restart openstack-nova-compute service'
   service:
     name: openstack-nova-compute.service
@@ -19,9 +14,8 @@
     enabled: yes
     state: restarted
 
-- name: 'Restart and enable OVDK service'
+- name: 'Restart and enable OVS service'
   service:
     name: openvswitch.service
     enabled: yes
     state: restarted
-
