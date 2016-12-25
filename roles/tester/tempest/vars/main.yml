@@ -4,6 +4,6 @@ ospd_rc_file: /home/stack/overcloudrc
 packstack_rc_file: /root/keystonerc_admin
 
 ## Tempest variables
-tempest_dir: /mnt
+tempest_dir: /root
 tempest_url: https://github.com/redhat-openstack/tempest
 nfv_plugin_url: https://review.gerrithub.io/redhat-openstack/tempest-nfv-plugin
