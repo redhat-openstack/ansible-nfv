@@ -3,11 +3,10 @@
 - name: Creates network
   hosts: undercloud
   roles:
-    - { role: openstack_tasks, create_external_network: True, setup_openstack_env: True }
+    - { role: openstack_tasks, setup_openstack_env: True, routers_and_networks: True }
   become: True
   become_method: sudo
   become_user: root
-
 
 - name: Tempest installation and configuration
   hosts: tester
@@ -16,4 +15,3 @@
   become: True
   become_method: sudo
   become_user: root
-

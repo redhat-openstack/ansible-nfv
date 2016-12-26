@@ -1,11 +1,13 @@
 ---
 
-- name: Creates router, network, and host aggregation
+- name: Openstack tasks
   hosts: undercloud
   roles:
     - role: openstack_tasks
-      create_external_network: True
       setup_openstack_env: True
-      create_external_router: True
+      routers_and_networks: True
       upload_images: False
       port_security: False
+  become: True
+  become_method: sudo
+  become_user: root

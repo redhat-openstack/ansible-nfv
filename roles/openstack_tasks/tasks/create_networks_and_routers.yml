@@ -1,0 +1,57 @@
+---
+
+- name: Create networks
+  vars:
+    ansible_python_interpreter: "/root/.venv/bin/python"
+  os_network:
+    cloud: openstack
+    name: "{{ item.name }}"
+    provider_network_type: "{{ network_type }}"
+    provider_physical_network: "{{ item.physical_network }}"
+    provider_segmentation_id: "{{ item.segmentation_id }}"
+    external: "{{ item.external | default('false') }}"
+    state: present
+  with_items: "{{ networks }}"
+
+- name: Create subnets
+  vars:
+    ansible_python_interpreter: "/root/.venv/bin/python"
+  os_subnet:
+    cloud: openstack
+    name: "{{ item.name }}_subnet"
+    allocation_pool_start: "{{ item.allocation_pool_start | default(omit) }}"
+    allocation_pool_end: "{{ item.allocation_pool_end | default(omit) }}"
+    cidr: "{{ item.cidr }}"
+    dns_nameservers: "{{ dns_nameservers }}"
+    enable_dhcp: "{{ item.enable_dhcp }}"
+    network_name: "{{ item.name }}"
+    gateway_ip: "{{ item.gateway_ip }}"
+    state: present
+  with_items: "{{ networks }}"
+  register: openstack_networks
+
+- name: Create router and set router gateway
+  vars:
+    ansible_python_interpreter: "/root/.venv/bin/python"
+  os_router:
+    cloud: openstack
+    name: "{{ item[0].router_name }}"
+    network: "{{ item[0].name }}"
+    state: present
+  when: "item[1].item.external is defined and item[1].item.external == true"
+  with_together:
+    - "{{ networks }}"
+    - "{{ openstack_networks.results }}"
+
+- name: Set router interface
+  vars:
+    ansible_python_interpreter: "/root/.venv/bin/python"
+  os_router:
+    cloud: openstack
+    name: "{{ item[0].router_name }}"
+    interfaces: "{{ item[0].name }}_subnet"
+    state: present
+  when: "item[1].item.external is not defined or item[1].item.external == false"
+  with_together:
+    - "{{ networks }}"
+    - "{{ openstack_networks.results }}"
