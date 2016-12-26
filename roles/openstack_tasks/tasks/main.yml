@@ -4,13 +4,9 @@
   include: setup_openstack_env.yml
   when: setup_openstack_env
 
-- name: Create external network and subnet
-  include: create_external_network.yml
-  when: create_external_network
-
-- name: Create router and set their externel
-  include: create_external_router.yml
-  when: create_external_router
+- name: Create router and networks
+  include: create_networks_and_routers.yml
+  when: routers_and_networks
 
 - name: Upload images
   include: upload_images.yml
