@@ -64,7 +64,7 @@
 
 - name: Check if tempest.conf exists
   stat:
-    path: '{{ tempest_dir }}/tempest/.venv/'
+    path: '{{ tempest_dir }}/tempest/etc/tempest.conf'
   register: venv
 
 - name: Run install_venv.py script
@@ -73,12 +73,15 @@
     chdir: '{{ tempest_dir }}/tempest'
   when: venv.stat.exists == False
 
-- name: Install Tempest_plugin in our Virtual env
-  pip:
-    name: '{{ tempest_dir }}/tempest-nfv-plugin/tempest_plugin/'
-    virtualenv: '{{ tempest_dir }}/tempest/.venv'
-    extra_args: -e
+- name: Install pip requirments
+  shell: "source /root/.venv/bin/activate; pip install {{ item.extra }} {{ item.name }}"
+  with_items:
+    - { extra: '-U', name: 'pip' }
+    - { extra: '-U', name: 'python-subunit' }
+    - { extra: '-e', name: '/root/tempest/' }
+    - { extra: '-e', name: '/root/tempest-nfv-plugin/tempest_plugin/' }
   when: venv.stat.exists == False
+
 
 - name: Copy requirments file
   copy:
