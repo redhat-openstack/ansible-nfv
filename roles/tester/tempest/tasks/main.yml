@@ -9,6 +9,7 @@
   register: ospd_rc_file_locate
 
 - name: Set OSPD rc file to use
+  tags: test
   set_fact:
     rc_file: "{{ ospd_rc_file }}"
   when: ospd_rc_file_locate.results[0].stat.exists == True
@@ -109,7 +110,9 @@
   os_networks_facts:
     cloud: openstack
     name:  external
-- debug:
+
+- name: debug
+  debug:
     var: openstack_networks
 
 - name: Generate tempest.conf file
@@ -120,7 +123,7 @@
 - name: Run config_tempest script
   vars:
     ansible_python_interpreter: "/root/tempest/.venv/bin/python"
-  shell: '{{ tempest_dir }}/tempest/.venv/bin/python {{ tempest_dir }}/tempest/tools/config_tempest.py --create --debug --image {{ osp_image }} identity.uri {{ osp_auth.stdout }} identity.admin_password {{ osp_password.stdout }}  --network-id {{ openstack_networks[0].id }}'
+  shell: '{{ tempest_dir }}/tempest/.venv/bin/python {{ tempest_dir }}/tempest/tools/config_tempest.py --create --debug --image {{ osp_image }} identity.uri {{ osp_auth.stdout }} identity.admin_password {{ osp_password.stdout }}  --network-id {{ openstack_networks.results[0].subnet.network_id }}'
   args:
     chdir: '{{ tempest_dir }}/tempest'
 
@@ -144,5 +147,5 @@
     source "{{rc_file}}";
     source /root/tempest/.venv/bin/activate;
     cd /root/tempest;
-    /usr/bin/bash /root/tempest/tools/run-tests.sh tempest.scenario.test_server_basic_ops.TestServerBasicOps >> /root/tempest/tempest-output.txt
-  when: TestServerBasicOps == 'run'
+    /usr/bin/bash /root/tempest/tools/run-tests.sh {{ item }} >> /root/tempest/tempest-output.txt
+  with_items: "{{ tempest_tests }}"
