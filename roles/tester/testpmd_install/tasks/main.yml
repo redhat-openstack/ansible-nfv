@@ -1,11 +1,16 @@
 ---
 
+- name: Checking if the DPDK tools were installed
+  stat:
+    path: /root/dpdk/
+  register: dpdk_folder
+
 - name: Verifying the current branch
-  shell: >
-    /usr/bin/git branch  | sed 's/[()]//g' | grep v | awk '{print $4}'
+  shell: /usr/bin/git branch  | sed 's/[()]//g' | grep v | awk '{print $4}'
   args:
     chdir: /root/dpdk
   register: git_branch
+  when: dpdk_folder.stat.exists == True
 
 - block:
   - name: Installing packages for the DPDK tools
@@ -20,7 +25,6 @@
       - gcc-c++
       - pciutils
       - glibc-devel
-      - libpcap-devel
       - glibc-headers
       - kernel-headers
       - "kernel-devel-{{ ansible_kernel }}"
@@ -48,4 +52,5 @@
       /usr/bin/make
     args:
       chdir: /root/dpdk
-  when:  git_branch.stdout != version
+
+  when: dpdk_folder.stat.exists == False or git_branch.stdout != version
