@@ -1,7 +1,7 @@
 - name: Download images
   get_url:
     url: "{{ item.url }}"
-    dest: "{{ item.file }}"
+    dest: "/tmp/{{ item.url | basename }}"
   with_items: "{{ images }}"
 
 - name: Upload images
@@ -13,12 +13,12 @@
     container_format: bare
     disk_format: qcow2
     state: present
-    filename: "{{ item.file }}"
+    filename: "/tmp/{{ item.url | basename }}"
     is_public: yes
   with_items: "{{ images }}"
 
 - name: Remove images files
   file:
-    path: "{{ item.file }}"
+    path: "/tmp/{{ item.url | basename }}"
     state: absent
   with_items: "{{ images }}"
