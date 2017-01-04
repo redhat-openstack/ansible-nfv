@@ -1,4 +1,10 @@
 ---
+### Task execution variables
+setup_openstack_env: True
+routers_and_networks: True
+upload_images: False
+port_security: False
+
 ### Networks
 ### Define the networks that should be created on the overcloud,
 ### 'External: true' value could be defined just for the external network.
@@ -28,14 +34,7 @@ dns_nameservers:
   - 8.8.8.8
   - 8.8.4.4
 
-### Task execution variables
-setup_openstack_env: True
-routers_and_networks: True
-upload_images: False
-port_security: False
-
 #Default images to upload
 images:
   - name: cirros
     url: http://download.cirros-cloud.net/0.3.4/cirros-0.3.4-x86_64-disk.img
-    file: /tmp/cirros-0.3.4-x86_64-disk.img
