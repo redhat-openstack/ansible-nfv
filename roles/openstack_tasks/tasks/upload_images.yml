@@ -2,6 +2,7 @@
   get_url:
     url: "{{ item.url }}"
     dest: "/tmp/{{ item.url | basename }}"
+    timeout: 100
   with_items: "{{ images }}"
 
 - name: Upload images
