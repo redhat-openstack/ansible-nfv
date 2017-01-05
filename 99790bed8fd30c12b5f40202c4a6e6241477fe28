@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fabf19d9_34529714",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-01-05T12:35:10Z",
+      "side": 1,
+      "message": "The line is too long.\nSet it as:\n\nshell: \u003e\n  first part of the line\n  second part of the line\n  third part of the line\n\nBecause of the \u003e sign, it will be passed as a single line.",
+      "range": {
+        "startLine": 125,
+        "startChar": 2,
+        "endLine": 125,
+        "endChar": 297
+      },
+      "revId": "99790bed8fd30c12b5f40202c4a6e6241477fe28",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fabf19d9_f45bff2c",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-01-05T12:35:10Z",
+      "side": 1,
+      "message": "Remove the \u0027 sign",
+      "range": {
+        "startLine": 141,
+        "startChar": 18,
+        "endLine": 141,
+        "endChar": 19
+      },
+      "revId": "99790bed8fd30c12b5f40202c4a6e6241477fe28",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fabf19d9_14579303",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-01-05T12:35:10Z",
+      "side": 1,
+      "message": "The line is too long.\nSet it as:\n\nshell: \u003e\n  first part of the line\n  second part of the line\n  third part of the line\n\nBecause of the \u003e sign, it will be passed as a single line.",
+      "range": {
+        "startLine": 142,
+        "startChar": 2,
+        "endLine": 142,
+        "endChar": 264
+      },
+      "revId": "99790bed8fd30c12b5f40202c4a6e6241477fe28",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
