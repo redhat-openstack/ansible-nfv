@@ -1,6 +1,7 @@
 ---
 
 - name: Check the existance of rc file
+  tags: test
   stat:
     path: "{{ item }}"
   with_items:
@@ -15,27 +16,33 @@
   when: ospd_rc_file_locate.results[0].stat.exists == True
 
 - name: Set Packstack rc file to use
+  tags: test
   set_fact:
     rc_file: "{{ packstack_rc_file }}"
   when: ospd_rc_file_locate.results[1].stat.exists == True
 
 - name: Register Auth URL
+  tags: test
   shell: "cat {{ rc_file }} | grep AUTH | cut -d '=' -f 2"
   register: osp_auth
 
 - name: Register Username
+  tags: test
   shell: "cat {{ rc_file }} | grep USERNAME | cut -d '=' -f 2"
   register: osp_username
 
 - name: Register Tenant name
+  tags: test
   shell: "cat {{ rc_file }} | grep TENANT | cut -d '=' -f 2"
   register: osp_tenant
 
 - name: Register Password
+  tags: test
   shell: "cat {{ rc_file }} | grep OS_PASSWORD | cut -d '=' -f 2"
   register: osp_password
 
 - name: Install packages and dependency
+  tags: test
   become: True
   yum:
     name: "{{ item }}"
@@ -105,6 +112,7 @@
     mode: 0755
 
 - name: Get network-id
+  tags: test
   vars:
     ansible_python_interpreter: "/root/tempest/.venv/bin/python"
   os_networks_facts:
@@ -127,20 +135,72 @@
   args:
     chdir: '{{ tempest_dir }}/tempest'
 
-- name: Changing the image_ssh_user value
-  lineinfile:
-    dest: '{{ tempest_dir }}/tempest/etc/tempest.conf'
-    regexp: "^image_ssh_user"
-    line: "image_ssh_user = {{ image_ssh_user }}"
-  when: image_ssh_user is defined
+- name: Create flavor
+  tags: test
+  vars:
+    ansible_python_interpreter: "/root/.venv/bin/python"
+  os_nova_flavor:
+    cloud: openstack
+    state: present
+    name: m1.nfv-flavor
+    ram: 4096
+    vcpus: 4
+    disk: 20
+  register: flavor_id
 
-- name: Adding port_vnic_type variable
+- name: Set flavor's keys
+  tags: test
+  shell: 'source "{{rc_file}}"; openstack flavor set --property hw:mem_page_size=1GB --property hw:numa_mempolicy=preferred --property hw:numa_mem.0=4096 --property hw:numa_nodes=1 --property hw:numa_cpus.0=0,1,2,3 --property hw:cpu_policy=dedicated m1.nfv-flavor'
+
+#- name: Changing the image_ssh_user value in tempest.conf
+#  lineinfile:
+#    dest: '{{ tempest_dir }}/tempest/etc/tempest.conf'
+#    regexp: "^image_ssh_user"
+#    line: "image_ssh_user = {{ image_ssh_user }}"
+#  when: image_ssh_user is defined
+#
+#- name: Modify the flavor in tempest.conf
+#  ini_file:
+#    dest: '{{ tempest_dir }}/tempest/etc/tempest.conf'
+#    section: compute
+#    option: flavor_ref
+#    value: "{{ flavor_id.id }}"
+#
+#- name: Adding port_vnic_type variable
+#  ini_file:
+#    dest: '{{ tempest_dir }}/tempest/etc/tempest.conf'
+#    section: network
+#    option: port_vnic_type
+#    value: direct
+#  when: 'port_vnic_type|bool == true'
+#
+#- name: Add private-key to hypervisor section in tempest.conf
+#  ini_file:
+#    dest: '{{ tempest_dir }}/tempest/etc/tempest.conf'
+#    section: hypervisor
+#    option: private_key_file
+#    value: "{{ private_key_dest }}"
+#    
+#- name: Add username to hypervisor section in tempest.conf
+#  ini_file:
+#    dest: '{{ tempest_dir }}/tempest/etc/tempest.conf'
+#    section: hypervisor
+#    option: user
+#    value: "{{ user_for_overcloud_nodes }}"
+
+- name: Modify tempest.conf
+  tags: test
   ini_file:
     dest: '{{ tempest_dir }}/tempest/etc/tempest.conf'
-    section: network
-    option: port_vnic_type
-    value: direct
-  when: 'port_vnic_type|bool == true'
+    section: "{{ item.sect }}"
+    option: "{{ item.opt }}"
+    value: "{{ item.val }}"
+  with_items:
+    - { sect: 'network' ,opt: 'port_vnic_type' ,val: "{{ port_vnic_type |default('<None>')}}" }
+    - { sect: 'compute' ,opt: 'image_ssh_user' ,val: "{{ image_ssh_user }}" }
+    - { sect: 'compute' ,opt: 'flavor_ref' ,val: "{{ flavor_id.id }}" }
+    - { sect: 'hypervisor' ,opt: 'private_key_file' ,val: "{{ private_key_dest }}" }
+    - { sect: 'hypervisor' ,opt: 'user' ,val: "{{ user_for_overcloud_nodes }}" }
 
 - name: Run TestServerBasicOps Test
   shell: >
