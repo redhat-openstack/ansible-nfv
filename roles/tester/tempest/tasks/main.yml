@@ -9,7 +9,6 @@
   register: ospd_rc_file_locate
 
 - name: Set OSPD rc file to use
-  tags: test
   set_fact:
     rc_file: "{{ ospd_rc_file }}"
   when: ospd_rc_file_locate.results[0].stat.exists == True
@@ -127,20 +126,33 @@
   args:
     chdir: '{{ tempest_dir }}/tempest'
 
-- name: Changing the image_ssh_user value
-  lineinfile:
-    dest: '{{ tempest_dir }}/tempest/etc/tempest.conf'
-    regexp: "^image_ssh_user"
-    line: "image_ssh_user = {{ image_ssh_user }}"
-  when: image_ssh_user is defined
+- name: Create flavor
+  vars:
+    ansible_python_interpreter: "/root/.venv/bin/python"
+  os_nova_flavor:
+    cloud: openstack
+    state: present
+    name: m1.nfv-flavor
+    ram: 4096
+    vcpus: 4
+    disk: 20
+  register: flavor_id
 
-- name: Adding port_vnic_type variable
+- name: Set flavor's keys
+  shell: 'source "{{rc_file}}"; openstack flavor set --property hw:mem_page_size=1GB --property hw:numa_mempolicy=preferred --property hw:numa_mem.0=4096 --property hw:numa_nodes=1 --property hw:numa_cpus.0=0,1,2,3 --property hw:cpu_policy=dedicated m1.nfv-flavor'
+
+- name: Modify tempest.conf
   ini_file:
     dest: '{{ tempest_dir }}/tempest/etc/tempest.conf'
-    section: network
-    option: port_vnic_type
-    value: direct
-  when: 'port_vnic_type|bool == true'
+    section: "{{ item.sect }}"
+    option: "{{ item.opt }}"
+    value: "{{ item.val }}"
+  with_items:
+    - { sect: 'network' ,opt: 'port_vnic_type' ,val: "{{ port_vnic_type |default('normal')}}" }
+    - { sect: 'compute' ,opt: 'image_ssh_user' ,val: "{{ image_ssh_user }}" }
+    - { sect: 'compute' ,opt: 'flavor_ref' ,val: "{{ flavor_id.id }}" }
+    - { sect: 'hypervisor' ,opt: 'private_key_file' ,val: "{{ private_key_dest }}" }
+    - { sect: 'hypervisor' ,opt: 'user' ,val: "{{ user_for_overcloud_nodes }}" }
 
 - name: Run TestServerBasicOps Test
   shell: >
