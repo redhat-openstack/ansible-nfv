@@ -1,6 +1,6 @@
 ---
 
-- name: MoonGen installation
+- name: MoonGen run
   hosts: moongen
   roles:
     - moongen/run
