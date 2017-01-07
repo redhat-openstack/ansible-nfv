@@ -1,7 +1,6 @@
 ---
 
 ### Compute variables
-vcpu_pin: 3-8
-reserved_host_memory_mb: 2048
+cpu_pinning_cores: 3-8
 hugepages_size: 1GB
 hugepages_count: 4
