@@ -1,0 +1,56 @@
+---
+
+- name: Add repositories for tuned package
+  yum_repository:
+    name: "{{ item.name }}"
+    description: "{{ item.name }}"
+    baseurl: "{{ item.url }}"
+    enabled: yes
+    gpgcheck: no
+    state: present
+  with_items: "{{ repos }}"
+
+- name: Install the latest version of Tuna, Tuned and Cpu-partitioning profile
+  yum:
+    name: "{{ item.package }}"
+    state: latest
+  with_items:
+    - { package: "tuned" }
+    - { package: "tuna" }
+    - { package: "tuned-profiles-cpu-partitioning" }
+
+- name: Set the cores to isolate
+  lineinfile:
+    dest: '/etc/tuned/cpu-partitioning-variables.conf'
+    regexp: 'isolated_cores='
+    line: 'isolated_cores={{ isolated_cores }}'
+    backrefs: yes
+    state: present
+  register: isolcpu_set
+
+- name: Activate the profile
+  shell: "/usr/sbin/tuned-adm profile cpu-partitioning"
+  when: isolcpu_set.changed
+
+- name: Make grub
+  command: "grub2-mkconfig -o /boot/grub2/grub.cfg"
+  when: isolcpu_set.changed
+  register: makegrub
+
+- name: Restart machine
+  shell: sleep 2 && shutdown -r now "Ansible updates triggered"
+  async: 1
+  poll: 0
+  ignore_errors: true
+  when: makegrub.changed
+
+- name: Wait for server to restart successfully
+  wait_for:
+    host: "{{ ansible_default_ipv4.address }}"
+    search_regex: "OpenSSH"
+    port: 22
+    timeout: 300
+    connect_timeout: 30
+    delay: 5
+  delegate_to: localhost
+  become: false
