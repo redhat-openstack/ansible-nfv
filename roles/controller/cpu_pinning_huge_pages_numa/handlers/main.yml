@@ -1,6 +1,0 @@
----
-
-- name: Restart controller service
-  service:
-    name: openstack-nova-scheduler.service
-    state: restarted
