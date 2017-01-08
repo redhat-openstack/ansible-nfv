@@ -4,19 +4,19 @@
   stat:
     path: "{{ item }}"
   with_items:
-    - "{{ ospd_rc_file }}"
+    - "{{ tripleo_rc_file }}"
     - "{{ packstack_rc_file }}"
-  register: ospd_rc_file_locate
+  register: rc_file_locate
 
-- name: Set OSPD rc file to use
+- name: Set TripleO rc file to use
   set_fact:
-    rc_file: "{{ ospd_rc_file }}"
-  when: ospd_rc_file_locate.results[0].stat.exists == True
+    rc_file: "{{ tripleo_rc_file }}"
+  when: rc_file_locate.results[0].stat.exists == True
 
 - name: Set Packstack rc file to use
   set_fact:
     rc_file: "{{ packstack_rc_file }}"
-  when: ospd_rc_file_locate.results[1].stat.exists == True
+  when: rc_file_locate.results[1].stat.exists == True
 
 - name: Register Auth URL
   shell: "cat {{ rc_file }} | grep AUTH | cut -d '=' -f 2"

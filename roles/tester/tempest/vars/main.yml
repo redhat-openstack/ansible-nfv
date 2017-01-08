@@ -1,6 +1,6 @@
 ---
 ## Openstack variables
-ospd_rc_file: /home/stack/overcloudrc
+tripleo_rc_file: /home/stack/overcloudrc
 packstack_rc_file: /root/keystonerc_admin
 
 ## Tempest variables
