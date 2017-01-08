@@ -1,0 +1,10 @@
+---
+
+### Repos for tuned install
+### Provide repos which has tuned and tuned profile package
+repos:
+  - name:
+    url:
+    
+### Provide CPU cores for the isolation
+isolated_cores: 4,6,8,10,12,14
