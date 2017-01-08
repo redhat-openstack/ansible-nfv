@@ -1,8 +1,0 @@
----
-
-- name: 'Restart and enable OVDK service'
-  service:
-    name: openvswitch.service
-    enabled: yes
-    state: restarted
-
