@@ -4,19 +4,19 @@
   stat:
     path: "{{ item }}"
   with_items:
-    - "{{ ospd_rc_file }}"
+    - "{{ tripleo_rc_file }}"
     - "{{ packstack_rc_file }}"
-  register: ospd_rc_file_locate
+  register: rc_file_locate
 
-- name: Set OSPD rc file to use
+- name: Set TripleO rc file to use
   set_fact:
-    rc_file: "{{ ospd_rc_file }}"
-  when: ospd_rc_file_locate.results[0].stat.exists == True
+    rc_file: "{{ tripleo_rc_file }}"
+  when: rc_file_locate.results[0].stat.exists == True
 
 - name: Set Packstack rc file to use
   set_fact:
     rc_file: "{{ packstack_rc_file }}"
-  when: ospd_rc_file_locate.results[1].stat.exists == True
+  when: rc_file_locate.results[1].stat.exists == True
 
 - name: Register Auth URL
   shell: "cat {{ rc_file }} | grep AUTH | cut -d '=' -f 2"
@@ -123,11 +123,11 @@
   vars:
     ansible_python_interpreter: "/root/tempest/.venv/bin/python"
   shell: >
-    {{ tempest_dir }}/tempest/.venv/bin/python 
-    {{ tempest_dir }}/tempest/tools/config_tempest.py --create --debug 
-    --image {{ osp_image }} 
-    identity.uri {{ osp_auth.stdout }} 
-    identity.admin_password {{ osp_password.stdout }}  
+    {{ tempest_dir }}/tempest/.venv/bin/python
+    {{ tempest_dir }}/tempest/tools/config_tempest.py --create --debug
+    --image {{ osp_image }}
+    identity.uri {{ osp_auth.stdout }}
+    identity.admin_password {{ osp_password.stdout }}
     --network-id {{ openstack_networks.results[0].subnet.network_id }}
   args:
     chdir: '{{ tempest_dir }}/tempest'
@@ -146,13 +146,13 @@
 
 - name: Set flavors keys
   shell: >
-    source "{{rc_file}}"; 
-    openstack flavor set --property hw:mem_page_size=1GB 
-    --property hw:numa_mempolicy=preferred 
-    --property hw:numa_mem.0=4096 
-    --property hw:numa_nodes=1 
-    --property hw:numa_cpus.0=0,1,2,3 
-    --property hw:cpu_policy=dedicated 
+    source "{{rc_file}}";
+    openstack flavor set --property hw:mem_page_size=1GB
+    --property hw:numa_mempolicy=preferred
+    --property hw:numa_mem.0=4096
+    --property hw:numa_nodes=1
+    --property hw:numa_cpus.0=0,1,2,3
+    --property hw:cpu_policy=dedicated
     m1.nfv-flavor
 
 - name: Modify tempest.conf
