@@ -1,4 +1,0 @@
----
-
-dpdk_nic_name: enp6s0f1
-bridge_vlan_name: br-vlan2
