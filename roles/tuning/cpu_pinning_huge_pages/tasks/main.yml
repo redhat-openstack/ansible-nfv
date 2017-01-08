@@ -1,0 +1,36 @@
+---
+
+- name: Add parameter to the grub
+  lineinfile:
+    dest: /etc/default/grub
+    regexp: '^GRUB_CMDLINE_LINUX="(?!.* {{ item.regex }})(.*)"'
+    line: 'GRUB_CMDLINE_LINUX="\1 {{ item.context }}"'
+    state: present
+    backrefs: yes
+  with_items:
+    - { regex: 'isolcpus=', context: 'isolcpus={{ cpu_pinning_cores }}' }
+    - { regex: 'hugepagesz=', context: 'hugepagesz={{ hugepages_size }} default_hugepagesz={{ hugepages_size }} transparent_hugepage=never hugepages={{ hugepages_count }}' }
+  register: grub
+
+- name: Make grub
+  command: "grub2-mkconfig -o /boot/grub2/grub.cfg"
+  when: grub.changed
+  register: makegrub
+
+- name: Restart server
+  shell: sleep 2 && shutdown -r now "Ansible updates triggered"
+  async: 1
+  poll: 0
+  ignore_errors: true
+  when: makegrub.changed
+
+- name: Wait for server to restart successfully
+  wait_for:
+    host: "{{ ansible_default_ipv4.address }}"
+    search_regex: OpenSSH
+    port: 22
+    timeout: 300
+    connect_timeout: 30
+    delay: 5
+  delegate_to: localhost
+  become: false
