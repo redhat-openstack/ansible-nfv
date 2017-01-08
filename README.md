@@ -1,60 +1,50 @@
 # Ansible NFV playbooks
+Ansible NFV repository holds various playbooks for installation, configuration, tuning, testing and day to day tasks related to NFV and Openstack.
 
+## Documentation
+For the repository documentation, refer to the **docs** directory, which provide explanation regarding the playbooks.
 
 ## Playbooks
-
-* DPDK Role
-    
-    Set OVS+DPDK post install configuration on installed openstack environment.
-    
-    The playbook has been tested on the following network interface:
-      - **Intel Corporation Ethernet 10G 2P X520 Adapter**
-
-* DPDK-second-nic role
-
-    Configures OVS to use the second NIC, within a new bridge.
-
-    Mostly used for MoonGens performance test.
-     - **Intel Corporation Ethernet 10G 2P X520 Adapter
-
-* SRIOV Role
-    
-    Set SRIOV post install configuration on installed openstack environment.
-    
-    The playbook has been tested on the following network interfaces:
-      - **Intel Corporation Ethernet 10G 2P X520 Adapter**
-      - **Broadcom Corporation NetXtreme II BCM57810 10 Gigabit Ethernet**
-
-* CPU pinning, NUMA, Huge pages Role
-    
-    Set CPU pinning, NUMA and Huge pages configuration on installed openstack environment.
-    
-    The playbook can be merged with DPDK or SRIOV playbooks.
-
-* Tuned Role
-
-    The role sets and activates new tuned profile named cpu-partitioning, the profile sets the
-
-    CPUAffinity using delivered Core-list
-
-* Tempest Role
-
-    Install and configure downstreams tempest with RHOS-NFV-QE tempest plugin.
-
-    Specifying "port_vnic_type: True" value, the playbook configures the tempest.conf for SR-IOV test cases.
-
-* Guest TestPMD Role
-
-    Install and configure new venv at /root , creates 2 networks, new flavor and his keys and new image.
-
-    The image starts TestPMD application automaticly, and have watchdog cron-every min, which checks the state of testpmd.service and tries to start it.
+* TripleO
+    * NFV
+      * DPDK
+      * SRIOV
+    * Tester
+      * Tempest
+    * Tuning
+      * CPU pinning and Huge pages
+      * Tuned
+    * Post install
+      * Openstack tasks
+      * Overcloud repo install
+* Moongen
+    * Moongen install
+    * Moongen run
+* Packstack
+    * NFV
+      * DPDK
+      * SRIOV
+    * Tester
+      * Guest Testpmd
+      * Tempest
+      * Testpmd install
+    * Tuning
+      * CPU pinning and Huge pages
+      * Tuned
+    * Post install
+      * Openstack tasks
 
 ## How to contribue
+Patches should be submitted using git review to the GerritHub.
 
-Patches should be submitted using git-review to GerritHub.
-
-## Important
-
+## Note
 Please, modify the playbooks variables to meet your needs before running the playbooks.
+
+The variables could be applied to the playbook run, by saving them into a separate yml file and include the file during the playbook execution.  
+Note the '@' sing, which is used to apply the variables located within the provided file.
+
+```
+ansible-playbook playbooks/path/to/the/playbook.yml -e @/path/to/the/variable/file.yml
+```
 
 For any question, refer to the NFV Cloud QE team - nfv-cloud-qe-team@redhat.com
