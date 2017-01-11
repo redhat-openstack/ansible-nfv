@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fabf19d9_044750bc",
+        "filename": "docs/packstack/tuning/cpu_pinning_huge_pages.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-01-11T12:15:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fabf19d9_02b1838f",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 3
+      },
+      "revId": "a3e05de61a71679eeffcda0210cbf56f73cdb631",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fabf19d9_62683ff6",
         "filename": "docs/packstack/tuning/tuned.md",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2017-01-11T09:55:33Z",
       "side": 1,
       "message": "I think we should move this to higher level, we are going to use it with several cases, for example network-config.yaml.",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 86
+      },
+      "revId": "a3e05de61a71679eeffcda0210cbf56f73cdb631",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fabf19d9_848800e9",
+        "filename": "docs/packstack/tuning/tuned.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-01-11T12:15:33Z",
+      "side": 1,
+      "message": "Copied to the main README file.",
+      "parentUuid": "fabf19d9_62683ff6",
       "range": {
         "startLine": 22,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "fabf19d9_446b081f",
+        "filename": "docs/tripleo/tuning/cpu_pinning_huge_pages.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-01-11T12:15:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fabf19d9_8218f385",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 3
+      },
+      "revId": "a3e05de61a71679eeffcda0210cbf56f73cdb631",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fabf19d9_621ddf72",
         "filename": "docs/tripleo/tuning/tuned.md",
         "patchSetId": 2
@@ -82,6 +154,30 @@
       "writtenOn": "2017-01-11T09:55:33Z",
       "side": 1,
       "message": "Same here pleaes.",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 86
+      },
+      "revId": "a3e05de61a71679eeffcda0210cbf56f73cdb631",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fabf19d9_e460dc37",
+        "filename": "docs/tripleo/tuning/tuned.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-01-11T12:15:33Z",
+      "side": 1,
+      "message": "Copied to the main README file.",
+      "parentUuid": "fabf19d9_621ddf72",
       "range": {
         "startLine": 22,
         "startChar": 0,
