@@ -3,4 +3,4 @@
 - name: MoonGen run
   hosts: moongen
   roles:
-    - moongen/run
+    - packet_gen/moongen/run
