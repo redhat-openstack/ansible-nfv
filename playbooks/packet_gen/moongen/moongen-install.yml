@@ -3,4 +3,4 @@
 - name: MoonGen installation
   hosts: moongen
   roles:
-    - moongen/install
+    - packet_gen/moongen/install

@@ -1,13 +1,12 @@
 ---
 
 - name: Overcloud repo install
-  include: overcloud_repo_install.yml
+  include: ../post_install/overcloud_repo_install.yml
 
 - name: DPDK - Compute
   hosts: compute
   roles:
-    - dpdk/compute
+    - nfv/dpdk/compute
   become: True
   become_method: sudo
   become_user: root
-

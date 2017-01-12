@@ -3,4 +3,4 @@
 - name: DPDK
   hosts: compute
   roles:
-    - dpdk/compute
+    - nfv/dpdk/compute

@@ -3,9 +3,9 @@
 - name: SRIOV - Compute
   hosts: compute
   roles:
-    - sriov/compute
+    - nfv/sriov/compute
 
 - name: SRIOV - Controller
   hosts: controller
   roles:
-    - sriov/controller
+    - nfv/sriov/controller
