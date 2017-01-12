@@ -1,17 +1,19 @@
 ---
 
 - name: Setup Openstack environment
+  tags:
+    - os_tasks
+    - setup_os_env
   include: setup_openstack_env.yml
-  when: setup_openstack_env
 
 - name: Create router and networks
+  tags:
+    - os_tasks
+    - create_networks
   include: create_networks_and_routers.yml
-  when: routers_and_networks
 
 - name: Upload images
+  tags:
+    - os_tasks
+    - images_upload
   include: upload_images.yml
-  when: upload_images
-
-- name: Enable port_security and Disable port_security for external network
-  include: port_security.yml
-  when: port_security
