@@ -3,7 +3,7 @@
 - name: Creates network
   hosts: controller
   roles:
-    - { role: openstack_tasks, create_external_network: True, setup_openstack_env: True }
+    - { role: openstack_tasks, tags: ['os_tasks'] }
 
 - name: Tempest installation and configuration
   hosts: tester
