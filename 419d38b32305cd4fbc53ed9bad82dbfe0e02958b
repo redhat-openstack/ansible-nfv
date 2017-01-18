@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fabf19d9_4ef2e870",
+        "filename": "ansible.cfg",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1008570
+      },
+      "writtenOn": "2017-01-18T11:52:37Z",
+      "side": 1,
+      "message": "Can we rely on this parameter?",
+      "range": {
+        "startLine": 12,
+        "startChar": 27,
+        "endLine": 12,
+        "endChar": 39
+      },
+      "revId": "419d38b32305cd4fbc53ed9bad82dbfe0e02958b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
