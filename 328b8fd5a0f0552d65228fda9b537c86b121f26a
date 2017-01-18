@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fabf19d9_73759796",
+        "filename": "docs/tripleo/post_install/openstack_tasks.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1005532
+      },
+      "writtenOn": "2017-01-18T07:47:21Z",
+      "side": 1,
+      "message": "nit: red",
+      "revId": "328b8fd5a0f0552d65228fda9b537c86b121f26a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fabf19d9_93470b4b",
+        "filename": "playbooks/tripleo/post_install/openstack_tasks.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1005532
+      },
+      "writtenOn": "2017-01-18T07:47:21Z",
+      "side": 1,
+      "message": "If these are the defaults why do you need to add them?",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 29
+      },
+      "revId": "328b8fd5a0f0552d65228fda9b537c86b121f26a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fabf19d9_f3b08745",
+        "filename": "roles/post_install/openstack_tasks/tasks/overcloud_delete.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1005532
+      },
+      "writtenOn": "2017-01-18T07:47:21Z",
+      "side": 1,
+      "message": "Can it be done more generic?",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 7
+      },
+      "revId": "328b8fd5a0f0552d65228fda9b537c86b121f26a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fabf19d9_b3ba0f22",
+        "filename": "settings/library/os_stack.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1005532
+      },
+      "writtenOn": "2017-01-18T07:47:21Z",
+      "side": 1,
+      "message": "Maybe add a comment to remove it one you will use ansible version 2.2",
+      "revId": "328b8fd5a0f0552d65228fda9b537c86b121f26a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
