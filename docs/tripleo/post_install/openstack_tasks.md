@@ -11,6 +11,9 @@ Openstack tasks play perform the following tasks on the existing Openstack envir
       Public networks sets as a gateway on the router and private networks sets as a router interface by using the 'external' flag within the variables provided.
 * Upload images
     * Upload provided images to the glance store of the overcloud.
+* Overcloud delete
+    * Deletes the required stack.  
+      Default stack is - 'overcloud'.
 
 By default, all the tasks runs one by one on the environment.  
 The run could be separated by specifying tags of specific run.
@@ -20,8 +23,16 @@ The run could be separated by specifying tags of specific run.
 * setup_os_env - Run Openstack virtual env creation for env tasks.
 * create_networks - Run networks creation.
 * images_upload - Upload images to the Openstack environment.
+* overcloud_delete - Delete the required overcloud stack.
+
+## Run triggers
+* setup_os_env - Executed if 'true'. True by default.
+* create_networks - Executed if 'true'. True by default.
+* images_upload - Executed if 'true'. True by default.
+* overcloud_delete - Executed if 'true'. False by default.
 
 ## Role variables
+#### Network creation variables
 Define the networks that should be created on the overcloud.  
 'External: true' value could be defined just for the external network.  
 Allocation pools could be defined as an option in case specific pool range should be defined.  
@@ -59,11 +70,25 @@ dns_nameservers:
   - 8.8.4.4
 ```
 
+#### Images upload variables
 Default images to upload
 ```
 images:
   - name: cirros
     url: http://download.cirros-cloud.net/0.3.4/cirros-0.3.4-x86_64-disk.img
+```
+
+#### Overcloud delete variables
+Rc file path for the access to the stack.  
+Default is - **/home/stack/stackrc**
+```
+rc_file_path: /home/stack/stackrc
+```
+
+The name of the overcloud that should be deleted.  
+Default is - **overcloud**
+```
+overcloud_name: overcloud
 ```
 
 ***

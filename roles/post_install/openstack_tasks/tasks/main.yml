@@ -5,15 +5,25 @@
     - os_tasks
     - setup_os_env
   include: setup_openstack_env.yml
+  when: setup_os_env
 
 - name: Create router and networks
   tags:
     - os_tasks
     - create_networks
   include: create_networks_and_routers.yml
+  when: create_networks
 
 - name: Upload images
   tags:
     - os_tasks
     - images_upload
   include: upload_images.yml
+  when: images_upload
+
+- name: Overcloud delete
+  tags:
+    - os_tasks
+    - overcloud_delete
+  include: overcloud_delete.yml
+  when: overcloud_delete
