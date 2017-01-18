@@ -1,0 +1,24 @@
+---
+
+- name: Grab auth data from stackrc file and publish it as YAML
+  ### ToDo(MaximB): Convert the task to more generic execution.
+  ###               Implement reuse.
+  shell: |
+      source "{{ rc_file_path | default('/home/stack/stackrc') }}"
+      echo "
+      auth_url: $OS_AUTH_URL
+      username: $OS_USERNAME
+      password: $OS_PASSWORD
+      project_name: $OS_TENANT_NAME
+      "
+  register: creds
+
+- name: Delete Overcloud stack
+  vars:
+    ansible_python_interpreter: "/root/.venv/bin/python"
+    auth: "{{ creds.stdout | from_yaml }}"
+  os_stack:
+    name: "{{ overcloud_name | default('overcloud') }}"
+    auth: "{{ auth }}"
+    state: absent
+    wait: yes
