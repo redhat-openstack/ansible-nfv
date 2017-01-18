@@ -11,6 +11,8 @@ Openstack tasks play perform the following tasks on the existing Openstack envir
       Public networks sets as a gateway on the router and private networks sets as a router interface by using the 'external' flag within the variables provided.
 * Upload images
     * Upload provided images to the glance store of the overcloud.
+* Overcloud delete
+    * Not executed in Packstack environment.
 
 By default, all the tasks runs one by one on the environment.  
 The run could be separated by specifying tags of specific run.
@@ -20,6 +22,12 @@ The run could be separated by specifying tags of specific run.
 * setup_os_env - Run Openstack virtual env creation for env tasks.
 * create_networks - Run networks creation.
 * images_upload - Upload images to the Openstack environment.
+
+## Run triggers
+* setup_os_env - Executed if 'true'. True by default.
+* create_networks - Executed if 'true'. True by default.
+* images_upload - Executed if 'true'. True by default.
+* overcloud_delete - Executed if 'true'. False by default.
 
 ## Role variables
 Define the networks that should be created on the overcloud.  
