@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fabf19d9_ba141844",
+        "filename": "docs/packet_gen/moongen/moongen-run.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-01-19T15:12:35Z",
+      "side": 1,
+      "message": "Please update the lines.\n\nRuns Moongen application performance test by generating specified amount of packets.  \nThe results of the test, saved into the \"/tmp/MoonGenOutput.txt\" file on the Moongen server.",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 5,
+        "endChar": 70
+      },
+      "revId": "e20840ff42e6fac1b665dd7604fca4c7627eeda8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fabf19d9_9a0f142e",
+        "filename": "docs/packet_gen/moongen/moongen-run.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-01-19T15:12:35Z",
+      "side": 1,
+      "message": "Move the section up to the VlanIds line,",
+      "range": {
+        "startLine": 59,
+        "startChar": 1,
+        "endLine": 64,
+        "endChar": 15
+      },
+      "revId": "e20840ff42e6fac1b665dd7604fca4c7627eeda8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fabf19d9_7a1e8064",
+        "filename": "docs/packet_gen/moongen/moongen-run.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-01-19T15:12:35Z",
+      "side": 1,
+      "message": "Same",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 89
+      },
+      "revId": "e20840ff42e6fac1b665dd7604fca4c7627eeda8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
