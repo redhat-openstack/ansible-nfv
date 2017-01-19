@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fabf19d9_5f1cd112",
+        "filename": "docs/packet_gen/moongen/moongen-install/moongen-install.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-01-19T09:09:21Z",
+      "side": 1,
+      "message": "Remove the line. Not relevant since it is the doc for the Moongen.",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 21
+      },
+      "revId": "863189d5e47c7b4d7cc5063bbb30eb238f9b54c5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fabf19d9_1f1659f1",
+        "filename": "docs/packet_gen/moongen/moongen-install/moongen-install.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-01-19T09:09:21Z",
+      "side": 1,
+      "message": "Place it to a new line.",
+      "range": {
+        "startLine": 28,
+        "startChar": 33,
+        "endLine": 28,
+        "endChar": 143
+      },
+      "revId": "863189d5e47c7b4d7cc5063bbb30eb238f9b54c5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fabf19d9_5fe3b105",
+        "filename": "docs/packet_gen/moongen/moongen-install/moongen-install.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-01-19T09:09:21Z",
+      "side": 1,
+      "message": "Fix the path to the Moongen playbook.",
+      "range": {
+        "startLine": 48,
+        "startChar": 17,
+        "endLine": 48,
+        "endChar": 51
+      },
+      "revId": "863189d5e47c7b4d7cc5063bbb30eb238f9b54c5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
