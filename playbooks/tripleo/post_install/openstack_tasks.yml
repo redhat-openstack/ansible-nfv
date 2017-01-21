@@ -3,7 +3,7 @@
 - name: Openstack tasks
   hosts: undercloud
   roles:
-    - role: post_install/openstack_tasks
+    - post_install/openstack_tasks
   become: True
   become_method: sudo
   become_user: root
