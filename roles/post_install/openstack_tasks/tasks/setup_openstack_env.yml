@@ -41,6 +41,7 @@
     mode: 0755
 
 - name: Install packages and dependency
+  tags: setup_os_env_pkg_install
   become: True
   yum:
     name: "{{ item.name }}"
@@ -59,6 +60,7 @@
     - { name: '@Development tools' }
 
 - name: Create virutal env
+  tags: setup_os_env_pkg_install
   pip:
     virtualenv: "/root/.venv"
     name: "{{ item.name }}"
