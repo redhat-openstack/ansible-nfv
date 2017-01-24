@@ -2,7 +2,9 @@
 Ansible NFV repository holds various playbooks for installation, configuration, tuning, testing and day to day tasks related to NFV and Openstack.
 
 ## Documentation
-For the repository documentation, refer to the **docs** directory, which provide explanation regarding the playbooks.
+For the repository documentation, refer to the **docs** directory, which provide explanation regarding the playbooks.  
+In order to start working with TripleO environment, refer to the following doc - **docs/tripleo/post_install/tripleo_inventory.md**.  
+The playbook will generate an inventory file for the tripleo environment.
 
 ## Playbooks
 * TripleO
@@ -17,6 +19,7 @@ For the repository documentation, refer to the **docs** directory, which provide
     * Post install
       * Openstack tasks
       * Overcloud repo install
+      * TripleO Inventory
 * Moongen
     * Moongen install
     * Moongen run
