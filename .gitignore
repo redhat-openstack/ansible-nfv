@@ -1,0 +1,4 @@
+inventory
+ansible.ssh.config
+id_rsa*
+*.retry

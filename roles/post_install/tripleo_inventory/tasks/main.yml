@@ -1,0 +1,84 @@
+---
+
+- name: Install python-virtualenv, gcc, python-devel for the pip tasks
+  yum:
+    name: "{{ item }}"
+    state: present
+  with_items:
+    - 'python-virtualenv'
+    - 'python-devel'
+    - 'git'
+    - 'wget'
+    - 'gcc'
+    - 'libffi-devel'
+    - 'libxml2-devel'
+    - 'libxslt-devel'
+    - 'openssl-devel'
+  become: true
+
+- name: Install required pip packages
+  pip:
+    name: "{{ item }}"
+    virtualenv: "/tmp/ansible_venv"
+    extra_args: '--upgrade'
+  with_items:
+    - 'pip'
+    - 'setuptools'
+    - 'pytz'
+    - 'shade'
+    - 'requests'
+
+- name: Fetch private key from the undercloud host
+  fetch:
+    src: "/home/stack/.ssh/id_rsa"
+    dest: "{{ overcloud_private_key }}"
+    flat: yes
+
+- name: Set SSH key permissions
+  file:
+    path: "{{ overcloud_private_key }}"
+    mode: 0600
+  delegate_to: localhost
+
+- name: Grab auth data from stackrc file and publish it as YAML
+  ### ToDo(MaximB): Convert the task to more generic execution.
+  ###               Implement reuse.
+  shell: |
+      source "{{ rc_file_path | default('/home/stack/stackrc') }}"
+      echo "
+      auth_url: $OS_AUTH_URL
+      username: $OS_USERNAME
+      password: $OS_PASSWORD
+      project_name: $OS_TENANT_NAME
+      "
+  register: creds
+
+- name: Gather Overcloud nodes data
+  vars:
+    ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+  os_server_facts:
+    auth: "{{ creds.stdout | from_yaml }}"
+    # Required for SSL
+    validate_certs: no
+
+- name: Add hosts to host list
+  add_host:
+      name: "{{ item.name }}"
+      groups: "{{ ( item.name in groups.all ) | ternary(omit,
+          ['overcloud_nodes', 'openstack_nodes', item.name.split('-')[0]] | join(',')
+         ) }}"
+      ansible_ssh_user: "{{ overcloud_user }}"
+      ansible_ssh_pass: ""
+      ansible_ssh_host: "{{ item.accessIPv4 }}"
+      ansible_ssh_private_key_file: "{{ overcloud_private_key }}"
+  with_items: "{{ openstack_servers }}"
+
+- name: Enable SSH forwarding using Undercloud node for baremetal Overcloud nodes
+  vars:
+    ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+  add_host:
+    name: "{{ item.name }}"
+    ansible_ssh_common_args: "-o ProxyCommand=\"ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
+                              -W %h:%p -i {{ hostvars[groups['undercloud'][0]].ansible_ssh_private_key_file }} \
+                              {{ hostvars[groups['undercloud'][0]].ansible_ssh_user }}@{{ hostvars[groups['undercloud'][0]].ansible_ssh_host }}\""
+  with_items: "{{ openstack_servers }}"
