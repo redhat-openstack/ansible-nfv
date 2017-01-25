@@ -66,6 +66,7 @@
     name: "{{ item.name }}"
     extra_args: '--upgrade'
   with_items:
+    - { name: 'pip' }
     - { name: 'setuptools' }
     - { name: 'ansible' }
     - { name: 'pytz' }
