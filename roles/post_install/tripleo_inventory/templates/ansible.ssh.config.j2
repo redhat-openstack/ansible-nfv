@@ -13,7 +13,7 @@ Host {{ host }}
 
 Host {{ '%s' % '.'.join(hostvars[groups['undercloud'][0]].ansible_br_ctlplane.ipv4.address.split('.')[:-2]) }}.*
     User heat-admin
-    IdentityFile {{ inventory_dir }}/id_rsa_overcloud
+    IdentityFile {{ overcloud_private_key }}
     StrictHostKeyChecking no
     UserKnownHostsFile=/dev/null
     ForwardAgent yes
