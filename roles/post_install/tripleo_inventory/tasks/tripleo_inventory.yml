@@ -1,0 +1,77 @@
+---
+
+- name: Set an Undercloud host
+  hosts: localhost
+  gather_facts: no
+  vars:
+    undercloud_host: "{{ host }}"
+    undercloud_user: "{{ user | default('stack') }}"
+    undercloud_private_key_file: "{{ ssh_key | default(omit) }}"
+    undercloud_pass: "{{ ssh_pass | default(omit) }}"
+  tasks:
+    - set_fact:
+        undercloud_host: "{{ host }}"
+        undercloud_user: "{{ user | default('stack') }}"
+        environment_dir: "{{ lookup('env', 'PWD') }}/environments/{{ undercloud_host }}_env"
+
+      # Flash in-memory inventory in order to recreate
+      # the inventory file with the new parameters
+    - meta: refresh_inventory
+
+    - name: Create environment directory
+      file:
+        path: "{{ environment_dir }}"
+        recurse: yes
+        state: directory
+
+    - name: Add undercloud to host list
+      add_host:
+        name: "{{ undercloud_host }}"
+        groups: "undercloud,tester"
+        ansible_ssh_host: "{{ undercloud_host }}"
+        ansible_ssh_user: "{{ undercloud_user }}"
+        ansible_ssh_private_key_file: "{{ undercloud_private_key_file | default(omit) }}"
+        ansible_ssh_pass: "{{ undercloud_pass | default(omit) }}"
+
+    - name: Generate Inventory file
+      vars:
+        ansible_python_interpreter: /usr/bin/python
+      template:
+        src: '../templates/inventory.j2'
+        dest: "{{ environment_dir }}/inventory_{{ undercloud_host }}"
+
+- name: Generate and set an SSH key if password is used
+  include: 'undercloud_pass.yml'
+  when: ssh_pass is defined
+
+- name: Create TripleO inventory
+  include: overcloud_nodes.yml
+
+- name: Update inventory and ansible.ssh.config files
+  hosts: localhost
+  gather_facts: no
+  vars:
+    ansible_python_interpreter: /usr/bin/python
+    overcloud_private_key: "{{ environment_dir }}/id_rsa_overcloud_{{ undercloud_host }}"
+  tasks:
+    - name: Update ansible.ssh.config for SSH tunneling
+      template:
+        src: '../templates/ansible.ssh.config.j2'
+        dest: "{{ environment_dir }}/ansible.ssh.config.{{ undercloud_host }}"
+
+    - name: Link the current environment SSH file
+      file:
+        src: "{{ environment_dir }}/ansible.ssh.config.{{ undercloud_host }}"
+        dest: "{{ lookup('env', 'PWD') }}/ansible.ssh.config"
+        state: link
+
+    - name: Generate Inventory file
+      template:
+        src: '../templates/inventory.j2'
+        dest: "{{ environment_dir }}/inventory_{{ undercloud_host }}"
+
+    - name: Link the current environment inventory file
+      file:
+        src: "{{ environment_dir }}/inventory_{{ undercloud_host }}"
+        dest: "{{ lookup('env', 'PWD') }}/inventory"
+        state: link
