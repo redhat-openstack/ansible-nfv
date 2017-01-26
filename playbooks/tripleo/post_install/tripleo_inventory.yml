@@ -6,11 +6,21 @@
   vars:
     undercloud_host: "{{ host }}"
     undercloud_user: "{{ user | default('stack') }}"
-    undercloud_private_key_file: "{{ ssh_file | default(omit) }}"
+    undercloud_private_key_file: "{{ ssh_key | default(omit) }}"
+    undercloud_pass: "{{ ssh_pass | default(omit) }}"
   tasks:
+    - set_fact:
+        environment_dir: "{{ lookup('env', 'PWD') }}/inventories/{{ undercloud_host }}_env"
+
       # Flash in-memory inventory in order to recreate
       # the inventory file with the new parameters
     - meta: refresh_inventory
+
+    - name: Create environment directory
+      file:
+        path: "{{ environment_dir }}"
+        recurse: yes
+        state: directory
 
     - name: Add undercloud to host list
       add_host:
@@ -19,29 +29,49 @@
         ansible_ssh_host: "{{ undercloud_host }}"
         ansible_ssh_user: "{{ undercloud_user }}"
         ansible_ssh_private_key_file: "{{ undercloud_private_key_file | default(omit) }}"
+        ansible_ssh_pass: "{{ undercloud_pass | default(omit) }}"
 
     - name: Generate Inventory file
       template:
         src: '../../../roles/post_install/tripleo_inventory/templates/inventory.j2'
-        dest: "{{ lookup('env', 'PWD') }}/inventory"
+        dest: "{{ environment_dir }}/inventory_{{ undercloud_host }}"
+
+- name: Generate and set an SSH key if password is used
+  include: '../../../roles/post_install/tripleo_inventory/tasks/tripleo_inventory_password.yml'
+  when: ssh_pass is defined
 
 - name: Create TripleO inventory
   hosts: undercloud
   roles:
     - post_install/tripleo_inventory
   vars:
-    overcloud_private_key: "{{ inventory_dir }}/id_rsa_overcloud"
+    environment_dir: "{{ lookup('env', 'PWD') }}/inventories/{{ undercloud_host }}_env"
+    overcloud_private_key: "{{ environment_dir }}/id_rsa_overcloud_{{ undercloud_host }}"
     overcloud_user: heat-admin
 
 - name: Update inventory and ansible.ssh.config files
   hosts: localhost
+  vars:
+    overcloud_private_key: "{{ environment_dir }}/id_rsa_overcloud_{{ undercloud_host }}"
   tasks:
     - name: Update ansible.ssh.config for SSH tunneling
       template:
         src: '../../../roles/post_install/tripleo_inventory/templates/ansible.ssh.config.j2'
-        dest: "{{ inventory_dir }}/ansible.ssh.config"
+        dest: "{{ environment_dir }}/ansible.ssh.config.{{ undercloud_host }}"
+
+    - name: Link the current environment SSH file
+      file:
+        src: "{{ environment_dir }}/ansible.ssh.config.{{ undercloud_host }}"
+        dest: "{{ lookup('env', 'PWD') }}/ansible.ssh.config"
+        state: link
 
     - name: Generate Inventory file
       template:
         src: '../../../roles/post_install/tripleo_inventory/templates/inventory.j2'
-        dest: "{{ inventory_dir }}/inventory"
+        dest: "{{ environment_dir }}/inventory_{{ undercloud_host }}"
+
+    - name: Link the current environment inventory file
+      file:
+        src: "{{ environment_dir }}/inventory_{{ undercloud_host }}"
+        dest: "{{ lookup('env', 'PWD') }}/inventory"
+        state: link
