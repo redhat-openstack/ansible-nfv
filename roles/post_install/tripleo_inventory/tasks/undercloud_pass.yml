@@ -1,0 +1,37 @@
+---
+
+- name: Delete the old ssh key if exists
+  file:
+    path: "{{ tripleo_undercloud_key }}"
+    state: absent
+
+- name: Generate an SSH key
+  command: ssh-keygen -b 4096 -N "" -C "TripleO Undercloud key" -f "/{{ tripleo_undercloud_key }}"
+
+- name: Load the public key to undercloud
+  authorized_key:
+    user: "{{ user | default('stack') }}"
+    key: "{{ lookup('file', '{{ tripleo_undercloud_key }}.pub')}}"
+    state: present
+  delegate_to: "{{ host }}"
+
+# Flash in-memory inventory in order to recreate
+# the inventory file with the new parameters
+- meta: refresh_inventory
+
+- name: Replace the Undercloud password with SSH key
+  vars:
+    undercloud_private_key_file: "{{ tripleo_undercloud_key }}"
+  add_host:
+    name: "{{ host }}"
+    groups: "undercloud,tester"
+    ansible_ssh_host: "{{ host }}"
+    ansible_ssh_user: "{{ user | default('stack') }}"
+    ansible_ssh_private_key_file: "{{ undercloud_private_key_file }}"
+
+- name: Generate new Inventory file
+  vars:
+    ansible_python_interpreter: /usr/bin/python
+  template:
+    src: 'inventory.j2'
+    dest: "{{ environment_dir }}/inventory_{{ host }}"

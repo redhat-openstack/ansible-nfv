@@ -1,65 +1,38 @@
 ---
 
-- name: Install python-virtualenv, gcc, python-devel for the pip tasks
-  yum:
-    name: "{{ item }}"
-    state: present
-  with_items:
-    - 'python-virtualenv'
-    - 'python-devel'
-    - 'git'
-    - 'wget'
-    - 'gcc'
-    - 'libffi-devel'
-    - 'libxml2-devel'
-    - 'libxslt-devel'
-    - 'openssl-devel'
-  become: true
+  # Flash in-memory inventory in order to recreate
+  # the inventory file with the new parameters
+- meta: refresh_inventory
 
-- name: Install required pip packages
-  pip:
-    name: "{{ item }}"
-    virtualenv: "/tmp/ansible_venv"
-    extra_args: '--upgrade'
-  with_items:
-    - 'pip'
-    - 'setuptools'
-    - 'pytz'
-    - 'shade'
-    - 'requests'
-
-- name: Fetch private key from the undercloud host
-  fetch:
-    src: "/home/stack/.ssh/id_rsa"
-    dest: "{{ overcloud_private_key }}"
-    flat: yes
-
-- name: Set SSH key permissions
+- name: Create environment directory
   file:
-    path: "{{ overcloud_private_key }}"
-    mode: 0600
-  delegate_to: localhost
+    path: "{{ environment_dir }}"
+    recurse: yes
+    state: directory
 
-- name: Grab auth data from stackrc file and publish it as YAML
-  ### ToDo(MaximB): Convert the task to more generic execution.
-  ###               Implement reuse.
-  shell: |
-      source "{{ rc_file_path | default('/home/stack/stackrc') }}"
-      echo "
-      auth_url: $OS_AUTH_URL
-      username: $OS_USERNAME
-      password: $OS_PASSWORD
-      project_name: $OS_TENANT_NAME
-      "
-  register: creds
+- name: Add undercloud to host list
+  add_host:
+    name: "{{ host }}"
+    groups: "undercloud,tester"
+    ansible_ssh_host: "{{ host }}"
+    ansible_ssh_user: "{{ user | default('stack') }}"
+    ansible_ssh_private_key_file: "{{ ssh_key | default(omit) }}"
+    ansible_ssh_pass: "{{ ssh_pass | default(omit) }}"
 
-- name: Gather Overcloud nodes data
+- name: Generate Inventory file
   vars:
-    ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
-  os_server_facts:
-    auth: "{{ creds.stdout | from_yaml }}"
-    # Required for SSL
-    validate_certs: no
+    ansible_python_interpreter: /usr/bin/python
+  template:
+    src: 'inventory.j2'
+    dest: "{{ environment_dir }}/inventory_{{ host }}"
+
+- name: Generate and set an SSH key if password is used
+  include: undercloud_pass.yml
+  when: ssh_pass is defined
+
+- name: Create TripleO inventory
+  include: overcloud_nodes.yml
+  delegate_to: "{{ host }}"
 
 - name: Add hosts to host list
   add_host:
@@ -82,3 +55,29 @@
                               -W %h:%p -i {{ hostvars[groups['undercloud'][0]].ansible_ssh_private_key_file }} \
                               {{ hostvars[groups['undercloud'][0]].ansible_ssh_user }}@{{ hostvars[groups['undercloud'][0]].ansible_ssh_host }}\""
   with_items: "{{ openstack_servers }}"
+
+- name: Update ansible.ssh.config for SSH tunneling
+  vars:
+    ansible_python_interpreter: /usr/bin/python
+  template:
+    src: 'ansible.ssh.config.j2'
+    dest: "{{ environment_dir }}/ansible.ssh.config.{{ host }}"
+
+- name: Link the current environment SSH file
+  file:
+    src: "{{ environment_dir }}/ansible.ssh.config.{{ host }}"
+    dest: "{{ lookup('env', 'PWD') }}/ansible.ssh.config"
+    state: link
+
+- name: Generate Inventory file
+  vars:
+    ansible_python_interpreter: /usr/bin/python
+  template:
+    src: 'inventory.j2'
+    dest: "{{ environment_dir }}/inventory_{{ host }}"
+
+- name: Link the current environment inventory file
+  file:
+    src: "{{ environment_dir }}/inventory_{{ host }}"
+    dest: "{{ lookup('env', 'PWD') }}/inventory"
+    state: link

@@ -1,0 +1,6 @@
+---
+
+environment_dir: "{{ lookup('env', 'PWD') }}/environments/{{ host }}_env"
+tripleo_undercloud_key: "{{ environment_dir }}/id_rsa_{{ host }}"
+overcloud_private_key: "{{ environment_dir }}/id_rsa_overcloud_{{ host }}"
+overcloud_user: heat-admin
