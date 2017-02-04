@@ -1,9 +1,15 @@
 ---
-## Openstack variables
-tripleo_rc_file: /home/stack/overcloudrc
-packstack_rc_file: /root/keystonerc_admin
 
 ## Tempest variables
-tempest_dir: /root
-tempest_url: https://github.com/redhat-openstack/tempest
-nfv_plugin_url: https://review.gerrithub.io/redhat-openstack/tempest-nfv-plugin
+tempest_dir: /root/tempest
+
+tempest_repo:
+  - name: tempest
+    url: https://github.com/redhat-openstack/tempest
+    branch: master
+  - name: tempest-nfv-plugin
+    url: https://github.com/redhat-openstack/tempest-nfv-plugin
+    branch: devel
+
+tempest_main: tempest
+tempest_nfv_plugin: tempest-nfv-plugin

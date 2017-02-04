@@ -9,7 +9,25 @@ user_for_overcloud_nodes: heat-admin
 
 ## Port_vnic_type direct
 ## Uncomment the following value in order to set the port to 'direct' type
+## Used for SR-IOV tests
 #port_vnic_type: direct
+
+test_flavors:
+  - name: nfv-test-flavor
+    ram: 4096
+    disk: 20
+    vcpus: 4
+    property:
+      - "hw:mem_page_size=1GB"
+      - "hw:numa_mempolicy=preferred"
+      - "hw:numa_mem.0=4096"
+      - "hw:numa_nodes=1"
+      - "hw:numa_cpus.0=0,1,2,3"
+      - "hw:cpu_policy=dedicated"
+
+## Flavor id that should be used for tempest test
+## If not specified, default (first flavor in list) used.
+#tempest_flavor_id:
 
 tempest_tests:
   - tempest.scenario.test_server_basic_ops.TestServerBasicOps
