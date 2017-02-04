@@ -1,177 +1,130 @@
 ---
 
-- name: Check the existance of rc file
-  stat:
-    path: "{{ item }}"
-  with_items:
-    - "{{ tripleo_rc_file }}"
-    - "{{ packstack_rc_file }}"
-  register: rc_file_locate
-
-- name: Set TripleO rc file to use
-  set_fact:
-    rc_file: "{{ tripleo_rc_file }}"
-  when: rc_file_locate.results[0].stat.exists == True
-
-- name: Set Packstack rc file to use
-  set_fact:
-    rc_file: "{{ packstack_rc_file }}"
-  when: rc_file_locate.results[1].stat.exists == True
-
-- name: Register Auth URL
-  shell: "cat {{ rc_file }} | grep AUTH | cut -d '=' -f 2"
-  register: osp_auth
-
-- name: Register Username
-  shell: "cat {{ rc_file }} | grep USERNAME | cut -d '=' -f 2"
-  register: osp_username
-
-- name: Register Tenant name
-  shell: "cat {{ rc_file }} | grep TENANT | cut -d '=' -f 2"
-  register: osp_tenant
-
-- name: Register Password
-  shell: "cat {{ rc_file }} | grep OS_PASSWORD | cut -d '=' -f 2"
-  register: osp_password
-
-- name: Install packages and dependency
-  become: True
-  yum:
-    name: "{{ item }}"
-    state: 'installed'
-  with_items:
-    - 'git'
-    - 'wget'
-    - 'python-devel'
-    - 'gcc'
-    - 'libffi-devel'
-    - 'libxml2-devel'
-    - 'libxslt-devel'
-    - 'mariadb-devel'
-    - 'openssl-devel'
-    - 'python-virtualenv'
-    - '@Development tools'
+- name: Create Tempest directory
+  file:
+    path: "{{ tempest_dir }}"
+    mode: 0755
+    state: directory
 
 - name: Git clone Tempest & Tempest-NFV-plugin
   git:
     repo: "{{ item.url }}"
-    dest: "{{ item.dest }}"
+    dest: "{{ tempest_dir }}/{{ item.name }}"
+    version: "{{ item.branch }}"
     clone: yes
     update: yes
-  with_items:
-    - { url: '{{ tempest_url }}', dest: "{{ tempest_dir }}/tempest" }
-    - { url: '{{ nfv_plugin_url }}', dest: "{{ tempest_dir }}/tempest-nfv-plugin" }
+  with_items: "{{ tempest_repo }}"
 
 - name: Check if tempest.conf exists
   stat:
-    path: '{{ tempest_dir }}/tempest/.venv/'
+    path: '{{ tempest_dir }}/{{ tempest_main }}/.venv/'
   register: venv
 
 - name: Run install_venv.py script
-  command: 'python {{ tempest_dir }}/tempest/tools/install_venv.py'
+  command: 'python {{ tempest_dir }}/{{ tempest_main }}/tools/install_venv.py'
   args:
-    chdir: '{{ tempest_dir }}/tempest'
+    chdir: '{{ tempest_dir }}/{{ tempest_main }}'
   when: venv.stat.exists == False
 
 - name: Install Tempest_plugin in our Virtual env
   pip:
-    name: '{{ tempest_dir }}/tempest-nfv-plugin/tempest_plugin/'
-    virtualenv: '{{ tempest_dir }}/tempest/.venv'
+    name: '{{ tempest_dir }}/{{ tempest_nfv_plugin }}/tempest_plugin/'
+    virtualenv: '{{ tempest_dir }}/{{ tempest_main }}/.venv'
     extra_args: -e
   when: venv.stat.exists == False
 
-- name: Copy requirments file
-  copy:
-    src: pip_ansible_openstack_packages.txt
-    dest: '{{ tempest_dir }}'
-
-- name: Install requirments for ansible
+- name: Install additional packages to the venv
   pip:
-    name: '{{ tempest_dir }}/pip_ansible_openstack_packages.txt'
-    virtualenv: '{{ tempest_dir }}/tempest/.venv'
-    extra_args: -r
+    name: "{{ item }}"
+    virtualenv: "/{{ tempest_dir }}/{{ tempest_main }}/.venv"
+    extra_args: '--upgrade'
+  with_items:
+    - 'pip'
+    - 'setuptools'
+    - 'junitxml'
 
-- name: Creating Openstack env folder
-  file:
-    path: /etc/openstack
-    state: directory
-    mode: 0755
-
-- name: Create the clouds.yml file for future tasks
-  template:
-    src: "clouds.yml.j2"
-    dest: "/etc/openstack/clouds.yml"
-    mode: 0755
-
-- name: Get network-id
+- name: Get external Network ID
   vars:
-    ansible_python_interpreter: "/root/tempest/.venv/bin/python"
+    ansible_python_interpreter: "/root/.venv/bin/python"
   os_networks_facts:
     cloud: openstack
-    name:  external
-
-- name: debug
-  debug:
-    var: openstack_networks
-
-- name: Generate tempest.conf file
-  stat:
-    path: '{{ tempest_dir }}/tempest/etc/tempest.conf'
-  register: tempest_conf
+    filters:
+      router:external: true
+  register: tempest_net_id
 
 - name: Run config_tempest script
-  vars:
-    ansible_python_interpreter: "/root/tempest/.venv/bin/python"
   shell: >
-    {{ tempest_dir }}/tempest/.venv/bin/python
-    {{ tempest_dir }}/tempest/tools/config_tempest.py --create --debug
+    {{ tempest_dir }}/{{ tempest_main }}/.venv/bin/python
+    {{ tempest_dir }}/{{ tempest_main }}/tools/config_tempest.py --create --debug
     --image {{ osp_image }}
     identity.uri {{ osp_auth.stdout }}
     identity.admin_password {{ osp_password.stdout }}
-    --network-id {{ openstack_networks.results[0].subnet.network_id }}
+    --network-id {{ tempest_net_id.ansible_facts.openstack_networks.0.id }}
   args:
-    chdir: '{{ tempest_dir }}/tempest'
+    chdir: '{{ tempest_dir }}/{{ tempest_main }}'
 
 - name: Create flavor
   vars:
     ansible_python_interpreter: "/root/.venv/bin/python"
   os_nova_flavor:
     cloud: openstack
+    name: "{{ item.name }}"
+    ram: "{{ item.ram }}"
+    disk: "{{ item.disk }}"
+    vcpus: "{{ item.vcpus }}"
     state: present
-    name: m1.nfv-flavor
-    ram: 4096
-    vcpus: 4
-    disk: 20
+  with_items: "{{ test_flavors }}"
   register: flavor_id
 
 - name: Set flavors keys
   shell: >
-    source "{{rc_file}}";
-    openstack flavor set --property hw:mem_page_size=1GB
-    --property hw:numa_mempolicy=preferred
-    --property hw:numa_mem.0=4096
-    --property hw:numa_nodes=1
-    --property hw:numa_cpus.0=0,1,2,3
-    --property hw:cpu_policy=dedicated
-    m1.nfv-flavor
+    source "{{ rc_file }}";
+    openstack flavor set
+    --property "{{ item.1 }}"
+    "{{ item.0.name }}"
+  with_subelements:
+    - "{{ test_flavors }}"
+    - property
+    - skip_missing: True
 
 - name: Modify tempest.conf
   ini_file:
-    dest: '{{ tempest_dir }}/tempest/etc/tempest.conf'
+    dest: '{{ tempest_dir }}/{{ tempest_main }}/etc/tempest.conf'
     section: "{{ item.sect }}"
     option: "{{ item.opt }}"
     value: "{{ item.val }}"
   with_items:
     - { sect: 'network' ,opt: 'port_vnic_type' ,val: "{{ port_vnic_type |default('normal')}}" }
     - { sect: 'compute' ,opt: 'image_ssh_user' ,val: "{{ image_ssh_user }}" }
-    - { sect: 'compute' ,opt: 'flavor_ref' ,val: "{{ flavor_id.id }}" }
+    - { sect: 'compute' ,opt: 'flavor_ref' ,val: "{{ tempest_flavor_id | default(flavor_id.results.0.id) }}" }
     - { sect: 'hypervisor' ,opt: 'private_key_file' ,val: "{{ private_key_dest }}" }
     - { sect: 'hypervisor' ,opt: 'user' ,val: "{{ user_for_overcloud_nodes }}" }
 
-- name: Run TestServerBasicOps Test
+- name: Execute Tempest Test
+  tags: run_tempest_test
   shell: >
-    source "{{rc_file}}";
-    source /root/tempest/.venv/bin/activate;
-    cd /root/tempest;
-    /usr/bin/bash /root/tempest/tools/run-tests.sh {{ item }} >> /root/tempest/tempest-output.txt
+    source "{{ rc_file | default('/home/stack/overcloudrc') }}";
+    source {{ tempest_dir }}/{{ tempest_main }}/.venv/bin/activate;
+    cd {{ tempest_dir }}/{{ tempest_main }};
+    /usr/bin/bash /{{ tempest_dir }}/{{ tempest_main }}/tools/run-tests.sh {{ item }}
+    | tee {{ tempest_dir }}/{{ tempest_main }}/tempest-results.txt
   with_items: "{{ tempest_tests }}"
+  register: tempest_results
+
+- name: Print the output of the test
+  tags: run_tempest_test
+  debug:
+    msg: "{{ tempest_results.results | map(attribute='stdout_lines') | list }}"
+
+- name: Set flag
+  tags: run_tempest_test
+  set_fact:
+    flag: failed
+  when: "'FAILED' in item.stdout"
+  with_items: "{{ tempest_results.results }}"
+
+- name: Fail the play if tempest run failed
+  tags: run_tempest_test
+  fail:
+    msg: "Tempest test failed. Check the log for the details."
+  when: flag == "failed"
