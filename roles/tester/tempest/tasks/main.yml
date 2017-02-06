@@ -38,10 +38,7 @@
     name: "{{ item }}"
     virtualenv: "/{{ tempest_dir }}/{{ tempest_main }}/.venv"
     extra_args: '--upgrade'
-  with_items:
-    - 'pip'
-    - 'setuptools'
-    - 'junitxml'
+  with_items: "{{ pip_packages }}"
 
 - name: Get external Network ID
   vars:
@@ -111,10 +108,10 @@
   with_items: "{{ tempest_tests }}"
   register: tempest_results
 
-- name: Print the output of the test
+- name: Set flag
   tags: run_tempest_test
-  debug:
-    msg: "{{ tempest_results.results | map(attribute='stdout_lines') | list }}"
+  set_fact:
+    flag: ''
 
 - name: Set flag
   tags: run_tempest_test
@@ -122,6 +119,11 @@
     flag: failed
   when: "'FAILED' in item.stdout"
   with_items: "{{ tempest_results.results }}"
+
+- name: Print the output of the test
+  tags: run_tempest_test
+  debug:
+    msg: "{{ tempest_results.results | map(attribute='stdout_lines') | list }}"
 
 - name: Fail the play if tempest run failed
   tags: run_tempest_test
