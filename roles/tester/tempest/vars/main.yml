@@ -13,3 +13,21 @@ tempest_repo:
 
 tempest_main: tempest
 tempest_nfv_plugin: tempest-nfv-plugin
+
+pip_packages:
+  - 'pip'
+  - 'setuptools'
+  - 'junitxml'
+  - 'ansible'
+  - 'decorator'
+  - 'dogpile.cache'
+  - 'dogpile.core'
+  - 'futures'
+  - 'httplib2'
+  - 'Jinja2'
+  - 'jsonpatch'
+  - 'munch'
+  - 'openstacksdk'
+  - 'ordereddict'
+  - 'shade'
+  - 'warlock'
