@@ -11,10 +11,13 @@ overcloud_delete: false
 ### 'External: true' value could be defined just for the external network.
 ### Allocation pools could be defined as an option in case specific pool range should be defined.
 ### Otherwise, pool will be calculated by 'cidr' value.
+### 'network_type' and 'ip_version' arguments could be defined as an option.
+### By default, 'network_type' uses 'vlan', 'ip_version' uses 'ipv4'
 networks:
   - name: public
     physical_network: public
     segmentation_id: 25
+    network_type: vlan
     external: true
     allocation_pool_start: 10.0.0.12
     allocation_pool_end: 10.0.0.100
@@ -22,6 +25,7 @@ networks:
     enable_dhcp: false
     gateway_ip: 10.0.0.254
     router_name: router1
+    ip_version: 4
   - name: private
     physical_network: tenant
     segmentation_id: 32
@@ -30,7 +34,6 @@ networks:
     gateway_ip: 172.10.0.254
     router_name: router1
 
-network_type: vlan
 dns_nameservers:
   - 8.8.8.8
   - 8.8.4.4
