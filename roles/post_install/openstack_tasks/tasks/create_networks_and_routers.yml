@@ -6,7 +6,7 @@
   os_network:
     cloud: openstack
     name: "{{ item.name }}"
-    provider_network_type: "{{ network_type }}"
+    provider_network_type: "{{ item.network_type | default('vlan') }}"
     provider_physical_network: "{{ item.physical_network }}"
     provider_segmentation_id: "{{ item.segmentation_id }}"
     external: "{{ item.external | default('false') }}"
@@ -26,6 +26,7 @@
     enable_dhcp: "{{ item.enable_dhcp }}"
     network_name: "{{ item.name }}"
     gateway_ip: "{{ item.gateway_ip }}"
+    ip_version: "{{ item.ip_version | default('4') }}"
     state: present
   with_items: "{{ networks }}"
   register: openstack_networks
