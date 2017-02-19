@@ -30,5 +30,9 @@ test_flavors:
 ## If not specified, default (first flavor in list) used.
 #tempest_flavor_id:
 
+## Various Tempest-NFV tests may require path to the test configuration file.
+## Uncomment if exists.
+#tests_config_file: <path_to_the_config_file>
+
 tempest_tests:
   - tempest.scenario.test_server_basic_ops.TestServerBasicOps

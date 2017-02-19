@@ -49,11 +49,17 @@
       router:external: true
   register: tempest_net_id
 
+- name: Download test image
+  get_url:
+    url: "{{ osp_image }}"
+    dest: "/tmp/{{ osp_image | basename }}"
+    timeout: 100
+
 - name: Run config_tempest script
   shell: >
     {{ tempest_dir }}/{{ tempest_main }}/.venv/bin/python
     {{ tempest_dir }}/{{ tempest_main }}/tools/config_tempest.py --create --debug
-    --image {{ osp_image }}
+    --image "/tmp/{{ osp_image | basename }}"
     identity.uri {{ osp_auth.stdout }}
     identity.admin_password {{ osp_password.stdout }}
     --network-id {{ tempest_net_id.ansible_facts.openstack_networks.0.id }}
@@ -91,11 +97,12 @@
     option: "{{ item.opt }}"
     value: "{{ item.val }}"
   with_items:
-    - { sect: 'network' ,opt: 'port_vnic_type' ,val: "{{ port_vnic_type |default('normal')}}" }
-    - { sect: 'compute' ,opt: 'image_ssh_user' ,val: "{{ image_ssh_user }}" }
-    - { sect: 'compute' ,opt: 'flavor_ref' ,val: "{{ tempest_flavor_id | default(flavor_id.results.0.id) }}" }
-    - { sect: 'hypervisor' ,opt: 'private_key_file' ,val: "{{ private_key_dest }}" }
-    - { sect: 'hypervisor' ,opt: 'user' ,val: "{{ user_for_overcloud_nodes }}" }
+    - { sect: 'network', opt: 'port_vnic_type', val: "{{ port_vnic_type |default('normal')}}" }
+    - { sect: 'compute', opt: 'image_ssh_user', val: "{{ image_ssh_user }}" }
+    - { sect: 'compute', opt: 'flavor_ref', val: "{{ tempest_flavor_id | default(flavor_id.results.0.id) }}" }
+    - { sect: 'hypervisor', opt: 'private_key_file', val: "{{ private_key_dest }}" }
+    - { sect: 'hypervisor', opt: 'user', val: "{{ user_for_overcloud_nodes }}" }
+    - { sect: 'hypervisor', opt: 'external_config_file', val: "{{ tests_config_file | default(omit) }}" }
 
 - name: Execute Tempest Test
   tags: run_tempest_test
