@@ -1,0 +1,14 @@
+---
+
+# Undercloud host name/ip
+# host:
+
+# Undercloud user. Default - stack
+# user:
+
+# Define one of the following.
+# In case ssh_pass is used, dynamic ssh key will be generated ans used.
+# ssh_key:
+# ssh_pass:
+
+overcloud_user: heat-admin
