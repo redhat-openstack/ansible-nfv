@@ -9,7 +9,7 @@
 
 - name: Upload images
   vars:
-    ansible_python_interpreter: "/root/.venv/bin/python"
+    ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
   os_image:
     cloud: openstack
     name: "{{ item.name }}"

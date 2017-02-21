@@ -42,7 +42,7 @@
 
 - name: Get external Network ID
   vars:
-    ansible_python_interpreter: "/root/.venv/bin/python"
+    ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
   os_networks_facts:
     cloud: openstack
     filters:
@@ -68,7 +68,7 @@
 
 - name: Create flavor
   vars:
-    ansible_python_interpreter: "/root/.venv/bin/python"
+    ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
   os_nova_flavor:
     cloud: openstack
     name: "{{ item.name }}"

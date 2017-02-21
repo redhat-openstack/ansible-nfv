@@ -14,6 +14,13 @@
   include: create_networks_and_routers.yml
   when: create_networks
 
+- name: Create flavors
+  tags:
+    - os_tasks
+    - create_flavors
+  include: create_flavors.yml
+  when: create_flavors
+
 - name: Upload images
   tags:
     - os_tasks
