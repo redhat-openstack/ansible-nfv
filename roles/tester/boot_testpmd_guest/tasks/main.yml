@@ -42,7 +42,7 @@
 
 - name: get repo requirements
   pip:
-    virtualenv: "/root/.venv"
+    virtualenv: "/tmp/ansible_venv"
     name: "{{ item.name }}"
     extra_args: '--upgrade'
   with_items:
@@ -54,7 +54,7 @@
 
 - name: Create network
   vars:
-    ansible_python_interpreter: "/root/.venv/bin/python"
+    ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
   os_network:
     cloud: openstack
     name: external
@@ -67,7 +67,7 @@
 
 - name: Create subnet
   vars:
-    ansible_python_interpreter: "/root/.venv/bin/python"
+    ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
   os_subnet:
     cloud: openstack
     name: external_subnet
@@ -81,7 +81,7 @@
 
 - name: Create second network
   vars:
-    ansible_python_interpreter: "/root/.venv/bin/python"
+    ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
   os_network:
     cloud: openstack
     name: external2
@@ -94,7 +94,7 @@
 
 - name: Create second subnet
   vars:
-    ansible_python_interpreter: "/root/.venv/bin/python"
+    ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
   os_subnet:
     cloud: openstack
     name: external_subnet2
@@ -108,7 +108,7 @@
 
 - name: Create flavor
   vars:
-    ansible_python_interpreter: "/root/.venv/bin/python"
+    ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
   os_nova_flavor:
     cloud: openstack
     state: present
@@ -139,7 +139,7 @@
 
 - name: Create the image
   vars:
-    ansible_python_interpreter: "/root/.venv/bin/python"
+    ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
   os_image:
     cloud: openstack
     state: present
@@ -151,7 +151,7 @@
 
 - name: Boot the VM
   vars:
-    ansible_python_interpreter: "/root/.venv/bin/python"
+    ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
   os_server:
     cloud: openstack
     state: present

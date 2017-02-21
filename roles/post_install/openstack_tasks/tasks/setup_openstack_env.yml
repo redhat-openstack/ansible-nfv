@@ -62,7 +62,7 @@
 - name: Create virutal env
   tags: setup_os_env_pkg_install
   pip:
-    virtualenv: "/root/.venv"
+    virtualenv: "/tmp/ansible_venv"
     name: "{{ item.name }}"
     extra_args: '--upgrade'
   with_items:
