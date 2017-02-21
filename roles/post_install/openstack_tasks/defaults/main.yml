@@ -3,6 +3,7 @@
 ### Run triggers
 setup_os_env: true
 create_networks: true
+create_flavors: true
 images_upload: true
 overcloud_delete: false
 
@@ -42,3 +43,17 @@ dns_nameservers:
 images:
   - name: cirros
     url: http://download.cirros-cloud.net/0.3.4/cirros-0.3.4-x86_64-disk.img
+
+# Default flavor to create
+flavors:
+  - name: nfv-flavor
+    ram: 4096
+    disk: 20
+    vcpus: 4
+    property:
+      - "hw:mem_page_size=1GB"
+      - "hw:numa_mempolicy=preferred"
+      - "hw:numa_mem.0=4096"
+      - "hw:numa_nodes=1"
+      - "hw:numa_cpus.0=0,1,2,3"
+      - "hw:cpu_policy=dedicated"

@@ -15,7 +15,7 @@
 
 - name: Delete Overcloud stack
   vars:
-    ansible_python_interpreter: "/root/.venv/bin/python"
+    ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
     auth: "{{ creds.stdout | from_yaml }}"
   os_stack:
     name: "{{ overcloud_name | default('overcloud') }}"

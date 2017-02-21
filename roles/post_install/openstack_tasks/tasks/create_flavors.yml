@@ -1,0 +1,25 @@
+---
+
+- name: Create flavor
+  vars:
+    ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+  os_nova_flavor:
+    cloud: openstack
+    name: "{{ item.name }}"
+    ram: "{{ item.ram }}"
+    disk: "{{ item.disk }}"
+    vcpus: "{{ item.vcpus }}"
+    state: present
+  with_items: "{{ flavors }}"
+  register: flavor_id
+
+- name: Set flavors keys
+  shell: >
+    source "{{ rc_file }}";
+    openstack flavor set
+    --property "{{ item.1 }}"
+    "{{ item.0.name }}"
+  with_subelements:
+    - "{{ flavors }}"
+    - property
+    - skip_missing: True
