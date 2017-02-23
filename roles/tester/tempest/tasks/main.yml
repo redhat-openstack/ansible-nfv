@@ -66,29 +66,19 @@
   args:
     chdir: '{{ tempest_dir }}/{{ tempest_main }}'
 
-- name: Create flavor
+- name: Check flavors
   vars:
     ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
-  os_nova_flavor:
+  os_flavor_facts:
     cloud: openstack
-    name: "{{ item.name }}"
-    ram: "{{ item.ram }}"
-    disk: "{{ item.disk }}"
-    vcpus: "{{ item.vcpus }}"
-    state: present
-  with_items: "{{ test_flavors }}"
-  register: flavor_id
 
-- name: Set flavors keys
-  shell: >
-    source "{{ rc_file }}";
-    openstack flavor set
-    --property "{{ item.1 }}"
-    "{{ item.0.name }}"
-  with_subelements:
-    - "{{ test_flavors }}"
-    - property
-    - skip_missing: True
+- name: Check for spesific flavor id if required
+  vars:
+    ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+  os_flavor_facts:
+    cloud: openstack
+    name: "{{ tempest_flavor_name }}"
+  when: tempest_flavor_name is defined
 
 - name: Modify tempest.conf
   ini_file:
@@ -99,7 +89,7 @@
   with_items:
     - { sect: 'network', opt: 'port_vnic_type', val: "{{ port_vnic_type |default('normal')}}" }
     - { sect: 'compute', opt: 'image_ssh_user', val: "{{ image_ssh_user }}" }
-    - { sect: 'compute', opt: 'flavor_ref', val: "{{ tempest_flavor_id | default(flavor_id.results.0.id) }}" }
+    - { sect: 'compute', opt: 'flavor_ref', val: "{{ openstack_flavors[0].id }}" }
     - { sect: 'hypervisor', opt: 'private_key_file', val: "{{ private_key_dest }}" }
     - { sect: 'hypervisor', opt: 'user', val: "{{ user_for_overcloud_nodes }}" }
     - { sect: 'hypervisor', opt: 'external_config_file', val: "{{ tests_config_file | default(omit) }}" }

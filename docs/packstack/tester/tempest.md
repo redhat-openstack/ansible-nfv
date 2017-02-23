@@ -39,30 +39,11 @@ Default value: normal. Used for standard and DPDK instances tests.
 #port_vnic_type: direct
 ```
 
-Specify the flavor that should be used during the tempest testing.  
-Property values could be provided as an option.  
-Multiple flavors could be created, but as by the tempest design,
-only one flavor (first), could be used within the tests.  
-This could be overridden by custom tempest plugins like tempest-nfv-plugin.
-```
-test_flavors:
-  - name: nfv-test-flavor
-    ram: 4096
-    disk: 20
-    vcpus: 4
-    property:
-      - "hw:mem_page_size=1GB"
-      - "hw:numa_mempolicy=preferred"
-      - "hw:numa_mem.0=4096"
-      - "hw:numa_nodes=1"
-      - "hw:numa_cpus.0=0,1,2,3"
-      - "hw:cpu_policy=dedicated"
-```
-
-Flavor id that should be used for tempest tests.  
+Flavor name that should be used for tempest tests.  
+The flavor that should be created for the tempest test, specified within the openstack_tasks play.  
 If not specified, default (first flavor in list) used.
 ```
-#tempest_flavor_id:
+#tempest_flavor_name:
 ```
 
 List of tempest tests that should be executed.
