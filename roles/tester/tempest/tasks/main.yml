@@ -13,6 +13,7 @@
     version: "{{ item.branch }}"
     clone: yes
     update: yes
+    force: yes
   with_items: "{{ tempest_repo }}"
 
 - name: Check if tempest.conf exists
