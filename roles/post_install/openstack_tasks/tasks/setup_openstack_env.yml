@@ -26,13 +26,17 @@
   shell: "cat {{ rc_file }} | grep USERNAME | cut -d '=' -f 2"
   register: osp_username
 
-- name: Register Tenant name
-  shell: "cat {{ rc_file }} | grep TENANT | cut -d '=' -f 2"
-  register: osp_tenant
-
 - name: Register Password
   shell: "cat {{ rc_file }} | grep OS_PASSWORD | cut -d '=' -f 2"
   register: osp_password
+
+- name: Register Tenant name (For version <= 10/Newton)
+  shell: "cat {{ rc_file }} | grep TENANT | cut -d '=' -f 2"
+  register: osp_tenant
+
+- name: Register Project name (For version >= 11/Ocata)
+  shell: "cat {{ rc_file }} | grep PROJECT | cut -d '=' -f 2"
+  register: osp_project
 
 - name: Creating Openstack env folder
   file:
