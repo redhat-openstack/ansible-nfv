@@ -4,4 +4,8 @@ clouds:
       auth_url: {{ osp_auth.stdout }}
       username: {{ osp_username.stdout }}
       password: {{ osp_password.stdout }}
+{% if osp_tenant.stdout != '' %}
       project_name: {{ osp_tenant.stdout }}
+{% elif osp_project.stdout != '' %}
+      project_name: {{ osp_project.stdout }}
+{% endif %}
