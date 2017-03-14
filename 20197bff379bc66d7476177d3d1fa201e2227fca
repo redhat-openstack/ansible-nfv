@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d05a2409_b107d773",
+        "filename": "docs/tripleo/post_install/openstack_tasks.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1008570
+      },
+      "writtenOn": "2017-03-14T14:45:11Z",
+      "side": 1,
+      "message": "Why those params are must?",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 47
+      },
+      "revId": "20197bff379bc66d7476177d3d1fa201e2227fca",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
