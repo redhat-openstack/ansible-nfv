@@ -14,6 +14,7 @@ overcloud_delete: false
 ### Otherwise, pool will be calculated by 'cidr' value.
 ### 'network_type' and 'ip_version' arguments could be defined as an option.
 ### By default, 'network_type' uses 'vlan', 'ip_version' uses 'ipv4'
+### 'gateway_ip' could be defined in case there is a need to specify gateway ip address.
 networks:
   - name: public
     physical_network: public
@@ -31,8 +32,6 @@ networks:
     physical_network: tenant
     segmentation_id: 32
     cidr: 172.20.0.0/24
-    enable_dhcp: true
-    gateway_ip: 172.10.0.254
     router_name: router1
 
 dns_nameservers:
