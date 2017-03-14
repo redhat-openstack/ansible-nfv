@@ -35,15 +35,24 @@ The run could be separated by specifying tags of specific run.
 
 ## Role variables
 #### Network creation variables
-Define the networks that should be created on the overcloud.  
-'External: true' value could be defined just for the external network.  
-Allocation pools could be defined as an option in case specific pool range should be defined.  
-Otherwise, pool will be calculated by 'cidr' value.
+Define the networks that should be created on the overcloud.
+- 'name' - The name of the network. Required.
+- 'physical_network' - The physnet of the network. Required.
+- 'segmentation_id' - The VLAN ID of the network. Required.
+- 'network_type' - Allowed values are: vlan/vxlan. Default is - vlan. Not required.
+- 'External: true' - Value could be defined just for the external network. Not required.
+- 'allocation_pool_start/end' - Could be defined as an option in case specific pool range should be defined.  
+  Otherwise, pool will be calculated by 'cidr' value. Not required.
+- 'cidr' - The CIDR of the network. Required.
+- 'enable_dhcp' - Set the dhcp state. Required.
+- 'gateway_ip' - Define specific gateway ip address if needed. Default is the first ip of the pool. Not required.
+- 'router_name' - The name of the router. Required.
 ```
 networks:
   - name: public
     physical_network: public
     segmentation_id: 25
+    network_type: vlan
     external: true
     allocation_pool_start: 10.0.0.12
     allocation_pool_end: 10.0.0.100
@@ -58,11 +67,6 @@ networks:
     enable_dhcp: true
     gateway_ip: 172.10.0.254
     router_name: router1
-```
-
-Set the network type. Available values: vlan, vxlan.
-```
-network_type: vlan
 ```
 
 Set DNS servers.

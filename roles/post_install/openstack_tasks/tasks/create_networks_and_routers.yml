@@ -25,7 +25,7 @@
     dns_nameservers: "{{ dns_nameservers }}"
     enable_dhcp: "{{ item.enable_dhcp }}"
     network_name: "{{ item.name }}"
-    gateway_ip: "{{ item.gateway_ip }}"
+    gateway_ip: "{{ item.gateway_ip | default(omit) }}"
     ip_version: "{{ item.ip_version | default('4') }}"
     state: present
   with_items: "{{ networks }}"
