@@ -23,9 +23,9 @@
     allocation_pool_end: "{{ item.allocation_pool_end | default(omit) }}"
     cidr: "{{ item.cidr }}"
     dns_nameservers: "{{ dns_nameservers }}"
-    enable_dhcp: "{{ item.enable_dhcp }}"
+    enable_dhcp: "{{ item.enable_dhcp | default('true') }}"
     network_name: "{{ item.name }}"
-    gateway_ip: "{{ item.gateway_ip }}"
+    gateway_ip: "{{ item.gateway_ip | default(omit) }}"
     ip_version: "{{ item.ip_version | default('4') }}"
     state: present
   with_items: "{{ networks }}"
