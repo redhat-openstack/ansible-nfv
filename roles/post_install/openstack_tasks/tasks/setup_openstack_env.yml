@@ -19,7 +19,7 @@
   when: rc_file_locate.results[1].stat.exists == True
 
 - name: Register Auth URL
-  shell: "cat {{ rc_file }} | grep AUTH | cut -d '=' -f 2"
+  shell: "cat {{ rc_file }} | grep AUTH_URL | cut -d '=' -f 2"
   register: osp_auth
 
 - name: Register Username
