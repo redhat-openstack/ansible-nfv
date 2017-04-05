@@ -1,0 +1,7 @@
+Code-Review+2: Maxim Babushkin <maximb@redhat.com>
+Verified+1: Maxim Babushkin <maximb@redhat.com>
+Submitted-by: Maxim Babushkin <maximb@redhat.com>
+Submitted-at: Wed, 05 Apr 2017 14:20:40 -0400
+Reviewed-on: https://review.gerrithub.io/355876
+Project: redhat-openstack/ansible-nfv
+Branch: refs/heads/devel
