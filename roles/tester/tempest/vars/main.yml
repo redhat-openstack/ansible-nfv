@@ -6,7 +6,7 @@ tempest_dir: /root/tempest
 tempest_repo:
   - name: tempest
     url: https://github.com/redhat-openstack/tempest
-    branch: master
+    branch: newton
   - name: tempest-nfv-plugin
     url: https://github.com/redhat-openstack/tempest-nfv-plugin
     branch: devel
@@ -31,3 +31,10 @@ pip_packages:
   - 'ordereddict'
   - 'shade'
   - 'warlock'
+  - 'requests'
+  - 'urllib3'
+  - 'testtools'
+  - 'oslo.concurrency'
+  - 'oslo.concurrency'
+  - 'oslo.log'
+  - 'jsonschema'
