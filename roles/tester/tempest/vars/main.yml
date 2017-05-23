@@ -21,7 +21,6 @@ pip_packages:
   - 'ansible'
   - 'decorator'
   - 'dogpile.cache'
-  - 'dogpile.core'
   - 'futures'
   - 'httplib2'
   - 'Jinja2'
