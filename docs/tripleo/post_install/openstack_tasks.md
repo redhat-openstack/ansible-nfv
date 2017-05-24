@@ -37,8 +37,8 @@ The run could be separated by specifying tags of specific run.
 #### Network creation variables
 Define the networks that should be created on the overcloud.
 - 'name' - The name of the network. Required.
-- 'physical_network' - The physnet of the network. Required.
-- 'segmentation_id' - The VLAN ID of the network. Required.
+- 'physical_network' - The physnet of the network. Not required.
+- 'segmentation_id' - The VLAN ID of the network. Not required.
 - 'network_type' - Allowed values are: vlan/vxlan. Default is - vlan. Not required.
 - 'External: true' - Value could be defined just for the external network. Not required.
 - 'allocation_pool_start/end' - Could be defined as an option in case specific pool range should be defined.  
