@@ -7,8 +7,8 @@
     cloud: openstack
     name: "{{ item.name }}"
     provider_network_type: "{{ item.network_type | default('vlan') }}"
-    provider_physical_network: "{{ item.physical_network }}"
-    provider_segmentation_id: "{{ item.segmentation_id }}"
+    provider_physical_network: "{{ item.physical_network | default(omit) }}"
+    provider_segmentation_id: "{{ item.segmentation_id | default(omit) }}"
     external: "{{ item.external | default('false') }}"
     state: present
   with_items: "{{ networks }}"
