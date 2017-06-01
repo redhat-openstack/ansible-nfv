@@ -145,7 +145,14 @@
   when: makegrub.changed
 
 - name: Wait for server to restart successfully
-  local_action: wait_for host="{{ ansible_default_ipv4.address }}" search_regex="OpenSSH" port=22 timeout=300 connect_timeout=30 delay=5
+  wait_for:
+    host: "{{ ansible_default_ipv4.address }}"
+    search_regex: "OpenSSH"
+    port: 22
+    timeout: 300
+    connect_timeout: 50
+    delay: 5
+  delegate_to: localhost
   become: false
 
 - name: Check device for DPDK
@@ -230,7 +237,14 @@
   when: nic_bind.changed
 
 - name: Wait for server to restart successfully
-  local_action: wait_for host="{{ ansible_default_ipv4.address }}" search_regex="OpenSSH" port=22 timeout=300 connect_timeout=30 delay=5
+  wait_for:
+    host: "{{ ansible_default_ipv4.address }}"
+    search_regex: "OpenSSH"
+    port: 22
+    timeout: 300
+    connect_timeout: 50
+    delay: 5
+  delegate_to: localhost
   become: false
 
 - name: Delete python script

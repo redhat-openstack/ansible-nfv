@@ -1,0 +1,83 @@
+---
+
+- name: Get external Network ID
+  vars:
+    ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+  os_networks_facts:
+    cloud: openstack
+    filters:
+      router:external: true
+  register: external_network_id
+
+- name: Get internal Network ID
+  vars:
+    ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+  os_networks_facts:
+    cloud: openstack
+    filters:
+      router:external: false
+  register: internal_network_id
+
+- name: Create keypair
+  vars:
+    ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+  os_keypair:
+      cloud: openstack
+      state: present
+      name: ansible_key
+  register: keypair
+
+- name: Create a new instance
+  vars:
+    ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+  os_server:
+    state: present
+    cloud: openstack
+    name: "{{ item.name }}"
+    image: "{{ item.image | default(images[0].name) }}"
+    flavor: "{{ item.flavor | default(flavors[0].name) }}"
+    key_name: ansible_key
+    nics:
+      - net-id: "{{ external_network_id.ansible_facts.openstack_networks.0.id }}"
+      - net-id: "{{ internal_network_id.ansible_facts.openstack_networks.0.id }}" 
+      - net-id: "{{ internal_network_id.ansible_facts.openstack_networks.1.id }}"
+  with_items:
+    - "{{ instances }}"
+  register: instance_id
+
+- name: Copy keys from generated keypair
+  copy:
+    content: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: "{{ item.mod }}"
+    force: yes
+  with_items:
+    - { src: '{{ keypair.key.private_key }}', dest: '/tmp/private_key', mod: "0600" }
+    - { src: '{{ keypair.key.public_key }}', dest: '/tmp/public_key.pub', mod: "0600" }
+  delegate_to: localhost
+  become: false
+  when: keypair.changed
+
+- name: Add host to dynamic inventory
+  add_host:
+    name: "{{ item.item.name }}"
+    group: "{{ group_name }}"
+    ansible_ssh_host: "{{ item.openstack.addresses.external[0].addr }}"
+    ansible_ssh_user: cloud-user
+    ansible_ssh_port: 22
+    ansible_ssh_private_key_file: "/tmp/private_key"
+  with_items:
+    - "{{ instance_id.results }}"
+
+- name: Wait for server to restart successfully
+  wait_for:
+    host: "{{ item.openstack.addresses.external[0].addr }}"
+    search_regex: "OpenSSH"
+    port: 22
+    timeout: 300
+    connect_timeout: 50
+    delay: 5
+  delegate_to: localhost
+  become: false
+  with_items:
+    - "{{ instance_id.results }}"

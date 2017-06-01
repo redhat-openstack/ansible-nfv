@@ -1,0 +1,153 @@
+---
+
+- name: Install driverctl
+  yum:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - driverctl
+    - tuned
+    - tuned-profiles-cpu-partitioning
+
+- name: Load vfio_pci module to the kernel
+  modprobe:
+    name: vfio_pci
+    state: present
+
+- name: Set the vfio_pci module to load on boot
+  lineinfile:
+    dest: /etc/modules-load.d/vfio_pci.conf
+    regexp: "^vfio_pci"
+    line: "vfio_pci"
+    create: yes
+
+- name: Add parameter to the grub
+  lineinfile:
+    dest: /etc/default/grub
+    regexp: '^GRUB_CMDLINE_LINUX="(?!.* {{ item.regex }})(.*)"'
+    line: 'GRUB_CMDLINE_LINUX="\1 {{ item.context }}"'
+    state: present
+    backrefs: yes
+  with_items:
+    - { regex: 'intel_iommu=on', context: 'intel_iommu=on' }
+    - { regex: 'iommu=pt', context: 'iommu=pt' }
+    - { regex: 'hugepagesz=', context: 'hugepagesz={{ hugepages_size }} default_hugepagesz={{ hugepages_size }} hugepages={{ hugepages_count }}' }
+    - { regex: 'isolcpus=', context: 'isolcpus={{ lcores_testpmd }}' }
+  register: grub
+
+- name: Set the cores to isolate
+  lineinfile:
+    dest: '/etc/tuned/cpu-partitioning-variables.conf'
+    regexp: 'isolated_cores='
+    line: 'isolated_cores={{ lcores_testpmd }}'
+    backrefs: yes
+    state: present
+  register: isolcpu_set
+
+- name: Activate the profile
+  shell: "/usr/sbin/tuned-adm profile cpu-partitioning"
+  when: isolcpu_set.changed
+
+- name: Make grub
+  command: "grub2-mkconfig -o /boot/grub2/grub.cfg"
+  when: grub.changed
+  register: makegrub
+
+- name: Restart machine
+  shell: sleep 2 && shutdown -r now "Ansible updates triggered"
+  async: 1
+  poll: 0
+  ignore_errors: true
+  when: makegrub.changed
+
+- name: Wait for server to restart successfully
+  wait_for:
+    host: "{{ ansible_default_ipv4.address }}" 
+    search_regex: "OpenSSH" 
+    port: 22 
+    timeout: 300 
+    connect_timeout: 50 
+    delay: 5
+  delegate_to: localhost
+  become: false
+
+- name: Check device for DPDK
+  shell: "/root/dpdk/tools/dpdk_nic_bind.py -s | awk '/virtio_pci/ {print $1}' | tail -n 1"
+  register: dpdk_bind_check
+  changed_when: False
+  always_run: yes
+
+- name: Check device for second DPDK in case of bidirectional tests
+  shell: "/root/dpdk/tools/dpdk_nic_bind.py -s | awk '/virtio_pci/ {print $1}' | tail -n 2 | head -n 1"
+  register: dpdk_bind_check2
+  changed_when: False
+  always_run: yes
+  when: "{{ bidirectional_test }}"
+
+- name: Create testpmd.sh file
+  template:
+    src: testpmd.sh.j2
+    dest: '/root/testpmd.sh'
+    mode: 0755
+
+- name: Change root password
+  user: 
+    name: root 
+    password: "{{ hashed_password }}"
+    update_password: always
+
+- name: Permit password Authentication
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: '^PasswordAuthentication'
+    line: 'PasswordAuthentication yes'
+  register: sshd
+
+- name: restart sshd service
+  service:
+    name: sshd
+    state: restarted
+  when: sshd.changed
+
+- name: Unbind the NICs
+  command: /root/dpdk/tools/dpdk_nic_bind.py -u "{{ dpdk_bind_check.stdout }}"
+  when: dpdk_bind_check.stdout.strip() != ""
+  ignore_errors: true
+
+- name: Unbind the NICs in case of bi-directional tests
+  command: /root/dpdk/tools/dpdk_nic_bind.py -u "{{ dpdk_bind_check2.stdout }}"
+  when: dpdk_bind_check2.stdout.strip() != ""
+  ignore_errors: true
+
+- name: Install required pip packages
+  pip:
+    name: "pexpect"
+    virtualenv: "/tmp/ansible_venv"
+    extra_args: '--upgrade'
+  delegate_to: "{{ groups['undercloud'][0] }}"
+  become_method: sudo
+  become_user: root
+
+- name: Copy testpmd python script
+  template:
+    src: "testpmd-app.py.j2"
+    dest: "/tmp/testpmd-app.py"
+    mode: 'u+rwx'
+  delegate_to: "{{ item }}"
+  become_method: sudo
+  become_user: root
+  with_items: "{{groups['undercloud']}}"
+
+- name: Run testpmd python script
+  shell: 'source /tmp/ansible_venv/bin/activate; python /tmp/testpmd-app.py'
+  async: 10000
+  poll: 0
+  delegate_to: "{{item}}"
+  become_method: sudo
+  become_user: root
+  with_items: "{{groups['undercloud']}}"
+
+- name: Pause the play, wait until testpmd app ready to recieve packets
+  pause:
+    minutes: 3
+

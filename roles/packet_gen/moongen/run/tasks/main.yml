@@ -3,22 +3,26 @@
 - name: Copy configuration file
   template:
     src: opnfv-vsperf-cfg.lua.j2
-    dest: /mnt/MoonGen/opnfv-vsperf-cfg.lua
+    dest: /root/MoonGen/opnfv-vsperf-cfg.lua
     owner: root
     group: root
     mode: 0644
 
 - name: Run MoonGen and save the output
-  shell: "/mnt/MoonGen/build/MoonGen /mnt/MoonGen/examples/opnfv-vsperf.lua | tee /tmp/MoonGenOutput.txt "
+  shell: "/root/MoonGen/build/MoonGen /root/MoonGen/examples/opnfv-vsperf.lua | tee /tmp/MoonGenOutput.txt "
   args:
-    chdir: '/mnt/MoonGen'
+    chdir: '/root/MoonGen'
 
-- wait_for: path=/tmp/MoonGenOutput.txt search_regex="Stopping final validation"
+- name: Wait for final validation
+  wait_for: path=/tmp/MoonGenOutput.txt search_regex="Stopping final validation"
 
-- shell: "tail -1 /tmp/MoonGenOutput.txt | awk {'print $12'}"
+- name: Gather frame info
+  shell: "tail -1 /tmp/MoonGenOutput.txt | awk {'print $12'}"
   register: frameloss
 
-- shell: "tail -1 /tmp/MoonGenOutput.txt | awk {'print $18'}"
+- name: Gather result info
+  shell: "tail -1 /tmp/MoonGenOutput.txt | awk {'print $18'}"
   register: result
 
-- debug: msg="Frameloss {{ frameloss }} Mpps {{ result }}"
+- name: Print results
+  debug: msg="Frameloss {{ frameloss }} Mpps {{ result }}"
