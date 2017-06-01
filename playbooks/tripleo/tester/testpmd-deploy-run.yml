@@ -1,0 +1,42 @@
+---
+
+#- name: Prepare compute host
+#  hosts: compute
+#  roles:
+#   - post_install/compute_tasks
+#  become: True
+#  become_method: sudo
+#  become_user: root
+#
+#- name: Prepare the environment
+#  hosts: undercloud
+#  vars:
+#    setup_os_env: true
+#    create_networks: true
+#    images_upload: true
+#    create_flavors: true
+#    boot_instance: true
+#  roles:
+#   - post_install/openstack_tasks
+#  become: True
+#  become_method: sudo
+#  become_user: root
+#
+#- name: Prepare the environment
+#  hosts: vm1
+#  roles:
+#    - tester/testpmd_install
+#  become: True
+#  become_method: sudo
+#  become_user: root
+
+- name: Run TestPMD
+  hosts: vm1
+  roles:
+    - tester/testpmd_run
+  become: True
+
+- name: MoonGen run
+  hosts: moongen
+  roles:
+    - packet_gen/moongen/run

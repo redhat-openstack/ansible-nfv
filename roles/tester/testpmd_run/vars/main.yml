@@ -1,0 +1,7 @@
+---
+
+bidirectional_test: true
+hugepages_size: 1GB
+hugepages_count: 3
+isolated_cpus: 0,1,2,3
+

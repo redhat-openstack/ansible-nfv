@@ -56,3 +56,5 @@ flavors:
       - "hw:numa_nodes=1"
       - "hw:numa_cpus.0=0,1,2,3"
       - "hw:cpu_policy=dedicated"
+
+instance_name: vm1

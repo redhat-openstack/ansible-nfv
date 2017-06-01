@@ -1,24 +1,34 @@
 ---
 
 - name: Copy configuration file
+  tags: test5
   template:
     src: opnfv-vsperf-cfg.lua.j2
-    dest: /mnt/MoonGen/opnfv-vsperf-cfg.lua
+    dest: /root/MoonGen/opnfv-vsperf-cfg.lua
     owner: root
     group: root
     mode: 0644
 
 - name: Run MoonGen and save the output
-  shell: "/mnt/MoonGen/build/MoonGen /mnt/MoonGen/examples/opnfv-vsperf.lua | tee /tmp/MoonGenOutput.txt "
+  tags: test5
+  shell: "/root/MoonGen/build/MoonGen /root/MoonGen/examples/opnfv-vsperf.lua | tee /tmp/MoonGenOutput.txt "
   args:
-    chdir: '/mnt/MoonGen'
+    chdir: '/root/MoonGen'
 
-- wait_for: path=/tmp/MoonGenOutput.txt search_regex="Stopping final validation"
+- name: wait for final validation
+  tags: test5
+  wait_for: path=/tmp/MoonGenOutput.txt search_regex="Stopping final validation"
 
-- shell: "tail -1 /tmp/MoonGenOutput.txt | awk {'print $12'}"
+- name: Gather frame info
+  tags: test5
+  shell: "tail -1 /tmp/MoonGenOutput.txt | awk {'print $12'}"
   register: frameloss
 
-- shell: "tail -1 /tmp/MoonGenOutput.txt | awk {'print $18'}"
+- name: Gather result info
+  tags: test5
+  shell: "tail -1 /tmp/MoonGenOutput.txt | awk {'print $18'}"
   register: result
 
-- debug: msg="Frameloss {{ frameloss }} Mpps {{ result }}"
+- name: Print results
+  tags: test5
+  debug: msg="Frameloss {{ frameloss }} Mpps {{ result }}"
