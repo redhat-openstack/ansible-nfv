@@ -1,0 +1,89 @@
+---
+
+- name: Get external Network ID
+  vars:
+    ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+  os_networks_facts:
+    cloud: openstack
+    filters:
+      router:external: true
+  register: external_network_id
+
+- name: Get internal Network ID
+  vars:
+    ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+  os_networks_facts:
+    cloud: openstack
+    filters:
+      router:external: false
+  register: external_network_id2
+
+- name: Get Image ID
+  vars:
+    ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+  os_image_facts:
+    cloud: openstack
+    image: "{{ item.name }}"
+  with_items: "{{ images }}"
+  register: image_id
+
+- name: Get Flavor ID
+  vars:
+    ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+  os_flavor_facts:
+    cloud: openstack
+    name: "{{ item.name }}"
+  with_items: "{{ flavors }}"
+  register: flavor_id
+
+- name: Create keypair
+  vars:
+    ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+  os_keypair:
+      cloud: openstack
+      state: present
+      name: ansible_key
+  register: keypair
+
+- name: Create a new instance
+  vars:
+    ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+  os_server:
+    state: present
+    cloud: openstack
+    name: "{{ instance_name }}"
+    image: "{{ image_id.results[0].ansible_facts.openstack_image.id }}"
+    flavor: "{{ flavor_id.results[0].ansible_facts.openstack_flavors[0].id }}"
+    key_name: ansible_key
+    nics:
+      - net-id: "{{ external_network_id.ansible_facts.openstack_networks.0.id }}"
+      - net-id: "{{ external_network_id2.ansible_facts.openstack_networks.0.id }}" 
+      - net-id: "{{ external_network_id2.ansible_facts.openstack_networks.1.id }}"
+  register: instance_id
+
+- name: Copy keys from generated keypair
+  copy:
+    content: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: "{{ item.mod }}"
+    force: yes
+  with_items:
+    - { src: '{{ keypair.key.private_key }}', dest: '/tmp/private_key', mod: "0600" }
+    - { src: '{{ keypair.key.public_key }}', dest: '/tmp/public_key.pub', mod: "0600" }
+  delegate_to: localhost
+  become: false
+  when: keypair.changed
+
+- name: Add host to dynamic inventory
+  add_host:
+    name: vm1
+    group: testpmd
+    ansible_ssh_host: "{{ instance_id.openstack.addresses.external[0].addr }}"
+    ansible_ssh_user: cloud-user
+    ansible_ssh_port: 22
+    ansible_ssh_private_key_file: "/tmp/private_key"
+
+- name: Wait for server successfully boot
+  local_action: wait_for host="{{ instance_id.openstack.addresses.external[0].addr }}" search_regex="OpenSSH" port=22 timeout=300 connect_timeout=30 delay=5
+  become: false
+

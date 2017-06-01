@@ -1,0 +1,11 @@
+---
+
+- name: Change "prevent_arp_spoofing" to False
+  lineinfile:
+    dest: "/etc/neutron/plugins/ml2/openvswitch_agent.ini"
+    regexp: "^prevent_arp_spoofing"
+    line: "prevent_arp_spoofing = false"
+    backrefs: yes
+  notify:
+    - 'Restart openvswitch agent service'
+    - 'Restart openvswitch service'
