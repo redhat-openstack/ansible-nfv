@@ -15,6 +15,7 @@ The playbook will generate an inventory file for the tripleo environment.
       * SRIOV
     * Tester
       * Tempest
+      * Testpmd deploy and MoonGen run
     * Tuning
       * CPU pinning and Huge pages
       * Tuned
