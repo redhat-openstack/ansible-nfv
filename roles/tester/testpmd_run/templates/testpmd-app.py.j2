@@ -1,0 +1,10 @@
+from pexpect import pxssh
+import getpass
+import time
+s = pxssh.pxssh()
+hostname = "{{ ansible_eth0.ipv4.address }}"
+username = "root"
+password = "123456"
+s.login(hostname, username, password, login_timeout=100)
+s.sendline('sudo bash /root/testpmd.sh')
+time.sleep( 10000000 )

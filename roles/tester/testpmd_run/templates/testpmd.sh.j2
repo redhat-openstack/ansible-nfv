@@ -1,0 +1,1 @@
+/root/dpdk/build/app/testpmd -l {{ lcores_testpmd }} --socket-mem {{ socket_mem }} -n {{ memory_channels }} --proc-type auto --file-prefix pg -w {{ dpdk_bind_check.stdout }} -w {{ dpdk_bind_check2.stdout }} -- --portmask={{ port_mask }} --disable-hw-vlan --disable-rss --rxq={{ txq }} --txq={{ rxq }} --rxd={{ rxd }} --txd={{ txd }} --auto-start --nb-cores={{ nb_cores }}
