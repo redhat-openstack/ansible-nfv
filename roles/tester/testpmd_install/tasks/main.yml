@@ -1,5 +1,19 @@
 ---
 
+- name: Download RHOS-release
+  get_url:
+    url: "{{ rhosurl }}"
+    dest: /tmp/rhos-release-latest.noarch.rpm
+  when: "rhosurl is defined"
+
+- name: Install RHOS-release
+  yum:
+    name: /tmp/rhos-release-latest.noarch.rpm
+    state: present
+
+- name: Run RHOS-release
+  shell: "rhos-release {{ rhos_version }}"
+
 - name: Checking if the DPDK tools were installed
   stat:
     path: /root/dpdk/
