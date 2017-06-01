@@ -1,0 +1,803 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "223fa76e_818fa7d9",
+        "filename": "playbooks/tripleo/tester/testpmd-deploy-run.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-06-01T12:45:28Z",
+      "side": 1,
+      "message": "Why is it commented out?",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 20
+      },
+      "revId": "5836dbfb696b14a8f885ab3e27df4ef51d0d8ae5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3fd983c2_9e888a71",
+        "filename": "roles/packet_gen/moongen/run/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-06-01T12:45:28Z",
+      "side": 1,
+      "message": "Remove \u0027test\u0027 tag",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 13
+      },
+      "revId": "5836dbfb696b14a8f885ab3e27df4ef51d0d8ae5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "811dc1ba_fdfcf4f0",
+        "filename": "roles/packet_gen/moongen/run/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-06-01T12:45:28Z",
+      "side": 1,
+      "message": "Remove \u0027test\u0027 tag",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 13
+      },
+      "revId": "5836dbfb696b14a8f885ab3e27df4ef51d0d8ae5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c6336b25_154d388a",
+        "filename": "roles/packet_gen/moongen/run/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-06-01T12:45:28Z",
+      "side": 1,
+      "message": "Wait",
+      "range": {
+        "startLine": 18,
+        "startChar": 8,
+        "endLine": 18,
+        "endChar": 12
+      },
+      "revId": "5836dbfb696b14a8f885ab3e27df4ef51d0d8ae5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ab6587a3_72f9e88d",
+        "filename": "roles/packet_gen/moongen/run/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-06-01T12:45:28Z",
+      "side": 1,
+      "message": "Remove \u0027test\u0027 tag",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 13
+      },
+      "revId": "5836dbfb696b14a8f885ab3e27df4ef51d0d8ae5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "02a6840a_0a07805a",
+        "filename": "roles/packet_gen/moongen/run/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-06-01T12:45:28Z",
+      "side": 1,
+      "message": "Remove \u0027test\u0027 tag",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 13
+      },
+      "revId": "5836dbfb696b14a8f885ab3e27df4ef51d0d8ae5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cac87bbd_1117f2e5",
+        "filename": "roles/packet_gen/moongen/run/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-06-01T12:45:28Z",
+      "side": 1,
+      "message": "Remove \u0027test\u0027 tag",
+      "range": {
+        "startLine": 28,
+        "startChar": 1,
+        "endLine": 28,
+        "endChar": 13
+      },
+      "revId": "5836dbfb696b14a8f885ab3e27df4ef51d0d8ae5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ded17285_970bce50",
+        "filename": "roles/packet_gen/moongen/run/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-06-01T12:45:28Z",
+      "side": 1,
+      "message": "Remove \u0027test\u0027 tag",
+      "range": {
+        "startLine": 33,
+        "startChar": 1,
+        "endLine": 33,
+        "endChar": 13
+      },
+      "revId": "5836dbfb696b14a8f885ab3e27df4ef51d0d8ae5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "91192dbd_3b6cd9aa",
+        "filename": "roles/packet_gen/moongen/run/vars/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-06-01T12:45:28Z",
+      "side": 1,
+      "message": "Why this is hard coded?",
+      "range": {
+        "startLine": 6,
+        "startChar": 9,
+        "endLine": 6,
+        "endChar": 12
+      },
+      "revId": "5836dbfb696b14a8f885ab3e27df4ef51d0d8ae5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "70b8b144_eb55939e",
+        "filename": "roles/packet_gen/moongen/run/vars/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-06-01T12:45:28Z",
+      "side": 1,
+      "message": "Why this is hard coded?",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 19
+      },
+      "revId": "5836dbfb696b14a8f885ab3e27df4ef51d0d8ae5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1dd07bb9_489d3bcc",
+        "filename": "roles/packet_gen/moongen/run/vars/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-06-01T12:45:28Z",
+      "side": 1,
+      "message": "?",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 53
+      },
+      "revId": "5836dbfb696b14a8f885ab3e27df4ef51d0d8ae5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3b5115ed_8a2f04ff",
+        "filename": "roles/packet_gen/moongen/run/vars/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-06-01T12:45:28Z",
+      "side": 1,
+      "message": "Why this is hard coded?",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 31
+      },
+      "revId": "5836dbfb696b14a8f885ab3e27df4ef51d0d8ae5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "f67751b1_d5eb57a1",
+        "filename": "roles/post_install/openstack_tasks/defaults/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-06-01T12:45:28Z",
+      "side": 1,
+      "message": "Add boot_instance trigger with \u0027false\u0027 as a default",
+      "revId": "5836dbfb696b14a8f885ab3e27df4ef51d0d8ae5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "904ca039_316b0012",
+        "filename": "roles/post_install/openstack_tasks/tasks/boot_instance.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-06-01T12:45:28Z",
+      "side": 1,
+      "message": "Please, change the register to more understandable name, like - external_net_id",
+      "range": {
+        "startLine": 10,
+        "startChar": 12,
+        "endLine": 10,
+        "endChar": 18
+      },
+      "revId": "5836dbfb696b14a8f885ab3e27df4ef51d0d8ae5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bdd8e2b2_d6e86acf",
+        "filename": "roles/post_install/openstack_tasks/tasks/boot_instance.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-06-01T12:45:28Z",
+      "side": 1,
+      "message": "Do we need a debug here?",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 15
+      },
+      "revId": "5836dbfb696b14a8f885ab3e27df4ef51d0d8ae5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba662d9c_3607dac6",
+        "filename": "roles/post_install/openstack_tasks/tasks/boot_instance.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-06-01T12:45:28Z",
+      "side": 1,
+      "message": "Please, change the register to more understandable name, like - internal_net_id",
+      "range": {
+        "startLine": 22,
+        "startChar": 2,
+        "endLine": 22,
+        "endChar": 19
+      },
+      "revId": "5836dbfb696b14a8f885ab3e27df4ef51d0d8ae5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1dbf17c6_15e18012",
+        "filename": "roles/post_install/openstack_tasks/tasks/boot_instance.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-06-01T12:45:28Z",
+      "side": 1,
+      "message": "Do we need a debug here?",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 16
+      },
+      "revId": "5836dbfb696b14a8f885ab3e27df4ef51d0d8ae5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "41775661_8ee73aaf",
+        "filename": "roles/post_install/openstack_tasks/tasks/boot_instance.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-06-01T12:45:28Z",
+      "side": 1,
+      "message": "Why is it commented?\nI think we could check for all the internal networks within single task.",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 17
+      },
+      "revId": "5836dbfb696b14a8f885ab3e27df4ef51d0d8ae5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9f870544_f9e7d521",
+        "filename": "roles/post_install/openstack_tasks/tasks/boot_instance.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-06-01T12:45:28Z",
+      "side": 1,
+      "message": "Same same. Do we need this?",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 17
+      },
+      "revId": "5836dbfb696b14a8f885ab3e27df4ef51d0d8ae5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "383035ea_de0e063e",
+        "filename": "roles/post_install/openstack_tasks/tasks/boot_instance.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-06-01T12:45:28Z",
+      "side": 1,
+      "message": "Maybe it preferred tp set a different variable, and if ot defined, use existing set as default.",
+      "range": {
+        "startLine": 76,
+        "startChar": 4,
+        "endLine": 77,
+        "endChar": 78
+      },
+      "revId": "5836dbfb696b14a8f885ab3e27df4ef51d0d8ae5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8ac72e56_d5780280",
+        "filename": "roles/post_install/openstack_tasks/tasks/boot_instance.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-06-01T12:45:28Z",
+      "side": 1,
+      "message": "Why hard coded?\nUse the variable you set.",
+      "range": {
+        "startLine": 105,
+        "startChar": 4,
+        "endLine": 105,
+        "endChar": 13
+      },
+      "revId": "5836dbfb696b14a8f885ab3e27df4ef51d0d8ae5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "27cb6bce_ff0c39f0",
+        "filename": "roles/post_install/openstack_tasks/tasks/boot_instance.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-06-01T12:45:28Z",
+      "side": 1,
+      "message": "Set it as variable in case we will use different images.",
+      "range": {
+        "startLine": 108,
+        "startChar": 4,
+        "endLine": 108,
+        "endChar": 32
+      },
+      "revId": "5836dbfb696b14a8f885ab3e27df4ef51d0d8ae5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8d656ff9_429b91a7",
+        "filename": "roles/post_install/openstack_tasks/tasks/boot_instance.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-06-01T12:45:28Z",
+      "side": 1,
+      "message": "Change this task to use \u0027:\u0027 instead of \u0027\u003d\u0027 as the others.",
+      "range": {
+        "startLine": 112,
+        "startChar": 2,
+        "endLine": 112,
+        "endChar": 41
+      },
+      "revId": "5836dbfb696b14a8f885ab3e27df4ef51d0d8ae5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bc8e5d56_eb60332e",
+        "filename": "roles/tester/testpmd_install/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-06-01T12:45:28Z",
+      "side": 1,
+      "message": "Not good. This is an internal link.\nSet it as \u0027if defined\u0027 task.\nAnd not defined variable.",
+      "range": {
+        "startLine": 5,
+        "startChar": 9,
+        "endLine": 5,
+        "endChar": 98
+      },
+      "revId": "5836dbfb696b14a8f885ab3e27df4ef51d0d8ae5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "940dbb61_7a938ef6",
+        "filename": "roles/tester/testpmd_install/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-06-01T12:45:28Z",
+      "side": 1,
+      "message": "Why is this hard coded to rhos 10?",
+      "range": {
+        "startLine": 14,
+        "startChar": 10,
+        "endLine": 14,
+        "endChar": 25
+      },
+      "revId": "5836dbfb696b14a8f885ab3e27df4ef51d0d8ae5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "143dc36a_0fb73fb2",
+        "filename": "roles/tester/testpmd_run/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-06-01T12:45:28Z",
+      "side": 1,
+      "message": "Please, change this task to use the \u0027:\u0027 instead of \u0027\u003d\u0027.",
+      "range": {
+        "startLine": 46,
+        "startChar": 3,
+        "endLine": 46,
+        "endChar": 47
+      },
+      "revId": "5836dbfb696b14a8f885ab3e27df4ef51d0d8ae5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ad5dec09_a378e401",
+        "filename": "roles/tester/testpmd_run/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-06-01T12:45:28Z",
+      "side": 1,
+      "message": "Please, change the name to understand that it is for bidirectional tests",
+      "range": {
+        "startLine": 57,
+        "startChar": 8,
+        "endLine": 57,
+        "endChar": 36
+      },
+      "revId": "5836dbfb696b14a8f885ab3e27df4ef51d0d8ae5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9b0bc52a_ad75b36f",
+        "filename": "roles/tester/testpmd_run/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-06-01T12:45:28Z",
+      "side": 1,
+      "message": "Remove test tag",
+      "range": {
+        "startLine": 75,
+        "startChar": 2,
+        "endLine": 75,
+        "endChar": 13
+      },
+      "revId": "5836dbfb696b14a8f885ab3e27df4ef51d0d8ae5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "2cf39937_54bb7bfa",
+        "filename": "roles/tester/testpmd_run/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-06-01T12:45:28Z",
+      "side": 1,
+      "message": "Move to variables. Should not be hardcoded.",
+      "range": {
+        "startLine": 78,
+        "startChar": 14,
+        "endLine": 78,
+        "endChar": 122
+      },
+      "revId": "5836dbfb696b14a8f885ab3e27df4ef51d0d8ae5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cc04351b_1a9e0bdb",
+        "filename": "roles/tester/testpmd_run/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-06-01T12:45:28Z",
+      "side": 1,
+      "message": "Please, change the name to understand that it is for bidirectional tests",
+      "range": {
+        "startLine": 99,
+        "startChar": 7,
+        "endLine": 99,
+        "endChar": 23
+      },
+      "revId": "5836dbfb696b14a8f885ab3e27df4ef51d0d8ae5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fcfc15eb_083f5568",
+        "filename": "roles/tester/testpmd_run/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-06-01T12:45:28Z",
+      "side": 1,
+      "message": "Remove \u0027test\u0027 tag",
+      "range": {
+        "startLine": 124,
+        "startChar": 2,
+        "endLine": 124,
+        "endChar": 13
+      },
+      "revId": "5836dbfb696b14a8f885ab3e27df4ef51d0d8ae5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cf7759b0_225eff8a",
+        "filename": "roles/tester/testpmd_run/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-06-01T12:45:28Z",
+      "side": 1,
+      "message": "Remove \u0027test\u0027 tag",
+      "range": {
+        "startLine": 134,
+        "startChar": 2,
+        "endLine": 134,
+        "endChar": 13
+      },
+      "revId": "5836dbfb696b14a8f885ab3e27df4ef51d0d8ae5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "67aef5c7_ac4ead82",
+        "filename": "roles/tester/testpmd_run/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-06-01T12:45:28Z",
+      "side": 1,
+      "message": "Why are we pausing the play?",
+      "range": {
+        "startLine": 135,
+        "startChar": 2,
+        "endLine": 136,
+        "endChar": 14
+      },
+      "revId": "5836dbfb696b14a8f885ab3e27df4ef51d0d8ae5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "40ec83e1_0061ba4e",
+        "filename": "roles/tester/testpmd_run/templates/testpmd-app.py.j2",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-06-01T12:45:28Z",
+      "side": 1,
+      "message": "Why are the credentials hard coded?",
+      "range": {
+        "startLine": 6,
+        "startChar": 1,
+        "endLine": 7,
+        "endChar": 19
+      },
+      "revId": "5836dbfb696b14a8f885ab3e27df4ef51d0d8ae5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "728ef2dc_31d31e65",
+        "filename": "roles/tester/testpmd_run/vars/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-06-01T12:45:28Z",
+      "side": 1,
+      "message": "Maybe it should be under the defaults?",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 6,
+        "endChar": 22
+      },
+      "revId": "5836dbfb696b14a8f885ab3e27df4ef51d0d8ae5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
