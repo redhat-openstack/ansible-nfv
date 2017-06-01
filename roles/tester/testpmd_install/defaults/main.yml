@@ -1,3 +1,5 @@
 ---
 
 version: v16.04
+rhos_version: 10
+rhosurl: http://rhos-release.virt.bos.redhat.com/repos/rhos-release/rhos-release-latest.noarch.rpm
