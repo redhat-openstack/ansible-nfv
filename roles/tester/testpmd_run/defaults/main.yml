@@ -1,0 +1,14 @@
+lcores_testpmd: "1,2,3"
+socket_mem: "1024"
+memory_channels: "4"
+port_mask: "3"
+#forward_mode: "macswap"
+#port_topology: "chained"
+txq: "1"
+rxq: "1"
+rxd: "256"
+txd: "256"
+nb_cores: "2"
+hashed_password: '$6$zEPjRxjIIybotvce$ebmbRbqmFTLAnzHnmcO8QWwA7H8fpljmYFQIlrptKiw8O1B361ji4/uIt.VIFrt2BRh4x6z7WX8qToHYRpRpO.'
+# Insert the number of the cores that will be isolated on the guest
+isolated_cpus: 0,1,2,3

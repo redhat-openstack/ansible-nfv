@@ -1,0 +1,5 @@
+---
+
+bidirectional_test: true
+hugepages_size: 1GB
+hugepages_count: 3
