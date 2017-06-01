@@ -6,6 +6,7 @@ create_networks: true
 create_flavors: true
 images_upload: true
 overcloud_delete: false
+boot_instance: false
 
 ### Networks
 ### Define the networks that should be created on the overcloud.
@@ -40,8 +41,8 @@ dns_nameservers:
 
 #Default images to upload
 images:
-  - name: cirros
-    url: http://download.cirros-cloud.net/0.3.4/cirros-0.3.4-x86_64-disk.img
+  - name: centos
+    url: http://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud.qcow2
 
 # Default flavor to create
 flavors:
@@ -56,3 +57,7 @@ flavors:
       - "hw:numa_nodes=1"
       - "hw:numa_cpus.0=0,1,2,3"
       - "hw:cpu_policy=dedicated"
+
+group_name: tested_vms
+instances:
+  - name: vm1

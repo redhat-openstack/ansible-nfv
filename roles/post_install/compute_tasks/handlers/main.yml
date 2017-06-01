@@ -1,0 +1,16 @@
+---
+
+- name: Restart openvswitch agent service
+  service:
+    name: neutron-openvswitch-agent.service
+    state: restarted
+
+- name: Restart openvswitch service
+  service:
+    name: openvswitch.service
+    state: restarted
+
+- name: Restart neutron dhcp agent
+  service: 
+    name: neutron-dhcp-agent.service
+    state: restarted

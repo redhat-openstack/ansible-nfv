@@ -28,6 +28,13 @@
   include: upload_images.yml
   when: images_upload
 
+- name: Boot instance
+  tags:
+    - os_tasks
+    - boot_instance
+  include: boot_instance.yml
+  when: boot_instance
+
 - name: Overcloud delete
   tags:
     - os_tasks
