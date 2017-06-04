@@ -875,6 +875,30 @@
     },
     {
       "key": {
+        "uuid": "454d3162_b4d3e357",
+        "filename": "roles/tester/testpmd_run/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-06-04T12:27:00Z",
+      "side": 1,
+      "message": "Add a name to the task to explain the pause.",
+      "parentUuid": "f0b68c85_162be4f0",
+      "range": {
+        "startLine": 135,
+        "startChar": 2,
+        "endLine": 136,
+        "endChar": 14
+      },
+      "revId": "5836dbfb696b14a8f885ab3e27df4ef51d0d8ae5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "40ec83e1_0061ba4e",
         "filename": "roles/tester/testpmd_run/templates/testpmd-app.py.j2",
         "patchSetId": 1
