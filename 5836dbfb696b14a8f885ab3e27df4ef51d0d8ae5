@@ -851,6 +851,30 @@
     },
     {
       "key": {
+        "uuid": "f0b68c85_162be4f0",
+        "filename": "roles/tester/testpmd_run/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1008570
+      },
+      "writtenOn": "2017-06-04T11:47:55Z",
+      "side": 1,
+      "message": "Taking around 180 seconds to run testpmd application on a new guest",
+      "parentUuid": "67aef5c7_ac4ead82",
+      "range": {
+        "startLine": 135,
+        "startChar": 2,
+        "endLine": 136,
+        "endChar": 14
+      },
+      "revId": "5836dbfb696b14a8f885ab3e27df4ef51d0d8ae5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "40ec83e1_0061ba4e",
         "filename": "roles/tester/testpmd_run/templates/testpmd-app.py.j2",
         "patchSetId": 1
