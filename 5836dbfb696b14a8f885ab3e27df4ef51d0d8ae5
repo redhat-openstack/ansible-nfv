@@ -209,6 +209,30 @@
     },
     {
       "key": {
+        "uuid": "0de62b28_3d66383e",
+        "filename": "roles/packet_gen/moongen/run/vars/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1008570
+      },
+      "writtenOn": "2017-06-04T09:34:57Z",
+      "side": 1,
+      "message": "This is an example.",
+      "parentUuid": "91192dbd_3b6cd9aa",
+      "range": {
+        "startLine": 6,
+        "startChar": 9,
+        "endLine": 6,
+        "endChar": 12
+      },
+      "revId": "5836dbfb696b14a8f885ab3e27df4ef51d0d8ae5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "70b8b144_eb55939e",
         "filename": "roles/packet_gen/moongen/run/vars/main.yml",
         "patchSetId": 1
@@ -220,6 +244,30 @@
       "writtenOn": "2017-06-01T12:45:28Z",
       "side": 1,
       "message": "Why this is hard coded?",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 19
+      },
+      "revId": "5836dbfb696b14a8f885ab3e27df4ef51d0d8ae5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6071cf5e_7aa15c72",
+        "filename": "roles/packet_gen/moongen/run/vars/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1008570
+      },
+      "writtenOn": "2017-06-04T09:34:57Z",
+      "side": 1,
+      "message": "This is an example.",
+      "parentUuid": "70b8b144_eb55939e",
       "range": {
         "startLine": 7,
         "startChar": 0,
@@ -255,6 +303,30 @@
     },
     {
       "key": {
+        "uuid": "564227c5_9137f754",
+        "filename": "roles/packet_gen/moongen/run/vars/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1008570
+      },
+      "writtenOn": "2017-06-04T09:34:57Z",
+      "side": 1,
+      "message": "See description above",
+      "parentUuid": "1dd07bb9_489d3bcc",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 53
+      },
+      "revId": "5836dbfb696b14a8f885ab3e27df4ef51d0d8ae5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3b5115ed_8a2f04ff",
         "filename": "roles/packet_gen/moongen/run/vars/main.yml",
         "patchSetId": 1
@@ -266,6 +338,30 @@
       "writtenOn": "2017-06-01T12:45:28Z",
       "side": 1,
       "message": "Why this is hard coded?",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 31
+      },
+      "revId": "5836dbfb696b14a8f885ab3e27df4ef51d0d8ae5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "090f7326_5a228658",
+        "filename": "roles/packet_gen/moongen/run/vars/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1008570
+      },
+      "writtenOn": "2017-06-04T09:34:57Z",
+      "side": 1,
+      "message": "This is an example.",
+      "parentUuid": "3b5115ed_8a2f04ff",
       "range": {
         "startLine": 17,
         "startChar": 0,
