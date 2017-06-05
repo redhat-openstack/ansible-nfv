@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5bc294a1_ec2ad0f9",
+        "filename": "docs/tripleo/tester/testpmd-deploy-run.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-06-05T13:19:41Z",
+      "side": 1,
+      "message": "Prepare",
+      "range": {
+        "startLine": 5,
+        "startChar": 4,
+        "endLine": 5,
+        "endChar": 11
+      },
+      "revId": "1b429d4fd470521ffdccfa0746cb203a871641b4",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "59c40c3b_ad86f0ef",
+        "filename": "docs/tripleo/tester/testpmd-deploy-run.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-06-05T13:19:41Z",
+      "side": 1,
+      "message": "should be rhel/centos",
+      "range": {
+        "startLine": 77,
+        "startChar": 28,
+        "endLine": 77,
+        "endChar": 43
+      },
+      "revId": "1b429d4fd470521ffdccfa0746cb203a871641b4",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "46bf6989_468be694",
+        "filename": "docs/tripleo/tester/testpmd-deploy-run.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-06-05T13:19:41Z",
+      "side": 1,
+      "message": "Change to centos url",
+      "range": {
+        "startLine": 80,
+        "startChar": 2,
+        "endLine": 81,
+        "endChar": 76
+      },
+      "revId": "1b429d4fd470521ffdccfa0746cb203a871641b4",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "0f1c8bfc_48fb952d",
+        "filename": "playbooks/tripleo/tester/testpmd-deploy-run.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-06-05T13:19:41Z",
+      "side": 1,
+      "message": "If the variable is \u0027true\u0027 by default, I don\u0027t think it should be defined here. (Just saving lines.)",
+      "range": {
+        "startLine": 14,
+        "startChar": 3,
+        "endLine": 17,
+        "endChar": 24
+      },
+      "revId": "1b429d4fd470521ffdccfa0746cb203a871641b4",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "64957081_65bc0690",
+        "filename": "roles/post_install/openstack_tasks/defaults/main.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-06-05T13:19:41Z",
+      "side": 1,
+      "message": "Change the instance_name variables to the following.\n\ninstances:\n  - name: vm1\n\nIn such way, I will be able to boot multiple instances.",
+      "range": {
+        "startLine": 61,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 18
+      },
+      "revId": "1b429d4fd470521ffdccfa0746cb203a871641b4",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
