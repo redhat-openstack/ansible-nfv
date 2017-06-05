@@ -1,0 +1,303 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "26f923f1_4b5b2caf",
+        "filename": "playbooks/tripleo/tester/testpmd-deploy-run.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-06-05T06:37:03Z",
+      "side": 1,
+      "message": "Since you are creating a testpmd group on the \u0027boot instance\u0027 task, use the group name instead of the instance name.",
+      "range": {
+        "startLine": 26,
+        "startChar": 9,
+        "endLine": 26,
+        "endChar": 12
+      },
+      "revId": "3d415046e832f56042f95f22a6a6daa56a93c420",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fff405bc_ccee8059",
+        "filename": "playbooks/tripleo/tester/testpmd-deploy-run.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-06-05T06:37:03Z",
+      "side": 1,
+      "message": "Since you are creating a testpmd group on the \u0027boot instance\u0027 task, use the group name instead of the instance name.",
+      "range": {
+        "startLine": 34,
+        "startChar": 9,
+        "endLine": 34,
+        "endChar": 12
+      },
+      "revId": "3d415046e832f56042f95f22a6a6daa56a93c420",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "703016b6_c7494be9",
+        "filename": "roles/packet_gen/moongen/run/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-06-05T06:37:03Z",
+      "side": 1,
+      "message": "Remove \u0027test\u0027 tag",
+      "range": {
+        "startLine": 12,
+        "startChar": 2,
+        "endLine": 12,
+        "endChar": 13
+      },
+      "revId": "3d415046e832f56042f95f22a6a6daa56a93c420",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ac32e2a2_b48ee360",
+        "filename": "roles/post_install/openstack_tasks/tasks/boot_instance.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-06-05T06:37:03Z",
+      "side": 1,
+      "message": "Since it is a global task, we should not limit the number of networks. The number of networks should be defined by the variables and used here with loop.",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 32
+      },
+      "revId": "3d415046e832f56042f95f22a6a6daa56a93c420",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1e4f9e64_8e1a7125",
+        "filename": "roles/post_install/openstack_tasks/tasks/boot_instance.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-06-05T06:37:03Z",
+      "side": 1,
+      "message": "Can\u0027t you use the names of the images and flavors within the instance boot instead of the uuid?",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 21
+      },
+      "revId": "3d415046e832f56042f95f22a6a6daa56a93c420",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "62cf307b_a99450ba",
+        "filename": "roles/post_install/openstack_tasks/tasks/boot_instance.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-06-05T06:37:03Z",
+      "side": 1,
+      "message": "Since it is a global task, we should not limit the number of networks. The number of networks should be defined by the variables and used here with loop.",
+      "range": {
+        "startLine": 59,
+        "startChar": 6,
+        "endLine": 61,
+        "endChar": 82
+      },
+      "revId": "3d415046e832f56042f95f22a6a6daa56a93c420",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6f755ab2_923dbb2d",
+        "filename": "roles/post_install/openstack_tasks/tasks/boot_instance.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-06-05T06:37:03Z",
+      "side": 1,
+      "message": "The \u0027instance boot\u0027 task should be usable by any scenario we would like.\nFor that case, move the \u0027name\u0027 and \u0027group\u0027 name to the defaults vars, and make them more global.\n\nVariables that should be defined to the play, could be defined within the playbook.",
+      "range": {
+        "startLine": 79,
+        "startChar": 4,
+        "endLine": 80,
+        "endChar": 18
+      },
+      "revId": "3d415046e832f56042f95f22a6a6daa56a93c420",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "93bdc722_8a236cdf",
+        "filename": "roles/post_install/openstack_tasks/tasks/boot_instance.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-06-05T06:37:03Z",
+      "side": 1,
+      "message": "Same as previous.",
+      "range": {
+        "startLine": 82,
+        "startChar": 22,
+        "endLine": 82,
+        "endChar": 32
+      },
+      "revId": "3d415046e832f56042f95f22a6a6daa56a93c420",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3b903fa5_97e318d3",
+        "filename": "roles/post_install/openstack_tasks/tasks/boot_instance.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-06-05T06:37:03Z",
+      "side": 1,
+      "message": "Set as I wrote in the previous patch.",
+      "range": {
+        "startLine": 86,
+        "startChar": 2,
+        "endLine": 88,
+        "endChar": 15
+      },
+      "revId": "3d415046e832f56042f95f22a6a6daa56a93c420",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a8ac68aa_0a3e3109",
+        "filename": "roles/tester/testpmd_install/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-06-05T06:37:03Z",
+      "side": 1,
+      "message": "You sat the default config, but the url is still hardcoded.",
+      "range": {
+        "startLine": 5,
+        "startChar": 9,
+        "endLine": 5,
+        "endChar": 98
+      },
+      "revId": "3d415046e832f56042f95f22a6a6daa56a93c420",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bb287a92_5f732d67",
+        "filename": "roles/tester/testpmd_run/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-06-05T06:37:03Z",
+      "side": 1,
+      "message": "Change the task to use the \u0027:\u0027 instead of \u0027\u003d\u0027",
+      "range": {
+        "startLine": 46,
+        "startChar": 2,
+        "endLine": 48,
+        "endChar": 15
+      },
+      "revId": "3d415046e832f56042f95f22a6a6daa56a93c420",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "04b74382_270ed4e7",
+        "filename": "roles/tester/testpmd_run/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-06-05T06:37:03Z",
+      "side": 1,
+      "message": "Remove \u0027test\u0027 tag",
+      "range": {
+        "startLine": 51,
+        "startChar": 2,
+        "endLine": 51,
+        "endChar": 12
+      },
+      "revId": "3d415046e832f56042f95f22a6a6daa56a93c420",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "83db06f3_da21d10a",
+        "filename": "roles/tester/testpmd_run/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-06-05T06:37:03Z",
+      "side": 1,
+      "message": "?",
+      "range": {
+        "startLine": 131,
+        "startChar": 57,
+        "endLine": 131,
+        "endChar": 64
+      },
+      "revId": "3d415046e832f56042f95f22a6a6daa56a93c420",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
