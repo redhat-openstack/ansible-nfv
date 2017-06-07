@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "40764bdf_cdde5bd2",
+        "filename": "docs/tripleo/tester/testpmd-deploy-run.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-06-07T09:56:26Z",
+      "side": 1,
+      "message": "Change the description according to the new structure.",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 18
+      },
+      "revId": "0b42b3b3c9e4acfd415d37a3b25b83ee023700fe",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "05c9aa9a_f5c8d4e1",
+        "filename": "docs/tripleo/tester/testpmd-deploy-run.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-06-07T09:56:26Z",
+      "side": 1,
+      "message": "Change to Centos image",
+      "range": {
+        "startLine": 79,
+        "startChar": 3,
+        "endLine": 81,
+        "endChar": 83
+      },
+      "revId": "0b42b3b3c9e4acfd415d37a3b25b83ee023700fe",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8adad761_9939c9a4",
+        "filename": "roles/post_install/openstack_tasks/defaults/main.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-06-07T09:56:26Z",
+      "side": 1,
+      "message": "Change to CentOS image",
+      "range": {
+        "startLine": 44,
+        "startChar": 10,
+        "endLine": 45,
+        "endChar": 76
+      },
+      "revId": "0b42b3b3c9e4acfd415d37a3b25b83ee023700fe",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9d9b0236_60eba845",
+        "filename": "roles/post_install/openstack_tasks/defaults/main.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-06-07T09:56:26Z",
+      "side": 1,
+      "message": "Please \u0027group_name\u0027 above the instances",
+      "range": {
+        "startLine": 63,
+        "startChar": 1,
+        "endLine": 63,
+        "endChar": 22
+      },
+      "revId": "0b42b3b3c9e4acfd415d37a3b25b83ee023700fe",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
