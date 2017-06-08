@@ -39,24 +39,21 @@
     key_name: ansible_key
     nics:
       - net-id: "{{ external_network_id.ansible_facts.openstack_networks.0.id }}"
-      - net-id: "{{ internal_network_id.ansible_facts.openstack_networks.0.id }}" 
+      - net-id: "{{ internal_network_id.ansible_facts.openstack_networks.0.id }}"
       - net-id: "{{ internal_network_id.ansible_facts.openstack_networks.1.id }}"
   with_items:
     - "{{ instances }}"
   register: instance_id
 
-- name: Copy keys from generated keypair
+- name: Copy private key from generated keypair
   copy:
-    content: "{{ item.src }}"
-    dest: "{{ item.dest }}"
-    mode: "{{ item.mod }}"
+    content: "{{ keypair.key.private_key }}"
+    dest: "/tmp/private_key"
+    mode: "0600"
     force: yes
-  with_items:
-    - { src: '{{ keypair.key.private_key }}', dest: '/tmp/private_key', mod: "0600" }
-    - { src: '{{ keypair.key.public_key }}', dest: '/tmp/public_key.pub', mod: "0600" }
+  when: keypair.changed
   delegate_to: localhost
   become: false
-  when: keypair.changed
 
 - name: Add host to dynamic inventory
   add_host:
