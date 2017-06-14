@@ -52,7 +52,6 @@ flavors:
     vcpus: 4
     property:
       - "hw:mem_page_size=1GB"
-      - "hw:numa_mempolicy=preferred"
       - "hw:numa_mem.0=4096"
       - "hw:numa_nodes=1"
       - "hw:numa_cpus.0=0,1,2,3"
