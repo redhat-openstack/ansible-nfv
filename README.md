@@ -31,7 +31,6 @@ The playbook will generate an inventory file for the tripleo environment.
       * DPDK
       * SRIOV
     * Tester
-      * Guest Testpmd
       * Tempest
       * Testpmd install
     * Tuning

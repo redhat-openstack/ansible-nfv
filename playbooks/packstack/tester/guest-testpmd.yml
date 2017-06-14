@@ -1,6 +1,0 @@
----
-
-- name: Install a rhel guest with TestPMD
-  hosts: controller
-  roles:
-    - tester/boot_testpmd_guest
