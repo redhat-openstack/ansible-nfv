@@ -1,0 +1,10 @@
+---
+
+- name: Set dhcp_agent to be taken from NameSpace
+  ini_file:
+    dest: "/etc/neutron/dhcp_agent.ini"
+    section: 'DEFAULT'
+    option: 'enable_isolated_metadata'
+    value: 'True'
+  notify:
+    - 'Restart neutron dhcp agent'

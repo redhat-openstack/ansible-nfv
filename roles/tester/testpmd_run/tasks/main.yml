@@ -62,11 +62,11 @@
 
 - name: Wait for server to restart successfully
   wait_for:
-    host: "{{ ansible_default_ipv4.address }}" 
-    search_regex: "OpenSSH" 
-    port: 22 
-    timeout: 300 
-    connect_timeout: 50 
+    host: "{{ ansible_default_ipv4.address }}"
+    search_regex: "OpenSSH"
+    port: 22
+    timeout: 300
+    connect_timeout: 50
     delay: 5
   delegate_to: localhost
   become: false
@@ -75,13 +75,11 @@
   shell: "/root/dpdk/tools/dpdk_nic_bind.py -s | awk '/virtio_pci/ {print $1}' | tail -n 1"
   register: dpdk_bind_check
   changed_when: False
-  always_run: yes
 
 - name: Check device for second DPDK in case of bidirectional tests
   shell: "/root/dpdk/tools/dpdk_nic_bind.py -s | awk '/virtio_pci/ {print $1}' | tail -n 2 | head -n 1"
   register: dpdk_bind_check2
   changed_when: False
-  always_run: yes
   when: "{{ bidirectional_test }}"
 
 - name: Create testpmd.sh file
@@ -91,8 +89,8 @@
     mode: 0755
 
 - name: Change root password
-  user: 
-    name: root 
+  user:
+    name: root
     password: "{{ hashed_password }}"
     update_password: always
 
@@ -150,4 +148,3 @@
 - name: Pause the play, wait until testpmd app ready to recieve packets
   pause:
     minutes: 3
-

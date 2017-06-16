@@ -66,7 +66,7 @@
   with_items:
     - "{{ instance_id.results }}"
 
-- name: Wait for server to restart successfully
+- name: Wait for the instance to boot up
   wait_for:
     host: "{{ item.openstack.addresses.external[0].addr }}"
     search_regex: "OpenSSH"
