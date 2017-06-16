@@ -1,9 +1,9 @@
 ---
 
 - name: Prepare compute host
-  hosts: compute
+  hosts: overcloud_nodes
   roles:
-   - post_install/compute_tasks
+   - post_install/overcloud_nodes_tasks
   become: True
   become_method: sudo
   become_user: root

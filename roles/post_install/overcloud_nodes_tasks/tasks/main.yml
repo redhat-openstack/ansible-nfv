@@ -1,0 +1,9 @@
+---
+
+- name: Include Controller tasks
+  include: controller.yml
+  when: inventory_hostname in groups['controller']
+
+- name: Include Compute tasks
+  include: compute.yml
+  when: inventory_hostname in groups['compute']
