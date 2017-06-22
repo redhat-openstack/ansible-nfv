@@ -45,7 +45,7 @@
   vars:
     ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
   os_networks_facts:
-    cloud: openstack
+    cloud: overcloud
     filters:
       router:external: true
   register: tempest_net_id
@@ -71,13 +71,13 @@
   vars:
     ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
   os_flavor_facts:
-    cloud: openstack
+    cloud: overcloud
 
 - name: Check for spesific flavor id if required
   vars:
     ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
   os_flavor_facts:
-    cloud: openstack
+    cloud: overcloud
     name: "{{ tempest_flavor_name }}"
   when: tempest_flavor_name is defined
 

@@ -4,7 +4,7 @@
   vars:
     ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
   os_network:
-    cloud: openstack
+    cloud: overcloud
     name: "{{ item.name }}"
     provider_network_type: "{{ item.network_type | default('vlan') }}"
     provider_physical_network: "{{ item.physical_network | default(omit) }}"
@@ -17,7 +17,7 @@
   vars:
     ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
   os_subnet:
-    cloud: openstack
+    cloud: overcloud
     name: "{{ item.name }}_subnet"
     allocation_pool_start: "{{ item.allocation_pool_start | default(omit) }}"
     allocation_pool_end: "{{ item.allocation_pool_end | default(omit) }}"
@@ -35,7 +35,7 @@
   vars:
     ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
   os_router:
-    cloud: openstack
+    cloud: overcloud
     name: "{{ item[0].router_name }}"
     network: "{{ item[0].name }}"
     state: present
@@ -48,7 +48,7 @@
   vars:
     ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
   os_router:
-    cloud: openstack
+    cloud: overcloud
     name: "{{ item[0].router_name }}"
     interfaces: "{{ item[0].name }}_subnet"
     state: present
