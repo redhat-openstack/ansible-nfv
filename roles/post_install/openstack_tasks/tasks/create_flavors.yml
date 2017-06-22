@@ -4,7 +4,7 @@
   vars:
     ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
   os_nova_flavor:
-    cloud: openstack
+    cloud: overcloud
     name: "{{ item.name }}"
     ram: "{{ item.ram }}"
     disk: "{{ item.disk }}"

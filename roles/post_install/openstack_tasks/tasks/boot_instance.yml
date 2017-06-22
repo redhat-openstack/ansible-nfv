@@ -4,7 +4,7 @@
   vars:
     ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
   os_networks_facts:
-    cloud: openstack
+    cloud: overcloud
     filters:
       router:external: true
   register: external_network_id
@@ -13,7 +13,7 @@
   vars:
     ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
   os_networks_facts:
-    cloud: openstack
+    cloud: overcloud
     filters:
       router:external: false
   register: internal_network_id
@@ -22,7 +22,7 @@
   vars:
     ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
   os_keypair:
-      cloud: openstack
+      cloud: overcloud
       state: present
       name: ansible_key
   register: keypair
@@ -32,7 +32,7 @@
     ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
   os_server:
     state: present
-    cloud: openstack
+    cloud: overcloud
     name: "{{ item.name }}"
     image: "{{ item.image | default(images[0].name) }}"
     flavor: "{{ item.flavor | default(flavors[0].name) }}"

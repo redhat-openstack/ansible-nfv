@@ -11,7 +11,7 @@
   vars:
     ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
   os_image:
-    cloud: openstack
+    cloud: overcloud
     name: "{{ item.name }}"
     container_format: bare
     disk_format: qcow2
