@@ -44,6 +44,9 @@
     - "{{ networks }}"
     - "{{ openstack_networks.results }}"
 
+# TODO: Refactor the task in order to match the following scenarios:
+#       * Add more than single internal interface to the router (currently stopping on a first match).
+#       * Check the behavior of the task in case 'external' var omitted and 'router_name' var exists.
 - name: Set router interface
   vars:
     ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
@@ -52,7 +55,8 @@
     name: "{{ item[0].router_name }}"
     interfaces: "{{ item[0].name }}_subnet"
     state: present
-  when: "item[1].item.external is not defined or item[1].item.external == false"
+  when: "item[1].item.external is defined and item[1].item.external == false"
   with_together:
     - "{{ networks }}"
     - "{{ openstack_networks.results }}"
+

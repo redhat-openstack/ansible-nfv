@@ -81,6 +81,16 @@
     name: "{{ tempest_flavor_name }}"
   when: tempest_flavor_name is defined
 
+- name: Copying generic config file to the "{{ tempest_dir }}" directory
+  copy:
+    src: "{{ tempest_config | default(omit) }}"
+    dest: "{{ tempest_dir }}"
+    owner: root
+    group: root
+    mode: 0755
+
+# TODO: Change the behavior of the 'external_config_file' so in case 'network_config' var
+#       is not used (in previous task), set the value of the 'external_config_file' to 'None'
 - name: Modify tempest.conf
   ini_file:
     dest: '{{ tempest_dir }}/{{ tempest_main }}/etc/tempest.conf'
@@ -93,7 +103,7 @@
     - { sect: 'compute', opt: 'flavor_ref', val: "{{ openstack_flavors[0].id }}" }
     - { sect: 'hypervisor', opt: 'private_key_file', val: "{{ private_key_dest }}" }
     - { sect: 'hypervisor', opt: 'user', val: "{{ user_for_overcloud_nodes }}" }
-    - { sect: 'hypervisor', opt: 'external_config_file', val: "{{ tests_config_file | default(omit) }}" }
+    - { sect: 'hypervisor', opt: 'external_config_file', val: "{{ tempest_dir }}/{{ tempest_config | basename }}" }
 
 - name: Execute Tempest Test
   tags: run_tempest_test
