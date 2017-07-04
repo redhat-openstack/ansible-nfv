@@ -3,9 +3,6 @@
 - name: Prepare the environment
   hosts: undercloud
   vars:
-    setup_os_env: true
-    create_networks: true
-    create_flavors: true
     images_upload: false
   roles:
     - post_install/openstack_tasks

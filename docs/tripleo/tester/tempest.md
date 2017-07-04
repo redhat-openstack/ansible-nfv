@@ -46,6 +46,21 @@ If not specified, default (first flavor in list) used.
 #tempest_flavor_name:
 ```
 
+Path to the tempest config file.  
+Variables within the config file will be used by the tempest-nfv-plugin for the tests.  
+```
+tempest_config: /path/to/the/local/config/file.yml
+```
+
+Example of the tempest-nfv-plugin test configuration.  
+**Note!** - The tempest config file may include additional variable such as network, images, etc... from the openstack_tasks role.
+```
+tests-setup:
+  - name: numa0
+    flavor: m1.medium.huge_pages_cpu_pinning_numa_node-0
+    availability-zone:
+```
+
 List of tempest tests that should be executed.
 ```
 tempest_tests:
