@@ -1,0 +1,7 @@
+Verified+1: Maxim Babushkin <maximb@redhat.com>
+Code-Review+2: edannon <edannon@redhat.com>
+Submitted-by: edannon <edannon@redhat.com>
+Submitted-at: Mon, 10 Jul 2017 03:16:49 -0400
+Reviewed-on: https://review.gerrithub.io/368703
+Project: redhat-openstack/ansible-nfv
+Branch: refs/heads/devel
