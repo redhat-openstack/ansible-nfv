@@ -9,7 +9,7 @@ tempest_repo:
     branch: newton
   - name: tempest-nfv-plugin
     url: https://github.com/redhat-openstack/tempest-nfv-plugin
-    branch: devel
+    branch: master
 
 tempest_main: tempest
 tempest_nfv_plugin: tempest-nfv-plugin
