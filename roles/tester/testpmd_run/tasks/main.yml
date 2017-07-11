@@ -1,5 +1,17 @@
 ---
 
+- name: Get instance virsh name
+  shell: "source /home/stack/overcloudrc;nova show {{ groups['testpmd'][0] }} | grep instance_name | awk '{print $4}'"
+  register: instance_virsh_name
+  delegate_to: "{{ groups['undercloud'][0] }}"
+
+- name: Set emulatorpin to the instance
+  shell: >
+     virsh emulatorpin {{ instance_virsh_name.stdout }} --cpulist 
+     `virsh dumpxml {{ instance_virsh_name.stdout }} | 
+     grep vcpupin | head -1 | awk '{print $3}' | sed 's/[^0-9]//g'`
+  delegate_to: "{{ groups['compute'][0] }}"
+
 - name: Install driverctl
   yum:
     name: "{{ item }}"
