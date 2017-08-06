@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c2dddfd9_1f18a7d2",
+        "filename": "roles/tester/tempest/defaults/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1008570
+      },
+      "writtenOn": "2017-08-06T12:43:11Z",
+      "side": 1,
+      "message": "available",
+      "range": {
+        "startLine": 4,
+        "startChar": 16,
+        "endLine": 4,
+        "endChar": 24
+      },
+      "revId": "30035e5001d123e009470d5b6fc96aca0793870b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9045313f_19e28ce4",
+        "filename": "roles/tester/tempest/tasks/upstream.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1008570
+      },
+      "writtenOn": "2017-08-06T12:43:11Z",
+      "side": 1,
+      "message": "I think we should take this for another role and run it with include, this way we could run it individually using another play",
+      "range": {
+        "startLine": 167,
+        "startChar": 0,
+        "endLine": 202,
+        "endChar": 22
+      },
+      "revId": "30035e5001d123e009470d5b6fc96aca0793870b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
