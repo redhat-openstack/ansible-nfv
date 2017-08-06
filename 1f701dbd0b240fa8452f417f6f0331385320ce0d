@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "37916bf3_783a4cd6",
+        "filename": "roles/post_install/openstack_tasks/tasks/create_networks_and_routers.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-08-06T09:54:32Z",
+      "side": 1,
+      "message": "Please add the following change to the openstack_task documentation",
+      "range": {
+        "startLine": 13,
+        "startChar": 4,
+        "endLine": 13,
+        "endChar": 47
+      },
+      "revId": "1f701dbd0b240fa8452f417f6f0331385320ce0d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c617f1b2_5f9cd6dd",
+        "filename": "roles/tester/tempest/defaults/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-08-06T09:54:32Z",
+      "side": 1,
+      "message": "For the docs, add the proper explanation of what is upstream and downstream",
+      "range": {
+        "startLine": 4,
+        "startChar": 3,
+        "endLine": 4,
+        "endChar": 67
+      },
+      "revId": "1f701dbd0b240fa8452f417f6f0331385320ce0d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "194d67ee_4249e1d1",
+        "filename": "roles/tester/tempest/tasks/upstream.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-08-06T09:54:32Z",
+      "side": 1,
+      "message": "Remove tag",
+      "range": {
+        "startLine": 10,
+        "startChar": 2,
+        "endLine": 10,
+        "endChar": 11
+      },
+      "revId": "1f701dbd0b240fa8452f417f6f0331385320ce0d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
