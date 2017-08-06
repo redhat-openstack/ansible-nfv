@@ -2,21 +2,34 @@
 
 ## Tempest variables
 tempest_dir: /root/tempest
+tempest_main: openstack-tempest
+tempest_conf: python-tempestconf
+tempest_nfv_plugin: tempest-nfv-plugin/tempest_plugin
 
-tempest_repo:
-  - name: tempest
+tempest_repos_upstream:
+  - name: openstack-tempest
+    url: https://github.com/openstack/tempest
+    version: master
+  - name: python-tempestconf
+    url: https://github.com/redhat-openstack/python-tempestconf
+    version: master
+  - name: tempest-nfv-plugin
+    url: https://github.com/redhat-openstack/tempest-nfv-plugin
+    version: devel
+
+tempest_repos_downstream:
+  - name: openstack-tempest
     url: https://github.com/redhat-openstack/tempest
     branch: newton
   - name: tempest-nfv-plugin
     url: https://github.com/redhat-openstack/tempest-nfv-plugin
     branch: master
 
-tempest_main: tempest
-tempest_nfv_plugin: tempest-nfv-plugin
-
 pip_packages:
   - 'pip'
   - 'setuptools'
+  - 'python-subunit'
+  - 'ipdb'
   - 'junitxml'
   - 'ansible'
   - 'decorator'
