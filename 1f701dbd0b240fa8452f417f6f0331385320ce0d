@@ -48,6 +48,29 @@
     },
     {
       "key": {
+        "uuid": "7eb1a7d5_b3542d00",
+        "filename": "roles/tester/tempest/defaults/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1008570
+      },
+      "writtenOn": "2017-08-06T12:43:11Z",
+      "side": 1,
+      "message": "available",
+      "range": {
+        "startLine": 4,
+        "startChar": 16,
+        "endLine": 4,
+        "endChar": 24
+      },
+      "revId": "1f701dbd0b240fa8452f417f6f0331385320ce0d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "194d67ee_4249e1d1",
         "filename": "roles/tester/tempest/tasks/upstream.yml",
         "patchSetId": 1
