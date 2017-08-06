@@ -10,6 +10,7 @@
     provider_physical_network: "{{ item.physical_network | default(omit) }}"
     provider_segmentation_id: "{{ item.segmentation_id | default(omit) }}"
     external: "{{ item.external | default('false') }}"
+    shared: "{{ item.shared | default(omit) }}"
     state: present
   with_items: "{{ networks }}"
 
@@ -59,4 +60,3 @@
   with_together:
     - "{{ networks }}"
     - "{{ openstack_networks.results }}"
-
