@@ -85,10 +85,15 @@
     python config_tempest/config_tempest.py --create --debug --image "/tmp/{{ osp_image | basename }}" \
     identity.uri {{ osp_auth.stdout }} identity.admin_password {{ osp_password.stdout }} \
     identity.region regionOne \
-    --network-id {{ tempest_net_id.ansible_facts.openstack_networks.0.id }} \
+    --network-id {{ tempest_net_id.ansible_facts.openstack_networks.0.id }}
   args:
       executable: /bin/bash
       chdir: "{{ tempest_dir }}/{{ tempest_conf }}"
+
+- name: Delete default tempest.conf file before symlink it to the updated
+  file:
+    path: /etc/tempest/tempest.conf
+    state: absent
 
 - name: Creating a soft link for the tempest.conf file
   file:
