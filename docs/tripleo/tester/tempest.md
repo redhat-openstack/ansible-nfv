@@ -7,6 +7,12 @@ Tempest role will perform the following steps:
   - Configure Tempest
   - Run defined tests
 
+Upstream - Install an Openstack tempest.   
+Downstream - Install an RedHat tempest. The RedHat tempest is deprecated.   
+
+**Note!** - As a default behavior, upstream tempest will be deployed upon to each playbook run.   
+In order to use downstream tempest version, add "-e tempest_ver=downstream"  option to your initial playbook run.
+
 ## Role tags
 * run_tempest_test - Executes only the tempest tests.
 
@@ -34,7 +40,8 @@ user_for_overcloud_nodes: heat-admin
 Port vnic type.  
 Uncomment the following value in order to set the port to 'direct' type.  
 Used for SR-IOV tests.  
-Default value: normal. Used for standard and DPDK instances tests.
+Default value: normal. Used for standard and DPDK instances tests.   
+**Note!** - Port vnic type options, is only usable by the downstream tempest deployment.
 ```
 #port_vnic_type: direct
 ```
