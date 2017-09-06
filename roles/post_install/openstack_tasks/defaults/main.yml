@@ -16,6 +16,8 @@ boot_instance: false
 ### 'network_type' and 'ip_version' arguments could be defined as an option.
 ### By default, 'network_type' uses 'vlan', 'ip_version' uses 'ipv4'
 ### 'gateway_ip' could be defined in case there is a need to specify gateway ip address.
+### 'shared', define whether this network is shared or not.
+
 networks:
   - name: public
     physical_network: public
@@ -28,6 +30,7 @@ networks:
     enable_dhcp: false
     gateway_ip: 10.0.0.254
     router_name: router1
+    shared: true
     ip_version: 4
   - name: private
     physical_network: tenant
