@@ -7,6 +7,7 @@ create_flavors: true
 images_upload: true
 overcloud_delete: false
 boot_instance: false
+delete_instance: false
 
 ### Networks
 ### Define the networks that should be created on the overcloud.
@@ -59,4 +60,7 @@ flavors:
 
 group_name: tested_vms
 instances:
+  - name: vm1
+
+remove_instances:
   - name: vm1
