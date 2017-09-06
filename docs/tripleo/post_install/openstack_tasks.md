@@ -47,6 +47,7 @@ Define the networks that should be created on the overcloud.
 - 'enable_dhcp' - Set the dhcp state. Default is - enabled. Not required.
 - 'gateway_ip' - Define specific gateway ip address if needed. Default is the first ip of the pool. Not required.
 - 'router_name' - The name of the router. Required.
+- 'shared' - Define whether this network is shared or not. Not required.
 ```
 networks:
   - name: public
@@ -60,6 +61,7 @@ networks:
     enable_dhcp: false
     gateway_ip: 10.0.0.254
     router_name: router1
+    shared: true
   - name: private
     physical_network: tenant
     segmentation_id: 32
