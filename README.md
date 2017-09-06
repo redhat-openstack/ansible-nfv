@@ -16,6 +16,7 @@ The playbook will generate an inventory file for the tripleo environment.
     * Tester
       * Tempest
       * Testpmd deploy and MoonGen run
+      * Testpmd deploy and MoonGen run on "WRONG" NUMA node
     * Tuning
       * CPU pinning and Huge pages
       * Tuned

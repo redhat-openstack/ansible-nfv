@@ -1,0 +1,53 @@
+---
+
+- name: Prepare the environment
+  hosts: undercloud
+  vars:
+    setup_os_env: false
+    create_networks: false
+    create_flavors: false
+    images_upload: false
+    delete_instance: true
+  roles:
+   - post_install/openstack_tasks
+  become: True
+  become_method: sudo
+  become_user: root
+
+- name: Change vcpu_pin
+  hosts: compute
+  roles:
+   - roles/workarounds
+  become: True
+  become_method: sudo
+  become_user: root
+
+- name: Prepare the environment
+  hosts: undercloud
+  vars:
+    boot_instance: true
+    group_name: testpmd
+  roles:
+   - post_install/openstack_tasks
+  become: True
+  become_method: sudo
+  become_user: root
+
+- name: Prepare the environment
+  hosts: testpmd
+  roles:
+    - tester/testpmd_install
+  become: True
+  become_method: sudo
+  become_user: root
+
+- name: Run TestPMD
+  hosts: testpmd
+  roles:
+    - tester/testpmd_run
+  become: True
+
+- name: MoonGen run
+  hosts: moongen
+  roles:
+    - packet_gen/moongen/run
