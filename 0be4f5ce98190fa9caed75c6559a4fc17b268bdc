@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "64386d3f_1bd8b17e",
+        "filename": "README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2017-09-06T13:31:54Z",
+      "side": 1,
+      "message": "It is not wrong it is CROSSED",
+      "range": {
+        "startLine": 19,
+        "startChar": 43,
+        "endLine": 19,
+        "endChar": 48
+      },
+      "revId": "0be4f5ce98190fa9caed75c6559a4fc17b268bdc",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "880b88ab_2c8cc9d7",
+        "filename": "docs/tripleo/tester/crossnuma-performance.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2017-09-06T13:31:54Z",
+      "side": 1,
+      "message": "Why workaround role it is cross role",
+      "range": {
+        "startLine": 6,
+        "startChar": 52,
+        "endLine": 6,
+        "endChar": 62
+      },
+      "revId": "0be4f5ce98190fa9caed75c6559a4fc17b268bdc",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
