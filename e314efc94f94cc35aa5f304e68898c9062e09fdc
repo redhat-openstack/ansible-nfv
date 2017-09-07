@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9958308c_094ee7b8",
+        "filename": "roles/post_install/overcloud_nodes_tasks/tasks/compute.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-09-07T07:44:33Z",
+      "side": 1,
+      "message": "Remove",
+      "range": {
+        "startLine": 14,
+        "startChar": 2,
+        "endLine": 14,
+        "endChar": 12
+      },
+      "revId": "e314efc94f94cc35aa5f304e68898c9062e09fdc",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a23a6ae_e7fd6f5e",
+        "filename": "roles/post_install/overcloud_nodes_tasks/tasks/compute.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-09-07T07:44:33Z",
+      "side": 1,
+      "message": "Remove",
+      "range": {
+        "startLine": 19,
+        "startChar": 2,
+        "endLine": 19,
+        "endChar": 12
+      },
+      "revId": "e314efc94f94cc35aa5f304e68898c9062e09fdc",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a4743cf_4779c50c",
+        "filename": "roles/post_install/overcloud_nodes_tasks/tasks/compute.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-09-07T07:44:33Z",
+      "side": 1,
+      "message": "Remove",
+      "range": {
+        "startLine": 27,
+        "startChar": 2,
+        "endLine": 27,
+        "endChar": 12
+      },
+      "revId": "e314efc94f94cc35aa5f304e68898c9062e09fdc",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
