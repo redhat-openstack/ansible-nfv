@@ -13,6 +13,10 @@
       "
   register: creds
 
+# NOTE: In Ocata version, the following task fails before finishing
+#       the delete process of the stack.
+#       As a workaroung, 'ignore_errors' flag and 'pause' task added.
+# TODO: Once fixed, remove this.
 - name: Delete Overcloud stack
   vars:
     ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
@@ -22,3 +26,8 @@
     auth: "{{ auth }}"
     state: absent
     wait: yes
+  ignore_errors: true
+
+- name: Pause the play, wait until stack deleted completely
+  pause:
+    minutes: 3
