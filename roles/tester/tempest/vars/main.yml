@@ -9,10 +9,10 @@ tempest_nfv_plugin: tempest-nfv-plugin/tempest_plugin
 tempest_repos_upstream:
   - name: openstack-tempest
     url: https://github.com/openstack/tempest
-    version: master
+    version: 16.1.0
   - name: python-tempestconf
     url: https://github.com/redhat-openstack/python-tempestconf
-    version: master
+    version: 1.1.3
   - name: tempest-nfv-plugin
     url: https://github.com/redhat-openstack/tempest-nfv-plugin
     version: master
