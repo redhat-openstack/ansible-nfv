@@ -1,6 +1,6 @@
 ---
 
-- name: Prepare compute host
+- name: Prepare Overcloud nodes
   hosts: overcloud_nodes
   roles:
    - post_install/overcloud_nodes_tasks
@@ -8,7 +8,7 @@
   become_method: sudo
   become_user: root
 
-- name: Prepare the environment
+- name: Prepare Networks, Flavors, Images and Instance
   hosts: undercloud
   vars:
     boot_instance: true
@@ -19,7 +19,7 @@
   become_method: sudo
   become_user: root
 
-- name: Prepare the environment
+- name: Install TestPMD on the instance
   hosts: testpmd
   roles:
     - tester/testpmd_install

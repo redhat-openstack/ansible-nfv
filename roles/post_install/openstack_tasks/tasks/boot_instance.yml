@@ -22,10 +22,33 @@
   vars:
     ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
   os_keypair:
-      cloud: overcloud
-      state: present
-      name: ansible_key
+    cloud: overcloud
+    state: present
+    name: ansible_key
   register: keypair
+
+- name: Create security group
+  vars:
+    ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+  os_security_group:
+    cloud: overcloud
+    name: nfv-test
+    description: The security group used for nfv tempest testing
+    state: present
+
+- name: Add ICMP and SSH protocols
+  vars:
+    ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+  os_security_group_rule:
+    cloud: overcloud
+    security_group: nfv-test
+    protocol: "{{ item.protocol }}"
+    port_range_min: "{{ item.port_range_min }}"
+    port_range_max: "{{ item.port_range_max }}"
+    remote_ip_prefix: 0.0.0.0/0
+  with_items:
+    - { protocol: icmp, port_range_min: -1, port_range_max: -1 }
+    - { protocol: tcp, port_range_min: 22, port_range_max: 22 }
 
 - name: Create a new instance
   vars:
@@ -37,6 +60,7 @@
     image: "{{ item.image | default(images[0].name) }}"
     flavor: "{{ item.flavor | default(flavors[0].name) }}"
     key_name: ansible_key
+    security_groups: nfv-test
     nics:
       - net-id: "{{ external_network_id.ansible_facts.openstack_networks.0.id }}"
       - net-id: "{{ internal_network_id.ansible_facts.openstack_networks.0.id }}"
