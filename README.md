@@ -10,7 +10,7 @@ The playbook will generate an inventory file for the tripleo environment.
 
 ## Playbooks
 * TripleO
-    * NFV
+    * NFV (DEPRECATED)
       * DPDK
       * SRIOV
     * Tester

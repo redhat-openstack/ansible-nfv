@@ -5,12 +5,24 @@
   register: instance_virsh_name
   delegate_to: "{{ groups['undercloud'][0] }}"
 
+# TODO: (maximb) Merge two following tasks with loop
+# Ensure the task not fails when one of the groups
+# does not exists
 - name: Set emulatorpin to the instance
   shell: >
-     virsh emulatorpin {{ instance_virsh_name.stdout }} --cpulist 
-     `virsh dumpxml {{ instance_virsh_name.stdout }} | 
+     virsh emulatorpin {{ instance_virsh_name.stdout }} --cpulist
+     `virsh dumpxml {{ instance_virsh_name.stdout }} |
      grep vcpupin | head -1 | awk '{print $3}' | sed 's/[^0-9]//g'`
   delegate_to: "{{ groups['compute'][0] }}"
+  when: "'compute' in groups"
+
+- name: Set emulatorpin to the instance
+  shell: >
+     virsh emulatorpin {{ instance_virsh_name.stdout }} --cpulist
+     `virsh dumpxml {{ instance_virsh_name.stdout }} |
+     grep vcpupin | head -1 | awk '{print $3}' | sed 's/[^0-9]//g'`
+  delegate_to: "{{ groups['computeovsdpdk'][0] }}"
+  when: "'computeovsdpdk' in groups"
 
 - name: Install driverctl
   yum:
