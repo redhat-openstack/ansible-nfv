@@ -6,4 +6,4 @@
 
 - name: Include Compute tasks
   include: compute.yml
-  when: inventory_hostname in groups['compute']
+  when: inventory_hostname in groups['computeovsdpdk'] | default([]) | union(groups['compute'] | default([]))

@@ -9,3 +9,25 @@
   notify:
     - 'Restart openvswitch agent service'
     - 'Restart openvswitch service'
+
+- name: Check existence of kernel params
+  shell: 'cat /proc/cmdline | grep iommu | grep isolcpus | grep nohz | grep nohz_full | grep rcu_nocbs | grep intel_pstate  | wc -l'
+  register: kernel_params
+
+- name: Restart machine if kernel params missing
+  shell: sleep 2 && shutdown -r now "Ansible updates triggered"
+  async: 1
+  poll: 0
+  ignore_errors: true
+  when: 'kernel_params.stdout == 0'
+
+- name: Wait for server to restart successfully
+  wait_for:
+    host: "{{ ansible_default_ipv4.address }}"
+    search_regex: "OpenSSH"
+    port: 22
+    timeout: 500
+    connect_timeout: 50
+    delay: 5
+  delegate_to: localhost
+  become: false
