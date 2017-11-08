@@ -19,7 +19,7 @@
   async: 1
   poll: 0
   ignore_errors: true
-  when: '{{ kernel_params.stdout }} == 0'
+  when: 'kernel_params.stdout == 0'
 
 - name: Wait for server to restart successfully
   wait_for:
