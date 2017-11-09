@@ -1,5 +1,17 @@
 ---
 
+- name: Check whether DPDK or SR-IOV configured
+  shell: 'hiera -c /etc/puppet/hiera.yaml service_names | grep neutron_ovs_dpdk_agent'
+  register: checkdpdk
+  ignore_errors: yes
+  failed_when: checkdpdk.rc != 0 or checkdpdk.rc != 1
+
+- name: Check whether DPDK or SR-IOV configured
+  shell: 'hiera -c /etc/puppet/hiera.yaml service_names | grep neutron_sriov_agent'
+  register: checksriov
+  ignore_errors: yes
+  failed_when: checksriov.rc != 0 or checksriov.rc != 1
+
 - name: Change "prevent_arp_spoofing" to False
   ini_file:
     dest: "/etc/neutron/plugins/ml2/openvswitch_agent.ini"
@@ -9,6 +21,7 @@
   notify:
     - 'Restart openvswitch agent service'
     - 'Restart openvswitch service'
+  when: checkdpdk.changed
 
 - name: Check existence of kernel params
   shell: 'cat /proc/cmdline | grep iommu | grep isolcpus | grep nohz | grep nohz_full | grep rcu_nocbs | grep intel_pstate  | wc -l'
@@ -21,13 +34,13 @@
   ignore_errors: true
   when: '{{ kernel_params.stdout }} == 0'
 
-- name: Wait for server to restart successfully
-  wait_for:
-    host: "{{ ansible_default_ipv4.address }}"
-    search_regex: "OpenSSH"
-    port: 22
-    timeout: 500
-    connect_timeout: 50
-    delay: 5
-  delegate_to: localhost
-  become: false
+  #  - name: Wait for server to restart successfully
+  #    wait_for:
+  #      host: "{{ ansible_default_ipv4.address }}"
+  #      search_regex: "OpenSSH"
+  #      port: 22
+  #      timeout: 500
+  #      connect_timeout: 50
+  #      delay: 5
+  #    delegate_to: localhost
+  #    become: false

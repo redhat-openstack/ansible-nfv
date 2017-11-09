@@ -1,5 +1,6 @@
 ---
-
+# Define here the variable X with destmac using openstack_tasks.addresses.sriov1+2
+#
 - name: Copy configuration file
   template:
     src: opnfv-vsperf-cfg.lua.j2

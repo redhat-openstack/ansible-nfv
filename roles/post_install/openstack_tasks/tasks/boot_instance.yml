@@ -27,6 +27,55 @@
       name: ansible_key
   register: keypair
 
+  # Inserti block creation openstack port create --network private_529 --vnic-type direct when sriov
+
+- name: checkdpdk
+  debug:
+    var: hostvars[groups['compute'][0]].checkdpdk
+  when: hostvars[groups['compute'][0]].checkdpdk.rc == 0
+
+- name: check id
+  tags: test
+  debug:
+    var:  external_network_id.ansible_facts.openstack_networks.0.id
+     
+
+- block:
+    - name: create port
+      shell: "source /home/stack/overcloudrc ; openstack port create --network {{ item }} --vnic-type direct sriov-port"
+      with_items:
+        - "{{ external_network_id.ansible_facts.openstack_networks.0.id }}"
+        - "{{ internal_network_id.ansible_facts.openstack_networks.0.id }}"
+        - "{{ internal_network_id.ansible_facts.openstack_networks.1.id }}"
+        
+    - name: register port if
+      vars:
+        ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+      os_port_facts:
+        cloud: overcloud
+        filters:
+          name: sriov-port
+      register: port_id
+
+    - name: Create a new instance
+      vars:
+        ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+      os_server:
+        state: present
+        cloud: overcloud
+        name: "{{ item.name }}"
+        image: "{{ item.image | default(images[0].name) }}"
+        flavor: "{{ item.flavor | default(flavors[0].name) }}"
+        key_name: ansible_key
+        nics:
+          - port-id: "{{ port_id.ansible_facts.openstack_ports.0.id }}"
+          - port-id: "{{ port_id.ansible_facts.openstack_ports.1.id }}"
+          - port-id: "{{ port_id.ansible_facts.openstack_ports.2.id }}"
+      with_items:
+        - "{{ instances }}"
+      register: instance_id
+  when: hostvars[groups['compute'][0]].checksriov.rc == 0  
+
 - name: Create a new instance
   vars:
     ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
@@ -44,6 +93,7 @@
   with_items:
     - "{{ instances }}"
   register: instance_id
+  when: hostvars[groups['compute'][0]].checkdpdk.rc == 0
 
 - name: Copy private key from generated keypair
   copy:
@@ -55,20 +105,35 @@
   delegate_to: localhost
   become: false
 
+- name: Get external address
+  vars:
+    ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+  os_server_facts:
+    cloud: overcloud
+    server: "{{ item.item.name }}"
+  with_items:
+     - "{{ instance_id.results }}"
+
+- name: bla
+  debug:
+    var: openstack_servers
+
 - name: Add host to dynamic inventory
   add_host:
     name: "{{ item.item.name }}"
     group: "{{ group_name }}"
-    ansible_ssh_host: "{{ item.openstack.addresses.external[0].addr }}"
+    #ansible_ssh_host: "{{ item.openstack.addresses.external[0].addr }}"
+    ansible_ssh_host: "{{ item.accessIPv4 }}"
     ansible_ssh_user: cloud-user
     ansible_ssh_port: 22
     ansible_ssh_private_key_file: "/tmp/private_key"
   with_items:
-    - "{{ instance_id.results }}"
+    - "{{ openstack_servers }}"
 
 - name: Wait for the instance to boot up
   wait_for:
-    host: "{{ item.openstack.addresses.external[0].addr }}"
+    #host: "{{ item.openstack.addresses.external[0].addr }}"
+    host: "{{ item.accessIPv4 }}"
     search_regex: "OpenSSH"
     port: 22
     timeout: 300
@@ -77,4 +142,4 @@
   delegate_to: localhost
   become: false
   with_items:
-    - "{{ instance_id.results }}"
+    - "{{ openstack_servers }}"
