@@ -168,6 +168,7 @@
     - { sect: 'compute', opt: 'flavor_ref', val: "{{ openstack_flavors[0].id }}" }
     - { sect: 'hypervisor', opt: 'private_key_file', val: "{{ private_key_dest }}" }
     - { sect: 'hypervisor', opt: 'user', val: "{{ user_for_overcloud_nodes }}" }
+    - { sect: 'compute-feature-enabled', opt: 'live_migration', val: 'true' }
 
 - name: Execute the tempest tests and save the results
   tags: run_tempest_test
