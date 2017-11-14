@@ -29,5 +29,6 @@
     timeout: 500
     connect_timeout: 50
     delay: 5
-  delegate_to: localhost
+  delegate_to: "{{ item }}"
+  with_items: "{{ groups['undercloud'][0] }}"
   become: false
