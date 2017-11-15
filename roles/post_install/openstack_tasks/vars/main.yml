@@ -1,4 +1,4 @@
 ---
 ## Openstack variables
-tripleo_rc_file: /home/stack/overcloudrc
-packstack_rc_file: /root/keystonerc_admin
+tripleo_overcloud_file: /home/stack/overcloudrc
+tripleo_undercloud_file: /home/stack/stackrc
