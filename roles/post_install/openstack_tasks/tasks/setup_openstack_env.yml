@@ -1,51 +1,32 @@
 ---
 
-- name: Check the existance of rc file
-  stat:
-    path: "{{ item }}"
-  with_items:
-    - "{{ tripleo_rc_file }}"
-    - "{{ packstack_rc_file }}"
-  register: rc_file_locate
+- name: Get Cloud variables
+  shell: |
+    for key in $(set | awk '{FS="="} /^OS_/ {print $1}'); do unset $key; done
+    source {{ item.0 }}
+    echo -n "{{ item.1 }}: {'auth': { 'auth-url': '$OS_AUTH_URL', 'username': '$OS_USERNAME', 'password': '$OS_PASSWORD', 'project-name': '${OS_PROJECT_NAME:-$OS_TENANT_NAME}' }}"
+  with_together:
+    - ["{{ tripleo_undercloud_file }}", "{{ tripleo_overcloud_file }}"]
+    - ['undercloud', 'overcloud']
+  register: cloud_details
 
-- name: Set TripleO rc file to use
-  set_fact:
-    rc_file: "{{ tripleo_rc_file }}"
-  when: rc_file_locate.results[0].stat.exists == True
+- name: Create clouds.yaml if doesn't exist
+  blockinfile:
+    content: 'clouds:'
+    dest: "~/clouds.yaml"
+    marker: "#{mark} HEADER"
+    create: yes
 
-- name: Set Packstack rc file to use
-  set_fact:
-    rc_file: "{{ packstack_rc_file }}"
-  when: rc_file_locate.results[1].stat.exists == True
-
-- name: Register Auth URL
-  shell: "cat {{ rc_file }} | grep AUTH_URL | cut -d '=' -f 2"
-  register: osp_auth
-
-- name: Register Username
-  shell: "cat {{ rc_file }} | grep USERNAME | cut -d '=' -f 2"
-  register: osp_username
-
-- name: Register Password
-  shell: "cat {{ rc_file }} | grep OS_PASSWORD | cut -d '=' -f 2"
-  register: osp_password
-
-- name: Register Tenant name (For version <= 10/Newton)
-  shell: "cat {{ rc_file }} | grep TENANT | cut -d '=' -f 2"
-  register: osp_tenant
-
-- name: Register Project name (For version >= 11/Ocata)
-  shell: "cat {{ rc_file }} | grep PROJECT | cut -d '=' -f 2"
-  register: osp_project
-
-- name: Creating Openstack env folder
-  file:
-    path: /etc/openstack
-    state: directory
-    mode: 0755
+- name: Insert cloud parameters
+  blockinfile:
+    dest: "~/clouds.yaml"
+    block: |1
+      {{ item.stdout|from_yaml|to_nice_yaml(indent=4) }}
+    insertbefore: "#END {{ item.item.1 }} SECTION"
+    marker: "#{mark} {{ item.item.1 }} PARAMETERS"
+  with_items: "{{ cloud_details.results }}"
 
 - name: Install packages and dependency
-  tags: setup_os_env_pkg_install
   become: True
   yum:
     name: "{{ item.name }}"
@@ -61,10 +42,8 @@
     - { name: 'mariadb-devel' }
     - { name: 'openssl-devel' }
     - { name: 'python-virtualenv' }
-    - { name: '@Development tools' }
 
 - name: Create virutal env
-  tags: setup_os_env_pkg_install
   pip:
     virtualenv: "/tmp/ansible_venv"
     name: "{{ item.name }}"
@@ -76,9 +55,3 @@
     - { name: 'pytz' }
     - { name: 'shade' }
     - { name: 'functools32' }
-
-- name: Create the clouds.yml file for future tasks
-  template:
-    src: "clouds.yml.j2"
-    dest: "/etc/openstack/clouds.yml"
-    mode: 0755

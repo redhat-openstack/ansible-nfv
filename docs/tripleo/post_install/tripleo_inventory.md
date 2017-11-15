@@ -84,10 +84,10 @@ rc_file_path
 The example of running the TripleO Inventory playbook.  
 With SSH key file:
 ```
-ansible-playbook playbooks/tripleo/post_install/tripleo_inventory.yml -e undercloud_host=undercloud-host-fqdn/ip -e ssh_key=/path/to/ssh/private/file
+ansible-playbook playbooks/tripleo/post_install/tripleo_inventory.yml -e host=undercloud-host-fqdn/ip -e ssh_key=/path/to/ssh/private/file
 ```
 
 With password:
 ```
-ansible-playbook playbooks/tripleo/post_install/tripleo_inventory.yml -e undercloud_host=undercloud-host-fqdn/ip -e ssh_pass=undercloud_password
+ansible-playbook playbooks/tripleo/post_install/tripleo_inventory.yml -e host=undercloud-host-fqdn/ip -e ssh_pass=undercloud_password
 ```
