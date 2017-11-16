@@ -1,4 +1,12 @@
 ---
 
+- name: Register Auth URL
+   shell: "cat {{ rc_file }} | grep AUTH_URL | cut -d '=' -f 2"
+   register: osp_auth
+
+- name: Register Password
+    shell: "cat {{ rc_file }} | grep OS_PASSWORD | cut -d '=' -f 2"
+    register: osp_password
+
 - name: Include "{{ tempest_ver }}" tempest
   include: "{{ tempest_ver }}.yml"
