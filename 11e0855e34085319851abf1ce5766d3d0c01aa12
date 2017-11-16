@@ -1,0 +1,7 @@
+Code-Review+2: edannon <edannon@redhat.com>
+Verified+1: edannon <edannon@redhat.com>
+Submitted-by: edannon <edannon@redhat.com>
+Submitted-at: Thu, 16 Nov 2017 08:20:43 -0500
+Reviewed-on: https://review.gerrithub.io/387786
+Project: redhat-openstack/ansible-nfv
+Branch: refs/heads/devel
