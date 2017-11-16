@@ -81,16 +81,21 @@ Specify flavors that should be created.
 Flavor keys (property) value are optional.
 ```
 flavors:
+  - name: m1.medium
+    ram: 2048
+    disk: 20
+    vcpus: 2
+
   - name: nfv-flavor
     ram: 4096
     disk: 20
     vcpus: 4
     property:
-      - "hw:mem_page_size=1GB"
-      - "hw:numa_mem.0=4096"
-      - "hw:numa_nodes=1"
-      - "hw:numa_cpus.0=0,1,2,3"
-      - "hw:cpu_policy=dedicated"
+      - "hw:mem_page_size": "1GB"
+        "hw:numa_mem.0": "4096"
+        "hw:numa_nodes": "1"
+        "hw:numa_cpus.0": "0,1,2,3"
+        "hw:cpu_policy": "dedicated"
 ```
 
 #### Images upload variables
