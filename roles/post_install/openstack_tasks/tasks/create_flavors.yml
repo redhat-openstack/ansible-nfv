@@ -1,6 +1,8 @@
 ---
-
-- name: Create flavor
+# Note! - The task splitted into two different tasks because
+#         in case one of the flavors provided without extra specs,
+#         it will be ignored and not created.
+- name: Create flavors
   vars:
     ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
   os_nova_flavor:
@@ -11,14 +13,18 @@
     vcpus: "{{ item.vcpus }}"
     state: present
   with_items: "{{ flavors }}"
-  register: flavor_id
 
-- name: Set flavors keys
-  shell: >
-    source "{{ rc_file }}";
-    openstack flavor set
-    --property "{{ item.1 }}"
-    "{{ item.0.name }}"
+- name: Set flavor extra specs
+  vars:
+    ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+  os_nova_flavor:
+    cloud: overcloud
+    name: "{{ item.0.name }}"
+    ram: "{{ item.0.ram }}"
+    disk: "{{ item.0.disk }}"
+    vcpus: "{{ item.0.vcpus }}"
+    extra_specs: "{{ item.1 }}"
+    state: present
   with_subelements:
     - "{{ flavors }}"
     - property
