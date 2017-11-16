@@ -1,5 +1,7 @@
 ---
 
+rc_file: /home/stack/overcloudrc
+
 ## Tempest variables
 tempest_dir: /root/tempest
 tempest_main: openstack-tempest
