@@ -7,7 +7,7 @@
     create_networks: false
     create_flavors: false
     images_upload: false
-    delete_instance: true
+    clear_env: true
   roles:
    - post_install/openstack_tasks
   become: True
