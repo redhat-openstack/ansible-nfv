@@ -18,7 +18,7 @@ Cross NUMA performance playbook will perform the following steps:
 * images_upload - Upload images to the Openstack environment.
 * overcloud_delete - Delete the required overcloud stack.
 * boot_instance - Create instance with components created above
-* delete_instance - Delete given instance
+* clear_env  - Clears the environment, delete the instance the their keypair
 
 
 ## Role variables

@@ -7,7 +7,7 @@ create_flavors: true
 images_upload: true
 overcloud_delete: false
 boot_instance: false
-delete_instance: false
+clear_env: false
 
 ### Networks
 ### Define the networks that should be created on the overcloud.
