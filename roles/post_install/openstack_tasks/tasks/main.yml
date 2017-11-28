@@ -42,9 +42,9 @@
   include: overcloud_delete.yml
   when: overcloud_delete
 
-- name: Delete Instance
+- name: Clear environment
   tags:
     - os_tasks
-    - delete_instance
-  include: delete_instance.yaml
-  when: delete_instance
+    - clear_env
+  include: clear_env.yml
+  when: clear_env

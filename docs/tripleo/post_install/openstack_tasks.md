@@ -14,6 +14,9 @@ Openstack tasks play perform the following tasks on the existing Openstack envir
 * Overcloud delete
     * Deletes the required stack.  
       Default stack is - 'overcloud'.
+* Clear the environment
+    * Delete keypair and instance.
+      Default instance named - 'vm1'. 
 
 By default, all the tasks runs one by one on the environment.  
 The run could be separated by specifying tags of specific run.
@@ -25,6 +28,7 @@ The run could be separated by specifying tags of specific run.
 * create_flavors - Run flavors creation.
 * images_upload - Upload images to the Openstack environment.
 * overcloud_delete - Delete the required overcloud stack.
+* clear_env - Clears the environment by removing given instance and keypair.
 
 ## Run triggers
 * setup_os_env - Executed if 'true'. True by default.
@@ -32,6 +36,7 @@ The run could be separated by specifying tags of specific run.
 * create_flavors - Executed if 'true'. True by default
 * images_upload - Executed if 'true'. True by default.
 * overcloud_delete - Executed if 'true'. False by default.
+* clear_env - Executed if 'true'. False by default.
 
 ## Role variables
 #### Network creation variables
