@@ -1,4 +1,11 @@
 ---
+ - name: Delete keypair if available
+   vars:
+      ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+   os_keypair:
+      cloud: overcloud
+      state: absent
+      name: ansible_key
 
 - name: Delete given instance 
   vars:
