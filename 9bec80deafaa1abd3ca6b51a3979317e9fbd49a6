@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "8fa430ca_cf6779e5",
+        "filename": "roles/post_install/openstack_tasks/tasks/clear_env.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2017-11-28T13:01:33Z",
+      "side": 1,
+      "message": "Please, fix indentation.",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 23
+      },
+      "revId": "9bec80deafaa1abd3ca6b51a3979317e9fbd49a6",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
