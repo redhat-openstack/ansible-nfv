@@ -1,7 +1,0 @@
----
-
-- name: TestPMD install
-  hosts: tester
-  roles:
-    -  tester/testpmd_install
-
