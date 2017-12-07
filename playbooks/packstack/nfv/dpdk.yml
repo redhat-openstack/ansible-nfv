@@ -1,6 +1,0 @@
----
-
-- name: DPDK
-  hosts: compute
-  roles:
-    - nfv/dpdk/compute

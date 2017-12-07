@@ -1,4 +1,0 @@
-These NFV roles are DEPRECATED!
-
-The manual NFV (dpdk/sriov) roles configuration is no longer supported.  
-Starting from 10/Newton version, the configuration of the NFV features are done by using the Overcloud templates.

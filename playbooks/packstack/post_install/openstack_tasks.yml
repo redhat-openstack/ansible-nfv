@@ -1,6 +1,0 @@
----
-
-- name: Creates router, network, and host aggregation
-  hosts: controller
-  roles:
-    - role: post_install/openstack_tasks
