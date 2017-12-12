@@ -1,14 +1,17 @@
 # Tempest
 
 ## Description
+Tempest role is dedicated to perform testing execution on TripleO OpenStack environments.
+
 Tempest role will perform the following steps:
-  - Install Tempest
+  - Install upstream Tempest
   - Install NFV Tempest plugin
-  - Configure Tempest
+  - Configure Tempest using the python-tempestconf repository
   - Run defined tests
 
-Upstream - Install an Openstack tempest.   
-Downstream - Install an RedHat tempest. The RedHat tempest is deprecated.   
+Tempest play has two available execution options - Upstream and Downstream.  
+Upstream - Install an upstream Openstack tempest.  
+Downstream - Install an RedHat tempest. The RedHat tempest is deprecated.
 
 **Note!** - As a default behavior, upstream tempest will be deployed upon to each playbook run.   
 In order to use downstream tempest version, add "-e tempest_ver=downstream"  option to your initial playbook run.
@@ -18,6 +21,12 @@ In order to use downstream tempest version, add "-e tempest_ver=downstream"  opt
 
 ## Role variables
 #### Default variables
+Tempest version to install.
+Default version: upstream
+```
+tempest_ver: upstream
+```
+
 SSH user for the testing image.  
 Default user: centos.
 ```
@@ -59,17 +68,18 @@ Variables within the config file will be used by the tempest-nfv-plugin for the 
 tempest_config: /path/to/the/local/config/file.yml
 ```
 
-Example of the tempest-nfv-plugin test configuration.  
-**Note!** - The tempest config file may include additional variable such as network, images, etc... from the openstack_tasks role.
-```
-tests-setup:
-  - name: numa0
-    flavor: m1.medium.huge_pages_cpu_pinning_numa_node-0
-    availability-zone:
-```
-
 List of tempest tests that should be executed.
 ```
 tempest_tests:
-  - tempest.scenario.test_server_basic_ops.TestServerBasicOps
+  - tests.scenario.test_nfv_epa.TestBasicEpa.test_numa0_provider_network
+  - tests.scenario.test_nfv_epa.TestBasicEpa.test_numa1_provider_network
+  - tests.scenario.test_nfv_epa.TestBasicEpa.test_numamix_provider_network
+  - tests.scenario.test_nfv_epa.TestBasicEpa.test_packages_compute
+  - tests.scenario.test_nfv_dpdk_usecases.TestDpdkScenarios.test_min_queues_functionality
+  - tests.scenario.test_nfv_dpdk_usecases.TestDpdkScenarios.test_equal_queues_functionality
+  - tests.scenario.test_nfv_dpdk_usecases.TestDpdkScenarios.test_max_queues_functionality
+  - tests.scenario.test_nfv_dpdk_usecases.TestDpdkScenarios.test_odd_queues_functionality
 ```
+
+#### Tests configuration
+**Note!** - For the tests configuration, refer to the tempest-nfv-plugin [documentation](https://github.com/redhat-openstack/tempest-nfv-plugin/tree/master/docs).
