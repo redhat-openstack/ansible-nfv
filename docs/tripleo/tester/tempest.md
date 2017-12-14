@@ -9,24 +9,11 @@ Tempest role will perform the following steps:
   - Configure Tempest using the python-tempestconf repository
   - Run defined tests
 
-Tempest play has two available execution options - Upstream and Downstream.  
-Upstream - Install an upstream Openstack tempest.  
-Downstream - Install an RedHat tempest. The RedHat tempest is deprecated.
-
-**Note!** - As a default behavior, upstream tempest will be deployed upon to each playbook run.   
-In order to use downstream tempest version, add "-e tempest_ver=downstream"  option to your initial playbook run.
-
 ## Role tags
 * run_tempest_test - Executes only the tempest tests.
 
 ## Role variables
 #### Default variables
-Tempest version to install.
-Default version: upstream
-```
-tempest_ver: upstream
-```
-
 SSH user for the testing image.  
 Default user: centos.
 ```
