@@ -1,6 +1,0 @@
----
-
-- name: Install and configure tuned profile
-  hosts: compute
-  roles:
-    - tuning/tuned_configuration

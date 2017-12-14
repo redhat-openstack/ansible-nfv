@@ -10,9 +10,6 @@ The playbook will generate an inventory file for the tripleo environment.
 
 ## Playbooks
 * TripleO
-    * NFV (DEPRECATED)
-      * DPDK
-      * SRIOV
     * Tester
       * Tempest
       * Testpmd deploy and MoonGen run
@@ -27,18 +24,6 @@ The playbook will generate an inventory file for the tripleo environment.
 * Moongen
     * Moongen install
     * Moongen run
-* Packstack
-    * NFV
-      * DPDK
-      * SRIOV
-    * Tester
-      * Tempest
-      * Testpmd install
-    * Tuning
-      * CPU pinning and Huge pages
-      * Tuned
-    * Post install
-      * Openstack tasks
 
 ## How to contribue
 Patches should be submitted using git review to the GerritHub.
