@@ -8,5 +8,198 @@
   shell: "cat {{ rc_file }} | grep OS_PASSWORD | cut -d '=' -f 2"
   register: osp_password
 
-- name: Include "{{ tempest_ver }}" tempest
-  include: "{{ tempest_ver }}.yml"
+- name: Create the tempest directory
+  file:
+    path: "{{ tempest_dir }}"
+    mode: 0755
+    state: directory
+
+- name: Git clone temepst and plugin repositories
+  git:
+    repo: "{{ item.url }}"
+    dest: "{{ tempest_dir }}/{{ item.name }}"
+    version: "{{ item.version }}"
+    clone: yes
+    update: yes
+    force: yes
+  with_items: "{{ tempest_repos }}"
+
+- set_fact:
+    tempest_venv: "{{ tempest_dir }}/venv"
+
+- name: Create a virtual environment and upgrade it to the latest version
+  pip:
+    name: "{{ item }}"
+    virtualenv: "{{ tempest_venv }}"
+    state: latest
+  with_items:
+    - 'pip'
+    - 'setuptools'
+    - 'python-subunit'
+    - 'ipdb'
+    - 'junitxml'
+
+- name: Install repo requirements
+  pip:
+    virtualenv: "{{ tempest_venv }}"
+    chdir: '{{ tempest_dir }}/{{ item[0] }}'
+    requirements: "{{ item[1] }}"
+  with_nested:
+    - [ "{{ tempest_conf }}", "{{ tempest_main }}" ]
+    - [ 'test-requirements.txt', 'requirements.txt' ]
+
+- name: Install tempest-nfv-plugin and openstack-tempest repos in a virtual environment
+  pip:
+    virtualenv: "{{ tempest_venv }}"
+    name: "{{ tempest_dir }}/{{ item }}"
+    state: present
+    editable: true
+  with_items:
+    - "{{ neutron_tempest_plugin }}"
+    - "{{ tempest_nfv_plugin }}"
+    - "{{ tempest_main }}"
+
+- name: Get the external network id
+  vars:
+    ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+  os_networks_facts:
+    cloud: overcloud
+    filters:
+      router:external: true
+  register: tempest_net_id
+
+- name: Download the test os image
+  get_url:
+    url: "{{ osp_image }}"
+    dest: "/tmp/{{ osp_image | basename }}"
+    timeout: 100
+
+- name: tempest.conf file creation
+  shell: |
+    source "{{ rc_file | default('/home/stack/overcloudrc') }}"
+    source {{ tempest_venv }}/bin/activate
+    python config_tempest/config_tempest.py --create --debug --image "/tmp/{{ osp_image | basename }}" \
+    identity.uri {{ osp_auth.stdout }} identity.admin_password {{ osp_password.stdout }} \
+    identity.region regionOne \
+    --network-id {{ tempest_net_id.ansible_facts.openstack_networks.0.id }}
+  args:
+      executable: /bin/bash
+      chdir: "{{ tempest_dir }}/{{ tempest_conf }}"
+
+- name: Delete default tempest.conf file before symlink it to the updated
+  file:
+    path: /etc/tempest/tempest.conf
+    state: absent
+
+- name: Creating a soft link for the tempest.conf file
+  file:
+    src: /root/tempest/python-tempestconf/etc/tempest.conf
+    dest: /etc/tempest/tempest.conf
+    state: link
+
+- name: Check if the tempest tests repository exists
+  tags: run_tempest_test
+  stat:
+    path: /root/tempest/openstack-tempest/.testrepository
+  register: testrepository
+
+- name: Delete the tempest tests repository to drop previous results
+  tags: run_tempest_test
+  file:
+    path: /root/tempest/openstack-tempest/.testrepository
+    state: absent
+  when: testrepository.stat.exists == true
+
+- name: Create tempest tests repository for the clean state tests run
+  tags: run_tempest_test
+  shell: >
+    source {{ tempest_dir }}/venv/bin/activate;
+    {{ tempest_dir }}/venv/bin/testr init;
+  args:
+      executable: /bin/bash
+      chdir: "{{ tempest_dir }}/{{ tempest_main }}"
+
+- name: Check the flavors
+  vars:
+    ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+  os_flavor_facts:
+    cloud: overcloud
+
+- name: Check for the spesific flavor id if it's required
+  vars:
+    ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+  os_flavor_facts:
+    cloud: overcloud
+    name: "{{ tempest_flavor_name }}"
+  when: tempest_flavor_name is defined
+
+- block:
+    - name: Copying generic config file to the "{{ tempest_dir }}" directory
+      copy:
+        src: "{{ tempest_config }}"
+        dest: "{{ tempest_dir }}"
+        owner: root
+        group: root
+        mode: 0755
+
+    - name: Add an external config file to the tempest.conf
+      ini_file:
+        dest: '{{ tempest_dir }}/{{ tempest_conf }}/etc/tempest.conf'
+        section: "{{ item.sect }}"
+        option: "{{ item.opt }}"
+        value: "{{ item.val }}"
+      with_items:
+        - { sect: 'hypervisor', opt: 'external_config_file', val: "{{ tempest_dir }}/{{ tempest_config | basename }}" }
+  when: tempest_config is defined
+
+- name: Modify the tempest.conf file
+  ini_file:
+    dest: '{{ tempest_dir }}/{{ tempest_conf }}/etc/tempest.conf'
+    section: "{{ item.sect }}"
+    option: "{{ item.opt }}"
+    value: "{{ item.val }}"
+  with_items:
+    - { sect: 'network', opt: 'port_vnic_type', val: "{{ port_vnic_type |default('normal')}}" }
+    - { sect: 'compute', opt: 'image_ssh_user', val: "{{ image_ssh_user }}" }
+    - { sect: 'validation', opt: 'image_ssh_user', val: "{{ image_ssh_user }}" }
+    - { sect: 'compute', opt: 'flavor_ref', val: "{{ openstack_flavors[0].id }}" }
+    - { sect: 'hypervisor', opt: 'private_key_file', val: "{{ private_key_dest }}" }
+    - { sect: 'hypervisor', opt: 'user', val: "{{ user_for_overcloud_nodes }}" }
+    - { sect: 'compute-feature-enabled', opt: 'live_migration', val: 'true' }
+
+- name: Execute the tempest tests and save the results
+  tags: run_tempest_test
+  shell: |
+    source "{{ rc_file | default('/home/stack/overcloudrc') }}"
+    source {{ tempest_dir }}/venv/bin/activate
+    {{ tempest_dir }}/venv/bin/testr run {{ item }} --subunit >> .testrepository/tempest_results.subunit
+  args:
+      executable: /bin/bash
+      chdir: "{{ tempest_dir }}/{{ tempest_main }}"
+  with_items: "{{ tempest_tests }}"
+  register: tempest_results
+
+- name: Generate results report in a JunitXML format
+  tags: run_tempest_test
+  shell: |
+    source {{ tempest_dir }}/venv/bin/activate
+    subunit2junitxml --output-to=/root/tempest/tempest.xml \
+    < .testrepository/tempest_results.subunit | subunit2pyunit
+  args:
+      executable: /bin/bash
+      chdir: "{{ tempest_dir }}/{{ tempest_main }}"
+
+- name: Generate results report in a text format
+  tags: run_tempest_test
+  shell:
+    subunit-trace --no-failure-debug < .testrepository/tempest_results.subunit
+  args:
+      executable: /bin/bash
+      chdir: "{{ tempest_dir }}/{{ tempest_main }}"
+  register: shell_results
+  failed_when: "shell_results.rc == 2"
+
+- name: Print the output results of the tempest tests
+  tags: run_tempest_test
+  debug:
+    var: shell_results

@@ -6,49 +6,19 @@ rc_file: /home/stack/overcloudrc
 tempest_dir: /root/tempest
 tempest_main: openstack-tempest
 tempest_conf: python-tempestconf
-tempest_nfv_plugin: tempest-nfv-plugin/tempest_plugin
+tempest_nfv_plugin: tempest-nfv-plugin
+neutron_tempest_plugin: neutron-tempest-plugin
 
-tempest_repos_upstream:
+tempest_repos:
   - name: openstack-tempest
     url: https://github.com/openstack/tempest
-    version: 16.1.0
+    version: 17.2.0
   - name: python-tempestconf
     url: https://github.com/redhat-openstack/python-tempestconf
     version: 1.1.3
   - name: tempest-nfv-plugin
     url: https://github.com/redhat-openstack/tempest-nfv-plugin
+    version: devel
+  - name: neutron-tempest-plugin
+    url: https://github.com/openstack/neutron-tempest-plugin
     version: master
-
-tempest_repos_downstream:
-  - name: openstack-tempest
-    url: https://github.com/redhat-openstack/tempest
-    branch: newton
-  - name: tempest-nfv-plugin
-    url: https://github.com/redhat-openstack/tempest-nfv-plugin
-    branch: master
-
-pip_packages:
-  - 'pip'
-  - 'setuptools'
-  - 'python-subunit'
-  - 'ipdb'
-  - 'junitxml'
-  - 'ansible'
-  - 'decorator'
-  - 'dogpile.cache'
-  - 'futures'
-  - 'httplib2'
-  - 'Jinja2'
-  - 'jsonpatch'
-  - 'munch'
-  - 'openstacksdk'
-  - 'ordereddict'
-  - 'shade'
-  - 'warlock'
-  - 'requests'
-  - 'urllib3'
-  - 'testtools'
-  - 'oslo.concurrency'
-  - 'oslo.concurrency'
-  - 'oslo.log'
-  - 'jsonschema'
