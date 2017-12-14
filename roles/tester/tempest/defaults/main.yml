@@ -1,8 +1,4 @@
 ---
-## Tempest variables
-## Choose tempest version to execute
-## Two versions available for the execution: upstream and downstream
-tempest_ver: upstream
 
 image_ssh_user: centos
 osp_image: http://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud.qcow2
@@ -27,4 +23,11 @@ user_for_overcloud_nodes: heat-admin
 #tests_config_file: <path_to_the_config_file>
 
 tempest_tests:
-  - tempest.scenario.test_server_basic_ops.TestServerBasicOps
+  - tests.scenario.test_nfv_epa.TestBasicEpa.test_numa0_provider_network
+  - tests.scenario.test_nfv_epa.TestBasicEpa.test_numa1_provider_network
+  - tests.scenario.test_nfv_epa.TestBasicEpa.test_numamix_provider_network
+  - tests.scenario.test_nfv_epa.TestBasicEpa.test_packages_compute
+  - tests.scenario.test_nfv_dpdk_usecases.TestDpdkScenarios.test_min_queues_functionality
+  - tests.scenario.test_nfv_dpdk_usecases.TestDpdkScenarios.test_equal_queues_functionality
+  - tests.scenario.test_nfv_dpdk_usecases.TestDpdkScenarios.test_max_queues_functionality
+  - tests.scenario.test_nfv_dpdk_usecases.TestDpdkScenarios.test_odd_queues_functionality
