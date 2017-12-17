@@ -1,18 +1,17 @@
 ---
 
+# Defind the user for the ssh validation and testing.
 image_ssh_user: centos
-osp_image: http://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud.qcow2
+
+# Provide required image that will be used for the tempest tests.
+images:
+  - name: centos7
+    url: http://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud.qcow2
 
 ## Please provide the username and the private key to establish connection between undercloud to overcloud nodes
 ## Used for gathering various data like aggregation groups, etc...
 private_key_dest: /home/stack/.ssh/id_rsa
 user_for_overcloud_nodes: heat-admin
-
-## Port_vnic_type direct
-## Uncomment the following value in order to set the port to 'direct' type
-## Used for SR-IOV tests
-## Default - normal
-#port_vnic_type: direct
 
 ## Flavor name that should be used for tempest test
 ## If not specified, default (first flavor in list) used.
