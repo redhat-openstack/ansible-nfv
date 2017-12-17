@@ -20,10 +20,13 @@ Default user: centos.
 image_ssh_user: centos
 ```
 
-Tempest test image.  
+Provide required image that will be used for the tempest tests.  
+If multiple images are provided, the first one will be used.  
 Default image: CentOS-7.
 ```
-osp_image: http://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud.qcow2
+images:
+  - name: centos7
+    url: http://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud.qcow2
 ```
 
 Private key and overcloud username for establishing connection between undercloud and overcloud nodes.  

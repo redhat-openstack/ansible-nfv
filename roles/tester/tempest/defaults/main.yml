@@ -1,7 +1,12 @@
 ---
 
+# Defind the user for the ssh validation and testing.
 image_ssh_user: centos
-osp_image: http://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud.qcow2
+
+# Provide required image that will be used for the tempest tests.
+images:
+  - name: centos7
+    url: http://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud.qcow2
 
 ## Please provide the username and the private key to establish connection between undercloud to overcloud nodes
 ## Used for gathering various data like aggregation groups, etc...
