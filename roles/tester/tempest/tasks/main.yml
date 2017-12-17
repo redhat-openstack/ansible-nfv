@@ -70,15 +70,15 @@
 
 - name: Download the test os image
   get_url:
-    url: "{{ osp_image }}"
-    dest: "/tmp/{{ osp_image | basename }}"
+    url: "{{ images[0].url }}"
+    dest: "/tmp/{{ images[0].url | basename }}"
     timeout: 100
 
 - name: tempest.conf file creation
   shell: |
     source "{{ rc_file | default('/home/stack/overcloudrc') }}"
     source {{ tempest_venv }}/bin/activate
-    python config_tempest/config_tempest.py --create --debug --image "/tmp/{{ osp_image | basename }}" \
+    python config_tempest/config_tempest.py --create --debug --image "/tmp/{{ images[0].url | basename }}" \
     identity.uri {{ osp_auth.stdout }} identity.admin_password {{ osp_password.stdout }} \
     identity.region regionOne \
     --network-id {{ tempest_net_id.ansible_facts.openstack_networks.0.id }}
@@ -159,7 +159,6 @@
     option: "{{ item.opt }}"
     value: "{{ item.val }}"
   with_items:
-    - { sect: 'network', opt: 'port_vnic_type', val: "{{ port_vnic_type |default('normal')}}" }
     - { sect: 'compute', opt: 'image_ssh_user', val: "{{ image_ssh_user }}" }
     - { sect: 'validation', opt: 'image_ssh_user', val: "{{ image_ssh_user }}" }
     - { sect: 'compute', opt: 'flavor_ref', val: "{{ openstack_flavors[0].id }}" }
@@ -170,7 +169,6 @@
 - name: Execute the tempest tests and save the results
   tags: run_tempest_test
   shell: |
-    source "{{ rc_file | default('/home/stack/overcloudrc') }}"
     source {{ tempest_dir }}/venv/bin/activate
     {{ tempest_dir }}/venv/bin/testr run {{ item }} --subunit >> .testrepository/tempest_results.subunit
   args:
