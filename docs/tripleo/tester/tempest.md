@@ -6,6 +6,7 @@ Tempest role is dedicated to perform testing execution on TripleO OpenStack envi
 Tempest role will perform the following steps:
   - Install upstream Tempest
   - Install NFV Tempest plugin
+  - Install Neutron Tempest plugin
   - Configure Tempest using the python-tempestconf repository
   - Run defined tests
 
@@ -60,7 +61,10 @@ tempest_tests:
   - tempest_nfv_plugin.tests.scenario.test_nfv_dpdk_usecases.TestDpdkScenarios.test_equal_queues_functionality
   - tempest_nfv_plugin.tests.scenario.test_nfv_dpdk_usecases.TestDpdkScenarios.test_max_queues_functionality
   - tempest_nfv_plugin.tests.scenario.test_nfv_dpdk_usecases.TestDpdkScenarios.test_odd_queues_functionality
+  - neutron_tempest_plugin.scenario.test_trunk.TrunkTest.test_trunk_subport_lifecycle
 ```
 
 #### Tests configuration
 **Note!** - For the tests configuration, refer to the tempest-nfv-plugin [documentation](https://github.com/redhat-openstack/tempest-nfv-plugin/tree/master/docs).
+
+**Note!** - In case neutron tests should be run, add them exactly as nfv tests to the 'tempest_tests' list.
