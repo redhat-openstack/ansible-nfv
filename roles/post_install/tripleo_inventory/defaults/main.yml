@@ -1,5 +1,8 @@
 ---
 
+# Vierual environemnt path
+venv_path: "/tmp/ansible_venv"
+
 # Undercloud host name/ip
 # host:
 

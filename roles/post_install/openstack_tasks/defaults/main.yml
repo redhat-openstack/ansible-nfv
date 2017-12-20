@@ -67,3 +67,6 @@ instances:
 
 remove_instances:
   - name: vm1
+
+# Vierual environemnt path
+venv_path: "/tmp/ansible_venv"

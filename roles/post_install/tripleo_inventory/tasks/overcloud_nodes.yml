@@ -5,33 +5,42 @@
   delegate_to: "{{ groups['undercloud'][0] }}"
   delegate_facts: True
 
-- name: Install python-virtualenv, gcc, python-devel for the pip tasks
-  yum:
+- name: Install requirements for pip virtualenv
+  package:
     name: "{{ item }}"
     state: present
   with_items:
-    - 'python-virtualenv'
     - 'python-devel'
-    - 'git'
-    - 'wget'
+    - 'python-setuptools'
     - 'gcc'
     - 'libffi-devel'
-    - 'libxml2-devel'
-    - 'libxslt-devel'
-    - 'openssl-devel'
   become: true
 
-- name: Install required pip packages
+- name: Install pip package
+  easy_install:
+    name: pip
+  become: true
+
+- name: Delete existing venv if exists
+  file:
+    path: "{{ venv_path }}"
+    state: absent
+
+- name: Install virtualenv
   pip:
-    name: "{{ item }}"
-    virtualenv: "/tmp/ansible_venv"
-    extra_args: '--upgrade'
-  with_items:
-    - 'pip'
-    - 'setuptools'
-    - 'pytz'
-    - 'shade'
-    - 'requests'
+    name: virtualenv
+    version: '15.1.0'
+
+- name: Create virtualenv
+  pip:
+    name: "{{ item.key }}"
+    version: "{{ item.value }}"
+    virtualenv: "{{ venv_path }}"
+  with_dict:
+    pip: '9.0.1'
+    setuptools: '38.2.4'
+    pytz: '2017.3'
+    shade: '1.25.0'
 
 - name: Fetch private key from the undercloud host
   fetch:
