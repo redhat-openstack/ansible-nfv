@@ -5,5 +5,3 @@
   roles:
     - tuning/tuned_configuration
   become: True
-  become_method: sudo
-  become_user: root

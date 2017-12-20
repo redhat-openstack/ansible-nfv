@@ -4,6 +4,3 @@
   hosts: undercloud
   roles:
     - post_install/openstack_tasks
-  become: True
-  become_method: sudo
-  become_user: root

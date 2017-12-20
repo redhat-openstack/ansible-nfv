@@ -5,8 +5,6 @@
   roles:
    - post_install/overcloud_nodes_tasks
   become: True
-  become_method: sudo
-  become_user: root
 
 - name: Prepare Networks, Flavors, Images and Instance
   hosts: undercloud
@@ -15,17 +13,12 @@
     group_name: testpmd
   roles:
    - post_install/openstack_tasks
-  become: True
-  become_method: sudo
-  become_user: root
 
 - name: Install TestPMD on the instance
   hosts: testpmd
   roles:
     - tester/testpmd_install
   become: True
-  become_method: sudo
-  become_user: root
 
 - name: Run TestPMD
   hosts: testpmd
