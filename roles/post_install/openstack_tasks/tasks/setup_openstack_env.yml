@@ -26,32 +26,39 @@
     marker: "#{mark} {{ item.item.1 }} PARAMETERS"
   with_items: "{{ cloud_details.results }}"
 
-- name: Install packages and dependency
-  become: True
-  yum:
-    name: "{{ item.name }}"
-    state: 'installed'
+- name: Install requirements for pip virtualenv
+  package:
+    name: "{{ item }}"
+    state: present
   with_items:
-    - { name: 'git' }
-    - { name: 'wget' }
-    - { name: 'python-devel' }
-    - { name: 'gcc' }
-    - { name: 'libffi-devel' }
-    - { name: 'libxml2-devel' }
-    - { name: 'libxslt-devel' }
-    - { name: 'mariadb-devel' }
-    - { name: 'openssl-devel' }
-    - { name: 'python-virtualenv' }
+    - 'python-devel'
+    - 'python-setuptools'
+    - 'gcc'
+    - 'libffi-devel'
+  become: true
 
-- name: Create virutal env
+- name: Install pip package
+  easy_install:
+    name: pip
+  become: true
+
+- name: Delete existing venv if exists
+  file:
+    path: "{{ venv_path }}"
+    state: absent
+
+- name: Install virtualenv
   pip:
-    virtualenv: "/tmp/ansible_venv"
-    name: "{{ item.name }}"
-    extra_args: '--upgrade'
-  with_items:
-    - { name: 'pip' }
-    - { name: 'setuptools' }
-    - { name: 'ansible' }
-    - { name: 'pytz' }
-    - { name: 'shade' }
-    - { name: 'functools32' }
+    name: virtualenv
+    version: '15.1.0'
+
+- name: Create virtualenv
+  pip:
+    name: "{{ item.key }}"
+    version: "{{ item.value }}"
+    virtualenv: "{{ venv_path }}"
+  with_dict:
+    pip: '9.0.1'
+    setuptools: '38.2.4'
+    pytz: '2017.3'
+    shade: '1.25.0'
