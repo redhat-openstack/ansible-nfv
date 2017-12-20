@@ -9,5 +9,6 @@
     section: 'DEFAULT'
     option: 'vcpu_pin_set'
     value: '{{ crossnuma_vcpus }}'
+  become: true
   notify:
     - 'Restart compute service'
