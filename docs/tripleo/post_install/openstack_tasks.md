@@ -11,12 +11,14 @@ Openstack tasks play perform the following tasks on the existing Openstack envir
       Public networks sets as a gateway on the router and private networks sets as a router interface by using the 'external' flag within the variables provided.
 * Upload images
     * Upload provided images to the glance store of the overcloud.
+* Creates flavors and extra_specs
+    * Creates flavors for the instances. Extra_specs could be created for the flavors if required.
 * Overcloud delete
     * Deletes the required stack.  
       Default stack is - 'overcloud'.
 * Clear the environment
     * Delete keypair and instance.
-      Default instance named - 'vm1'. 
+      Default instance named - 'vm1'.
 
 By default, all the tasks runs one by one on the environment.  
 The run could be separated by specifying tags of specific run.
@@ -83,7 +85,7 @@ dns_nameservers:
 
 #### Flavors creation
 Specify flavors that should be created.  
-Flavor keys (property) value are optional.
+Flavor keys (extra_specs) value are optional.
 ```
 flavors:
   - name: m1.medium
@@ -95,7 +97,7 @@ flavors:
     ram: 4096
     disk: 20
     vcpus: 4
-    property:
+    extra_specs:
       - "hw:mem_page_size": "1GB"
         "hw:numa_mem.0": "4096"
         "hw:numa_nodes": "1"
