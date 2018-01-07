@@ -5,5 +5,3 @@
   roles:
     - tuning/cpu_pinning_huge_pages
   become: True
-  become_method: sudo
-  become_user: root

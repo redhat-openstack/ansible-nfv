@@ -2,9 +2,6 @@
 
 - name: Install repo on overcloud nodes
   hosts: undercloud
-  become: True
-  become_method: sudo
-  become_user: root
   tasks:
     - name: Check undercloud repos
       find:

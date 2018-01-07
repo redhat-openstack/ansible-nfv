@@ -6,14 +6,8 @@
     images_upload: false
   roles:
     - post_install/openstack_tasks
-  become: True
-  become_method: sudo
-  become_user: root
 
 - name: Tempest deployment and execution
   hosts: tester
   roles:
     - tester/tempest
-  become: True
-  become_method: sudo
-  become_user: root
