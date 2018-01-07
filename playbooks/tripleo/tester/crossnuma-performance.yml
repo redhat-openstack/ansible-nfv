@@ -10,17 +10,11 @@
     clear_env: true
   roles:
    - post_install/openstack_tasks
-  become: True
-  become_method: sudo
-  become_user: root
 
 - name: Change vcpu_pin
   hosts: compute
   roles:
    - roles/workarounds
-  become: True
-  become_method: sudo
-  become_user: root
 
 - name: Prepare the environemnt and boot an instance
   hosts: undercloud
@@ -29,17 +23,12 @@
     group_name: testpmd
   roles:
    - post_install/openstack_tasks
-  become: True
-  become_method: sudo
-  become_user: root
 
 - name: Install and compile required packages
   hosts: testpmd
   roles:
     - tester/testpmd_install
   become: True
-  become_method: sudo
-  become_user: root
 
 - name: Run TestPMD
   hosts: testpmd

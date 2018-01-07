@@ -27,5 +27,5 @@
     state: present
   with_subelements:
     - "{{ flavors }}"
-    - property
+    - extra_specs
     - skip_missing: True
