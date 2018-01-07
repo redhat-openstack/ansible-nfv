@@ -54,7 +54,7 @@ flavors:
     ram: 4096
     disk: 20
     vcpus: 4
-    property:
+    extra_specs:
       - "hw:mem_page_size": "1GB"
         "hw:numa_mem.0": "4096"
         "hw:numa_nodes": "1"
