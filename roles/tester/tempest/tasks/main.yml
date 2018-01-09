@@ -165,6 +165,8 @@
     - { sect: 'hypervisor', opt: 'private_key_file', val: "{{ private_key_dest }}" }
     - { sect: 'hypervisor', opt: 'user', val: "{{ user_for_overcloud_nodes }}" }
     - { sect: 'compute-feature-enabled', opt: 'live_migration', val: 'true' }
+    - { sect: 'neutron_plugin_options', opt: 'image_is_advanced', val: 'True' }
+    - { sect: 'neutron_plugin_options', opt: 'max_networks_per_project', val: '1' }
 
 - name: Execute the tempest tests and save the results
   tags: run_tempest_test
