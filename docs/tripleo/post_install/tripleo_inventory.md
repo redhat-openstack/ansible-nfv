@@ -1,7 +1,7 @@
 # TripleO Inventory
 
 ## Description
-From time to time, we may get a new Openstack environment for work/testing/etc.
+From time to time, we may get an already installed Openstack environment for work/testing/etc.
 In order to be able to run an Ansible playbooks or different ad-hoc commands against the overcloud nodes,
 inventory file required.
 
@@ -36,11 +36,24 @@ Id_rsa_undercloud.pub - Public key of the id_rsa_undercloud.
 Each environment files will be generated under the following path:  
 **{{ ansible_repo_dir }}/inventories/undercloud_name_env/**  
 This provide the ability to have multiple environment inventories, and to choose the environment I want to work with.  
-Each run, the latest generated environment will be symlinked to the **inventory** and **ansible.ssh.config** at the root of the ansible repo directory.
+Each run, the latest generated environment will be symlink to the **inventory** and **ansible.ssh.config** at the root of the ansible repo directory.
+
+## Environment types:
+The play adapted to the baremetal, hybrid or virt environment.  
+Baremetal - Undercloud and Overcloud nodes (Controllers, Computes, etc...) are fully baremetal.  
+Hybrid - Undercloud and Controllers nodes are virtual (Resides on a single host) and the Computes are baremetal.  
+Virt - Undercloud and Overcloud nodes (Controllers, Computes, etc...) are virtual and resides on a single machine.
 
 ***
 
 ## Play variables
+Provide the type of the environment.  
+Default: 'baremetal'  
+Mandatory variable.
+```
+setup_type
+```
+
 Provide the undercloud host.  
 Mandatory variable.
 ```
@@ -89,5 +102,5 @@ ansible-playbook playbooks/tripleo/post_install/tripleo_inventory.yml -e host=un
 
 With password:
 ```
-ansible-playbook playbooks/tripleo/post_install/tripleo_inventory.yml -e host=undercloud-host-fqdn/ip -e ssh_pass=undercloud_password
+ansible-playbook playbooks/tripleo/post_install/tripleo_inventory.yml -e host=undercloud-host-fqdn/ip -e ssh_pass=undercloud_password -e setup_type=baremetal
 ```
