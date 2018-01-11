@@ -10,8 +10,12 @@ venv_path: "/tmp/ansible_venv"
 # user:
 
 # Define one of the following.
-# In case ssh_pass is used, dynamic ssh key will be generated ans used.
+# In case ssh_pass is used, dynamic ssh key will be generated and used.
 # ssh_key:
 # ssh_pass:
+
+# Define the type of the environment.
+# Could be - baremetal, virt.
+setup_type: baremetal
 
 overcloud_user: heat-admin
