@@ -8,6 +8,7 @@
   set_fact:
     tripleo_undercloud_key: "{{ environment_dir }}/id_rsa_{{ host }}"
     overcloud_private_key: "{{ environment_dir }}/id_rsa_overcloud_{{ host }}"
+    hypervisor_private_key: "{{ environment_dir }}/id_rsa_hypervisor_{{ host }}"
 
 - name: Unlink old inventory file
   file:
@@ -27,14 +28,19 @@
     recurse: yes
     state: directory
 
-- name: Add undercloud to host list
+- name: Add baremetal Undercloud to host list
   add_host:
-    name: "{{ host }}"
+    name: "undercloud-0"
     groups: "undercloud,tester"
     ansible_ssh_host: "{{ host }}"
     ansible_ssh_user: "{{ user | default('stack') }}"
     ansible_ssh_private_key_file: "{{ ssh_key | default(omit) }}"
     ansible_ssh_pass: "{{ ssh_pass | default(omit) }}"
+  when: setup_type == 'baremetal'
+
+- name: Locate virt Undercloud and add to host list
+  include: hypervisor.yml
+  when: setup_type == 'virt'
 
 - name: Generate Inventory file
   vars:
@@ -49,7 +55,7 @@
 
 - name: Create TripleO inventory
   include: overcloud_nodes.yml
-  delegate_to: "{{ host }}"
+  delegate_to: "{{ groups['undercloud'] | first }}"
 
 - name: Add hosts to host list
   add_host:
@@ -65,13 +71,25 @@
 
 - name: Enable SSH forwarding using Undercloud node for baremetal Overcloud nodes
   vars:
-    ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+    ansible_python_interpreter: /usr/bin/python
   add_host:
     name: "{{ item.name }}"
     ansible_ssh_common_args: "-o ProxyCommand=\"ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
                               -W %h:%p -i {{ hostvars[groups['undercloud'][0]].ansible_ssh_private_key_file }} \
                               {{ hostvars[groups['undercloud'][0]].ansible_ssh_user }}@{{ hostvars[groups['undercloud'][0]].ansible_ssh_host }}\""
   with_items: "{{ openstack_servers }}"
+  when: setup_type == 'baremetal'
+
+- name: Enable SSH forwarding using Undercloud node for virt Overcloud nodes
+  vars:
+    ansible_python_interpreter: /usr/bin/python
+  add_host:
+    name: "{{ item.name }}"
+    ansible_ssh_common_args: "-o ProxyCommand=\"ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
+                              -F {{ environment_dir }}/ansible.ssh.config.{{ host }} \
+                              {{ undercloud_vm }} -W {{ item.addresses.ctlplane.0.addr }}:22\""
+  with_items: "{{ openstack_servers }}"
+  when: setup_type == 'virt'
 
 - name: Update ansible.ssh.config for SSH tunneling
   vars:
