@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "437fe890_a4bb4835",
+        "filename": "docs/tripleo/post_install/tripleo_inventory.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1008570
+      },
+      "writtenOn": "2018-01-11T14:23:45Z",
+      "side": 1,
+      "message": "Please add  -e setup_type\u003dbaremetal",
+      "range": {
+        "startLine": 100,
+        "startChar": 0,
+        "endLine": 100,
+        "endChar": 138
+      },
+      "revId": "a5f26c0f6d62be67110b1bc98e0288d3d23522fe",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "497ac35b_6e223ce4",
+        "filename": "roles/post_install/tripleo_inventory/defaults/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1008570
+      },
+      "writtenOn": "2018-01-11T14:23:45Z",
+      "side": 1,
+      "message": "hybrid?",
+      "range": {
+        "startLine": 18,
+        "startChar": 13,
+        "endLine": 18,
+        "endChar": 29
+      },
+      "revId": "a5f26c0f6d62be67110b1bc98e0288d3d23522fe",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
