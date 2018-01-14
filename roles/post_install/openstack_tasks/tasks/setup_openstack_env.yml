@@ -26,31 +26,31 @@
     marker: "#{mark} {{ item.item.1 }} PARAMETERS"
   with_items: "{{ cloud_details.results }}"
 
-- name: Install requirements for pip virtualenv
-  package:
-    name: "{{ item }}"
-    state: present
-  with_items:
-    - 'python-devel'
-    - 'python-setuptools'
-    - 'gcc'
-    - 'libffi-devel'
+- block:
+    - name: Install requirements for pip virtualenv
+      package:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - 'python-devel'
+        - 'python-setuptools'
+        - 'gcc'
+        - 'libffi-devel'
+
+    - name: Install pip package
+      easy_install:
+        name: pip
+
+    - name: Delete existing venv if exists
+      file:
+        path: "{{ venv_path }}"
+        state: absent
+
+    - name: Install virtualenv
+      pip:
+        name: virtualenv
+        version: '15.1.0'
   become: true
-
-- name: Install pip package
-  easy_install:
-    name: pip
-  become: true
-
-- name: Delete existing venv if exists
-  file:
-    path: "{{ venv_path }}"
-    state: absent
-
-- name: Install virtualenv
-  pip:
-    name: virtualenv
-    version: '15.1.0'
 
 - name: Create virtualenv
   pip:
