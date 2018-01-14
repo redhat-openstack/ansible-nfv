@@ -3,7 +3,8 @@
 rc_file: /home/stack/overcloudrc
 
 ## Tempest variables
-tempest_dir: /root/tempest
+tempest_user: stack
+tempest_dir: /home/stack/tempest
 tempest_main: openstack-tempest
 tempest_conf: python-tempestconf
 tempest_nfv_plugin: tempest-nfv-plugin
