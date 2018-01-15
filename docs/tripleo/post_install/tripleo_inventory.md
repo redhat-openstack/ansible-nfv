@@ -95,6 +95,13 @@ Default: '/home/stack/stackrc'.
 rc_file_path
 ```
 
+Define custom undercloud user if required.
+By default the variable is not used.
+Default value is - stack.
+```
+custom_undercloud_user
+```
+
 ***
 The example of running the TripleO Inventory playbook.  
 With SSH key file for baremetal environment:
@@ -103,10 +110,10 @@ ansible-playbook playbooks/tripleo/post_install/tripleo_inventory.yml -e host=un
 ```
 With SSH key file for hybrid or virt environment:
 ```
-ansible-playbook playbooks/tripleo/post_install/tripleo_inventory.yml -e host=undercloud-host-fqdn/ip -e ssh_key=/path/to/ssh/private/file -e setup_type=virt
+ansible-playbook playbooks/tripleo/post_install/tripleo_inventory.yml -e host=undercloud-host-fqdn/ip -e user=root -e ssh_key=/path/to/ssh/private/file -e setup_type=virt
 ```
 
 With password:
 ```
-ansible-playbook playbooks/tripleo/post_install/tripleo_inventory.yml -e host=undercloud-host-fqdn/ip -e ssh_pass=undercloud_password
+ansible-playbook playbooks/tripleo/post_install/tripleo_inventory.yml -e host=undercloud-host-fqdn/ip -e user=root -e ssh_pass=undercloud_password
 ```
