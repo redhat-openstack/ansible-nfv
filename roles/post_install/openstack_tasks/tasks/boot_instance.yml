@@ -69,6 +69,28 @@
     - "{{ instances }}"
   register: instance_id
 
+- name: Check OSPD version
+  shell: "cat /etc/rhosp-release | awk '{print $6}'"
+  register: openstack_version
+
+- block:
+  - name: Get port id
+    vars:
+      ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+    os_port_facts:
+      cloud: overcloud
+      filters:
+        "binding:host_id": "computeovsdpdk-0.localdomain"
+    register: instance_ports
+
+  - name: Remove security group and disable port security
+    shell: "source /home/stack/overcloudrc; openstack port set  --no-security-group {{ item }} ; openstack port set  --disable-port-security {{ item }}"
+    with_items:
+      - "{{ instance_ports.ansible_facts.openstack_ports.0.id }}"
+      - "{{ instance_ports.ansible_facts.openstack_ports.1.id }}"
+      - "{{ instance_ports.ansible_facts.openstack_ports.2.id }}"
+  when: "{{ openstack_version.stdout|int >= 12 }}"
+
 - name: Copy private key from generated keypair
   copy:
     content: "{{ keypair.key.private_key }}"
