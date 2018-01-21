@@ -1,26 +1,54 @@
 # TripleO Inventory
 
 ## Description
+TripleO Inventory play will generate a new inventory file from the provided Undercloud/Hypervisor host.
+
 From time to time, we may get an already installed Openstack environment for work/testing/etc.
 In order to be able to run an Ansible playbooks or different ad-hoc commands against the overcloud nodes,
-inventory file required.
+inventory file is required.
 
-TripleO Inventory play will generate new inventory file from the provided Undercloud host.  
+## Structure
+At the end of the play the following structure will appear:
+```
+|-> inventory file (soft link to the last environment)
+|-> ansible.ssh.config (soft link to the last environment)
+|
+|-> environments
+    |
+    |-> First environment
+    |     |-> inventory file
+    |     |-> ansible.ssh.config file
+    |     |-> ssh keys
+    |
+    |-> Second environment
+    |     |-> inventory file
+    |     |-> ansible.ssh.config file
+    |     |-> ssh keys
+```
+**Note!** - Each run, the latest generated environment will be symlink to the **inventory** and **ansible.ssh.config** at the root of the ansible repo directory.
+
+## Supported environment types:
+The play adapted to the baremetal, hybrid or virt environment.  
+**Baremetal** - Undercloud and Overcloud nodes (Controllers, Computes, etc...) are fully baremetal.  
+**Hybrid** - Undercloud and Controllers nodes are virtual (Resides on a single host) and the Computes are baremetal.  
+**Virt** - Undercloud and Overcloud nodes (Controllers, Computes, etc...) are virtual and resides on a single machine.
+
+**Note!** - For baremetal environment add ```-e setup_type=baremetal```, and for virt or hybrid environment add ```-e setup_type=virt```
+
 The play could be run in two available scenarios:
-1. The public key of your ssh key already located on the Undercloud host.  
+1. The public key of your ssh key already located on the Undercloud/Hypervisor host.  
    The play will generate three files:
   * inventory
   * ansible.ssh.config
   * id_rsa_overcloud
 
-2. You have only the password of the Undercloud host.  
+2. You have only the password of the Undercloud/Hypervisor host.  
    The play will generate five files:
   * inventory
   * ansible.ssh.config
   * id_rsa_overcloud
   * id_rsa_undercloud
   * id_rsa_undercloud.pub
-
 
 Inventory - Will hold the Undercloud node and all Overcloud nodes located within the environment.  
 Ansible.ssh.config - SSH config file. Allow to connect to the overcloud nodes from the localhost.
@@ -33,21 +61,7 @@ Id_rsa_undercloud - In case, password provided to Undercloud host, play will gen
                     and will use it for the connection to Undercloud host.  
 Id_rsa_undercloud.pub - Public key of the id_rsa_undercloud.
 
-Each environment files will be generated under the following path:  
-**{{ ansible_repo_dir }}/inventories/undercloud_name_env/**  
-This provide the ability to have multiple environment inventories, and to choose the environment I want to work with.  
-Each run, the latest generated environment will be symlink to the **inventory** and **ansible.ssh.config** at the root of the ansible repo directory.
-
-## Environment types:
-The play adapted to the baremetal, hybrid or virt environment.  
-**Baremetal** - Undercloud and Overcloud nodes (Controllers, Computes, etc...) are fully baremetal.  
-**Hybrid** - Undercloud and Controllers nodes are virtual (Resides on a single host) and the Computes are baremetal.  
-**Virt** - Undercloud and Overcloud nodes (Controllers, Computes, etc...) are virtual and resides on a single machine.
-
-**Note!** - For baremetal environment add ```-e setup_type=baremetal```, and for virt or hybrid environment add ```-e setup_type=virt```
-
 ***
-
 ## Play variables
 Provide the type of the environment.  
 Default: 'baremetal'  
@@ -103,6 +117,7 @@ custom_undercloud_user
 ```
 
 ***
+## Examples
 The example of running the TripleO Inventory playbook.  
 With SSH key file for baremetal environment:
 ```
