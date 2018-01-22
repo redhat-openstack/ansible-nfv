@@ -20,7 +20,7 @@
         src: "/root/.ssh/id_rsa"
         dest: "{{ hypervisor_private_key }}"
         flat: yes
-  delegate_to: "{{ host }}"
+  delegate_to: "{{ groups['hypervisor'][0] }}"
 
   # Number of installers are setting different Undercloud name.
   # InfraRed set it as - undercloud-0
@@ -42,14 +42,14 @@
 - name: Find the Undercloud vm ip address
   shell: virsh domifaddr "{{ undercloud_vm }}" | awk '/ipv4/ {print $4}' | cut -d "/" -f1
   register: undercloud_ip
-  delegate_to: "{{ host }}"
+  delegate_to: "{{ groups['hypervisor'][0] }}"
 
 - name: Add Undercloud to inventory
   add_host:
     name: "{{ undercloud_vm }}"
     groups: "undercloud"
     ansible_ssh_host: "{{ undercloud_ip.stdout }}"
-    ansible_ssh_user: root
+    ansible_ssh_user: "{{ custom_undercloud_user | default('stack') }}"
     ansible_ssh_private_key_file: "{{ hypervisor_private_key }}"
     ansible_ssh_common_args: "-o ProxyCommand=\"ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
                               -W %h:%p -i {{ hostvars[groups['hypervisor'][0]].ansible_ssh_private_key_file }} \

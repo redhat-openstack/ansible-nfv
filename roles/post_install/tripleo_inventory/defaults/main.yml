@@ -1,7 +1,10 @@
 ---
 
-# Virtual environment path
-venv_path: "/tmp/ansible_venv"
+# Define the type of the environment.
+# Could be - baremetal, virt.
+# For baremetal environment use - baremetal
+# and for virt or hybrid environment use - virt
+setup_type: baremetal
 
 # Undercloud host name/ip
 # host:
@@ -14,10 +17,12 @@ venv_path: "/tmp/ansible_venv"
 # ssh_key:
 # ssh_pass:
 
-# Define the type of the environment.
-# Could be - baremetal, virt.
-# For baremetal environment use - baremetal
-# and for virt or hybrid environment use - virt
-setup_type: baremetal
-
 overcloud_user: heat-admin
+
+# Define custom undercloud user if required.
+# By default the variable is not used.
+# Default value is - stack.
+# custom_undercloud_user:
+
+# Virtual environment path
+venv_path: "/tmp/ansible_venv"
