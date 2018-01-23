@@ -1,9 +1,9 @@
 ---
 
 - name: Include Controller tasks
-  include: controller.yml
+  include_tasks: controller.yml
   when: inventory_hostname in groups['controller']
 
 - name: Include Compute tasks
-  include: compute.yml
+  include_tasks: compute.yml
   when: inventory_hostname in groups['computeovsdpdk'] | default([]) | union(groups['compute'] | default([]))

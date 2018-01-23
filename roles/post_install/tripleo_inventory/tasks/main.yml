@@ -39,7 +39,7 @@
   when: setup_type == 'baremetal'
 
 - name: Locate virt Undercloud and add to host list
-  include: hypervisor.yml
+  include_tasks: hypervisor.yml
   when: setup_type == 'virt'
 
 - name: Generate Inventory file
@@ -50,11 +50,11 @@
     dest: "{{ environment_dir }}/inventory_{{ host }}"
 
 - name: Generate and set an SSH key if password is used
-  include: undercloud_pass.yml
+  include_tasks: undercloud_pass.yml
   when: ssh_pass is defined
 
 - name: Create TripleO inventory
-  include: overcloud_nodes.yml
+  include_tasks: overcloud_nodes.yml
   delegate_to: "{{ groups['undercloud'] | first }}"
 
 - name: Add hosts to host list
