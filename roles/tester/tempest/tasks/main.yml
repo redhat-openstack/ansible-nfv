@@ -179,7 +179,6 @@
       executable: /bin/bash
       chdir: "{{ tempest_dir }}/{{ tempest_main }}"
   with_items: "{{ tempest_tests }}"
-  register: tempest_results
 
 - name: Generate results report in a JunitXML format
   tags: run_tempest_test
