@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2aaf6b30_ea3bb874",
+        "filename": "playbooks/tripleo/tester/crossnuma-performance.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2018-01-29T13:11:08Z",
+      "side": 1,
+      "message": "Please, move it before the roles to be consistent with other plays.",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 34
+      },
+      "revId": "2876d16a87828aba8ca1a79323b0763088c0f366",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a66a7242_3d841bcf",
+        "filename": "roles/workarounds/tasks/disable_security_groups.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2018-01-29T13:11:08Z",
+      "side": 1,
+      "message": "Remove test tag",
+      "range": {
+        "startLine": 8,
+        "startChar": 5,
+        "endLine": 8,
+        "endChar": 15
+      },
+      "revId": "2876d16a87828aba8ca1a79323b0763088c0f366",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "b3a78b15_2811e4a4",
+        "filename": "roles/workarounds/tasks/disable_security_groups.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2018-01-29T13:11:08Z",
+      "side": 1,
+      "message": "Remove test tag",
+      "range": {
+        "startLine": 18,
+        "startChar": 5,
+        "endLine": 18,
+        "endChar": 15
+      },
+      "revId": "2876d16a87828aba8ca1a79323b0763088c0f366",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "79640c2d_68d9224c",
+        "filename": "roles/workarounds/tasks/disable_security_groups.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2018-01-29T13:11:08Z",
+      "side": 1,
+      "message": "You can use the os_port module with no_security_groups argument.\n\nPlease, check as well if that argument is applying wo the --disable-port-security.",
+      "range": {
+        "startLine": 21,
+        "startChar": 7,
+        "endLine": 21,
+        "endChar": 61
+      },
+      "revId": "2876d16a87828aba8ca1a79323b0763088c0f366",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
