@@ -13,6 +13,8 @@
 
 - name: Change vcpu_pin
   hosts: compute
+  vars:
+    vcpu_pin_set_cross_numa: true
   roles:
    - roles/workarounds
 
@@ -23,6 +25,13 @@
     group_name: testpmd
   roles:
    - post_install/openstack_tasks
+
+- name: Disable security groups for testpmd instance
+  hosts: undercloud
+  vars:
+    disable_security_groups: true
+  roles:
+   - roles/workarounds
 
 - name: Install and compile required packages
   hosts: testpmd

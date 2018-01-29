@@ -1,0 +1,23 @@
+ - name: Check OSPD version
+   tags: test
+   shell: "cat /etc/rhosp-release | awk '{print $6}'"
+   register: openstack_version
+
+ - block:
+   - name: Get port id
+     vars:
+       ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+     os_port_facts:
+       cloud: overcloud
+       filters:
+         "binding:vif_type": "vhostuser"
+     register: instance_ports
+
+   - name: Remove security group and disable port security
+     shell: |
+       source "{{ rc_file | default('/home/stack/overcloudrc') }}"
+       openstack port set --no-security-group "{{ item.id }}"
+       openstack port set --disable-port-security "{{ item.id }}"
+     with_items:
+       - "{{ instance_ports.ansible_facts.openstack_ports }}"
+   when: openstack_version.stdout|int >= 12
