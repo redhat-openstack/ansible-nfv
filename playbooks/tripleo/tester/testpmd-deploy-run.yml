@@ -14,6 +14,13 @@
   roles:
    - post_install/openstack_tasks
 
+- name: Disable security groups for testpmd instance
+  hosts: undercloud
+  vars:
+     disable_security_groups: true
+  roles:
+   - roles/workarounds
+
 - name: Install TestPMD on the instance
   hosts: testpmd
   roles:
