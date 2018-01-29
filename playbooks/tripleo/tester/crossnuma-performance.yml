@@ -15,6 +15,8 @@
   hosts: compute
   roles:
    - roles/workarounds
+  vars:
+     vcpu_pin_set_cross_numa: true
 
 - name: Prepare the environemnt and boot an instance
   hosts: undercloud
@@ -23,6 +25,13 @@
     group_name: testpmd
   roles:
    - post_install/openstack_tasks
+
+- name: Disable security groups for testpmd instance
+  hosts: undercloud
+  vars:
+     disable_security_groups: true
+  roles:
+   - roles/workarounds
 
 - name: Install and compile required packages
   hosts: testpmd
