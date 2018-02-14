@@ -80,7 +80,7 @@
     source {{ tempest_venv }}/bin/activate
     python config_tempest/config_tempest.py --create --debug --image "/tmp/{{ images[0].url | basename }}" \
     identity.uri {{ osp_auth.stdout }} identity.admin_password {{ osp_password.stdout }} \
-    identity.region regionOne \
+    identity.region regionOne DEFAULT.debug false \
     --network-id {{ tempest_net_id.ansible_facts.openstack_networks.0.id }}
   args:
       executable: /bin/bash
