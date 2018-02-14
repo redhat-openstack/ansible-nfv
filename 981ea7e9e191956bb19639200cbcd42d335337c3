@@ -46,6 +46,30 @@
       "revId": "981ea7e9e191956bb19639200cbcd42d335337c3",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "e58faa52_d4c3ffef",
+        "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1008570
+      },
+      "writtenOn": "2018-02-14T15:34:10Z",
+      "side": 1,
+      "message": "The question was why using those params and other params not included.\nThose params are a must for OSPD12+\nThanks!",
+      "parentUuid": "b29d44bb_4bd5fa53",
+      "range": {
+        "startLine": 12,
+        "startChar": 10,
+        "endLine": 14,
+        "endChar": 10
+      },
+      "revId": "981ea7e9e191956bb19639200cbcd42d335337c3",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
