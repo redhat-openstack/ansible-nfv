@@ -200,6 +200,13 @@
   register: shell_results
   failed_when: "shell_results.rc == 2"
 
+- name: Copy tempest log file to the main tempest directory
+  tags: run_tempest_test
+  copy:
+    remote_src: yes
+    src: "{{ tempest_dir }}/{{ tempest_main }}/tempest.log"
+    dest: "{{ tempest_dir }}/tempest.log"
+
 - name: Print the output results of the tempest tests
   tags: run_tempest_test
   debug:
