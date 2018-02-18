@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a1816a7c_4d393035",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2018-02-18T09:40:42Z",
+      "side": 1,
+      "message": "Please describe subject in one line:\nmove of tempest log to ${} directory location",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 18
+      },
+      "revId": "9411403200559cf493c4e06dc0304fb4e933c3d2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "8c6c3b30_32657f0e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2018-02-18T09:40:42Z",
+      "side": 1,
+      "message": "It is not clear \nDid you mean the following?\nmoving tempest log to main tempest destination directory?\n\nWhy it was needed?",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 34
+      },
+      "revId": "9411403200559cf493c4e06dc0304fb4e933c3d2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
