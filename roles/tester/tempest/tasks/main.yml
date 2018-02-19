@@ -80,7 +80,7 @@
     source {{ tempest_venv }}/bin/activate
     python config_tempest/config_tempest.py --create --debug --image "/tmp/{{ images[0].url | basename }}" \
     identity.uri {{ osp_auth.stdout }} identity.admin_password {{ osp_password.stdout }} \
-    identity.region regionOne \
+    identity.region regionOne DEFAULT.debug false \
     --network-id {{ tempest_net_id.ansible_facts.openstack_networks.0.id }}
   args:
       executable: /bin/bash
@@ -199,6 +199,13 @@
       chdir: "{{ tempest_dir }}/{{ tempest_main }}"
   register: shell_results
   failed_when: "shell_results.rc == 2"
+
+- name: Copy tempest log file to the main tempest directory
+  tags: run_tempest_test
+  copy:
+    remote_src: yes
+    src: "{{ tempest_dir }}/{{ tempest_main }}/tempest.log"
+    dest: "{{ tempest_dir }}/tempest.log"
 
 - name: Print the output results of the tempest tests
   tags: run_tempest_test
