@@ -90,8 +90,8 @@ One of two parameters should be provided: ssh_key or ssh_pass.
 ssh_key
 ```
 
-Specify the password for the Undercloud host.
-Use this variable in case there is no your public key on the Undercloud host.
+Specify the password for the Undercloud host.  
+Use this variable in case there is no your public key on the Undercloud host.  
 One of two parameters should be provided: ssh_key or ssh_pass.
 ```
 ssh_pass
@@ -103,17 +103,25 @@ Default: 'heat-admin'.
 overcloud_user: heat-admin
 ```
 
-RC file path.
+RC file path.  
 Default: '/home/stack/stackrc'.
 ```
 rc_file_path
 ```
 
-Define custom undercloud user if required.
-By default the variable is not used.
+Define custom undercloud user if required.  
+By default the variable is not used.  
 Default value is - stack.
 ```
 custom_undercloud_user
+```
+
+Undercloud could be used for various tasks like tester or something else.  
+The tasks could use inventory groups.  
+Define the groups, Undercloud host should be added to.  
+Multiple groups should be separated by the comma.
+```
+undercloud_groups: undercloud,tester
 ```
 
 ***
