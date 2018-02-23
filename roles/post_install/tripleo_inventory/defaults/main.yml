@@ -26,3 +26,7 @@ overcloud_user: heat-admin
 
 # Virtual environment path
 venv_path: "/tmp/ansible_venv"
+
+# Define the groups, Undercloud host should be added to.
+# multiple groups should be separated by the comma.
+undercloud_groups: undercloud,tester
