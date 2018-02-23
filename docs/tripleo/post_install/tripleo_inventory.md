@@ -116,6 +116,14 @@ Default value is - stack.
 custom_undercloud_user
 ```
 
+Undercloud could be used for various tasks like tester or something else.
+The tasks could use inventory groups.
+Define the groups, Undercloud host should be added to.
+Multiple groups should be separated by the comma.
+```
+undercloud_groups: undercloud,tester
+```
+
 ***
 ## Examples
 The example of running the TripleO Inventory playbook.  
