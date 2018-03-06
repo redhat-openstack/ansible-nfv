@@ -69,7 +69,7 @@
   register: isolcpu_set
 
 - name: Activate the profile
-  shell: "/usr/sbin/tuned-adm profile cpu-partitioning"
+  command: "/usr/sbin/tuned-adm profile cpu-partitioning"
   when: isolcpu_set.changed
 
 - name: Make grub
@@ -147,7 +147,7 @@
     virtualenv: "/tmp/ansible_venv"
     extra_args: '--upgrade'
   delegate_to: "{{ groups['undercloud'][0] }}"
-  become_method: sudo
+  become: true
   become_user: root
 
 - name: Copy testpmd python script
@@ -156,7 +156,7 @@
     dest: "/tmp/testpmd-app.py"
     mode: 'u+rwx'
   delegate_to: "{{ item }}"
-  become_method: sudo
+  become: true
   become_user: root
   with_items: "{{groups['undercloud']}}"
 
@@ -165,7 +165,7 @@
   async: 10000
   poll: 0
   delegate_to: "{{item}}"
-  become_method: sudo
+  become: true
   become_user: root
   with_items: "{{groups['undercloud']}}"
 

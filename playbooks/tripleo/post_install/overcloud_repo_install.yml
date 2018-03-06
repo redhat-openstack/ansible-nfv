@@ -14,10 +14,9 @@
       with_items: "{{ repos_list.files }}"
       register: repos_copy
 
-
 - name: Install repos on overcloud nodes
   hosts: openstack_nodes
-  become: True
+  become: true
   become_method: sudo
   become_user: root
   tasks:

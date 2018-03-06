@@ -24,7 +24,7 @@
   register: makegrub
 
 - name: Install packages and dependency
-  yum: 
+  yum:
     name: "{{ item.name }}"
     state: 'installed'
   with_items:
@@ -53,25 +53,24 @@
     create: yes
 
 - name: Git clone MoonGen
-  git: 
+  git:
     repo: "{{ moongen_url }}"
     dest: /mnt/MoonGen
-    clone: yes 
+    clone: yes
     update: yes
     force: yes
     version: opnfv-stable
 
 - name: Remove KNI module
-  lineinfile: 
-    dest: /mnt/MoonGen/CMakeLists.txt 
-    state: absent 
+  lineinfile:
+    dest: /mnt/MoonGen/CMakeLists.txt
+    state: absent
     regexp: "src/kni.c"
 
 - name: Check device for DPDK
   shell: "/mnt/MoonGen/deps/dpdk/tools/dpdk_nic_bind.py -s | awk '/{{ dpdk_nic_name }}/ {print $1}'"
   register: dpdk_bind_check
   changed_when: False
-  always_run: yes
 
 - name: Set nic to bind on boot
   command: /usr/sbin/driverctl set-override "{{ dpdk_bind_check.stdout }}" vfio-pci
@@ -79,19 +78,18 @@
   when: dpdk_bind_check.stdout.strip() != ""
 
 - block:
-  - name: Check second device for DPDK
-    shell: "/mnt/MoonGen/deps/dpdk/tools/dpdk_nic_bind.py -s | awk '/{{ dpdk_second_nic_name }}/ {print $1}'"
-    register: dpdk_bind_check
-    changed_when: False
-    always_run: yes
-  
-  - name: Set second nic to bind on boot
-    command: /usr/sbin/driverctl set-override "{{ dpdk_bind_check.stdout }}" vfio-pci
-    register: dpdk_bind
-    when: dpdk_bind_check.stdout.strip() != ""
+    - name: Check second device for DPDK
+      shell: "/mnt/MoonGen/deps/dpdk/tools/dpdk_nic_bind.py -s | awk '/{{ dpdk_second_nic_name }}/ {print $1}'"
+      register: dpdk_bind_check
+      changed_when: False
+
+    - name: Set second nic to bind on boot
+      command: /usr/sbin/driverctl set-override "{{ dpdk_bind_check.stdout }}" vfio-pci
+      register: dpdk_bind
+      when: dpdk_bind_check.stdout.strip() != ""
   when: dpdk_second_nic_name is defined
 
-- name: Set permmisions to relevant scripts 
+- name: Set permmisions to relevant scripts
   file:
     path: "{{ item.dir }}"
     mode: 0755
@@ -105,16 +103,15 @@
     regexp: "tools/dpdk_nic_bind"
     state: absent
 
-- name: Run build.sh script 
-  shell: /mnt/MoonGen/build.sh 
-  always_run: yes
+- name: Run build.sh script
+  command: /mnt/MoonGen/build.sh
   register: build_result
   failed_when: "'Error' in build_result.stderr"
 
-### The following script sets the Huge-pages on the server, currently we're doing it 
+### The following script sets the Huge-pages on the server, currently we're doing it
 ### in the previous grubby task.
 #- name: Run setup-hugetlbfs.sh script
-#  shell: /mnt/MoonGen/setup-hugetlbfs.sh 
+#  shell: /mnt/MoonGen/setup-hugetlbfs.sh
 #  always_run: yes
 
 - name: Restart machine
@@ -147,4 +144,3 @@
   with_items:
     - { source: 'opnfv-vsperf-cfg.lua', destination: '/mnt/MoonGen/' }
     - { source: 'opnfv-vsperf.lua', destination: '/mnt/MoonGen/examples/' }
-

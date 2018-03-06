@@ -29,7 +29,7 @@
   register: isolcpu_set
 
 - name: Activate the profile
-  shell: "/usr/sbin/tuned-adm profile cpu-partitioning"
+  command: "/usr/sbin/tuned-adm profile cpu-partitioning"
   when: isolcpu_set.changed
 
 - name: Make grub
