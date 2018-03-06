@@ -1,6 +1,6 @@
 #Please provide the following variables to match your env
-vlan_id: 
-vlan_max_range: 
+vlan_id:
+vlan_max_range:
 ## Provide the Dst and Src MACs addr in case of SR-IOV use-cases
 ### Provide the Dst MAC addr in case of DPDK use-cases
 ##srcMac: '{"a0:36:9f:22:e6:86", "a0:36:9f:22:e6:84"}'

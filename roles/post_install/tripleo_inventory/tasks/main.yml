@@ -59,14 +59,14 @@
 
 - name: Add hosts to host list
   add_host:
-      name: "{{ item.name }}"
-      groups: "{{ ( item.name in groups.all ) | ternary(omit,
-          ['overcloud_nodes', 'openstack_nodes', item.name.split('-')[0]] | join(',')
-         ) }}"
-      ansible_ssh_user: "{{ overcloud_user }}"
-      ansible_ssh_pass: ""
-      ansible_ssh_host: "{{ item.accessIPv4 }}"
-      ansible_ssh_private_key_file: "{{ overcloud_private_key }}"
+    name: "{{ item.name }}"
+    groups: "{{ ( item.name in groups.all ) | ternary(omit,
+        ['overcloud_nodes', 'openstack_nodes', item.name.split('-')[0]] | join(',')
+       ) }}"
+    ansible_ssh_user: "{{ overcloud_user }}"
+    ansible_ssh_pass: ""
+    ansible_ssh_host: "{{ item.accessIPv4 }}"
+    ansible_ssh_private_key_file: "{{ overcloud_private_key }}"
   with_items: "{{ openstack_servers }}"
 
 - name: Enable SSH forwarding using Undercloud node for baremetal Overcloud nodes
