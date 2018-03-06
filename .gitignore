@@ -4,3 +4,6 @@ ansible.ssh.config*
 ssh/ansible.ssh.config*
 ssh/id_rsa*
 *.retry
+.idea/
+.tox/
+.tox_*
