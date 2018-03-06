@@ -9,7 +9,7 @@
   register: osp_password
 
 - name: Create the tempest directory
-  file:
+  file: 
     path: "{{ tempest_dir }}"
     mode: 0755
     state: directory
