@@ -2,12 +2,14 @@
 
 - name: Prepare Overcloud nodes
   hosts: overcloud_nodes
+  gather_facts: False
   roles:
    - post_install/overcloud_nodes_tasks
   become: True
 
 - name: Prepare Networks, Flavors, Images and Instance
   hosts: undercloud
+  gather_facts: False
   vars:
     boot_instance: true
     group_name: testpmd
@@ -16,6 +18,7 @@
 
 - name: Disable security groups for testpmd instance
   hosts: undercloud
+  gather_facts: False
   vars:
      disable_security_groups: true
   roles:
@@ -23,17 +26,20 @@
 
 - name: Install TestPMD on the instance
   hosts: testpmd
+  gather_facts: False
   roles:
     - tester/testpmd_install
   become: True
 
 - name: Run TestPMD
   hosts: testpmd
+  gather_facts: False
   roles:
     - tester/testpmd_run
   become: True
 
 - name: MoonGen run
   hosts: moongen
+  gather_facts: False
   roles:
     - packet_gen/moongen/run
