@@ -2,5 +2,6 @@
 
 - name: Openstack tasks
   hosts: undercloud
+  gather_facts: False
   roles:
     - post_install/openstack_tasks

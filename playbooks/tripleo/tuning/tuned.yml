@@ -2,6 +2,7 @@
 
 - name: Install and configure tuned profile
   hosts: compute
+  gather_facts: False
   roles:
     - tuning/tuned_configuration
   become: True
