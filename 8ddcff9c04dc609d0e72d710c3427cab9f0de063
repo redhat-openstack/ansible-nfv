@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "6162715f_9b711bf0",
+        "filename": ".yamllint",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2018-03-07T08:05:53Z",
+      "side": 1,
+      "message": "Agree.\nChanged to 1.",
+      "parentUuid": "dfac62fd_08fb6181",
+      "range": {
+        "startLine": 15,
+        "startChar": 21,
+        "endLine": 15,
+        "endChar": 22
+      },
+      "revId": "8ddcff9c04dc609d0e72d710c3427cab9f0de063",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6a11729b_b3d587c9",
         "filename": "roles/packet_gen/moongen/install/tasks/main.yml",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2018-03-06T15:41:09Z",
       "side": 1,
       "message": "I know it\u0027s not related, but I think if could be remove as part of re-ordering",
+      "range": {
+        "startLine": 111,
+        "startChar": 0,
+        "endLine": 115,
+        "endChar": 18
+      },
+      "revId": "8ddcff9c04dc609d0e72d710c3427cab9f0de063",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "25cb5fea_bb6ad0f1",
+        "filename": "roles/packet_gen/moongen/install/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2018-03-07T08:05:53Z",
+      "side": 1,
+      "message": "We definitely need to rethink some of our roles.\nBut I think it should be done as a separate patch.",
+      "parentUuid": "6a11729b_b3d587c9",
       "range": {
         "startLine": 111,
         "startChar": 0,
