@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "06f71ccd_6f5479cc",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2018-03-15T10:52:41Z",
+      "side": 1,
+      "message": "The name should be more detailed\nUpdated creation of clouds.yaml to fit osp13",
+      "range": {
+        "startLine": 7,
+        "startChar": 1,
+        "endLine": 7,
+        "endChar": 30
+      },
+      "revId": "05131fca7314cc7c69549ecd66ce799c13f16535",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "65ddb5fe_15e92309",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2018-03-15T10:52:41Z",
+      "side": 1,
+      "message": "Added missing environment variables needed for osp13",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 40
+      },
+      "revId": "05131fca7314cc7c69549ecd66ce799c13f16535",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
