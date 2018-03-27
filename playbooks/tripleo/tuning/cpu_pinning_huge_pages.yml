@@ -4,4 +4,4 @@
   hosts: "{{ hosts | default('compute') }}"
   roles:
     - tuning/cpu_pinning_huge_pages
-  become: True
+  become: true

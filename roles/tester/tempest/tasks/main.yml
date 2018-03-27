@@ -83,8 +83,8 @@
     identity.region regionOne DEFAULT.debug false \
     --network-id {{ tempest_net_id.ansible_facts.openstack_networks.0.id }}
   args:
-      executable: /bin/bash
-      chdir: "{{ tempest_dir }}/{{ tempest_conf }}"
+    executable: /bin/bash
+    chdir: "{{ tempest_dir }}/{{ tempest_conf }}"
 
 - block:
     - name: Delete default tempest.conf file before symlink it to the updated
@@ -118,8 +118,8 @@
     source {{ tempest_dir }}/venv/bin/activate;
     {{ tempest_dir }}/venv/bin/testr init;
   args:
-      executable: /bin/bash
-      chdir: "{{ tempest_dir }}/{{ tempest_main }}"
+    executable: /bin/bash
+    chdir: "{{ tempest_dir }}/{{ tempest_main }}"
 
 - name: Check the flavors
   vars:
@@ -176,8 +176,8 @@
     source {{ tempest_dir }}/venv/bin/activate
     {{ tempest_dir }}/venv/bin/testr run {{ item }} --subunit >> .testrepository/tempest_results.subunit
   args:
-      executable: /bin/bash
-      chdir: "{{ tempest_dir }}/{{ tempest_main }}"
+    executable: /bin/bash
+    chdir: "{{ tempest_dir }}/{{ tempest_main }}"
   with_items: "{{ tempest_tests }}"
 
 - name: Generate results report in a JunitXML format
@@ -187,16 +187,16 @@
     subunit2junitxml --output-to={{ tempest_dir }}/tempest.xml \
     < .testrepository/tempest_results.subunit | subunit2pyunit
   args:
-      executable: /bin/bash
-      chdir: "{{ tempest_dir }}/{{ tempest_main }}"
+    executable: /bin/bash
+    chdir: "{{ tempest_dir }}/{{ tempest_main }}"
 
 - name: Generate results report in a text format
   tags: run_tempest_test
   shell:
     subunit-trace --no-failure-debug < .testrepository/tempest_results.subunit
   args:
-      executable: /bin/bash
-      chdir: "{{ tempest_dir }}/{{ tempest_main }}"
+    executable: /bin/bash
+    chdir: "{{ tempest_dir }}/{{ tempest_main }}"
   register: shell_results
   failed_when: "shell_results.rc == 2"
 

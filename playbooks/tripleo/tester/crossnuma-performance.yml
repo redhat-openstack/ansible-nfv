@@ -9,14 +9,14 @@
     images_upload: false
     clear_env: true
   roles:
-   - post_install/openstack_tasks
+    - post_install/openstack_tasks
 
 - name: Change vcpu_pin
   hosts: compute
   vars:
     vcpu_pin_set_cross_numa: true
   roles:
-   - roles/workarounds
+    - roles/workarounds
 
 - name: Prepare the environemnt and boot an instance
   hosts: undercloud
@@ -24,26 +24,26 @@
     boot_instance: true
     group_name: testpmd
   roles:
-   - post_install/openstack_tasks
+    - post_install/openstack_tasks
 
 - name: Disable security groups for testpmd instance
   hosts: undercloud
   vars:
     disable_security_groups: true
   roles:
-   - roles/workarounds
+    - roles/workarounds
 
 - name: Install and compile required packages
   hosts: testpmd
   roles:
     - tester/testpmd_install
-  become: True
+  become: true
 
 - name: Run TestPMD
   hosts: testpmd
   roles:
     - tester/testpmd_run
-  become: True
+  become: true
 
 - name: MoonGen run
   hosts: moongen
