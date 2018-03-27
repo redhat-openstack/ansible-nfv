@@ -21,8 +21,8 @@
   add_host:
     name: "{{ host }}"
     groups: "{{ undercloud_groups }}"
-    ansible_ssh_host: "{{ host }}"
-    ansible_ssh_user: "{{ user | default('stack') }}"
+    ansible_host: "{{ host }}"
+    ansible_user: "{{ user | default('stack') }}"
     ansible_ssh_private_key_file: "{{ undercloud_private_key_file }}"
 
 - name: Generate new Inventory file

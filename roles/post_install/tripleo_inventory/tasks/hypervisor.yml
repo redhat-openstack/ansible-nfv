@@ -4,8 +4,8 @@
   add_host:
     name: "hypervisor"
     groups: "hypervisor"
-    ansible_ssh_host: "{{ host }}"
-    ansible_ssh_user: "{{ user | default('root') }}"
+    ansible_host: "{{ host }}"
+    ansible_user: "{{ user | default('root') }}"
     ansible_ssh_private_key_file: "{{ ssh_key | default(omit) }}"
     ansible_ssh_pass: "{{ ssh_pass | default(omit) }}"
 
@@ -48,9 +48,9 @@
   add_host:
     name: "{{ undercloud_vm }}"
     groups: "undercloud"
-    ansible_ssh_host: "{{ undercloud_ip.stdout }}"
-    ansible_ssh_user: "{{ custom_undercloud_user | default('stack') }}"
+    ansible_host: "{{ undercloud_ip.stdout }}"
+    ansible_user: "{{ custom_undercloud_user | default('stack') }}"
     ansible_ssh_private_key_file: "{{ hypervisor_private_key }}"
     ansible_ssh_common_args: "-o ProxyCommand=\"ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
                               -W %h:%p -i {{ hostvars[groups['hypervisor'][0]].ansible_ssh_private_key_file }} \
-                              {{ hostvars[groups['hypervisor'][0]].ansible_ssh_user }}@{{ hostvars[groups['hypervisor'][0]].ansible_ssh_host }}\""
+                              {{ hostvars[groups['hypervisor'][0]].ansible_user }}@{{ hostvars[groups['hypervisor'][0]].ansible_host }}\""

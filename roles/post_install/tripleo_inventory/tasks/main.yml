@@ -32,8 +32,8 @@
   add_host:
     name: "undercloud-0"
     groups: "{{ undercloud_groups }}"
-    ansible_ssh_host: "{{ host }}"
-    ansible_ssh_user: "{{ user | default('stack') }}"
+    ansible_host: "{{ host }}"
+    ansible_user: "{{ user | default('stack') }}"
     ansible_ssh_private_key_file: "{{ ssh_key | default(omit) }}"
     ansible_ssh_pass: "{{ ssh_pass | default(omit) }}"
   when: setup_type == 'baremetal'
@@ -63,9 +63,9 @@
     groups: "{{ ( item.name in groups.all ) | ternary(omit,
         ['overcloud_nodes', 'openstack_nodes', item.name.split('-')[0]] | join(',')
        ) }}"
-    ansible_ssh_user: "{{ overcloud_user }}"
+    ansible_user: "{{ overcloud_user }}"
     ansible_ssh_pass: ""
-    ansible_ssh_host: "{{ item.accessIPv4 }}"
+    ansible_host: "{{ item.accessIPv4 }}"
     ansible_ssh_private_key_file: "{{ overcloud_private_key }}"
   with_items: "{{ openstack_servers }}"
 
@@ -76,7 +76,7 @@
     name: "{{ item.name }}"
     ansible_ssh_common_args: "-o ProxyCommand=\"ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
                               -W %h:%p -i {{ hostvars[groups['undercloud'][0]].ansible_ssh_private_key_file }} \
-                              {{ hostvars[groups['undercloud'][0]].ansible_ssh_user }}@{{ hostvars[groups['undercloud'][0]].ansible_ssh_host }}\""
+                              {{ hostvars[groups['undercloud'][0]].ansible_user }}@{{ hostvars[groups['undercloud'][0]].ansible_host }}\""
   with_items: "{{ openstack_servers }}"
   when: setup_type == 'baremetal'
 
