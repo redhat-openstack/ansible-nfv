@@ -56,7 +56,7 @@
     editable: true
   with_items:
     - "{{ neutron_tempest_plugin }}"
-    - "{{ tempest_nfv_plugin }}"
+    - "{{ nfv_tempest_plugin }}"
     - "{{ tempest_main }}"
 
 - name: Get the external network id
