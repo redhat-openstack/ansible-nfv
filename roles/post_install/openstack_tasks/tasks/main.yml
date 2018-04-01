@@ -48,3 +48,5 @@
     - clear_env
   include_tasks: clear_env.yml
   when: clear_env
+
+- include_tasks: test.yml
