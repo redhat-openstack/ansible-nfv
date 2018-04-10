@@ -26,7 +26,7 @@
 
 - name: Install TestPMD on the instance
   hosts: testpmd
-  gather_facts: False
+  gather_facts: True
   roles:
     - tester/testpmd_install
   become: true
