@@ -1,11 +1,24 @@
 ---
 
+- name: Check for the v3 overcloudrc file
+  stat:
+    path: "{{ rc_file }}.v3"
+  register: rc_file_path
+
 - name: Register Auth URL
-  shell: "cat {{ rc_file }} | grep AUTH_URL | cut -d '=' -f 2"
+  vars:
+    rc_v3: "{{ rc_file }}.v3"
+    rc_v2: "{{ rc_file }}"
+    rc_version_file_path: "{{ rc_file_path.stat.exists | ternary(rc_v3, rc_v2) }}"
+  shell: "cat {{ rc_version_file_path }} | grep AUTH_URL | cut -d '=' -f 2"
   register: osp_auth
 
 - name: Register Password
-  shell: "cat {{ rc_file }} | grep OS_PASSWORD | cut -d '=' -f 2"
+  vars:
+    rc_v3: "{{ rc_file }}.v3"
+    rc_v2: "{{ rc_file }}"
+    rc_version_file_path: "{{ rc_file_path.stat.exists | ternary(rc_v3, rc_v2) }}"
+  shell: "cat {{ rc_version_file_path }} | grep OS_PASSWORD | cut -d '=' -f 2"
   register: osp_password
 
 - name: Create the tempest directory
@@ -78,7 +91,7 @@
   shell: |
     source "{{ rc_file | default('/home/stack/overcloudrc') }}"
     source {{ tempest_venv }}/bin/activate
-    python config_tempest/config_tempest.py --create --debug --image "/tmp/{{ images[0].url | basename }}" \
+    python config_tempest/main.py --create --debug --image "/tmp/{{ images[0].url | basename }}" \
     identity.uri {{ osp_auth.stdout }} identity.admin_password {{ osp_password.stdout }} \
     identity.region regionOne DEFAULT.debug false \
     --network-id {{ tempest_net_id.ansible_facts.openstack_networks.0.id }}
