@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "39f9ae88_660bd23f",
+        "filename": "roles/workarounds/defaults/main.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2018-04-13T15:31:35Z",
+      "side": 1,
+      "message": "You should use the following cores - 9,10,25,26\nAs they are from the numa1.",
+      "range": {
+        "startLine": 3,
+        "startChar": 17,
+        "endLine": 3,
+        "endChar": 26
+      },
+      "revId": "4e3a35655036000a345bcf1c2004c7ebcb7e32b2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    }
+  ]
+}
