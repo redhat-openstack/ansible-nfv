@@ -47,7 +47,7 @@
 - name: Add Undercloud to inventory
   add_host:
     name: "{{ undercloud_vm }}"
-    groups: "undercloud"
+    groups: "{{ undercloud_groups }}"
     ansible_host: "{{ undercloud_ip.stdout }}"
     ansible_user: "{{ custom_undercloud_user | default('stack') }}"
     ansible_ssh_private_key_file: "{{ hypervisor_private_key }}"
