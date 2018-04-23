@@ -1,0 +1,101 @@
+---
+
+networks:
+  - name: 'external'
+    physical_network: 'tenant'
+    segmentation_id: '400'
+    allocation_pool_start: '10.35.141.71'
+    allocation_pool_end: '10.35.141.77'
+    cidr: '10.35.141.64/28'
+    enable_dhcp: true
+    external: false
+    gateway_ip: '10.35.141.78'
+    router_name: router
+    port_type: direct
+
+  - name: 'data1'
+    physical_network: 'tenant1'
+    allocation_pool_start: '10.35.185.65'
+    allocation_pool_end: '10.35.185.77'
+    cidr: '10.35.185.64/28'
+    enable_dhcp: false
+    gateway_ip: '10.35.185.78'
+    network_type: flat
+    ip_version: 4
+    sec_groups: true
+    port_type: direct
+    mgmt: true
+
+  - name: 'data2'
+    physical_network: 'tenant2'
+    allocation_pool_start: '10.35.185.97'
+    allocation_pool_end: '10.35.185.109'
+    cidr: '10.35.185.96/28'
+    enable_dhcp: false
+    gateway_ip: '10.35.185.110'
+    network_type: flat
+    ip_version: 4
+    sec_groups: true
+    port_type: direct
+
+dns_nameservers:
+  - 10.35.28.28
+  - 8.8.8.8
+
+flavors:
+  - name: nfv-test-flavor
+    ram: 5120
+    disk: 20
+    vcpus: 6
+    extra_specs:
+      - "hw:mem_page_size": "1GB"
+        "hw:numa_mem.0": "1024"
+        "hw:numa_mem.1": "4096"
+        "hw:numa_nodes": "2"
+        "hw:numa_cpus.0": "0,1"
+        "hw:numa_cpus.1": "2,3,4,5"
+        "hw:cpu_policy": "dedicated"
+
+images:
+- name: rhel7.3
+  url: http://file.tlv.redhat.com/~edannon/images/rhel-guest-image-7.3-35.x86_64.qcow2
+
+image_ssh_user: cloud-user
+tempest_flavor_name: m1.medium.huge_pages_cpu_pinning_numa_node-0
+
+tests-setup:
+ - name: numa0
+   flavor: m1.medium.huge_pages_cpu_pinning_numa_node-0
+   router: true
+
+ - name: numa1
+   flavor: m1.medium.huge_pages_cpu_pinning_numa_node-1
+   router: true
+
+ - name: numamix
+   flavor: m1.medium.huge_pages_cpu_pinning_numa_node-mix
+   router: true
+
+ - name: check-compute-packages
+   package-names: tuned-2.8.0-5.el7.noarch
+   service-names: tuned.service
+   tuned-profile: cpu-partitioning
+   availability-zone: normal
+
+ - name: test-ping-mtu
+   flavor: m1.medium.huge_pages_cpu_pinning_numa_node-0
+   router: true
+   mtu: 8972
+
+vlan_id: 422
+vlan_max_range: 424
+dstMac: '{"a0:36:9f:a9:a2:0e"}'
+lcores_testpmd: 1,2,3,4,5
+nic_module: ixgbe
+nb_cores: 4
+hugepages_count: 4
+socket_mem: "1024"
+disable_hw_vlan: ""
+
+# The variable provided within the Jenkins job
+#tempest_config:

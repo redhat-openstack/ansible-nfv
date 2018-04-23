@@ -1,0 +1,6 @@
+---
+
+- name: Openstack tasks
+  hosts: moongen
+  roles:
+    - tester/trex_install

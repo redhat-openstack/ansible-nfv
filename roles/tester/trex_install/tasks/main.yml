@@ -1,0 +1,13 @@
+---
+
+- name: Download Trex v2.2 tar
+  get_url:
+    url: "{{ trex_url }}"
+    dest: "/tmp/trex.tar.gz"
+    timeout: 100
+
+- name: Untar trex directory
+  unarchive:
+    src: "/tmp/trex.tar.gz"
+    dest: /root/
+    remote_src: yes
