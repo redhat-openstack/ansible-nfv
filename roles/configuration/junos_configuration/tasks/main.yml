@@ -1,0 +1,41 @@
+---
+
+- name: verify
+  wait_for:
+    host: "{{ ansible_ssh_host }}"
+    port: "830"
+
+- name: Create required VLAN
+  junos_config:
+    lines:
+      - "set vlans vlan{{ vlan_id }} vlan-id {{ vlan_id }}"
+    provider: "{{ credentials }}"
+    confirm_commit: yes
+
+- name: Delete current configuration
+  tags: test
+  junos_config:
+    lines:
+      - "delete interfaces {{ vars[server_name][0].nic1 }}"
+      - "delete interfaces {{ vars[server_name][0].nic2 }}"
+    provider: "{{ credentials }}"
+    confirm_commit: yes
+
+- name: Set requested NICs to access
+  tags: test
+  junos_config:
+    lines:
+      - "set interfaces {{ item[0].nic1 }} unit 0 family ethernet-switching interface-mode access"
+      - "set interfaces {{ vars[server_name][0].nic2 }} unit 0 family ethernet-switching interface-mode access"
+    provider: "{{ credentials }}"
+    confirm_commit: yes
+    with_items:
+      - "{{ server_name }}"
+
+- name: Set VLAN ID to requested NICs
+  junos_config:
+    lines:
+      - "set interfaces {{ vars[server_name][0].nic1 }} unit 0 family ethernet-switching vlan members {{ vlan_id }}"
+      - "set interfaces {{ vars[server_name][0].nic2 }} unit 0 family ethernet-switching vlan members {{ vlan_id }}"
+    provider: "{{ credentials }}"
+    confirm_commit: yes

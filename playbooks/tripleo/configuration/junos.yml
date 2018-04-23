@@ -1,0 +1,8 @@
+---
+
+- name: Modify switch
+  hosts: switch
+  roles:
+    - configuration/junos_configuration
+  connection: local
+  gather_facts: no

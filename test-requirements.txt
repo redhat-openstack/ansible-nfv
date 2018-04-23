@@ -5,3 +5,4 @@ sphinx!=1.6.6,>=1.6.2
 ansible-lint>=3.4.18
 yamllint>=1.8.1
 pytest>=2.8
+ncclient>=0.5.3

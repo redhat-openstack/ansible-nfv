@@ -1,0 +1,49 @@
+credentials:
+  host: 10.35.78.197
+  username: root
+  password: qum5net
+  port: 830
+
+vlan_id: 999
+
+server_name: titan02
+
+titan01:
+  - nic1: xe-0/0/0
+    nic2: xe-0/0/1
+titan02:
+  - nic1: xe-0/0/2
+    nic2: xe-0/0/3
+titan03:
+  - nic1: xe-0/0/4
+    nic2: xe-0/0/5
+titan04:
+  - nic1: xe-0/0/6
+    nic2: xe-0/0/7
+titan05:
+  - nic1: xe-0/0/8
+    nic2: xe-0/0/9
+titan06:
+  - nic1: xe-0/0/10
+    nic2: xe-0/0/11
+titan07:
+  - nic1: xe-0/0/12
+    nic2: xe-0/0/13
+titan08:
+  - nic1: xe-0/0/14
+    nic2: xe-0/0/15
+tigon01:
+  - nic1: xe-0/0/16
+    nic2: xe-0/0/17
+tigon02:
+  - nic1: xe-0/0/18
+    nic2: xe-0/0/19
+tigon03:
+  - nic1: xe-0/0/20
+    nic2: xe-0/0/21
+tigon04:
+  - nic1: xe-0/0/22
+    nic2: xe-0/0/23
+tigon05:
+  - nic1: xe-0/0/24
+    nic2: xe-0/0/25
