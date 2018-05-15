@@ -13,13 +13,25 @@ neutron_tempest_plugin: neutron-tempest-plugin
 tempest_repos:
   - name: openstack-tempest
     url: https://github.com/openstack/tempest
-    version: 17.2.0
+    version:
+      10:
+        branch: '17.2.0'
+      defaults:
+        branch: 'master'
   - name: python-tempestconf
     url: https://git.openstack.org/openstack/python-tempestconf
-    version: master
+    version:
+      10:
+        branch: '1.1.3'
+      defaults:
+        branch: '1.1.4'
   - name: nfv-tempest-plugin
     url: https://github.com/redhat-openstack/nfv-tempest-plugin
-    version: master
+    version:
+      defaults:
+        branch: 'master'
   - name: neutron-tempest-plugin
     url: https://github.com/openstack/neutron-tempest-plugin
-    version: master
+    version:
+      defaults:
+        branch: 'master'
