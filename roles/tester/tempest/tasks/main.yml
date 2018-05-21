@@ -1,12 +1,29 @@
 ---
 
+- name: Check for the v3 overcloudrc file
+  stat:
+    path: "{{ rc_file }}.v3"
+  register: rc_file_path
+
 - name: Register Auth URL
-  shell: "cat {{ rc_file }} | grep AUTH_URL | cut -d '=' -f 2"
+  vars:
+    rc_v3: "{{ rc_file }}.v3"
+    rc_v2: "{{ rc_file }}"
+    rc_version_file_path: "{{ rc_file_path.stat.exists | ternary(rc_v3, rc_v2) }}"
+  shell: "cat {{ rc_version_file_path }} | grep AUTH_URL | cut -d '=' -f 2"
   register: osp_auth
 
 - name: Register Password
-  shell: "cat {{ rc_file }} | grep OS_PASSWORD | cut -d '=' -f 2"
+  vars:
+    rc_v3: "{{ rc_file }}.v3"
+    rc_v2: "{{ rc_file }}"
+    rc_version_file_path: "{{ rc_file_path.stat.exists | ternary(rc_v3, rc_v2) }}"
+  shell: "cat {{ rc_version_file_path }} | grep OS_PASSWORD | cut -d '=' -f 2"
   register: osp_password
+
+- name: Check OSP version
+  include_role:
+    name: discover_osp_version
 
 - name: Create the tempest directory
   file:
@@ -14,11 +31,11 @@
     mode: 0755
     state: directory
 
-- name: Git clone temepst and plugin repositories
+- name: Git clone tempest and plugin repositories
   git:
     repo: "{{ item.url }}"
     dest: "{{ tempest_dir }}/{{ item.name }}"
-    version: "{{ item.version }}"
+    version: "{{ item.version.get(overcloud_version | int, item.version['defaults']).branch }}"
     clone: yes
     update: yes
     force: yes
@@ -35,6 +52,7 @@
   with_items:
     - 'pip'
     - 'setuptools'
+    - 'os-testr'
     - 'python-subunit'
     - 'ipdb'
     - 'junitxml'
@@ -74,14 +92,28 @@
     dest: "/tmp/{{ images[0].url | basename }}"
     timeout: 100
 
+- name: Check if tempestconf tool installed
+  stat:
+    path: /usr/bin/discover-tempest-config
+  register: tempest_conf_tool
+
+- name: Define tempestconf tool if exists
+  set_fact:
+    config_command: /usr/bin/discover-tempest-config
+  when: tempest_conf_tool.stat.exists
+
 - name: tempest.conf file creation
   shell: |
     source "{{ rc_file | default('/home/stack/overcloudrc') }}"
     source {{ tempest_venv }}/bin/activate
-    python config_tempest/config_tempest.py --create --debug --image "/tmp/{{ images[0].url | basename }}" \
-    identity.uri {{ osp_auth.stdout }} identity.admin_password {{ osp_password.stdout }} \
-    identity.region regionOne DEFAULT.debug false \
-    --network-id {{ tempest_net_id.ansible_facts.openstack_networks.0.id }}
+    {{ config_command | default('python config_tempest/config_tempest.py') }} \
+        --create \
+        --debug \
+        --image "/tmp/{{ images[0].url | basename }}" \
+        identity.uri {{ osp_auth.stdout }} \
+        identity.admin_password {{ osp_password.stdout }} \
+        identity.region regionOne DEFAULT.debug false \
+        --network-id {{ tempest_net_id.ansible_facts.openstack_networks.0.id }}
   args:
     executable: /bin/bash
     chdir: "{{ tempest_dir }}/{{ tempest_conf }}"
@@ -172,9 +204,11 @@
 
 - name: Execute the tempest tests and save the results
   tags: run_tempest_test
-  shell: |
-    source {{ tempest_dir }}/venv/bin/activate
-    {{ tempest_dir }}/venv/bin/testr run {{ item }} --subunit >> .testrepository/tempest_results.subunit
+  shell: >
+    source {{ tempest_dir }}/venv/bin/activate;
+    ostestr --subunit --no-pretty
+    --no-discover {{ item }}
+    >> .testrepository/tempest_results.subunit
   args:
     executable: /bin/bash
     chdir: "{{ tempest_dir }}/{{ tempest_main }}"

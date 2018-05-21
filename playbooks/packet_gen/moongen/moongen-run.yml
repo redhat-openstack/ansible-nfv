@@ -2,5 +2,6 @@
 
 - name: MoonGen run
   hosts: moongen
+  gather_facts: False
   roles:
     - packet_gen/moongen/run

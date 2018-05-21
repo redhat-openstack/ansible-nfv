@@ -2,5 +2,6 @@
 
 - name: MoonGen installation
   hosts: moongen
+  gather_facts: False
   roles:
     - packet_gen/moongen/install

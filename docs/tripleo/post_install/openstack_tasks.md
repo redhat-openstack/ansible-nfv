@@ -17,8 +17,10 @@ Openstack tasks play perform the following tasks on the existing Openstack envir
     * Deletes the required stack.  
       Default stack is - 'overcloud'.
 * Clear the environment
-    * Delete keypair and instance.
+    * Delete keypair and instance.  
       Default instance named - 'vm1'.
+* Boot an instance(s)
+    * Boot the defined instances on the overcloud.
 
 By default, all the tasks runs one by one on the environment.  
 The run could be separated by specifying tags of specific run.
@@ -31,6 +33,7 @@ The run could be separated by specifying tags of specific run.
 * images_upload - Upload images to the Openstack environment.
 * overcloud_delete - Delete the required overcloud stack.
 * clear_env - Clears the environment by removing given instance and keypair.
+* boot_instance - Boot defined instances.
 
 ## Run triggers
 * setup_os_env - Executed if 'true'. True by default.
@@ -39,6 +42,7 @@ The run could be separated by specifying tags of specific run.
 * images_upload - Executed if 'true'. True by default.
 * overcloud_delete - Executed if 'true'. False by default.
 * clear_env - Executed if 'true'. False by default.
+* boot_instance - Executed if 'true'. False by default.
 
 ## Role variables
 #### Network creation variables
@@ -124,6 +128,23 @@ The name of the overcloud that should be deleted.
 Default is - **overcloud**
 ```
 overcloud_name: overcloud
+```
+
+Creates an inventory group and adds the booted instance to.
+```
+group_name: tested_vms
+```
+
+Define the list of instances to boot.
+```
+instances:
+  - name: vm1
+```
+
+Remove the defined instances.
+```
+remove_instances:
+  - name: vm1
 ```
 
 ***

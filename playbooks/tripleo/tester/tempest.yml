@@ -2,6 +2,7 @@
 
 - name: Prepare the environment
   hosts: undercloud
+  gather_facts: False
   vars:
     images_upload: false
   roles:
@@ -9,5 +10,6 @@
 
 - name: Tempest deployment and execution
   hosts: tester
+  gather_facts: False
   roles:
     - tester/tempest
