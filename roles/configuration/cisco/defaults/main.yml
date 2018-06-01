@@ -1,0 +1,53 @@
+# Playbook triggers
+config: true
+backup: false
+restore: false
+
+switch_ip: ''
+switch_user: ''
+switch_pass: ''
+
+server_name: ''
+vlan_id: ''
+
+configuration_file: ''
+
+tigon01:
+  ports:
+    - GigabitEthernet4/0/1
+titan01:
+  ports:
+    - GigabitEthernet4/0/2
+tigon02:
+  ports:
+    - GigabitEthernet4/0/3
+titan02:
+  ports:
+    - GigabitEthernet4/0/4
+tigon03:
+  ports:
+    - GigabitEthernet4/0/5
+titan03:
+  ports:
+    - GigabitEthernet4/0/6
+tigon04:
+  ports:
+    - GigabitEthernet4/0/7
+titan04:
+  ports:
+    - GigabitEthernet4/0/8
+tigon05:
+  ports:
+    - GigabitEthernet4/0/9
+titan05:
+  ports:
+    - GigabitEthernet4/0/10
+titan06:
+  ports:
+    - GigabitEthernet4/0/12
+titan07:
+  ports:
+    - GigabitEthernet4/0/14
+titan08:
+  ports:
+    - GigabitEthernet4/0/16
