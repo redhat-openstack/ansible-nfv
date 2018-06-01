@@ -1,0 +1,12 @@
+---
+- name: Backup switch configuration
+  junos_config:
+    provider: "{{ credentials }}"
+    backup: yes
+  when: backup
+
+- name: Restore switch configuration
+  junos_config:
+    provider: "{{ credentials }}"
+    src: "{{ configuration_file }}"
+  when: restore
