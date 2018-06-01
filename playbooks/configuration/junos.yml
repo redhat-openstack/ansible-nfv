@@ -1,0 +1,7 @@
+---
+- name: Juniper switch configuration
+  hosts: localhost
+  roles:
+    - configuration/junos
+  connection: local
+  gather_facts: no
