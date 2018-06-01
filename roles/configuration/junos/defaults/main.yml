@@ -1,0 +1,66 @@
+# Playbook triggers
+config: true
+backup: false
+restore: false
+
+switch_ip: ''
+switch_user: ''
+switch_pass: ''
+
+server_name: ''
+vlan_id: ''
+
+configuration_file: ''
+
+titan01:
+  ports:
+    - xe-0/0/0
+    - xe-0/0/1
+titan02:
+  ports:
+    - xe-0/0/2
+    - xe-0/0/3
+titan03:
+  ports:
+    - xe-0/0/4
+    - xe-0/0/5
+titan04:
+  ports:
+    - xe-0/0/6
+    - xe-0/0/7
+titan05:
+  ports:
+    - xe-0/0/8
+    - xe-0/0/9
+titan06:
+  ports:
+    - xe-0/0/10
+    - xe-0/0/11
+titan07:
+  ports:
+    - xe-0/0/12
+    - xe-0/0/13
+titan08:
+  ports:
+    - xe-0/0/14
+    - xe-0/0/15
+tigon01:
+  ports:
+    - xe-0/0/16
+    - xe-0/0/17
+tigon02:
+  ports:
+    - xe-0/0/18
+    - xe-0/0/19
+tigon03:
+  ports:
+    - xe-0/0/20
+    - xe-0/0/21
+tigon04:
+  ports:
+    - xe-0/0/22
+    - xe-0/0/23
+tigon05:
+  ports:
+    - xe-0/0/24
+    - xe-0/0/25
