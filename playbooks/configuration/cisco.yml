@@ -1,0 +1,7 @@
+---
+- name: Cisco switch configuration
+  hosts: localhost
+  roles:
+    - configuration/cisco
+  connection: local
+  gather_facts: no
