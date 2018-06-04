@@ -33,11 +33,13 @@
         name: "{{ item }}"
       with_items:
         - git
+        - vim
         - gcc
         - make
         - cmake
         - gcc-c++
         - pciutils
+        - driverctl
         - glibc-devel
         - glibc-headers
         - kernel-headers
