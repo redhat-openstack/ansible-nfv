@@ -46,6 +46,30 @@
       "revId": "0a98c1ec0bcdf84e34331800f6b73aa88a7366ca",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "6cf3fc5d_252ce799",
+        "filename": "roles/configuration/junos/tasks/main.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1008576
+      },
+      "writtenOn": "2018-06-07T08:29:43Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1959aec4_d0404f0a",
+      "range": {
+        "startLine": 57,
+        "startChar": 12,
+        "endLine": 57,
+        "endChar": 15
+      },
+      "revId": "0a98c1ec0bcdf84e34331800f6b73aa88a7366ca",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
