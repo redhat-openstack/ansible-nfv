@@ -4,4 +4,4 @@
 
 - name: Check Overcloud version
   include_tasks: overcloud.yml
-  delegate_to: "{{ groups['controller'] | first }}"
+  delegate_to: "{{ groups['overcloud_nodes'] | first }}"
