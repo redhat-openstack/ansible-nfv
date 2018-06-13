@@ -1,5 +1,5 @@
 #!/bin/bash
-set -x
+set -euxo pipefail
 RUN_ENVS="ansible-lint"
 
 FAILED=""
