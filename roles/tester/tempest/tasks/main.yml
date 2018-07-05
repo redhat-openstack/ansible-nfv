@@ -52,7 +52,7 @@
   with_items:
     - 'pip'
     - 'setuptools'
-    - 'os-testr'
+    - 'stestr'
     - 'python-subunit'
     - 'ipdb'
     - 'junitxml'
@@ -134,13 +134,13 @@
 - name: Check if the tempest tests repository exists
   tags: run_tempest_test
   stat:
-    path: "{{ tempest_dir }}/{{ tempest_main }}/.testrepository"
+    path: "{{ tempest_dir }}/{{ tempest_main }}/.stestr"
   register: testrepository
 
 - name: Delete the tempest tests repository to drop previous results
   tags: run_tempest_test
   file:
-    path: "{{ tempest_dir }}/{{ tempest_main }}/.testrepository"
+    path: "{{ tempest_dir }}/{{ tempest_main }}/.stestr"
     state: absent
   when: testrepository.stat.exists == true
 
@@ -148,7 +148,7 @@
   tags: run_tempest_test
   shell: >
     source {{ tempest_dir }}/venv/bin/activate;
-    {{ tempest_dir }}/venv/bin/testr init;
+    {{ tempest_dir }}/venv/bin/stestr init;
   args:
     executable: /bin/bash
     chdir: "{{ tempest_dir }}/{{ tempest_main }}"
@@ -206,9 +206,9 @@
   tags: run_tempest_test
   shell: >
     source {{ tempest_dir }}/venv/bin/activate;
-    ostestr --subunit --no-pretty
+    stestr run --subunit
     --no-discover {{ item }}
-    >> .testrepository/tempest_results.subunit
+    >> .stestr/tempest_results.subunit
   args:
     executable: /bin/bash
     chdir: "{{ tempest_dir }}/{{ tempest_main }}"
@@ -219,7 +219,7 @@
   shell: |
     source {{ tempest_dir }}/venv/bin/activate
     subunit2junitxml --output-to={{ tempest_dir }}/tempest.xml \
-    < .testrepository/tempest_results.subunit | subunit2pyunit
+    < .stestr/tempest_results.subunit | subunit2pyunit
   args:
     executable: /bin/bash
     chdir: "{{ tempest_dir }}/{{ tempest_main }}"
@@ -227,7 +227,7 @@
 - name: Generate results report in a text format
   tags: run_tempest_test
   shell:
-    subunit-trace --no-failure-debug < .testrepository/tempest_results.subunit
+    subunit-trace --no-failure-debug < .stestr/tempest_results.subunit
   args:
     executable: /bin/bash
     chdir: "{{ tempest_dir }}/{{ tempest_main }}"
