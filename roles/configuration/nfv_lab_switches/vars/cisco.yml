@@ -32,3 +32,9 @@ tigon10:
 tigon11:
   ports:
     - GigabitEthernet4/0/11
+tigon12:
+  ports:
+    - GigabitEthernet4/0/12
+tigon13:
+  ports:
+    - GigabitEthernet4/0/13
