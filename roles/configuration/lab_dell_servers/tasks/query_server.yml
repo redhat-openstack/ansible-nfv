@@ -1,0 +1,28 @@
+- name: Get system inventory info from iDRAC
+  dellemc_get_system_inventory:
+    idrac_ip: "{{ inventory_hostname }}"
+    idrac_port: "{{ idrac_port }}"
+    idrac_user: "{{ idrac_user }}"
+    idrac_pwd: "{{ idrac_pass }}"
+  register: idrac_system_info
+
+- name: Get lifecycle controller info from iDRAC
+  dellemc_get_lcstatus:
+    idrac_ip: "{{ inventory_hostname }}"
+    idrac_port: "{{ idrac_port }}"
+    idrac_user: "{{ idrac_user }}"
+    idrac_pwd: "{{ idrac_pass }}"
+  register: idrac_lifecycle_info
+
+- name: Get frimware info from iDRAC
+  dellemc_get_firmware_inventory:
+    idrac_ip: "{{ inventory_hostname }}"
+    idrac_port: "{{ idrac_port }}"
+    idrac_user: "{{ idrac_user }}"
+    idrac_pwd: "{{ idrac_pass }}"
+  register: idrac_frimware_info
+
+- name: Print collected info
+  debug:
+    msg: "{{ idrac_system_info | combine(idrac_lifecycle_info) | combine(idrac_frimware_info) }}"
+
