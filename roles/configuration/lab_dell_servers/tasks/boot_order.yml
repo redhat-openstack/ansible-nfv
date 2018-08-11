@@ -1,0 +1,19 @@
+- name: Import optimal boot order
+  block:
+    - name: Import optimal boot sequence
+      include_vars:
+        file: optimal_boot_sequence.yml
+    - name: Set optimal boot sequence
+      set_fact:
+        boot_sequence: "{{ optimal_boot_sequence }}"
+  when: boot_sequence is not defined
+
+- name: Set boot order to '{{ boot_sequence }}'
+  dellemc_configure_bios:
+    idrac_ip: "{{ inventory_hostname }}"
+    idrac_port: "{{ idrac_port }}"
+    idrac_user: "{{ idrac_user }}"
+    idrac_pwd: "{{ idrac_pass }}"
+    boot_mode: "Bios"
+    boot_sequence: "{{ boot_sequence }}"
+    share_name: "/tmp/"
