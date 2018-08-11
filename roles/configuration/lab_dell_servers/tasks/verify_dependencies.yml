@@ -1,0 +1,30 @@
+- name: Discover Ansible directory
+  shell: 'pip show ansible | grep Location | cut -d " " -f2'
+  register: ansible_root_dir
+  changed_when: false
+  failed_when: ansible_root_dir.rc == 1
+
+- name: Check if Dell EMC OpenManage Ansible modules are installed
+  find:
+    paths: "{{ ansible_root_dir.stdout }}"
+    patterns: "*dellemc*"
+    recurse: yes
+  register: dellemc_files
+
+- name: Clone Dell EMC OpemManage Ansible modules repository if not installed
+  git:
+    repo: "https://github.com/dell/Dell-EMC-Ansible-Modules-for-iDRAC.git"
+    dest: "/tmp/Dell-EMC-Ansible-Modules-for-iDRAC"
+  when: dellemc_files.matched == 0
+
+- name: Copy Dell EMC OpenManage ansible modules to Ansible modules directory
+  copy:
+    src: '/tmp/Dell-EMC-Ansible-Modules-for-iDRAC/library/'
+    dest: '"{{ ansible_root_dir.stdout }}"/ansible/modules/extras/dellemc/server/'
+  when: dellemc_files.matched == 0
+
+- name: Copy Dell EMC OpenManage ansible utility to Ansible utility directory
+  copy:
+    src: '/tmp/Dell-EMC-Ansible-Modules-for-iDRAC/utils/dellemc_idrac.py'
+    dest: '"{{ ansible_root_dir.stdout }}"/ansible/module_utilities/'
+  when: dellemc_files.matched == 0
