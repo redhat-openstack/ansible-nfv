@@ -1,0 +1,26 @@
+---
+- name: Dell iDRAC management
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  tasks:
+    - name: Check for iDRAC variables
+      fail:
+        msg:
+          - "Variables are not defined"
+          - "Please, define the following basic variables - idrac_ip, idrac_user and idrac_pass"
+      failed_when: not(idrac_ip is defined and idrac_user is defined and idrac_pass is defined)
+      changed_when: false
+
+    - name: Add iDRACs to inventory
+      add_host:
+        host: "{{ item }}"
+        group: idrac
+      with_items: "{{ idrac_ip }}"
+
+- name: iDRAC configuration
+  hosts: idrac
+  connection: local
+  gather_facts: no
+  roles:
+    - configuration/lab_dell_servers

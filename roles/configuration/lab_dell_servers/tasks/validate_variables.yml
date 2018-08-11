@@ -1,0 +1,27 @@
+- name: Check if verify_dependencies, query_server and set_boot_order are boolean
+  fail:
+    msg:
+      - "verify_dependencies = {{ verify_dependencies }}, query_server = {{ query_server }}, set_boot_order = {{ set_boot_order }}"
+      - "Please make sure verify_dependencies, query_server are boolean and set_boot_order are boolean"
+  failed_when: (verify_dependencies | lower not in ['true', 'false']) or (query_server | lower not in ['true', 'false']) or (set_boot_order | lower not in ['true', 'false'])
+  when: (verify_dependencies | type_debug != 'bool') or (query_server | type_debug != 'bool') or (set_boot_order | type_debug != 'bool')
+
+- name: Set allowed power actions
+  include_vars:
+    file: power_actions.yml
+
+- name: Check if power action is allowed
+  fail:
+    msg:
+      - "{{ power_action }} is not a valid action"
+      - "Please set power_action to one of {{ power_actions }} "
+  failed_when: power_action not in power_actions
+  when: power_action | type_debug != 'bool'
+
+- name: Check if can authenticate with iDRAC
+  uri:
+    url: "https://{{ inventory_hostname}}/redfish/v1/Sessions"
+    user: "{{ idrac_user }}"
+    password: "{{ idrac_pass }}"
+    force_basic_auth: yes
+    validate_certs: no
