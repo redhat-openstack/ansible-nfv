@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5f8df384_87814e9a",
+        "filename": "roles/configuration/lab_dell_servers/tasks/main.yml",
+        "patchSetId": 9
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2018-08-12T10:59:44Z",
+      "side": 1,
+      "message": "Why do you set the playbook playbooks/configuration/lab_dell_servers.yml:22 to run on idrac hosts if all the tasks are running on the localhosts?\nIt seems that even creation of the inventory is not nessesary.",
+      "range": {
+        "startLine": 12,
+        "startChar": 2,
+        "endLine": 12,
+        "endChar": 24
+      },
+      "revId": "0ddb34ccb41df2b2bf64fb6c870faa2aef8f17b7",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
