@@ -132,6 +132,14 @@
         identity.admin_password {{ osp_password.stdout }} \
         identity.region regionOne DEFAULT.debug false \
         compute.image_ssh_user {{ image_ssh_user }} \
+        {% if ( (compute_min_microversion is defined) and
+                (compute_min_microversion == 'latest') or (compute_min_microversion | match("[1-9]\.[0-9]+") ) )
+        compute.min_microversion {{ compute_min_microversion }} \
+        %}
+        {% if ( (compute_max_microversion is defined) and
+                (compute_max_microversion == 'latest') or (compute_max_microversion | match("[1-9]\.[0-9]+") ) )
+        compute.max_microversion {{ compute_max_microversion }} \
+        %}
         validation.image_ssh_user {{ image_ssh_user }} \
         {% if tempest_flavor_name is defined %}
         compute.flavor_ref {{ openstack_flavors[0].id }} \
