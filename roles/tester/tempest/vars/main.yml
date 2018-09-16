@@ -10,6 +10,10 @@ tempest_conf: python-tempestconf
 nfv_tempest_plugin: nfv-tempest-plugin
 neutron_tempest_plugin: neutron-tempest-plugin
 
+### Tempest Compute group variables
+compute_min_microversion: 2.32
+compute_max_microversion: 2.32
+
 tempest_repos:
   - name: openstack-tempest
     url: https://github.com/openstack/tempest

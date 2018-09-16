@@ -21,6 +21,14 @@ Default user: centos.
 image_ssh_user: centos
 ```
 
+Compute microversion to use during tests.  
+min_microversion , max_microversion = 2.32  
+Refer to [OpenStack Nova API microversion history](https://docs.openstack.org/nova/latest/reference/api-microversion-history.html)
+```
+compute_min_microversion = 2.32
+compute_max_microversion = 2.32
+```
+
 Provide required image that will be used for the tempest tests.  
 If multiple images are provided, the first one will be used.  
 Default image: CentOS-7.
