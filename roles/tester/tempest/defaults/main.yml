@@ -1,5 +1,12 @@
 ---
 
+# Define Compute microversions
+
+## Sets the minimum microversion tempest will be allowed to use when invoking the nova client
+compute_min_microversion: 2.32
+## Sets the maximum microversion tempest will be allowed to use when invoking the nova client
+compute_max_microversion: 2.32
+
 # Defind the user for the ssh validation and testing.
 image_ssh_user: centos
 
