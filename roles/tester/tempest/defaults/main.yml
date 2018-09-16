@@ -1,5 +1,10 @@
 ---
 
+# Define Compute microversions
+
+compute_min_microversion: 2.32
+compute_max_microversion: 2.32
+
 # Defind the user for the ssh validation and testing.
 image_ssh_user: centos
 
