@@ -102,6 +102,23 @@
     config_command: /usr/bin/discover-tempest-config
   when: tempest_conf_tool.stat.exists
 
+- name: Check for the spesific flavor id if it's required
+  vars:
+    ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+  os_flavor_facts:
+    cloud: overcloud
+    name: "{{ tempest_flavor_name }}"
+  when: tempest_flavor_name is defined
+
+- name: Copying generic config file to the "{{ tempest_dir }}" directory
+  copy:
+    src: "{{ tempest_config }}"
+    dest: "{{ tempest_dir }}"
+    owner: "{{ tempest_user }}"
+    group: "{{ tempest_user }}"
+    mode: 0755
+  when: tempest_config is defined
+
 - name: tempest.conf file creation
   shell: |
     source "{{ rc_file | default('/home/stack/overcloudrc') }}"
@@ -110,26 +127,25 @@
         --create \
         --debug \
         --image "/tmp/{{ images[0].url | basename }}" \
+        --network-id {{ tempest_net_id.ansible_facts.openstack_networks.0.id }} \
         identity.uri {{ osp_auth.stdout }} \
         identity.admin_password {{ osp_password.stdout }} \
         identity.region regionOne DEFAULT.debug false \
-        --network-id {{ tempest_net_id.ansible_facts.openstack_networks.0.id }}
+        compute.image_ssh_user {{ image_ssh_user }} \
+        validation.image_ssh_user {{ image_ssh_user }} \
+        {% if tempest_flavor_name is defined %}
+        compute.flavor_ref {{ openstack_flavors[0].id }} \
+        {% endif %}
+        compute-feature-enabled.live_migration true \
+        {% if tempest_config is defined %}
+        hypervisor.external_config_file {{ tempest_dir }}/{{ tempest_config | basename }} \
+        {% endif %}
+        neutron_plugin_options.image_is_advanced true \
+        neutron_plugin_options.max_networks_per_project 1 \
+        --out "{{ tempest_dir }}/{{ tempest_main }}/etc/tempest.conf"
   args:
     executable: /bin/bash
     chdir: "{{ tempest_dir }}/{{ tempest_conf }}"
-
-- block:
-    - name: Delete default tempest.conf file before symlink it to the updated
-      file:
-        path: /etc/tempest/tempest.conf
-        state: absent
-
-    - name: Creating a soft link for the tempest.conf file
-      file:
-        src: "{{ tempest_dir }}/{{ tempest_conf }}/etc/tempest.conf"
-        dest: /etc/tempest/tempest.conf
-        state: link
-  become: true
 
 - name: Check if the tempest tests repository exists
   tags: run_tempest_test
@@ -153,55 +169,6 @@
     executable: /bin/bash
     chdir: "{{ tempest_dir }}/{{ tempest_main }}"
 
-- name: Check the flavors
-  vars:
-    ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
-  os_flavor_facts:
-    cloud: overcloud
-
-- name: Check for the spesific flavor id if it's required
-  vars:
-    ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
-  os_flavor_facts:
-    cloud: overcloud
-    name: "{{ tempest_flavor_name }}"
-  when: tempest_flavor_name is defined
-
-- block:
-    - name: Copying generic config file to the "{{ tempest_dir }}" directory
-      copy:
-        src: "{{ tempest_config }}"
-        dest: "{{ tempest_dir }}"
-        owner: "{{ tempest_user }}"
-        group: "{{ tempest_user }}"
-        mode: 0755
-
-    - name: Add an external config file to the tempest.conf
-      ini_file:
-        dest: '{{ tempest_dir }}/{{ tempest_conf }}/etc/tempest.conf'
-        section: "{{ item.sect }}"
-        option: "{{ item.opt }}"
-        value: "{{ item.val }}"
-      with_items:
-        - { sect: 'hypervisor', opt: 'external_config_file', val: "{{ tempest_dir }}/{{ tempest_config | basename }}" }
-  when: tempest_config is defined
-
-- name: Modify the tempest.conf file
-  ini_file:
-    dest: '{{ tempest_dir }}/{{ tempest_conf }}/etc/tempest.conf'
-    section: "{{ item.sect }}"
-    option: "{{ item.opt }}"
-    value: "{{ item.val }}"
-  with_items:
-    - { sect: 'compute', opt: 'image_ssh_user', val: "{{ image_ssh_user }}" }
-    - { sect: 'validation', opt: 'image_ssh_user', val: "{{ image_ssh_user }}" }
-    - { sect: 'compute', opt: 'flavor_ref', val: "{{ openstack_flavors[0].id }}" }
-    - { sect: 'hypervisor', opt: 'private_key_file', val: "{{ private_key_dest }}" }
-    - { sect: 'hypervisor', opt: 'user', val: "{{ user_for_overcloud_nodes }}" }
-    - { sect: 'compute-feature-enabled', opt: 'live_migration', val: 'true' }
-    - { sect: 'neutron_plugin_options', opt: 'image_is_advanced', val: 'True' }
-    - { sect: 'neutron_plugin_options', opt: 'max_networks_per_project', val: '1' }
-
 - name: Execute the tempest tests and save the results
   tags: run_tempest_test
   shell: >
@@ -224,15 +191,16 @@
     executable: /bin/bash
     chdir: "{{ tempest_dir }}/{{ tempest_main }}"
 
-- name: Generate results report in a text format
+- name: Generate statistics of executed tests
   tags: run_tempest_test
-  shell:
-    subunit-trace --no-failure-debug < .stestr/tempest_results.subunit
+  shell: |
+    source {{ tempest_dir }}/venv/bin/activate
+    subunit-stats --no-passthrough .stestr/tempest_results.subunit
   args:
     executable: /bin/bash
     chdir: "{{ tempest_dir }}/{{ tempest_main }}"
-  register: shell_results
-  failed_when: "shell_results.rc == 2"
+  register: tests_stats
+  failed_when: "tests_stats.rc == 2"
 
 - name: Copy tempest log file to the main tempest directory
   tags: run_tempest_test
@@ -243,5 +211,14 @@
 
 - name: Print the output results of the tempest tests
   tags: run_tempest_test
+  vars:
+    msg: |
+      Tests statistics:
+
+      {{ tests_stats.stdout }}
+
+      For the details, look at the:
+      {{ tempest_dir }}/tempest.xml
+      {{ tempest_dir }}/tempest.log
   debug:
-    var: shell_results
+    msg: "{{ msg.split('\n') }}"

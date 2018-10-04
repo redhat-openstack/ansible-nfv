@@ -6,7 +6,7 @@
 
 - name: Set SSH key variables
   set_fact:
-    tripleo_undercloud_key: "{{ environment_dir }}/id_rsa_{{ host }}"
+    tripleo_undercloud_key: "{{ environment_dir }}/id_rsa_undercloud_{{ host }}"
     overcloud_private_key: "{{ environment_dir }}/id_rsa_overcloud_{{ host }}"
     hypervisor_private_key: "{{ environment_dir }}/id_rsa_hypervisor_{{ host }}"
 
@@ -50,7 +50,7 @@
     dest: "{{ environment_dir }}/inventory_{{ host }}"
 
 - name: Generate and set an SSH key if password is used
-  include_tasks: undercloud_pass.yml
+  include_tasks: "{{ setup_type }}_pass.yml"
   when: ssh_pass is defined
 
 - name: Create TripleO inventory

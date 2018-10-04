@@ -1,0 +1,33 @@
+---
+
+- name: Delete the old ssh key if exists
+  file:
+    path: "{{ hypervisor_private_key }}"
+    state: absent
+
+- name: Generate an SSH key
+  command: ssh-keygen -b 4096 -N "" -C "TripleO Hypervisor key" -f "{{ hypervisor_private_key }}"
+
+- name: Load the public key to Hypervisor
+  authorized_key:
+    user: "{{ user | default('root') }}"
+    key: "{{ lookup('file', '{{ hypervisor_private_key }}.pub')}}"
+    state: present
+  delegate_to: "{{ groups['hypervisor'][0] }}"
+
+- name: Replace the Hypervisor password with SSH key
+  vars:
+    hypervisor_private_key_file: "{{ hypervisor_private_key }}"
+  add_host:
+    name: "hypervisor"
+    groups: "{{ hypervisor_groups }}"
+    ansible_host: "{{ host }}"
+    ansible_user: "{{ user | default('root') }}"
+    ansible_ssh_private_key_file: "{{ hypervisor_private_key_file }}"
+
+- name: Generate new Inventory file
+  vars:
+    ansible_python_interpreter: /usr/bin/python
+  template:
+    src: 'inventory.j2'
+    dest: "{{ environment_dir }}/inventory_{{ host }}"
