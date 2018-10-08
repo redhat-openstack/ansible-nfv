@@ -46,6 +46,30 @@
       "revId": "214e36f8409ba28571ff70c2e9ee685789856d3a",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4776329_cc734b22",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2018-10-08T07:49:59Z",
+      "side": 1,
+      "message": "I don\u0027t think so.\nThis change is required for all our tests, which mean it should be here as a default.\nSee me previous comment for how to implement it.",
+      "parentUuid": "c8b2b7e4_ec807976",
+      "range": {
+        "startLine": 135,
+        "startChar": 8,
+        "endLine": 142,
+        "endChar": 10
+      },
+      "revId": "214e36f8409ba28571ff70c2e9ee685789856d3a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
