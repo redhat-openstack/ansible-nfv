@@ -1,5 +1,10 @@
 ---
 
+- name: Checking if the overcloudrc file is exists
+  stat:
+    path: /home/stack/overcloudrc
+  register: overcloudrc_file
+
 - name: Get Cloud variables
   shell: |
     for key in $(set | awk '{FS="="} /^OS_/ {print $1}'); do unset $key; done
@@ -16,6 +21,7 @@
     - ["{{ tripleo_undercloud_file }}", "{{ tripleo_overcloud_file }}"]
     - ['undercloud', 'overcloud']
   register: cloud_details
+  failed_when: overcloudrc_file.stat.exists == 'False'
 
 - name: Create clouds.yaml if doesn't exist
   blockinfile:
