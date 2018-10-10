@@ -34,3 +34,7 @@ undercloud_groups: undercloud,tester
 # Define the group hypervisor host should be added to.
 # multiple groups should be separated by the comma.
 hypervisor_groups: hypervisor
+
+# By default the variable is not used.
+# Could be executed as an extra vars - undercloud_only 
+inventory: full
