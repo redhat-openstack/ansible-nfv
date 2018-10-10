@@ -45,6 +45,23 @@
       "revId": "cfd5ef4f61cc74ace5a4a77059c07a236eb73900",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d8262e5c_d72f6e3b",
+        "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2018-10-10T07:36:33Z",
+      "side": 1,
+      "message": "Add the following line \"item.rc !\u003d 1\", so it will execute the task only if the exit code is not 1.\n\n- name: Insert cloud parameters\n  blockinfile:\n    dest: \"~/clouds.yaml\"\n    block: |1\n      {{ item.stdout|from_yaml|to_nice_yaml(indent\u003d4) }}\n    insertbefore: \"#END {{ item.item.1 }} SECTION\"\n    marker: \"#{mark} {{ item.item.1 }} PARAMETERS\"\n  when: \"item.rc !\u003d 1\"\n  with_items: \"{{ cloud_details.results }}\"",
+      "revId": "cfd5ef4f61cc74ace5a4a77059c07a236eb73900",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
