@@ -53,43 +53,50 @@
   include_tasks: "{{ setup_type }}_pass.yml"
   when: ssh_pass is defined
 
-- name: Create TripleO inventory
-  include_tasks: overcloud_nodes.yml
-  delegate_to: "{{ groups['undercloud'] | first }}"
+- name: Gather undercloud node details
+  setup:
+  delegate_to: "{{ groups['undercloud'][0] }}"
+  delegate_facts: True
 
-- name: Add hosts to host list
-  add_host:
-    name: "{{ item.name }}"
-    groups: "{{ ( item.name in groups.all ) | ternary(omit,
-        ['overcloud_nodes', 'openstack_nodes', item.name.split('-')[0]] | join(',')
-       ) }}"
-    ansible_user: "{{ overcloud_user }}"
-    ansible_ssh_pass: ""
-    ansible_host: "{{ item.accessIPv4 }}"
-    ansible_ssh_private_key_file: "{{ overcloud_private_key }}"
-  with_items: "{{ openstack_servers }}"
+- block:
+    - name: Gather overcloud nodes details
+      include_tasks: overcloud_nodes.yml
+      delegate_to: "{{ groups['undercloud'] | first }}"
 
-- name: Enable SSH forwarding using Undercloud node for baremetal Overcloud nodes
-  vars:
-    ansible_python_interpreter: /usr/bin/python
-  add_host:
-    name: "{{ item.name }}"
-    ansible_ssh_common_args: "-o ProxyCommand=\"ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
-                              -W %h:%p -i {{ hostvars[groups['undercloud'][0]].ansible_ssh_private_key_file }} \
-                              {{ hostvars[groups['undercloud'][0]].ansible_user }}@{{ hostvars[groups['undercloud'][0]].ansible_host }}\""
-  with_items: "{{ openstack_servers }}"
-  when: setup_type == 'baremetal'
+    - name: Add hosts to host list
+      add_host:
+        name: "{{ item.name }}"
+        groups: "{{ ( item.name in groups.all ) | ternary(omit,
+            ['overcloud_nodes', 'openstack_nodes', item.name.split('-')[0]] | join(',')
+           ) }}"
+        ansible_user: "{{ overcloud_user }}"
+        ansible_ssh_pass: ""
+        ansible_host: "{{ item.accessIPv4 }}"
+        ansible_ssh_private_key_file: "{{ overcloud_private_key }}"
+      with_items: "{{ openstack_servers }}"
 
-- name: Enable SSH forwarding using Undercloud node for virt Overcloud nodes
-  vars:
-    ansible_python_interpreter: /usr/bin/python
-  add_host:
-    name: "{{ item.name }}"
-    ansible_ssh_common_args: "-o ProxyCommand=\"ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
-                              -F {{ environment_dir }}/ansible.ssh.config.{{ host }} \
-                              {{ undercloud_vm }} -W {{ item.addresses.ctlplane.0.addr }}:22\""
-  with_items: "{{ openstack_servers }}"
-  when: setup_type == 'virt'
+    - name: Enable SSH forwarding using Undercloud node for baremetal Overcloud nodes
+      vars:
+        ansible_python_interpreter: /usr/bin/python
+      add_host:
+        name: "{{ item.name }}"
+        ansible_ssh_common_args: "-o ProxyCommand=\"ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
+                                  -W %h:%p -i {{ hostvars[groups['undercloud'][0]].ansible_ssh_private_key_file }} \
+                                  {{ hostvars[groups['undercloud'][0]].ansible_user }}@{{ hostvars[groups['undercloud'][0]].ansible_host }}\""
+      with_items: "{{ openstack_servers }}"
+      when: setup_type == 'baremetal'
+
+    - name: Enable SSH forwarding using Undercloud node for virt Overcloud nodes
+      vars:
+        ansible_python_interpreter: /usr/bin/python
+      add_host:
+        name: "{{ item.name }}"
+        ansible_ssh_common_args: "-o ProxyCommand=\"ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
+                                  -F {{ environment_dir }}/ansible.ssh.config.{{ host }} \
+                                  {{ undercloud_vm }} -W {{ item.addresses.ctlplane.0.addr }}:22\""
+      with_items: "{{ openstack_servers }}"
+      when: setup_type == 'virt'
+  when: not undercloud_only|bool
 
 - name: Update ansible.ssh.config for SSH tunneling
   vars:

@@ -124,6 +124,13 @@ Multiple groups should be separated by the comma.
 undercloud_groups: undercloud,tester
 ```
 
+Create an inventory file for the undercloud environment only.  
+By default following variable not in use.  
+Default value is set to - false
+```
+undercloud_only: true
+```
+
 ***
 ## Examples
 The example of running the TripleO Inventory playbook.  
