@@ -64,6 +64,13 @@ tempest_tests:
   - neutron_tempest_plugin.scenario.test_trunk.TrunkTest.test_trunk_subport_lifecycle
 ```
 
+#### User defined variables
+Append additional tempest.conf variables during it's generation, using the following format:
+[GROUP].key=value
+```
+tempest_extra_vars: ""compute.min_microversion=2,compute.max_microversion=3""
+```
+
 #### Tests configuration
 **Note!** - For the tests configuration, refer to the tempest-nfv-plugin [documentation](https://github.com/redhat-openstack/tempest-nfv-plugin/tree/master/docs).
 
