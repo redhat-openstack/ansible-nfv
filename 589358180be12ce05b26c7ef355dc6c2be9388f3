@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "602edd49_1805ce23",
+        "filename": "docs/tripleo/post_install/tripleo_inventory.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2018-10-11T09:15:54Z",
+      "side": 1,
+      "message": "If true, create an inventory file for the undercloud environment only",
+      "range": {
+        "startLine": 127,
+        "startChar": 0,
+        "endLine": 127,
+        "endChar": 61
+      },
+      "revId": "589358180be12ce05b26c7ef355dc6c2be9388f3",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f506a138_be41d588",
+        "filename": "docs/tripleo/post_install/tripleo_inventory.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2018-10-11T09:15:54Z",
+      "side": 1,
+      "message": "Please delete.",
+      "range": {
+        "startLine": 128,
+        "startChar": 0,
+        "endLine": 128,
+        "endChar": 42
+      },
+      "revId": "589358180be12ce05b26c7ef355dc6c2be9388f3",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c4e87fff_76729efc",
+        "filename": "roles/post_install/tripleo_inventory/defaults/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2018-10-11T09:15:54Z",
+      "side": 1,
+      "message": "Not right. The variable used as false.\n\nGeneration of undercloud inventory only on true.",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 38
+      },
+      "revId": "589358180be12ce05b26c7ef355dc6c2be9388f3",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77487b0f_8e8a0dfb",
+        "filename": "roles/post_install/tripleo_inventory/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2018-10-11T09:15:54Z",
+      "side": 1,
+      "message": "Please, change it similar to line 64.\n\n\"{{ groups[\u0027undercloud\u0027] | first }}\"",
+      "range": {
+        "startLine": 58,
+        "startChar": 15,
+        "endLine": 58,
+        "endChar": 46
+      },
+      "revId": "589358180be12ce05b26c7ef355dc6c2be9388f3",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
