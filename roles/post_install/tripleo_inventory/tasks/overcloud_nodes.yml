@@ -1,10 +1,5 @@
 ---
 
-- name: Gather Undercloud facts
-  setup:
-  delegate_to: "{{ groups['undercloud'][0] }}"
-  delegate_facts: True
-
 - block:
     - name: Install requirements for pip virtualenv
       package:
