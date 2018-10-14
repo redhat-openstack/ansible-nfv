@@ -16,6 +16,24 @@
       "revId": "d5c88fb0f638a9e486912b09fa6491f32610b3aa",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3f764c2d_24f9abea",
+        "filename": "docs/tripleo/tester/tempest.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2018-10-14T14:20:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a4cf1c1d_711f49a9",
+      "revId": "d5c88fb0f638a9e486912b09fa6491f32610b3aa",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
