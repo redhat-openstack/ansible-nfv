@@ -155,7 +155,9 @@
         neutron_plugin_options.image_is_advanced true \
         neutron_plugin_options.max_networks_per_project 1 \
         {% if tempest_options is defined %}
-        {{ tempest_options }} \
+          {% for option in tempest_options %}
+            {{ option }} \
+          {% endfor %}
         {% endif %}
         --out "{{ tempest_dir }}/{{ tempest_main }}/etc/tempest.conf"
   args:
