@@ -119,6 +119,18 @@
     mode: 0755
   when: tempest_config is defined
 
+- name: Check if extra tempest.conf variables supplied
+  block:
+    - name: Parse extra tempest.conf variables
+      set_fact:
+        tempest_options_parser: "{{ tempest_extra_vars.split(',') }}"
+
+    - name: Populate extra variables array
+      set_fact:
+        tempest_options: "{{ tempest_options | default([]) }} + ['{{ item.replace('=',' ') }}']"
+      with_items: "{{ tempest_options_parser }}"
+  when: tempest_extra_vars is defined
+
 - name: tempest.conf file creation
   shell: |
     source "{{ rc_file | default('/home/stack/overcloudrc') }}"
@@ -142,6 +154,11 @@
         {% endif %}
         neutron_plugin_options.image_is_advanced true \
         neutron_plugin_options.max_networks_per_project 1 \
+        {% if tempest_options is defined %}
+          {% for option in tempest_options %}
+            {{ option }} \
+          {% endfor %}
+        {% endif %}
         --out "{{ tempest_dir }}/{{ tempest_main }}/etc/tempest.conf"
   args:
     executable: /bin/bash

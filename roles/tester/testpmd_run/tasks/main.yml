@@ -104,7 +104,7 @@
   shell: "/root/dpdk/tools/dpdk_nic_bind.py -s | awk '/virtio_pci/ {print $1}' | tail -n 2 | head -n 1"
   register: dpdk_bind_check2
   changed_when: False
-  when: "{{ bidirectional_test }}"
+  when: bidirectional_test
 
 - name: Create testpmd.sh file
   template:
