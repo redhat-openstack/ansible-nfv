@@ -6,7 +6,7 @@
 
 - name: Check if Dell EMC OpenManage Ansible modules are installed
   find:
-    paths: "{{ ansible_root_dir.stdout }}"
+    paths: "{{ ansible_root_dir.stdout }}/ansible/module_utilities/"
     patterns: "*dellemc*"
     recurse: yes
   register: dellemc_files
@@ -17,11 +17,6 @@
       git:
         repo: "https://github.com/dell/Dell-EMC-Ansible-Modules-for-iDRAC.git"
         dest: "/tmp/Dell-EMC-Ansible-Modules-for-iDRAC"
-
-    - name: Copy Dell EMC OpenManage ansible modules to Ansible modules directory
-      copy:
-        src: '/tmp/Dell-EMC-Ansible-Modules-for-iDRAC/library/'
-        dest: '"{{ ansible_root_dir.stdout }}"/ansible/modules/extras/dellemc/server/'
 
     - name: Copy Dell EMC OpenManage ansible utility to Ansible utility directory
       copy:
