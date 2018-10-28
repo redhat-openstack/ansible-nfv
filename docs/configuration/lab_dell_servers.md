@@ -14,7 +14,7 @@ Will be used for iDRAC manipulation in automation jobs.
 **Note!** - Some operations will reboot your servers without prompt.
 
 * Install dependencies
-    * Install all the needed dependencies on the Ansible host 
+    * Install all needed dependencies on the Ansible host (Note: Currently iDRAC module is shiiped with this repo)
 * Query
     * Query iDRAC for hardware and software information
 * Power Action
