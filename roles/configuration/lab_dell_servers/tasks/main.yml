@@ -1,11 +1,6 @@
 - name: Validate variables
   include_tasks: validate_variables.yml
 
-- name: Verify Dependencies
-  include_tasks: verify_dependencies.yml
-  run_once: true
-  when: verify_dependencies
-
 - name: Query server
   include_tasks: query_server.yml
   when: query_server
