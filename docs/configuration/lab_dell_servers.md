@@ -2,19 +2,17 @@
 
 ## Description
 The lab_dell_servers play performs the following server individual tasks:
-- Install Dell EMC OpenManage Python SDK and dependencies and Dell EMC OpenManage Ansible modules
 - Query iDRAC information
 - Performs a power action on server
 - Sets device boot order
 
 iDRAC 7/8 with Firmware version 2.40.40.40 or above and iDRAC 9 with Firmware version 3.00.00.00 are supported in this play
 Will be used for iDRAC manipulation in automation jobs.  
+**Note!** - Dell EMC iDRAC modules is shipped in this repo.
 **Note!** - No need in inventory file. The file is generated during the playbook execution.
 **Note!** - Multiple iDRACs could be specified, passed as a yaml. See example at the bottom.
 **Note!** - Some operations will reboot your servers without prompt.
 
-* Install dependencies
-    * Install all the needed dependencies on the Ansible host 
 * Query
     * Query iDRAC for hardware and software information
 * Power Action
