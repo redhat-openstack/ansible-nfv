@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6659b9b1_8bc2d70d",
+        "filename": "ansible.cfg",
+        "patchSetId": 6
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2018-10-28T12:48:48Z",
+      "side": 1,
+      "message": "module",
+      "revId": "0ca2b2eb9392388b74501ca954d2a31ae0d89906",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e15136e_87af5025",
+        "filename": "ansible.cfg",
+        "patchSetId": 6
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2018-10-28T12:48:48Z",
+      "side": 1,
+      "message": "module",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 4
+      },
+      "revId": "0ca2b2eb9392388b74501ca954d2a31ae0d89906",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "27c3c4d5_28a26009",
+        "filename": "docs/configuration/lab_dell_servers.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2018-10-28T12:48:48Z",
+      "side": 1,
+      "message": "Delete this.\nJust mention that the modules are shipped with this repo as per now.",
+      "range": {
+        "startLine": 11,
+        "startChar": 59,
+        "endLine": 11,
+        "endChar": 88
+      },
+      "revId": "0ca2b2eb9392388b74501ca954d2a31ae0d89906",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
