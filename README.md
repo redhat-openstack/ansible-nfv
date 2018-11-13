@@ -21,6 +21,12 @@ The playbook will generate an inventory file for the tripleo environment.
       * Openstack tasks
       * Overcloud repo install
       * TripleO Inventory
+    * Configuration
+      * Config NFV Lab switches
+      * Interact with Dell EMC iDRAC:
+        * Power Actions
+	* Query information
+	* Set device boot order
 * Moongen
     * Moongen install
     * Moongen run

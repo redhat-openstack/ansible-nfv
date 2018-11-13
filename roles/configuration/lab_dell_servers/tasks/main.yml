@@ -1,0 +1,17 @@
+- name: Validate variables
+  include_tasks: validate_variables.yml
+
+- name: Query server
+  include_tasks: query_server.yml
+  when: query_server
+  delegate_to: localhost
+
+- name: Power Action
+  include_tasks: power_action.yml
+  when: power_action
+  delegate_to: localhost
+
+- name: Set boot order
+  include_tasks: boot_order.yml
+  when: set_boot_order
+  delegate_to: localhost
