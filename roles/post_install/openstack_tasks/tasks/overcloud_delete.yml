@@ -7,11 +7,13 @@
 - name: Delete Overcloud stack
   vars:
     ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+    client_ca_cert: None
   os_stack:
-    cloud: undercloud
+    cloud: "undercloud"
     name: "{{ overcloud_name | default('overcloud') }}"
     state: absent
     wait: yes
+    cacert: "{{ client_ca_cert }}"
   ignore_errors: true
 
 - name: Pause the play, wait until stack deleted completely

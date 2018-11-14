@@ -124,10 +124,16 @@ Default is - **/home/stack/stackrc**
 rc_file_path: /home/stack/stackrc
 ```
 
-The name of the overcloud that should be deleted.  
+The name of the overcloud that should be deleted.
 Default is - **overcloud**
 ```
 overcloud_name: overcloud
+```
+
+The file location of client *.pem file on remote host
+Default is - None
+```
+client_ca_cert:
 ```
 
 Creates an inventory group and adds the booted instance to.
