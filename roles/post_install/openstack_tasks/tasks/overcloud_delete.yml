@@ -8,10 +8,11 @@
   vars:
     ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
   os_stack:
-    cloud: undercloud
+    cloud: "undercloud"
     name: "{{ overcloud_name | default('overcloud') }}"
     state: absent
     wait: yes
+    cacert: "{{ client_ca_cert | default(omit) }}"
   ignore_errors: true
 
 - name: Pause the play, wait until stack deleted completely
