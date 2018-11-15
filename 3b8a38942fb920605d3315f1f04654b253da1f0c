@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "22c8e859_591b967f",
+        "filename": "docs/tripleo/post_install/openstack_tasks.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2018-11-15T14:14:52Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "3346521e_0883d2dc",
+      "range": {
+        "startLine": 127,
+        "startChar": 48,
+        "endLine": 127,
+        "endChar": 49
+      },
+      "revId": "3b8a38942fb920605d3315f1f04654b253da1f0c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1af54f58_d9993c6d",
         "filename": "docs/tripleo/post_install/openstack_tasks.md",
         "patchSetId": 2
@@ -39,6 +63,24 @@
       "revId": "3b8a38942fb920605d3315f1f04654b253da1f0c",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "930f3b67_1449390f",
+        "filename": "docs/tripleo/post_install/openstack_tasks.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2018-11-15T14:14:52Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "1af54f58_d9993c6d",
+      "revId": "3b8a38942fb920605d3315f1f04654b253da1f0c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     },
     {
       "key": {
@@ -62,6 +104,30 @@
       "revId": "3b8a38942fb920605d3315f1f04654b253da1f0c",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "496ba76b_c9e9744f",
+        "filename": "roles/post_install/openstack_tasks/tasks/overcloud_delete.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2018-11-15T14:14:52Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "69c89b92_dda0eeb9",
+      "range": {
+        "startLine": 16,
+        "startChar": 4,
+        "endLine": 16,
+        "endChar": 34
+      },
+      "revId": "3b8a38942fb920605d3315f1f04654b253da1f0c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
