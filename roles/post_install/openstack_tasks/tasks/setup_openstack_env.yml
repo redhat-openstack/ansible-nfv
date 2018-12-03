@@ -26,13 +26,13 @@
 - name: Create clouds.yaml if doesn't exist
   blockinfile:
     content: 'clouds:'
-    dest: "~/clouds.yaml"
+    dest: "~/.config/openstack/clouds.yaml"
     marker: "#{mark} HEADER"
     create: yes
 
 - name: Insert cloud parameters
   blockinfile:
-    dest: "~/clouds.yaml"
+    dest: "~/.config/openstack/clouds.yaml"
     block: |1
       {{ item.stdout|from_yaml|to_nice_yaml(indent=4) }}
     insertbefore: "#END {{ item.item.1 }} SECTION"
