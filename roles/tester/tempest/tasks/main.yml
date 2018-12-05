@@ -143,6 +143,7 @@
         identity.uri {{ osp_auth.stdout }} \
         identity.admin_password {{ osp_password.stdout }} \
         identity.region regionOne DEFAULT.debug false \
+        identity.v3_endpoint_type public \
         compute.image_ssh_user {{ image_ssh_user }} \
         compute.min_microversion {{ compute_min_microversion }} \
         compute.max_microversion {{ compute_max_microversion }} \
