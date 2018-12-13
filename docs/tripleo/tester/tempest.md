@@ -15,6 +15,11 @@ Tempest role will perform the following steps:
 
 ## Role variables
 #### Default variables
+nfv-tempest-plugin branch to clone.  
+Default: master
+```
+nfv_tempest_branch: 'master'
+```
 SSH user for the testing image.  
 Default user: centos.
 ```
