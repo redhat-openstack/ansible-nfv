@@ -14,6 +14,9 @@ neutron_tempest_plugin: neutron-tempest-plugin
 compute_min_microversion: 2.32
 compute_max_microversion: 2.32
 
+#### Git branches variables
+nfv_tempest_branch: 'master'
+
 tempest_repos:
   - name: openstack-tempest
     url: https://github.com/openstack/tempest
@@ -33,7 +36,7 @@ tempest_repos:
     url: https://github.com/redhat-openstack/nfv-tempest-plugin
     version:
       defaults:
-        branch: 'master'
+        branch: "{{ nfv_tempest_branch }}"
   - name: neutron-tempest-plugin
     url: https://github.com/openstack/neutron-tempest-plugin
     version:
