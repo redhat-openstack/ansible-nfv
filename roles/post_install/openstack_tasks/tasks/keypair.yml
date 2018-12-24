@@ -1,0 +1,24 @@
+---
+
+- name: "Keypair {{ resource_state }}"
+  vars:
+    ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+  os_keypair:
+    cloud: "{{ overcloud_name }}"
+    state: "{{ resource_state }}"
+    name: "{{ keypair_name }}"
+  register: reg_keypair
+
+- name: Create private key for vm connection
+  copy:
+    content: "{{ reg_keypair.key.private_key }}"
+    dest: "~/instance_private_key"
+    mode: 0600
+  when: reg_keypair.changed and reg_keypair.id is defined
+
+- name: Fetch private key from generated keypair
+  fetch:
+    src: "~/instance_private_key"
+    dest: "/tmp/private_key"
+    flat: yes
+  when: reg_keypair.changed and reg_keypair.id is defined

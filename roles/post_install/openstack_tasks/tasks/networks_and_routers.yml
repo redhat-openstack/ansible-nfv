@@ -1,0 +1,96 @@
+---
+# Creation and deletion of the network resources in OpenStack environment should be performed in order.
+# Create: Networks -> Subnet -> Router -> Set default gateway for router -> Set router internal interfaces
+# Delete: Detach router internal interfaces -> Delete router -> Delete networks
+# On deletion, the tasks should be reversed.
+# As a result, created two section of resource creation and deletion triggered by condition.
+
+- name: Create networks and routers
+  block:
+    - name: Create networks
+      vars:
+        ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+      os_network:
+        cloud: "{{ overcloud_name }}"
+        name: "{{ item.name }}"
+        provider_network_type: "{{ item.network_type | default('vlan') }}"
+        provider_physical_network: "{{ item.physical_network | default(omit) }}"
+        provider_segmentation_id: "{{ item.segmentation_id | default(omit) }}"
+        external: "{{ item.external | default('false') }}"
+        shared: "{{ item.shared | default(omit) }}"
+        state: present
+      with_items: "{{ networks }}"
+
+    - name: Create subnets
+      vars:
+        ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+      os_subnet:
+        cloud: "{{ overcloud_name }}"
+        name: "{{ item.name }}_subnet"
+        allocation_pool_start: "{{ item.allocation_pool_start | default(omit) }}"
+        allocation_pool_end: "{{ item.allocation_pool_end | default(omit) }}"
+        cidr: "{{ item.cidr }}"
+        dns_nameservers: "{{ dns_nameservers }}"
+        enable_dhcp: "{{ item.enable_dhcp | default('true') }}"
+        network_name: "{{ item.name }}"
+        gateway_ip: "{{ item.gateway_ip | default(omit) }}"
+        ip_version: "{{ item.ip_version | default('4') }}"
+        state: present
+      with_items: "{{ networks }}"
+
+    - name: Create router and set router gateway
+      vars:
+        ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+      os_router:
+        cloud: "{{ overcloud_name }}"
+        name: "{{ item.router_name }}"
+        network: "{{ item.name }}"
+        state: present
+      when: "item.external is defined and item.external"
+      with_items: "{{ networks }}"
+
+    # TODO: Refactor the task in order to match the following scenarios:
+    #       * Add more than single internal interface to the router (currently stopping on a first match).
+    #       * Check the behavior of the task in case 'external' var omitted and 'router_name' var exists.
+    - name: Set router interfaces
+      vars:
+        ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+      os_router:
+        cloud: "{{ overcloud_name }}"
+        name: "{{ item.router_name }}"
+        interfaces: "{{ item.name }}_subnet"
+        state: present
+      when: "item.external is defined and not item.external"
+      with_items: "{{ networks }}"
+  when: resource_state == 'present'
+
+- name: Delete networks and routers
+  block:
+    # The os_router module unable to detach the interface from the router
+    - name: Detach router interfaces
+      command: >
+        openstack --os-cloud "{{ overcloud_name }}" router
+        remove subnet "{{ item.router_name }}" "{{ item.name }}_subnet"
+      when: "item.external is defined and not item.external"
+      with_items: "{{ networks }}"
+
+    - name: Delete router
+      vars:
+        ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+      os_router:
+        cloud: "{{ overcloud_name }}"
+        name: "{{ item.router_name }}"
+        network: "{{ item.name }}"
+        state: absent
+      when: "item.external is defined and item.external"
+      with_items: "{{ networks }}"
+
+    - name: Delete networks
+      vars:
+        ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+      os_network:
+        cloud: "{{ overcloud_name }}"
+        name: "{{ item.name }}"
+        state: absent
+      with_items: "{{ networks }}"
+  when: resource_state == 'absent'

@@ -8,7 +8,7 @@
   vars:
     ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
   os_stack:
-    cloud: "undercloud"
+    cloud: "{{ overcloud_name }}"
     name: "{{ overcloud_name | default('overcloud') }}"
     state: absent
     wait: yes

@@ -4,7 +4,9 @@
   hosts: undercloud
   gather_facts: False
   vars:
-    images_upload: false
+    image: false
+    keypair: true
+    security_group: true
   roles:
     - post_install/openstack_tasks
 
