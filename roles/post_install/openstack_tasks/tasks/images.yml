@@ -19,9 +19,3 @@
     filename: "/tmp/{{ item.url | basename }}"
     is_public: yes
   with_items: "{{ images }}"
-
-- name: Remove images files
-  file:
-    path: "/tmp/{{ item.url | basename }}"
-    state: absent
-  with_items: "{{ images }}"

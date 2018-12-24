@@ -13,36 +13,38 @@ Openstack tasks play perform the following tasks on the existing Openstack envir
     * Upload provided images to the glance store of the overcloud.
 * Creates flavors and extra_specs
     * Creates flavors for the instances. Extra_specs could be created for the flavors if required.
+* Creates keypair
+    * Creates keypair and fetch the file to the client.
+* Creates security groups
+    * Creates security groups with defined protocols.
+* Boot an instance(s)
+    * Boot the defined instances on the overcloud.
 * Overcloud delete
     * Deletes the required stack.  
       Default stack is - 'overcloud'.
-* Clear the environment
-    * Delete keypair and instance.  
-      Default instance named - 'vm1'.
-* Boot an instance(s)
-    * Boot the defined instances on the overcloud.
 
 By default, all the tasks runs one by one on the environment.  
 The run could be separated by specifying tags of specific run.
 
 ## Role tags
-* os_tasks - Default run. Executes all runs.
 * setup_os_env - Run Openstack virtual env creation for env tasks.
-* create_networks - Run networks creation.
-* create_flavors - Run flavors creation.
-* images_upload - Upload images to the Openstack environment.
+* network - Run networks creation.
+* flavor - Run flavors creation.
+* image - Upload images to the Openstack environment.
+* keypair - Run keypair creation.
+* security_group - Run security groups creation.
+* instance - Boot defined instances.
 * overcloud_delete - Delete the required overcloud stack.
-* clear_env - Clears the environment by removing given instance and keypair.
-* boot_instance - Boot defined instances.
 
 ## Run triggers
 * setup_os_env - Executed if 'true'. True by default.
-* create_networks - Executed if 'true'. True by default.
-* create_flavors - Executed if 'true'. True by default
-* images_upload - Executed if 'true'. True by default.
+* network - Executed if 'true'. True by default.
+* flavor - Executed if 'true'. True by default.
+* image - Executed if 'true'. True by default.
+* keypair - Executed if 'true'. True by default.
+* security_group - Executed if 'true'. True by default.
+* instance - Executed if 'true'. False by default.
 * overcloud_delete - Executed if 'true'. False by default.
-* clear_env - Executed if 'true'. False by default.
-* boot_instance - Executed if 'true'. False by default.
 
 ## Role variables
 #### Network creation variables
@@ -73,11 +75,14 @@ networks:
     gateway_ip: 10.0.0.254
     router_name: router1
     shared: true
-  - name: private
-    physical_network: tenant
+  - name: private1
+    physical_network: tenant1
     segmentation_id: 32
     cidr: 172.20.0.0/24
     router_name: router1
+  - name: private2
+    physical_network: tenant2
+    cidr: 173.30.0.0/24
 ```
 
 Set DNS servers.
@@ -117,6 +122,41 @@ images:
     url: http://download.cirros-cloud.net/0.3.4/cirros-0.3.4-x86_64-disk.img
 ```
 
+#### Keypair name
+Keypair to be created.  
+The private key fetched to the client local.
+```
+keypair_name: test_keypair
+```
+
+#### Security groups
+Specify the security groups and rules that should be created.
+```
+security_groups:
+  - name: test_secgroup
+    rules:
+      - protocol: icmp
+        port_range_min: -1
+        port_range_max: -1
+        remote_ip_prefix: 0.0.0.0/0
+      - protocol: tcp
+        port_range_min: 22
+        port_range_max: 22
+        remote_ip_prefix: 0.0.0.0/0
+```
+
+#### Instances
+Specify the instance and arguments that the instance should be created with.
+```
+instances:
+  - name: vm1
+    flavor: nfv_flavor
+    image: centos
+    key_name: "{{ keypair_name }}"
+    sec_groups: test_secgroup
+    nics: net-name=private1,net-name=private2
+```
+
 #### Overcloud delete variables
 Rc file path for the access to the stack.  
 Default is - **/home/stack/stackrc**
@@ -130,27 +170,10 @@ Default is - **overcloud**
 overcloud_name: overcloud
 ```
 
-The file location of client *.pem file on remote host  
+The file location of client pem file on remote host  
 Default is - None
 ```
-client_ca_cert:
-```
-
-Creates an inventory group and adds the booted instance to.
-```
-group_name: tested_vms
-```
-
-Define the list of instances to boot.
-```
-instances:
-  - name: vm1
-```
-
-Remove the defined instances.
-```
-remove_instances:
-  - name: vm1
+client_ca_cert: /path/to/the/file
 ```
 
 ***
