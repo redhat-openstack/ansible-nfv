@@ -1,0 +1,16 @@
+---
+
+- name: "Instances {{ resource_state }}"
+  vars:
+    ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+  os_server:
+    state: "{{ resource_state }}"
+    cloud: overcloud
+    name: "{{ item.name }}"
+    image: "{{ item.image | default(images[0].name) }}"
+    flavor: "{{ item.flavor | default(flavors[0].name) }}"
+    key_name: "{{ item.key_name }}"
+    security_groups: "{{ item.sec_groups }}"
+    nics: "{{ item.nics }}"
+  with_items:
+    - "{{ instances }}"

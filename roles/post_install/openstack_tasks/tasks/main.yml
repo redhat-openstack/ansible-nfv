@@ -1,50 +1,46 @@
 ---
 
 - name: Setup Openstack environment
-  tags:
-    - os_tasks
-    - setup_os_env
+  tags: setup_os_env
   include_tasks: setup_openstack_env.yml
   when: setup_os_env
 
-- name: Create router and networks
-  tags:
-    - os_tasks
-    - create_networks
-  include_tasks: create_networks_and_routers.yml
-  when: create_networks
+- name: Instances
+  tags: instance
+  include_tasks: instances.yml
+  when: instance and resource_state == 'absent'
 
-- name: Create flavors
-  tags:
-    - os_tasks
-    - create_flavors
-  include_tasks: create_flavors.yml
-  when: create_flavors
+- name: Networks
+  tags: network
+  include_tasks: networks_and_routers.yml
+  when: network
 
-- name: Upload images
-  tags:
-    - os_tasks
-    - images_upload
-  include_tasks: upload_images.yml
-  when: images_upload
+- name: Flavors
+  tags: flavor
+  include_tasks: flavors.yml
+  when: flavor
 
-- name: Boot instance
-  tags:
-    - os_tasks
-    - boot_instance
-  include_tasks: boot_instance.yml
-  when: boot_instance
+- name: Images
+  tags: image
+  include_tasks: images.yml
+  when: image
+
+- name: Keypair
+  tags: keypair
+  include_tasks: keypair.yml
+  when: keypair
+
+- name: Security groups
+  tags: security_group
+  include_tasks: security_groups.yml
+  when: security_group
+
+- name: Instances
+  tags: instance
+  include_tasks: instances.yml
+  when: instance and resource_state == 'present'
 
 - name: Overcloud delete
-  tags:
-    - os_tasks
-    - overcloud_delete
+  tags: overcloud_delete
   include_tasks: overcloud_delete.yml
   when: overcloud_delete
-
-- name: Clear environment
-  tags:
-    - os_tasks
-    - clear_env
-  include_tasks: clear_env.yml
-  when: clear_env
