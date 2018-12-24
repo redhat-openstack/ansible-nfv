@@ -1,0 +1,41 @@
+---
+
+- name: "Instances {{ resource_state }}"
+  vars:
+    ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+  os_server:
+    state: "{{ resource_state }}"
+    cloud: overcloud
+    name: "{{ item.name }}"
+    image: "{{ item.image | default(images[0].name) }}"
+    flavor: "{{ item.flavor | default(flavors[0].name) }}"
+    key_name: "{{ item.key_name }}"
+    security_groups: "{{ item.sec_groups }}"
+    network: "{{ item.nics }}"
+  with_items:
+    - "{{ instances }}"
+  register: instance_id
+#
+# - name: Add host to dynamic inventory
+#   add_host:
+#     name: "{{ item.item.name }}"
+#     group: "{{ group_name }}"
+#     ansible_host: "{{ item.openstack.addresses.external[0].addr }}"
+#     ansible_user: cloud-user
+#     ansible_ssh_port: 22
+#     ansible_ssh_private_key_file: "/tmp/private_key"
+#   with_items:
+#     - "{{ instance_id.results }}"
+#
+# - name: Wait for the instance to boot up
+#   wait_for:
+#     host: "{{ item.openstack.addresses.external[0].addr }}"
+#     search_regex: "OpenSSH"
+#     port: 22
+#     timeout: 300
+#     connect_timeout: 50
+#     delay: 5
+#   delegate_to: localhost
+#   become: false
+#   with_items:
+#     - "{{ instance_id.results }}"
