@@ -11,17 +11,11 @@
   vars:
     ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
   os_image:
-    cloud: overcloud
+    cloud: "{{ overcloud_name }}"
     name: "{{ item.name }}"
     container_format: bare
     disk_format: qcow2
     state: present
     filename: "/tmp/{{ item.url | basename }}"
     is_public: yes
-  with_items: "{{ images }}"
-
-- name: Remove images files
-  file:
-    path: "/tmp/{{ item.url | basename }}"
-    state: absent
   with_items: "{{ images }}"

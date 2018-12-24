@@ -1,0 +1,27 @@
+---
+
+- name: "Security groups {{ resource_state }}"
+  vars:
+    ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+  os_security_group:
+    cloud: "{{ overcloud_name }}"
+    name: "{{ item.name }}"
+    state: "{{ resource_state }}"
+  with_items: "{{ security_groups }}"
+  register: reg_secgroup
+
+- name: Add ICMP and SSH protocols
+  vars:
+    ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+  os_security_group_rule:
+    cloud: "{{ overcloud_name }}"
+    security_group: "{{ item.0.name }}"
+    protocol: "{{ item.1.protocol }}"
+    port_range_min: "{{ item.1.port_range_min }}"
+    port_range_max: "{{ item.1.port_range_max }}"
+    remote_ip_prefix: "{{ item.1.remote_ip_prefix }}"
+  with_subelements:
+    - "{{ security_groups }}"
+    - rules
+    - skip_missing: true
+  when: reg_secgroup.results.0.id is defined
