@@ -133,12 +133,12 @@
 
 - name: Unbind the NICs
   command: /root/dpdk/tools/dpdk_nic_bind.py -u "{{ dpdk_bind_check.stdout }}"
-  when: dpdk_bind_check.stdout.strip() != ""
+  when: dpdk_bind_check.stdout.strip()
   ignore_errors: true
 
 - name: Unbind the NICs in case of bi-directional tests
   command: /root/dpdk/tools/dpdk_nic_bind.py -u "{{ dpdk_bind_check2.stdout }}"
-  when: dpdk_bind_check2.stdout.strip() != ""
+  when: dpdk_bind_check2.stdout.strip()
   ignore_errors: true
 
 - name: Install required pip packages
@@ -158,16 +158,16 @@
   delegate_to: "{{ item }}"
   become: true
   become_user: root
-  with_items: "{{groups['undercloud']}}"
+  with_items: "{{ groups['undercloud'] }}"
 
 - name: Run testpmd python script
   shell: 'source /tmp/ansible_venv/bin/activate; python /tmp/testpmd-app.py'
   async: 10000
   poll: 0
-  delegate_to: "{{item}}"
+  delegate_to: "{{ item }}"
   become: true
   become_user: root
-  with_items: "{{groups['undercloud']}}"
+  with_items: "{{ groups['undercloud'] }}"
 
 - name: Pause the play, wait until testpmd app ready to recieve packets
   pause:

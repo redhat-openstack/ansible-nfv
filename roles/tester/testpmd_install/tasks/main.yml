@@ -20,11 +20,12 @@
   register: dpdk_folder
 
 - name: Verifying the current branch
+  tags: skip_ansible_lint
   shell: /usr/bin/git branch  | sed 's/[()]//g' | grep v | awk '{print $4}'
   args:
     chdir: /root/dpdk
   register: git_branch
-  when: dpdk_folder.stat.exists == True
+  when: dpdk_folder.stat.exists
 
 - block:
     - name: Installing packages for the DPDK tools
@@ -67,4 +68,4 @@
       args:
         chdir: /root/dpdk
 
-  when: dpdk_folder.stat.exists == False or git_branch.stdout != version
+  when: not dpdk_folder.stat.exists or git_branch.stdout != version
