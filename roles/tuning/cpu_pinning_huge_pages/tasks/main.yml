@@ -11,6 +11,8 @@
     - { regex: 'isolcpus=', context: 'isolcpus={{ cpu_pinning_cores }}' }
     - { regex: 'hugepagesz=', context: 'hugepagesz={{ hugepages_size }} default_hugepagesz={{ hugepages_size }} transparent_hugepage=never hugepages={{ hugepages_count }}' }
   register: grub
+  tags:
+    - skip_ansible_lint
 
 - name: Make grub
   command: "grub2-mkconfig -o /boot/grub2/grub.cfg"
