@@ -23,7 +23,7 @@
     - name: Set the repos on overcloud nodes
       copy:
         dest: "{{ item.item.path }}"
-        content: "{{ item.content | b64decode}}"
+        content: "{{ item.content | b64decode }}"
         owner: root
         group: root
         mode: 0644

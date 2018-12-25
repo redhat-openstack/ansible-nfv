@@ -11,7 +11,7 @@
 - name: Load the public key to Hypervisor
   authorized_key:
     user: "{{ user | default('root') }}"
-    key: "{{ lookup('file', '{{ hypervisor_private_key }}.pub')}}"
+    key: "{{ lookup('file', '{{ hypervisor_private_key }}.pub') }}"
     state: present
   delegate_to: "{{ groups['hypervisor'][0] }}"
 

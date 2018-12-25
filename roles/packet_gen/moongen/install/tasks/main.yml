@@ -6,6 +6,7 @@
     state: permissive
 
 - name: Add parameter to the grub
+  tags: skip_ansible_lint
   lineinfile:
     dest: /etc/default/grub
     regexp: '^GRUB_CMDLINE_LINUX="(?!.* {{ item.regex }})(.*)"'
@@ -75,7 +76,7 @@
 - name: Set nic to bind on boot
   command: /usr/sbin/driverctl set-override "{{ dpdk_bind_check.stdout }}" vfio-pci
   register: dpdk_bind
-  when: dpdk_bind_check.stdout.strip() != ""
+  when: dpdk_bind_check.stdout.strip()
 
 - block:
     - name: Check second device for DPDK
@@ -86,7 +87,7 @@
     - name: Set second nic to bind on boot
       command: /usr/sbin/driverctl set-override "{{ dpdk_bind_check.stdout }}" vfio-pci
       register: dpdk_bind
-      when: dpdk_bind_check.stdout.strip() != ""
+      when: dpdk_bind_check.stdout.strip()
   when: dpdk_second_nic_name is defined
 
 - name: Set permmisions to relevant scripts

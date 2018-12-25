@@ -11,7 +11,9 @@
     - 'Restart openvswitch service'
 
 - name: Check existence of kernel params
-  shell: 'cat /proc/cmdline | grep iommu | grep isolcpus | grep nohz | grep nohz_full | grep rcu_nocbs | grep intel_pstate  | wc -l'
+  shell: >
+    'cat /proc/cmdline | grep iommu | grep isolcpus | grep nohz |
+    grep nohz_full | grep rcu_nocbs | grep intel_pstate  | wc -l'
   register: kernel_params
 
 - name: Restart machine if kernel params missing

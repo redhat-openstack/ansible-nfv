@@ -41,7 +41,8 @@
     force: yes
   with_items: "{{ tempest_repos }}"
 
-- set_fact:
+- name: Set tempest venv path
+  set_fact:
     tempest_venv: "{{ tempest_dir }}/venv"
 
 - name: Create a virtual environment and upgrade it to the latest version
@@ -177,7 +178,7 @@
   file:
     path: "{{ tempest_dir }}/{{ tempest_main }}/.stestr"
     state: absent
-  when: testrepository.stat.exists == true
+  when: testrepository.stat.exists
 
 - name: Create tempest tests repository for the clean state tests run
   tags: run_tempest_test
