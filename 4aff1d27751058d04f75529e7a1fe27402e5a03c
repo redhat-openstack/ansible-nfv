@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "2cfe6369_ae714ccc",
+        "filename": "roles/post_install/openstack_tasks/tasks/main.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2018-12-26T16:42:16Z",
+      "side": 1,
+      "message": "I don\u0027t see it that way, but I get your point.\n\nI still think that it\u0027ll be more beneficent to us in the future if we separate population and teardown, but it\u0027s not up to me.",
+      "parentUuid": "2a7275ac_6caad714",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 3
+      },
+      "revId": "4aff1d27751058d04f75529e7a1fe27402e5a03c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cc850c95_fde90074",
         "filename": "roles/post_install/openstack_tasks/tasks/main.yml",
         "patchSetId": 4
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "\u003e Perhaps it\u0027s better to indicate a more human readable task names, for example:\n\u003e   - name: Make sure instances are {{ resource_state }}\n\u003e That way, if instances are added/removed it will be displayed to the user\n\nAlready did it.",
       "parentUuid": "cc850c95_fde90074",
+      "range": {
+        "startLine": 8,
+        "startChar": 1,
+        "endLine": 8,
+        "endChar": 17
+      },
+      "revId": "4aff1d27751058d04f75529e7a1fe27402e5a03c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7361d058_07682bdb",
+        "filename": "roles/post_install/openstack_tasks/tasks/main.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2018-12-26T16:42:16Z",
+      "side": 1,
+      "message": "Yes, I saw it later on that it\u0027s done this way in the tasks file.",
+      "parentUuid": "7f4c529b_cd2e4207",
       "range": {
         "startLine": 8,
         "startChar": 1,
