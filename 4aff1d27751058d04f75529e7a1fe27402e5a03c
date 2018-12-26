@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2a7275ac_6caad714",
+        "filename": "roles/post_install/openstack_tasks/tasks/main.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2018-12-26T12:21:11Z",
+      "side": 1,
+      "message": "\u003e Perhaps it\u0027s worth to separate the tasks in this file into two files which are responsible for each scenario due to the differences in the deletion/creation flow.\n\u003e \n\u003e - name: Populate cloud\n\u003e   include_tasks: create_resources_in_cloud.yml\n\u003e   when: resource_state \u003d\u003d \u0027present\u0027\n\u003e \n\u003e - name: Teardown cloud\n\u003e   include_tasks: delete_resources_in_cloud.yml\n\u003e   when: resource_state \u003d\u003d \u0027absent\u0027\n\u003e \n\u003e That way in the future if you\u0027ll have an additional logic+additions that you would want to add to your flow, it\u0027ll be done in one organized central place.\n\nI prefer not to do it because it will lead to an additional two files that will hold duplicate tasks in the different order and add unnecessary mess into the tasks folder.",
+      "parentUuid": "34933286_dac4836f",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 3
+      },
+      "revId": "4aff1d27751058d04f75529e7a1fe27402e5a03c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cc850c95_fde90074",
         "filename": "roles/post_install/openstack_tasks/tasks/main.yml",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2018-12-26T04:07:09Z",
       "side": 1,
       "message": "Perhaps it\u0027s better to indicate a more human readable task names, for example:\n  - name: Make sure instances are {{ resource_state }}\nThat way, if instances are added/removed it will be displayed to the user",
+      "range": {
+        "startLine": 8,
+        "startChar": 1,
+        "endLine": 8,
+        "endChar": 17
+      },
+      "revId": "4aff1d27751058d04f75529e7a1fe27402e5a03c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f4c529b_cd2e4207",
+        "filename": "roles/post_install/openstack_tasks/tasks/main.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2018-12-26T12:21:11Z",
+      "side": 1,
+      "message": "\u003e Perhaps it\u0027s better to indicate a more human readable task names, for example:\n\u003e   - name: Make sure instances are {{ resource_state }}\n\u003e That way, if instances are added/removed it will be displayed to the user\n\nAlready did it.",
+      "parentUuid": "cc850c95_fde90074",
       "range": {
         "startLine": 8,
         "startChar": 1,
