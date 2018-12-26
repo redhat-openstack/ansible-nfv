@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "34933286_dac4836f",
+        "filename": "roles/post_install/openstack_tasks/tasks/main.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2018-12-26T04:07:09Z",
+      "side": 1,
+      "message": "Perhaps it\u0027s worth to separate the tasks in this file into two files which are responsible for each scenario due to the differences in the deletion/creation flow.\n\n- name: Populate cloud\n  include_tasks: create_resources_in_cloud.yml\n  when: resource_state \u003d\u003d \u0027present\u0027\n\n- name: Teardown cloud\n  include_tasks: delete_resources_in_cloud.yml\n  when: resource_state \u003d\u003d \u0027absent\u0027\n\nThat way in the future if you\u0027ll have an additional logic+additions that you would want to add to your flow, it\u0027ll be done in one organized central place.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 3
+      },
+      "revId": "4aff1d27751058d04f75529e7a1fe27402e5a03c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc850c95_fde90074",
+        "filename": "roles/post_install/openstack_tasks/tasks/main.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2018-12-26T04:07:09Z",
+      "side": 1,
+      "message": "Perhaps it\u0027s better to indicate a more human readable task names, for example:\n  - name: Make sure instances are {{ resource_state }}\nThat way, if instances are added/removed it will be displayed to the user",
+      "range": {
+        "startLine": 8,
+        "startChar": 1,
+        "endLine": 8,
+        "endChar": 17
+      },
+      "revId": "4aff1d27751058d04f75529e7a1fe27402e5a03c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
