@@ -10,6 +10,11 @@
   include_tasks: instances.yml
   when: instance and resource_state == 'absent'
 
+- name: Projects, users and roles
+  tags: user
+  include_tasks: users.yml
+  when: user
+
 - name: Networks
   tags: network
   include_tasks: networks_and_routers.yml
