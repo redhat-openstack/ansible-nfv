@@ -2,6 +2,7 @@
 
 ### Run triggers
 setup_os_env: true
+user: false
 network: true
 flavor: true
 image: true
@@ -17,6 +18,18 @@ resource_state: present
 ### The name of the overcloud/user, the tasks should be run on.
 overcloud_name: overcloud
 
+users:
+  - name: test_user1
+    pass: 12345678
+    project: test_project1
+    domain: default
+    role: member
+  - name: test_user2
+    pass: 87654321
+    project: test_project2
+    domain: default
+    role: member
+
 ### Networks
 ### Define the networks that should be created on the overcloud.
 ### 'External: true' value could be defined just for the external network.
@@ -26,7 +39,6 @@ overcloud_name: overcloud
 ### By default, 'network_type' uses 'vlan', 'ip_version' uses 'ipv4'
 ### 'gateway_ip' could be defined in case there is a need to specify gateway ip address.
 ### 'shared', define whether this network is shared or not.
-
 networks:
   - name: public
     physical_network: public
