@@ -1,0 +1,6 @@
+---
+
+- name: Generate resources output file
+  template:
+    src: resources_output.j2
+    dest: "{{ resources_output_file }}"
