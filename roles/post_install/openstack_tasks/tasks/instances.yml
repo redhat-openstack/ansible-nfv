@@ -16,3 +16,4 @@
     delete_fip: yes
   with_items:
     - "{{ instances }}"
+  register: reg_instance

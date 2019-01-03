@@ -22,6 +22,8 @@ Openstack tasks play perform the following tasks on the existing Openstack envir
 * Overcloud delete
     * Deletes the required stack.  
       Default stack is - 'overcloud'.
+* Data file generation
+    * Generates yaml data file with instances and keypair details.
 
 By default, all the tasks runs one by one on the environment.  
 The run could be separated by specifying tags of specific run.
@@ -35,6 +37,7 @@ The run could be separated by specifying tags of specific run.
 * security_group - Run security groups creation.
 * instance - Boot defined instances.
 * overcloud_delete - Delete the required overcloud stack.
+* data_file - Generate instance and keypair details yaml file.
 
 ## Run triggers
 * setup_os_env - Executed if 'true'. True by default.
@@ -45,6 +48,7 @@ The run could be separated by specifying tags of specific run.
 * security_group - Executed if 'true'. True by default.
 * instance - Executed if 'true'. False by default.
 * overcloud_delete - Executed if 'true'. False by default.
+* data_file - Executed if 'true'. False by default.
 
 ## Role default variables
 #### State of the resource
@@ -186,6 +190,14 @@ The file location of client pem file on remote host
 Default is - None
 ```
 client_ca_cert: /path/to/the/file
+```
+
+Path of  the data yaml file to generate.  
+Will contain booted instances and keypair details.  
+Example of usage: Could be used by the tempest in order to execute the tests  
+on already provisioned resources.
+```
+data_file_path: /home/stack/data.yml
 ```
 
 ***

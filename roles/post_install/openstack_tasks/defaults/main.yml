@@ -9,6 +9,7 @@ keypair: true
 security_group: true
 instance: false
 overcloud_delete: false
+data_file: false
 
 ### Set the state of the resource.
 ### The state could be 'present' or 'absent'.
@@ -94,6 +95,9 @@ instances:
     sec_groups: test_secgroup
     nics: net-name=private1,net-name=private2
     floating_ip: yes
+
+# The path of the data file
+data_file_path: /home/stack/data.yml
 
 # Virtual environment path
 venv_path: "/tmp/ansible_venv"

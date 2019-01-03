@@ -40,6 +40,11 @@
   include_tasks: instances.yml
   when: instance and resource_state == 'present'
 
+- name: Generate data file
+  tags: data_file
+  include_tasks: data_file.yml
+  when: data_file and resource_state == 'present'
+
 - name: Overcloud delete
   tags: overcloud_delete
   include_tasks: overcloud_delete.yml

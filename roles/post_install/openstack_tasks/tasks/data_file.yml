@@ -1,0 +1,6 @@
+---
+
+- name: Generate data file
+  template:
+    src: data_file.j2
+    dest: "{{ data_file_path }}"
