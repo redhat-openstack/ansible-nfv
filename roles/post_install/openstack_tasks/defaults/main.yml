@@ -9,6 +9,7 @@ keypair: true
 security_group: true
 instance: false
 overcloud_delete: false
+resources_output: false
 
 ### Set the state of the resource.
 ### The state could be 'present' or 'absent'.
@@ -94,6 +95,9 @@ instances:
     sec_groups: test_secgroup
     nics: net-name=private1,net-name=private2
     floating_ip: yes
+
+# The path to the file output of the created resources.
+resources_output_file: /home/stack/resources_output_file.yml
 
 # Virtual environment path
 venv_path: "/tmp/ansible_venv"
