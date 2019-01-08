@@ -1,25 +1,7 @@
 ---
 
-- name: Check for the v3 overcloudrc file
-  stat:
-    path: "{{ rc_file }}.v3"
-  register: rc_file_path
-
-- name: Register Auth URL
-  vars:
-    rc_v3: "{{ rc_file }}.v3"
-    rc_v2: "{{ rc_file }}"
-    rc_version_file_path: "{{ rc_file_path.stat.exists | ternary(rc_v3, rc_v2) }}"
-  shell: "cat {{ rc_version_file_path }} | grep AUTH_URL | cut -d '=' -f 2"
-  register: osp_auth
-
-- name: Register Password
-  vars:
-    rc_v3: "{{ rc_file }}.v3"
-    rc_v2: "{{ rc_file }}"
-    rc_version_file_path: "{{ rc_file_path.stat.exists | ternary(rc_v3, rc_v2) }}"
-  shell: "cat {{ rc_version_file_path }} | grep OS_PASSWORD | cut -d '=' -f 2"
-  register: osp_password
+- name: Register variables
+  include_tasks: register_variables.yml
 
 - name: Check OSP version
   include_role:
@@ -120,6 +102,12 @@
     mode: 0755
   when: tempest_config is defined
 
+- name: Generate accounts.yaml file
+  template:
+    src: accounts.yaml.j2
+    dest: "{{ accounts_file_path }}"
+  when: generate_accounts
+
 - name: Check if extra tempest.conf variables supplied
   block:
     - name: Parse extra tempest.conf variables
@@ -154,6 +142,14 @@
         compute-feature-enabled.live_migration true \
         {% if tempest_config is defined %}
         hypervisor.external_config_file {{ tempest_dir }}/{{ tempest_config | basename }} \
+        {% endif %}
+        {% if generate_accounts %}
+        auth.test_accounts_file {{ accounts_file_path }} \
+        auth.use_dynamic_credentials false \
+        auth.admin_username {{ osp_username.stdout }} \
+        auth.admin_password {{ osp_password.stdout }} \
+        auth.admin_project_name {{ osp_project_name.stdout }} \
+        auth.admin_domain_name {{ osp_domain_name.stdout }} \
         {% endif %}
         neutron_plugin_options.advanced_image_ref true \
         neutron_plugin_options.max_networks_per_project 1 \
