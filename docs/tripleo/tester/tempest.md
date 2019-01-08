@@ -63,6 +63,33 @@ Variables within the config file will be used by the tempest-nfv-plugin for the 
 tempest_config: /path/to/the/local/config/file.yml
 ```
 
+Trigger for generating accounts.yaml file.  
+Used in pre-provisioning tempest mode.
+```
+generate_accounts: false
+```
+
+The list of users that accounts.yaml file should be created with.
+```
+users:
+  - name: test_user1
+    pass: 12345678
+    project: test_project1
+    domain: default
+    role: member
+  - name: test_user2
+    pass: 87654321
+    project: test_project2
+    domain: default
+    role: member
+```
+
+The path to the accounts.yaml file.  
+Used by tempest in pre-provision mode.
+```
+accounts_file_path: "{{ tempest_dir }}/accounts.yaml"
+```
+
 List of tempest tests that should be executed.
 ```
 tempest_tests:
