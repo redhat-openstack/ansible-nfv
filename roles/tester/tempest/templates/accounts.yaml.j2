@@ -1,0 +1,16 @@
+{% for user in users %}
+- username: {{ user.name }}
+  password: {{ user.pass }}
+  domain_name: {{ user.domain }}
+  project_name: {{ user.project }}
+{% if user.role is defined %}
+  types:
+    - {{ user. role }}
+{% endif %}
+{% endfor %}
+- username: {{ osp_username.stdout }}
+  password: {{ osp_password.stdout }}
+  domain_name: {{ osp_domain_name.stdout }}
+  project_name: {{ osp_project_name.stdout }}
+  types:
+    - admin

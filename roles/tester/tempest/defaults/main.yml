@@ -21,6 +21,21 @@ user_for_overcloud_nodes: heat-admin
 ## Uncomment if exists.
 #tests_config_file: <path_to_the_config_file>
 
+## Trigger to generate accounts.yaml file
+generate_accounts: false
+
+users:
+  - name: test_user1
+    pass: 12345678
+    project: test_project1
+    domain: default
+    role: member
+  - name: test_user2
+    pass: 87654321
+    project: test_project2
+    domain: default
+    role: member
+
 tempest_tests:
   - tempest_nfv_plugin.tests.scenario.test_nfv_epa.TestBasicEpa.test_numa0_provider_network
   - tempest_nfv_plugin.tests.scenario.test_nfv_epa.TestBasicEpa.test_numa1_provider_network

@@ -1,0 +1,46 @@
+---
+
+- name: Check for the v3 overcloudrc file
+  stat:
+    path: "{{ rc_file }}.v3"
+  register: rc_file_path
+
+- name: Register Auth URL
+  vars:
+    rc_v3: "{{ rc_file }}.v3"
+    rc_v2: "{{ rc_file }}"
+    rc_version_file_path: "{{ rc_file_path.stat.exists | ternary(rc_v3, rc_v2) }}"
+  shell: "cat {{ rc_version_file_path }} | grep AUTH_URL | cut -d '=' -f 2"
+  register: osp_auth
+
+- name: Register Password
+  vars:
+    rc_v3: "{{ rc_file }}.v3"
+    rc_v2: "{{ rc_file }}"
+    rc_version_file_path: "{{ rc_file_path.stat.exists | ternary(rc_v3, rc_v2) }}"
+  shell: "cat {{ rc_version_file_path }} | grep OS_PASSWORD | cut -d '=' -f 2"
+  register: osp_password
+
+- name: Register Username
+  vars:
+    rc_v3: "{{ rc_file }}.v3"
+    rc_v2: "{{ rc_file }}"
+    rc_version_file_path: "{{ rc_file_path.stat.exists | ternary(rc_v3, rc_v2) }}"
+  shell: "cat {{ rc_version_file_path }} | grep OS_USERNAME | cut -d '=' -f 2"
+  register: osp_username
+
+- name: Register Project name
+  vars:
+    rc_v3: "{{ rc_file }}.v3"
+    rc_v2: "{{ rc_file }}"
+    rc_version_file_path: "{{ rc_file_path.stat.exists | ternary(rc_v3, rc_v2) }}"
+  shell: "cat {{ rc_version_file_path }} | grep OS_PROJECT_NAME | cut -d '=' -f 2"
+  register: osp_project_name
+
+- name: Register Domain name
+  vars:
+    rc_v3: "{{ rc_file }}.v3"
+    rc_v2: "{{ rc_file }}"
+    rc_version_file_path: "{{ rc_file_path.stat.exists | ternary(rc_v3, rc_v2) }}"
+  shell: "cat {{ rc_version_file_path }} | grep OS_USER_DOMAIN_NAME | cut -d '=' -f 2"
+  register: osp_domain_name
