@@ -42,3 +42,7 @@ tempest_repos:
     version:
       defaults:
         branch: 'master'
+
+## The path to the accounts.yaml file
+## Used by tempest in pre-provision mode.
+accounts_file_path: "{{ tempest_dir }}/accounts.yaml"

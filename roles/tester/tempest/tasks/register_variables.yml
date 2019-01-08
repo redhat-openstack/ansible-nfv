@@ -1,0 +1,45 @@
+---
+
+- name: Check for the v3 overcloudrc file
+  stat:
+    path: "{{ rc_file }}.v3"
+  register: rc_file_path
+
+- name: Set rc files vars
+  set_fact:
+    rc_v3: "{{ rc_file }}.v3"
+    rc_v2: "{{ rc_file }}"
+
+- name: Set rc file path
+  set_fact:
+    rc_version_file_path: "{{ rc_file_path.stat.exists | ternary(rc_v3, rc_v2) }}"
+
+- name: Register Auth URL
+  shell: "cat {{ rc_version_file_path }} | grep AUTH_URL | cut -d '=' -f 2"
+  register: osp_auth
+  failed_when: not osp_auth.stdout
+  changed_when: False
+
+- name: Register Password
+  shell: "cat {{ rc_version_file_path }} | grep OS_PASSWORD | cut -d '=' -f 2"
+  register: osp_password
+  failed_when: not osp_password.stdout
+  changed_when: False
+
+- name: Register Username
+  shell: "cat {{ rc_version_file_path }} | grep OS_USERNAME | cut -d '=' -f 2"
+  register: osp_username
+  failed_when: not osp_username.stdout
+  changed_when: False
+
+- name: Register Project name
+  shell: "cat {{ rc_version_file_path }} | grep OS_PROJECT_NAME | cut -d '=' -f 2"
+  register: osp_project_name
+  failed_when: not osp_project_name.stdout
+  changed_when: False
+
+- name: Register Domain name
+  shell: "cat {{ rc_version_file_path }} | grep OS_USER_DOMAIN_NAME | cut -d '=' -f 2"
+  register: osp_domain_name
+  failed_when: not osp_domain_name.stdout
+  changed_when: False
