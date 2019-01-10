@@ -46,6 +46,30 @@
       "revId": "16926a6899a9918b790cc3aba47121b421772bcc",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "418d4893_ee0354d8",
+        "filename": "roles/tester/tempest/tasks/register_variables.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-01-10T11:14:48Z",
+      "side": 1,
+      "message": "I meant regarding the usage of vars in each task, in the end you assign the same values to the same vars, if so then perhaps it should be consolidated.",
+      "parentUuid": "09363b5c_0fac42ff",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 26
+      },
+      "revId": "16926a6899a9918b790cc3aba47121b421772bcc",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
