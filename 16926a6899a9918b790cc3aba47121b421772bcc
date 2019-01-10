@@ -22,6 +22,30 @@
       "revId": "16926a6899a9918b790cc3aba47121b421772bcc",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09363b5c_0fac42ff",
+        "filename": "roles/tester/tempest/tasks/register_variables.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-01-10T09:33:04Z",
+      "side": 1,
+      "message": "\u003e If it\u0027s the same value that won\u0027t be changed, perhaps we should find a way to save in an elegant way as a default or something?\n\nThe thing is that the value could be changed.\nWhen the overcloud stack is deployed, the name of the stack could be changed by using the \"--stack\" argument. IR guys even added an argument to support that change name.\nAs a result, the output file of the stack will be - newnamerc and newnamerc.v3 .\nCurrent mapping allows us in that case to specify the new name of the rc file once and it will deal with the v3 version automatically.",
+      "parentUuid": "5214df09_862b8d56",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 26
+      },
+      "revId": "16926a6899a9918b790cc3aba47121b421772bcc",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
