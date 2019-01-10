@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7aebca6d_bef82e28",
+        "filename": "roles/post_install/openstack_tasks/defaults/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-01-10T11:14:07Z",
+      "side": 1,
+      "message": "\u003e data.yml is too generic, when can we make it more specific to the usecase, like tempest_resource_input?\n\nAgree.\nChanged to the following name convention over the playbook.\n\nresources_output_file: /home/stack/resources_output_file.yml\n\nThe idea is to use that same variable for both ansible playbook and tempest plugin.",
+      "parentUuid": "2c39f008_e259542e",
+      "range": {
+        "startLine": 100,
+        "startChar": 28,
+        "endLine": 100,
+        "endChar": 36
+      },
+      "revId": "cbcd8382811772d36543468e113b27910884f136",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "52c35956_d8b9698e",
         "filename": "roles/post_install/openstack_tasks/templates/data_file.j2",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2019-01-09T14:15:41Z",
       "side": 1,
       "message": "It won\u0027t log SR-IOV NICs right? Do we want to log them?",
+      "range": {
+        "startLine": 6,
+        "startChar": 1,
+        "endLine": 7,
+        "endChar": 51
+      },
+      "revId": "cbcd8382811772d36543468e113b27910884f136",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d48b001_d4970f50",
+        "filename": "roles/post_install/openstack_tasks/templates/data_file.j2",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-01-10T11:14:07Z",
+      "side": 1,
+      "message": "\u003e It won\u0027t log SR-IOV NICs right? Do we want to log them?\n\nRight now, it adds just the mgmt network address.\nSriov nics anyway doesn\u0027t get the network configuration within the instance.\nOf course, the structure of the jinja2 file could be changed in any time.",
+      "parentUuid": "52c35956_d8b9698e",
       "range": {
         "startLine": 6,
         "startChar": 1,
