@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "14f0349b_bae38e80",
+        "filename": "docs/tripleo/post_install/openstack_tasks.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1010167
+      },
+      "writtenOn": "2019-01-11T10:02:40Z",
+      "side": 1,
+      "message": "nit: Instead of specific words (instance and keypar), I would do it as - \"Generate tenant resources information yaml file with details of server, keypair, etc.,\". So that when the file are extended  with other resources, the description would be still valid (like the above one).",
+      "range": {
+        "startLine": 40,
+        "startChar": 30,
+        "endLine": 40,
+        "endChar": 58
+      },
+      "revId": "df8c3b908a11c0302a2f4640caf8525c242548fa",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
