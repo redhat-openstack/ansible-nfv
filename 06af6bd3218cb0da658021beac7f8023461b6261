@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "4825be7a_f7a7e9b2",
+        "filename": "roles/tester/tempest/tasks/register_variables.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2019-01-12T22:31:49Z",
+      "side": 1,
+      "message": "better to use grep   shell: \"grep AUTH_URL\u003d {{ rc_version_file_path }} cut -d \u0027\u003d\u0027 -f 2\"\nTo avoid export parameters if exist in script",
+      "range": {
+        "startLine": 18,
+        "startChar": 9,
+        "endLine": 18,
+        "endChar": 75
+      },
+      "revId": "06af6bd3218cb0da658021beac7f8023461b6261",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
