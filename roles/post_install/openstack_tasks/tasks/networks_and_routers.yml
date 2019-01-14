@@ -13,7 +13,7 @@
       os_network:
         cloud: "{{ overcloud_name }}"
         name: "{{ item.name }}"
-        provider_network_type: "{{ item.network_type | default('vlan') }}"
+        provider_network_type: "{{ item.network_type | default(omit) }}"
         provider_physical_network: "{{ item.physical_network | default(omit) }}"
         provider_segmentation_id: "{{ item.segmentation_id | default(omit) }}"
         external: "{{ item.external | default('false') }}"
