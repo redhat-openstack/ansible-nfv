@@ -6,7 +6,7 @@ For the repository documentation, refer to the **docs** directory, which provide
 In order to start working with TripleO environment, refer to the following doc - **docs/tripleo/post_install/tripleo_inventory.md**.  
 The playbook will generate an inventory file for the tripleo environment.
 
-**The minimum required version of Ansible for the playbooks >= 2.4**
+**The minimum required version of Ansible for the playbooks >=2.7.5,<2.8.0**
 
 ## Playbooks
 * TripleO
