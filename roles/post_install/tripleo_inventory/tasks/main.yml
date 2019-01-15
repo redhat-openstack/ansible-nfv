@@ -60,7 +60,7 @@
 
 - block:
     - name: Gather overcloud nodes details
-      include_tasks: overcloud_nodes.yml
+      import_tasks: overcloud_nodes.yml
       delegate_to: "{{ groups['undercloud'] | first }}"
 
     - name: Add hosts to host list

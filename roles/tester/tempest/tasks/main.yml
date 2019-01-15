@@ -46,16 +46,15 @@
 
 - name: Create a virtual environment and upgrade it to the latest version
   pip:
-    name: "{{ item }}"
+    name:
+      - 'pip'
+      - 'setuptools'
+      - 'stestr'
+      - 'python-subunit'
+      - 'ipdb'
+      - 'junitxml'
     virtualenv: "{{ tempest_venv }}"
     state: latest
-  with_items:
-    - 'pip'
-    - 'setuptools'
-    - 'stestr'
-    - 'python-subunit'
-    - 'ipdb'
-    - 'junitxml'
 
 - name: Install repo requirements
   pip:
@@ -69,13 +68,12 @@
 - name: Install tempest-nfv-plugin and openstack-tempest repos in a virtual environment
   pip:
     virtualenv: "{{ tempest_venv }}"
-    name: "{{ tempest_dir }}/{{ item }}"
+    name:
+      - "{{ tempest_dir }}/{{ neutron_tempest_plugin }}"
+      - "{{ tempest_dir }}/{{ nfv_tempest_plugin }}"
+      - "{{ tempest_dir }}/{{ tempest_main }}"
     state: present
     editable: true
-  with_items:
-    - "{{ neutron_tempest_plugin }}"
-    - "{{ nfv_tempest_plugin }}"
-    - "{{ tempest_main }}"
 
 - name: Get the external network id
   vars:
