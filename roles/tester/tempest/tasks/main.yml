@@ -29,16 +29,15 @@
 
 - name: Create a virtual environment and upgrade it to the latest version
   pip:
-    name: "{{ item }}"
+    name:
+      - 'pip'
+      - 'setuptools'
+      - 'stestr'
+      - 'python-subunit'
+      - 'ipdb'
+      - 'junitxml'
     virtualenv: "{{ tempest_venv }}"
     state: latest
-  with_items:
-    - 'pip'
-    - 'setuptools'
-    - 'stestr'
-    - 'python-subunit'
-    - 'ipdb'
-    - 'junitxml'
 
 - name: Install repo requirements
   pip:
@@ -52,13 +51,12 @@
 - name: Install tempest-nfv-plugin and openstack-tempest repos in a virtual environment
   pip:
     virtualenv: "{{ tempest_venv }}"
-    name: "{{ tempest_dir }}/{{ item }}"
+    name:
+      - "{{ tempest_dir }}/{{ neutron_tempest_plugin }}"
+      - "{{ tempest_dir }}/{{ nfv_tempest_plugin }}"
+      - "{{ tempest_dir }}/{{ tempest_main }}"
     state: present
     editable: true
-  with_items:
-    - "{{ neutron_tempest_plugin }}"
-    - "{{ nfv_tempest_plugin }}"
-    - "{{ tempest_main }}"
 
 - name: Get the external network id
   vars:
@@ -129,8 +127,8 @@
         --debug \
         --image "/tmp/{{ images[0].url | basename }}" \
         --network-id {{ tempest_net_id.ansible_facts.openstack_networks.0.id }} \
-        identity.uri {{ osp_auth.stdout }} \
-        identity.admin_password {{ osp_password.stdout }} \
+        identity.uri {{ rc_vars.osp_auth }} \
+        identity.admin_password {{ rc_vars.osp_password }} \
         identity.region regionOne DEFAULT.debug false \
         compute.image_ssh_user {{ image_ssh_user }} \
         compute.min_microversion {{ compute_min_microversion }} \
@@ -146,10 +144,10 @@
         {% if generate_accounts %}
         auth.test_accounts_file {{ accounts_file_path }} \
         auth.use_dynamic_credentials false \
-        auth.admin_username {{ osp_username.stdout }} \
-        auth.admin_password {{ osp_password.stdout }} \
-        auth.admin_project_name {{ osp_project_name.stdout }} \
-        auth.admin_domain_name {{ osp_domain_name.stdout }} \
+        auth.admin_username {{ rc_vars.osp_username }} \
+        auth.admin_password {{ rc_vars.osp_password }} \
+        auth.admin_project_name {{ rc_vars.osp_project_name }} \
+        auth.admin_domain_name {{ rc_vars.osp_domain_name }} \
         {% endif %}
         neutron_plugin_options.advanced_image_ref true \
         neutron_plugin_options.max_networks_per_project 1 \
