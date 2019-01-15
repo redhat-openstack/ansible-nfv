@@ -1,7 +1,5 @@
 ---
 
-rc_file: /home/stack/overcloudrc
-
 ## Tempest variables
 tempest_user: stack
 tempest_dir: /home/stack/tempest
@@ -42,3 +40,20 @@ tempest_repos:
     version:
       defaults:
         branch: 'master'
+
+## The path to the accounts.yaml file
+## Used by tempest in pre-provision mode.
+accounts_file_path: "{{ tempest_dir }}/accounts.yaml"
+
+rc_file: /home/stack/overcloudrc
+rc_params:
+  - name: osp_auth
+    value: OS_AUTH_URL
+  - name: osp_username
+    value: OS_USERNAME
+  - name: osp_password
+    value: OS_PASSWORD
+  - name: osp_project_name
+    value: OS_PROJECT_NAME
+  - name: osp_domain_name
+    value: OS_USER_DOMAIN_NAME
