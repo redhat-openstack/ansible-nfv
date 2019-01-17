@@ -45,6 +45,11 @@
   include_tasks: instances.yml
   when: instance and resource_state == 'present'
 
+- name: Generate resources output file
+  tags: resources_output
+  include_tasks: resources_output.yml
+  when: resources_output and resource_state == 'present'
+
 - name: Overcloud delete
   tags: overcloud_delete
   include_tasks: overcloud_delete.yml
