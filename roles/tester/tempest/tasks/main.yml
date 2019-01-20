@@ -183,6 +183,15 @@
     executable: /bin/bash
     chdir: "{{ tempest_dir }}/{{ tempest_main }}"
 
+- name: Preprate JSON for derived parameters test
+  tags: run_tempest_test
+  import_tasks: derive_parameters.yml
+  when:
+    - tripleo_derived_plan
+    - network_environment_file is defined
+    - roles_data_file is defined
+    - undercloud_version | int > 13
+
 - name: Execute the tempest tests and save the results
   tags: run_tempest_test
   shell: >
