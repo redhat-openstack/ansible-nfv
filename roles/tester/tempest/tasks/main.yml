@@ -183,6 +183,11 @@
     executable: /bin/bash
     chdir: "{{ tempest_dir }}/{{ tempest_main }}"
 
+- name: Preprate JSON for derived parameters test
+  tags: run_tempest_test
+  include_tasks: derive_parameters.yml
+  when: derive_plan
+
 - name: Execute the tempest tests and save the results
   tags: run_tempest_test
   shell: >
