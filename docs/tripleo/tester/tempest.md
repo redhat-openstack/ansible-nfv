@@ -90,6 +90,18 @@ Used by tempest in pre-provision mode.
 accounts_file_path: "{{ tempest_dir }}/accounts.yaml"
 ```
 
+Whether to derive DPDK TripleO parameters.
+A generated file will be created that will be used for a Derived Parameters test.
+```
+derive_plane: True
+```
+
+Path of DPDK parameters JSON file which will be generated if `derive_plan` is triggered.
+By default: `/home/stack/derived_parameters.json`
+```
+derive_paramaters_json: '/home/stack/derive_paramaters.json'
+```
+
 List of tempest tests that should be executed.
 ```
 tempest_tests:
