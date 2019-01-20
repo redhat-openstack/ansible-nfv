@@ -1,0 +1,40 @@
+- name: Derive DPDK Parameters from TripleO Plan for OSP > 13
+  block:
+    - name: Stat deployment files
+      stat:
+        path: "{{ item }}"
+      register: deployment_files_existence
+      with_items:
+        - "{{ network_environment_file }}"
+        - "{{ roles_data_file }}"
+
+    - name: Fail if deployment files not found
+      fail:
+        msg: "{{ item }} does not exist"
+      with_items: "{{ deployment_files_existence.results }}"
+      when: item.stat.exists == False
+
+    - name: Generate plan (derive DPDK parameters)
+      shell: |
+        source /home/stack/stackrc;
+        openstack overcloud deploy --update-plan-only --templates \
+        -e {{ network_environment_file }} \
+        -p /usr/share/openstack-tripleo-heat-templates/plan-samples/plan-environment-derived-params.yaml \
+        -e /usr/share/openstack-tripleo-heat-templates/environments/network-isolation.yaml \
+        -e /usr/share/openstack-tripleo-heat-templates/environments/neutron-ovs-dpdk.yaml \
+        -r {{ roles_data_file }} \
+        -e /home/stack/containers-prepare-parameter.yaml | sed -n -e '/.*Parameters:/,/\n/p'
+      register: derived_plan
+
+    - name: Parse derived_plan
+      set_fact:
+        derived_plan: "{{ derived_plan.stdout | from_yaml }}"
+
+    - name: Discover role from derived plan
+      set_fact:
+        compute_role: "{{ derived_plan.keys()[1] }}"
+
+    - name: Generate {{ derive_paramaters_json }}
+      copy:
+        content: "{{ derived_plan[compute_role] }}"
+        dest: "{{ derive_paramaters_json | default('/home/stack/derived_parameters.json') }}"
