@@ -24,6 +24,12 @@ user_for_overcloud_nodes: heat-admin
 ## Trigger to generate accounts.yaml file
 generate_accounts: false
 
+## Trigger TripleO Plan generation for OSP > 13
+tripleo_derived_plan: False
+
+## Default path to where derived parameters will be stored into
+derive_paramaters_json: '/home/stack/derived_parameters.json'
+
 users:
   - name: test_user1
     pass: 12345678
