@@ -1,0 +1,28 @@
+- name: Derive DPDK Parameters from TripleO Plan for OSP > 13
+  block:
+    - name: Generate plan (derive DPDK parameters)
+      shell: |
+        source /home/stack/stackrc;
+        openstack overcloud deploy --update-plan-only --templates \
+        -r /home/stack/ease_of_use_templates/roles_data.yaml \
+        -p /usr/share/openstack-tripleo-heat-templates/plan-samples/plan-environment-derived-params.yaml \
+        -e /usr/share/openstack-tripleo-heat-templates/environments/network-isolation.yaml \
+        -e /usr/share/openstack-tripleo-heat-templates/environments/neutron-ovs-dpdk.yaml \
+        -e /usr/share/openstack-tripleo-heat-templates/environments/neutron-sriov.yaml \
+        -e /usr/share/openstack-tripleo-heat-templates/environments/host-config-and-reboot.yaml \
+        -e /usr/share/openstack-tripleo-heat-templates/environments/ovs-dpdk-permissions.yaml \
+        -e /usr/share/openstack-tripleo-heat-templates/environments/collectd-environment.yaml \
+        -e /home/stack/ease_of_use_templates/api-policies.yaml \
+        -e /home/stack/ease_of_use_templates/network-environment.yaml \
+        -e /home/stack/containers-prepare-parameter.yaml | sed -n -e '/ComputeOvsDpdkParameters:/,/\n/p'
+      register: derived_plan
+
+    - name: Parse derived_plan
+      set_fact:
+        derived_plan: "{{ derived_plan.stdout | from_yaml }}"
+
+    - name: Generate derived_parameters.json
+      copy:
+        content: "{{ derived_plan['ComputeOvsDpdkParameters'] }}"
+        dest: "{{ derive_paramaters_json | default('/home/stack/derived_parameters.json') }}"
+  when: undercloud_version | int > 13
