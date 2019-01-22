@@ -84,6 +84,30 @@
     },
     {
       "key": {
+        "uuid": "6c6c74a1_485b29cb",
+        "filename": "roles/tester/tempest/tasks/derive_parameters.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-01-22T12:08:53Z",
+      "side": 1,
+      "message": "I think we need to set the templates path as a variable.\nAnd then check the required file for existence before proceeding.\n\nThe files within the /usr/share/openstack-tripleo-heat-templates/environments are persistent so they should not be checked, bu other files do.\n\nIf all requested files exists, proceed with the tasks.",
+      "parentUuid": "e12775ce_072a0dc7",
+      "range": {
+        "startLine": 3,
+        "startChar": 12,
+        "endLine": 3,
+        "endChar": 50
+      },
+      "revId": "64cf380b6ed813806b3233730c22a618713a9e63",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c709e223_e6a09b11",
         "filename": "roles/tester/tempest/tasks/main.yml",
         "patchSetId": 3
