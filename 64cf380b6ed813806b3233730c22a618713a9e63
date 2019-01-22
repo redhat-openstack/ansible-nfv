@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "00206801_39664f37",
+        "filename": "roles/tester/tempest/tasks/derive_parameters.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-01-22T11:46:30Z",
+      "side": 1,
+      "message": "Since we\u0027re not altering our deployment files and we deploy a setup with all the capabilities in one compute, the overcloud_deploy script won\u0027t work, we might parse the script, omit some values(like --log-file) and add some values (for example the plan file).\n\nI\u0027m not sure that we should alter our deployment files since we have everything working now.",
+      "parentUuid": "d8d3a49a_510613fe",
+      "revId": "64cf380b6ed813806b3233730c22a618713a9e63",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "14c10f8a_268d1890",
         "filename": "roles/tester/tempest/tasks/derive_parameters.yml",
         "patchSetId": 3
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "e12775ce_072a0dc7",
+        "filename": "roles/tester/tempest/tasks/derive_parameters.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-01-22T11:46:30Z",
+      "side": 1,
+      "message": "If we\u0027ll decide to continue with this method of testing, what can be done to fix this?",
+      "parentUuid": "14c10f8a_268d1890",
+      "range": {
+        "startLine": 3,
+        "startChar": 12,
+        "endLine": 3,
+        "endChar": 50
+      },
+      "revId": "64cf380b6ed813806b3233730c22a618713a9e63",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "c709e223_e6a09b11",
         "filename": "roles/tester/tempest/tasks/main.yml",
         "patchSetId": 3
@@ -53,6 +95,30 @@
       "writtenOn": "2019-01-22T09:55:43Z",
       "side": 1,
       "message": "The tag here will be applied only to the task itself but not to the tasks within the derive_parameters.yml file.\nThis is the change in ansible 2.5.\nTwo possible solutions:\n1. Change the include_tasks to import tasks.\n2. Add the same tag to the block task within the derive_paramaters.yml\n\nhttps://docs.ansible.com/ansible/latest/porting_guides/porting_guide_2.5.html#dynamic-includes-and-attribute-inheritance",
+      "range": {
+        "startLine": 187,
+        "startChar": 2,
+        "endLine": 188,
+        "endChar": 38
+      },
+      "revId": "64cf380b6ed813806b3233730c22a618713a9e63",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8da25a44_8e17ce97",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-01-22T11:46:30Z",
+      "side": 1,
+      "message": "Ack, thanks.\n\nWill solve this if we\u0027ll decide to proceed with this.",
+      "parentUuid": "c709e223_e6a09b11",
       "range": {
         "startLine": 187,
         "startChar": 2,
