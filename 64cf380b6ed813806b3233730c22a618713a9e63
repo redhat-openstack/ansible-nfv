@@ -16,6 +16,52 @@
       "revId": "64cf380b6ed813806b3233730c22a618713a9e63",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14c10f8a_268d1890",
+        "filename": "roles/tester/tempest/tasks/derive_parameters.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-01-22T09:55:43Z",
+      "side": 1,
+      "message": "Too many hardcoded values.",
+      "range": {
+        "startLine": 3,
+        "startChar": 12,
+        "endLine": 3,
+        "endChar": 50
+      },
+      "revId": "64cf380b6ed813806b3233730c22a618713a9e63",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c709e223_e6a09b11",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 188,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-01-22T09:55:43Z",
+      "side": 1,
+      "message": "The tag here will be applied only to the task itself but not to the tasks within the derive_parameters.yml file.\nThis is the change in ansible 2.5.\nTwo possible solutions:\n1. Change the include_tasks to import tasks.\n2. Add the same tag to the block task within the derive_paramaters.yml\n\nhttps://docs.ansible.com/ansible/latest/porting_guides/porting_guide_2.5.html#dynamic-includes-and-attribute-inheritance",
+      "range": {
+        "startLine": 187,
+        "startChar": 2,
+        "endLine": 188,
+        "endChar": 38
+      },
+      "revId": "64cf380b6ed813806b3233730c22a618713a9e63",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
