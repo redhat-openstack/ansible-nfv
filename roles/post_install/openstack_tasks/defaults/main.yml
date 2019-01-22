@@ -4,6 +4,7 @@
 setup_os_env: true
 user: false
 network: true
+net_port: true
 flavor: true
 image: true
 keypair: true
@@ -62,6 +63,9 @@ networks:
   - name: private2
     physical_network: tenant2
     cidr: 173.30.0.0/24
+  - name: private3
+    physical_network: tenant3
+    cidr: 174.40.0.0/24
 
 dns_nameservers:
   - 8.8.8.8
@@ -105,8 +109,30 @@ instances:
     image: centos
     key_name: "{{ keypair_name }}"
     sec_groups: test_secgroup
-    nics: net-name=private1,net-name=private2
     floating_ip: yes
+    # The nics attached to the instance could be a created ports specified below,
+    # or just a network name. Note the port-name and net-name.
+    nics: port-name=private_net1_port1,port-name=private_net2_port2,net-name=private_net3
+    net_ports:
+      - name: private_net1_port1
+        network: private_net1
+        type: normal
+        sec_groups: test_secgroup
+      - name: private_net2_port2
+        network: private_net2
+        type: direct
+  - name: vm2
+    flavor: nfv_flavor
+    image: centos
+    key_name: "{{ keypair_name }}"
+    sec_groups: test_secgroup
+    floating_ip: yes
+    nics: net-name=private_net3,port-name=private_net1_port3
+    net_ports:
+      - name: private_net1_port3
+        network: private_net1
+        type: normal
+        sec_groups: test_secgroup
 
 # The path to the file output of the created resources.
 resources_output_file: /home/stack/resources_output_file.yml

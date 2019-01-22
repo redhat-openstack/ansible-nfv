@@ -15,6 +15,11 @@
   include_tasks: users.yml
   when: user
 
+- name: Security groups creation
+  tags: security_group
+  include_tasks: security_groups.yml
+  when: security_group and resource_state == 'present'
+
 - name: Networks
   tags: network
   include_tasks: networks_and_routers.yml
@@ -35,10 +40,10 @@
   include_tasks: keypair.yml
   when: keypair
 
-- name: Security groups
+- name: Security groups delete
   tags: security_group
   include_tasks: security_groups.yml
-  when: security_group
+  when: security_group and resource_state == 'absent'
 
 - name: Instances
   tags: instance
