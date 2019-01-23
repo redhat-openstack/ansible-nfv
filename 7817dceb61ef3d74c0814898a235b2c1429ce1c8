@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a2be14a1_1dff052a",
+        "filename": "roles/post_install/openstack_tasks/defaults/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-01-23T09:42:22Z",
+      "side": 1,
+      "message": "I think it should be \u0027private_net1\u0027 according to the example.",
+      "range": {
+        "startLine": 126,
+        "startChar": 19,
+        "endLine": 126,
+        "endChar": 31
+      },
+      "revId": "7817dceb61ef3d74c0814898a235b2c1429ce1c8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
