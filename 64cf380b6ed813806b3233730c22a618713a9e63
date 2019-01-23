@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "988b668e_cd691bc1",
+        "filename": "docs/tripleo/tester/tempest.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1007976
+      },
+      "writtenOn": "2019-01-23T09:51:19Z",
+      "side": 1,
+      "message": "derive_plan: True ?",
+      "range": {
+        "startLine": 96,
+        "startChar": 0,
+        "endLine": 96,
+        "endChar": 12
+      },
+      "revId": "64cf380b6ed813806b3233730c22a618713a9e63",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "d8d3a49a_510613fe",
         "filename": "roles/tester/tempest/tasks/derive_parameters.yml",
         "patchSetId": 3
@@ -101,6 +124,53 @@
         "startChar": 12,
         "endLine": 3,
         "endChar": 50
+      },
+      "revId": "64cf380b6ed813806b3233730c22a618713a9e63",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ff4bff8_2db3d352",
+        "filename": "roles/tester/tempest/tasks/derive_parameters.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1007976
+      },
+      "writtenOn": "2019-01-23T09:51:19Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6c6c74a1_485b29cb",
+      "range": {
+        "startLine": 3,
+        "startChar": 12,
+        "endLine": 3,
+        "endChar": 50
+      },
+      "revId": "64cf380b6ed813806b3233730c22a618713a9e63",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "41308437_8747bc54",
+        "filename": "roles/tester/tempest/tasks/derive_parameters.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1007976
+      },
+      "writtenOn": "2019-01-23T09:51:19Z",
+      "side": 1,
+      "message": "we should be constant of the usage of variable names, earlier it was derive, here its derived",
+      "range": {
+        "startLine": 18,
+        "startChar": 16,
+        "endLine": 18,
+        "endChar": 23
       },
       "revId": "64cf380b6ed813806b3233730c22a618713a9e63",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
