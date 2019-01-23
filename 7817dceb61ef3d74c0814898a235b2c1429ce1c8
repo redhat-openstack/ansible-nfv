@@ -22,6 +22,30 @@
       "revId": "7817dceb61ef3d74c0814898a235b2c1429ce1c8",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c9b8065_a5e9f416",
+        "filename": "roles/post_install/openstack_tasks/defaults/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-01-23T09:58:15Z",
+      "side": 1,
+      "message": "You are right.\nAdded private_net3 network to the example.\nThe reason is to show the ability to specify created ports with different types and in addition to specifying the network name only without port creation.",
+      "parentUuid": "a2be14a1_1dff052a",
+      "range": {
+        "startLine": 126,
+        "startChar": 19,
+        "endLine": 126,
+        "endChar": 31
+      },
+      "revId": "7817dceb61ef3d74c0814898a235b2c1429ce1c8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
