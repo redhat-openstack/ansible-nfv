@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "54345426_9bd2fe25",
+        "filename": "roles/tester/tempest/defaults/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-01-24T12:52:48Z",
+      "side": 1,
+      "message": "Please, make it false by the default.\nIt should work with the minimal default params for any setup.",
+      "range": {
+        "startLine": 28,
+        "startChar": 22,
+        "endLine": 28,
+        "endChar": 26
+      },
+      "revId": "12b3883008e8f2dead25a3f2f882d3573ac40370",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b918b7c7_5e76df8b",
+        "filename": "roles/tester/tempest/tasks/derive_parameters.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-01-24T12:52:48Z",
+      "side": 1,
+      "message": "Change it to --os-cloud.\n\nRefer to the following example.\nhttps://github.com/redhat-openstack/ansible-nfv/blob/devel/roles/post_install/openstack_tasks/tasks/networks_and_routers.yml#L72",
+      "range": {
+        "startLine": 19,
+        "startChar": 8,
+        "endLine": 19,
+        "endChar": 35
+      },
+      "revId": "12b3883008e8f2dead25a3f2f882d3573ac40370",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
