@@ -22,6 +22,30 @@
       "revId": "077616133096cafed3bc23f69bf2e43a4ab8649c",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eedff433_7153519a",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-01-27T06:51:17Z",
+      "side": 1,
+      "message": "1) Yes, as long as you have introspection data in undercloud and you use same tags in template files.\n\n2) I don\u0027t think we\u0027ll do this for 10, we\u0027re testing the TripleO plan for derive parameters, it\u0027s non existent for 10.",
+      "parentUuid": "e8220c3b_a69b61d6",
+      "range": {
+        "startLine": 186,
+        "startChar": 8,
+        "endLine": 186,
+        "endChar": 49
+      },
+      "revId": "077616133096cafed3bc23f69bf2e43a4ab8649c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
