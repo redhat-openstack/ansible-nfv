@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a2e63b1_5536c7a4",
+        "filename": "roles/tester/tempest/tasks/derive_parameters.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1010167
+      },
+      "writtenOn": "2019-01-28T03:39:09Z",
+      "side": 1,
+      "message": "Why is overcloud_deploy.sh script is not used?",
+      "revId": "be2a1bd25d97dc71576e7c7472322a1f7877acfd",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
