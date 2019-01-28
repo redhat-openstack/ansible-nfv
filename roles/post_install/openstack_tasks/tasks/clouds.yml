@@ -1,0 +1,70 @@
+---
+
+- name: Checking if the overcloudrc file is exists
+  stat:
+    path: "{{ tripleo_overcloud_file }}"
+  register: overcloudrc_file
+
+- name: Initialize the rc and cloudname lists
+  set_fact:
+    rc_files: []
+    cloudname: []
+
+- name: Add rc files to list
+  set_fact:
+    rc_files: "{{ rc_files }} + [ '{{ item }}' ]"
+  loop:
+    - "{{ tripleo_undercloud_file }}"
+    - "{{ tripleo_overcloud_file }}"
+
+- name: Add cloudnames to list
+  set_fact:
+    cloudname: "{{ cloudname }} + [ '{{ item }}' ]"
+  loop:
+    - 'undercloud'
+    - 'overcloud'
+
+- name: Add users to clouds.yaml
+  include_tasks: users_clouds.yml
+  when:
+    - user
+    - overcloudrc_file.stat.exists
+
+- name: Get Cloud variables
+  shell: |
+    for key in $(set | awk '{FS="="} /^OS_/ {print $1}'); do unset $key; done
+    source {{ item.0 }}
+    echo -n "{{ item.1 }}: \
+      {'auth': \
+        { 'auth-url': '$OS_AUTH_URL', \
+          'username': '$OS_USERNAME', \
+          'password': '$OS_PASSWORD', \
+          $(if [ -n "$OS_USER_DOMAIN_NAME" ]; then echo "'user_domain_name': '${OS_USER_DOMAIN_NAME}',"; fi) \
+          $(if [ -n "$OS_PROJECT_DOMAIN_NAME" ]; then echo "'project_domain_name': '${OS_PROJECT_DOMAIN_NAME}',"; fi) \
+          'project-name': '${OS_PROJECT_NAME:-$OS_TENANT_NAME}' \
+        } $(if [ -n "$OS_IDENTITY_API_VERSION" ]; then echo ", 'identity_api_version': '${OS_IDENTITY_API_VERSION}'"; fi) }"
+  loop: "{{ rc_files | zip(cloudname) | list }}"
+  register: cloud_details
+  failed_when: overcloudrc_file.stat.exists == 'False'
+
+- name: "Create directory for writing clouds.yaml"
+  file:
+    state: directory
+    path: "~/.config/openstack/"
+
+- name: Create clouds.yaml if doesn't exist
+  blockinfile:
+    content: 'clouds:'
+    dest: "~/.config/openstack/clouds.yaml"
+    marker: "#{mark} HEADER"
+    create: yes
+
+- name: Insert cloud parameters
+  blockinfile:
+    dest: "~/.config/openstack/clouds.yaml"
+    block: |1
+      {{ item.stdout|from_yaml|to_nice_yaml(indent=4) }}
+    insertbefore: "#END {{ item.item.1 }} SECTION"
+    marker: "#{mark} {{ item.item.1 }} PARAMETERS"
+  when: "item.rc != 1"
+  loop: "{{ cloud_details.results | flatten(levels=1) }}"

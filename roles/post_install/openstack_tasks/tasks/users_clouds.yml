@@ -1,0 +1,38 @@
+---
+
+- name: Copy overcloudrc file for users
+  copy:
+    src: "{{ tripleo_overcloud_file }}"
+    dest: "{{ tripleo_overcloud_file | dirname }}/{{ item.name }}_rc"
+    remote_src: yes
+    mode: preserve
+  loop: "{{ users | flatten(levels=1) }}"
+
+- name: Replace rc file values to user values
+  vars:
+    keys:
+      - os_key: 'OS_USERNAME'
+        users_key: 'name'
+      - os_key: 'OS_PASSWORD'
+        users_key: 'pass'
+      - os_key: 'OS_PROJECT_NAME'
+        users_key: 'project'
+      - os_key: 'OS_USER_DOMAIN_NAME'
+        users_key: 'domain'
+      - os_key: 'OS_CLOUDNAME'
+        users_key: 'name'
+  replace:
+    path: "{{ tripleo_overcloud_file | dirname }}/{{ item.1.name }}_rc"
+    regexp: (.*{{ item.0.os_key }})=.*
+    replace: \1={{ item.1[item.0.users_key] }}
+  loop: "{{ keys | product(users) | list }}"
+
+- name: Append users rc files to list
+  set_fact:
+    rc_files: "{{ rc_files }} + [ '{{ tripleo_overcloud_file | dirname }}/{{ item.name }}_rc' ]"
+  loop: "{{ users }}"
+
+- name: Append users cloudnames to list
+  set_fact:
+    cloudname: "{{ cloudname }} + [ '{{ item.name }}' ]"
+  loop: "{{ users }}"

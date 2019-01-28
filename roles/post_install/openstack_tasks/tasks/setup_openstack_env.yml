@@ -1,84 +1,54 @@
 ---
 
-- name: Checking if the overcloudrc file is exists
-  stat:
-    path: "{{ tripleo_overcloud_file }}"
-  register: overcloudrc_file
+- name: Check if running inside virtualenv
+  command: |
+    python -c "import sys; print True if hasattr(sys, 'real_prefix') else False"
+  register: is_venv
+  changed_when: False
 
-- name: Get Cloud variables
-  shell: |
-    for key in $(set | awk '{FS="="} /^OS_/ {print $1}'); do unset $key; done
-    source {{ item.0 }}
-    echo -n "{{ item.1 }}: \
-      {'auth': \
-        { 'auth-url': '$OS_AUTH_URL', \
-          'username': '$OS_USERNAME', \
-          'password': '$OS_PASSWORD', \
-          $(if [ -n "$OS_USER_DOMAIN_NAME" ]; then echo "'user_domain_name': '${OS_USER_DOMAIN_NAME}',"; fi) \
-          $(if [ -n "$OS_PROJECT_DOMAIN_NAME" ]; then echo "'project_domain_name': '${OS_PROJECT_DOMAIN_NAME}',"; fi) \
-          'project-name': '${OS_PROJECT_NAME:-$OS_TENANT_NAME}' },
-      'identity_api_version': '$OS_IDENTITY_API_VERSION' }"
-  with_together:
-    - ["{{ tripleo_undercloud_file }}", "{{ tripleo_overcloud_file }}"]
-    - ['undercloud', 'overcloud']
-  register: cloud_details
-  failed_when: overcloudrc_file.stat.exists == 'False'
-
-- name: "Create directory for writing clouds.yaml"
-  file:
-    state: directory
-    path: "~/.config/openstack/"
-
-- name: Create clouds.yaml if doesn't exist
-  blockinfile:
-    content: 'clouds:'
-    dest: "~/.config/openstack/clouds.yaml"
-    marker: "#{mark} HEADER"
-    create: yes
-
-- name: Insert cloud parameters
-  blockinfile:
-    dest: "~/.config/openstack/clouds.yaml"
-    block: |1
-      {{ item.stdout|from_yaml|to_nice_yaml(indent=4) }}
-    insertbefore: "#END {{ item.item.1 }} SECTION"
-    marker: "#{mark} {{ item.item.1 }} PARAMETERS"
-  when: "item.rc != 1"
-  with_items: "{{ cloud_details.results }}"
-
-- block:
-    - name: Install requirements for pip virtualenv
-      package:
-        name: "{{ item }}"
-        state: present
-      with_items:
-        - 'python-devel'
-        - 'python-setuptools'
-        - 'gcc'
-        - 'libffi-devel'
-
-    - name: Install pip package
-      easy_install:
-        name: pip
-
-    - name: Delete existing venv if exists
-      file:
-        path: "{{ venv_path }}"
-        state: absent
-
-    - name: Install virtualenv
-      pip:
-        name: virtualenv
-        version: '15.1.0'
+- name: Install requirements for pip virtualenv
+  package:
+    name:
+      - gcc
+      - python-devel
+      - python-setuptools
+      - libffi-devel
+    state: present
   become: true
 
-- name: Create virtualenv
+- name: Install pip package
+  easy_install:
+    name: pip
+  become: true
+
+- name: Install virtualenv pip module
   pip:
-    name: "{{ item.key }}"
-    version: "{{ item.value }}"
+    name: virtualenv
+    state: forcereinstall
+    extra_args: "{{ (is_venv.stdout | bool) | ternary(omit, '--user') }}"
+
+# Delete the venv in order to avoid packages conflicts
+- name: Delete existing venv if exists
+  file:
+    path: "{{ venv_path }}"
+    state: absent
+  become: true
+
+# Install pip and setuptools should happen before other rpackages
+- name: Install virtualenv core deps
+  pip:
+    name:
+      - pip>=10.0.1
+      - setuptools>=39.0.0
     virtualenv: "{{ venv_path }}"
-  with_dict:
-    pip: '9.0.1'
-    setuptools: '38.2.4'
-    pytz: '2017.3'
-    shade: '1.25.0'
+
+- name: Install virtualenv packages
+  pip:
+    name:
+      - pytz==2016.4
+      - cmd2==0.8.6
+      - shade>=1.25
+    virtualenv: "{{ venv_path }}"
+
+- name: Generate clouds.yaml file
+  include_tasks: clouds.yml
