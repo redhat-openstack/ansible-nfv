@@ -6,6 +6,10 @@ Openstack tasks play perform the following tasks on the existing Openstack envir
 * Setup Openstack environment
     * Creates and prepares the virtual pip environment with all required command line tools.  
       Creates clouds.yml file with all the details for the connection to the Openstack env.
+* Creates users, projects and clouds.yaml user configs
+    * Creates users and projects based on the specified variables.
+    * Generates users rc files.
+    * Generates users configs within the clouds.yaml file for the later tasks by the users.
 * Creates networks
     * Creates networks, subnets and routers by using the variables list provided to the play.  
       Public networks sets as a gateway on the router and private networks sets as a router interface by using the 'external' flag within the variables provided.
@@ -30,6 +34,7 @@ The run could be separated by specifying tags of specific run.
 
 ## Role tags
 * setup_os_env - Run Openstack virtual env creation for env tasks.
+* user - Run users and projects creation.
 * network - Run networks creation.
 * flavor - Run flavors creation.
 * image - Upload images to the Openstack environment.
@@ -41,6 +46,7 @@ The run could be separated by specifying tags of specific run.
 
 ## Run triggers
 * setup_os_env - Executed if 'true'. True by default.
+* user - Executed if 'true'. False by default.
 * network - Executed if 'true'. True by default.
 * flavor - Executed if 'true'. True by default.
 * image - Executed if 'true'. True by default.
@@ -60,6 +66,21 @@ resource_state: present
 #### The name of the overcloud/user, the tasks should be run on.
 ```
 overcloud_name: overcloud
+```
+
+#### List of users and projects that should be created
+```
+users:
+  - name: test_user1
+    pass: 12345678
+    project: test_project1
+    domain: default
+    role: member
+  - name: test_user2
+    pass: 87654321
+    project: test_project2
+    domain: default
+    role: member
 ```
 
 #### Network creation variables
