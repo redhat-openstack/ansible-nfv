@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "318ac368_d09dc5ce",
+        "filename": "roles/post_install/openstack_tasks/tasks/clouds.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-01-29T14:24:07Z",
+      "side": 1,
+      "message": "Fixed.",
+      "parentUuid": "d7eb51dd_a94233c3",
+      "range": {
+        "startLine": 3,
+        "startChar": 41,
+        "endLine": 3,
+        "endChar": 43
+      },
+      "revId": "75808b7bfaf04b78b04dbecd046fecc6adf74d69",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7e0cd7fd_be42408b",
         "filename": "roles/post_install/openstack_tasks/tasks/clouds.yml",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2019-01-29T10:08:01Z",
       "side": 1,
       "message": "Perhaps it\u0027s worth to move those variables to defaults instead of assign them in a task?\n\nOr do:\nrc_files | default([]) in the task below",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 17
+      },
+      "revId": "75808b7bfaf04b78b04dbecd046fecc6adf74d69",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07938427_7c09b785",
+        "filename": "roles/post_install/openstack_tasks/tasks/clouds.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-01-29T14:24:07Z",
+      "side": 1,
+      "message": "Set the second options (with the default([])).\nIn addition, combined \"Add rc files to list\" and \"Add cloudnames to list\" tasks into a single one.",
+      "parentUuid": "7e0cd7fd_be42408b",
       "range": {
         "startLine": 8,
         "startChar": 0,
