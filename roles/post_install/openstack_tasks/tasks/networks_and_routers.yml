@@ -46,7 +46,10 @@
         name: "{{ item.router_name }}"
         network: "{{ item.name }}"
         state: present
-      when: "item.external is defined and item.external"
+      when:
+        - item.external is defined
+        - item.external
+        - item.router_name is defined
       with_items: "{{ networks }}"
 
     # TODO: Refactor the task in order to match the following scenarios:
@@ -104,6 +107,10 @@
         remove subnet "{{ item.router_name }}" "{{ item.name }}_subnet"
       when: "item.external is defined and not item.external"
       with_items: "{{ networks }}"
+      register: detach_interfaces
+      failed_when:
+        - detach_interfaces.rc == 1
+        - detach_interfaces.stderr.find('No Subnet found') == -1
 
     - name: Delete router
       vars:
@@ -124,4 +131,8 @@
         name: "{{ item.name }}"
         state: absent
       with_items: "{{ networks }}"
+      register: delete_networks
+      failed_when:
+        - delete_networks.msg is defined
+        - delete_networks.msg.find('rule:delete_network is disallowed by policy') == -1
   when: resource_state == 'absent'
