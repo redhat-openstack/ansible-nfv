@@ -11,8 +11,9 @@ Openstack tasks play perform the following tasks on the existing Openstack envir
     * Generates users rc files.
     * Generates users configs within the clouds.yaml file for the later tasks by the users.
 * Creates networks
-    * Creates networks, subnets and routers by using the variables list provided to the play.  
-      Public networks sets as a gateway on the router and private networks sets as a router interface by using the 'external' flag within the variables provided.
+    * Creates networks, subnets, routers and ports by using the variables list provided to the play.  
+      Public networks sets as a gateway on the router and private networks sets as a router interface by using the 'external' flag within the variables provided.  
+      The interfaces for the instance could be specified as a network name or as a created port name.
 * Upload images
     * Upload provided images to the glance store of the overcloud.
 * Creates flavors and extra_specs
@@ -36,6 +37,7 @@ The run could be separated by specifying tags of specific run.
 * setup_os_env - Run Openstack virtual env creation for env tasks.
 * user - Run users and projects creation.
 * network - Run networks creation.
+* net_port - Run instance port creation.
 * flavor - Run flavors creation.
 * image - Upload images to the Openstack environment.
 * keypair - Run keypair creation.
@@ -48,6 +50,7 @@ The run could be separated by specifying tags of specific run.
 * setup_os_env - Executed if 'true'. True by default.
 * user - Executed if 'true'. False by default.
 * network - Executed if 'true'. True by default.
+* net_port - Executed if 'true'. True be default.
 * flavor - Executed if 'true'. True by default.
 * image - Executed if 'true'. True by default.
 * keypair - Executed if 'true'. True by default.
@@ -119,6 +122,9 @@ networks:
   - name: private2
     physical_network: tenant2
     cidr: 173.30.0.0/24
+  - name: private3
+    physical_network: tenant3
+    cidr: 174.40.0.0/24
 ```
 
 Set DNS servers.
@@ -190,8 +196,30 @@ instances:
     image: centos
     key_name: "{{ keypair_name }}"
     sec_groups: test_secgroup
-    nics: net-name=private1,net-name=private2
     floating_ip: yes
+    # The nics attached to the instance could be a created ports specified below,
+    # or just a network name. Note the port-name and net-name.
+    nics: port-name=private_net1_port1,port-name=private_net2_port2,net-name=private_net3
+    net_ports:
+      - name: private_net1_port1
+        network: private_net1
+        type: normal
+        sec_groups: test_secgroup
+      - name: private_net2_port2
+        network: private_net2
+        type: direct
+  - name: vm2
+    flavor: nfv_flavor
+    image: centos
+    key_name: "{{ keypair_name }}"
+    sec_groups: test_secgroup
+    floating_ip: yes
+    nics: net-name=private_net3,port-name=private_net1_port3
+    net_ports:
+      - name: private_net1_port3
+        network: private_net1
+        type: normal
+        sec_groups: test_secgroup
 ```
 
 #### Overcloud delete variables

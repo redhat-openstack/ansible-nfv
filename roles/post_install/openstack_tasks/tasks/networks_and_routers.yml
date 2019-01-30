@@ -62,10 +62,41 @@
         state: present
       when: "item.external is defined and not item.external"
       with_items: "{{ networks }}"
+
+    - name: Create network ports
+      vars:
+        ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+      os_port:
+        cloud: "{{ overcloud_name }}"
+        name: "{{ item.1.name }}"
+        network: "{{ item.1.network }}"
+        vnic_type: "{{ item.1.type }}"
+        security_groups: "{{ item.1.sec_groups | default(omit) }}"
+        state: present
+      with_subelements:
+        - "{{ instances }}"
+        - net_ports
+        - skip_missing: True
+      when: net_port
   when: resource_state == 'present'
 
 - name: Delete networks and routers
   block:
+    - name: Delete network ports
+      vars:
+        ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+      os_port:
+        cloud: "{{ overcloud_name }}"
+        name: "{{ item.1.name }}"
+        network: "{{ item.1.network }}"
+        vnic_type: "{{ item.1.type }}"
+        state: absent
+      with_subelements:
+        - "{{ instances }}"
+        - net_ports
+        - skip_missing: True
+      when: net_port
+
     # The os_router module unable to detach the interface from the router
     - name: Detach router interfaces
       command: >
