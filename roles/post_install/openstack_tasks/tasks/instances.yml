@@ -17,3 +17,16 @@
   with_items:
     - "{{ instances }}"
   register: reg_instance
+
+- name: Add instances to dynamic inventory
+  add_host:
+    name: "{{ item.0.item.name }}"
+    group: "{{ item.1.groups | default(omit) }}"
+    ansible_host: "{{ item.0.openstack.accessIPv4 }}"
+    ansible_user: "{{ item.1.connection_user | default(connection_user) }}"
+    ansible_ssh_port: 22
+    ansible_ssh_private_key_file: "/tmp/{{ keypair_name }}.key"
+  with_together:
+    - "{{ reg_instance.results }}"
+    - "{{ instances }}"
+  when: resource_state == 'present'

@@ -89,6 +89,7 @@ flavors:
         "hw:numa_cpus.0": "0,1,2,3"
         "hw:cpu_policy": "dedicated"
 
+connection_user: cloud_user
 keypair_name: test_keypair
 
 security_groups:
@@ -105,6 +106,7 @@ security_groups:
 
 instances:
   - name: vm1
+    groups: vm_group
     flavor: nfv_flavor
     image: centos
     key_name: "{{ keypair_name }}"
@@ -122,6 +124,7 @@ instances:
         network: private_net2
         type: direct
   - name: vm2
+    connection_user: user
     flavor: nfv_flavor
     image: centos
     key_name: "{{ keypair_name }}"

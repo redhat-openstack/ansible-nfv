@@ -192,6 +192,7 @@ Specify the instance and arguments that the instance should be created with.
 ```
 instances:
   - name: vm1
+    groups: vm_group     # The variable could be omitted
     flavor: nfv_flavor
     image: centos
     key_name: "{{ keypair_name }}"
@@ -209,6 +210,7 @@ instances:
         network: private_net2
         type: direct
   - name: vm2
+    connection_user: user     # The variable could be omitted
     flavor: nfv_flavor
     image: centos
     key_name: "{{ keypair_name }}"
