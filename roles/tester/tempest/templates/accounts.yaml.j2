@@ -8,9 +8,9 @@
     - {{ user. role }}
 {% endif %}
 {% endfor %}
-- username: {{ osp_username.stdout }}
-  password: {{ osp_password.stdout }}
-  domain_name: {{ osp_domain_name.stdout }}
-  project_name: {{ osp_project_name.stdout }}
+- username: {{ rc_vars.osp_username }}
+  password: {{ rc_vars.osp_password }}
+  domain_name: {{ rc_vars.osp_domain_name }}
+  project_name: {{ rc_vars.osp_project_name }}
   types:
     - admin

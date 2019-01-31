@@ -7,6 +7,4 @@ servers:
         - addr: {{ instance.openstack.private_v4 }}
 {% endfor %}
 
-key_pair:
-  private_key: |
-    {{ reg_keypair.key.private_key | indent(4) }}
+key_pair: "{{ resources_output_file | dirname }}/{{ keypair_name }}.key"

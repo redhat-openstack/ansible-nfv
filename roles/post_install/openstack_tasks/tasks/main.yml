@@ -53,9 +53,23 @@
 - name: Generate resources output file
   tags: resources_output
   include_tasks: resources_output.yml
-  when: resources_output and resource_state == 'present'
 
 - name: Overcloud delete
   tags: overcloud_delete
   include_tasks: overcloud_delete.yml
   when: overcloud_delete
+
+- name: Print created files
+  vars:
+    msg: |
+      The following files have been generated:
+
+      Instances ssh private key:
+      {{ resources_output_file | dirname }}/{{ keypair_name }}.key
+      The key is also fetched to your local machine to /tmp directory.
+
+      Resources output file:
+      {{ resources_output_file }}
+  debug:
+    msg: "{{ msg.split('\n') }}"
+  when: instance and resource_state == 'present'
