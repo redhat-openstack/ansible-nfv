@@ -4,9 +4,11 @@
   hosts: undercloud
   gather_facts: False
   vars:
+    user: false
+    net_port: false
     image: false
-    keypair: true
-    security_group: true
+    keypair: false
+    security_group: false
   roles:
     - post_install/openstack_tasks
 
