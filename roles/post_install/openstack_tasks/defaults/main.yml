@@ -26,6 +26,10 @@ users:
     project: test_project1
     domain: default
     role: member
+    quota:
+      - cores: 20
+        ram: 20480
+        instances: 25
   - name: test_user2
     pass: 87654321
     project: test_project2
