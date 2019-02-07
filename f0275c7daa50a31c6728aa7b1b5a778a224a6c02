@@ -16,6 +16,24 @@
       "revId": "f0275c7daa50a31c6728aa7b1b5a778a224a6c02",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e515976e_b2401965",
+        "filename": "roles/post_install/openstack_tasks/tasks/users.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-07T12:15:26Z",
+      "side": 1,
+      "message": "As you can see in line 47, there is a \u0027state\u0027, which means that when executing the play with the variable \u0027absent\u0027 for the resource_state, it will remove the quota and set it to the defaults.\n\nhttps://docs.ansible.com/ansible/latest/modules/os_quota_module.html",
+      "parentUuid": "4484bf90_995e33fe",
+      "revId": "f0275c7daa50a31c6728aa7b1b5a778a224a6c02",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
