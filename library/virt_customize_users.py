@@ -120,7 +120,7 @@ def users(guest, module):
         if state == 'present':
             if user_exists:
                 try:
-                    guest.sh_lines('{u}:{p} | chpasswd'.format(u=user_name,
+                    guest.sh_lines('echo {u}:{p} | chpasswd'.format(u=user_name,
                                                                p=user_password))
                 except Exception as e:
                     err = True
@@ -130,7 +130,7 @@ def users(guest, module):
             else:
                 try:
                     guest.sh_lines('useradd {user}'.format(user=user_name))
-                    guest.sh_lines('{u}:{p} | chpasswd'.format(u=user_name,
+                    guest.sh_lines('echo {u}:{p} | chpasswd'.format(u=user_name,
                                                                p=user_password))
                 except Exception as e:
                     err = True
