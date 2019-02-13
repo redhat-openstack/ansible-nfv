@@ -1,0 +1,24 @@
+---
+- name: Install libguest RPM prerequisites
+  yum:
+    name:
+      - libguestfs
+      - python-libguestfs
+    state: present
+
+- name: Customize Guest Image - DPDK Flow
+  include_tasks: prepare_dpdk.yml
+  when: prepare_dpdk | default(False)
+
+- name: Customize Guest Image - Trex Flow
+  include_tasks: prepare_trex.yml
+  when: prepare_trex | default(False)
+
+- name: Customize Guest Image With Necessery RPMs
+  virt_customize_packages:
+    name:
+      - screen
+    state: present
+    image: "{{ guest_image | mandatory }}"
+    selinux_relabel: True
+
