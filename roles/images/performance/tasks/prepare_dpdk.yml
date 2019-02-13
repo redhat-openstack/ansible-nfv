@@ -1,0 +1,35 @@
+- name: Install repos inside guest image
+  virt_customize_command:
+    shell:
+      - 'if ! rpm -q rhos-release; then rpm -ivh http://rhos-release.virt.bos.redhat.com/repos/rhos-release/rhos-release-latest.noarch.rpm; fi'
+      - 'rm -rf /etc/yum.repos.d/*;rm -rf /var/cache/yum/*'
+      - "rhos-release {{ undercloud_version }}"
+    image: "{{ guest_image }}"
+
+- name: Install packages inside guest image
+  virt_customize_packages:
+    name:
+      - git
+      - gcc
+      - make
+      - cmake
+      - gcc-c++
+      - pciutils
+      - glibc-devel
+      - glibc-headers
+      - kernel-headers
+      - numactl-devel
+      - kernel
+      - kernel-devel
+    state: present
+    image: "{{ guest_image }}"
+
+- name: Prepare DPDK binaries inside guest image
+  virt_customize_command:
+    shell:
+      - "if [ ! -d /root/dpdk ];then git clone git://dpdk.org/dpdk /root/dpdk -b {{ dpdk_version }}; fi"
+      - "sed -i 's/CONFIG_RTE_KNI_KMOD=.*/CONFIG_RTE_KNI_KMOD=n/g' /root/dpdk/config/common_linuxapp"
+      - "sed -i 's/CONFIG_RTE_LIBRTE_KNI=.*/CONFIG_RTE_LIBRTE_KNI=n/g' /root/dpdk/config/common_linuxapp"
+      - 'cd /root/dpdk/; /usr/bin/make config T=x86_64-native-linuxapp-gcc; /usr/bin/make'
+    image: "{{ guest_image }}"
+    selinux_relabel: True
