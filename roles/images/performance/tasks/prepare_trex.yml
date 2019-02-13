@@ -1,0 +1,9 @@
+- name: Prepare trex binaries inside guest image
+  virt_customize_command:
+    shell:
+      - "curl http://trex-tgn.cisco.com/trex/release/{{ trex_version }}.tar.gz -o /tmp/{{ trex_version }}.tar.gz"
+      - 'mkdir -p /opt/trex/'
+      - 'tar zxf /tmp/{{ trex_version }}.tar.gz -C /opt/trex'
+      - 'ln -sf /opt/{{ trex_version }} /opt/trex/current'
+    image: "{{ guest_image }}"
+    selinux_relabel: True

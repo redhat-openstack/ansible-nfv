@@ -1,0 +1,18 @@
+---
+- name: Performance Image Generation Flow
+  hosts: undercloud
+  tasks:
+    - name: Check OSP version
+      include_role:
+        name: discover_osp_version
+
+    - name: Install libguest RPM prerequisites
+      yum:
+        name:
+          - libguestfs
+          - python-libguestfs
+        state: present
+
+    - name: Customize Guest Image For Performance Usecases
+      include_role:
+        name: roles/images/performance
