@@ -1,0 +1,10 @@
+- name: Fetch image from URL
+  get_url:
+    url: "{{ guest_image }}"
+    dest: "{{ guest_image_output }}"
+    mode: 0640
+  register: image_result
+
+- name: Set path of fetched image
+  set_fact:
+    guest_image: "{{ image_result['dest'] }}"
