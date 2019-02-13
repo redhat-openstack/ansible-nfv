@@ -1,0 +1,6 @@
+---
+- name: Performance Image Generation Flow
+  hosts: undercloud
+  gather_facts: False
+  roles:
+    - images/performance

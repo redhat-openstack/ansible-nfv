@@ -1,0 +1,21 @@
+# Repo Variables
+centos_repo_dir: '/tmp/guest_repos'
+centos_repo_name: 'base'
+centos_repo_description: 'CentOS-$releasever - Base'
+centos_repo_state: 'present'
+centos_repo_mirrorlist: 'http://mirrorlist.centos.org/?release=7&arch=$basearch&repo=os'
+centos_repo_baseurl: 'http://mirror.centos.org/centos/7/os/$basearch/'
+centos_repo_gpgcheck: True
+centos_repo_gpgkey: 'https://www.centos.org/keys/RPM-GPG-KEY-CentOS-7'
+centos_repo_file: "{{ centos_repo_dir }}/centos"
+
+# DPDK Variables
+dpdk_dir: '/root/dpdk'
+dpdk_customization_log: "{{ dpdk_dir }}/customization.log"
+dpdk_git: 'git://dpdk.org/dpdk'
+dpdk_version: 'v17.05'
+
+# Trex Variables
+trex_version: 'v2.43'
+trex_url: 'http://trex-tgn.cisco.com/trex/release'
+trex_dir: '/opt/trex/'
