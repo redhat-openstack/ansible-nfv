@@ -1,0 +1,6 @@
+---
+- name: Performance Image Generation Flow
+  hosts: undercloud
+  roles:
+    - discover_osp_version
+    - roles/images/performance

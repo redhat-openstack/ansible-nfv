@@ -1,0 +1,56 @@
+- name: Install repos inside guest image
+  virt_customize_command:
+    shell:
+      - 'if ! rpm -q rhos-release; then rpm -ivh {{ rhos_release_rpm }}; fi'
+      - 'rm -rf /etc/yum.repos.d/*;rm -rf /var/cache/yum/*'
+      - "rhos-release {{ undercloud_version }}"
+    image: "{{ guest_image }}"
+
+# TODO(VKhitrin): Adapt flow to discover guest kernel
+- name: Discover host kernel version
+  virt_customize_command:
+    shell: "uname -r"
+    debug: True
+    image: "{{ guest_image }}"
+  register: guest_kernel
+
+- name: Parse host kernel version
+  set_fact:
+    host_kernel: "{{ guest_kernel['debug']['uname -r'][0] }}"
+
+# TODO(VKhitrin): Remove installing host's kernel by default
+- name: Install packages inside guest image
+  virt_customize_packages:
+    name:
+      - git
+      - gcc
+      - make
+      - cmake
+      - gcc-c++
+      - pciutils
+      - glibc-devel
+      - glibc-headers
+      - kernel-headers-{{ host_kernel }}
+      - numactl-devel
+      - kernel-{{ host_kernel }}
+      - kernel-devel-{{ host_kernel }}
+    state: present
+    image: "{{ guest_image }}"
+
+- name: Prepare DPDK binaries inside guest image
+  virt_customize_command:
+    shell:
+      - "if [ ! -d {{ dpdk_dir }} ];then git clone {{ dpdk_git }} {{ dpdk_dir }} -b {{ dpdk_version }}; fi"
+      - "sed -i 's/CONFIG_RTE_KNI_KMOD=.*/CONFIG_RTE_KNI_KMOD=n/g' {{ dpdk_dir }}/config/common_linuxapp"
+      - "sed -i 's/CONFIG_RTE_LIBRTE_KNI=.*/CONFIG_RTE_LIBRTE_KNI=n/g' {{ dpdk_dir }}/config/common_linuxapp"
+      - 'cd {{ dpdk_dir }}; /usr/bin/make config T=x86_64-native-linuxapp-gcc; /usr/bin/make'
+    image: "{{ guest_image }}"
+
+- name: Log versions of installed components
+  virt_customize_command:
+    shell:
+      - "echo 'DPDK Version: {{ dpdk_version }}' | tee -a {{ dpdk_customization_log }}"
+      - "echo 'Kernel Version used to compile DPDK: {{ host_kernel }}' | tee -a {{ dpdk_customization_log }}"
+      - "echo 'Kernel devel: {{ host_kernel }}' | tee -a {{ dpdk_customization_log }}"
+      - "echo 'Kernel headers: {{ host_kernel }}' | tee -a {{ dpdk_customization_log }}"
+    image: "{{ guest_image }}"

@@ -1,0 +1,8 @@
+rhos_release_rpm: 'http://rhos-release.virt.bos.redhat.com/repos/rhos-release/rhos-release-latest.noarch.rpm'
+dpdk_dir: '/root/dpdk'
+dpdk_customization_log: "{{ dpdk_dir }}/customization.log"
+dpdk_git: 'git://dpdk.org/dpdk'
+dpdk_version: 'v17.05'
+trex_version: 'v2.43'
+trex_url: 'http://trex-tgn.cisco.com/trex/release'
+trex_dir: '/opt/trex/'
