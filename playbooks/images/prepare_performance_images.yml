@@ -1,0 +1,23 @@
+---
+- name: Performance Image Generation Flow
+  hosts: undercloud
+  pre_tasks:
+  - name: Verify Variables
+    fail:
+      msg: "No guest_image variable was specified"
+    when: guest_image is not defined
+  tasks:
+  - name: Check OSP version
+    include_role:
+      name: discover_osp_version
+
+  - name: Install libguest RPM prerequisites
+    yum:
+      name:
+        - libguestfs
+        - python-libguestfs
+      state: present
+
+  - name: Customize Guest Image For Performance Usecases
+    include_role:
+      name: roles/images/performance
