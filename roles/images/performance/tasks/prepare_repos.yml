@@ -1,0 +1,22 @@
+- name: Create directory to store repos
+  file:
+    path: "{{ centos_repo_dir }}"
+    state: directory
+
+- name: Add CentOS repo
+  yum_repository:
+    name: "{{ centos_repo_name }}"
+    description: "{{ centos_repo_description }}"
+    state: "{{ centos_repo_state }}"
+    mirrorlist: "{{ centos_repo_mirrorlist }}"
+    baseurl: "{{ centos_repo_baseurl }}"
+    gpgcheck: "{{ centos_repo_gpgcheck }}"
+    gpgkey: "{{ centos_repo_gpgkey }}"
+    file: "{{ centos_repo_file }}"
+  become: True
+
+- name: Upload custom repos to guest image
+  virt_customize_upload:
+    src: /tmp/guest_repos/CentOS7.repo
+    dest: /etc/yum.repos.d/
+    image: "{{ guest_image }}"
