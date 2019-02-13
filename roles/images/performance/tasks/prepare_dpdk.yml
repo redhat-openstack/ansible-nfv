@@ -1,0 +1,31 @@
+- name: Install packages inside guest image
+  virt_customize_packages:
+    name:
+      - git
+      - gcc
+      - make
+      - cmake
+      - gcc-c++
+      - pciutils
+      - glibc-devel
+      - glibc-headers
+      - numactl-devel
+    state: present
+    image: "{{ guest_image }}"
+
+# Compile DPDK without: rt-kni, igbuio
+- name: Prepare DPDK binaries inside guest image
+  virt_customize_command:
+    shell:
+      - "if [ ! -d {{ dpdk_dir }} ];then git clone {{ dpdk_git }} {{ dpdk_dir }} -b {{ dpdk_version }}; fi"
+      - "sed -i 's/CONFIG_RTE_KNI_KMOD=.*/CONFIG_RTE_KNI_KMOD=n/g' {{ dpdk_dir }}/config/common_linuxapp"
+      - "sed -i 's/CONFIG_RTE_LIBRTE_KNI=.*/CONFIG_RTE_LIBRTE_KNI=n/g' {{ dpdk_dir }}/config/common_linuxapp"
+      - "sed -i 's/CONFIG_RTE_EAL_IGB_UIO=.*/CONFIG_RTE_LIBRTE_KNI=n/g' {{ dpdk_dir }}/config/common_linuxapp"
+      - 'cd {{ dpdk_dir }}; /usr/bin/make config T=x86_64-native-linuxapp-gcc; /usr/bin/make'
+    image: "{{ guest_image }}"
+
+- name: Log versions of installed components
+  virt_customize_command:
+    shell:
+      - "echo 'DPDK Version: {{ dpdk_version }}' | tee -a {{ dpdk_customization_log }}"
+    image: "{{ guest_image }}"
