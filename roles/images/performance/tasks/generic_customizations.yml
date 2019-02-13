@@ -1,0 +1,30 @@
+- name: Customize guest image with necessery RPMs
+  virt_customize_packages:
+    name:
+      - screen
+    state: present
+    image: "{{ fetched_image }}"
+    selinux_relabel: True
+
+- name: Customize users inside guest image
+  virt_customize_users:
+    name: "{{ item['user'] }}"
+    password: "{{ item['password'] }}"
+    state: present
+    image: "{{ fetched_image }}"
+  loop: "{{ custom_users }}"
+
+- name: Perform user-defined shell commands
+  virt_customize_command:
+    shell: "{{ user_commands }}"
+    image: "{{ fetched_image }}"
+    selinux_relabel: True
+  when: user_commands is defined
+
+- name: Customize guest image with user-defined packages
+  virt_customize_packages:
+    name: "{{ user_packages }}"
+    state: present
+    image: "{{ fetched_image }}"
+    selinux_relabel: True
+  when: user_packages is defined
