@@ -6,7 +6,7 @@ Openstack tasks play perform the following tasks on the existing Openstack envir
 * Setup Openstack environment
     * Creates and prepares the virtual pip environment with all required command line tools.  
       Creates clouds.yml file with all the details for the connection to the Openstack env.
-* Creates users, projects and clouds.yaml user configs
+* Creates users, projects, clouds.yaml user configs and set quotas.
     * Creates users and projects based on the specified variables.
     * Generates users rc files.
     * Generates users configs within the clouds.yaml file for the later tasks by the users.
@@ -35,7 +35,7 @@ The run could be separated by specifying tags of specific run.
 
 ## Role tags
 * setup_os_env - Run Openstack virtual env creation for env tasks.
-* user - Run users and projects creation.
+* user - Run users and projects creation and sets quotas.
 * network - Run networks creation.
 * net_port - Run instance port creation.
 * flavor - Run flavors creation.
@@ -72,6 +72,7 @@ overcloud_name: overcloud
 ```
 
 #### List of users and projects that should be created
+#### Quotas could be defined for a user if needed.
 ```
 users:
   - name: test_user1
@@ -79,6 +80,10 @@ users:
     project: test_project1
     domain: default
     role: member
+    quota:
+      - cores: 20
+        ram: 20480
+        instances: 25
   - name: test_user2
     pass: 87654321
     project: test_project2
