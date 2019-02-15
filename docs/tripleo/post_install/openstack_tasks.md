@@ -192,6 +192,16 @@ security_groups:
         remote_ip_prefix: 0.0.0.0/0
 ```
 
+#### User Data
+Specify user data content to be passed via metadata server to cloud-init:
+```
+userdata: |
+  users:
+  - name: cloud-init
+    lock-passwd: false
+    passwd: password
+```
+
 #### Instances
 Specify the instance and arguments that the instance should be created with.
 ```
@@ -203,9 +213,14 @@ instances:
     key_name: "{{ keypair_name }}"
     sec_groups: test_secgroup
     floating_ip: yes
-    # The nics attached to the instance could be a created ports specified below,
-    # or just a network name. Note the port-name and net-name.
+    # An instance may specified on which availability zone it'll be deployed on, by default will be spawned
+    # on AZ 'nova' which is default AZ created by TripleO
+    # More details: https://docs.openstack.org/nova/rocky/admin/availability-zones.html
+    availability_zone: nova:compute-1.localdomain # Default is nova, can be omitted
+    # NICs to be attached to instance, must be present or created by `net_ports`
     nics: port-name=private_net1_port1,port-name=private_net2_port2,net-name=private_net3
+    config_drive: True # Optional, Specify if nova should attach metadata content via CD-ROM to instance
+    # Ports to be created, which can be attached to instance using `nics`
     net_ports:
       - name: private_net1_port1
         network: private_net1

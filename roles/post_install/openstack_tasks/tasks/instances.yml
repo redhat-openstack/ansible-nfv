@@ -11,6 +11,9 @@
     flavor: "{{ item.flavor | default(flavors[0].name) }}"
     key_name: "{{ item.key_name }}"
     security_groups: "{{ item.sec_groups }}"
+    availability_zone: "{{ item.availability_zone | default('nova') }}"
+    userdata: "{{ userdata | default(omit) }}"
+    config_drive: "{{ item.config_drive | default(True) }}"
     nics: "{{ item.nics }}"
     auto_ip: "{{ item.floating_ip }}"
     delete_fip: yes
