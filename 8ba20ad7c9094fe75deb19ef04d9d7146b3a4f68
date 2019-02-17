@@ -1,0 +1,395 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "e3e3a0e9_ce1e3587",
+        "filename": "library/virt_customize_command.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-17T09:11:22Z",
+      "side": 1,
+      "message": "Maybe worth mention here that just one of the following params should be used at once: shell/command.\n\nI saw you added the mutual_exclusive_args, but it might save some user a time if he would like to try to use both.\nNot required for me. Just suggesting.",
+      "range": {
+        "startLine": 24,
+        "startChar": 4,
+        "endLine": 24,
+        "endChar": 9
+      },
+      "revId": "8ba20ad7c9094fe75deb19ef04d9d7146b3a4f68",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae3f59b8_8caad88d",
+        "filename": "library/virt_customize_command.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-17T09:11:22Z",
+      "side": 1,
+      "message": "It seems to be missing from the docs options.",
+      "range": {
+        "startLine": 200,
+        "startChar": 12,
+        "endLine": 200,
+        "endChar": 27
+      },
+      "revId": "8ba20ad7c9094fe75deb19ef04d9d7146b3a4f68",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8be69ac3_32b2f0e8",
+        "filename": "library/virt_customize_download.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-17T09:11:22Z",
+      "side": 1,
+      "message": "I\u0027m confused here.\nWhat and where the file copied?\n\nIf the file downloads from the guest, why the dest is the path on the guest dist image, and the source is a path on the filesystem?",
+      "range": {
+        "startLine": 24,
+        "startChar": 4,
+        "endLine": 29,
+        "endChar": 56
+      },
+      "revId": "8ba20ad7c9094fe75deb19ef04d9d7146b3a4f68",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5679bcda_d89dc384",
+        "filename": "library/virt_customize_download.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-17T09:11:22Z",
+      "side": 1,
+      "message": "I don\u0027t think the variable is required.\nFix me if I\u0027m wrong.",
+      "range": {
+        "startLine": 34,
+        "startChar": 8,
+        "endLine": 34,
+        "endChar": 22
+      },
+      "revId": "8ba20ad7c9094fe75deb19ef04d9d7146b3a4f68",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d619795b_070cb30a",
+        "filename": "library/virt_customize_download.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-17T09:11:22Z",
+      "side": 1,
+      "message": "Please, add \"nested\" here.\nIt took me some time to understand what this param is used for.",
+      "range": {
+        "startLine": 35,
+        "startChar": 27,
+        "endLine": 35,
+        "endChar": 28
+      },
+      "revId": "8ba20ad7c9094fe75deb19ef04d9d7146b3a4f68",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0143a9a5_25b10908",
+        "filename": "library/virt_customize_download.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-17T09:11:22Z",
+      "side": 1,
+      "message": "Please, remove the empty line.",
+      "range": {
+        "startLine": 142,
+        "startChar": 0,
+        "endLine": 142,
+        "endChar": 12
+      },
+      "revId": "8ba20ad7c9094fe75deb19ef04d9d7146b3a4f68",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73fab873_4ad36abf",
+        "filename": "library/virt_customize_download.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-17T09:11:22Z",
+      "side": 1,
+      "message": "Seems that the parameter is missing from the plugin docs options.",
+      "range": {
+        "startLine": 164,
+        "startChar": 12,
+        "endLine": 164,
+        "endChar": 27
+      },
+      "revId": "8ba20ad7c9094fe75deb19ef04d9d7146b3a4f68",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18747da8_5b278dad",
+        "filename": "library/virt_customize_packages.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-17T09:11:22Z",
+      "side": 1,
+      "message": "Maybe worth mention in docs that \u0027name\u0027 and \u0027list\u0027 could not be used together.",
+      "range": {
+        "startLine": 25,
+        "startChar": 4,
+        "endLine": 25,
+        "endChar": 8
+      },
+      "revId": "8ba20ad7c9094fe75deb19ef04d9d7146b3a4f68",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "658be354_370e1a1b",
+        "filename": "library/virt_customize_packages.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-17T09:11:22Z",
+      "side": 1,
+      "message": "Please, remove the spaces.",
+      "range": {
+        "startLine": 232,
+        "startChar": 0,
+        "endLine": 232,
+        "endChar": 12
+      },
+      "revId": "8ba20ad7c9094fe75deb19ef04d9d7146b3a4f68",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "84a89b3f_d8bb25c7",
+        "filename": "library/virt_customize_packages.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-17T09:11:22Z",
+      "side": 1,
+      "message": "Seems that the parameter is missing from the plugin docs options.",
+      "range": {
+        "startLine": 260,
+        "startChar": 12,
+        "endLine": 260,
+        "endChar": 27
+      },
+      "revId": "8ba20ad7c9094fe75deb19ef04d9d7146b3a4f68",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "210e6aa9_49164581",
+        "filename": "library/virt_customize_upload.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-17T09:11:22Z",
+      "side": 1,
+      "message": "Fix me if I\u0027m wrong, but the parameter is not required.",
+      "range": {
+        "startLine": 35,
+        "startChar": 8,
+        "endLine": 35,
+        "endChar": 22
+      },
+      "revId": "8ba20ad7c9094fe75deb19ef04d9d7146b3a4f68",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "79779653_b704cc25",
+        "filename": "library/virt_customize_upload.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-17T09:11:22Z",
+      "side": 1,
+      "message": "Please, add \"nested\"",
+      "range": {
+        "startLine": 36,
+        "startChar": 27,
+        "endLine": 36,
+        "endChar": 29
+      },
+      "revId": "8ba20ad7c9094fe75deb19ef04d9d7146b3a4f68",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b03f9f26_91b4053a",
+        "filename": "library/virt_customize_upload.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-17T09:11:22Z",
+      "side": 1,
+      "message": "Please, remove spaces.",
+      "range": {
+        "startLine": 157,
+        "startChar": 0,
+        "endLine": 157,
+        "endChar": 17
+      },
+      "revId": "8ba20ad7c9094fe75deb19ef04d9d7146b3a4f68",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14ae874c_412dbdc7",
+        "filename": "library/virt_customize_upload.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-17T09:11:22Z",
+      "side": 1,
+      "message": "Seems that the parameter is missing from the plugin docs options.",
+      "range": {
+        "startLine": 179,
+        "startChar": 12,
+        "endLine": 179,
+        "endChar": 27
+      },
+      "revId": "8ba20ad7c9094fe75deb19ef04d9d7146b3a4f68",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1bafb16_af0bc81f",
+        "filename": "library/virt_customize_users.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-17T09:11:22Z",
+      "side": 1,
+      "message": "Can\u0027t the modules be modified to create/delete multiple users at once?",
+      "range": {
+        "startLine": 15,
+        "startChar": 8,
+        "endLine": 15,
+        "endChar": 28
+      },
+      "revId": "8ba20ad7c9094fe75deb19ef04d9d7146b3a4f68",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "884c35e9_b82363c0",
+        "filename": "library/virt_customize_users.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-17T09:11:22Z",
+      "side": 1,
+      "message": "Seems that the parameter is missing from the plugin docs options.",
+      "range": {
+        "startLine": 160,
+        "startChar": 12,
+        "endLine": 160,
+        "endChar": 27
+      },
+      "revId": "8ba20ad7c9094fe75deb19ef04d9d7146b3a4f68",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e2d0d63_966c5715",
+        "filename": "module_utils/virt_customize.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-17T09:11:22Z",
+      "side": 1,
+      "message": "Please, remove spaces.",
+      "range": {
+        "startLine": 112,
+        "startChar": 0,
+        "endLine": 112,
+        "endChar": 20
+      },
+      "revId": "8ba20ad7c9094fe75deb19ef04d9d7146b3a4f68",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
