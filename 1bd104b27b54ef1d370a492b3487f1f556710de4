@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7f31ca5f_ff828bc2",
+        "filename": "roles/post_install/openstack_tasks/tasks/instances.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-17T07:31:01Z",
+      "side": 1,
+      "message": "I\u0027m not sure we should add an availability zone to our usage.\nAs discussed here:\nhttps://bugzilla.redhat.com/show_bug.cgi?id\u003d1554908\nhttps://gitlab.consulting.redhat.com/djuran/Ericsson-vEPC/blob/master/docs/Host_Aggregates.adoc\n\nThe aggregation is preferred.\nBut there is one important thing to mention when using aggregations:\nThe AggregateInstanceExtraSpecsFilter filter should be used during the deployment of the overcloud.",
+      "range": {
+        "startLine": 14,
+        "startChar": 4,
+        "endLine": 14,
+        "endChar": 21
+      },
+      "revId": "1bd104b27b54ef1d370a492b3487f1f556710de4",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
