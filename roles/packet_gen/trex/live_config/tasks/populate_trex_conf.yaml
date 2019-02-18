@@ -1,0 +1,21 @@
+- name: Parse Trex Server SR-IOV MAC Addresses and IP Addresses
+  set_fact:
+    trex_server_sriov_macs: "{{ trex_server_sriov_nics | map(attribute='mac_address') | list }}"
+    trex_server_sriov_ips: "{{ trex_server_sriov_nics | map(attribute='fixed_ips') | sum(start=[]) | map(attribute='ip_address') | list }}"
+  failed_when: trex_server_sriov_macs | length != trex_server_sriov_ips | length
+
+- name: Fail If SR-IOV NICs Not Bound To Kernel
+  fail:
+    msg: "NIC with MAC Address: {{ item }} is not bound to kernel"
+  loop: "{{ trex_server_sriov_macs | flatten(levels=1) }}"
+  when: item not in trex_server_kernel_nics | map(attribute='macaddress') | list
+
+- name: Prepare Trex Config Interfaces List
+  set_fact:
+    trex_interfaces: "{{ trex_interfaces | default([]) }} + ['{{ item['pciid'] }}']"
+  loop: "{{ trex_server_kernel_nics | flatten(levels=1) }}"
+  when: item['pciid'] != "virtio0"
+
+- name: Populate Trex Config File Variables
+  include_tasks: parse_trex_variables.yaml
+  loop: "{{ trex_server_sriov_macs |zip(trex_server_sriov_ips) | list }}"

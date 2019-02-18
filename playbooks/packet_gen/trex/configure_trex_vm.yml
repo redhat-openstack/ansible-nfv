@@ -1,0 +1,15 @@
+---
+- hosts: undercloud
+  gather_facts: False
+  vars:
+    venv_path: "/tmp/ansible_venv/bin/python"
+  pre_tasks:
+    - name: Prepare Virtual Environment
+      include_role:
+        name: roles/post_install/openstack_tasks
+        tasks_from: setup_openstack_env
+
+  tasks:
+    - name: Configure Trex Configuration On Live Guest
+      import_role:
+        name: roles/packet_gen/trex/live_config
