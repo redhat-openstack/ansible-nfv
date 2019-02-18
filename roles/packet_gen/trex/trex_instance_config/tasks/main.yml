@@ -1,0 +1,27 @@
+- name: Clone Trafficgen Repo
+  git:
+    repo: https://github.com/atheurer/trafficgen
+    dest: "{{ trafficgen_dir }}"
+    version: "{{ trafficgen_branch }}"
+  become: True
+  when: clone_traffic_gen_repo
+
+- name: Parse Configuration From Instance
+  block:
+    - name: Query Trex Instance If No External Configuration Is Passed
+      import_tasks: query_trex_instance.yaml
+
+    - name: Generate Variables For Trex Conf From Trex Instance
+      import_tasks: populate_trex_conf.yaml
+  when: gather_trex_conf_live
+
+- name: Fail If No Trex Port Info Is Present For Jinja2 Template
+  fail:
+    msg: "Can't proceed with generating Trex configuration, view documentation regarding trex_port_info"
+  when: trex_port_info is not defined
+
+- name: Create Trex Config File
+  template:
+    src: trex_cfg.yaml.j2
+    dest: "{{ trex_conf_file }}"
+  become: True
