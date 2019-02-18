@@ -1,0 +1,13 @@
+# Parse trex configuration during run time from trex instance
+dynamic_trex_conf: True
+
+# Platform sepcific Trex configuration
+trex_platform:
+  master_thread_id: 2
+  latency_thread_id: 3
+  dual_if:
+    - socket: 0
+      threads: [4, 5, 6, 7, 8, 9, 10, 11]
+
+# DPDK root dir
+dpdk_root_dir: '/root/dpdk'
