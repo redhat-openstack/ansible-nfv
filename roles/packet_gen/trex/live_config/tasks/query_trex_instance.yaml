@@ -1,0 +1,47 @@
+- name: Gather Trex Server Facts From OpenStack API
+  vars:
+    ansible_python_interpreter: "/tmp/ansible_venv/bin/python/bin/python"
+  os_server_facts:
+    cloud: overcloud
+    server: "{{ trex_server | mandatory }}"
+    validate_certs: no
+  failed_when: openstack_servers == []
+
+- name: Parse Trex Server NICs' MAC Addresses
+  set_fact:
+    trex_server_nic_mac_addresses: "{{ trex_server_nic_mac_addresses | default([]) }} + [ '{{ openstack_servers[0]['addresses'][item][0]['OS-EXT-IPS-MAC:mac_addr'] }}' ]"
+  loop: "{{ openstack_servers[0]['addresses'] | flatten(levels=1) }}"
+
+- name: Gather Trex Server Ports
+  vars:
+    ansible_python_interpreter: "/tmp/ansible_venv/bin/python/bin/python"
+  os_port_facts:
+    cloud: overcloud
+    validate_certs: no
+    filters:
+      mac_address: "{{ item }}"
+  loop: "{{ trex_server_nic_mac_addresses | flatten(levels=1) }}"
+  failed_when: openstack_ports == []
+  register: trex_server_ports
+
+- name: Parse Trex Server SR-IOV NICs
+  set_fact:
+    trex_server_sriov_nics: "{{ trex_server_sriov_nics | default([]) }} + {{ item['ansible_facts']['openstack_ports'] }}"
+  loop: "{{ trex_server_ports['results'] | flatten(levels=1) }}"
+  when: item['ansible_facts']['openstack_ports'][0]['binding:vnic_type'] != "normal"
+  failed_when: trex_server_sriov_nics == []
+
+- name: Fail If There Are More Than 2 SR-IOV NICs
+  fail:
+    msg: "Current flow only supports 2 SR-IOV NICs connected to intance, please provide an instance with the allowed number of NICs"
+  failed_when: trex_server_sriov_nics | length != 2
+
+- name: Assign Trex Instance To Inventory
+  include_role:
+    name: roles/packet_gen/trex/assign_trex_to_inventory
+
+- name: Parse Trex Server Interfaces With MAC Addresses bound to kernel
+  set_fact:
+    trex_server_kernel_nics: "{{ trex_server_kernel_nics | default([]) }} + [{{ hostvars[trex_server_mgmt_ip]['ansible_%s' | format(item)] }}]"
+  loop: "{{ hostvars[trex_server_mgmt_ip]['ansible_interfaces'] | flatten(levels=1) }}"
+  when: hostvars[trex_server_mgmt_ip]['ansible_%s' | format(item)]['macaddress'] is defined
