@@ -1,0 +1,26 @@
+- name: Attempt To Discoer Floating IP Of Trex Server
+  set_fact:
+    trex_server_mgmt_ip: "{{ openstack_servers[0]['addresses'][item] | selectattr('OS-EXT-IPS:type', 'equalto', 'floating') | map(attribute='addr') | list | first }}"
+  loop: "{{ openstack_servers[0]['addresses'] | flatten(levels=1) }}"
+  when:
+    - openstack_servers[0]['addresses'][item] | selectattr('OS-EXT-IPS:type', 'equalto', 'floating') | list != []
+    - trex_server_mgmt_ip | default([]) == []
+
+- name: Fail To Discover Trex Instance Management IP
+  fail:
+    msg: "Trex Instance Management IP can not be parsed"
+  when: trex_server_mgmt_ip == [] or trex_server_mgmt_ip == "[Undefined]"
+
+- name: Add Trex Instance To Ansible In-Memory Inventory
+  add_host:
+    name: "{{ trex_server_mgmt_ip }}"
+    groups: trex
+    ansible_user: "{{ trex_server_user | default('root') }}"
+    ansible_password: "{{ trex_server_password | default('12345678') }}"
+    ansible_ssh_private_key_file: "{{ trex_ssh_key | default(omit) }}"
+    ansible_ssh_pass: "{{ trex_ssh_pass | default(omit) }}"
+
+- name: Gather Facts From Trex Server
+  setup:
+  delegate_to: "{{ trex_server_mgmt_ip }}"
+  delegate_facts: True
