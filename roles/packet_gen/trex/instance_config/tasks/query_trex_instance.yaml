@@ -1,0 +1,46 @@
+- name: Query Trex Server Ports
+  import_role:
+    name: roles/post_install/discover_instance_ports
+  vars:
+    query_instance: "{{ trex_instance }}"
+    discover_instance_external_ip: True
+
+- name: Set Trex Management IP If Discovered
+  set_fact:
+    trex_instance_mgmt_ip: "{{ instance_external_ip }}"
+  when: not trex_instance_mgmt_ip | default(False)
+
+- name: Parse Trex Server SR-IOV NICs
+  set_fact:
+    trex_instance_sriov_nics: "{{ trex_instance_sriov_nics | default([]) }} + [ {{ item }} ]"
+  loop: "{{ instance_nics | flatten(levels=1) }}"
+  when: item['binding:vnic_type'] != "normal"
+  failed_when: trex_instance_sriov_nics == []
+
+- name: Fail If There Are More Than 2 SR-IOV NICs
+  fail:
+    msg: "Current flow only supports 2 SR-IOV NICs connected to intance, please provide an instance with the allowed number of NICs"
+  failed_when: trex_instance_sriov_nics | length != 2
+
+- name: Add Trex Instance To Ansible In-Memory Inventory
+  add_host:
+    name: "{{ trex_instance_mgmt_ip }}"
+    groups: trex
+    ansible_user: "{{ trex_instance_user | default('root') }}"
+    ansible_password: "{{ trex_instance_password | default(omit) }}"
+    ansible_ssh_private_key_file: "{{ trex_instance_ssh_key | default(omit) }}"
+    ansible_ssh_pass: "{{ trex_instance_ssh_pass | default(omit) }}"
+
+- name: "Check if DPDK Directory Exists on  Trex Instance"
+  stat:
+    path: "{{ dpdk_root_dir }}"
+  register: dpdk_dir
+  failed_when: not dpdk_dir['stat']['exists']
+  become: True
+  delegate_to: "{{ trex_instance_mgmt_ip }}"
+
+- name: Retrieve Non Active NICs' PCI Slots
+  shell: "python {{ dpdk_root_dir }}/usertools/dpdk-devbind.py --status | grep -v Active | grep 0000 | cut -d ' ' -f 1"
+  register: trex_instance_kernel_nics
+  become: True
+  delegate_to: "{{ trex_instance_mgmt_ip }}"
