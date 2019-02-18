@@ -1,0 +1,30 @@
+- name: Query Trex Server Ports
+  import_role:
+    name: roles/post_install/discover_instance_ports
+  vars:
+    query_instance: "{{ ansible_hostname }}"
+  delegate_to: undercloud
+
+- name: Parse Trex Server SR-IOV NICs
+  set_fact:
+    trex_instance_sriov_nics: "{{ trex_instance_sriov_nics | default([]) }} + [ {{ item }} ]"
+  loop: "{{ instance_nics | flatten(levels=1) }}"
+  when: item['binding:vnic_type'] == "direct-physical"
+  failed_when: trex_instance_sriov_nics == []
+
+- name: Fail If There Are More/Less Than 2 SR-IOV NICs
+  fail:
+    msg: "Current flow only supports 2 SR-IOV NICs connected to intance, please provide an instance with the allowed number of NICs"
+  failed_when: trex_instance_sriov_nics | length != 2
+
+- name: "Check if DPDK Directory Exists on  Trex Instance"
+  stat:
+    path: "{{ dpdk_root_dir }}"
+  register: dpdk_dir
+  failed_when: not dpdk_dir['stat']['exists']
+  become: True
+
+- name: Retrieve Non Active NICs' PCI Slots
+  shell: "python {{ dpdk_root_dir }}/usertools/dpdk-devbind.py --status | grep -v Active | grep 0000 | cut -d ' ' -f 1"
+  register: trex_instance_kernel_nics
+  become: True
