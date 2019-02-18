@@ -1,0 +1,14 @@
+- name: Parse Trex Server SR-IOV MAC Addresses and IP Addresses
+  set_fact:
+    trex_instance_sriov_macs: "{{ trex_instance_sriov_nics | map(attribute='mac_address') | list }}"
+    trex_instance_sriov_ips: "{{ trex_instance_sriov_nics | map(attribute='fixed_ips') | sum(start=[]) | map(attribute='ip_address') | list }}"
+  failed_when: trex_instance_sriov_macs | length != trex_instance_sriov_ips | length
+
+- name: Prepare Trex Config Interfaces List
+  set_fact:
+    trex_interfaces: "{{ trex_interfaces | default([]) }} + ['{{ item }}']"
+  loop: "{{ trex_instance_kernel_nics['stdout_lines'] }}"
+
+- name: Populate Trex Config File Variables
+  include_tasks: parse_trex_variables.yaml
+  loop: "{{ trex_instance_sriov_macs |zip(trex_instance_sriov_ips) | list }}"
