@@ -1,0 +1,2 @@
+- set_fact:
+    trex_port_info: "{{ trex_port_info | default([])}} + [{'src_mac': '{{ item[0] }}', 'dest_mac': '{{ trex_server_sriov_macs | reject('search',item[0]) | list | first }}', 'ip': '{{ item[1] }}', 'default_gw': '{{ trex_server_sriov_ips | reject('search',item[1]) | list | first }}'}]"
