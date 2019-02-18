@@ -1,0 +1,19 @@
+#jinja2: lstrip_blocks: "true", trim_blocks: "false"
+- port_limit: {{ trex_port_info | length }}
+  version: {{ trex_cfg_version | default(2) }}
+  interfaces: {{ trex_interfaces | sort | to_yaml }}
+  port_info:
+  {% for port in trex_port_info %}
+    - {{ port | to_nice_yaml | indent(6) }}
+  {% endfor %}
+  {% if trex_platform is defined %}
+  platform:
+  {% for attr in trex_platform %}
+    {% if trex_platform[attr][0] is mapping %}
+    {{ attr }}:
+      {{ trex_platform[attr] | to_yaml | indent(6) }}
+    {% else %}
+    {{ attr }}: {{ trex_platform[attr] }}
+    {% endif %}
+  {% endfor %}
+  {% endif %}
