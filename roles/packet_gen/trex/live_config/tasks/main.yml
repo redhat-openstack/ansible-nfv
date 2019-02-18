@@ -1,0 +1,14 @@
+- name: Parse Configuration From Live Instance
+  block:
+  - name: Query Trex Live Instance
+    include_tasks: query_trex_instance.yaml
+
+  - name: Generate Variables For Trex Conf From Trex Instance
+    include_tasks: populate_trex_conf.yaml
+  when: not trex_conf_file | default(False)
+
+- name: Create trex_cfg.yaml file
+  template:
+    src: trex_cfg.yaml.j2
+    dest: /etc/trex_cfg.yaml
+  delegate_to: "{{ trex_instance_mgmt_ip }}"

@@ -1,0 +1,10 @@
+---
+- hosts: undercloud
+  gather_facts: False
+  pre_tasks:
+    - name: Prepare Virtual Environment
+      include_role:
+        name: roles/post_install/openstack_tasks
+        tasks_from: setup_openstack_env
+  roles:
+    - roles/packet_gen/trex/live_config
