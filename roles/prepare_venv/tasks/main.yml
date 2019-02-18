@@ -1,0 +1,36 @@
+- block:
+    - name: Install requirements for pip virtualenv
+      package:
+        name: "{{ item }}"
+        state: present
+      with_items:
+        - 'python-devel'
+        - 'python-setuptools'
+        - 'gcc'
+        - 'libffi-devel'
+
+    - name: Install pip package
+      easy_install:
+        name: pip
+
+    - name: Delete existing venv if exists
+      file:
+        path: "{{ venv_path }}"
+        state: absent
+
+    - name: Install virtualenv
+      pip:
+        name: virtualenv
+        version: '15.1.0'
+  become: true
+
+- name: Create virtualenv
+  pip:
+    name: "{{ item.key }}"
+    version: "{{ item.value }}"
+    virtualenv: "{{ venv_path }}"
+  with_dict:
+    pip: '9.0.1'
+    setuptools: '38.2.4'
+    pytz: '2017.3'
+    shade: '1.25.0'

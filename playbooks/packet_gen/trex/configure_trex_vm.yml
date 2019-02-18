@@ -1,0 +1,25 @@
+---
+- hosts: undercloud
+  gather_facts: False
+  vars:
+    venv_path: "/tmp/ansible_venv/bin/python"
+  pre_tasks:
+    - name: Verify Variables
+      fail:
+        msg: "Variable trex_server is not specified"
+      when: trex_server is not defined
+
+    - name: Check Virtual Environment Existence
+      stat:
+        path: "/tmp/ansible_venv"
+      register: venv_stat
+
+    - name: Prepare Virtual Environment
+      include_role:
+        name: roles/prepare_venv
+      when: not venv_stat['stat']['exists']
+
+  tasks:
+    - name: Configure Trex Configuration On Live Guest
+      include_role:
+        name: roles/packet_gen/trex/live_config
