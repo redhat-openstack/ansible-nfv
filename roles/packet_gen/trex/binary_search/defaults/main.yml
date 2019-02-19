@@ -1,0 +1,8 @@
+# binary-search script result log file to be generated on undercloud
+binary_perf_log: '/home/cloud-user/performance.log'
+
+# Trafficgen repo directory on host
+trafficgen_dir: '/opt/trafficgen'
+
+# binary-search binary
+binary_search_bin: "{{ trafficgen_dir }}/binary-search.py"

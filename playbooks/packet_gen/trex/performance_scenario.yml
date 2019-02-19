@@ -7,6 +7,13 @@
         msg: "cloud_resources is not set to correct values: 'create' or 'external', please refer to documentation"
       when: cloud_resources is not defined or cloud_resources not in ['create', 'external']
 
+    - name: Verify DuT Type Is Valid If Required
+      fail:
+        msg: "dut_type must be either 'sriov' or 'dpdk'"
+      when:
+        - dut_type is defined
+        - dut_type is not in ['sriov', 'dpdk']
+
     - block:
         - name: Generate Resources
           import_role:
@@ -45,6 +52,16 @@
           loop: "{{ dynamic_instances }}"
       when: cloud_resources == 'external'
 
+- hosts: "{{ dut_group }}"
+  roles:
+    - role: roles/packet_gen/trex/bind_dpdk_nics
+      vars:
+        - discover_dut_macs: True
+    - roles/packet_gen/trex/launch_testpmd
+
 - hosts: trex
   roles:
     - roles/packet_gen/trex/instance_config
+    - roles/packet_gen/trex/bind_dpdk_nics
+    - roles/packet_gen/trex/launch_trex
+    - roles/packet_gen/trex/binary_search
