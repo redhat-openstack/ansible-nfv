@@ -1,0 +1,3 @@
+symlinked_trex_dir: '/opt/trex/current'
+symlinked_trex_bin: '{{ symlinked_trex_bin }}/t-rex-64'
+trex_cfg: '/etc/trex_cfg.yaml'
