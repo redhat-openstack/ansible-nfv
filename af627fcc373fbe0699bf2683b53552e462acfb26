@@ -1,0 +1,625 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "00b75b25_47e93a09",
+        "filename": "docs/packet_gen/trex/generate_traffic.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-19T13:57:06Z",
+      "side": 1,
+      "message": "Please add - \"(device under test)\" after the DuT",
+      "range": {
+        "startLine": 4,
+        "startChar": 38,
+        "endLine": 4,
+        "endChar": 41
+      },
+      "revId": "af627fcc373fbe0699bf2683b53552e462acfb26",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ad7c9744_4058eb32",
+        "filename": "docs/packet_gen/trex/generate_traffic.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-19T13:57:06Z",
+      "side": 1,
+      "message": "You do not need all this.\nAs mentioned in the next file, all of this could be done using the openstack_tasks role.\nAnd of course, we do not want to duplicate plays.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 20
+      },
+      "revId": "af627fcc373fbe0699bf2683b53552e462acfb26",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "22591498_dd029a35",
+        "filename": "playbooks/packet_gen/trex/generate_traffic.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-19T13:57:06Z",
+      "side": 1,
+      "message": "Vadim, please, do not duplicate code.\nYou can use the openstack_tasks role in order to prepare the environment.\nI see no reason to set it to a separate role.\n\nIn addition, no need to check for the virtual env existence, as by default the venv deleted created each time from scratch.\nThis is done in order to eliminate the situation where there is a package conflict in the venv.",
+      "range": {
+        "startLine": 17,
+        "startChar": 3,
+        "endLine": 25,
+        "endChar": 43
+      },
+      "revId": "af627fcc373fbe0699bf2683b53552e462acfb26",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00c86516_836e5ae5",
+        "filename": "playbooks/packet_gen/trex/generate_traffic.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-19T13:57:06Z",
+      "side": 1,
+      "message": "You don\u0027t need this.\nUse the openstack_tasks role.\nYou can create a server with that role.\nYou can set a group you would like the instance to be added to and once the server will be created, a dynamic inventory will be generated.\nThen you can start the next play with the reference to the hosts you need.\n\nhttps://github.com/redhat-openstack/ansible-nfv/blob/devel/roles/post_install/openstack_tasks/tasks/instances.yml#L23-L34",
+      "range": {
+        "startLine": 28,
+        "startChar": 5,
+        "endLine": 39,
+        "endChar": 60
+      },
+      "revId": "af627fcc373fbe0699bf2683b53552e462acfb26",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "72608313_d4291991",
+        "filename": "roles/packet_gen/trex/generate_traffic/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-19T13:57:06Z",
+      "side": 1,
+      "message": "Please, change both to a variables.\n\nCould reside within \"vars\" directory as variables that commonly not overridden.",
+      "range": {
+        "startLine": 3,
+        "startChar": 11,
+        "endLine": 4,
+        "endChar": 26
+      },
+      "revId": "af627fcc373fbe0699bf2683b53552e462acfb26",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5f6c60a8_2b5bf739",
+        "filename": "roles/packet_gen/trex/generate_traffic/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-19T13:57:06Z",
+      "side": 1,
+      "message": "Prefer to use a \"command\" module over \"shell\".",
+      "range": {
+        "startLine": 12,
+        "startChar": 2,
+        "endLine": 12,
+        "endChar": 7
+      },
+      "revId": "af627fcc373fbe0699bf2683b53552e462acfb26",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c5eb1fb_704fc860",
+        "filename": "roles/packet_gen/trex/generate_traffic/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-19T13:57:06Z",
+      "side": 1,
+      "message": "Please, check if you could track the failure of the command execution.\nUse the following as an example:\nhttps://github.com/redhat-openstack/ansible-nfv/blob/devel/roles/post_install/openstack_tasks/tasks/networks_and_routers.yml#L104-L113",
+      "range": {
+        "startLine": 15,
+        "startChar": 2,
+        "endLine": 15,
+        "endChar": 20
+      },
+      "revId": "af627fcc373fbe0699bf2683b53552e462acfb26",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "edd33617_2c0d0677",
+        "filename": "roles/packet_gen/trex/generate_traffic/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-19T13:57:06Z",
+      "side": 1,
+      "message": "Please, make it a variable.",
+      "range": {
+        "startLine": 24,
+        "startChar": 10,
+        "endLine": 24,
+        "endChar": 34
+      },
+      "revId": "af627fcc373fbe0699bf2683b53552e462acfb26",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3cdff8a3_9575211b",
+        "filename": "roles/packet_gen/trex/generate_traffic/tasks/query_dut_dpdk.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-19T13:57:06Z",
+      "side": 1,
+      "message": "Change to a variable.",
+      "range": {
+        "startLine": 43,
+        "startChar": 6,
+        "endLine": 43,
+        "endChar": 38
+      },
+      "revId": "af627fcc373fbe0699bf2683b53552e462acfb26",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c6af247_d53788b3",
+        "filename": "roles/packet_gen/trex/generate_traffic/tasks/query_dut_instance.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-19T13:57:06Z",
+      "side": 1,
+      "message": "You do not this.\nUse the openstack_tasks role.\nWhen the instances will be booted up, it will generate the dynamic inventory and add it to the group you will set.\nThen you can point the play to the needed hosts.\nAnd it will take the nessesary data from the gather_facts module.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 67
+      },
+      "revId": "af627fcc373fbe0699bf2683b53552e462acfb26",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2198f58b_5d2474ac",
+        "filename": "roles/packet_gen/trex/generate_traffic/tasks/query_dut_instance.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-19T13:57:06Z",
+      "side": 1,
+      "message": "Please, convert it to a variable.\n\nA lot of such variables could be combined.",
+      "range": {
+        "startLine": 33,
+        "startChar": 14,
+        "endLine": 33,
+        "endChar": 35
+      },
+      "revId": "af627fcc373fbe0699bf2683b53552e462acfb26",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b56b9ec7_a15deddf",
+        "filename": "roles/packet_gen/trex/generate_traffic/tasks/query_dut_instance.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-19T13:57:06Z",
+      "side": 1,
+      "message": "Consider to use the \"command\" module over the \"shell\".",
+      "range": {
+        "startLine": 38,
+        "startChar": 6,
+        "endLine": 38,
+        "endChar": 11
+      },
+      "revId": "af627fcc373fbe0699bf2683b53552e462acfb26",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "723fdeb4_36d7acb8",
+        "filename": "roles/packet_gen/trex/generate_traffic/tasks/query_dut_instance.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-19T13:57:06Z",
+      "side": 1,
+      "message": "Consider to use the \"command\" module over the \"shell\".",
+      "range": {
+        "startLine": 43,
+        "startChar": 6,
+        "endLine": 43,
+        "endChar": 11
+      },
+      "revId": "af627fcc373fbe0699bf2683b53552e462acfb26",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3dc83bd5_1f22fe9b",
+        "filename": "roles/packet_gen/trex/generate_traffic/tasks/query_dut_instance.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-19T13:57:06Z",
+      "side": 1,
+      "message": "Change it to a variable.",
+      "range": {
+        "startLine": 49,
+        "startChar": 10,
+        "endLine": 49,
+        "endChar": 38
+      },
+      "revId": "af627fcc373fbe0699bf2683b53552e462acfb26",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f6ae76f1_e05804c9",
+        "filename": "roles/packet_gen/trex/generate_traffic/tasks/query_dut_instance.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-19T13:57:06Z",
+      "side": 1,
+      "message": "Consider to use the \"command\" module over the \"shell\".",
+      "range": {
+        "startLine": 65,
+        "startChar": 6,
+        "endLine": 65,
+        "endChar": 11
+      },
+      "revId": "af627fcc373fbe0699bf2683b53552e462acfb26",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4df1f1a1_30668602",
+        "filename": "roles/packet_gen/trex/generate_traffic/tasks/query_dut_instance.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-19T13:57:06Z",
+      "side": 1,
+      "message": "Openstack_tasks role should be used instead.",
+      "range": {
+        "startLine": 66,
+        "startChar": 2,
+        "endLine": 66,
+        "endChar": 41
+      },
+      "revId": "af627fcc373fbe0699bf2683b53552e462acfb26",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f1f27493_fd1946b0",
+        "filename": "roles/packet_gen/trex/generate_traffic/tasks/query_dut_sriov.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-19T13:57:06Z",
+      "side": 1,
+      "message": "Change to a variable.",
+      "range": {
+        "startLine": 32,
+        "startChar": 6,
+        "endLine": 32,
+        "endChar": 38
+      },
+      "revId": "af627fcc373fbe0699bf2683b53552e462acfb26",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8e3bf92f_d75764a7",
+        "filename": "roles/packet_gen/trex/launch_trex/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-19T13:57:06Z",
+      "side": 1,
+      "message": "Is there will be a trex install role?",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 1
+      },
+      "revId": "af627fcc373fbe0699bf2683b53552e462acfb26",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4835e40b_531b3d28",
+        "filename": "roles/packet_gen/trex/launch_trex/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-19T13:57:06Z",
+      "side": 1,
+      "message": "Should be set as variable.",
+      "range": {
+        "startLine": 4,
+        "startChar": 14,
+        "endLine": 4,
+        "endChar": 31
+      },
+      "revId": "af627fcc373fbe0699bf2683b53552e462acfb26",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4425bb59_255625e7",
+        "filename": "roles/packet_gen/trex/launch_trex/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-19T13:57:06Z",
+      "side": 1,
+      "message": "Prefer \"command\" module over the \"shell\" when can be used.",
+      "range": {
+        "startLine": 9,
+        "startChar": 6,
+        "endLine": 9,
+        "endChar": 11
+      },
+      "revId": "af627fcc373fbe0699bf2683b53552e462acfb26",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d578a282_e8836ae0",
+        "filename": "roles/packet_gen/trex/launch_trex/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-19T13:57:06Z",
+      "side": 1,
+      "message": "Could be changed to:\nwhen: not trex_processes.stdout_lines\n\nI think, it a bit cleaner.",
+      "range": {
+        "startLine": 15,
+        "startChar": 12,
+        "endLine": 15,
+        "endChar": 48
+      },
+      "revId": "af627fcc373fbe0699bf2683b53552e462acfb26",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f36c39af_e4cf872d",
+        "filename": "roles/packet_gen/trex/launch_trex/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-19T13:57:06Z",
+      "side": 1,
+      "message": "Change to variable.",
+      "range": {
+        "startLine": 19,
+        "startChar": 140,
+        "endLine": 19,
+        "endChar": 158
+      },
+      "revId": "af627fcc373fbe0699bf2683b53552e462acfb26",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ebb2a2d6_b9d20081",
+        "filename": "roles/packet_gen/trex/launch_trex/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-19T13:57:06Z",
+      "side": 1,
+      "message": "when",
+      "range": {
+        "startLine": 20,
+        "startChar": 6,
+        "endLine": 20,
+        "endChar": 10
+      },
+      "revId": "af627fcc373fbe0699bf2683b53552e462acfb26",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d4ab372c_e65ea36a",
+        "filename": "roles/packet_gen/trex/launch_trex/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-19T13:57:06Z",
+      "side": 1,
+      "message": "Suggesting idea.\nGenerate a script from the template on the trex instance and then launch it.\nThe benefit is that independent to the play, the user will be able to see and execute the command.",
+      "range": {
+        "startLine": 22,
+        "startChar": 3,
+        "endLine": 24,
+        "endChar": 21
+      },
+      "revId": "af627fcc373fbe0699bf2683b53552e462acfb26",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9e70f9b6_5fbaa533",
+        "filename": "roles/packet_gen/trex/launch_trex/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-19T13:57:06Z",
+      "side": 1,
+      "message": "Prefer \"command\" module over the \"shell\" when can be used.",
+      "range": {
+        "startLine": 27,
+        "startChar": 6,
+        "endLine": 27,
+        "endChar": 11
+      },
+      "revId": "af627fcc373fbe0699bf2683b53552e462acfb26",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "117e07b1_28a3a9b3",
+        "filename": "roles/packet_gen/trex/launch_trex/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-19T13:57:06Z",
+      "side": 1,
+      "message": "Please, use the \"chdir\" argument:\n\ncommand: \"screen -dmS trex -t server {{ trex_cmd }}\"\nargs:\n  chdir: \"{{ trex_dir }}\"",
+      "range": {
+        "startLine": 27,
+        "startChar": 13,
+        "endLine": 27,
+        "endChar": 78
+      },
+      "revId": "af627fcc373fbe0699bf2683b53552e462acfb26",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d6a19f4_ba09a9d2",
+        "filename": "roles/packet_gen/trex/launch_trex/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-19T13:57:06Z",
+      "side": 1,
+      "message": "Should be changed to work against the openstack_tasks role.",
+      "range": {
+        "startLine": 28,
+        "startChar": 2,
+        "endLine": 28,
+        "endChar": 42
+      },
+      "revId": "af627fcc373fbe0699bf2683b53552e462acfb26",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
