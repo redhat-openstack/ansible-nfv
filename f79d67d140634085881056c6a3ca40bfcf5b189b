@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "92449d41_2f337a7a",
+        "filename": "docs/packet_gen/trex/configure_trex_vm.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-19T14:14:47Z",
+      "side": 1,
+      "message": "No need.\nUse the openstack_tasks role.\nIn the end, it will generate the dynamic inventory and you will be able to work in front of it.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 40
+      },
+      "revId": "f79d67d140634085881056c6a3ca40bfcf5b189b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3709e796_80221dc3",
+        "filename": "playbooks/packet_gen/trex/configure_trex_vm.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-19T14:14:47Z",
+      "side": 1,
+      "message": "Check how you can use the following filter.\n\nhttps://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html#forcing-variables-to-be-defined",
+      "range": {
+        "startLine": 7,
+        "startChar": 4,
+        "endLine": 10,
+        "endChar": 38
+      },
+      "revId": "f79d67d140634085881056c6a3ca40bfcf5b189b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7284bd39_12e6f2ae",
+        "filename": "playbooks/packet_gen/trex/configure_trex_vm.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-19T14:14:47Z",
+      "side": 1,
+      "message": "Vadim, please, do not duplicate code.\nYou can use the openstack_tasks role in order to prepare the environment.\nI see no reason to set it to a separate role.\n\nIn addition, no need to check for the virtual env existence, as by default the venv deleted created each time from scratch.\nThis is done in order to eliminate the situation where there is a package conflict in the venv.",
+      "range": {
+        "startLine": 12,
+        "startChar": 4,
+        "endLine": 20,
+        "endChar": 43
+      },
+      "revId": "f79d67d140634085881056c6a3ca40bfcf5b189b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c200446_d7738dc9",
+        "filename": "playbooks/packet_gen/trex/configure_trex_vm.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-19T14:14:47Z",
+      "side": 1,
+      "message": "Just a question.\nWhy are you not calling the role in a regular way?\n\nIf you will add a play with the regular point to the role, you will not need to use the delegate_to.",
+      "range": {
+        "startLine": 24,
+        "startChar": 6,
+        "endLine": 24,
+        "endChar": 19
+      },
+      "revId": "f79d67d140634085881056c6a3ca40bfcf5b189b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cb042e45_42216e7a",
+        "filename": "roles/packet_gen/trex/assign_trex_to_inventory/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-19T14:14:47Z",
+      "side": 1,
+      "message": "Not needed.\nThe openstack_tasks role will generate a dynamic inventory when the instances will be booted up.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 22
+      },
+      "revId": "f79d67d140634085881056c6a3ca40bfcf5b189b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee8af880_823403b2",
+        "filename": "roles/packet_gen/trex/live_config/tasks/query_trex_instance.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-19T14:14:47Z",
+      "side": 1,
+      "message": "Gather facts could be done on the play level, when the role called.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 38
+      },
+      "revId": "f79d67d140634085881056c6a3ca40bfcf5b189b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23b5fd3a_7a6001bf",
+        "filename": "roles/packet_gen/trex/live_config/tasks/query_trex_instance.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-19T14:14:47Z",
+      "side": 1,
+      "message": "Could you start using the new loops, please?\n\nhttps://docs.ansible.com/ansible/latest/porting_guides/porting_guides.html",
+      "range": {
+        "startLine": 13,
+        "startChar": 2,
+        "endLine": 13,
+        "endChar": 12
+      },
+      "revId": "f79d67d140634085881056c6a3ca40bfcf5b189b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f8293b6c_8c9d364a",
+        "filename": "roles/packet_gen/trex/live_config/tasks/query_trex_instance.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-19T14:14:47Z",
+      "side": 1,
+      "message": "No need.\nA dynamic inventory generated by the openstack_tasks, should be used.",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 56
+      },
+      "revId": "f79d67d140634085881056c6a3ca40bfcf5b189b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8cb4e9ce_8a0ef8f3",
+        "filename": "roles/prepare_venv/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-19T14:14:47Z",
+      "side": 1,
+      "message": "Vadim, please, use the openstack_tasks role.\nNo need to duplicate plays.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 1
+      },
+      "revId": "f79d67d140634085881056c6a3ca40bfcf5b189b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
