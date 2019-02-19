@@ -1,0 +1,10 @@
+trex_frame_size: 64
+trex_max_loss_pct: 0.00
+trex_flows: 1
+trex_rate: 2
+testpmd_lcores: '7,10,11'
+testpmd_mem_channels: 4
+testpmd_socket_mem: 1024
+testpmd_forward_cores: 2
+testpmd_rxd: 1024
+testpmd_txd: 1024

@@ -1,0 +1,47 @@
+- name: Clone trafficgen Project
+  git:
+    repo: "{{ trafficgen_repo }}"
+    dest: "{{ trafficgen_dir }}"
+  delegate_to: "{{ trex_server_mgmt_ip }}"
+
+- name: Query DuT Instance Flow
+  import_tasks: query_dut_instance.yml
+
+# TODO: Proper print function
+- name: Run Binary Search Script
+  command: "{{ traffic_cmd }}"
+  delegate_to: "{{ trex_server_mgmt_ip }}"
+  register: perf_output
+  failed_when: False
+  changed_when: False
+
+- debug:
+    var: perf_output
+
+- name: Save Binary Search Script Result To File
+  copy:
+    content: "{{ perf_output['stdout'] }}"
+    dest: "{{ binary_perf_log }}"
+
+- name: Parse JSON Result From Output File
+  shell: "cat {{ binary_perf_log }} | sed -e '0,/RESULT/ d' | sed 's/\\[.*\\] //g' | jq ."
+  register: perf_result
+  when: perf_output['rc'] == 0
+
+# TODO: Add additional valuable information for both states
+- name: Print Performance Result
+  debug:
+    msg: |
+      t-rex command:
+      {{ perf_output['cmd'] }}
+
+      {% if perf_output.rc == 0 %}
+
+      Performance Flow Succeded
+
+      {% else %}
+
+      Performance Flow Failed
+
+      {% endif %}
+  failed_when: perf_output['rc'] != 0

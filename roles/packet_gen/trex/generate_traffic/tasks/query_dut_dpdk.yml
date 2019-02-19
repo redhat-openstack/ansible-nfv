@@ -1,0 +1,49 @@
+- name: Parse DuT Server NICs' MAC Addresses
+  set_fact:
+    dut_server_nic_mac_addresses: "{{ dut_server_nic_mac_addresses | default([]) }} + [ '{{ openstack_servers[0]['addresses'][item][0]['OS-EXT-IPS-MAC:mac_addr'] }}' ]"
+  with_items: "{{ openstack_servers[0]['addresses'] }}"
+
+- name: Gather DuT Server Ports
+  vars:
+    ansible_python_interpreter: "/tmp/ansible_venv/bin/python/bin/python"
+  os_port_facts:
+    cloud: overcloud
+    validate_certs: no
+    filters:
+      mac_address: "{{ item }}"
+  with_items: "{{ dut_server_nic_mac_addresses }}"
+  failed_when: openstack_ports == []
+  register: dut_server_ports
+
+- name: Parse DuT Server DPDK NICs
+  set_fact:
+    dut_server_dpdk_nics: "{{ dut_server_dpdk_nics | default([]) }} + {{ item['ansible_facts']['openstack_ports'] }}"
+  with_items: "{{ dut_server_ports['results'] }}"
+  failed_when: dut_server_dpdk_nics == []
+
+- name: Attempt To Discoer MAC Address Of Interface Attached To Floating IP In DuT DPDK Server
+  set_fact:
+    dut_server_mgmt_mac: "{{ openstack_servers[0]['addresses'][item] | selectattr('OS-EXT-IPS:type', 'equalto', 'floating') | map(attribute='OS-EXT-IPS-MAC:mac_addr') | list | first }}"
+  with_items: "{{ openstack_servers[0]['addresses'] }}"
+  when:
+    - openstack_servers[0]['addresses'][item] | selectattr('OS-EXT-IPS:type', 'equalto', 'floating') | list != []
+
+- name: Fail To Discover DuT DPDK Management Interface MAC Addresss
+  fail:
+    msg: "DuT DPDK Instance Management Interface MAC Address can not be parsed"
+  when: dut_server_mgmt_mac == [] or dut_server_mgmt_mac == "[Undefined]"
+
+- name: Parse DuT Server DPDK NICs MAC Addresses
+  set_fact:
+    dut_macs: "{{ dut_server_dpdk_nics | map(attribute='mac_address') | reject('search', dut_server_mgmt_mac) | list | join(',') }}"
+
+- name: Set Binary Search Command
+  set_fact:
+    traffic_cmd: |
+      {{ binary_search_bin }} --traffic-generator trex-txrx \
+      --frame-size {{ trex_frame_size }} \
+      --max-loss-pct {{ trex_max_loss_pct }} \
+      --send-teaching-warmup  \
+      --dst-macs {{ dut_macs }} \
+      --num-flows {{ trex_flows }}
+  when: traffic_cmd is not defined
