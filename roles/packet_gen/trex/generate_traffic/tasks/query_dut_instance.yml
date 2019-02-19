@@ -1,0 +1,69 @@
+- name: Query DuT Instance Using OpenStack APIs
+  vars:
+    ansible_python_interpreter: "/tmp/ansible_venv/bin/python/bin/python"
+  os_server_facts:
+    cloud: overcloud
+    server: "{{ dut_server }}"
+    validate_certs: no
+  failed_when: openstack_servers == []
+
+- name: Attempt To Discoer Floating IP Of DuT Server
+  set_fact:
+    dut_server_mgmt_ip: "{{ openstack_servers[0]['addresses'][item] | selectattr('OS-EXT-IPS:type', 'equalto', 'floating') | map(attribute='addr') | list | first }}"
+  with_items: "{{ openstack_servers[0]['addresses'] }}"
+  when:
+    - openstack_servers[0]['addresses'][item] | selectattr('OS-EXT-IPS:type', 'equalto', 'floating') | list != []
+    - dut_server_mgmt_ip | default([]) == []
+
+- name: Fail To Discover DuT Instance Management IP
+  fail:
+    msg: "DuT Instance Management IP can not be parsed"
+  when: dut_server_mgmt_ip == [] or dut_server_mgmt_ip == "[Undefined]"
+
+- name: Add DuT Instance To Ansible In-Memory Inventory
+  add_host:
+    name: "{{ dut_server_mgmt_ip }}"
+    groups: dut
+    ansible_user: "{{ dut_server_user | default('root') }}"
+    ansible_password: "{{ dut_server_password | default('test') }}"
+
+- block:
+    - name: Check if TestPMD Directory Exists
+      stat:
+        path: /root/dpdk/build/app/
+      register: dut_dir_stat
+      failed_when: not dut_dir_stat.stat.exists
+
+    - name: Check if TestPMD Processes are running
+      shell: 'pgrep testpmd'
+      register: dut_processes
+      failed_when: False
+
+    - name: Kill TestPMD Processes
+      shell: 'pkill testpmd'
+      when: dut_processes['stdout_lines'] != []
+
+    - name: Set TestPMD Command If Not Defined
+      set_fact:
+        testpmd_cmd: |
+          /root/dpdk/build/app/testpmd -l {{ testpmd_lcores }} \
+          -n {{ testpmd_mem_channels }} \
+          --socket-mem {{ testpmd_socket_mem }} -- \
+          --nb-cores={{ test_pmd_forward_cores }} \
+          --auto-start \
+          --rxd={{ testpmd_rxd }} \
+          --txd={{ testpmd_txd }}
+      when: 
+        - testpmd_cmd is not defined
+        - testpmd_launch | default(True)
+
+    - name: Log TestPMD command
+      debug:
+        var: testpmd_cmd
+
+    - name: Run TestPMD Traffic Generator In Background
+      shell: "screen -dmS testpmd -t server {{ testpmd_cmd }}"
+  delegate_to: "{{ dut_server_mgmt_ip }}"
+
+- name: Query DuT Based On Technology Provided
+  import_tasks: "query_dut_{{ dut_type }}.yml"

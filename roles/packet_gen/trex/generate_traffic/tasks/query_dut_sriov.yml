@@ -1,0 +1,39 @@
+- name: Parse DuT Server NICs' MAC Addresses
+  set_fact:
+    dut_server_nic_mac_addresses: "{{ dut_server_nic_mac_addresses | default([]) }} + [ '{{ openstack_servers[0]['addresses'][item][0]['OS-EXT-IPS-MAC:mac_addr'] }}' ]"
+  with_items: "{{ openstack_servers[0]['addresses'] }}"
+
+- name: Gather DuT Server Ports
+  vars:
+    ansible_python_interpreter: "/tmp/ansible_venv/bin/python/bin/python"
+  os_port_facts:
+    cloud: overcloud
+    validate_certs: no
+    filters:
+      mac_address: "{{ item }}"
+  with_items: "{{ dut_server_nic_mac_addresses }}"
+  failed_when: openstack_ports == []
+  register: dut_server_ports
+
+- name: Parse DuT Server SR-IOV NICs
+  set_fact:
+    dut_server_sriov_nics: "{{ dut_server_sriov_nics | default([]) }} + {{ item['ansible_facts']['openstack_ports'] }}"
+  with_items: "{{ dut_server_ports['results'] }}"
+  when: item['ansible_facts']['openstack_ports'][0]['binding:vnic_type'] != "normal"
+  failed_when: dut_server_sriov_nics == []
+
+- name: Parse DuT Server SR-IOV NICs MAC Addresses
+  set_fact:
+    dut_macs: "{{ dut_server_sriov_nics | map(attribute='mac_address') | list | join(',') }}"
+
+- name: Set Binary Search Command
+  set_fact:
+    traffic_cmd: |
+      /opt/trafficgen/binary-search.py --traffic-generator trex-txrx \
+      --frame-size {{ trex_frame_size }} \
+      --max-loss-pct {{ trex_max_lost_pct }} \
+      --send-teaching-warmup \
+      --dst-macs {{ dut_macs }} \
+      --num-flows {{ trex_flows }} \
+      --rate {{ trex_rate }}
+  when: traffic_cmd is not defined
