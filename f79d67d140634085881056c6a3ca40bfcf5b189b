@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "106ec951_e3366eb1",
+        "filename": "docs/packet_gen/trex/configure_trex_vm.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-19T17:16:15Z",
+      "side": 1,
+      "message": "Do you mean generating the resources using resource generator and leveraging the output?",
+      "parentUuid": "92449d41_2f337a7a",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 40
+      },
+      "revId": "f79d67d140634085881056c6a3ca40bfcf5b189b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3709e796_80221dc3",
         "filename": "playbooks/packet_gen/trex/configure_trex_vm.yml",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2019-02-19T14:14:47Z",
       "side": 1,
       "message": "Check how you can use the following filter.\n\nhttps://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html#forcing-variables-to-be-defined",
+      "range": {
+        "startLine": 7,
+        "startChar": 4,
+        "endLine": 10,
+        "endChar": 38
+      },
+      "revId": "f79d67d140634085881056c6a3ca40bfcf5b189b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "66d4d1f2_5178b451",
+        "filename": "playbooks/packet_gen/trex/configure_trex_vm.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-19T17:16:15Z",
+      "side": 1,
+      "message": "Wow, I was not aware of this. Thanks!",
+      "parentUuid": "3709e796_80221dc3",
       "range": {
         "startLine": 7,
         "startChar": 4,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "34e36c97_4e4f0247",
+        "filename": "playbooks/packet_gen/trex/configure_trex_vm.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-19T17:16:15Z",
+      "side": 1,
+      "message": "Alright, I get your point.\n\nWill rework this.",
+      "parentUuid": "7284bd39_12e6f2ae",
+      "range": {
+        "startLine": 12,
+        "startChar": 4,
+        "endLine": 20,
+        "endChar": 43
+      },
+      "revId": "f79d67d140634085881056c6a3ca40bfcf5b189b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9c200446_d7738dc9",
         "filename": "playbooks/packet_gen/trex/configure_trex_vm.yml",
         "patchSetId": 1
@@ -82,6 +154,30 @@
       "writtenOn": "2019-02-19T14:14:47Z",
       "side": 1,
       "message": "Just a question.\nWhy are you not calling the role in a regular way?\n\nIf you will add a play with the regular point to the role, you will not need to use the delegate_to.",
+      "range": {
+        "startLine": 24,
+        "startChar": 6,
+        "endLine": 24,
+        "endChar": 19
+      },
+      "revId": "f79d67d140634085881056c6a3ca40bfcf5b189b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b27f5356_f8d3ae39",
+        "filename": "playbooks/packet_gen/trex/configure_trex_vm.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-19T17:16:15Z",
+      "side": 1,
+      "message": "Hey, sorry didn\u0027t get what you meant.\nDid you refer to:\n    include_role:\n      name: role\n    delegate_to: host\nNo reason, I\u0027ll change this.",
+      "parentUuid": "9c200446_d7738dc9",
       "range": {
         "startLine": 24,
         "startChar": 6,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "5e023c19_d5332b74",
+        "filename": "roles/packet_gen/trex/assign_trex_to_inventory/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-19T17:16:15Z",
+      "side": 1,
+      "message": "Are you referring to the resource creator?\n\nIf so, perhaps we should consider a scenario where we don\u0027t use resource creator and we would want to connect to trex host.",
+      "parentUuid": "cb042e45_42216e7a",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 22
+      },
+      "revId": "f79d67d140634085881056c6a3ca40bfcf5b189b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ee8af880_823403b2",
         "filename": "roles/packet_gen/trex/live_config/tasks/query_trex_instance.yaml",
         "patchSetId": 1
@@ -128,6 +248,30 @@
       "writtenOn": "2019-02-19T14:14:47Z",
       "side": 1,
       "message": "Gather facts could be done on the play level, when the role called.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 38
+      },
+      "revId": "f79d67d140634085881056c6a3ca40bfcf5b189b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "488854fa_3d673355",
+        "filename": "roles/packet_gen/trex/live_config/tasks/query_trex_instance.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-19T17:16:15Z",
+      "side": 1,
+      "message": "I should rename the task, \u0027Gather Trex Server Facts From OpenStack API\"",
+      "parentUuid": "ee8af880_823403b2",
       "range": {
         "startLine": 1,
         "startChar": 0,
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "93bfff41_9d5d5da5",
+        "filename": "roles/packet_gen/trex/live_config/tasks/query_trex_instance.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-19T17:16:15Z",
+      "side": 1,
+      "message": "I forgot that we started using Ansible 2.7.5, I\u0027ll do it.\nThanks.",
+      "parentUuid": "23b5fd3a_7a6001bf",
+      "range": {
+        "startLine": 13,
+        "startChar": 2,
+        "endLine": 13,
+        "endChar": 12
+      },
+      "revId": "f79d67d140634085881056c6a3ca40bfcf5b189b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f8293b6c_8c9d364a",
         "filename": "roles/packet_gen/trex/live_config/tasks/query_trex_instance.yaml",
         "patchSetId": 1
@@ -186,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "76e447e9_4c1d7d08",
+        "filename": "roles/packet_gen/trex/live_config/tasks/query_trex_instance.yaml",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-19T17:16:15Z",
+      "side": 1,
+      "message": "Question about resource generator as above.",
+      "parentUuid": "f8293b6c_8c9d364a",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 56
+      },
+      "revId": "f79d67d140634085881056c6a3ca40bfcf5b189b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8cb4e9ce_8a0ef8f3",
         "filename": "roles/prepare_venv/tasks/main.yml",
         "patchSetId": 1
@@ -197,6 +389,30 @@
       "writtenOn": "2019-02-19T14:14:47Z",
       "side": 1,
       "message": "Vadim, please, use the openstack_tasks role.\nNo need to duplicate plays.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 1
+      },
+      "revId": "f79d67d140634085881056c6a3ca40bfcf5b189b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c169d7a2_9b8f1ab1",
+        "filename": "roles/prepare_venv/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-19T17:16:15Z",
+      "side": 1,
+      "message": "Ack, I\u0027ll use it.",
+      "parentUuid": "8cb4e9ce_8a0ef8f3",
       "range": {
         "startLine": 1,
         "startChar": 0,
