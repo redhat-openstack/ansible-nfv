@@ -1,0 +1,20 @@
+# testpmd binary
+testpmd_bin: "{{ dpdk_compiled_dir }}/testpmd"
+
+# Map list of cores to physical cpu set
+testpmd_lcores: '7,10,11'
+
+# Mumber of memory channels to use
+testpmd_mem_channels: 4
+
+# Memory to allocate per socket
+testpmd_socket_mem: 1024
+
+# Number of cores to execute testpmd on
+testpmd_forward_cores: 2
+
+# TestPMD TX Queue size
+testpmd_rxd: 1024
+
+# TestPMD RX Queue size
+testpmd_txd: 1024
