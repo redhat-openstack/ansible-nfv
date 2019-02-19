@@ -1,0 +1,63 @@
+---
+- hosts: undercloud
+  gather_facts: False
+  pre_tasks:
+    - name: Verify DuT Type Is Valid
+      fail:
+        msg: "dut_type must be either 'sriov' or 'dpdk'"
+      when: dut_type | mandatory is not in ['sriov', 'dpdk']
+
+    - name: Prepare Virtual Environment
+      include_role:
+        name: roles/post_install/openstack_tasks
+        tasks_from: setup_openstack_env
+  tasks:
+    - name: Gather Trex Instance Information From APIs
+      block:
+        - name: Gather Trex Instance Ports From APIs
+          import_role:
+            name: roles/post_install/discover_instance_ports
+          vars:
+            query_instance: "{{ trex_instance | mandatory }}"
+            discover_instance_external_ip: True
+
+        - name: Parse Trex Port Configuration
+          set_fact:
+            trex_instance_mgmt_ip: "{{ instance_external_ip }}"
+            trex_instance_ports: "{{ instance_nics }}"
+
+    - name: Add Trex Instance To Ansible In-Memory Inventory
+      add_host:
+        name: "{{ trex_instance_mgmt_ip }}"
+        groups: trex
+        ansible_user: "{{ trex_instance_user | default('root') }}"
+        ansible_password: "{{ trex_instance_password | default(omit) }}"
+        ansible_ssh_private_key_file: "{{ trex_instance_ssh_key | default(omit) }}"
+        ansible_ssh_pass: "{{ trex_instance_ssh_pass | default(omit) }}"
+
+    - name: Gather DuT Instance Information From APIs
+      block:
+        - name: Gather DuT Instance Ports From APIs
+          import_role:
+            name: roles/post_install/discover_instance_ports
+          vars:
+            query_instance: "{{ dut_instance | mandatory }}"
+            discover_instance_external_ip: True
+
+        - name: Parse DuT Port Configuration
+          set_fact:
+            dut_instance_mgmt_ip: "{{ instance_external_ip }}"
+            dut_instance_ports: "{{ instance_nics }}"
+
+    - name: Add DuT Instance To Ansible In-Memory Inventory
+      add_host:
+        name: "{{ dut_instance_mgmt_ip }}"
+        groups: dut
+        ansible_user: "{{ dut_instance_user | default('root') }}"
+        ansible_password: "{{ dut_instance_password | default(omit) }}"
+        ansible_ssh_private_key_file: "{{ dut_instance_ssh_key | default(omit) }}"
+        ansible_ssh_pass: "{{ dut_instance_ssh_pass | default(omit) }}"
+
+    - name: Generate Traffic Flow
+      include_role:
+        name: roles/packet_gen/trex/generate_traffic
