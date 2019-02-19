@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "c4face3a_b019e70c",
+        "filename": "library/virt_customize_command.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-19T14:44:15Z",
+      "side": 1,
+      "message": "Alright, I will add it.",
+      "parentUuid": "e3e3a0e9_ce1e3587",
+      "range": {
+        "startLine": 24,
+        "startChar": 4,
+        "endLine": 24,
+        "endChar": 9
+      },
+      "revId": "8ba20ad7c9094fe75deb19ef04d9d7146b3a4f68",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ae3f59b8_8caad88d",
         "filename": "library/virt_customize_command.py",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2019-02-17T09:11:22Z",
       "side": 1,
       "message": "It seems to be missing from the docs options.",
+      "range": {
+        "startLine": 200,
+        "startChar": 12,
+        "endLine": 200,
+        "endChar": 27
+      },
+      "revId": "8ba20ad7c9094fe75deb19ef04d9d7146b3a4f68",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3f5c17c_aede8273",
+        "filename": "library/virt_customize_command.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-19T14:44:15Z",
+      "side": 1,
+      "message": "Added thanks.",
+      "parentUuid": "ae3f59b8_8caad88d",
       "range": {
         "startLine": 200,
         "startChar": 12,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "f8ab9966_745cf5cd",
+        "filename": "library/virt_customize_download.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-19T14:44:15Z",
+      "side": 1,
+      "message": "I copied pasted the doc, will adjust. Thanks.",
+      "parentUuid": "8be69ac3_32b2f0e8",
+      "range": {
+        "startLine": 24,
+        "startChar": 4,
+        "endLine": 29,
+        "endChar": 56
+      },
+      "revId": "8ba20ad7c9094fe75deb19ef04d9d7146b3a4f68",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "5679bcda_d89dc384",
         "filename": "library/virt_customize_download.py",
         "patchSetId": 1
@@ -82,6 +154,30 @@
       "writtenOn": "2019-02-17T09:11:22Z",
       "side": 1,
       "message": "I don\u0027t think the variable is required.\nFix me if I\u0027m wrong.",
+      "range": {
+        "startLine": 34,
+        "startChar": 8,
+        "endLine": 34,
+        "endChar": 22
+      },
+      "revId": "8ba20ad7c9094fe75deb19ef04d9d7146b3a4f68",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e2ab5c4_1d79c8a9",
+        "filename": "library/virt_customize_download.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-19T14:44:15Z",
+      "side": 1,
+      "message": "Fixed.",
+      "parentUuid": "5679bcda_d89dc384",
       "range": {
         "startLine": 34,
         "startChar": 8,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "a1274a45_5021b5c7",
+        "filename": "library/virt_customize_download.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-19T14:44:15Z",
+      "side": 1,
+      "message": "Great point! Thanks.",
+      "parentUuid": "d619795b_070cb30a",
+      "range": {
+        "startLine": 35,
+        "startChar": 27,
+        "endLine": 35,
+        "endChar": 28
+      },
+      "revId": "8ba20ad7c9094fe75deb19ef04d9d7146b3a4f68",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0143a9a5_25b10908",
         "filename": "library/virt_customize_download.py",
         "patchSetId": 1
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "13b23c30_b3a9106d",
+        "filename": "library/virt_customize_download.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-19T14:44:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0143a9a5_25b10908",
+      "range": {
+        "startLine": 142,
+        "startChar": 0,
+        "endLine": 142,
+        "endChar": 12
+      },
+      "revId": "8ba20ad7c9094fe75deb19ef04d9d7146b3a4f68",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "73fab873_4ad36abf",
         "filename": "library/virt_customize_download.py",
         "patchSetId": 1
@@ -151,6 +295,30 @@
       "writtenOn": "2019-02-17T09:11:22Z",
       "side": 1,
       "message": "Seems that the parameter is missing from the plugin docs options.",
+      "range": {
+        "startLine": 164,
+        "startChar": 12,
+        "endLine": 164,
+        "endChar": 27
+      },
+      "revId": "8ba20ad7c9094fe75deb19ef04d9d7146b3a4f68",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1ccf9360_0aa41d7c",
+        "filename": "library/virt_customize_download.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-19T14:44:15Z",
+      "side": 1,
+      "message": "Adding.",
+      "parentUuid": "73fab873_4ad36abf",
       "range": {
         "startLine": 164,
         "startChar": 12,
@@ -186,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "747dd305_1413d8d3",
+        "filename": "library/virt_customize_packages.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-19T14:44:15Z",
+      "side": 1,
+      "message": "Will add.",
+      "parentUuid": "18747da8_5b278dad",
+      "range": {
+        "startLine": 25,
+        "startChar": 4,
+        "endLine": 25,
+        "endChar": 8
+      },
+      "revId": "8ba20ad7c9094fe75deb19ef04d9d7146b3a4f68",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "658be354_370e1a1b",
         "filename": "library/virt_customize_packages.py",
         "patchSetId": 1
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "25fc28fc_35b59934",
+        "filename": "library/virt_customize_packages.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-19T14:44:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "658be354_370e1a1b",
+      "range": {
+        "startLine": 232,
+        "startChar": 0,
+        "endLine": 232,
+        "endChar": 12
+      },
+      "revId": "8ba20ad7c9094fe75deb19ef04d9d7146b3a4f68",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "84a89b3f_d8bb25c7",
         "filename": "library/virt_customize_packages.py",
         "patchSetId": 1
@@ -220,6 +436,30 @@
       "writtenOn": "2019-02-17T09:11:22Z",
       "side": 1,
       "message": "Seems that the parameter is missing from the plugin docs options.",
+      "range": {
+        "startLine": 260,
+        "startChar": 12,
+        "endLine": 260,
+        "endChar": 27
+      },
+      "revId": "8ba20ad7c9094fe75deb19ef04d9d7146b3a4f68",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "da22a287_4c4e650a",
+        "filename": "library/virt_customize_packages.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 260,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-19T14:44:15Z",
+      "side": 1,
+      "message": "Adding",
+      "parentUuid": "84a89b3f_d8bb25c7",
       "range": {
         "startLine": 260,
         "startChar": 12,
@@ -255,6 +495,30 @@
     },
     {
       "key": {
+        "uuid": "8ead4233_87c69d6f",
+        "filename": "library/virt_customize_upload.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-19T14:44:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "210e6aa9_49164581",
+      "range": {
+        "startLine": 35,
+        "startChar": 8,
+        "endLine": 35,
+        "endChar": 22
+      },
+      "revId": "8ba20ad7c9094fe75deb19ef04d9d7146b3a4f68",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "79779653_b704cc25",
         "filename": "library/virt_customize_upload.py",
         "patchSetId": 1
@@ -275,6 +539,30 @@
       "revId": "8ba20ad7c9094fe75deb19ef04d9d7146b3a4f68",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "642494dd_dd79f3a0",
+        "filename": "library/virt_customize_upload.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-19T14:44:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "79779653_b704cc25",
+      "range": {
+        "startLine": 36,
+        "startChar": 27,
+        "endLine": 36,
+        "endChar": 29
+      },
+      "revId": "8ba20ad7c9094fe75deb19ef04d9d7146b3a4f68",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     },
     {
       "key": {
@@ -301,6 +589,30 @@
     },
     {
       "key": {
+        "uuid": "8b7a27e0_9ca3e10e",
+        "filename": "library/virt_customize_upload.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-19T14:44:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b03f9f26_91b4053a",
+      "range": {
+        "startLine": 157,
+        "startChar": 0,
+        "endLine": 157,
+        "endChar": 17
+      },
+      "revId": "8ba20ad7c9094fe75deb19ef04d9d7146b3a4f68",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "14ae874c_412dbdc7",
         "filename": "library/virt_customize_upload.py",
         "patchSetId": 1
@@ -324,6 +636,30 @@
     },
     {
       "key": {
+        "uuid": "8cd61c56_60cf859d",
+        "filename": "library/virt_customize_upload.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-19T14:44:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "14ae874c_412dbdc7",
+      "range": {
+        "startLine": 179,
+        "startChar": 12,
+        "endLine": 179,
+        "endChar": 27
+      },
+      "revId": "8ba20ad7c9094fe75deb19ef04d9d7146b3a4f68",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b1bafb16_af0bc81f",
         "filename": "library/virt_customize_users.py",
         "patchSetId": 1
@@ -335,6 +671,30 @@
       "writtenOn": "2019-02-17T09:11:22Z",
       "side": 1,
       "message": "Can\u0027t the modules be modified to create/delete multiple users at once?",
+      "range": {
+        "startLine": 15,
+        "startChar": 8,
+        "endLine": 15,
+        "endChar": 28
+      },
+      "revId": "8ba20ad7c9094fe75deb19ef04d9d7146b3a4f68",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21bfa07e_f545540c",
+        "filename": "library/virt_customize_users.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-19T14:44:15Z",
+      "side": 1,
+      "message": "Agree, this is a good suggestion which I should do. Out of pure POC purposes I left it as a single user.\n\nWill work on in the future, don\u0027t think it\u0027s a high priority to our current requirements.",
+      "parentUuid": "b1bafb16_af0bc81f",
       "range": {
         "startLine": 15,
         "startChar": 8,
@@ -370,6 +730,30 @@
     },
     {
       "key": {
+        "uuid": "a7c30a7c_eec15ac0",
+        "filename": "library/virt_customize_users.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-19T14:44:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "884c35e9_b82363c0",
+      "range": {
+        "startLine": 160,
+        "startChar": 12,
+        "endLine": 160,
+        "endChar": 27
+      },
+      "revId": "8ba20ad7c9094fe75deb19ef04d9d7146b3a4f68",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6e2d0d63_966c5715",
         "filename": "module_utils/virt_customize.py",
         "patchSetId": 1
@@ -390,6 +774,30 @@
       "revId": "8ba20ad7c9094fe75deb19ef04d9d7146b3a4f68",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "37c1ec61_35ef9d48",
+        "filename": "module_utils/virt_customize.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-19T14:44:15Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6e2d0d63_966c5715",
+      "range": {
+        "startLine": 112,
+        "startChar": 0,
+        "endLine": 112,
+        "endChar": 20
+      },
+      "revId": "8ba20ad7c9094fe75deb19ef04d9d7146b3a4f68",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
