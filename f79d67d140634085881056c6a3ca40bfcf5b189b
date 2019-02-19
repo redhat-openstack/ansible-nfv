@@ -190,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "da0a1523_d44bff89",
+        "filename": "playbooks/packet_gen/trex/configure_trex_vm.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-19T17:30:48Z",
+      "side": 1,
+      "message": "Disregard my comment, I\u0027ve built this flow in a non intuitive way, will consider to split it up.",
+      "parentUuid": "b27f5356_f8d3ae39",
+      "range": {
+        "startLine": 24,
+        "startChar": 6,
+        "endLine": 24,
+        "endChar": 19
+      },
+      "revId": "f79d67d140634085881056c6a3ca40bfcf5b189b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cb042e45_42216e7a",
         "filename": "roles/packet_gen/trex/assign_trex_to_inventory/tasks/main.yml",
         "patchSetId": 1
