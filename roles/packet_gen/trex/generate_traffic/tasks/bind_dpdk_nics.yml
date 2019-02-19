@@ -1,0 +1,45 @@
+- name: "Bind Nics To DPDK For {{ item }}"
+  block:
+    - name: Reset Variable
+      set_fact:
+        instance_nics_pci_slots: ""
+
+    - name: "Check if DPDK Compiled Binaries Directory Exists on {{ item }}"
+      stat:
+        path: "{{ dpdk_compiled_dir }}"
+      register: dpdk_dir
+      failed_when: not dpdk_dir['stat']['exists']
+      become: True
+
+    - name: Retrieve Non Active NICs' PCI Slots
+      shell: "python /root/dpdk/usertools/dpdk-devbind.py --status | grep -v Active | grep 0000 | cut -d ' ' -f 1 | paste -sd ' '"
+      register: instance_nics_pci_slots
+      become: True
+
+    - name: Bind Parsed NICs to DPDK
+      shell: |
+        mkdir -p /mnt/huge
+        mount -t hugetlbfs nodev /mnt/huge
+        echo 64 > /sys/devices/system/node/node0/hugepages/hugepages-1048576kB/nr_hugepages
+        modprobe -r vfio
+        modprobe -v vfio enable_unsafe_noiommu_mode=1
+        modprobe -v vfio-pci
+        python {{ dpdk_root_dir }}/usertools/dpdk-devbind.py -b vfio-pci {{ instance_nics_pci_slots['stdout'] }}
+      become: True
+
+    - name: Set DuT Destination MAC Addresses
+      block:
+        - name: Fetch Mac Addresses Of NICs Bound To Kernel
+          shell: 'cat /sys/class/net/*/address | grep -v "00:00:00:00:00:00"'
+          register: kernel_nics
+
+        - debug:
+            var: kernel_nics['stdout']
+
+        - name: Parse DuT Destination Macs
+          set_fact:
+            dut_macs: "{{ dut_instance_ports | map(attribute='mac_address') | reject('search', kernel_nics['stdout']) | list | join(',') }}"
+      when:
+        - item == dut_instance_mgmt_ip
+        - dut_macs is not defined
+  delegate_to: "{{ item }}"
