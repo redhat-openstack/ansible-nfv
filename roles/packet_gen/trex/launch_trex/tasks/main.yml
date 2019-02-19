@@ -1,0 +1,28 @@
+- block:
+    - name: Check if Trex Directory Exists
+      stat:
+        path: /opt/trex/current
+      register: trex_dir_stat
+      failed_when: not trex_dir_stat.stat.exists
+
+    - name: Check if t-rex Processes are running
+      shell: 'pgrep t-rex'
+      register: trex_processes
+      failed_when: False
+
+    - name: Kill t-rex Processes
+      shell: 'pkill t-rex'
+      when: trex_processes['stdout_lines'] != []
+
+    - name: Set t-rex command if not defined
+      set_fact:
+        trex_cmd: "/opt/trex/current/t-rex-64 -i -c {{ trex_process_cores | default(8) }} {{ trex_process_extra_args | default('') }} --cfg /etc/trex_cfg.yaml"
+      whem: trex_cmd is not defined
+
+    - name: Log t-rex command:
+      debug:
+        var: trex_cmd
+
+    - name: Run t-rex Traffic Generator In Background
+      shell: "cd /opt/trex/current; screen -dmS trex -t server {{ trex_cmd }}"
+  delegate_to: "{{ trex_server_mgmt_ip }}"
