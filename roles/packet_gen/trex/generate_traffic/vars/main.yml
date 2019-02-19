@@ -1,0 +1,29 @@
+# Trafficgen scripts repo URI
+trafficgen_repo: 'https://github.com/atheurer/trafficgen'
+
+# Trafficgen repo directory on host
+trafficgen_dir: '/opt/trafficgen'
+
+# binary-search script result log file to be generated on undercloud
+binary_perf_log: '/home/stack/PERF_LOG.log'
+
+# binary-search binary
+binary_search_bin: "{{ trafficgen_dir }}/binary-search.py"
+
+# DPDK directory on host
+dpdk_root_dir: '/root/dpdk'
+
+# Compiled DPDK binaries directory
+dpdk_compiled_dir: '{{ dpdk_root_dir }}/build/app'
+
+# testpmd binary
+testpmd_bin: "{{ dpdk_compiled_dir }}/testpmd"
+
+# Symlinked Trex directory to be used for binary-search
+symlinked_trex_dir: '/opt/trex/current'
+
+# Symlinked t-rex binary
+symlinked_trex_bin: '{{ symlinked_trex_dir }}/t-rex-64'
+
+# Trex configuration file
+trex_cfg: '/etc/trex_cfg.yaml'
