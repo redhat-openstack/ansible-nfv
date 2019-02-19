@@ -1,0 +1,4 @@
+trex_frame_size: 64
+trex_max_loss_pct: 0.00 
+trex_flows: 1
+trex_rate: 2

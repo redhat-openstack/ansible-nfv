@@ -1,0 +1,48 @@
+---
+- hosts: undercloud
+  gather_facts: False
+  vars:
+    venv_path: "/tmp/ansible_venv/bin/python"
+  pre_tasks:
+    - name: Verify Required Variables
+      fail:
+        msg: "Make sure trex_server, dut_server and dut_type variables are defined"
+      when: trex_server is not defined or dut_server is not defined or dut_type is not defined
+
+    - name: Verify DuT Type Is Valid
+      fail:
+        msg: "dut_type must be either 'sriov' or 'dpdk'"
+      when: dut_type is not in ['sriov', 'dpdk']
+
+    - name: Check Virtual Environment Existence
+      stat:
+        path: "/tmp/ansible_venv"
+      register: venv_stat
+
+    - name: Prepare Virtual Environment
+      include_role:
+        name: roles/prepare_venv
+      when: not venv_stat['stat']['exists']
+
+  tasks:
+  - name: Gather Trex Server Facts
+    vars:
+      ansible_python_interpreter: "/tmp/ansible_venv/bin/python/bin/python"
+    os_server_facts:
+      cloud: overcloud
+      server: "{{ trex_server }}"
+      validate_certs: no
+    failed_when: openstack_servers == []
+
+  - name: Assign Trex Instance To Inventory
+    include_role:
+      name: roles/packet_gen/trex/assign_trex_to_inventory
+
+  - name: Launch Trex In The Background
+    include_role:
+      name: roles/packet_gen/trex/launch_trex
+    when: trex_launch | default(True)
+
+  - name: Generate Traffic Flow
+    include_role:
+      name: roles/packet_gen/trex/generate_traffic
