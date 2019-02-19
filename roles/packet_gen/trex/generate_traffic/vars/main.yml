@@ -1,0 +1,6 @@
+trafficgen_repo: 'https://github.com/atheurer/trafficgen'
+trafficgen_dir: '/opt/trafficgen'
+binary_perf_log: '/home/stack/PERF_LOG.log'
+binary_search_bin: "{{ trafficgen_dir }}/binary-search.py"
+testpmd_compiled_dir: '/root/dpdk/build/app'
+testpmd_bin: "{{ testpmd_compiled_dir }}/testpmd"
