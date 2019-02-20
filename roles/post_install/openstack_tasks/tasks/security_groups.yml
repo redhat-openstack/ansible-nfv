@@ -2,7 +2,7 @@
 
 - name: "Security groups {{ resource_state }}"
   vars:
-    ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+    ansible_python_interpreter: "{{ venv_path }}/bin/python"
   os_security_group:
     cloud: "{{ overcloud_name }}"
     name: "{{ item.name }}"
@@ -12,7 +12,7 @@
 
 - name: Add ICMP and SSH protocols
   vars:
-    ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+    ansible_python_interpreter: "{{ venv_path }}/bin/python"
   os_security_group_rule:
     cloud: "{{ overcloud_name }}"
     security_group: "{{ item.0.name }}"

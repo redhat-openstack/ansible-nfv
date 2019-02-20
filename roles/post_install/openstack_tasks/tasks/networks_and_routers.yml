@@ -9,7 +9,7 @@
   block:
     - name: Create networks
       vars:
-        ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+        ansible_python_interpreter: "{{ venv_path }}/bin/python"
       os_network:
         cloud: "{{ overcloud_name }}"
         name: "{{ item.name }}"
@@ -23,7 +23,7 @@
 
     - name: Create subnets
       vars:
-        ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+        ansible_python_interpreter: "{{ venv_path }}/bin/python"
       os_subnet:
         cloud: "{{ overcloud_name }}"
         name: "{{ item.name }}_subnet"
@@ -40,7 +40,7 @@
 
     - name: Create router and set router gateway
       vars:
-        ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+        ansible_python_interpreter: "{{ venv_path }}/bin/python"
       os_router:
         cloud: "{{ overcloud_name }}"
         name: "{{ item.router_name }}"
@@ -57,7 +57,7 @@
     #       * Check the behavior of the task in case 'external' var omitted and 'router_name' var exists.
     - name: Set router interfaces
       vars:
-        ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+        ansible_python_interpreter: "{{ venv_path }}/bin/python"
       os_router:
         cloud: "{{ overcloud_name }}"
         name: "{{ item.router_name }}"
@@ -68,7 +68,7 @@
 
     - name: Create network ports
       vars:
-        ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+        ansible_python_interpreter: "{{ venv_path }}/bin/python"
       os_port:
         cloud: "{{ overcloud_name }}"
         name: "{{ item.1.name }}"
@@ -87,7 +87,7 @@
   block:
     - name: Delete network ports
       vars:
-        ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+        ansible_python_interpreter: "{{ venv_path }}/bin/python"
       os_port:
         cloud: "{{ overcloud_name }}"
         name: "{{ item.1.name }}"
@@ -114,7 +114,7 @@
 
     - name: Delete router
       vars:
-        ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+        ansible_python_interpreter: "{{ venv_path }}/bin/python"
       os_router:
         cloud: "{{ overcloud_name }}"
         name: "{{ item.router_name }}"
@@ -128,7 +128,7 @@
 
     - name: Delete networks
       vars:
-        ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+        ansible_python_interpreter: "{{ venv_path }}/bin/python"
       os_network:
         cloud: "{{ overcloud_name }}"
         name: "{{ item.name }}"

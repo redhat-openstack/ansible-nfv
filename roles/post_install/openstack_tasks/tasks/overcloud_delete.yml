@@ -6,7 +6,7 @@
 # TODO: Once fixed, remove this.
 - name: Delete Overcloud stack
   vars:
-    ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+    ansible_python_interpreter: "{{ venv_path }}/bin/python"
   os_stack:
     cloud: "{{ overcloud_name }}"
     name: "{{ overcloud_name | default('overcloud') }}"

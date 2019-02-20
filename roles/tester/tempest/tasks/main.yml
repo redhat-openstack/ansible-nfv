@@ -60,7 +60,7 @@
 
 - name: Get the external network id
   vars:
-    ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+    ansible_python_interpreter: "{{ venv_path }}/bin/python"
   os_networks_facts:
     cloud: overcloud
     filters:
@@ -85,7 +85,7 @@
 
 - name: Check for the spesific flavor id if it's required
   vars:
-    ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+    ansible_python_interpreter: "{{ venv_path }}/bin/python"
   os_flavor_facts:
     cloud: overcloud
     name: "{{ tempest_flavor_name }}"

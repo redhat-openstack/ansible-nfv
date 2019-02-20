@@ -4,7 +4,7 @@
 #         it will be ignored and not created.
 - name: "Flavors {{ resource_state }}"
   vars:
-    ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+    ansible_python_interpreter: "{{ venv_path }}/bin/python"
   os_nova_flavor:
     cloud: "{{ overcloud_name }}"
     name: "{{ item.name }}"
@@ -17,7 +17,7 @@
 
 - name: Set flavor extra specs
   vars:
-    ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+    ansible_python_interpreter: "{{ venv_path }}/bin/python"
   os_nova_flavor:
     cloud: "{{ overcloud_name }}"
     name: "{{ item.0.name }}"

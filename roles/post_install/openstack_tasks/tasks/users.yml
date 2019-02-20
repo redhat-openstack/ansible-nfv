@@ -2,7 +2,7 @@
 
 - name: "Projects {{ resource_state }}"
   vars:
-    ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+    ansible_python_interpreter: "{{ venv_path }}/bin/python"
   os_project:
     cloud: "{{ overcloud_name }}"
     name: "{{ item.project }}"
@@ -12,7 +12,7 @@
 
 - name: "Users {{ resource_state }}"
   vars:
-    ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+    ansible_python_interpreter: "{{ venv_path }}/bin/python"
   os_user:
     cloud: "{{ overcloud_name }}"
     name: "{{ item.name }}"
@@ -25,7 +25,7 @@
 
 - name: Add user to role
   vars:
-    ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+    ansible_python_interpreter: "{{ venv_path }}/bin/python"
   os_user_role:
     cloud: "{{ overcloud_name }}"
     user: "{{ item.name }}"
@@ -37,7 +37,7 @@
 
 - name: Add quota to project
   vars:
-    ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+    ansible_python_interpreter: "{{ venv_path }}/bin/python"
   os_quota:
     cloud: "{{ overcloud_name }}"
     name: "{{ item.0.project }}"
