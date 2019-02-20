@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "b5ce6407_1f5a19a2",
+        "filename": "docs/packet_gen/trex/generate_traffic.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-20T08:59:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "00b75b25_47e93a09",
+      "range": {
+        "startLine": 4,
+        "startChar": 38,
+        "endLine": 4,
+        "endChar": 41
+      },
+      "revId": "af627fcc373fbe0699bf2683b53552e462acfb26",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ad7c9744_4058eb32",
         "filename": "docs/packet_gen/trex/generate_traffic.md",
         "patchSetId": 3
@@ -71,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "79747fcb_2e9ac557",
+        "filename": "playbooks/packet_gen/trex/generate_traffic.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-20T08:59:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "22591498_dd029a35",
+      "range": {
+        "startLine": 17,
+        "startChar": 3,
+        "endLine": 25,
+        "endChar": 43
+      },
+      "revId": "af627fcc373fbe0699bf2683b53552e462acfb26",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "00c86516_836e5ae5",
         "filename": "playbooks/packet_gen/trex/generate_traffic.yml",
         "patchSetId": 3
@@ -82,6 +130,30 @@
       "writtenOn": "2019-02-19T13:57:06Z",
       "side": 1,
       "message": "You don\u0027t need this.\nUse the openstack_tasks role.\nYou can create a server with that role.\nYou can set a group you would like the instance to be added to and once the server will be created, a dynamic inventory will be generated.\nThen you can start the next play with the reference to the hosts you need.\n\nhttps://github.com/redhat-openstack/ansible-nfv/blob/devel/roles/post_install/openstack_tasks/tasks/instances.yml#L23-L34",
+      "range": {
+        "startLine": 28,
+        "startChar": 5,
+        "endLine": 39,
+        "endChar": 60
+      },
+      "revId": "af627fcc373fbe0699bf2683b53552e462acfb26",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b97ea7b9_23abb9d1",
+        "filename": "playbooks/packet_gen/trex/generate_traffic.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-20T08:59:39Z",
+      "side": 1,
+      "message": "What if we would like to support a scenario where the resources were not created with the resource_creator?",
+      "parentUuid": "00c86516_836e5ae5",
       "range": {
         "startLine": 28,
         "startChar": 5,
@@ -114,6 +186,30 @@
       "revId": "af627fcc373fbe0699bf2683b53552e462acfb26",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd5b0c0b_42101069",
+        "filename": "roles/packet_gen/trex/generate_traffic/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-20T08:59:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "72608313_d4291991",
+      "range": {
+        "startLine": 3,
+        "startChar": 11,
+        "endLine": 4,
+        "endChar": 26
+      },
+      "revId": "af627fcc373fbe0699bf2683b53552e462acfb26",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +259,30 @@
     },
     {
       "key": {
+        "uuid": "928b46d5_8b27ec8d",
+        "filename": "roles/packet_gen/trex/generate_traffic/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-20T08:59:39Z",
+      "side": 1,
+      "message": "I don\u0027t want the play to fail here, I want to work on a task which prints the result of the execution properly which is the last task which will fail if binary search script\u0027s return code was not 0.",
+      "parentUuid": "6c5eb1fb_704fc860",
+      "range": {
+        "startLine": 15,
+        "startChar": 2,
+        "endLine": 15,
+        "endChar": 20
+      },
+      "revId": "af627fcc373fbe0699bf2683b53552e462acfb26",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "edd33617_2c0d0677",
         "filename": "roles/packet_gen/trex/generate_traffic/tasks/main.yml",
         "patchSetId": 3
@@ -186,6 +306,30 @@
     },
     {
       "key": {
+        "uuid": "e3475851_e6705890",
+        "filename": "roles/packet_gen/trex/generate_traffic/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-20T08:59:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "edd33617_2c0d0677",
+      "range": {
+        "startLine": 24,
+        "startChar": 10,
+        "endLine": 24,
+        "endChar": 34
+      },
+      "revId": "af627fcc373fbe0699bf2683b53552e462acfb26",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3cdff8a3_9575211b",
         "filename": "roles/packet_gen/trex/generate_traffic/tasks/query_dut_dpdk.yml",
         "patchSetId": 3
@@ -206,6 +350,30 @@
       "revId": "af627fcc373fbe0699bf2683b53552e462acfb26",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d54741f_ac5d028d",
+        "filename": "roles/packet_gen/trex/generate_traffic/tasks/query_dut_dpdk.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-20T08:59:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3cdff8a3_9575211b",
+      "range": {
+        "startLine": 43,
+        "startChar": 6,
+        "endLine": 43,
+        "endChar": 38
+      },
+      "revId": "af627fcc373fbe0699bf2683b53552e462acfb26",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     },
     {
       "key": {
@@ -255,6 +423,30 @@
     },
     {
       "key": {
+        "uuid": "d98ff059_3dc120a7",
+        "filename": "roles/packet_gen/trex/generate_traffic/tasks/query_dut_instance.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-20T08:59:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2198f58b_5d2474ac",
+      "range": {
+        "startLine": 33,
+        "startChar": 14,
+        "endLine": 33,
+        "endChar": 35
+      },
+      "revId": "af627fcc373fbe0699bf2683b53552e462acfb26",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b56b9ec7_a15deddf",
         "filename": "roles/packet_gen/trex/generate_traffic/tasks/query_dut_instance.yml",
         "patchSetId": 3
@@ -275,6 +467,30 @@
       "revId": "af627fcc373fbe0699bf2683b53552e462acfb26",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86fc0f64_1578cdd7",
+        "filename": "roles/packet_gen/trex/generate_traffic/tasks/query_dut_instance.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-20T08:59:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b56b9ec7_a15deddf",
+      "range": {
+        "startLine": 38,
+        "startChar": 6,
+        "endLine": 38,
+        "endChar": 11
+      },
+      "revId": "af627fcc373fbe0699bf2683b53552e462acfb26",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     },
     {
       "key": {
@@ -301,6 +517,30 @@
     },
     {
       "key": {
+        "uuid": "60fc1e67_eb27c9d8",
+        "filename": "roles/packet_gen/trex/generate_traffic/tasks/query_dut_instance.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-20T08:59:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "723fdeb4_36d7acb8",
+      "range": {
+        "startLine": 43,
+        "startChar": 6,
+        "endLine": 43,
+        "endChar": 11
+      },
+      "revId": "af627fcc373fbe0699bf2683b53552e462acfb26",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3dc83bd5_1f22fe9b",
         "filename": "roles/packet_gen/trex/generate_traffic/tasks/query_dut_instance.yml",
         "patchSetId": 3
@@ -324,6 +564,30 @@
     },
     {
       "key": {
+        "uuid": "e1b595d5_a7ee1ada",
+        "filename": "roles/packet_gen/trex/generate_traffic/tasks/query_dut_instance.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-20T08:59:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3dc83bd5_1f22fe9b",
+      "range": {
+        "startLine": 49,
+        "startChar": 10,
+        "endLine": 49,
+        "endChar": 38
+      },
+      "revId": "af627fcc373fbe0699bf2683b53552e462acfb26",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f6ae76f1_e05804c9",
         "filename": "roles/packet_gen/trex/generate_traffic/tasks/query_dut_instance.yml",
         "patchSetId": 3
@@ -344,6 +608,30 @@
       "revId": "af627fcc373fbe0699bf2683b53552e462acfb26",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c3add213_2ff73562",
+        "filename": "roles/packet_gen/trex/generate_traffic/tasks/query_dut_instance.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-20T08:59:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f6ae76f1_e05804c9",
+      "range": {
+        "startLine": 65,
+        "startChar": 6,
+        "endLine": 65,
+        "endChar": 11
+      },
+      "revId": "af627fcc373fbe0699bf2683b53552e462acfb26",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     },
     {
       "key": {
@@ -393,6 +681,30 @@
     },
     {
       "key": {
+        "uuid": "6fbf9dfe_a13fec01",
+        "filename": "roles/packet_gen/trex/generate_traffic/tasks/query_dut_sriov.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-20T08:59:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f1f27493_fd1946b0",
+      "range": {
+        "startLine": 32,
+        "startChar": 6,
+        "endLine": 32,
+        "endChar": 38
+      },
+      "revId": "af627fcc373fbe0699bf2683b53552e462acfb26",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8e3bf92f_d75764a7",
         "filename": "roles/packet_gen/trex/launch_trex/tasks/main.yml",
         "patchSetId": 3
@@ -404,6 +716,30 @@
       "writtenOn": "2019-02-19T13:57:06Z",
       "side": 1,
       "message": "Is there will be a trex install role?",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 1
+      },
+      "revId": "af627fcc373fbe0699bf2683b53552e462acfb26",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bb4f99f6_6bda57ba",
+        "filename": "roles/packet_gen/trex/launch_trex/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-20T08:59:39Z",
+      "side": 1,
+      "message": "1) We could either use some code of the play that installs Moongen or Trex.\n2) It is done @ image customization play.",
+      "parentUuid": "8e3bf92f_d75764a7",
       "range": {
         "startLine": 1,
         "startChar": 0,
@@ -436,6 +772,30 @@
       "revId": "af627fcc373fbe0699bf2683b53552e462acfb26",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aa889bac_b2702c8a",
+        "filename": "roles/packet_gen/trex/launch_trex/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-20T08:59:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4835e40b_531b3d28",
+      "range": {
+        "startLine": 4,
+        "startChar": 14,
+        "endLine": 4,
+        "endChar": 31
+      },
+      "revId": "af627fcc373fbe0699bf2683b53552e462acfb26",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     },
     {
       "key": {
@@ -485,6 +845,30 @@
     },
     {
       "key": {
+        "uuid": "d02349fa_58f8883b",
+        "filename": "roles/packet_gen/trex/launch_trex/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-20T08:59:39Z",
+      "side": 1,
+      "message": "Yea, thanks.",
+      "parentUuid": "d578a282_e8836ae0",
+      "range": {
+        "startLine": 15,
+        "startChar": 12,
+        "endLine": 15,
+        "endChar": 48
+      },
+      "revId": "af627fcc373fbe0699bf2683b53552e462acfb26",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f36c39af_e4cf872d",
         "filename": "roles/packet_gen/trex/launch_trex/tasks/main.yml",
         "patchSetId": 3
@@ -505,6 +889,30 @@
       "revId": "af627fcc373fbe0699bf2683b53552e462acfb26",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe9c2b4d_d4bc280c",
+        "filename": "roles/packet_gen/trex/launch_trex/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-20T08:59:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "f36c39af_e4cf872d",
+      "range": {
+        "startLine": 19,
+        "startChar": 140,
+        "endLine": 19,
+        "endChar": 158
+      },
+      "revId": "af627fcc373fbe0699bf2683b53552e462acfb26",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     },
     {
       "key": {
@@ -531,6 +939,30 @@
     },
     {
       "key": {
+        "uuid": "0bdb1a70_9f9431b7",
+        "filename": "roles/packet_gen/trex/launch_trex/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-20T08:59:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ebb2a2d6_b9d20081",
+      "range": {
+        "startLine": 20,
+        "startChar": 6,
+        "endLine": 20,
+        "endChar": 10
+      },
+      "revId": "af627fcc373fbe0699bf2683b53552e462acfb26",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d4ab372c_e65ea36a",
         "filename": "roles/packet_gen/trex/launch_trex/tasks/main.yml",
         "patchSetId": 3
@@ -542,6 +974,30 @@
       "writtenOn": "2019-02-19T13:57:06Z",
       "side": 1,
       "message": "Suggesting idea.\nGenerate a script from the template on the trex instance and then launch it.\nThe benefit is that independent to the play, the user will be able to see and execute the command.",
+      "range": {
+        "startLine": 22,
+        "startChar": 3,
+        "endLine": 24,
+        "endChar": 21
+      },
+      "revId": "af627fcc373fbe0699bf2683b53552e462acfb26",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f27b7361_93c245ae",
+        "filename": "roles/packet_gen/trex/launch_trex/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-20T08:59:39Z",
+      "side": 1,
+      "message": "Sorry, I don\u0027t get the recommendation.",
+      "parentUuid": "d4ab372c_e65ea36a",
       "range": {
         "startLine": 22,
         "startChar": 3,
@@ -597,6 +1053,54 @@
       "revId": "af627fcc373fbe0699bf2683b53552e462acfb26",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "708c1a88_d765e128",
+        "filename": "roles/packet_gen/trex/launch_trex/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-20T08:59:39Z",
+      "side": 1,
+      "message": "I forgot about that, thanks!",
+      "parentUuid": "117e07b1_28a3a9b3",
+      "range": {
+        "startLine": 27,
+        "startChar": 13,
+        "endLine": 27,
+        "endChar": 78
+      },
+      "revId": "af627fcc373fbe0699bf2683b53552e462acfb26",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "cc6d5bb1_56dcf829",
+        "filename": "roles/packet_gen/trex/launch_trex/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-20T08:59:39Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9e70f9b6_5fbaa533",
+      "range": {
+        "startLine": 27,
+        "startChar": 6,
+        "endLine": 27,
+        "endChar": 11
+      },
+      "revId": "af627fcc373fbe0699bf2683b53552e462acfb26",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     },
     {
       "key": {
