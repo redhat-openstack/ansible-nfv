@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3038ed9f_58444c33",
+        "filename": "docs/images/prepare_performance_images.md",
+        "patchSetId": 8
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-20T10:10:12Z",
+      "side": 1,
+      "message": "If centos image used, it is not internal.\nThe user should decide which repos should be used.",
+      "range": {
+        "startLine": 5,
+        "startChar": 41,
+        "endLine": 5,
+        "endChar": 58
+      },
+      "revId": "4e4a80fb2baaae654fb69ce9c1e0a8b82e049233",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a64becf_96db011e",
+        "filename": "playbooks/images/prepare_performance_images.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-20T10:10:12Z",
+      "side": 1,
+      "message": "Why don\u0027t you use the roles convention?\n\nroles:\n  - first_role\n  - second_role\n\nSee below why I think it is preferred.",
+      "range": {
+        "startLine": 4,
+        "startChar": 2,
+        "endLine": 4,
+        "endChar": 7
+      },
+      "revId": "4e4a80fb2baaae654fb69ce9c1e0a8b82e049233",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4620df8d_807c07e4",
+        "filename": "playbooks/images/prepare_performance_images.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-20T10:10:12Z",
+      "side": 1,
+      "message": "All of our roles are self-contained.\nAnd the playbooks are just a pointers to the roles.\nThe benefit of this is that a user is not required to look at two places for the tasks - playbooks and roles.\n\nI prefer that all tasks/variables will reside inside the role.",
+      "range": {
+        "startLine": 9,
+        "startChar": 4,
+        "endLine": 14,
+        "endChar": 22
+      },
+      "revId": "4e4a80fb2baaae654fb69ce9c1e0a8b82e049233",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5408acef_87c2423c",
+        "filename": "roles/images/performance/tasks/main.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-20T10:10:12Z",
+      "side": 1,
+      "message": "This could be a problem, because as far as I know, rhel images comes without any repo.",
+      "range": {
+        "startLine": 5,
+        "startChar": 8,
+        "endLine": 5,
+        "endChar": 14
+      },
+      "revId": "4e4a80fb2baaae654fb69ce9c1e0a8b82e049233",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e4d8e4c_6df1e8c0",
+        "filename": "roles/images/performance/tasks/prepare_dpdk.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-20T10:10:12Z",
+      "side": 1,
+      "message": "Should be a variable.\nCentos images will apply rdo repo.",
+      "range": {
+        "startLine": 4,
+        "startChar": 49,
+        "endLine": 4,
+        "endChar": 138
+      },
+      "revId": "4e4a80fb2baaae654fb69ce9c1e0a8b82e049233",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a594ee92_058505cc",
+        "filename": "roles/images/performance/tasks/prepare_dpdk.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-20T10:10:12Z",
+      "side": 1,
+      "message": "Should be a variable.",
+      "range": {
+        "startLine": 30,
+        "startChar": 47,
+        "endLine": 30,
+        "endChar": 66
+      },
+      "revId": "4e4a80fb2baaae654fb69ce9c1e0a8b82e049233",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5a4d8119_20f00163",
+        "filename": "roles/images/performance/tasks/prepare_dpdk.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-20T10:10:12Z",
+      "side": 1,
+      "message": "Should be a variable.\n\nLook how many times you are referring to this patch.\nAnd if I would like to change it?",
+      "range": {
+        "startLine": 30,
+        "startChar": 19,
+        "endLine": 30,
+        "endChar": 29
+      },
+      "revId": "4e4a80fb2baaae654fb69ce9c1e0a8b82e049233",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7cdaa6ca_8cd4c6dd",
+        "filename": "roles/images/performance/tasks/prepare_trex.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-20T10:10:12Z",
+      "side": 1,
+      "message": "Convert to a variable.",
+      "range": {
+        "startLine": 4,
+        "startChar": 14,
+        "endLine": 4,
+        "endChar": 52
+      },
+      "revId": "4e4a80fb2baaae654fb69ce9c1e0a8b82e049233",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df560c21_c4d7fa2e",
+        "filename": "roles/images/performance/tasks/prepare_trex.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-20T10:10:12Z",
+      "side": 1,
+      "message": "Convert to a variable.\nYou are referencing to this path many times.",
+      "range": {
+        "startLine": 5,
+        "startChar": 18,
+        "endLine": 5,
+        "endChar": 28
+      },
+      "revId": "4e4a80fb2baaae654fb69ce9c1e0a8b82e049233",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
