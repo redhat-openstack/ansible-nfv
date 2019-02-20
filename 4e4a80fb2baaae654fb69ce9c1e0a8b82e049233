@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "cdfbb5d2_c7bb137a",
+        "filename": "docs/images/prepare_performance_images.md",
+        "patchSetId": 8
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-20T16:04:24Z",
+      "side": 1,
+      "message": "It is internal because rhos-runner is sourced from an internal source.",
+      "parentUuid": "3038ed9f_58444c33",
+      "range": {
+        "startLine": 5,
+        "startChar": 41,
+        "endLine": 5,
+        "endChar": 58
+      },
+      "revId": "4e4a80fb2baaae654fb69ce9c1e0a8b82e049233",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1a64becf_96db011e",
         "filename": "playbooks/images/prepare_performance_images.yml",
         "patchSetId": 8
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "db1a1a8f_0c4faef7",
+        "filename": "playbooks/images/prepare_performance_images.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-20T16:04:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a64becf_96db011e",
+      "range": {
+        "startLine": 4,
+        "startChar": 2,
+        "endLine": 4,
+        "endChar": 7
+      },
+      "revId": "4e4a80fb2baaae654fb69ce9c1e0a8b82e049233",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4620df8d_807c07e4",
         "filename": "playbooks/images/prepare_performance_images.yml",
         "patchSetId": 8
@@ -68,6 +116,30 @@
       "revId": "4e4a80fb2baaae654fb69ce9c1e0a8b82e049233",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec61a5bc_d8ecbb87",
+        "filename": "playbooks/images/prepare_performance_images.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-20T16:04:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "4620df8d_807c07e4",
+      "range": {
+        "startLine": 9,
+        "startChar": 4,
+        "endLine": 14,
+        "endChar": 22
+      },
+      "revId": "4e4a80fb2baaae654fb69ce9c1e0a8b82e049233",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     },
     {
       "key": {
@@ -105,6 +177,30 @@
       "writtenOn": "2019-02-20T10:10:12Z",
       "side": 1,
       "message": "Should be a variable.\nCentos images will apply rdo repo.",
+      "range": {
+        "startLine": 4,
+        "startChar": 49,
+        "endLine": 4,
+        "endChar": 138
+      },
+      "revId": "4e4a80fb2baaae654fb69ce9c1e0a8b82e049233",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98050e34_7ca0ed0d",
+        "filename": "roles/images/performance/tasks/prepare_dpdk.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-20T16:04:24Z",
+      "side": 1,
+      "message": "There is no similar solution to rhos-release upstream, for CentOS we need to mimic: https://github.com/redhat-openstack/infrared/tree/1f6da76fee0ab481712bc1e39ccc26589631c065/infrared/common/roles/rdo-release",
+      "parentUuid": "4e4d8e4c_6df1e8c0",
       "range": {
         "startLine": 4,
         "startChar": 49,
@@ -160,6 +256,30 @@
       "revId": "4e4a80fb2baaae654fb69ce9c1e0a8b82e049233",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fd8a38d9_448ed84c",
+        "filename": "roles/images/performance/tasks/prepare_dpdk.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-20T16:04:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a4d8119_20f00163",
+      "range": {
+        "startLine": 30,
+        "startChar": 19,
+        "endLine": 30,
+        "endChar": 29
+      },
+      "revId": "4e4a80fb2baaae654fb69ce9c1e0a8b82e049233",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     },
     {
       "key": {
