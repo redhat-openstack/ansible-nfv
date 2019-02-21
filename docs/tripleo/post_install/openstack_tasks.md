@@ -225,6 +225,8 @@ instances:
       - name: private_net2_port2
         network: private_net2
         type: direct
+        port_security: false
+        sec_groups: test_secgroup
   - name: vm2
     connection_user: user     # The variable could be omitted
     flavor: nfv_flavor

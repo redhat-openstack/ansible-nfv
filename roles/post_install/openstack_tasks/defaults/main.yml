@@ -126,6 +126,7 @@ instances:
         sec_groups: test_secgroup
       - name: private_net2_port2
         network: private_net2
+        port_security: false
         type: direct
   - name: vm2
     connection_user: user

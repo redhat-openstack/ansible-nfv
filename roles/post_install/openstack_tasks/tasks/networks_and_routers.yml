@@ -75,6 +75,7 @@
         network: "{{ item.1.network }}"
         vnic_type: "{{ item.1.type }}"
         security_groups: "{{ item.1.sec_groups | default(omit) }}"
+        port_security_enabled: "{{ item.1.port_security | default(omit) }}"
         state: present
       with_subelements:
         - "{{ instances }}"
