@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a8e7a64c_1e2c4b45",
+        "filename": "roles/images/performance/tasks/prepare_dpdk.yml",
+        "patchSetId": 11
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2019-02-21T12:10:03Z",
+      "side": 1,
+      "message": "For VirtCustomize tracing\nPlease add Log in dpdkdir with the following:\nkernel-{{ guest_kernel[\u0027debug\u0027][\u0027uname -r\u0027][0] }}\nkernel-devel-{{ guest_kernel[\u0027debug\u0027][\u0027uname -r\u0027][0] }}\nkernel-headers-{{ guest_kernel[\u0027debug\u0027][\u0027uname -r\u0027][0] }}\ngit clone {{ dpdk_git }} {{ dpdk_dir }} -b {{ dpdk_version }}",
+      "range": {
+        "startLine": 39,
+        "startChar": 87,
+        "endLine": 39,
+        "endChar": 99
+      },
+      "revId": "195522b613d53c1fbb25a0594ca20feafd60e096",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
