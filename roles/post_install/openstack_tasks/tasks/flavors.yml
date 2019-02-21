@@ -2,23 +2,24 @@
 # Note! - The task splitted into two different tasks because
 #         in case one of the flavors provided without extra specs,
 #         it will be ignored and not created.
-- name: Create flavors
+- name: "Flavors {{ resource_state }}"
   vars:
-    ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+    ansible_python_interpreter: "{{ venv_path }}/bin/python"
   os_nova_flavor:
-    cloud: overcloud
+    cloud: "{{ overcloud_name }}"
     name: "{{ item.name }}"
     ram: "{{ item.ram }}"
     disk: "{{ item.disk }}"
     vcpus: "{{ item.vcpus }}"
-    state: present
+    state: "{{ resource_state }}"
   with_items: "{{ flavors }}"
+  register: reg_flavors
 
 - name: Set flavor extra specs
   vars:
-    ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+    ansible_python_interpreter: "{{ venv_path }}/bin/python"
   os_nova_flavor:
-    cloud: overcloud
+    cloud: "{{ overcloud_name }}"
     name: "{{ item.0.name }}"
     ram: "{{ item.0.ram }}"
     disk: "{{ item.0.disk }}"
@@ -29,3 +30,4 @@
     - "{{ flavors }}"
     - extra_specs
     - skip_missing: True
+  when: reg_flavors.changed and reg_flavors.results.0.id is defined

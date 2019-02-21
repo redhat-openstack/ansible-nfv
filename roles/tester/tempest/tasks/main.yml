@@ -1,25 +1,7 @@
 ---
 
-- name: Check for the v3 overcloudrc file
-  stat:
-    path: "{{ rc_file }}.v3"
-  register: rc_file_path
-
-- name: Register Auth URL
-  vars:
-    rc_v3: "{{ rc_file }}.v3"
-    rc_v2: "{{ rc_file }}"
-    rc_version_file_path: "{{ rc_file_path.stat.exists | ternary(rc_v3, rc_v2) }}"
-  shell: "cat {{ rc_version_file_path }} | grep AUTH_URL | cut -d '=' -f 2"
-  register: osp_auth
-
-- name: Register Password
-  vars:
-    rc_v3: "{{ rc_file }}.v3"
-    rc_v2: "{{ rc_file }}"
-    rc_version_file_path: "{{ rc_file_path.stat.exists | ternary(rc_v3, rc_v2) }}"
-  shell: "cat {{ rc_version_file_path }} | grep OS_PASSWORD | cut -d '=' -f 2"
-  register: osp_password
+- name: Register variables
+  include_tasks: register_variables.yml
 
 - name: Check OSP version
   include_role:
@@ -41,7 +23,8 @@
     force: yes
   with_items: "{{ tempest_repos }}"
 
-- set_fact:
+- name: Set tempest venv path
+  set_fact:
     tempest_venv: "{{ tempest_dir }}/venv"
 
 - name: Create a virtual environment and upgrade it to the latest version
@@ -77,7 +60,7 @@
 
 - name: Get the external network id
   vars:
-    ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+    ansible_python_interpreter: "{{ venv_path }}/bin/python"
   os_networks_facts:
     cloud: overcloud
     filters:
@@ -102,7 +85,7 @@
 
 - name: Check for the spesific flavor id if it's required
   vars:
-    ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+    ansible_python_interpreter: "{{ venv_path }}/bin/python"
   os_flavor_facts:
     cloud: overcloud
     name: "{{ tempest_flavor_name }}"
@@ -116,6 +99,12 @@
     group: "{{ tempest_user }}"
     mode: 0755
   when: tempest_config is defined
+
+- name: Generate accounts.yaml file
+  template:
+    src: accounts.yaml.j2
+    dest: "{{ accounts_file_path }}"
+  when: generate_accounts
 
 - name: Check if extra tempest.conf variables supplied
   block:
@@ -138,19 +127,25 @@
         --debug \
         --image "/tmp/{{ images[0].url | basename }}" \
         --network-id {{ tempest_net_id.ansible_facts.openstack_networks.0.id }} \
-        identity.uri {{ osp_auth.stdout }} \
-        identity.admin_password {{ osp_password.stdout }} \
+        identity.uri {{ rc_vars.osp_auth }} \
+        identity.admin_password {{ rc_vars.osp_password }} \
         identity.region regionOne DEFAULT.debug false \
-        compute.image_ssh_user {{ image_ssh_user }} \
         compute.min_microversion {{ compute_min_microversion }} \
         compute.max_microversion {{ compute_max_microversion }} \
-        validation.image_ssh_user {{ image_ssh_user }} \
         {% if tempest_flavor_name is defined %}
         compute.flavor_ref {{ openstack_flavors[0].id }} \
         {% endif %}
         compute-feature-enabled.live_migration true \
         {% if tempest_config is defined %}
-        hypervisor.external_config_file {{ tempest_dir }}/{{ tempest_config | basename }} \
+        nfv_plugin_options.external_config_file {{ tempest_dir }}/{{ tempest_config | basename }} \
+        {% endif %}
+        {% if generate_accounts %}
+        auth.test_accounts_file {{ accounts_file_path }} \
+        auth.use_dynamic_credentials false \
+        auth.admin_username {{ rc_vars.osp_username }} \
+        auth.admin_password {{ rc_vars.osp_password }} \
+        auth.admin_project_name {{ rc_vars.osp_project_name }} \
+        auth.admin_domain_name {{ rc_vars.osp_domain_name }} \
         {% endif %}
         neutron_plugin_options.advanced_image_ref true \
         neutron_plugin_options.max_networks_per_project 1 \
@@ -175,7 +170,7 @@
   file:
     path: "{{ tempest_dir }}/{{ tempest_main }}/.stestr"
     state: absent
-  when: testrepository.stat.exists == true
+  when: testrepository.stat.exists
 
 - name: Create tempest tests repository for the clean state tests run
   tags: run_tempest_test

@@ -1,7 +1,5 @@
 ---
 
-rc_file: /home/stack/overcloudrc
-
 ## Tempest variables
 tempest_user: stack
 tempest_dir: /home/stack/tempest
@@ -13,6 +11,9 @@ neutron_tempest_plugin: neutron-tempest-plugin
 ### Tempest Compute group variables
 compute_min_microversion: 2.32
 compute_max_microversion: 2.32
+
+#### Git branches variables
+nfv_tempest_branch: 'master'
 
 tempest_repos:
   - name: openstack-tempest
@@ -33,9 +34,26 @@ tempest_repos:
     url: https://github.com/redhat-openstack/nfv-tempest-plugin
     version:
       defaults:
-        branch: 'master'
+        branch: "{{ nfv_tempest_branch }}"
   - name: neutron-tempest-plugin
     url: https://github.com/openstack/neutron-tempest-plugin
     version:
       defaults:
         branch: 'master'
+
+## The path to the accounts.yaml file
+## Used by tempest in pre-provision mode.
+accounts_file_path: "{{ tempest_dir }}/accounts.yaml"
+
+rc_file: /home/stack/overcloudrc
+rc_params:
+  - name: osp_auth
+    value: OS_AUTH_URL
+  - name: osp_username
+    value: OS_USERNAME
+  - name: osp_password
+    value: OS_PASSWORD
+  - name: osp_project_name
+    value: OS_PROJECT_NAME
+  - name: osp_domain_name
+    value: OS_USER_DOMAIN_NAME

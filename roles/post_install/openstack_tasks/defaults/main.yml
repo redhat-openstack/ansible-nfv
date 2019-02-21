@@ -2,12 +2,39 @@
 
 ### Run triggers
 setup_os_env: true
-create_networks: true
-create_flavors: true
-images_upload: true
+user: false
+network: true
+net_port: true
+flavor: true
+image: true
+keypair: true
+security_group: true
+instance: false
 overcloud_delete: false
-boot_instance: false
-clear_env: false
+resources_output: false
+
+### Set the state of the resource.
+### The state could be 'present' or 'absent'.
+resource_state: present
+
+### The name of the overcloud/user, the tasks should be run on.
+overcloud_name: overcloud
+
+users:
+  - name: test_user1
+    pass: 12345678
+    project: test_project1
+    domain: default
+    role: member
+    quota:
+      - cores: 20
+        ram: 20480
+        instances: 25
+  - name: test_user2
+    pass: 87654321
+    project: test_project2
+    domain: default
+    role: member
 
 ### Networks
 ### Define the networks that should be created on the overcloud.
@@ -18,7 +45,6 @@ clear_env: false
 ### By default, 'network_type' uses 'vlan', 'ip_version' uses 'ipv4'
 ### 'gateway_ip' could be defined in case there is a need to specify gateway ip address.
 ### 'shared', define whether this network is shared or not.
-
 networks:
   - name: public
     physical_network: public
@@ -33,11 +59,17 @@ networks:
     router_name: router1
     shared: true
     ip_version: 4
-  - name: private
-    physical_network: tenant
+  - name: private1
+    physical_network: tenant1
     segmentation_id: 32
     cidr: 172.20.0.0/24
     router_name: router1
+  - name: private2
+    physical_network: tenant2
+    cidr: 173.30.0.0/24
+  - name: private3
+    physical_network: tenant3
+    cidr: 174.40.0.0/24
 
 dns_nameservers:
   - 8.8.8.8
@@ -50,7 +82,7 @@ images:
 
 # Default flavor to create
 flavors:
-  - name: nfv-flavor
+  - name: nfv_flavor
     ram: 4096
     disk: 20
     vcpus: 4
@@ -61,12 +93,56 @@ flavors:
         "hw:numa_cpus.0": "0,1,2,3"
         "hw:cpu_policy": "dedicated"
 
-group_name: tested_vms
+connection_user: cloud_user
+keypair_name: test_keypair
+
+security_groups:
+  - name: test_secgroup
+    rules:
+      - protocol: icmp
+        port_range_min: -1
+        port_range_max: -1
+        remote_ip_prefix: 0.0.0.0/0
+      - protocol: tcp
+        port_range_min: 22
+        port_range_max: 22
+        remote_ip_prefix: 0.0.0.0/0
+
 instances:
   - name: vm1
+    groups: vm_group
+    flavor: nfv_flavor
+    image: centos
+    key_name: "{{ keypair_name }}"
+    sec_groups: test_secgroup
+    floating_ip: yes
+    # The nics attached to the instance could be a created ports specified below,
+    # or just a network name. Note the port-name and net-name.
+    nics: port-name=private_net1_port1,port-name=private_net2_port2,net-name=private_net3
+    net_ports:
+      - name: private_net1_port1
+        network: private_net1
+        type: normal
+        sec_groups: test_secgroup
+      - name: private_net2_port2
+        network: private_net2
+        type: direct
+  - name: vm2
+    connection_user: user
+    flavor: nfv_flavor
+    image: centos
+    key_name: "{{ keypair_name }}"
+    sec_groups: test_secgroup
+    floating_ip: yes
+    nics: net-name=private_net3,port-name=private_net1_port3
+    net_ports:
+      - name: private_net1_port3
+        network: private_net1
+        type: normal
+        sec_groups: test_secgroup
 
-remove_instances:
-  - name: vm1
+# The path to the file output of the created resources.
+resources_output_file: /home/stack/resources_output_file.yml
 
 # Virtual environment path
 venv_path: "/tmp/ansible_venv"

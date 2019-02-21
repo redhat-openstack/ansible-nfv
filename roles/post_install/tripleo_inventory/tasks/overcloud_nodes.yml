@@ -66,7 +66,7 @@
 
 - name: Gather Overcloud nodes data
   vars:
-    ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+    ansible_python_interpreter: "{{ venv_path }}/bin/python"
   os_server_facts:
     auth: "{{ creds.stdout | from_yaml }}"
     # Required for SSL

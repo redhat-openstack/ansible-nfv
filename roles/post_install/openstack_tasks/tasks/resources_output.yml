@@ -1,0 +1,13 @@
+---
+
+- name: Generate resources output file
+  template:
+    src: resources_output.j2
+    dest: "{{ resources_output_file }}"
+  when: resources_output and resource_state == 'present'
+
+- name: Delete resources output file
+  file:
+    path: "{{ resources_output_file }}"
+    state: absent
+  when: resources_output and resource_state == 'absent'

@@ -1,0 +1,49 @@
+---
+
+- name: "Projects {{ resource_state }}"
+  vars:
+    ansible_python_interpreter: "{{ venv_path }}/bin/python"
+  os_project:
+    cloud: "{{ overcloud_name }}"
+    name: "{{ item.project }}"
+    domain_id: "{{ item.domain }}"
+    state: "{{ resource_state }}"
+  loop: "{{ users | flatten(levels=1) }}"
+
+- name: "Users {{ resource_state }}"
+  vars:
+    ansible_python_interpreter: "{{ venv_path }}/bin/python"
+  os_user:
+    cloud: "{{ overcloud_name }}"
+    name: "{{ item.name }}"
+    password: "{{ item.pass }}"
+    default_project: "{{ item.project }}"
+    domain: "{{ item.domain }}"
+    state: "{{ resource_state }}"
+  loop: "{{ users | flatten(levels=1) }}"
+  register: reg_users
+
+- name: Add user to role
+  vars:
+    ansible_python_interpreter: "{{ venv_path }}/bin/python"
+  os_user_role:
+    cloud: "{{ overcloud_name }}"
+    user: "{{ item.name }}"
+    project: "{{ item.project }}"
+    role: "{{ item.role }}"
+    state: "{{ resource_state }}"
+  loop: "{{ users | flatten(levels=1) }}"
+  when: reg_users.changed and reg_users.results.0.user is defined
+
+- name: Add quota to project
+  vars:
+    ansible_python_interpreter: "{{ venv_path }}/bin/python"
+  os_quota:
+    cloud: "{{ overcloud_name }}"
+    name: "{{ item.0.project }}"
+    cores: "{{ item.1.cores }}"
+    ram: "{{ item.1.ram }}"
+    instances: "{{ item.1.instances }}"
+    state: "{{ resource_state }}"
+  loop: "{{ users | subelements('quota', 'skip_missing=True') }}"
+  when: resource_state == 'present'

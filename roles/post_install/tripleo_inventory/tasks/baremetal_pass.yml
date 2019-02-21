@@ -11,7 +11,7 @@
 - name: Load the public key to undercloud
   authorized_key:
     user: "{{ user | default('stack') }}"
-    key: "{{ lookup('file', '{{ tripleo_undercloud_key }}.pub')}}"
+    key: "{{ lookup('file', '{{ tripleo_undercloud_key }}.pub') }}"
     state: present
   delegate_to: "{{ host }}"
 

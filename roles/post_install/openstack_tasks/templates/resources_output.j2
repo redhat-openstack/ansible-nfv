@@ -1,0 +1,10 @@
+servers:
+{% for instance in reg_instance.results %}
+  - name: {{ instance.server.name }}
+    id: {{ instance.server.id }}
+    fip: {{ instance.server.accessIPv4 }}
+    addresses:
+        - addr: {{ instance.openstack.private_v4 }}
+{% endfor %}
+
+key_pair: "{{ resources_output_file | dirname }}/{{ keypair_name }}.key"
