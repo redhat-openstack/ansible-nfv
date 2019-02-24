@@ -22,6 +22,30 @@
       "revId": "1b76bd89a493d11e447508837e88606b4b67da33",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1cd3c9a4_1df93750",
+        "filename": "playbooks/images/prepare_performance_images.yml",
+        "patchSetId": 12
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-24T14:18:18Z",
+      "side": 1,
+      "message": "It\u0027s necessary only for one reason, to pass the version to rhos-release.\n\nUpdated to allow specifying manually the undercloud_version.",
+      "parentUuid": "0606f968_cc2f4fc8",
+      "range": {
+        "startLine": 5,
+        "startChar": 6,
+        "endLine": 5,
+        "endChar": 26
+      },
+      "revId": "1b76bd89a493d11e447508837e88606b4b67da33",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
