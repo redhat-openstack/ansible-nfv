@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "91b8e286_02c26587",
+        "filename": "docs/images/prepare_performance_images.md",
+        "patchSetId": 14
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2019-02-24T17:02:20Z",
+      "side": 1,
+      "message": "replace \u0027-\u0027 -\u003e \u0027\u003d\u0027",
+      "range": {
+        "startLine": 84,
+        "startChar": 79,
+        "endLine": 84,
+        "endChar": 80
+      },
+      "revId": "a2396d6482c73a4613f46fad8854a5654400949e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c980d573_74dd4ffe",
+        "filename": "docs/images/prepare_performance_images.md",
+        "patchSetId": 14
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2019-02-24T17:02:20Z",
+      "side": 1,
+      "message": "replace \u0027-\u0027 -\u003e \u0027\u003d\u0027",
+      "range": {
+        "startLine": 88,
+        "startChar": 79,
+        "endLine": 88,
+        "endChar": 80
+      },
+      "revId": "a2396d6482c73a4613f46fad8854a5654400949e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
