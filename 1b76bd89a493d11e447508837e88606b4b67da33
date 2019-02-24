@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0606f968_cc2f4fc8",
+        "filename": "playbooks/images/prepare_performance_images.yml",
+        "patchSetId": 12
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2019-02-24T14:07:21Z",
+      "side": 1,
+      "message": "Tried to run it on my laptop with the following command\ndiscover_osp_version\n\nI think the following could be run\nansible-playbook -i inventory -e undercloud_version\u003d10  -e hosts\u003dlocalhost  playbooks/images/prepare_performance_images.yml -e guest_image\u003d\u0027/tmp/rhel-guest-image-7-6-210-x86-64-qcow2\u0027 -e prepare_trex\u003dTrue\n\nIs it mandatory for the virt_customise to be aware of undercloud or overcloud?",
+      "range": {
+        "startLine": 5,
+        "startChar": 6,
+        "endLine": 5,
+        "endChar": 26
+      },
+      "revId": "1b76bd89a493d11e447508837e88606b4b67da33",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
