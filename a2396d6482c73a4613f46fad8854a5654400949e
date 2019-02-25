@@ -71,6 +71,30 @@
     },
     {
       "key": {
+        "uuid": "24eab3e8_0a9b5585",
+        "filename": "playbooks/images/prepare_performance_images.yml",
+        "patchSetId": 14
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-25T22:46:57Z",
+      "side": 1,
+      "message": "Removed OSP discovery since no longer needed.",
+      "parentUuid": "5b743b23_2ecd9afa",
+      "range": {
+        "startLine": 5,
+        "startChar": 2,
+        "endLine": 5,
+        "endChar": 8
+      },
+      "revId": "a2396d6482c73a4613f46fad8854a5654400949e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f20a597c_4f33acfa",
         "filename": "playbooks/images/prepare_performance_images.yml",
         "patchSetId": 14
@@ -82,6 +106,30 @@
       "writtenOn": "2019-02-25T09:44:20Z",
       "side": 1,
       "message": "Honestly, I don\u0027t think we actually need this role.\nA centos repo could be used here.\nIt covers all the packages we need.\n\nAnd anyone outside of redhat will not have to modify the role in order to install these packages.",
+      "range": {
+        "startLine": 6,
+        "startChar": 4,
+        "endLine": 8,
+        "endChar": 45
+      },
+      "revId": "a2396d6482c73a4613f46fad8854a5654400949e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "142c67a0_7cc1e4fb",
+        "filename": "playbooks/images/prepare_performance_images.yml",
+        "patchSetId": 14
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-25T22:46:57Z",
+      "side": 1,
+      "message": "Indeed, as discussed removed it.",
+      "parentUuid": "f20a597c_4f33acfa",
       "range": {
         "startLine": 6,
         "startChar": 4,
@@ -117,6 +165,30 @@
     },
     {
       "key": {
+        "uuid": "1d6ea7ec_38129842",
+        "filename": "roles/images/performance/tasks/main.yml",
+        "patchSetId": 14
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-25T22:46:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "21ece123_85bcc2a9",
+      "range": {
+        "startLine": 3,
+        "startChar": 2,
+        "endLine": 3,
+        "endChar": 5
+      },
+      "revId": "a2396d6482c73a4613f46fad8854a5654400949e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e920bbe5_fd3b44ed",
         "filename": "roles/images/performance/tasks/prepare_dpdk.yml",
         "patchSetId": 14
@@ -140,6 +212,30 @@
     },
     {
       "key": {
+        "uuid": "78e62bac_ac2158f8",
+        "filename": "roles/images/performance/tasks/prepare_dpdk.yml",
+        "patchSetId": 14
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-25T22:46:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e920bbe5_fd3b44ed",
+      "range": {
+        "startLine": 6,
+        "startChar": 9,
+        "endLine": 6,
+        "endChar": 46
+      },
+      "revId": "a2396d6482c73a4613f46fad8854a5654400949e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4a2876d3_3f6b34d4",
         "filename": "roles/images/performance/tasks/prepare_dpdk.yml",
         "patchSetId": 14
@@ -151,6 +247,30 @@
       "writtenOn": "2019-02-25T09:44:20Z",
       "side": 1,
       "message": "I understood from our discussion, the kernel of the host is not related at all to the guest.",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 61
+      },
+      "revId": "a2396d6482c73a4613f46fad8854a5654400949e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3310c6e5_6c25d99c",
+        "filename": "roles/images/performance/tasks/prepare_dpdk.yml",
+        "patchSetId": 14
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-25T22:46:57Z",
+      "side": 1,
+      "message": "Modified the compilation to not use rt-kni and igbuio, which removes the kernel headers dependency from DPDK compilation.",
+      "parentUuid": "4a2876d3_3f6b34d4",
       "range": {
         "startLine": 17,
         "startChar": 0,
