@@ -45,6 +45,121 @@
       "revId": "a2396d6482c73a4613f46fad8854a5654400949e",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5b743b23_2ecd9afa",
+        "filename": "playbooks/images/prepare_performance_images.yml",
+        "patchSetId": 14
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-25T09:44:20Z",
+      "side": 1,
+      "message": "As we spoke, our playbooks are just pointers to the roles.\nPlease, do not apply any logic here.",
+      "range": {
+        "startLine": 5,
+        "startChar": 2,
+        "endLine": 5,
+        "endChar": 8
+      },
+      "revId": "a2396d6482c73a4613f46fad8854a5654400949e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f20a597c_4f33acfa",
+        "filename": "playbooks/images/prepare_performance_images.yml",
+        "patchSetId": 14
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-25T09:44:20Z",
+      "side": 1,
+      "message": "Honestly, I don\u0027t think we actually need this role.\nA centos repo could be used here.\nIt covers all the packages we need.\n\nAnd anyone outside of redhat will not have to modify the role in order to install these packages.",
+      "range": {
+        "startLine": 6,
+        "startChar": 4,
+        "endLine": 8,
+        "endChar": 45
+      },
+      "revId": "a2396d6482c73a4613f46fad8854a5654400949e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21ece123_85bcc2a9",
+        "filename": "roles/images/performance/tasks/main.yml",
+        "patchSetId": 14
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-25T09:44:20Z",
+      "side": 1,
+      "message": "Add become: true.\nBy default the connection user is stack.",
+      "range": {
+        "startLine": 3,
+        "startChar": 2,
+        "endLine": 3,
+        "endChar": 5
+      },
+      "revId": "a2396d6482c73a4613f46fad8854a5654400949e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e920bbe5_fd3b44ed",
+        "filename": "roles/images/performance/tasks/prepare_dpdk.yml",
+        "patchSetId": 14
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-25T09:44:20Z",
+      "side": 1,
+      "message": "We should avoid using rhos-release in any play.",
+      "range": {
+        "startLine": 6,
+        "startChar": 9,
+        "endLine": 6,
+        "endChar": 46
+      },
+      "revId": "a2396d6482c73a4613f46fad8854a5654400949e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4a2876d3_3f6b34d4",
+        "filename": "roles/images/performance/tasks/prepare_dpdk.yml",
+        "patchSetId": 14
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-25T09:44:20Z",
+      "side": 1,
+      "message": "I understood from our discussion, the kernel of the host is not related at all to the guest.",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 61
+      },
+      "revId": "a2396d6482c73a4613f46fad8854a5654400949e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
