@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "1d6fec52_70f2a33c",
+        "filename": "playbooks/images/prepare_performance_images.yml",
+        "patchSetId": 17
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2019-02-26T14:09:51Z",
+      "side": 1,
+      "message": "Please move it to default parameter \n\"{{ run_on_host  }}\"\n\nThis way we can always override with -e run_on_host\u003d...",
+      "range": {
+        "startLine": 3,
+        "startChar": 9,
+        "endLine": 3,
+        "endChar": 19
+      },
+      "revId": "647369246b31136b47b5a64b94356d696b511228",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "47569342_42f13494",
         "filename": "roles/images/performance/defaults/main.yml",
         "patchSetId": 17
@@ -41,6 +64,52 @@
         "startChar": 0,
         "endLine": 10,
         "endChar": 48
+      },
+      "revId": "647369246b31136b47b5a64b94356d696b511228",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9659b793_c78b80ea",
+        "filename": "roles/images/performance/tasks/main.yml",
+        "patchSetId": 17
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2019-02-26T14:09:51Z",
+      "side": 1,
+      "message": "fatal: [localhost]: FAILED! \u003d\u003e {\n    \"changed\": false, \n    \"msg\": [\n        \"Could not detect which major revision of yum is in use, which is required to determine module backend.\", \n        \"You can manually specify use_backend to tell the module whether to use the yum (yum3) or dnf (yum4) backend})\"\n\nchanged yum --\u003e module the error below did not return",
+      "range": {
+        "startLine": 3,
+        "startChar": 2,
+        "endLine": 3,
+        "endChar": 5
+      },
+      "revId": "647369246b31136b47b5a64b94356d696b511228",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6c7a2ad5_1a24a8da",
+        "filename": "roles/images/performance/tasks/main.yml",
+        "patchSetId": 17
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2019-02-26T14:09:51Z",
+      "side": 1,
+      "message": "Add {{ package_manager }} with default var\nThis way if there is a problem -e package_manager\u003d.. \ncan be used",
+      "range": {
+        "startLine": 7,
+        "startChar": 3,
+        "endLine": 7,
+        "endChar": 17
       },
       "revId": "647369246b31136b47b5a64b94356d696b511228",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
