@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "cc21b840_38a1523a",
+        "filename": "docs/images/prepare_performance_images.md",
+        "patchSetId": 17
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-26T17:03:24Z",
+      "side": 1,
+      "message": "Done, using get_url.",
+      "parentUuid": "42a3c217_925f1296",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 30
+      },
+      "revId": "647369246b31136b47b5a64b94356d696b511228",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1d6fec52_70f2a33c",
         "filename": "playbooks/images/prepare_performance_images.yml",
         "patchSetId": 17
@@ -59,6 +83,30 @@
       "writtenOn": "2019-02-26T08:34:51Z",
       "side": 1,
       "message": "Change it to a list of repos, so in case I would like to provide multiple repos, I can do it.\n\nrepo_dir: \u0027/tmp/guest_repos\u0027\nrepositories:\n  - name: centos_base\n    baseurl: \u0027http://mirror.centos.org/centos/7/os/$basearch/\u0027\n\n\n* repo_description - could be built from the name variable.\n* repo_state - Don\u0027t think it should be a variable. The images comes without any repos, so there is nothing to remove.\n* repo_mirrorlist - Why do we need a mirrorlist?\n* repo_gpgcheck - Set it to false without a variable. I\u0027m, as a user do not want to look for the gpg key. I just want to set the repo.\n* repo_gpgkey - Same as above\n* repo_file - No need in a variable. Use it within the module by using the repo_dir var and repo name.\n\nThis way it will be pretty simple for the user to set a needed repo.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 48
+      },
+      "revId": "647369246b31136b47b5a64b94356d696b511228",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4f8b88c_01a8cc68",
+        "filename": "roles/images/performance/defaults/main.yml",
+        "patchSetId": 17
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-26T17:03:24Z",
+      "side": 1,
+      "message": "Implemented an option to include multiple repos.",
+      "parentUuid": "47569342_42f13494",
       "range": {
         "startLine": 1,
         "startChar": 0,
@@ -140,6 +188,30 @@
     },
     {
       "key": {
+        "uuid": "7e47cb45_0250b8cc",
+        "filename": "roles/images/performance/tasks/main.yml",
+        "patchSetId": 17
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-26T17:03:24Z",
+      "side": 1,
+      "message": "This is a good point, I think I\u0027ll change to everything being True and the user will have an option to opt out of certain configuration.",
+      "parentUuid": "ea58bc98_55a0cb09",
+      "range": {
+        "startLine": 12,
+        "startChar": 8,
+        "endLine": 12,
+        "endChar": 38
+      },
+      "revId": "647369246b31136b47b5a64b94356d696b511228",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e13f1c43_475647f7",
         "filename": "roles/images/performance/tasks/prepare_dpdk.yml",
         "patchSetId": 17
@@ -163,6 +235,30 @@
     },
     {
       "key": {
+        "uuid": "5609c9a7_63fc3d4b",
+        "filename": "roles/images/performance/tasks/prepare_dpdk.yml",
+        "patchSetId": 17
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-26T17:03:24Z",
+      "side": 1,
+      "message": "Done, mentioned the reasons in docs.",
+      "parentUuid": "e13f1c43_475647f7",
+      "range": {
+        "startLine": 16,
+        "startChar": 2,
+        "endLine": 16,
+        "endChar": 22
+      },
+      "revId": "647369246b31136b47b5a64b94356d696b511228",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d8f3441d_e06885cc",
         "filename": "roles/images/performance/tasks/prepare_repos.yml",
         "patchSetId": 17
@@ -174,6 +270,30 @@
       "writtenOn": "2019-02-26T08:34:51Z",
       "side": 1,
       "message": "Should be based on the repo name.\nPlease, refer to the comments in defaults.yml",
+      "range": {
+        "startLine": 20,
+        "startChar": 10,
+        "endLine": 20,
+        "endChar": 38
+      },
+      "revId": "647369246b31136b47b5a64b94356d696b511228",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2fedfab3_8fc5ec84",
+        "filename": "roles/images/performance/tasks/prepare_repos.yml",
+        "patchSetId": 17
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-26T17:03:24Z",
+      "side": 1,
+      "message": "Didn\u0027t notice, fixed. Thanks.",
+      "parentUuid": "d8f3441d_e06885cc",
       "range": {
         "startLine": 20,
         "startChar": 10,
