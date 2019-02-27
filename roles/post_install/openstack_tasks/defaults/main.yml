@@ -5,6 +5,7 @@ setup_os_env: true
 user: false
 network: true
 net_port: true
+aggregate: false
 flavor: true
 image: true
 keypair: true
@@ -79,6 +80,20 @@ dns_nameservers:
 images:
   - name: centos
     url: http://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud.qcow2
+
+# Default aggregation groups to create
+aggregate_groups:
+  - name: TREX_AG
+    hosts:
+      - compute-0.localdomain
+    metadata:
+      - flavor=trex_ag
+
+  - name: DUT_AG
+    hosts:
+      - compute-1.localdomain
+    metadata:
+      - flavor=dut_ag
 
 # Default flavor to create
 flavors:
