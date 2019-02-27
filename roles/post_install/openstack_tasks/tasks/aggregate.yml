@@ -1,0 +1,15 @@
+---
+
+- name: Create aggregate groups
+  vars:
+    ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+  os_nova_host_aggregate:
+    state: "{{ resource_state }}"
+    cloud: "{{ overcloud_name }}"
+    name: "{{ item.0.name }}"
+    hosts: "{{ item.0.hosts }}"
+    metadata: "{{ item.1 }}"
+  with_subelements:
+    - "{{ aggregate_groups }}"
+    - metadata
+    - skip_missing: True
