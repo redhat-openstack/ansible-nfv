@@ -16,6 +16,10 @@ Openstack tasks play perform the following tasks on the existing Openstack envir
       The interfaces for the instance could be specified as a network name or as a created port name.
 * Upload images
     * Upload provided images to the glance store of the overcloud.
+* Aggregate groups
+    * Creates aggregation groups with defined hosts and metadata.  
+      **NOTE** - a must configuration is required: enable "AggregateInstanceExtraSpecsFilter"  
+      in a /etc/nova/nova.conf file (controllers nodes) to the scheduler_default_filters defenition.
 * Creates flavors and extra_specs
     * Creates flavors for the instances. Extra_specs could be created for the flavors if required.
 * Creates keypair
@@ -38,6 +42,7 @@ The run could be separated by specifying tags of specific run.
 * user - Run users and projects creation and sets quotas.
 * network - Run networks creation.
 * net_port - Run instance port creation.
+* aggregate - Run group aggregate creation.
 * flavor - Run flavors creation.
 * image - Upload images to the Openstack environment.
 * keypair - Run keypair creation.
@@ -51,6 +56,7 @@ The run could be separated by specifying tags of specific run.
 * user - Executed if 'true'. False by default.
 * network - Executed if 'true'. True by default.
 * net_port - Executed if 'true'. True be default.
+* aggregate - Executed if 'true'. False by default.
 * flavor - Executed if 'true'. True by default.
 * image - Executed if 'true'. True by default.
 * keypair - Executed if 'true'. True by default.
@@ -58,6 +64,7 @@ The run could be separated by specifying tags of specific run.
 * instance - Executed if 'true'. False by default.
 * overcloud_delete - Executed if 'true'. False by default.
 * resources_output - Executed if 'true'. False by default.
+
 
 ## Role default variables
 #### State of the resource
@@ -139,6 +146,19 @@ dns_nameservers:
   - 8.8.4.4
 ```
 
+#### Aggregate groups creation
+Specify the aggregation groups that should be created.
+```
+aggregate_groups:
+  - name: TREX_AG
+    hosts:
+      - compute-0.localdomain
+      - compute-1.localdomain
+    metadata:
+      - flavor=trex_ag
+        flavor=dut_ag
+```
+
 #### Flavors creation
 Specify flavors that should be created.  
 Flavor keys (extra_specs) value are optional.
@@ -159,6 +179,9 @@ flavors:
         "hw:numa_nodes": "1"
         "hw:numa_cpus.0": "0,1,2,3"
         "hw:cpu_policy": "dedicated"
+        # Configure metadata of the created aggregation group as a flavor extra specs
+        in order to initially boot an instance on a preferred hypervisor.
+        "aggregate_instance_extra_specs:flavor": "trex_ag"
 ```
 
 #### Images upload variables
@@ -216,7 +239,7 @@ instances:
     and 'int_net' as an internal NATed network that the FIP address will be assigned to it
     floating_ip:
       ext_net: public
-      int_net: private_net1
+      int_net: private_net3
     # NICs to be attached to instance, must be present or created by `net_ports`
     nics: port-name=private_net1_port1,port-name=private_net2_port2,net-name=private_net3
     config_drive: True # Optional, Specify if nova should attach metadata content via CD-ROM to instance
@@ -239,7 +262,7 @@ instances:
     sec_groups: test_secgroup
     floating_ip:
       ext_net: public
-      int_net: private_net1
+      int_net: private_net3
     nics: net-name=private_net3,port-name=private_net1_port3
     net_ports:
       - name: private_net1_port3
