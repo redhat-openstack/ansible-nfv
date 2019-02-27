@@ -58,6 +58,7 @@ The run could be separated by specifying tags of specific run.
 * instance - Executed if 'true'. False by default.
 * overcloud_delete - Executed if 'true'. False by default.
 * resources_output - Executed if 'true'. False by default.
+* aggregate - Executed if 'true'. False by default.
 
 ## Role default variables
 #### State of the resource
@@ -139,6 +140,21 @@ dns_nameservers:
   - 8.8.4.4
 ```
 
+#### Aggregate groups creation
+Specify the aggregation groups that should be created.
+```
+aggregate_groups:
+  - name: TREX_AG
+    hosts: compute-0.localdomain
+    metadata:
+      - flavor=trex_ag
+
+  - name: DUT_AG
+    hosts: compute-1.localdomain
+    metadata:
+      - flavor=dut_ag
+```
+
 #### Flavors creation
 Specify flavors that should be created.  
 Flavor keys (extra_specs) value are optional.
@@ -159,6 +175,9 @@ flavors:
         "hw:numa_nodes": "1"
         "hw:numa_cpus.0": "0,1,2,3"
         "hw:cpu_policy": "dedicated"
+        # Configure metadata of the created aggregation group as a flavor extra specs
+        in order to initially boot an instance on a preferred hypervisor.
+        "aggregate_instance_extra_specs:flavor": "trex_ag"
 ```
 
 #### Images upload variables

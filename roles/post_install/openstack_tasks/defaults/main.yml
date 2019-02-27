@@ -5,6 +5,7 @@ setup_os_env: true
 user: false
 network: true
 net_port: true
+aggregate: false
 flavor: true
 image: true
 keypair: true
@@ -12,6 +13,7 @@ security_group: true
 instance: false
 overcloud_delete: false
 resources_output: false
+aggregate: false
 
 ### Set the state of the resource.
 ### The state could be 'present' or 'absent'.
