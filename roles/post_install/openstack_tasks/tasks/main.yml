@@ -25,6 +25,11 @@
   include_tasks: networks_and_routers.yml
   when: network
 
+- name: Aggregate groups
+  tags: aggregate
+  include_tasks: aggregate.yml
+  when: aggregate
+
 - name: Flavors
   tags: flavor
   include_tasks: flavors.yml
