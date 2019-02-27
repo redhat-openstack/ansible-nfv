@@ -212,7 +212,11 @@ instances:
     image: centos
     key_name: "{{ keypair_name }}"
     sec_groups: test_secgroup
-    floating_ip: yes
+    # Assigning FIP address to an instance, choose 'ext_net' as your routable network
+    and 'int_net' as an internal NATed network that the FIP address will be assigned to it
+    floating_ip:
+      ext_net: public
+      int_net: private_net1
     # NICs to be attached to instance, must be present or created by `net_ports`
     nics: port-name=private_net1_port1,port-name=private_net2_port2,net-name=private_net3
     config_drive: True # Optional, Specify if nova should attach metadata content via CD-ROM to instance
@@ -233,7 +237,9 @@ instances:
     image: centos
     key_name: "{{ keypair_name }}"
     sec_groups: test_secgroup
-    floating_ip: yes
+    floating_ip:
+      ext_net: public
+      int_net: private_net1
     nics: net-name=private_net3,port-name=private_net1_port3
     net_ports:
       - name: private_net1_port3
