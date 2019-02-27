@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d695ef5e_8d2dba27",
+        "filename": "docs/images/prepare_performance_images.md",
+        "patchSetId": 18
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-27T07:43:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "840eb2d9_760c830a",
+      "range": {
+        "startLine": 21,
+        "startChar": 10,
+        "endLine": 21,
+        "endChar": 14
+      },
+      "revId": "7cca1a4b4c242908de51d08ca1cb6c0807934fdd",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5446eba1_00f55823",
         "filename": "playbooks/images/prepare_performance_images.yml",
         "patchSetId": 18
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "8fe6736a_45832d1e",
+        "filename": "playbooks/images/prepare_performance_images.yml",
+        "patchSetId": 18
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-27T07:43:25Z",
+      "side": 1,
+      "message": "Okay, I\u0027ll add this and mention that it was designed for Fedora/CentOS/RHEL.",
+      "parentUuid": "5446eba1_00f55823",
+      "range": {
+        "startLine": 3,
+        "startChar": 9,
+        "endLine": 3,
+        "endChar": 19
+      },
+      "revId": "7cca1a4b4c242908de51d08ca1cb6c0807934fdd",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2f868bc3_503c9760",
         "filename": "roles/images/performance/defaults/main.yml",
         "patchSetId": 18
@@ -59,6 +107,30 @@
       "writtenOn": "2019-02-26T20:55:34Z",
       "side": 1,
       "message": "Thanks for implementing the multiple repos option.\n\nNow, try to think like a user.\nWhy do I need to provide so many config options when basically, I could have just two for each repo.\n\n* name - Could be \"centos_base\", so the \"file\" could use the name of the repo as a file path.\n* description - Build it from the repo name as well.\n* state - The state is fine.\n* mirrorlist - Why do I need to provide mirror list? And if I don\u0027t have one?\n* gpgcheck - Set it as \u0027False\u0027 hardcoded within the module.\n* gpgkey - Why do I need to search for the gpgkey. I just want to download the image.\n* file - Described in the name.\n\nYou can set a clean two options repo config.\n\nguest_repos:\n  - name: \u0027centos_base\u0027\n    baseurl: \u0027http://mirror.centos.org/centos/7/os/$basearch/\u0027\n    state: \u0027present\u0027\n\nThat\u0027s all I really need.\nOther options could be not used as they are not mandatory, or built from the name value (description, file).",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 12
+      },
+      "revId": "7cca1a4b4c242908de51d08ca1cb6c0807934fdd",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f06667ce_43652f62",
+        "filename": "roles/images/performance/defaults/main.yml",
+        "patchSetId": 18
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-27T07:43:25Z",
+      "side": 1,
+      "message": "\u003e Thanks for implementing the multiple repos option.\n\u003e \n\u003e Now, try to think like a user.\n\u003e Why do I need to provide so many config options when basically, I could have just two for each repo.\nFor the sake of customisation, if we allow it then why restrict users?\n\u003e \n\u003e * name - Could be \"centos_base\", so the \"file\" could use the name of the repo as a file path.\n  This is cool idea for a default. \n\u003e * description - Build it from the repo name as well.\n  This is cool idea for a default. \n\u003e * state - The state is fine.\n\u003e * mirrorlist - Why do I need to provide mirror list? And if I don\u0027t have one?\n  I\u0027ve omitted it if not present.\n\u003e * gpgcheck - Set it as \u0027False\u0027 hardcoded within the module.\n  I\u0027ve set it to false in this flow.\n\u003e * gpgkey - Why do I need to search for the gpgkey. I just want to download the image.\n  It\u0027s an official repo we\u0027re accessing and it should be done properly. This option will also be omitted if a user doesn\u0027t specify a GPG key.\n\u003e * file - Described in the name.\n  This is cool idea for a default.",
+      "parentUuid": "2f868bc3_503c9760",
       "range": {
         "startLine": 7,
         "startChar": 0,
@@ -91,6 +163,30 @@
       "revId": "7cca1a4b4c242908de51d08ca1cb6c0807934fdd",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee06cfb6_ff94a79b",
+        "filename": "roles/images/performance/tasks/prepare_repos.yml",
+        "patchSetId": 18
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-02-27T07:43:25Z",
+      "side": 1,
+      "message": "Forgot, thanks.",
+      "parentUuid": "c72a733e_18c23f6e",
+      "range": {
+        "startLine": 17,
+        "startChar": 2,
+        "endLine": 17,
+        "endChar": 12
+      },
+      "revId": "7cca1a4b4c242908de51d08ca1cb6c0807934fdd",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
