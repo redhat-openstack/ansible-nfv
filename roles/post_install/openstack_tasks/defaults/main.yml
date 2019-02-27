@@ -5,6 +5,7 @@ setup_os_env: true
 user: false
 network: true
 net_port: true
+aggregate: false
 flavor: true
 image: true
 keypair: true
