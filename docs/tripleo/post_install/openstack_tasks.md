@@ -4,18 +4,20 @@
 Openstack tasks play perform the following tasks on the existing Openstack environment.
 
 * Setup Openstack environment
-    * Creates and prepares the virtual pip environment with all required command line tools.  
+    * Creates and prepares the virtual pip environment with all required command line tools.
       Creates clouds.yml file with all the details for the connection to the Openstack env.
 * Creates users, projects, clouds.yaml user configs and set quotas.
     * Creates users and projects based on the specified variables.
     * Generates users rc files.
     * Generates users configs within the clouds.yaml file for the later tasks by the users.
 * Creates networks
-    * Creates networks, subnets, routers and ports by using the variables list provided to the play.  
-      Public networks sets as a gateway on the router and private networks sets as a router interface by using the 'external' flag within the variables provided.  
+    * Creates networks, subnets, routers and ports by using the variables list provided to the play.
+      Public networks sets as a gateway on the router and private networks sets as a router interface by using the 'external' flag within the variables provided.
       The interfaces for the instance could be specified as a network name or as a created port name.
 * Upload images
     * Upload provided images to the glance store of the overcloud.
+* Aggregate groups
+    * Creates aggregation groups with defined hosts and metadata.
 * Creates flavors and extra_specs
     * Creates flavors for the instances. Extra_specs could be created for the flavors if required.
 * Creates keypair
@@ -30,7 +32,7 @@ Openstack tasks play perform the following tasks on the existing Openstack envir
 * Resources output file generation
     * Generates yaml resources file with instances and keypair details.
 
-By default, all the tasks runs one by one on the environment.  
+By default, all the tasks runs one by one on the environment.
 The run could be separated by specifying tags of specific run.
 
 ## Role tags
@@ -38,6 +40,7 @@ The run could be separated by specifying tags of specific run.
 * user - Run users and projects creation and sets quotas.
 * network - Run networks creation.
 * net_port - Run instance port creation.
+* aggregate - Run group aggregate creation.
 * flavor - Run flavors creation.
 * image - Upload images to the Openstack environment.
 * keypair - Run keypair creation.
@@ -51,6 +54,7 @@ The run could be separated by specifying tags of specific run.
 * user - Executed if 'true'. False by default.
 * network - Executed if 'true'. True by default.
 * net_port - Executed if 'true'. True be default.
+* aggregate - Executed if 'true'. False by default.
 * flavor - Executed if 'true'. True by default.
 * image - Executed if 'true'. True by default.
 * keypair - Executed if 'true'. True by default.
@@ -58,6 +62,7 @@ The run could be separated by specifying tags of specific run.
 * instance - Executed if 'true'. False by default.
 * overcloud_delete - Executed if 'true'. False by default.
 * resources_output - Executed if 'true'. False by default.
+
 
 ## Role default variables
 #### State of the resource
@@ -98,7 +103,7 @@ Define the networks that should be created on the overcloud.
 - 'segmentation_id' - The VLAN ID of the network. Not required.
 - 'network_type' - Allowed values are: vlan/vxlan/flat. Not required.
 - 'External: true' - Value could be defined just for the external network. Not required.
-- 'allocation_pool_start/end' - Could be defined as an option in case specific pool range should be defined.  
+- 'allocation_pool_start/end' - Could be defined as an option in case specific pool range should be defined.
   Otherwise, pool will be calculated by 'cidr' value. Not required.
 - 'cidr' - The CIDR of the network. Required.
 - 'enable_dhcp' - Set the dhcp state. Default is - enabled. Not required.
@@ -139,8 +144,21 @@ dns_nameservers:
   - 8.8.4.4
 ```
 
+#### Aggregate groups creation
+Specify the aggregation groups that should be created.
+```
+aggregate_groups:
+  - name: TREX_AG
+    hosts:
+      - compute-0.localdomain
+      - compute-1.localdomain
+    metadata:
+      - flavor=trex_ag
+      - flavor=dut_ag
+```
+
 #### Flavors creation
-Specify flavors that should be created.  
+Specify flavors that should be created.
 Flavor keys (extra_specs) value are optional.
 ```
 flavors:
@@ -159,6 +177,9 @@ flavors:
         "hw:numa_nodes": "1"
         "hw:numa_cpus.0": "0,1,2,3"
         "hw:cpu_policy": "dedicated"
+        # Configure metadata of the created aggregation group as a flavor extra specs
+        in order to initially boot an instance on a preferred hypervisor.
+        "aggregate_instance_extra_specs:flavor": "trex_ag"
 ```
 
 #### Images upload variables
