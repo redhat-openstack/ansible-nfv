@@ -12,6 +12,7 @@ security_group: true
 instance: false
 overcloud_delete: false
 resources_output: false
+aggregate: false
 
 ### Set the state of the resource.
 ### The state could be 'present' or 'absent'.
