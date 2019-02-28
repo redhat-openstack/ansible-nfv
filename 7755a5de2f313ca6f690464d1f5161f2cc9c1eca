@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b67a88c5_c5e5dc81",
+        "filename": "docs/tripleo/post_install/openstack_tasks.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-28T13:40:05Z",
+      "side": 1,
+      "message": "Please, add an aggregation description here as well.\nMissed it on the first review.",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 1
+      },
+      "revId": "7755a5de2f313ca6f690464d1f5161f2cc9c1eca",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "975ba5b8_2cdf845c",
+        "filename": "docs/tripleo/post_install/openstack_tasks.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-28T13:40:05Z",
+      "side": 1,
+      "message": "Please, add an aggregation description here as well.\nMissed it on the first review.",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 1
+      },
+      "revId": "7755a5de2f313ca6f690464d1f5161f2cc9c1eca",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
