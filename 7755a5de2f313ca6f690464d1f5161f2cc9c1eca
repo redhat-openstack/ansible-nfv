@@ -45,6 +45,29 @@
       "revId": "7755a5de2f313ca6f690464d1f5161f2cc9c1eca",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09aac2f8_c053d1bb",
+        "filename": "roles/post_install/openstack_tasks/tasks/aggregate.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-28T22:13:14Z",
+      "side": 1,
+      "message": "There is a number of things to mention.\n\nI executed the patch on my setup (osp14), and the instances didn\u0027t group into the single hypervisor. So it seems that we do need the aggregation flavor scheduler filter. At least in osp14.\nMaybe there are some changes between osp10 and osp14 that affect the behavior.\n\nRegarding the implementation.\nCurrently, there is no way to provide multiple hosts within the task.\nI think there is a need to change the behaviour.\nNeed to take the hosts as a list and metadata as a dict.\nRight now, host set as a string and metadata as a list.\n\nNow the funny part.\nThe is a bug in the module.\nIt unable to delete the aggregation because it don\u0027t removes the hosts before attempting to delete the aggregation group.\nI\u0027m wondering how\u0027s nobody saw it.\n\nI will fix it and submit a pr upstream. Then we will place the fixed module within the ansible-nfv library until the pr will be merged.\n\nAnyway, the changes to the task should be done.",
+      "range": {
+        "startLine": 6,
+        "startChar": 2,
+        "endLine": 6,
+        "endChar": 25
+      },
+      "revId": "7755a5de2f313ca6f690464d1f5161f2cc9c1eca",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
