@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "27af3936_391205e6",
+        "filename": "roles/post_install/openstack_tasks/tasks/instances.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-28T20:45:18Z",
+      "side": 1,
+      "message": "I have a suggestion.\nPlease, share your thoughts regarding the following:\n\nReplace the \u003cloop: \"{{ instances }}\"\u003e with the \u003cloop: \"{{ instances | flatten(levels\u003d1) }}\"\u003e\n\nThe reason for this is the following:\nAs by the \"Migrating from with_X to loop\"[1], \u003cloop\u003e is actually replacing the with_list loop and \u003cloop: \"{{ item | flatten(levels\u003d1) }}\" replacing the with_item loop.\n\nThe idea behind the flattening is to deal with the nested and complex lists[2].\nThe regular loop will make the work with the standard provided list, but in our case we are working with the list of dictionaries which are the complex variables.\nCurrently, standard loop dealing fine with it, but in case we will add nested lists to the list of items, flatten filter could ease our work with it.\nI prefer to prepare this kind of states.\n\nWhat do you think?\n\n\n[1] - https://docs.ansible.com/ansible/latest/user_guide/playbooks_loops.html#migrating-from-with-x-to-loop\n[2] - https://docs.ansible.com/ansible/latest/plugins/lookup/flattened.html",
+      "range": {
+        "startLine": 18,
+        "startChar": 2,
+        "endLine": 18,
+        "endChar": 6
+      },
+      "revId": "a4f180aeaf4a7e0868fb4feda09ffda8453ebfa5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a812aede_da272c6d",
+        "filename": "roles/post_install/openstack_tasks/tasks/instances.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-28T20:45:18Z",
+      "side": 1,
+      "message": "Have you tested the deletion of the created resources?\nThis task fails because it tries to detach the floating ip from the instance that already deleted and doesn\u0027t exist.\n\n* Add a condition so this task will be executed only during the resource creation.\n* Add \u0027delete_fip\u0027 parameter to the os_server task.\n  It will delete the associated floating ip alongside with the instance.\n* The state parameter of the floating ip task could be changed to a \u0027present\u0027 only as it will be executed only during the resource creation.",
+      "range": {
+        "startLine": 21,
+        "startChar": 2,
+        "endLine": 21,
+        "endChar": 38
+      },
+      "revId": "a4f180aeaf4a7e0868fb4feda09ffda8453ebfa5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
