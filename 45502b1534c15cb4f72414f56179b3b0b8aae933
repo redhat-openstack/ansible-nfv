@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "42f36fe7_19353ad5",
+        "filename": "roles/post_install/openstack_tasks/tasks/instances.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-28T08:03:04Z",
+      "side": 1,
+      "message": "In order to keep the plays updated, change it to the new loop convention.\nTake the following as an example:\nhttps://github.com/redhat-openstack/ansible-nfv/blob/master/roles/post_install/openstack_tasks/tasks/users.yml#L23\n\nIf you would like to check the new implementations, refer to the following link:\nhttps://docs.ansible.com/ansible/latest/porting_guides/porting_guides.html\n\nStart from the \"Ansible 2.5 Porting Guide\" and till the last version.\n\nWe will start gradually to replace the old convention to the new one.\nIf you would like, you can change the loop convention in all instances.yml file.\nOtherwise, change it only for this task, and other tasks will be modified later.",
+      "range": {
+        "startLine": 32,
+        "startChar": 2,
+        "endLine": 32,
+        "endChar": 12
+      },
+      "revId": "45502b1534c15cb4f72414f56179b3b0b8aae933",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
