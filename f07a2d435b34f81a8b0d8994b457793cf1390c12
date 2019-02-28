@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0fffa7f6_377474e0",
+        "filename": "docs/tripleo/post_install/openstack_tasks.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-28T07:52:49Z",
+      "side": 1,
+      "message": "Please, set a comment next to this line, that tells the user that this field is required for the aggregation usage.",
+      "range": {
+        "startLine": 178,
+        "startChar": 8,
+        "endLine": 178,
+        "endChar": 58
+      },
+      "revId": "f07a2d435b34f81a8b0d8994b457793cf1390c12",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4a83e87_3154e3a5",
+        "filename": "roles/post_install/openstack_tasks/defaults/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-28T07:52:49Z",
+      "side": 1,
+      "message": "You placed the aggregate play after the network section within the main.yml.\nPlease, move the trigger after the net_port trigger as it makes the logical convention more clear.",
+      "revId": "f07a2d435b34f81a8b0d8994b457793cf1390c12",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c303a947_b61482a5",
+        "filename": "roles/post_install/openstack_tasks/tasks/aggregate.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-28T07:52:49Z",
+      "side": 1,
+      "message": "Change it to the variable.",
+      "range": {
+        "startLine": 5,
+        "startChar": 33,
+        "endLine": 5,
+        "endChar": 50
+      },
+      "revId": "f07a2d435b34f81a8b0d8994b457793cf1390c12",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24fc40d3_02bdfe34",
+        "filename": "roles/post_install/openstack_tasks/tasks/aggregate.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-28T07:52:49Z",
+      "side": 1,
+      "message": "In order to keep the plays updated, change it to the new loop convention.\nTake the following as an example:\nhttps://github.com/redhat-openstack/ansible-nfv/blob/master/roles/post_install/openstack_tasks/tasks/users.yml#L48\n\nIf you would like to check the new implementations, refer to the following link:\nhttps://docs.ansible.com/ansible/latest/porting_guides/porting_guides.html\n\nStart from the \"Ansible 2.5 Porting Guide\" and till the last version.",
+      "range": {
+        "startLine": 12,
+        "startChar": 2,
+        "endLine": 12,
+        "endChar": 18
+      },
+      "revId": "f07a2d435b34f81a8b0d8994b457793cf1390c12",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
