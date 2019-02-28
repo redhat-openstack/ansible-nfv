@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3d1f54b3_24c0dce0",
+        "filename": "docs/images/prepare_performance_images.md",
+        "patchSetId": 19
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-28T07:37:57Z",
+      "side": 1,
+      "message": "This is not critical, but you already set the undercloud as a default within the hosts:\nhosts: \"{{ customization_host | default(\u0027undercloud\u0027) }}\"\n\nSo, this variable should be blank or not defined.",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 32
+      },
+      "revId": "f4be96b516ecf1d55bb1a9b6750131fd9fac43eb",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f09f96ab_5b1c779a",
+        "filename": "roles/images/performance/defaults/main.yml",
+        "patchSetId": 19
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-02-28T07:37:57Z",
+      "side": 1,
+      "message": "I saw you changed it within the task file, but why to live it here?\nIf, I, as a user, see this block, I will think that all the fields are mandatory.\nI saw that you mentioned the mandatory fields in the doc, but I can say that most of the users will go here for the first place.\n\nWhy are you so insist to keep these values?\nAs mentioned in the previous comments, I doubt that the user would like to go and search for the gpg key.\nI don\u0027t want to do it as a user.\nYou can decrease the variables to three lines only.",
+      "range": {
+        "startLine": 8,
+        "startChar": 1,
+        "endLine": 15,
+        "endChar": 33
+      },
+      "revId": "f4be96b516ecf1d55bb1a9b6750131fd9fac43eb",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
