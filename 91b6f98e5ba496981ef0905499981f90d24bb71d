@@ -22,6 +22,29 @@
       "revId": "91b6f98e5ba496981ef0905499981f90d24bb71d",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71b0e511_248fb87e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2019-03-03T10:50:44Z",
+      "side": 1,
+      "message": "Is the above ? because virtualenv is the default?",
+      "range": {
+        "startLine": 13,
+        "startChar": 2,
+        "endLine": 13,
+        "endChar": 54
+      },
+      "revId": "91b6f98e5ba496981ef0905499981f90d24bb71d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
