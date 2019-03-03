@@ -45,3 +45,7 @@ tempest_tests:
   - tempest_nfv_plugin.tests.scenario.test_nfv_dpdk_usecases.TestDpdkScenarios.test_equal_queues_functionality
   - tempest_nfv_plugin.tests.scenario.test_nfv_dpdk_usecases.TestDpdkScenarios.test_max_queues_functionality
   - tempest_nfv_plugin.tests.scenario.test_nfv_dpdk_usecases.TestDpdkScenarios.test_odd_queues_functionality
+
+# Virtual environment path
+# Recommended to be equal to venv_path from post_install/openstack_tasks role
+venv_path: "/tmp/ansible_venv"
