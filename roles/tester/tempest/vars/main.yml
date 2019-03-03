@@ -57,3 +57,7 @@ rc_params:
     value: OS_PROJECT_NAME
   - name: osp_domain_name
     value: OS_USER_DOMAIN_NAME
+
+# Virtual environment path
+# Recommended to be equal to venv_path from post_install/openstack_tasks role
+venv_path: "/tmp/ansible_venv"
