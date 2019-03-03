@@ -1,11 +1,10 @@
 ---
 
-# Delete the venv in order to avoid packages conflicts
-- name: Delete existing venv if exists
-  file:
-    path: "{{ venv_path }}"
-    state: absent
-  become: true
+- name: Check if running inside virtualenv
+  command: |
+    python -c "import sys; print True if hasattr(sys, 'real_prefix') else False"
+  register: is_venv
+  changed_when: False
 
 - name: Install requirements for pip virtualenv
   package:
@@ -26,6 +25,13 @@
   pip:
     name: virtualenv
     state: forcereinstall
+    extra_args: "{{ (is_venv.stdout | bool) | ternary(omit, '--user') }}"
+
+# Delete the venv in order to avoid packages conflicts
+- name: Delete existing venv if exists
+  file:
+    path: "{{ venv_path }}"
+    state: absent
   become: true
 
 # Install pip and setuptools should happen before other rpackages
