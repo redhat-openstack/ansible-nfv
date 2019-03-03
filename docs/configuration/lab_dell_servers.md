@@ -8,9 +8,9 @@ The lab_dell_servers play performs the following server individual tasks:
 
 iDRAC 7/8 with Firmware version 2.40.40.40 or above and iDRAC 9 with Firmware version 3.00.00.00 are supported in this play
 Will be used for iDRAC manipulation in automation jobs.  
-**Note!** - Dell EMC iDRAC modules is shipped in this repo.
-**Note!** - No need in inventory file. The file is generated during the playbook execution.
-**Note!** - Multiple iDRACs could be specified, passed as a yaml. See example at the bottom.
+**Note!** - Dell EMC iDRAC modules is shipped in this repo.  
+**Note!** - No need in inventory file. The file is generated during the playbook execution.  
+**Note!** - Multiple iDRACs could be specified, passed as a yaml. See example at the bottom.  
 **Note!** - Some operations will reboot your servers without prompt.
 
 * Query
