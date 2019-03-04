@@ -69,6 +69,30 @@
       "revId": "f4be96b516ecf1d55bb1a9b6750131fd9fac43eb",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2825dc6c_72eaa6fd",
+        "filename": "roles/images/performance/defaults/main.yml",
+        "patchSetId": 19
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-03-04T10:30:53Z",
+      "side": 1,
+      "message": "From my perspective, the user do not need to care of the gpg keys.\nOf course, the gpgkey, gpgcheck and others could be configurable, but not showed up within the defauls, as the user will think that this is required.\nIt should be mentioned within the documentation only.",
+      "parentUuid": "68953f2f_f56cad10",
+      "range": {
+        "startLine": 8,
+        "startChar": 1,
+        "endLine": 15,
+        "endChar": 33
+      },
+      "revId": "f4be96b516ecf1d55bb1a9b6750131fd9fac43eb",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
