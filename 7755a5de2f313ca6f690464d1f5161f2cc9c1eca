@@ -68,6 +68,30 @@
       "revId": "7755a5de2f313ca6f690464d1f5161f2cc9c1eca",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf5103ae_4c86a641",
+        "filename": "roles/post_install/openstack_tasks/tasks/aggregate.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2019-03-04T10:07:48Z",
+      "side": 1,
+      "message": "Regards OSP 14 and scheduler filter, it is not related to this patch\nThis one related to Code executed, not openstack configuration\n\nAck regards W/A",
+      "parentUuid": "09aac2f8_c053d1bb",
+      "range": {
+        "startLine": 6,
+        "startChar": 2,
+        "endLine": 6,
+        "endChar": 25
+      },
+      "revId": "7755a5de2f313ca6f690464d1f5161f2cc9c1eca",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
