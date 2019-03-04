@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a6cc6670_9690e1f2",
+        "filename": "docs/tripleo/post_install/openstack_tasks.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-03-04T19:48:33Z",
+      "side": 1,
+      "message": "No need in the new line here.",
+      "revId": "0314a1297bf249fab5ef15f3de8c4eb79b75bdbd",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "77d0c839_9b61f2cd",
+        "filename": "roles/post_install/openstack_tasks/defaults/main.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-03-04T19:48:33Z",
+      "side": 1,
+      "message": "Please replace this with the example from the doc you wrote.\nOne aggregate will be enough.\n\nThe importance here is to show the multiple metadata definition.",
+      "range": {
+        "startLine": 85,
+        "startChar": 0,
+        "endLine": 96,
+        "endChar": 21
+      },
+      "revId": "0314a1297bf249fab5ef15f3de8c4eb79b75bdbd",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}

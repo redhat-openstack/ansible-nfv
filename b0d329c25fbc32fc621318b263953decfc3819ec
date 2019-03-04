@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "01dc45e1_521d630c",
+        "filename": "docs/tripleo/post_install/openstack_tasks.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-03-04T19:48:33Z",
+      "side": 0,
+      "message": "Restore the double space.\nMarkdown language works in a way that if you would like to make a simple new line without the use of special characters (*, -, #, 1 or text within the \u0027\u0027\u0027 \u0027\u0027\u0027 quotes.), you need to define two spaces after the first line.\nOtherwise, markdown will show it as a single line.\n\nYou can use any kind of markdown generator plugin/online in order to see the final generated file.\n\nReference:\nhttps://markdown-guide.readthedocs.io/en/latest/basics.html#line-return",
+      "range": {
+        "startLine": 7,
+        "startChar": 92,
+        "endLine": 7,
+        "endChar": 94
+      },
+      "revId": "b0d329c25fbc32fc621318b263953decfc3819ec",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "713a8025_74873c95",
+        "filename": "docs/tripleo/post_install/openstack_tasks.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-03-04T19:48:33Z",
+      "side": 0,
+      "message": "Same as above.",
+      "range": {
+        "startLine": 14,
+        "startChar": 100,
+        "endLine": 14,
+        "endChar": 102
+      },
+      "revId": "b0d329c25fbc32fc621318b263953decfc3819ec",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97315aba_e15b04cc",
+        "filename": "docs/tripleo/post_install/openstack_tasks.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-03-04T19:48:33Z",
+      "side": 0,
+      "message": "Same as above.",
+      "range": {
+        "startLine": 15,
+        "startChar": 161,
+        "endLine": 15,
+        "endChar": 163
+      },
+      "revId": "b0d329c25fbc32fc621318b263953decfc3819ec",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7f7ae8a3_f37f3df7",
+        "filename": "docs/tripleo/post_install/openstack_tasks.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-03-04T19:48:33Z",
+      "side": 0,
+      "message": "Same as above.",
+      "range": {
+        "startLine": 28,
+        "startChar": 33,
+        "endLine": 28,
+        "endChar": 35
+      },
+      "revId": "b0d329c25fbc32fc621318b263953decfc3819ec",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfa991ae_fa8521e6",
+        "filename": "docs/tripleo/post_install/openstack_tasks.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-03-04T19:48:33Z",
+      "side": 0,
+      "message": "Same as above.",
+      "range": {
+        "startLine": 33,
+        "startChar": 61,
+        "endLine": 33,
+        "endChar": 63
+      },
+      "revId": "b0d329c25fbc32fc621318b263953decfc3819ec",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07b27e1c_acef6adc",
+        "filename": "docs/tripleo/post_install/openstack_tasks.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-03-04T19:48:33Z",
+      "side": 0,
+      "message": "Same as above.",
+      "range": {
+        "startLine": 101,
+        "startChar": 108,
+        "endLine": 101,
+        "endChar": 110
+      },
+      "revId": "b0d329c25fbc32fc621318b263953decfc3819ec",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54b4a6c0_1329b009",
+        "filename": "docs/tripleo/post_install/openstack_tasks.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-03-04T19:48:33Z",
+      "side": 0,
+      "message": "Same as above.",
+      "range": {
+        "startLine": 143,
+        "startChar": 39,
+        "endLine": 143,
+        "endChar": 41
+      },
+      "revId": "b0d329c25fbc32fc621318b263953decfc3819ec",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
