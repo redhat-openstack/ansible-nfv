@@ -25,6 +25,23 @@
     },
     {
       "key": {
+        "uuid": "dbe12ead_a1eacd90",
+        "filename": "docs/images/prepare_performance_images.md",
+        "patchSetId": 19
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1007976
+      },
+      "writtenOn": "2019-03-05T06:06:13Z",
+      "side": 1,
+      "message": "Just a thought -\nWould it be good idea to upload these images to a central location (variable intended) where the ansible playbook checks for existing images and if none existing can create -\u003e upload. This would help in saving run time.",
+      "revId": "f4be96b516ecf1d55bb1a9b6750131fd9fac43eb",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f09f96ab_5b1c779a",
         "filename": "roles/images/performance/defaults/main.yml",
         "patchSetId": 19
@@ -89,6 +106,46 @@
         "startChar": 1,
         "endLine": 15,
         "endChar": 33
+      },
+      "revId": "f4be96b516ecf1d55bb1a9b6750131fd9fac43eb",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4e8b5f4_ad492d9b",
+        "filename": "roles/images/performance/tasks/main.yml",
+        "patchSetId": 19
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1007976
+      },
+      "writtenOn": "2019-03-05T06:06:13Z",
+      "side": 1,
+      "message": "Maybe we can add -\nCheck for existing performance images?\nIf existing skip the rest, and use this.",
+      "revId": "f4be96b516ecf1d55bb1a9b6750131fd9fac43eb",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c20ca337_fa0e624a",
+        "filename": "roles/images/performance/tasks/prepare_trex.yml",
+        "patchSetId": 19
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1007976
+      },
+      "writtenOn": "2019-03-05T06:06:13Z",
+      "side": 1,
+      "message": "we should check if the url is valid and we were able to download the version.\nSame for DPDK earlier.",
+      "range": {
+        "startLine": 4,
+        "startChar": 15,
+        "endLine": 4,
+        "endChar": 54
       },
       "revId": "f4be96b516ecf1d55bb1a9b6750131fd9fac43eb",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
