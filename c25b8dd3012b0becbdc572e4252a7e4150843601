@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "635681c8_5d5b07ad",
+        "filename": "docs/images/prepare_performance_images.md",
+        "patchSetId": 21
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-03-05T12:53:56Z",
+      "side": 1,
+      "message": "Not required as we do not want to limit the user to specific host.",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 107
+      },
+      "revId": "c25b8dd3012b0becbdc572e4252a7e4150843601",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e9373d8e_abf458ef",
+        "filename": "docs/images/prepare_performance_images.md",
+        "patchSetId": 21
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-03-05T12:53:56Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 11,
+        "startChar": 26,
+        "endLine": 11,
+        "endChar": 34
+      },
+      "revId": "c25b8dd3012b0becbdc572e4252a7e4150843601",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "83442de1_2bca5732",
+        "filename": "docs/images/prepare_performance_images.md",
+        "patchSetId": 21
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-03-05T12:53:56Z",
+      "side": 1,
+      "message": "Leave it blank.\nMention above that the default is undercloud.\n\nMaybe worth to mention that in case locahost is used, a \"connection: local\" could be used in order to prevent ansible from connection using ssh to itself.",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 32
+      },
+      "revId": "c25b8dd3012b0becbdc572e4252a7e4150843601",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8478ef63_4c3b7977",
+        "filename": "docs/images/prepare_performance_images.md",
+        "patchSetId": 21
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-03-05T12:53:56Z",
+      "side": 1,
+      "message": "missing boolean.\n\nActually, based on the defaults, we should specify all variables in order to execute the requested task, because the variables by the default are true.",
+      "range": {
+        "startLine": 114,
+        "startChar": 115,
+        "endLine": 114,
+        "endChar": 116
+      },
+      "revId": "c25b8dd3012b0becbdc572e4252a7e4150843601",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
