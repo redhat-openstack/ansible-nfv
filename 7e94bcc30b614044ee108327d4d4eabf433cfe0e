@@ -22,6 +22,30 @@
       "revId": "7e94bcc30b614044ee108327d4d4eabf433cfe0e",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "26548805_54858345",
+        "filename": "roles/post_install/openstack_tasks/defaults/main.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1008576
+      },
+      "writtenOn": "2019-03-05T06:26:10Z",
+      "side": 1,
+      "message": "aggregation group will not be created by default, aggregate: false\nplease see above the triggers.",
+      "parentUuid": "b055b15e_441658ef",
+      "range": {
+        "startLine": 85,
+        "startChar": 0,
+        "endLine": 93,
+        "endChar": 0
+      },
+      "revId": "7e94bcc30b614044ee108327d4d4eabf433cfe0e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
