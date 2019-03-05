@@ -14,11 +14,25 @@
     userdata: "{{ userdata | default(omit) }}"
     config_drive: "{{ item.config_drive | default(True) }}"
     nics: "{{ item.nics }}"
-    auto_ip: "{{ item.floating_ip }}"
-    delete_fip: yes
-  with_items:
-    - "{{ instances }}"
+    auto_ip: 'no'
+    delete_fip: 'yes'
+  loop: "{{ instances | flatten(levels=1) }}"
   register: reg_instance
+
+- name: Add floating IP to an instance
+  vars:
+    ansible_python_interpreter: "{{ venv_path }}/bin/python"
+  os_floating_ip:
+    state: "{{ resource_state }}"
+    cloud: "{{ overcloud_name }}"
+    server: "{{ item.name }}"
+    network: "{{ item.floating_ip.ext_net }}"
+    nat_destination: "{{ item.floating_ip.int_net }}"
+    reuse: 'yes'
+  loop: "{{ instances | flatten(levels=1) }}"
+  when:
+    - item.floating_ip is defined
+    - resource_state == 'present'
 
 - name: Add instances to dynamic inventory
   add_host:
@@ -28,7 +42,5 @@
     ansible_user: "{{ item.1.connection_user | default(connection_user) }}"
     ansible_ssh_port: 22
     ansible_ssh_private_key_file: "/tmp/{{ keypair_name }}.key"
-  with_together:
-    - "{{ reg_instance.results }}"
-    - "{{ instances }}"
+  loop: "{{ reg_instance.results | zip(instances) | list }}"
   when: resource_state == 'present'
