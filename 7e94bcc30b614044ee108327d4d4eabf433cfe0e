@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b055b15e_441658ef",
+        "filename": "roles/post_install/openstack_tasks/defaults/main.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-03-05T06:14:04Z",
+      "side": 1,
+      "message": "Perhaps we should consider an aggregation_group to not be created by default. It\u0027s an advanced feature which the user should opt-in.\n\nIf the user will accidentally trigger it, the creation might fail due to him not necessarily having compute nodes in this naming convention.",
+      "range": {
+        "startLine": 85,
+        "startChar": 0,
+        "endLine": 93,
+        "endChar": 0
+      },
+      "revId": "7e94bcc30b614044ee108327d4d4eabf433cfe0e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
