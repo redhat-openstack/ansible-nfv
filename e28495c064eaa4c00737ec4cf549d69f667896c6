@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "386af4f8_95342bca",
+        "filename": "roles/images/performance/tasks/prepare_trex.yml",
+        "patchSetId": 22
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2019-03-06T16:39:36Z",
+      "side": 1,
+      "message": "Question:\nWhy not working with list var\n\nas default variable\nvirt_cmd_list: \"[ \\\"pwd\\\" , \\\"ls\\\",  \\\"echo \u003e hello.txt\\\" ]\"\n\nshell:\n        \"{{ item }}\"\n      with_items:\n        \"{{ virt_cmd_list }}\"\nimage: \"{{ guest_image }}\"\nselinux_relabel: True\n\n\nThis way you can override with -e virt_cust_cmd_list",
+      "range": {
+        "startLine": 1,
+        "startChar": 8,
+        "endLine": 1,
+        "endChar": 48
+      },
+      "revId": "e28495c064eaa4c00737ec4cf549d69f667896c6",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
