@@ -39,22 +39,14 @@
     virtualenv: "{{ tempest_venv }}"
     state: latest
 
-- name: Install repo requirements
-  pip:
-    virtualenv: "{{ tempest_venv }}"
-    chdir: '{{ tempest_dir }}/{{ item[0] }}'
-    requirements: "{{ item[1] }}"
-  with_nested:
-    - [ "{{ tempest_conf }}", "{{ tempest_main }}" ]
-    - [ 'test-requirements.txt', 'requirements.txt' ]
-
-- name: Install tempest-nfv-plugin and openstack-tempest repos in a virtual environment
+- name: Install repos in a virtual environment
   pip:
     virtualenv: "{{ tempest_venv }}"
     name:
       - "{{ tempest_dir }}/{{ neutron_tempest_plugin }}"
       - "{{ tempest_dir }}/{{ nfv_tempest_plugin }}"
       - "{{ tempest_dir }}/{{ tempest_main }}"
+      - "{{ tempest_dir }}/{{ tempest_conf }}"
     state: present
     editable: true
 
@@ -75,12 +67,12 @@
 
 - name: Check if tempestconf tool installed
   stat:
-    path: /usr/bin/discover-tempest-config
+    path: "{{ tempest_venv }}/bin/discover-tempest-config"
   register: tempest_conf_tool
 
 - name: Define tempestconf tool if exists
   set_fact:
-    config_command: /usr/bin/discover-tempest-config
+    config_command: "{{ tempest_venv }}/bin/discover-tempest-config"
   when: tempest_conf_tool.stat.exists
 
 - name: Check for the spesific flavor id if it's required
