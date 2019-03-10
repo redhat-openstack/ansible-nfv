@@ -1,39 +1,52 @@
 ---
 
 - block:
-    - name: Install requirements for pip virtualenv
-      package:
-        name: "{{ item }}"
-        state: present
-      with_items:
-        - 'python-devel'
-        - 'python-setuptools'
-        - 'gcc'
-        - 'libffi-devel'
-
-    - name: Install pip package
-      easy_install:
-        name: pip
-
+    # Delete the venv in order to avoid packages conflicts
     - name: Delete existing venv if exists
       file:
         path: "{{ venv_path }}"
         state: absent
 
+    - name: Install requirements for pip virtualenv
+      vars:
+        os_version: "{%- if hostvars[groups['undercloud'][0]].ansible_distribution_major_version == '8' -%}
+                     rhel8
+                     {%- elif hostvars[groups['undercloud'][0]].ansible_distribution_major_version == '7' -%}
+                     rhel7
+                     {%- endif -%}"
+        pkg_ver_list: "{{ packages[os_version] }}"
+      package:
+        name: "{{ item }}"
+        state: present
+      with_items: "{{ pkg_ver_list }}"
+
+    - name: Install pip package
+      easy_install:
+        name: pip
+      when: hostvars[groups['undercloud'][0]].ansible_python.version.major == 2
+
     - name: Install virtualenv
       pip:
         name: virtualenv
         version: '15.1.0'
+      when: hostvars[groups['undercloud'][0]].ansible_python.version.major == 2
   become: true
 
-- name: Create virtualenv
+# A pip bug prevents us to use the pip module for the python3 venv creation.
+# Remove when fixed.
+# Reference: https://github.com/ansible/ansible/issues/52275
+- name: Install venv if python3 present
+  command: "{{ ansible_python.executable }} -m venv {{ venv_path }}"
+  when: hostvars[groups['undercloud'][0]].ansible_python.version.major == 3
+
+- name: Install venv packages
   pip:
     name: "{{ item.key }}"
     version: "{{ item.value }}"
     virtualenv: "{{ venv_path }}"
   with_dict:
-    pip: '9.0.1'
-    setuptools: '38.2.4'
+    pip: '10.0.1'
+    setuptools: '39.0.0'
     pytz: '2017.3'
     shade: '1.25.0'
 

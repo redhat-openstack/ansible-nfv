@@ -1,8 +1,3 @@
----
-## Openstack variables
-tripleo_overcloud_file: /home/stack/overcloudrc
-tripleo_undercloud_file: /home/stack/stackrc
-
 packages:
   rhel8:
     - gcc

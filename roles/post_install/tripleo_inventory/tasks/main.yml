@@ -57,6 +57,7 @@
   setup:
   delegate_to: "{{ groups['undercloud'] | first }}"
   delegate_facts: True
+  register: bla
 
 - block:
     - name: Gather overcloud nodes details
