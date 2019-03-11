@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2f022d4d_7f704e82",
+        "filename": "roles/post_install/tripleo_inventory/tasks/overcloud_nodes.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-03-11T07:20:00Z",
+      "side": 1,
+      "message": "\u003e Not critical, but perhaps those two tasks could be merged under a single block with a single when condition?\n\nFixed.",
+      "parentUuid": "ae554f2a_76e1a20c",
+      "range": {
+        "startLine": 23,
+        "startChar": 1,
+        "endLine": 32,
+        "endChar": 79
+      },
+      "revId": "020ea9f6bddeb3df815a957b5d0fa414d3b382a6",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "61b6c8b7_16f252a1",
         "filename": "roles/post_install/tripleo_inventory/tasks/overcloud_nodes.yml",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2019-03-10T20:42:31Z",
       "side": 1,
       "message": "Could you remind me why we use such an old pip version?",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 17
+      },
+      "revId": "020ea9f6bddeb3df815a957b5d0fa414d3b382a6",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10200685_f59f6532",
+        "filename": "roles/post_install/tripleo_inventory/tasks/overcloud_nodes.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-03-11T07:20:00Z",
+      "side": 1,
+      "message": "\u003e Could you remind me why we use such an old pip version?\n\nThis is something that needs to be tested in a different patch.\nEarlier we had an issue with one of the package versions.\nThat\u0027s why it pinned to a specific version.\n\nNeed to update the versions here and in setup_openstack_env play and verify the working status of the major playbooks.\n\nCurrently, I just aligned the version number to the setup_openstack_env play.",
+      "parentUuid": "61b6c8b7_16f252a1",
       "range": {
         "startLine": 48,
         "startChar": 0,
