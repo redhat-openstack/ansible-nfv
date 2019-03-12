@@ -1,4 +1,6 @@
 ---
+- name: Gather facts
+  setup:
 
 - name: Register variables
   include_tasks: register_variables.yml
@@ -26,6 +28,13 @@
 - name: Set tempest venv path
   set_fact:
     tempest_venv: "{{ tempest_dir }}/venv"
+
+# A pip bug prevents us to use the pip module for the python3 venv creation.
+# Remove when fixed.
+# Reference: https://github.com/ansible/ansible/issues/52275
+- name: Install venv if python3 present
+  command: "{{ ansible_python.executable }} -m venv {{ tempest_venv }}"
+  when: ansible_python.version.major == 3
 
 - name: Create a virtual environment and upgrade it to the latest version
   pip:
