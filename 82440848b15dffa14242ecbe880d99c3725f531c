@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "ec4c6184_1d0ed5c2",
+        "filename": "docs/images/prepare_performance_images.md",
+        "patchSetId": 25
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2019-03-12T15:44:59Z",
+      "side": 1,
+      "message": "As per ziv v2.22",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 18
+      },
+      "revId": "82440848b15dffa14242ecbe880d99c3725f531c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cd811f9e_4c0e4fd5",
         "filename": "docs/images/prepare_performance_images.md",
         "patchSetId": 25
@@ -25,6 +48,53 @@
     },
     {
       "key": {
+        "uuid": "7a302fc9_dd6d0bcb",
+        "filename": "docs/images/prepare_performance_images.md",
+        "patchSetId": 25
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2019-03-12T15:44:59Z",
+      "side": 1,
+      "message": "I would have adding the link as reference",
+      "parentUuid": "cd811f9e_4c0e4fd5",
+      "range": {
+        "startLine": 109,
+        "startChar": 0,
+        "endLine": 122,
+        "endChar": 25
+      },
+      "revId": "82440848b15dffa14242ecbe880d99c3725f531c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b08afa25_50e7ce72",
+        "filename": "roles/images/performance/defaults/main.yml",
+        "patchSetId": 25
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2019-03-12T15:44:59Z",
+      "side": 1,
+      "message": "So that one should be based on the link by ziv\ntrex_version: \u0027v2.22\u0027\ntrex_url: \u0027http://trex-tgn.cisco.com/trex/release\u0027\ntrex_dir: \u0027/opt/trex/ \nCorrect?",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 22
+      },
+      "revId": "82440848b15dffa14242ecbe880d99c3725f531c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "913da238_0954994b",
         "filename": "roles/images/performance/defaults/main.yml",
         "patchSetId": 25
@@ -36,6 +106,30 @@
       "writtenOn": "2019-03-12T09:11:45Z",
       "side": 1,
       "message": "Please change it accordingly:\nhttps://github.com/atheurer/trafficgen/blob/master/README-binary-search.md",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 27
+      },
+      "revId": "82440848b15dffa14242ecbe880d99c3725f531c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65c38a72_f204ebc4",
+        "filename": "roles/images/performance/defaults/main.yml",
+        "patchSetId": 25
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2019-03-12T15:44:59Z",
+      "side": 1,
+      "message": "Thanks Ziv that is very important\nhttp://trex-tgn.cisco.com/trex/release/v2.22.tar.gz\ncd /opt\nmkdir -p trex\ncd trex\ntar zxf /your/path/to/v2.22.tar.gz\nln -sf v2.22 current",
+      "parentUuid": "913da238_0954994b",
       "range": {
         "startLine": 23,
         "startChar": 0,
