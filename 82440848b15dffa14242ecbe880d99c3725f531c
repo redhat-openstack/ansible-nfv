@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ff8ac70d_59bcc587",
+        "filename": "docs/images/prepare_performance_images.md",
+        "patchSetId": 25
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2019-03-13T17:19:36Z",
+      "side": 1,
+      "message": "It is 2.43, sorry",
+      "parentUuid": "ec4c6184_1d0ed5c2",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 18
+      },
+      "revId": "82440848b15dffa14242ecbe880d99c3725f531c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cd811f9e_4c0e4fd5",
         "filename": "docs/images/prepare_performance_images.md",
         "patchSetId": 25
@@ -95,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "bdc4a791_4f049947",
+        "filename": "roles/images/performance/defaults/main.yml",
+        "patchSetId": 25
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2019-03-13T17:19:36Z",
+      "side": 1,
+      "message": "This is correct\nAck",
+      "parentUuid": "b08afa25_50e7ce72",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 22
+      },
+      "revId": "82440848b15dffa14242ecbe880d99c3725f531c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "913da238_0954994b",
         "filename": "roles/images/performance/defaults/main.yml",
         "patchSetId": 25
@@ -139,6 +187,30 @@
       "revId": "82440848b15dffa14242ecbe880d99c3725f531c",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92c6d923_f6ec743b",
+        "filename": "roles/images/performance/defaults/main.yml",
+        "patchSetId": 25
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2019-03-13T17:19:36Z",
+      "side": 1,
+      "message": "Resolved\nHad a chat with Jianzhu see \n\u003cJianzhu\u003e yes https://github.com/atheurer/trafficgen is the right one\n\u003cYarboa\u003e Jianzhu, thank you, i will propose doc patch :) to the repo\n\nWe will propose doc patch to https://github.com/atheurer/trafficgen",
+      "parentUuid": "65c38a72_f204ebc4",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 27
+      },
+      "revId": "82440848b15dffa14242ecbe880d99c3725f531c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     },
     {
       "key": {
