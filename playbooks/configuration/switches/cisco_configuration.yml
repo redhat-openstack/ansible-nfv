@@ -1,0 +1,17 @@
+---
+- name: Ansible switch validations
+  hosts: localhost
+  connection: local
+  gather_facts: no
+  roles:
+    - role: configuration/switches/add_to_inventory
+      dev_type: 'cisco'
+      sw_group: 'cisco'
+      sw_remote_port: '22'
+
+- name: Cisco switch configuration
+  hosts: cisco
+  connection: local
+  gather_facts: no
+  roles:
+    - role: configuration/switches/cisco_configuration

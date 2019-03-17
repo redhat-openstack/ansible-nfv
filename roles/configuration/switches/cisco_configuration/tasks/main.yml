@@ -1,0 +1,4 @@
+---
+- name: Configure switchports(layer 2) interfaces
+  import_tasks: l2_interfaces.yml
+  when: l2_interfaces is defined

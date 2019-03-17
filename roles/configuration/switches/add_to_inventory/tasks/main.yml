@@ -1,0 +1,21 @@
+- name: Add cisco switches to inventory
+  add_host:
+    name: "{{ sw_host | mandatory }}"
+    groups: "{{ sw_group }}"
+    device_type: "{{ dev_type }}"
+    ansible_connection: local
+
+- name: Verify connection
+  block:
+    - name: "Set credentials for {{ dev_type }} switch"
+      set_fact:
+        sw_creds:
+          username: "{{ sw_user | mandatory }}"
+          password: "{{ sw_pass | mandatory }}"
+          auth_pass: "{{ sw_pass | mandatory }}"
+          authorize: yes
+
+    - name: "Verify {{ dev_type }} switch listenes on remote port"
+      wait_for:
+        host: "{{ sw_host }}"
+        port: "{{ sw_remote_port | string }}"
