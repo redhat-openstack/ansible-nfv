@@ -1,0 +1,45 @@
+---
+- name: Gather Instance Facts From OpenStack API
+  vars:
+    ansible_python_interpreter: "{{ venv_path }}/bin/python"
+  os_server_facts:
+    cloud: "{{ query_cloud }}"
+    server: "{{ query_instance | mandatory }}"
+    validate_certs: "{{ cloud_validate_certs }}"
+  failed_when: openstack_servers == []
+
+- name: Parse Instance Server NICs' MAC Addresses
+  set_fact:
+    instance_helper_nic_mac_addresses: "{{ instance_helper_nic_mac_addresses | default([]) }} + [ '{{ openstack_servers[0]['addresses'][item][0]['OS-EXT-IPS-MAC:mac_addr'] }}' ]"
+  loop: "{{ openstack_servers[0]['addresses'] | flatten(levels=1) }}"
+
+- name: Gather Instance Server Ports
+  vars:
+    ansible_python_interpreter: "{{ venv_path }}/bin/python"
+  os_port_facts:
+    cloud: overcloud
+    validate_certs: "{{ cloud_validate_certs }}"
+    filters:
+      mac_address: "{{ item }}"
+  loop: "{{ instance_helper_nic_mac_addresses | flatten(levels=1) }}"
+  failed_when: openstack_ports == []
+  register: instance_ports
+
+- name: Populate Server NICs
+  set_fact:
+    instance_nics: "{{ instance_nics | default([]) }} + [ {{ item['ansible_facts']['openstack_ports'][0] }} ]"
+  loop: "{{ instance_ports['results'] | flatten(levels=1) }}"
+
+- name: Attempt To Discover External Floating IP From OpenStack APIs
+  block:
+    - name: Parse Floating IP Attribute From APIs
+      set_fact:
+        instance_external_ip: "{{ openstack_servers[0]['addresses'][item] | selectattr('OS-EXT-IPS:type', 'equalto', 'floating') | map(attribute='addr') | list | first }}"
+      loop: "{{ openstack_servers[0]['addresses'] | flatten(levels=1) }}"
+      when: openstack_servers[0]['addresses'][item] | selectattr('OS-EXT-IPS:type', 'equalto', 'floating') | list != []
+
+    - name: Fail To Discover Instance External IP
+      fail:
+        msg: "Instance external floating IP can not be parsed"
+      when: instance_external_ip not defined or instance_external_ip == "[Undefined]"
+  when: discover_instance_external_ip
