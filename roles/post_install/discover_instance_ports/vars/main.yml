@@ -1,0 +1,16 @@
+# query_instance - Instance to be queried via OpenStack APIs, mandatory
+
+# Virtual environment path
+venv_path: "/tmp/ansible_venv"
+
+# Name of cloud to be queried
+query_cloud: "overcloud"
+
+# Validate HTTPS certs when querying cloud
+cloud_validate_certs: False
+
+# Discover external(management) IP of instance
+discover_instance_external_ip: False
+
+# Instance external floating IP
+instance_external_ip: "None"
