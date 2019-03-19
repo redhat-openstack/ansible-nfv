@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "4595a7c2_1177282c",
+        "filename": "docs/packet_gen/trex/configure_trex_vm.md",
+        "patchSetId": 8
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-03-19T15:12:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "a3143bba_04ff9469",
+      "range": {
+        "startLine": 6,
+        "startChar": 71,
+        "endLine": 6,
+        "endChar": 120
+      },
+      "revId": "a60adf54ea7fe0c7c5a395c418eca94089b26d21",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5acfbaab_9deef1b7",
         "filename": "docs/packet_gen/trex/configure_trex_vm.md",
         "patchSetId": 8
@@ -36,6 +60,30 @@
       "writtenOn": "2019-03-19T14:11:20Z",
       "side": 1,
       "message": "Why do we need all of this?\nIf we will use the openstack_tasks role, at the end it will generate the dynamic inventory file which will include automatically the instance name, group, ip, user and ssh key.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 69
+      },
+      "revId": "a60adf54ea7fe0c7c5a395c418eca94089b26d21",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90d6c629_ebd04aa3",
+        "filename": "docs/packet_gen/trex/configure_trex_vm.md",
+        "patchSetId": 8
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-03-19T15:12:18Z",
+      "side": 1,
+      "message": "It is true, but also imagine a scenario where resources weren\u0027t necessarily created by resource generator.",
+      "parentUuid": "5acfbaab_9deef1b7",
       "range": {
         "startLine": 9,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "c6e4eb01_ea95aacf",
+        "filename": "playbooks/packet_gen/trex/configure_trex_vm.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-03-19T15:12:18Z",
+      "side": 1,
+      "message": "Replied there.",
+      "parentUuid": "23742204_40de9cce",
+      "range": {
+        "startLine": 5,
+        "startChar": 4,
+        "endLine": 8,
+        "endChar": 39
+      },
+      "revId": "a60adf54ea7fe0c7c5a395c418eca94089b26d21",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7d936c1a_7bf0de21",
         "filename": "roles/packet_gen/trex/live_config/defaults/main.yaml",
         "patchSetId": 8
@@ -82,6 +154,30 @@
       "writtenOn": "2019-03-19T14:11:20Z",
       "side": 1,
       "message": "It looks like you are parsing these variables in jinja2 template.\n\nMaybe this block could be simplified.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 13
+      },
+      "revId": "a60adf54ea7fe0c7c5a395c418eca94089b26d21",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78b0e9ba_3635ceaf",
+        "filename": "roles/packet_gen/trex/live_config/defaults/main.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-03-19T15:12:18Z",
+      "side": 1,
+      "message": "Sorry I didn\u0027t get this comment.\n\nCurrently it\u0027s a hard-coded default which is passed to trex.conf jinja2 template. We\u0027ll be able to parse it dynamically once we\u0027ll have a proper tuning workflow.",
+      "parentUuid": "7d936c1a_7bf0de21",
       "range": {
         "startLine": 1,
         "startChar": 0,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "2627bbef_44a37ebf",
+        "filename": "roles/packet_gen/trex/live_config/tasks/main.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-03-19T15:12:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b742a889_e04fb4e9",
+      "range": {
+        "startLine": 1,
+        "startChar": 33,
+        "endLine": 1,
+        "endChar": 37
+      },
+      "revId": "a60adf54ea7fe0c7c5a395c418eca94089b26d21",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "84acade9_04059f3c",
         "filename": "roles/packet_gen/trex/live_config/tasks/main.yml",
         "patchSetId": 8
@@ -137,6 +257,30 @@
       "revId": "a60adf54ea7fe0c7c5a395c418eca94089b26d21",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d894f2f_ba28e195",
+        "filename": "roles/packet_gen/trex/live_config/tasks/main.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-03-19T15:12:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "84acade9_04059f3c",
+      "range": {
+        "startLine": 3,
+        "startChar": 21,
+        "endLine": 3,
+        "endChar": 25
+      },
+      "revId": "a60adf54ea7fe0c7c5a395c418eca94089b26d21",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "57e6abd5_8cef43ae",
+        "filename": "roles/packet_gen/trex/live_config/tasks/parse_trex_variables.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-03-19T15:12:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8971b7b7_0f313ffc",
+      "range": {
+        "startLine": 1,
+        "startChar": 12,
+        "endLine": 1,
+        "endChar": 19
+      },
+      "revId": "a60adf54ea7fe0c7c5a395c418eca94089b26d21",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5ce9e5fd_ff101ba9",
         "filename": "roles/packet_gen/trex/live_config/tasks/parse_trex_variables.yaml",
         "patchSetId": 8
@@ -186,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "59783497_dce545c8",
+        "filename": "roles/packet_gen/trex/live_config/tasks/parse_trex_variables.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-03-19T15:12:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5ce9e5fd_ff101ba9",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 5,
+        "endChar": 1
+      },
+      "revId": "a60adf54ea7fe0c7c5a395c418eca94089b26d21",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a62d8571_99664269",
         "filename": "roles/packet_gen/trex/live_config/tasks/query_trex_instance.yaml",
         "patchSetId": 8
@@ -203,6 +395,24 @@
     },
     {
       "key": {
+        "uuid": "430bf2f9_75adec01",
+        "filename": "roles/packet_gen/trex/live_config/tasks/query_trex_instance.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-03-19T15:12:18Z",
+      "side": 1,
+      "message": "I retrieve the result of openstack port show, which gives me the vnic_type and etc\u0027",
+      "parentUuid": "a62d8571_99664269",
+      "revId": "a60adf54ea7fe0c7c5a395c418eca94089b26d21",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a3b2f8fa_298286ef",
         "filename": "roles/packet_gen/trex/live_config/tasks/query_trex_instance.yaml",
         "patchSetId": 8
@@ -214,6 +424,30 @@
       "writtenOn": "2019-03-19T14:11:20Z",
       "side": 1,
       "message": "Do think it is needed if openstack_tasks role is used as it generates dynamic inventory after the instance  creation.",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 50
+      },
+      "revId": "a60adf54ea7fe0c7c5a395c418eca94089b26d21",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe709a6c_73c40339",
+        "filename": "roles/packet_gen/trex/live_config/tasks/query_trex_instance.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-03-19T15:12:18Z",
+      "side": 1,
+      "message": "Perhaps it should also be generic and be able to work on externally created resources.",
+      "parentUuid": "a3b2f8fa_298286ef",
       "range": {
         "startLine": 8,
         "startChar": 0,
@@ -249,6 +483,30 @@
     },
     {
       "key": {
+        "uuid": "66085fcd_0f51f121",
+        "filename": "roles/packet_gen/trex/live_config/tasks/query_trex_instance.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-03-19T15:12:18Z",
+      "side": 1,
+      "message": "Yes, I loop over \u0027instance_nics\u0027 which is generated via \u0027discover_instance_ports\u0027 role.",
+      "parentUuid": "900fb5e2_453a65e3",
+      "range": {
+        "startLine": 15,
+        "startChar": 34,
+        "endLine": 15,
+        "endChar": 58
+      },
+      "revId": "a60adf54ea7fe0c7c5a395c418eca94089b26d21",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1897bf6c_9041b99f",
         "filename": "roles/packet_gen/trex/live_config/tasks/query_trex_instance.yaml",
         "patchSetId": 8
@@ -272,6 +530,30 @@
     },
     {
       "key": {
+        "uuid": "56d82027_c7a7e151",
+        "filename": "roles/packet_gen/trex/live_config/tasks/query_trex_instance.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-03-19T15:12:18Z",
+      "side": 1,
+      "message": "Replied there.",
+      "parentUuid": "1897bf6c_9041b99f",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 68
+      },
+      "revId": "a60adf54ea7fe0c7c5a395c418eca94089b26d21",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "951b1d24_53a01e1e",
         "filename": "roles/packet_gen/trex/live_config/tasks/query_trex_instance.yaml",
         "patchSetId": 8
@@ -283,6 +565,30 @@
       "writtenOn": "2019-03-19T14:11:20Z",
       "side": 1,
       "message": "Do you take it from the discover_instance_ports role?",
+      "range": {
+        "startLine": 41,
+        "startChar": 35,
+        "endLine": 41,
+        "endChar": 60
+      },
+      "revId": "a60adf54ea7fe0c7c5a395c418eca94089b26d21",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d34fc270_607eadea",
+        "filename": "roles/packet_gen/trex/live_config/tasks/query_trex_instance.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-03-19T15:12:18Z",
+      "side": 1,
+      "message": "Nope, I gathered it from Ansible gather_facts.",
+      "parentUuid": "951b1d24_53a01e1e",
       "range": {
         "startLine": 41,
         "startChar": 35,
