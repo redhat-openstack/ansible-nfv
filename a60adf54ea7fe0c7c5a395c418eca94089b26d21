@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "36d575a4_6a80317b",
+        "filename": "docs/packet_gen/trex/configure_trex_vm.md",
+        "patchSetId": 8
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-03-20T08:07:49Z",
+      "side": 1,
+      "message": "I don\u0027t think that will be the case in our scenarios, but in case yes, the official inventory script should be used [1].\n\nRight now, it seems like overkill for the play.\n\n[1] - https://docs.ansible.com/ansible/latest/user_guide/intro_dynamic_inventory.html#inventory-script-example-openstack",
+      "parentUuid": "90d6c629_ebd04aa3",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 69
+      },
+      "revId": "a60adf54ea7fe0c7c5a395c418eca94089b26d21",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "23742204_40de9cce",
         "filename": "playbooks/packet_gen/trex/configure_trex_vm.yml",
         "patchSetId": 8
@@ -178,6 +202,30 @@
       "side": 1,
       "message": "Sorry I didn\u0027t get this comment.\n\nCurrently it\u0027s a hard-coded default which is passed to trex.conf jinja2 template. We\u0027ll be able to parse it dynamically once we\u0027ll have a proper tuning workflow.",
       "parentUuid": "7d936c1a_7bf0de21",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 13
+      },
+      "revId": "a60adf54ea7fe0c7c5a395c418eca94089b26d21",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14061a6d_a2c57cbd",
+        "filename": "roles/packet_gen/trex/live_config/defaults/main.yaml",
+        "patchSetId": 8
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-03-20T08:07:49Z",
+      "side": 1,
+      "message": "ack.",
+      "parentUuid": "78b0e9ba_3635ceaf",
       "range": {
         "startLine": 1,
         "startChar": 0,
