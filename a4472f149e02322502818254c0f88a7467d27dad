@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "77debc51_0821320a",
+        "filename": "roles/post_install/discover_instance_ports/tasks/main.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-03-20T11:38:31Z",
+      "side": 1,
+      "message": "Add documentation.\n\nThis variable, for example, is not mentioned in the default vars, but it is mandatory.\nI have no way to know about it.",
+      "range": {
+        "startLine": 7,
+        "startChar": 16,
+        "endLine": 7,
+        "endChar": 30
+      },
+      "revId": "a4472f149e02322502818254c0f88a7467d27dad",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7275d5f0_6cee9c72",
+        "filename": "roles/post_install/discover_instance_ports/tasks/main.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-03-20T11:38:31Z",
+      "side": 1,
+      "message": "Change it to a variable.",
+      "range": {
+        "startLine": 20,
+        "startChar": 11,
+        "endLine": 20,
+        "endChar": 20
+      },
+      "revId": "a4472f149e02322502818254c0f88a7467d27dad",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "322a80dc_1c19d2a5",
+        "filename": "roles/post_install/discover_instance_ports/tasks/main.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-03-20T11:38:31Z",
+      "side": 1,
+      "message": "Is it gather all the ports attached to the instance?",
+      "range": {
+        "startLine": 28,
+        "startChar": 8,
+        "endLine": 28,
+        "endChar": 28
+      },
+      "revId": "a4472f149e02322502818254c0f88a7467d27dad",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "50984306_63b9144e",
+        "filename": "roles/post_install/discover_instance_ports/tasks/main.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-03-20T11:38:31Z",
+      "side": 1,
+      "message": "Why do you need to discover the floating ip address of the instance?\n\nIn case openstack_tasks role is used, it will be already within the dynamic inventory.\nOtherwise, an official openstack inventory script could be used.",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 37
+      },
+      "revId": "a4472f149e02322502818254c0f88a7467d27dad",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
