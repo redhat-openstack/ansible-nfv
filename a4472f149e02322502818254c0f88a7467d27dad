@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "406458cc_f4f14c26",
+        "filename": "roles/post_install/discover_instance_ports/tasks/main.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-03-20T21:42:11Z",
+      "side": 1,
+      "message": "If I\u0027ll add it to default vars, then it\u0027ll also be assigned.\n\nI\u0027ll mention it.",
+      "parentUuid": "77debc51_0821320a",
+      "range": {
+        "startLine": 7,
+        "startChar": 16,
+        "endLine": 7,
+        "endChar": 30
+      },
+      "revId": "a4472f149e02322502818254c0f88a7467d27dad",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7275d5f0_6cee9c72",
         "filename": "roles/post_install/discover_instance_ports/tasks/main.yml",
         "patchSetId": 5
@@ -45,6 +69,30 @@
       "revId": "a4472f149e02322502818254c0f88a7467d27dad",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39795631_e357e66d",
+        "filename": "roles/post_install/discover_instance_ports/tasks/main.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-03-20T21:42:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7275d5f0_6cee9c72",
+      "range": {
+        "startLine": 20,
+        "startChar": 11,
+        "endLine": 20,
+        "endChar": 20
+      },
+      "revId": "a4472f149e02322502818254c0f88a7467d27dad",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "63b403b6_ca83da54",
+        "filename": "roles/post_install/discover_instance_ports/tasks/main.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-03-20T21:42:11Z",
+      "side": 1,
+      "message": "It assigns all of the ports that were fetched into an easily accessible variable.",
+      "parentUuid": "322a80dc_1c19d2a5",
+      "range": {
+        "startLine": 28,
+        "startChar": 8,
+        "endLine": 28,
+        "endChar": 28
+      },
+      "revId": "a4472f149e02322502818254c0f88a7467d27dad",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "50984306_63b9144e",
         "filename": "roles/post_install/discover_instance_ports/tasks/main.yml",
         "patchSetId": 5
@@ -82,6 +154,30 @@
       "writtenOn": "2019-03-20T11:38:31Z",
       "side": 1,
       "message": "Why do you need to discover the floating ip address of the instance?\n\nIn case openstack_tasks role is used, it will be already within the dynamic inventory.\nOtherwise, an official openstack inventory script could be used.",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 37
+      },
+      "revId": "a4472f149e02322502818254c0f88a7467d27dad",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0d7bcf7a_37e9104b",
+        "filename": "roles/post_install/discover_instance_ports/tasks/main.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-03-20T21:42:11Z",
+      "side": 1,
+      "message": "openstack_tasks is great but no generic enough, we\u0027ll have to discuss our approach here.\n\nI\u0027ll try the official script and report back.",
+      "parentUuid": "50984306_63b9144e",
       "range": {
         "startLine": 33,
         "startChar": 0,
