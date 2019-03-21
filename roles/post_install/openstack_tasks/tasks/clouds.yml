@@ -12,7 +12,7 @@
   loop: "{{ [tripleo_undercloud_file, tripleo_overcloud_file ] | zip(['undercloud', 'overcloud']) | list }}"
 
 - name: Add users to clouds.yaml
-  include_tasks: users_clouds.yml
+  import_tasks: users_clouds.yml
   when:
     - user
     - overcloudrc_file.stat.exists

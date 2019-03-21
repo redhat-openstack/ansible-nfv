@@ -2,66 +2,66 @@
 
 - name: Setup Openstack environment
   tags: setup_os_env
-  include_tasks: setup_openstack_env.yml
+  import_tasks: setup_openstack_env.yml
   when: setup_os_env
 
 - name: Instances
   tags: instance
-  include_tasks: instances.yml
+  import_tasks: instances.yml
   when: instance and resource_state == 'absent'
 
 - name: Projects, users and roles
   tags: user
-  include_tasks: users.yml
+  import_tasks: users.yml
   when: user
 
 - name: Security groups creation
   tags: security_group
-  include_tasks: security_groups.yml
+  import_tasks: security_groups.yml
   when: security_group and resource_state == 'present'
 
 - name: Networks
   tags: network
-  include_tasks: networks_and_routers.yml
+  import_tasks: networks_and_routers.yml
   when: network
 
 - name: Aggregate groups
   tags: aggregate
-  include_tasks: aggregate.yml
+  import_tasks: aggregate.yml
   when: aggregate
 
 - name: Flavors
   tags: flavor
-  include_tasks: flavors.yml
+  import_tasks: flavors.yml
   when: flavor
 
 - name: Images
   tags: image
-  include_tasks: images.yml
+  import_tasks: images.yml
   when: image
 
 - name: Keypair
   tags: keypair
-  include_tasks: keypair.yml
+  import_tasks: keypair.yml
   when: keypair
 
 - name: Security groups delete
   tags: security_group
-  include_tasks: security_groups.yml
+  import_tasks: security_groups.yml
   when: security_group and resource_state == 'absent'
 
 - name: Instances
   tags: instance
-  include_tasks: instances.yml
+  import_tasks: instances.yml
   when: instance and resource_state == 'present'
 
 - name: Generate resources output file
   tags: resources_output
-  include_tasks: resources_output.yml
+  import_tasks: resources_output.yml
 
 - name: Overcloud delete
   tags: overcloud_delete
-  include_tasks: overcloud_delete.yml
+  import_tasks: overcloud_delete.yml
   when: overcloud_delete
 
 - name: Print created files
