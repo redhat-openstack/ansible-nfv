@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fca085fa_48b4b78b",
+        "filename": "roles/post_install/discover_instance_ports/tasks/main.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-03-21T08:41:10Z",
+      "side": 1,
+      "message": "Have you tried the openstack_inventory.py?",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 6
+      },
+      "revId": "3b54ddc411499d43dce4cca86d89df7f08e2b8f2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc160abe_5e61ef5d",
+        "filename": "roles/post_install/discover_instance_ports/vars/main.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-03-21T08:41:10Z",
+      "side": 1,
+      "message": "When I said that the documentation is needed, I meant to add a documentation under the docs section.\n\nSince, it is a new role, the documentation is required.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 16
+      },
+      "revId": "3b54ddc411499d43dce4cca86d89df7f08e2b8f2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
