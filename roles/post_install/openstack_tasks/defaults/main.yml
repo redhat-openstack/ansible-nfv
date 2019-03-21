@@ -126,7 +126,9 @@ instances:
     image: centos
     key_name: "{{ keypair_name }}"
     sec_groups: test_secgroup
-    floating_ip: yes
+    floating_ip:
+      ext_net: public
+      int_net: private_net1
     # The nics attached to the instance could be a created ports specified below,
     # or just a network name. Note the port-name and net-name.
     nics: port-name=private_net1_port1,port-name=private_net2_port2,net-name=private_net3
@@ -145,7 +147,9 @@ instances:
     image: centos
     key_name: "{{ keypair_name }}"
     sec_groups: test_secgroup
-    floating_ip: yes
+    floating_ip:
+      ext_net: public
+      int_net: private_net1
     nics: net-name=private_net3,port-name=private_net1_port3
     net_ports:
       - name: private_net1_port3

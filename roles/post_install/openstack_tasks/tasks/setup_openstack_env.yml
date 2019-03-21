@@ -60,4 +60,4 @@
     virtualenv: "{{ venv_path }}"
 
 - name: Generate clouds.yaml file
-  include_tasks: clouds.yml
+  import_tasks: clouds.yml
