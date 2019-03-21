@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "309851d6_bdd8e224",
+        "filename": "roles/post_install/discover_instance_ports/tasks/main.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-03-21T14:18:12Z",
+      "side": 1,
+      "message": "@Maxim\nI do not understand how to use this tool,\n\nI\u0027ve tried to use it to generate a dynamic inventory and fetch IP address without any success, as per documentation:\nansible -i openstack_inventory.py all -m ping\n\nIt tried to reach the internal IP addresses of the instances and failed to ping them\n\nWhat am I doing wrong?",
+      "parentUuid": "ed1a1933_a6bd4913",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 6
+      },
+      "revId": "3b54ddc411499d43dce4cca86d89df7f08e2b8f2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cc160abe_5e61ef5d",
         "filename": "roles/post_install/discover_instance_ports/vars/main.yml",
         "patchSetId": 6
