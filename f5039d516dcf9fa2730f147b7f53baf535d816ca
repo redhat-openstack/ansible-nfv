@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1e25884b_0ab83ca5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2019-03-24T15:06:37Z",
+      "side": 1,
+      "message": "Can you explain it in details?\nHow is it affecting Pylarion API?",
+      "range": {
+        "startLine": 11,
+        "startChar": 1,
+        "endLine": 11,
+        "endChar": 62
+      },
+      "revId": "f5039d516dcf9fa2730f147b7f53baf535d816ca",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
