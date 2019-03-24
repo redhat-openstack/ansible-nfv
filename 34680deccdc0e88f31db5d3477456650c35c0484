@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "0a69d6be_0f1bb603",
+        "filename": "playbooks/packet_gen/trex/configure_trex_vm.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-03-24T12:17:03Z",
+      "side": 1,
+      "message": "Please, make adaptation to run the play both with preconfigured vm and with openstack_tasks role.\n\nThe reason for this is that our ci will use the openstack_tasks role anyway.\nWhen the instance will be created, the dynamic inventory will be generated and the next play could be run on the created group.\nIt will simplify the whole flow.\n\nMoreover, the generation of the inventory should reside in a separate role.\nThis will unify the flow of this role.",
+      "range": {
+        "startLine": 4,
+        "startChar": 2,
+        "endLine": 8,
+        "endChar": 39
+      },
+      "revId": "34680deccdc0e88f31db5d3477456650c35c0484",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "880de2cf_c38c2ed3",
+        "filename": "roles/packet_gen/trex/instance_config/tasks/main.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-03-24T12:17:03Z",
+      "side": 1,
+      "message": "This condition does not make sense.\nIf I will set the trex_conf_file to \u0027False\u0027, the next task will fail because I don\u0027t have any explanation on how to pass all the required vars for the trex_cfg template.",
+      "range": {
+        "startLine": 8,
+        "startChar": 2,
+        "endLine": 8,
+        "endChar": 43
+      },
+      "revId": "34680deccdc0e88f31db5d3477456650c35c0484",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
