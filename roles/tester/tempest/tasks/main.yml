@@ -204,6 +204,13 @@
     executable: /bin/bash
     chdir: "{{ tempest_dir }}/{{ tempest_main }}"
 
+- name: Set the name for the testsuite
+  tags: run_tempest_test
+  replace:
+    path: "{{ tempest_dir }}/tempest.xml"
+    regexp: '^(<testsuite.*name=")'
+    replace: '\1nfv'
+
 - name: Generate statistics of executed tests
   tags: run_tempest_test
   shell: |
