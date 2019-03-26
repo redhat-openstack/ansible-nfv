@@ -71,6 +71,29 @@
     },
     {
       "key": {
+        "uuid": "092a2825_ce489a4f",
+        "filename": "docs/packet_gen/trex/generate_traffic.md",
+        "patchSetId": 16
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-03-26T20:38:13Z",
+      "side": 1,
+      "message": "Same as in the other patch.",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 40
+      },
+      "revId": "dd1c529161de449538cadea05108fa86837c3c3c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "7b5bbe0a_b110e62f",
         "filename": "docs/packet_gen/trex/generate_traffic.md",
         "patchSetId": 16
@@ -87,6 +110,29 @@
         "startChar": 0,
         "endLine": 30,
         "endChar": 17
+      },
+      "revId": "dd1c529161de449538cadea05108fa86837c3c3c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89537698_78d423b3",
+        "filename": "docs/packet_gen/trex/generate_traffic.md",
+        "patchSetId": 16
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-03-26T20:38:13Z",
+      "side": 1,
+      "message": "Same as in the other patch.",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 39
       },
       "revId": "dd1c529161de449538cadea05108fa86837c3c3c",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
@@ -128,6 +174,30 @@
       "writtenOn": "2019-03-26T14:03:23Z",
       "side": 1,
       "message": "\"",
+      "range": {
+        "startLine": 60,
+        "startChar": 9,
+        "endLine": 60,
+        "endChar": 10
+      },
+      "revId": "dd1c529161de449538cadea05108fa86837c3c3c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80ac639c_22de8841",
+        "filename": "docs/packet_gen/trex/generate_traffic.md",
+        "patchSetId": 16
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-03-26T20:38:13Z",
+      "side": 1,
+      "message": "What do you mean?",
+      "parentUuid": "09ecddce_e56b5a9a",
       "range": {
         "startLine": 60,
         "startChar": 9,
@@ -250,6 +320,374 @@
         "startChar": 0,
         "endLine": 196,
         "endChar": 3
+      },
+      "revId": "dd1c529161de449538cadea05108fa86837c3c3c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f78dcfcd_6494ca3f",
+        "filename": "playbooks/packet_gen/trex/generate_traffic.yml",
+        "patchSetId": 16
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-03-26T20:38:13Z",
+      "side": 1,
+      "message": "As already discussed, our playbooks are just pointers to the roles.\nThis means that pre_tasks, tasks, post_tasks and import_role should not be used here.\nUse the regular role definition.\n\nThe import_role could be used during the tasks execution to invoke another role.",
+      "range": {
+        "startLine": 2,
+        "startChar": 1,
+        "endLine": 2,
+        "endChar": 19
+      },
+      "revId": "dd1c529161de449538cadea05108fa86837c3c3c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "92a490ca_57758af8",
+        "filename": "playbooks/packet_gen/trex/generate_traffic.yml",
+        "patchSetId": 16
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-03-26T20:38:13Z",
+      "side": 1,
+      "message": "Move to the role.",
+      "range": {
+        "startLine": 5,
+        "startChar": 4,
+        "endLine": 8,
+        "endChar": 60
+      },
+      "revId": "dd1c529161de449538cadea05108fa86837c3c3c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "695e92db_fd6c1de6",
+        "filename": "playbooks/packet_gen/trex/generate_traffic.yml",
+        "patchSetId": 16
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-03-26T20:38:13Z",
+      "side": 1,
+      "message": "Use the whole role.\nWe are assuming the by the default the environment, including instances will be created by the openstack_atsks role.",
+      "range": {
+        "startLine": 10,
+        "startChar": 4,
+        "endLine": 13,
+        "endChar": 39
+      },
+      "revId": "dd1c529161de449538cadea05108fa86837c3c3c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96d4f245_1a0462ff",
+        "filename": "playbooks/packet_gen/trex/generate_traffic.yml",
+        "patchSetId": 16
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-03-26T20:38:13Z",
+      "side": 1,
+      "message": "Use a regular role call here.",
+      "range": {
+        "startLine": 18,
+        "startChar": 10,
+        "endLine": 18,
+        "endChar": 22
+      },
+      "revId": "dd1c529161de449538cadea05108fa86837c3c3c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5cb7578e_65215576",
+        "filename": "playbooks/packet_gen/trex/generate_traffic.yml",
+        "patchSetId": 16
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-03-26T20:38:13Z",
+      "side": 1,
+      "message": "Move to the role.\nYou could check if the variables are not empty before using them.",
+      "range": {
+        "startLine": 24,
+        "startChar": 8,
+        "endLine": 27,
+        "endChar": 54
+      },
+      "revId": "dd1c529161de449538cadea05108fa86837c3c3c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0d790ed_890ae837",
+        "filename": "playbooks/packet_gen/trex/generate_traffic.yml",
+        "patchSetId": 16
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-03-26T20:38:13Z",
+      "side": 1,
+      "message": "Already discussed.\n\nThis exactly the code duplication I would like to avoid.\nEven if the role contains just one single task, but this task is used in multiple plays, its worth it.\n\nAnyway, need to check the openstack_inventory script.",
+      "range": {
+        "startLine": 29,
+        "startChar": 3,
+        "endLine": 36,
+        "endChar": 72
+      },
+      "revId": "dd1c529161de449538cadea05108fa86837c3c3c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48dd91f4_87acad25",
+        "filename": "playbooks/packet_gen/trex/generate_traffic.yml",
+        "patchSetId": 16
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-03-26T20:38:13Z",
+      "side": 1,
+      "message": "See above.",
+      "range": {
+        "startLine": 41,
+        "startChar": 9,
+        "endLine": 41,
+        "endChar": 22
+      },
+      "revId": "dd1c529161de449538cadea05108fa86837c3c3c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5c12d59b_9ba8b669",
+        "filename": "playbooks/packet_gen/trex/generate_traffic.yml",
+        "patchSetId": 16
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-03-26T20:38:13Z",
+      "side": 1,
+      "message": "See above.",
+      "range": {
+        "startLine": 47,
+        "startChar": 9,
+        "endLine": 50,
+        "endChar": 53
+      },
+      "revId": "dd1c529161de449538cadea05108fa86837c3c3c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78523f30_010fff9b",
+        "filename": "playbooks/packet_gen/trex/generate_traffic.yml",
+        "patchSetId": 16
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-03-26T20:38:13Z",
+      "side": 1,
+      "message": "See above.",
+      "range": {
+        "startLine": 52,
+        "startChar": 4,
+        "endLine": 59,
+        "endChar": 71
+      },
+      "revId": "dd1c529161de449538cadea05108fa86837c3c3c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "242d2646_25f4c2cf",
+        "filename": "playbooks/packet_gen/trex/generate_traffic.yml",
+        "patchSetId": 16
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-03-26T20:38:13Z",
+      "side": 1,
+      "message": "Use regular role call.",
+      "range": {
+        "startLine": 62,
+        "startChar": 6,
+        "endLine": 62,
+        "endChar": 19
+      },
+      "revId": "dd1c529161de449538cadea05108fa86837c3c3c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "08089eef_f8c660e5",
+        "filename": "roles/packet_gen/trex/generate_traffic/tasks/bind_dpdk_nics.yml",
+        "patchSetId": 16
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-03-26T20:38:13Z",
+      "side": 1,
+      "message": "Use a module for this.",
+      "range": {
+        "startLine": 21,
+        "startChar": 8,
+        "endLine": 21,
+        "endChar": 26
+      },
+      "revId": "dd1c529161de449538cadea05108fa86837c3c3c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "42cc8349_790397ec",
+        "filename": "roles/packet_gen/trex/generate_traffic/tasks/bind_dpdk_nics.yml",
+        "patchSetId": 16
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-03-26T20:38:13Z",
+      "side": 1,
+      "message": "Same here.\n\nhttps://docs.ansible.com/ansible/latest/modules/mount_module.html",
+      "range": {
+        "startLine": 22,
+        "startChar": 8,
+        "endLine": 22,
+        "endChar": 42
+      },
+      "revId": "dd1c529161de449538cadea05108fa86837c3c3c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a4ae248f_8f150dfe",
+        "filename": "roles/packet_gen/trex/generate_traffic/tasks/bind_dpdk_nics.yml",
+        "patchSetId": 16
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-03-26T20:38:13Z",
+      "side": 1,
+      "message": "Same here.\n\nhttps://docs.ansible.com/ansible/latest/modules/sysctl_module.html",
+      "range": {
+        "startLine": 23,
+        "startChar": 8,
+        "endLine": 23,
+        "endChar": 91
+      },
+      "revId": "dd1c529161de449538cadea05108fa86837c3c3c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff79f1b0_56d907fd",
+        "filename": "roles/packet_gen/trex/generate_traffic/tasks/bind_dpdk_nics.yml",
+        "patchSetId": 16
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-03-26T20:38:13Z",
+      "side": 1,
+      "message": "Use a module for these.\n\nhttps://docs.ansible.com/ansible/latest/modules/modprobe_module.html",
+      "range": {
+        "startLine": 24,
+        "startChar": 8,
+        "endLine": 26,
+        "endChar": 28
+      },
+      "revId": "dd1c529161de449538cadea05108fa86837c3c3c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "40890261_359e7d63",
+        "filename": "roles/packet_gen/trex/generate_traffic/tasks/main.yml",
+        "patchSetId": 16
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-03-26T20:38:13Z",
+      "side": 1,
+      "message": "Too much delegate_to.\nIf the inventory will be prepared by the openstack_tasks or by the dynamic inventory creator (which will reside outside of this role), you will be able to run it on the requested hosts directly.\n\nSpecific host invocation could be done with when condition.\nwhen: \"{{ inventory_hostname }}\" \u003d\u003d ...\n\nThe downside of the delegate_to module is that you are redirecting the play execution to the host that is not part of the inventory file that the playbook executing on.\nAnd when the condition is a filter that could redirect the tasks to the specific host from the inventory.",
+      "range": {
+        "startLine": 6,
+        "startChar": 2,
+        "endLine": 6,
+        "endChar": 44
+      },
+      "revId": "dd1c529161de449538cadea05108fa86837c3c3c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90e3b93b_68081520",
+        "filename": "roles/packet_gen/trex/generate_traffic/tasks/main.yml",
+        "patchSetId": 16
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-03-26T20:38:13Z",
+      "side": 1,
+      "message": "Try not to combine import_tasks and include_tasks in the same file.\nIt could make the debug harder.\nDue to the requirement to use import_tasks below because of the delegate_to, set this task to import.",
+      "range": {
+        "startLine": 9,
+        "startChar": 2,
+        "endLine": 9,
+        "endChar": 15
       },
       "revId": "dd1c529161de449538cadea05108fa86837c3c3c",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
