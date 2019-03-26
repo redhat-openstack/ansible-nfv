@@ -186,6 +186,30 @@
     },
     {
       "key": {
+        "uuid": "de186608_9af5c066",
+        "filename": "docs/packet_gen/trex/generate_traffic.md",
+        "patchSetId": 16
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1008576
+      },
+      "writtenOn": "2019-03-26T14:05:22Z",
+      "side": 1,
+      "message": "\u003e Please split it into a sections, explain what is the default and the possible parameters to change it.\n\u003e Also, will be great to see an example execution command after each section.",
+      "parentUuid": "cd8159a4_cfd80c2e",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 142,
+        "endChar": 3
+      },
+      "revId": "dd1c529161de449538cadea05108fa86837c3c3c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4c588eb3_74732a3a",
         "filename": "docs/packet_gen/trex/generate_traffic.md",
         "patchSetId": 16
@@ -197,6 +221,30 @@
       "writtenOn": "2019-03-26T14:03:23Z",
       "side": 1,
       "message": "Please split it section, explain what is the default and the possible parameters to change it.\nAlso, will be great to see an example execution command after each section.",
+      "range": {
+        "startLine": 144,
+        "startChar": 0,
+        "endLine": 196,
+        "endChar": 3
+      },
+      "revId": "dd1c529161de449538cadea05108fa86837c3c3c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43dfafca_803f97e4",
+        "filename": "docs/packet_gen/trex/generate_traffic.md",
+        "patchSetId": 16
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1008576
+      },
+      "writtenOn": "2019-03-26T14:05:22Z",
+      "side": 1,
+      "message": "\u003e Please split it into sections, explain what is the default and the possible parameters to change it.\n\u003e Also, will be great to see an example execution command after each section.",
+      "parentUuid": "4c588eb3_74732a3a",
       "range": {
         "startLine": 144,
         "startChar": 0,
