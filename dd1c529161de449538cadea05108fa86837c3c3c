@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "58f87340_db7a62b3",
+        "filename": "docs/packet_gen/trex/generate_traffic.md",
+        "patchSetId": 16
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1008576
+      },
+      "writtenOn": "2019-03-26T14:03:23Z",
+      "side": 1,
+      "message": "binary-search: https://github.com/atheurer/trafficgen/blob/master/README-binary-search.md",
+      "range": {
+        "startLine": 6,
+        "startChar": 76,
+        "endLine": 6,
+        "endChar": 93
+      },
+      "revId": "dd1c529161de449538cadea05108fa86837c3c3c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43d2e20a_6beef552",
+        "filename": "docs/packet_gen/trex/generate_traffic.md",
+        "patchSetId": 16
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1008576
+      },
+      "writtenOn": "2019-03-26T14:03:23Z",
+      "side": 1,
+      "message": "towards",
+      "range": {
+        "startLine": 6,
+        "startChar": 35,
+        "endLine": 6,
+        "endChar": 37
+      },
+      "revId": "dd1c529161de449538cadea05108fa86837c3c3c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dd1a2024_2629dfce",
+        "filename": "docs/packet_gen/trex/generate_traffic.md",
+        "patchSetId": 16
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1008576
+      },
+      "writtenOn": "2019-03-26T14:03:23Z",
+      "side": 1,
+      "message": "by",
+      "range": {
+        "startLine": 6,
+        "startChar": 69,
+        "endLine": 6,
+        "endChar": 70
+      },
+      "revId": "dd1c529161de449538cadea05108fa86837c3c3c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b5bbe0a_b110e62f",
+        "filename": "docs/packet_gen/trex/generate_traffic.md",
+        "patchSetId": 16
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1008576
+      },
+      "writtenOn": "2019-03-26T14:03:23Z",
+      "side": 1,
+      "message": "Do you see any scenario where\u0027s TRex instance will no be launched?",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 17
+      },
+      "revId": "dd1c529161de449538cadea05108fa86837c3c3c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29375986_f411ffe6",
+        "filename": "docs/packet_gen/trex/generate_traffic.md",
+        "patchSetId": 16
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1008576
+      },
+      "writtenOn": "2019-03-26T14:03:23Z",
+      "side": 1,
+      "message": "Do you see any scenario where\u0027s DUT instance will no be launched?",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 20
+      },
+      "revId": "dd1c529161de449538cadea05108fa86837c3c3c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "09ecddce_e56b5a9a",
+        "filename": "docs/packet_gen/trex/generate_traffic.md",
+        "patchSetId": 16
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1008576
+      },
+      "writtenOn": "2019-03-26T14:03:23Z",
+      "side": 1,
+      "message": "\"",
+      "range": {
+        "startLine": 60,
+        "startChar": 9,
+        "endLine": 60,
+        "endChar": 10
+      },
+      "revId": "dd1c529161de449538cadea05108fa86837c3c3c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "57375d69_eca1620d",
+        "filename": "docs/packet_gen/trex/generate_traffic.md",
+        "patchSetId": 16
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1008576
+      },
+      "writtenOn": "2019-03-26T14:03:23Z",
+      "side": 1,
+      "message": "As we executing TRex in an interactive mode, I think it\u0027s not relevant for us.",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 70,
+        "endChar": 56
+      },
+      "revId": "dd1c529161de449538cadea05108fa86837c3c3c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cd8159a4_cfd80c2e",
+        "filename": "docs/packet_gen/trex/generate_traffic.md",
+        "patchSetId": 16
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 1008576
+      },
+      "writtenOn": "2019-03-26T14:03:23Z",
+      "side": 1,
+      "message": "Please split it section, explain what is the default and the possible parameters to change it.\nAlso, will be great to see an example execution command after each section.",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 142,
+        "endChar": 3
+      },
+      "revId": "dd1c529161de449538cadea05108fa86837c3c3c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4c588eb3_74732a3a",
+        "filename": "docs/packet_gen/trex/generate_traffic.md",
+        "patchSetId": 16
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1008576
+      },
+      "writtenOn": "2019-03-26T14:03:23Z",
+      "side": 1,
+      "message": "Please split it section, explain what is the default and the possible parameters to change it.\nAlso, will be great to see an example execution command after each section.",
+      "range": {
+        "startLine": 144,
+        "startChar": 0,
+        "endLine": 196,
+        "endChar": 3
+      },
+      "revId": "dd1c529161de449538cadea05108fa86837c3c3c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
