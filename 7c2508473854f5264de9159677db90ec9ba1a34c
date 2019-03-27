@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b8e1066b_a477b9b2",
+        "filename": "roles/post_install/dynamic_host_inventory/tasks/main.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-03-27T08:21:15Z",
+      "side": 1,
+      "message": "I will wait with the review of this file, because I would like to try it.",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 8
+      },
+      "revId": "7c2508473854f5264de9159677db90ec9ba1a34c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "55e33189_20acaa6c",
+        "filename": "roles/post_install/dynamic_host_inventory/vars/main.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-03-27T08:21:15Z",
+      "side": 1,
+      "message": "Move all this section to the documentation.\nThis file should contain the variables with a very short description if you would like.\nBut not like this.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 94
+      },
+      "revId": "7c2508473854f5264de9159677db90ec9ba1a34c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "97ac5ed7_26dc8f33",
+        "filename": "roles/post_install/dynamic_host_inventory/vars/main.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-03-27T08:21:15Z",
+      "side": 1,
+      "message": "Playbook should use role and not import_role.",
+      "range": {
+        "startLine": 2,
+        "startChar": 45,
+        "endLine": 2,
+        "endChar": 56
+      },
+      "revId": "7c2508473854f5264de9159677db90ec9ba1a34c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4237b003_2e5422f4",
+        "filename": "roles/post_install/dynamic_host_inventory/vars/main.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-03-27T08:21:15Z",
+      "side": 1,
+      "message": "Do not use the pastebin links within the documentation.\nIn some point the link will dissappear.",
+      "range": {
+        "startLine": 3,
+        "startChar": 29,
+        "endLine": 3,
+        "endChar": 82
+      },
+      "revId": "7c2508473854f5264de9159677db90ec9ba1a34c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
