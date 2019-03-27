@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fc215c66_9105eb6c",
+        "filename": "roles/post_install/dynamic_host_inventory/tasks/main.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-03-27T10:01:31Z",
+      "side": 1,
+      "message": "Ack, let me know.",
+      "parentUuid": "b8e1066b_a477b9b2",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 8
+      },
+      "revId": "7c2508473854f5264de9159677db90ec9ba1a34c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "55e33189_20acaa6c",
         "filename": "roles/post_install/dynamic_host_inventory/vars/main.yml",
         "patchSetId": 4
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "e9b2df27_d80ff4ba",
+        "filename": "roles/post_install/dynamic_host_inventory/vars/main.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-03-27T10:01:31Z",
+      "side": 1,
+      "message": "I don\u0027t know why I put here, I spaced out.\n\nMoved everything into docs.",
+      "parentUuid": "55e33189_20acaa6c",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 94
+      },
+      "revId": "7c2508473854f5264de9159677db90ec9ba1a34c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "97ac5ed7_26dc8f33",
         "filename": "roles/post_install/dynamic_host_inventory/vars/main.yml",
         "patchSetId": 4
@@ -59,6 +107,30 @@
       "writtenOn": "2019-03-27T08:21:15Z",
       "side": 1,
       "message": "Playbook should use role and not import_role.",
+      "range": {
+        "startLine": 2,
+        "startChar": 45,
+        "endLine": 2,
+        "endChar": 56
+      },
+      "revId": "7c2508473854f5264de9159677db90ec9ba1a34c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a42c1b0c_06f9a65b",
+        "filename": "roles/post_install/dynamic_host_inventory/vars/main.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-03-27T10:01:31Z",
+      "side": 1,
+      "message": "It\u0027s problematic, I didn\u0027t manage to make it work:\n  roles:\n    - role: roles/post_install/dynamic_host_inventory\n      loop: \"{{ var }}\"\n      when: condition\nThe \u0027when\u0027 condition works but loop does not, that\u0027s why I used import_role.",
+      "parentUuid": "97ac5ed7_26dc8f33",
       "range": {
         "startLine": 2,
         "startChar": 45,
@@ -91,6 +163,30 @@
       "revId": "7c2508473854f5264de9159677db90ec9ba1a34c",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5381de47_dec27d64",
+        "filename": "roles/post_install/dynamic_host_inventory/vars/main.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-03-27T10:01:31Z",
+      "side": 1,
+      "message": "I was under the impression that OpenStack pastebin had an option to host the file for unlimited amount of time, regardless removed it and put the content of the files in the docs.",
+      "parentUuid": "4237b003_2e5422f4",
+      "range": {
+        "startLine": 3,
+        "startChar": 29,
+        "endLine": 3,
+        "endChar": 82
+      },
+      "revId": "7c2508473854f5264de9159677db90ec9ba1a34c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
