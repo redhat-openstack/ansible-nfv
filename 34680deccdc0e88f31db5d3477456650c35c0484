@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "c9a67099_b1368635",
+        "filename": "docs/packet_gen/trex/configure_trex_vm.md",
+        "patchSetId": 13
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-03-27T15:29:16Z",
+      "side": 1,
+      "message": "Ack, I\u0027ll change it Ziv.",
+      "parentUuid": "c9e25971_6b372ab7",
+      "range": {
+        "startLine": 6,
+        "startChar": 47,
+        "endLine": 6,
+        "endChar": 69
+      },
+      "revId": "34680deccdc0e88f31db5d3477456650c35c0484",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0a69d6be_0f1bb603",
         "filename": "playbooks/packet_gen/trex/configure_trex_vm.yml",
         "patchSetId": 13
@@ -120,6 +144,30 @@
     },
     {
       "key": {
+        "uuid": "bca8798d_2e637e47",
+        "filename": "playbooks/packet_gen/trex/configure_trex_vm.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-03-27T15:29:16Z",
+      "side": 1,
+      "message": "Yes, I think it\u0027s a good approach.\n\nI implemented it but there is currently an issue in openstack_tasks which Maxim is helping to solve.",
+      "parentUuid": "0b89c06e_c24bc567",
+      "range": {
+        "startLine": 4,
+        "startChar": 2,
+        "endLine": 8,
+        "endChar": 39
+      },
+      "revId": "34680deccdc0e88f31db5d3477456650c35c0484",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "880de2cf_c38c2ed3",
         "filename": "roles/packet_gen/trex/instance_config/tasks/main.yml",
         "patchSetId": 13
@@ -140,6 +188,30 @@
       "revId": "34680deccdc0e88f31db5d3477456650c35c0484",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "67e0070b_e00ed66c",
+        "filename": "roles/packet_gen/trex/instance_config/tasks/main.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-03-27T15:29:16Z",
+      "side": 1,
+      "message": "Fixed, thanks.",
+      "parentUuid": "880de2cf_c38c2ed3",
+      "range": {
+        "startLine": 8,
+        "startChar": 2,
+        "endLine": 8,
+        "endChar": 43
+      },
+      "revId": "34680deccdc0e88f31db5d3477456650c35c0484",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
