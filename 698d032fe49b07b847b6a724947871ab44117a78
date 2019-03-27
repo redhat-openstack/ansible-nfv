@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d1e1647f_51b5f30b",
+        "filename": "playbooks/packet_gen/trex/configure_trex_vm.yml",
+        "patchSetId": 15
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2019-03-27T15:38:02Z",
+      "side": 1,
+      "message": "@vkhitrin\nbased on your reply, \nhttps://review.gerrithub.io/c/redhat-openstack/ansible-nfv/+/445238/13/playbooks/packet_gen/trex/configure_trex_vm.yml#8\n\nSo is it working or not?",
+      "range": {
+        "startLine": 13,
+        "startChar": 5,
+        "endLine": 13,
+        "endChar": 39
+      },
+      "revId": "698d032fe49b07b847b6a724947871ab44117a78",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
