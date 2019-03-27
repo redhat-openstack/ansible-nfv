@@ -1,0 +1,33 @@
+# TODO (vkhitrin): Attempt to utilize https://raw.githubusercontent.com/ansible/ansible/devel/contrib/inventory/openstack_inventory.py
+- block:
+    - name: Query Instance Attached Ports In Order To Discover Floating IP
+      import_role:
+        name: roles/post_install/discover_instance_ports
+      vars:
+        query_instance: "{{ item['name'] }}"
+        discover_instance_external_ip: True
+        query_cloud: "{{ item['cloud'] | default('overcloud') }}"
+        cloud_validate_certs: "{{ item['cert_validate']  | default(False) }}"
+
+    - name: Set Instnace Management IP(Floating IP) If Discovered
+      set_fact:
+        mgmt_ip: "{{ instance_external_ip }}"
+      when: 
+        - instance_external_ip is defined
+        - instance_external_ip != 'None'
+        - item['mgmt_ip'] is not defined
+  when: discover_instance_external_ip
+
+- name: Override Instnace Management IP(Floating IP) Manually
+  set_fact:
+    mgmt_ip: "{{ item['mgmt_ip'] }}"
+  when: item['mgmt_ip'] is defined
+
+- name: Add Instance To Ansible In-Memory(Dynamic) Inventory
+  add_host:
+    name: "{{ mgmt_ip }}"
+    groups: "{{ item['group'] }}"
+    ansible_user: "{{ item['user'] | default('root') }}"
+    ansible_password: "{{ item['password'] | default(omit) }}"
+    ansible_ssh_private_key_file: "{{ item['ssh_key'] | default(omit) }}"
+    ansible_ssh_pass: "{{ item['ssh_pass'] | default(omit) }}"

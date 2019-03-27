@@ -1,0 +1,18 @@
+# This role receives a list of dictionaries and attempts to add the hosts to dynamic inventory
+# The list is passed from the import_playbook, assuming dynamic_instances was passed
+# dynamic_instances:
+#   name: vm1 # Name of instance to be queried against OpenStack APIs if attempting to disover IP address
+              # Can be omitted if not discovering via OpenStack APIs 
+#   group: vm_group # Name of group to assign the instance to
+#   user: root # Username to authenticate with
+#   password: password # Password to authenticate with, can be omitted if using SSH key
+#   ssh_key /path/to/key # SSH key used to authenticate with_
+#   ssh_pass: passphrase # SSH passphrase used to unlock SSH key
+#   mgmt_ip: 1.1.1.1 # Management IP of instance
+                     # Can be specified or attempted to be discovered from OpenStack APIs
+                     # Will override automatically discovered IP address
+#   cloud: overcloud # Name of cloud to be used when querying instance, can be omitted
+                     # Requires clouds.yaml to be present on Ansible host, refer to:
+                     # https://docs.openstack.org/os-client-config/latest/user/configuration.html#site-specific-file-locations
+#   cert_validate: False # Whether to validate SSL certificates when querying cloud, False by default
+discover_instance_external_ip: True # Whether to attempt to discover external IP
