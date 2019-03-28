@@ -1,0 +1,8 @@
+Verified+1: rhosqeauto <amachluf+rhosqeauto@redhat.com>
+Code-Review+2: <yrachman@redhat.com>
+Code-Review+2: Ziv Greenberg <zgreenbe@redhat.com>
+Submitted-by: Ziv Greenberg <zgreenbe@redhat.com>
+Submitted-at: Thu, 28 Mar 2019 08:40:55 +0000
+Reviewed-on: https://review.gerrithub.io/c/redhat-openstack/ansible-nfv/+/449295
+Project: redhat-openstack/ansible-nfv
+Branch: refs/heads/devel
