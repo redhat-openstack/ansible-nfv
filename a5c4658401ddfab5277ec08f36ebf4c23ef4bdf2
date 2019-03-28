@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e52c7b96_f8fec572",
+        "filename": "docs/packet_gen/trex/performance_scenario.md",
+        "patchSetId": 17
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-03-28T23:47:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "22a95e81_4929ad6b",
+      "range": {
+        "startLine": 68,
+        "startChar": 4,
+        "endLine": 68,
+        "endChar": 61
+      },
+      "revId": "a5c4658401ddfab5277ec08f36ebf4c23ef4bdf2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "16156fdb_a1469304",
         "filename": "roles/packet_gen/trex/instance_config/tasks/main.yml",
         "patchSetId": 17
@@ -36,6 +60,30 @@
       "writtenOn": "2019-03-28T13:51:32Z",
       "side": 1,
       "message": "Fix me if I\u0027m wrong, but the imclude_tasks does not work anymore with the delegate_to.\nThe import_tasks invocation should be used instead.\n\nIf you change the invocation ti import_tasks, change it in the task below as well.",
+      "range": {
+        "startLine": 4,
+        "startChar": 4,
+        "endLine": 5,
+        "endChar": 27
+      },
+      "revId": "a5c4658401ddfab5277ec08f36ebf4c23ef4bdf2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2fc54bfb_6f33890a",
+        "filename": "roles/packet_gen/trex/instance_config/tasks/main.yml",
+        "patchSetId": 17
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-03-28T23:47:20Z",
+      "side": 1,
+      "message": "It worked with include_tasks when I tested it, changing it to import_tasks to be consistent.",
+      "parentUuid": "16156fdb_a1469304",
       "range": {
         "startLine": 4,
         "startChar": 4,
