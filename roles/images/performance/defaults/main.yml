@@ -1,6 +1,7 @@
 # Image Variables
 guest_image: 'https://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud.qcow2'
 guest_image_output: '/tmp/'
+guest_debug: False
 
 # Repo Variables
 repo_dir: '/tmp/guest_repos'

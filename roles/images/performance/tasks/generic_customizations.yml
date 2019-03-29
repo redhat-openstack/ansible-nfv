@@ -1,7 +1,7 @@
 - name: Customize guest image with necessery RPMs
   virt_customize_packages:
     name:
-      - screen
+      - tmux
     state: present
     image: "{{ fetched_image }}"
     selinux_relabel: True
