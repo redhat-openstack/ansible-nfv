@@ -47,6 +47,11 @@ Output directory/file of fetched image:
 guest_image_output: '/tmp/'
 ```
 
+Enable debug output of virt-customize action:
+```
+guest_debug: False
+```
+
 #### Customization variables
 DPDK version to be cloned
 ```
