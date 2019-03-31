@@ -45,6 +45,52 @@
       "revId": "671a791df8737d64cd62fdcf6bfa65f286ab0259",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ecd61a58_d0bc519d",
+        "filename": "docs/packet_gen/trex/performance_scenario.md",
+        "patchSetId": 24
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2019-03-31T08:01:49Z",
+      "side": 1,
+      "message": "Why are we still maintain this guest hw topology?\nI would rather expose the following:\nhw:numa_cpus\nhw:numa_mem\nremove hw:numa_nodes it is the default",
+      "range": {
+        "startLine": 268,
+        "startChar": 1,
+        "endLine": 269,
+        "endChar": 29
+      },
+      "revId": "671a791df8737d64cd62fdcf6bfa65f286ab0259",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4e2783c5_680708c5",
+        "filename": "roles/packet_gen/trex/trex_instance_config/tasks/main.yml",
+        "patchSetId": 24
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2019-03-31T08:01:49Z",
+      "side": 1,
+      "message": "I think this one should move into defaults as a parameter\nCould be that repo name will be changed",
+      "range": {
+        "startLine": 3,
+        "startChar": 10,
+        "endLine": 3,
+        "endChar": 48
+      },
+      "revId": "671a791df8737d64cd62fdcf6bfa65f286ab0259",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
