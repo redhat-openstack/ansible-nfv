@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "768f6646_e41495d9",
+        "filename": "roles/packet_gen/trex/trex_instance_config/tasks/main.yml",
+        "patchSetId": 23
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-03-31T07:17:07Z",
+      "side": 1,
+      "message": "Why this condition is here?\nIf the condition does not met, the next task will fail in any way.\nAm I right?",
+      "range": {
+        "startLine": 16,
+        "startChar": 2,
+        "endLine": 16,
+        "endChar": 29
+      },
+      "revId": "1366d240f3002b7ac71f5d1f5d1e19b99474051f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07a68460_68a64c2c",
+        "filename": "roles/packet_gen/trex/trex_instance_config/tasks/query_trex_instance.yaml",
+        "patchSetId": 23
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-03-31T07:17:07Z",
+      "side": 1,
+      "message": "Replace it with:\n\n\"{{ groups[\u0027undercloud\u0027] | first }}\"",
+      "range": {
+        "startLine": 6,
+        "startChar": 15,
+        "endLine": 6,
+        "endChar": 27
+      },
+      "revId": "1366d240f3002b7ac71f5d1f5d1e19b99474051f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "00108e12_66c3fa2f",
+        "filename": "roles/packet_gen/trex/trex_instance_config/tasks/query_trex_instance.yaml",
+        "patchSetId": 23
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-03-31T07:17:07Z",
+      "side": 1,
+      "message": "Should not be here.\nOtherwise, it will not reach the next task.",
+      "range": {
+        "startLine": 13,
+        "startChar": 2,
+        "endLine": 13,
+        "endChar": 45
+      },
+      "revId": "1366d240f3002b7ac71f5d1f5d1e19b99474051f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ab88f4c5_19c80e65",
+        "filename": "roles/packet_gen/trex/trex_instance_config/tasks/query_trex_instance.yaml",
+        "patchSetId": 23
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-03-31T07:17:07Z",
+      "side": 1,
+      "message": "This should be when and not failed_when.\nWe would like this task to be triggered and show the message and not to fail.\n\nThe module itself will fail the play with the relevant message and not the condition.",
+      "range": {
+        "startLine": 18,
+        "startChar": 2,
+        "endLine": 18,
+        "endChar": 13
+      },
+      "revId": "1366d240f3002b7ac71f5d1f5d1e19b99474051f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
