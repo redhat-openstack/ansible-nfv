@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "619c3d08_910150fc",
+        "filename": "roles/packet_gen/trex/trex_instance_config/tasks/main.yml",
+        "patchSetId": 23
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-03-31T07:39:31Z",
+      "side": 1,
+      "message": "The problem is that within the jinja template, you are using variables that generated during the play from the output you get.\nI can promise you that no use will be able to provide the exact structured variables that will meet the jinja templates structure.\n\nWhich mean, that the condition here is useless.",
+      "parentUuid": "ecd1d28d_d663e541",
+      "range": {
+        "startLine": 16,
+        "startChar": 2,
+        "endLine": 16,
+        "endChar": 29
+      },
+      "revId": "1366d240f3002b7ac71f5d1f5d1e19b99474051f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "07a68460_68a64c2c",
         "filename": "roles/packet_gen/trex/trex_instance_config/tasks/query_trex_instance.yaml",
         "patchSetId": 23
@@ -107,6 +131,30 @@
       "side": 1,
       "message": "It does work properly when it detects the required ports,\nWhat should be done then instead in your opinion?",
       "parentUuid": "00108e12_66c3fa2f",
+      "range": {
+        "startLine": 13,
+        "startChar": 2,
+        "endLine": 13,
+        "endChar": 45
+      },
+      "revId": "1366d240f3002b7ac71f5d1f5d1e19b99474051f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87ecbd8a_564d3fce",
+        "filename": "roles/packet_gen/trex/trex_instance_config/tasks/query_trex_instance.yaml",
+        "patchSetId": 23
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-03-31T07:39:31Z",
+      "side": 1,
+      "message": "You are expecting to get a list of instance sriov nics with the amount of 2.\nYour next task checking that state.\nIf the list will be empty, this task will fail and the next task with the failure message will not be reached.",
+      "parentUuid": "497f174f_b0ce1251",
       "range": {
         "startLine": 13,
         "startChar": 2,
