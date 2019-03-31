@@ -1,0 +1,44 @@
+- name: Check If Tmux Sessions Are Running
+  shell: "tmux list-sessions -F '#S'"
+  register: tmux_sessions
+  failed_when: False
+
+- name: Kill Tmux Sessions
+  shell: "tmux list-sessions -F '#S' | xargs -n1 tmux kill-session -t"
+  when: tmux_sessions['stdout_lines'] != []
+
+- name: Set TestPMD Command If Not Defined
+  set_fact:
+    testpmd_cmd: |
+      {{ testpmd_bin }} -l {{ testpmd_lcores }} \
+      -n {{ testpmd_mem_channels }} \
+      --socket-mem {{ testpmd_socket_mem }} -- -i \
+      --nb-cores={{ testpmd_forward_cores }} \
+      --auto-start \
+      --rxd={{ testpmd_rxd }} \
+      --txd={{ testpmd_txd }} 
+  when: testpmd_cmd is not defined
+
+- name: Log testpmd Command
+  debug:
+    var: testpmd_cmd
+
+- name: Run testpmd In Dettached Tmux Session
+  shell: |
+    tmux new -d -s testpmd
+    tmux send-keys -t testpmd "{{ testpmd_cmd }} &>/tmp/testpmd.log" ENTER
+    tmux send-keys -t testpmd "show port stats all" ENTER
+  become: True
+
+- name: Pause And Let TestPMD Run
+  pause:
+    seconds: 10
+
+- name: Query If TestPMD Aborted
+  shell: 'cat /tmp/testpmd.log'
+  register: testpmd_log_output
+
+- name: Print TestPMD Error
+  fail:
+    msg: "{{ testpmd_log_output['stdout_lines'] }}"
+  failed_when: "'PANIC' in testpmd_log_output['stdout']"
