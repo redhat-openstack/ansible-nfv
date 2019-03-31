@@ -1,0 +1,11 @@
+# Symlinked Trex directory to be used for binary-search
+symlinked_trex_dir: '/opt/trex/current'
+
+# Symlinked t-rex binary
+symlinked_trex_bin: '{{ symlinked_trex_dir }}/t-rex-64'
+
+# Trex configuration file
+trex_conf_file: '/etc/trex_cfg.yaml'
+
+# Number of threads to assign to a port pair
+trex_process_threads: 8
