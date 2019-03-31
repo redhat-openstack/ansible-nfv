@@ -4,8 +4,14 @@
 
 **NOTE:** Assumes that the instances are using a special image containing Trex and DPDK binaries. An Image can be generated using `playbooks/images/prepare_performance_images.yml`, refer to the playbook's [documentation](https://github.com/redhat-openstack/ansible-nfv/blob/devel/docs/images/prepare_performance_images.md).
 
+**NOTE:** Please avoid using instance names for perfomance scenario that containts udnerscore(_), the automation will fail otherwise.
+
 Prepares environment for NFV performance scenario using Trex:
 * Configure Trex instance
+* Binds DPDK NICs
+* Launch Trex Server
+* Launch TestPMD
+* Execute binary_search script to generate traffic
 
 ## Automatic Discovery
 Automatic discovery is limited to two direct-physical ports attached to trex instance, more than two ports will require the user to pass configuration manually.
@@ -18,6 +24,22 @@ This process is based on NFV QE TLV Lab, which consists of several guest instanc
     * Management network (normal port type)
     * SR-IOV PF Port 0 (direct-physical port type)
     * SR-IOV PF Port 1 (direct-physical port type)
+
+* DPDK DuT(Device Under Test) guest instance:
+  * 8 cores (4 Physical + 4 Hyper-Threaded)
+  * 8 GB RAM
+  * 3 Network interfaces:
+    * Management network (normal port type)
+    * DPDK Port 0 (normal port type)
+    * DPDK Port 1 (normal port type)
+
+* SR-IOV VF DuT(Device Under Test) guest instance:
+  * 8 cores (4 Physical + 4 Hyper-Threaded)
+  * 8 GB RAM
+  * 3 Network interfaces:
+    * Management network (normal port type)
+    * SR-IOV PF Port 0 (direct port type)
+    * SR-IOV PF Port 1 (direct port type)
 
 ## Invocation
 
@@ -36,7 +58,7 @@ Resources are added to dynamic(in-memory) Ansible inventory by this playbook via
 
 Set the variable `cloud_resources` to `external` and supply the required variables mentioned.
 
-## Role Variables
+## Playbook Variables
 
 ### Resources
 
@@ -47,13 +69,41 @@ Sets the execution mode (resource creation/resource querying).
 cloud_resources: #'create' or 'external'
 ```
 
-### Flows
+### Automation Flows
 
 Perform trex customization flow (fetch trafficgen repo, customize trex configuration file).
 
 `True` by default
 ```
 trex_instance_config: True
+```
+
+Binds NICs to DPDK(to user space).
+
+`True` by default
+```
+bind_dpdk_nics: True
+```
+
+Launch Trex Server on trex instance:
+
+`True` by default
+```
+launch_trex: True
+```
+
+Launch TestPMD on DuT instance:
+
+`True` by default
+```
+launch_testpmd: True
+```
+
+Execute binary_search script on trex instance:
+
+`True` by default
+```
+binary_search: True
 ```
 
 ### Trex Configuration Variables
@@ -147,6 +197,169 @@ Traffichen branch to checkout.
 `master` by default.
 ```
 trafficgen_branch: 'master'
+```
+
+### DPDK Variables
+
+DPDK root directory on instances(cloned from: 'git://dpdk.org/dpdk').
+
+`/root/dpdk` by default.
+```
+dpdk_root_dir: '/root/dpdk'
+```
+
+Compiled DPDK binaries directory on instances(compiled as part of NFV perf guest image).
+
+Info about what we compile can be found in `prepare_performance_images` [role documentation](https://github.com/redhat-openstack/ansible-nfv/blob/devel/docs/images/prepare_performance_images.md#description).
+
+Compilation steps can be found inside `Prepare DPDK binaries inside guest image` [task](https://github.com/redhat-openstack/ansible-nfv/blob/devel/roles/images/performance/tasks/prepare_dpdk.yml).
+
+`{{ dpdk_root_dir }}/build/app` by default.
+```
+dpdk_compiled_dir: '/root/dpdk/build/app'
+```
+
+### Trex Server Variables
+
+Symlinked Trex directory to be used for binary-search(as currently hard coded requirment of binary-search).
+
+`/opt/trex/current` by default.
+```
+symlinked_trex_dir: '/opt/trex/current'
+```
+
+Symlinked t-rex binary to be invoced by binary-search.
+
+`{{ symlinked_trex_dir }}/t-rex-6`  by default.
+```
+symlinked_trex_bin: '/opt/trex/current/t-rex-64'
+```
+
+Number of threads to assign to a trex port pair.
+
+`8`  by default.
+```
+trex_process_threads: 8
+```
+
+Extra command line arugments that can be passed to trex.
+
+Empty by default.
+```
+trex_process_extra_args: ''
+```
+
+### TestPMD Variables
+
+TestPMD binary, assumes DPDK is compiled.
+
+`{{ dpdk_compiled_dir }}/testpmd` by default.
+testpmd_bin: "/root/dpdk/testpmd"
+
+Instance cores to act as lcores(map list of instance cores to physical cpu set).
+**NOTE:** For each deployment the numbers may vary, if you don't supply correct values, performance will yeild low numbers.
+
+`3,4,7` by default.
+```
+testpmd_lcores: '3,4,7'
+```
+
+Mumber of memory channels to use for TestPMD.
+
+`4` by default.
+```
+testpmd_mem_channels: 4
+```
+
+Memory to allocate(in MBs) per socket for TestPMD.
+
+`1024` by default.
+```
+testpmd_socket_mem: 1024
+```
+
+Number of cores to execute TestPMD on.
+
+`2` by default.
+```
+testpmd_forward_cores: 2
+```
+
+TestPMD TX Queue size.
+
+`1024` by default.
+```
+testpmd_txd: 1024
+```
+
+TestPMD RX Queue size.
+
+`1024` by default.
+```
+testpmd_rxd: 1024
+```
+
+### Binary Search Sript Variables
+
+binary-search script result log file to be generated on DuT instance.
+
+`/tmp/performance.log` by default.
+```
+binary_perf_log: '/tmp/performance.log'
+```
+
+Trafficgen repo directory on host containg binary-search script.
+
+`/opt/trafficgen` by default.
+```
+trafficgen_dir: '/opt/trafficgen'
+```
+
+binary-search executable on trex instance.
+
+`{{ trafficgen_dir }}/binary-search.py` by default.
+```
+binary_search_bin: "/opt/trafficgen/binary-search.py"
+```
+
+DuT MAC Addresses that trex will send traffic to:
+
+ **Not** defined by default, can be discovered automatically or supplied by user.
+```
+dut_macs: '00:00:00:03:00:00,00:00:00:04:00:00'
+```
+
+binary-search command line:
+
+ **Not** defined by default, can be generated automatically or supplied by user.
+```
+traffic_cmd: '/opt/trafficgen/binary-search.py --traffic-generator trex-txrx --frame-size 64 --max-loss-pct 0.0 --send-teaching-warmup --dst-macs 00:00:00:03:00:00,00:00:00:04:00:00 --num-flows 1'
+```
+
+Frame size in bytes that trex will generate.
+
+`64` by default.
+```
+trex_frame_size: 64
+```
+
+Max packet lost percent(%) acceptable.
+
+`0.00` by default.
+```
+trex_max_lost_pct: 0.00
+```
+
+Number of unique flows.
+
+`1` by default.
+trex_flows: 1
+
+Minimum rate for of packets to generate, sized in mpps(milion packets per second).
+
+`2` by default.
+```
+trex_rate: 2
 ```
 
 ## Example
@@ -345,6 +558,48 @@ instances:
         network: sriov_net_nic1_800
         port_security: false
         type: direct-physical
+
+  - name: testpmd_sriov_vf_dut
+    groups: vm_groups
+    flavor: perf_numa_0_sriov_dut
+    image: trex_testpmd
+    key_name: "{{ keypair_name }}"
+    sec_groups: test_secgroup
+    config_drive: false
+    floating_ip:
+      ext_net: external_net_419
+      int_net: management_net_530
+    nics: net-name=management_net_530,port-name=sriov_net_nic0_700_sriov_vf_dut_direct_port-0,port-name=sriov_net_nic1_800_sriov_vf_dut_direct_port-1
+    net_ports:
+      - name: sriov_net_nic0_700_sriov_vf_dut_direct_port-0
+        network: sriov_net_nic0_700
+        port_security: false
+        type: direct
+      - name: sriov_net_nic1_800_sriov_vf_dut_direct_port-1
+        network: sriov_net_nic1_800
+        port_security: false
+        type: direct
+
+  - name: testpmd_dpdk_dut
+    groups: dut
+    flavor: perf_numa_1_dpdk_dut
+    image: trex_testpmd
+    key_name: "{{ keypair_name }}"
+    sec_groups: test_secgroup
+    config_drive: false
+    floating_ip:
+      ext_net: external_net_419
+      int_net: management_net_530
+    nics: net-name=management_net_530,port-name=testpmd_net_nic0_700_dpdk_dut_port-0,port-name=testpmd_net_nic1_800_dpdk_dut_port-1
+    net_ports:
+      - name: testpmd_net_nic0_700_dpdk_dut_port-0
+        network: testpmd_net_nic0_700
+        port_security: false
+        type: normal
+      - name: testpmd_net_nic1_800_dpdk_dut_port-1
+        network: testpmd_net_nic1_800
+        port_security: false
+        type: normal
 ```
 
 Generate Trex instance and configure it using information gathered from instance at run time(assuming the instance is confgured as mentioned [above](#automatic-discovery)):
@@ -357,9 +612,15 @@ ansible-playbook playbooks/packet_gen/trex/performance_scenario.yml -e cloud_res
 Sample variable file used `/path/to/existing_resources.yml`(refer to the documentation mentioned [above](#pre-existing-cloud-resources) for more info):
 ```
 discover_instance_external_ip: True
+dut_group: dpdk_dut
+dut_type: dpdk
 dynamic_instances:
   - name: trex
     group: trex
+    user: cloud-user
+    ssh_key: /tmp/test_keypair.key
+  - name: testpmd_dpdk_dut
+    group: dpdk_dut
     user: cloud-user
     ssh_key: /tmp/test_keypair.key
 ```

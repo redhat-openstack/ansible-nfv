@@ -1,0 +1,44 @@
+- name: Check if Trex Directory Exists
+  stat:
+    path: "{{ symlinked_trex_dir }}"
+  register: trex_dir_stat
+  failed_when: not trex_dir_stat.stat.exists
+
+- name: Check If Tmux Sessions Are Running
+  shell: "tmux list-sessions -F '#S'"
+  register: tmux_sessions
+  failed_when: False
+
+- name: Kill Tmux Sessions
+  shell: "tmux list-sessions -F '#S' | xargs -n1 tmux kill-session -t"
+  when: tmux_sessions['stdout_lines'] != []
+
+- name: Set t-rex Command
+  set_fact:
+    trex_cmd: "{{ symlinked_trex_bin }} -i -c {{ trex_process_threads }} {{ trex_process_extra_args | default('') }} --cfg {{ trex_conf_file }} &>/tmp/trex.log"
+  when: trex_cmd is not defined
+
+- name: Log t-rex Command
+  debug:
+    var: trex_cmd
+
+- name: Run t-rex Traffic Generator In Dettached Tmux Session
+  shell: |
+    tmux new -d -s trex
+    tmux send-keys -t trex "cd {{ symlinked_trex_dir }}" ENTER
+    tmux send-keys -t trex "{{ trex_cmd }}" ENTER
+  become: True
+
+- name: Pause And Let Trex Run
+  pause:
+    seconds: 10
+
+- name: Query If Trex Aborted
+  slurp:
+    src: '/tmp/trex.log'
+  register: trex_log_output
+
+- name: Print Trex Error
+  fail:
+    msg: "{{ trex_log_output['content'] }}"
+  failed_when: "'ERROR' in trex_log_output['content']"
