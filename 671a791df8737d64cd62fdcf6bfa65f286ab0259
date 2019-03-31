@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9dfa1c23_0dc5122c",
+        "filename": "docs/packet_gen/trex/performance_scenario.md",
+        "patchSetId": 24
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-03-31T09:27:38Z",
+      "side": 1,
+      "message": "Yea, my bad.\nWill fix, thanks.",
+      "parentUuid": "66afcd75_1e4ca8bf",
+      "range": {
+        "startLine": 85,
+        "startChar": 4,
+        "endLine": 85,
+        "endChar": 59
+      },
+      "revId": "671a791df8737d64cd62fdcf6bfa65f286ab0259",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "07b72e79_ed497988",
         "filename": "docs/packet_gen/trex/performance_scenario.md",
         "patchSetId": 24
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "228bf6d5_4e14f155",
+        "filename": "docs/packet_gen/trex/performance_scenario.md",
+        "patchSetId": 24
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-03-31T09:27:38Z",
+      "side": 1,
+      "message": "Yea, my bad.\nWill fix, thanks.",
+      "parentUuid": "07b72e79_ed497988",
+      "range": {
+        "startLine": 90,
+        "startChar": 4,
+        "endLine": 90,
+        "endChar": 58
+      },
+      "revId": "671a791df8737d64cd62fdcf6bfa65f286ab0259",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ecd61a58_d0bc519d",
         "filename": "docs/packet_gen/trex/performance_scenario.md",
         "patchSetId": 24
@@ -59,6 +107,30 @@
       "writtenOn": "2019-03-31T08:01:49Z",
       "side": 1,
       "message": "Why are we still maintain this guest hw topology?\nI would rather expose the following:\nhw:numa_cpus\nhw:numa_mem\nremove hw:numa_nodes it is the default",
+      "range": {
+        "startLine": 268,
+        "startChar": 1,
+        "endLine": 269,
+        "endChar": 29
+      },
+      "revId": "671a791df8737d64cd62fdcf6bfa65f286ab0259",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "aebda431_4cb544ea",
+        "filename": "docs/packet_gen/trex/performance_scenario.md",
+        "patchSetId": 24
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-03-31T09:27:38Z",
+      "side": 1,
+      "message": "Will attempt to test it, it\u0027s only an example though.\n@Ziv, any comments?",
+      "parentUuid": "ecd61a58_d0bc519d",
       "range": {
         "startLine": 268,
         "startChar": 1,
@@ -91,6 +163,30 @@
       "revId": "671a791df8737d64cd62fdcf6bfa65f286ab0259",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5fe355c4_ffc64303",
+        "filename": "roles/packet_gen/trex/trex_instance_config/tasks/main.yml",
+        "patchSetId": 24
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-03-31T09:27:38Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "4e2783c5_680708c5",
+      "range": {
+        "startLine": 3,
+        "startChar": 10,
+        "endLine": 3,
+        "endChar": 48
+      },
+      "revId": "671a791df8737d64cd62fdcf6bfa65f286ab0259",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }

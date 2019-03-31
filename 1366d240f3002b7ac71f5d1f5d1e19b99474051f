@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "3aa1be3c_6340ab56",
+        "filename": "roles/packet_gen/trex/trex_instance_config/tasks/main.yml",
+        "patchSetId": 23
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-03-31T09:27:38Z",
+      "side": 1,
+      "message": "The problem is that this discovery process is automated for our type of deployments.\nWill attempt to add a conditional to make it more clear for user.",
+      "parentUuid": "619c3d08_910150fc",
+      "range": {
+        "startLine": 16,
+        "startChar": 2,
+        "endLine": 16,
+        "endChar": 29
+      },
+      "revId": "1366d240f3002b7ac71f5d1f5d1e19b99474051f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "07a68460_68a64c2c",
         "filename": "roles/packet_gen/trex/trex_instance_config/tasks/query_trex_instance.yaml",
         "patchSetId": 23
@@ -93,6 +117,30 @@
       "revId": "1366d240f3002b7ac71f5d1f5d1e19b99474051f",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd3c3b22_e718bd2f",
+        "filename": "roles/packet_gen/trex/trex_instance_config/tasks/query_trex_instance.yaml",
+        "patchSetId": 23
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-03-31T09:27:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "07a68460_68a64c2c",
+      "range": {
+        "startLine": 6,
+        "startChar": 15,
+        "endLine": 6,
+        "endChar": 27
+      },
+      "revId": "1366d240f3002b7ac71f5d1f5d1e19b99474051f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     },
     {
       "key": {
@@ -167,6 +215,30 @@
     },
     {
       "key": {
+        "uuid": "1c6bbc75_1025729d",
+        "filename": "roles/packet_gen/trex/trex_instance_config/tasks/query_trex_instance.yaml",
+        "patchSetId": 23
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-03-31T09:27:38Z",
+      "side": 1,
+      "message": "I get your point now, thanks.",
+      "parentUuid": "87ecbd8a_564d3fce",
+      "range": {
+        "startLine": 13,
+        "startChar": 2,
+        "endLine": 13,
+        "endChar": 45
+      },
+      "revId": "1366d240f3002b7ac71f5d1f5d1e19b99474051f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ab88f4c5_19c80e65",
         "filename": "roles/packet_gen/trex/trex_instance_config/tasks/query_trex_instance.yaml",
         "patchSetId": 23
@@ -202,6 +274,30 @@
       "side": 1,
       "message": "Ack, didn\u0027t notice. Thanks.",
       "parentUuid": "ab88f4c5_19c80e65",
+      "range": {
+        "startLine": 18,
+        "startChar": 2,
+        "endLine": 18,
+        "endChar": 13
+      },
+      "revId": "1366d240f3002b7ac71f5d1f5d1e19b99474051f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "c512a9c9_c0067418",
+        "filename": "roles/packet_gen/trex/trex_instance_config/tasks/query_trex_instance.yaml",
+        "patchSetId": 23
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-03-31T09:27:38Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2a76d8b1_3ea74679",
       "range": {
         "startLine": 18,
         "startChar": 2,
