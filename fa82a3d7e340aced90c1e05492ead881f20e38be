@@ -1,0 +1,280 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "68379691_5c6607fd",
+        "filename": "playbooks/packet_gen/trex/performance_scenario.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-04-02T08:07:18Z",
+      "side": 1,
+      "message": "Documentation for the new roles are missing.",
+      "range": {
+        "startLine": 63,
+        "startChar": 5,
+        "endLine": 70,
+        "endChar": 41
+      },
+      "revId": "fa82a3d7e340aced90c1e05492ead881f20e38be",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6cb0287e_b7791878",
+        "filename": "roles/packet_gen/trex/binary_search/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-04-02T08:07:18Z",
+      "side": 1,
+      "message": "Why to hardcode it to a single dut instance?",
+      "range": {
+        "startLine": 3,
+        "startChar": 44,
+        "endLine": 3,
+        "endChar": 47
+      },
+      "revId": "fa82a3d7e340aced90c1e05492ead881f20e38be",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "008608b4_53402cd1",
+        "filename": "roles/packet_gen/trex/binary_search/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-04-02T08:07:18Z",
+      "side": 1,
+      "message": "Check the ability to work with ansible to parse the json file output.\n\nhttps://docs.ansible.com/ansible/latest/user_guide/playbooks_filters.html#filters-for-formatting-data\nhttp://www.myteneo.net/blog/-/blogs/listing-iterating-and-loading-json-in-ansible-playbooks/",
+      "range": {
+        "startLine": 39,
+        "startChar": 2,
+        "endLine": 39,
+        "endChar": 83
+      },
+      "revId": "fa82a3d7e340aced90c1e05492ead881f20e38be",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b1f95b1d_7fdd6063",
+        "filename": "roles/packet_gen/trex/bind_dpdk_nics/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-04-02T08:07:18Z",
+      "side": 1,
+      "message": "Use \"file\" module instead.",
+      "range": {
+        "startLine": 15,
+        "startChar": 4,
+        "endLine": 15,
+        "endChar": 22
+      },
+      "revId": "fa82a3d7e340aced90c1e05492ead881f20e38be",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e6ce3fe6_e42e7772",
+        "filename": "roles/packet_gen/trex/bind_dpdk_nics/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-04-02T08:07:18Z",
+      "side": 1,
+      "message": "Use mount module instead.\nhttps://docs.ansible.com/ansible/latest/modules/mount_module.html",
+      "range": {
+        "startLine": 16,
+        "startChar": 4,
+        "endLine": 16,
+        "endChar": 38
+      },
+      "revId": "fa82a3d7e340aced90c1e05492ead881f20e38be",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "87b3e768_f608dbfa",
+        "filename": "roles/packet_gen/trex/bind_dpdk_nics/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-04-02T08:07:18Z",
+      "side": 1,
+      "message": "Use sysctl module.\nhttps://docs.ansible.com/ansible/latest/modules/sysctl_module.html",
+      "range": {
+        "startLine": 17,
+        "startChar": 4,
+        "endLine": 17,
+        "endChar": 87
+      },
+      "revId": "fa82a3d7e340aced90c1e05492ead881f20e38be",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a515bc0_d81bac5f",
+        "filename": "roles/packet_gen/trex/bind_dpdk_nics/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-04-02T08:07:18Z",
+      "side": 1,
+      "message": "Use modprobe module.\nhttps://docs.ansible.com/ansible/latest/modules/modprobe_module.html",
+      "range": {
+        "startLine": 18,
+        "startChar": 4,
+        "endLine": 20,
+        "endChar": 24
+      },
+      "revId": "fa82a3d7e340aced90c1e05492ead881f20e38be",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2778d7c7_2bbf420d",
+        "filename": "roles/packet_gen/trex/bind_dpdk_nics/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-04-02T08:07:18Z",
+      "side": 1,
+      "message": "Consider using script module.\nhttps://docs.ansible.com/ansible/latest/modules/script_module.html\n\nIf the module doesn\u0027t meet your needs, change the \"shell\" module to \"command\" module.",
+      "range": {
+        "startLine": 21,
+        "startChar": 4,
+        "endLine": 21,
+        "endChar": 108
+      },
+      "revId": "fa82a3d7e340aced90c1e05492ead881f20e38be",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b3357d6d_dcdd06c1",
+        "filename": "roles/packet_gen/trex/bind_dpdk_nics/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-04-02T08:07:18Z",
+      "side": 1,
+      "message": "Consider using \u0027slurp\u0027 module.\nhttps://docs.ansible.com/ansible/latest/modules/slurp_module.html\n\nExample of our playbook.\nhttps://github.com/redhat-openstack/ansible-nfv/blob/devel/playbooks/tripleo/post_install/overcloud_repo_install.yml\n\nIf you prefer to use bash command, change it to \"command\" module, and no need to use a pipe.\nJust \u0027grep -v \"00:00:00:00:00:00\" /sys/class/net/*/address\u0027",
+      "range": {
+        "startLine": 27,
+        "startChar": 6,
+        "endLine": 27,
+        "endChar": 73
+      },
+      "revId": "fa82a3d7e340aced90c1e05492ead881f20e38be",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4fa6f286_dd31e2ad",
+        "filename": "roles/packet_gen/trex/bind_dpdk_nics/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-04-02T08:07:18Z",
+      "side": 1,
+      "message": "Why are you making a replacement?",
+      "range": {
+        "startLine": 34,
+        "startChar": 8,
+        "endLine": 34,
+        "endChar": 67
+      },
+      "revId": "fa82a3d7e340aced90c1e05492ead881f20e38be",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6e1adb71_dc4e459b",
+        "filename": "roles/packet_gen/trex/launch_testpmd/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-04-02T08:07:18Z",
+      "side": 1,
+      "message": "Consider using \"slurp\" module instead.",
+      "range": {
+        "startLine": 38,
+        "startChar": 2,
+        "endLine": 38,
+        "endChar": 7
+      },
+      "revId": "fa82a3d7e340aced90c1e05492ead881f20e38be",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52b914c1_3eab538b",
+        "filename": "roles/packet_gen/trex/launch_trex/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-04-02T08:07:18Z",
+      "side": 1,
+      "message": "Consider using \"slurp\" module instead.",
+      "range": {
+        "startLine": 37,
+        "startChar": 2,
+        "endLine": 37,
+        "endChar": 7
+      },
+      "revId": "fa82a3d7e340aced90c1e05492ead881f20e38be",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
