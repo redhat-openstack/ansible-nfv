@@ -13,6 +13,7 @@
       - vim
     state: present
     image: "{{ fetched_image }}"
+    debug: "{{ guest_debug }}"
 
 # Compile DPDK without: rt-kni, igbuio
 - name: Prepare DPDK binaries inside guest image
@@ -24,10 +25,6 @@
       - "sed -i 's/CONFIG_RTE_LIBRTE_KNI=.*/CONFIG_RTE_LIBRTE_KNI=n/g' {{ dpdk_dir }}/config/common_linuxapp"
       - "sed -i 's/CONFIG_RTE_EAL_IGB_UIO=.*/CONFIG_RTE_LIBRTE_KNI=n/g' {{ dpdk_dir }}/config/common_linuxapp"
       - 'cd {{ dpdk_dir }}; /usr/bin/make config T=x86_64-native-linuxapp-gcc; /usr/bin/make'
+      - "echo 'DPDK Version: {{ dpdk_branch }}' | tee {{ dpdk_customization_log }}"
     image: "{{ fetched_image }}"
-
-- name: Log versions of installed components
-  virt_customize_command:
-    shell:
-      - "echo 'DPDK Version: {{ dpdk_branch }}' | tee -a {{ dpdk_customization_log }}"
-    image: "{{ fetched_image }}"
+    debug: "{{ guest_debug }}"
