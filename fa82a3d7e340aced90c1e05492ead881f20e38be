@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "669e2798_7e03b52f",
+        "filename": "playbooks/packet_gen/trex/performance_scenario.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-04-03T12:56:13Z",
+      "side": 1,
+      "message": "Yes, I uploaded this patch and meant to put it as WIP, will add.",
+      "parentUuid": "68379691_5c6607fd",
+      "range": {
+        "startLine": 63,
+        "startChar": 5,
+        "endLine": 70,
+        "endChar": 41
+      },
+      "revId": "fa82a3d7e340aced90c1e05492ead881f20e38be",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "6cb0287e_b7791878",
         "filename": "roles/packet_gen/trex/binary_search/tasks/main.yml",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2019-04-02T08:07:18Z",
       "side": 1,
       "message": "Why to hardcode it to a single dut instance?",
+      "range": {
+        "startLine": 3,
+        "startChar": 44,
+        "endLine": 3,
+        "endChar": 47
+      },
+      "revId": "fa82a3d7e340aced90c1e05492ead881f20e38be",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc428495_d2af1ae5",
+        "filename": "roles/packet_gen/trex/binary_search/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-04-03T12:56:13Z",
+      "side": 1,
+      "message": "Because for now we\u0027re working against a single DUT instance.\n\nAlso  really want to refactor this task later on.",
+      "parentUuid": "6cb0287e_b7791878",
       "range": {
         "startLine": 3,
         "startChar": 44,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "37947c73_176f0b97",
+        "filename": "roles/packet_gen/trex/binary_search/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-04-03T12:56:13Z",
+      "side": 1,
+      "message": "I know, that\u0027s what I\u0027m planning to use later on.\n\nThe problem is that the output is generated with a prefix before each object, which results in \"RESULT \u003cJSON\u003e\". I\u0027ll look and see if I have a native Ansible solution to strip multi line.",
+      "parentUuid": "008608b4_53402cd1",
+      "range": {
+        "startLine": 39,
+        "startChar": 2,
+        "endLine": 39,
+        "endChar": 83
+      },
+      "revId": "fa82a3d7e340aced90c1e05492ead881f20e38be",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b1f95b1d_7fdd6063",
         "filename": "roles/packet_gen/trex/bind_dpdk_nics/tasks/main.yml",
         "patchSetId": 3
@@ -91,6 +163,30 @@
       "revId": "fa82a3d7e340aced90c1e05492ead881f20e38be",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "10ae2f5e_c403554c",
+        "filename": "roles/packet_gen/trex/bind_dpdk_nics/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-04-03T12:56:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "b1f95b1d_7fdd6063",
+      "range": {
+        "startLine": 15,
+        "startChar": 4,
+        "endLine": 15,
+        "endChar": 22
+      },
+      "revId": "fa82a3d7e340aced90c1e05492ead881f20e38be",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "7e800bac_4ebde51f",
+        "filename": "roles/packet_gen/trex/bind_dpdk_nics/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-04-03T12:56:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e6ce3fe6_e42e7772",
+      "range": {
+        "startLine": 16,
+        "startChar": 4,
+        "endLine": 16,
+        "endChar": 38
+      },
+      "revId": "fa82a3d7e340aced90c1e05492ead881f20e38be",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "87b3e768_f608dbfa",
         "filename": "roles/packet_gen/trex/bind_dpdk_nics/tasks/main.yml",
         "patchSetId": 3
@@ -137,6 +257,30 @@
       "revId": "fa82a3d7e340aced90c1e05492ead881f20e38be",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03916959_0bc5bfc9",
+        "filename": "roles/packet_gen/trex/bind_dpdk_nics/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-04-03T12:56:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "87b3e768_f608dbfa",
+      "range": {
+        "startLine": 17,
+        "startChar": 4,
+        "endLine": 17,
+        "endChar": 87
+      },
+      "revId": "fa82a3d7e340aced90c1e05492ead881f20e38be",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "ec9232cf_56cc6733",
+        "filename": "roles/packet_gen/trex/bind_dpdk_nics/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-04-03T12:56:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2a515bc0_d81bac5f",
+      "range": {
+        "startLine": 18,
+        "startChar": 4,
+        "endLine": 20,
+        "endChar": 24
+      },
+      "revId": "fa82a3d7e340aced90c1e05492ead881f20e38be",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2778d7c7_2bbf420d",
         "filename": "roles/packet_gen/trex/bind_dpdk_nics/tasks/main.yml",
         "patchSetId": 3
@@ -183,6 +351,30 @@
       "revId": "fa82a3d7e340aced90c1e05492ead881f20e38be",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5891f72_1a4b091a",
+        "filename": "roles/packet_gen/trex/bind_dpdk_nics/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-04-03T12:56:13Z",
+      "side": 1,
+      "message": "Will use command since the script is located on the destination hosts.",
+      "parentUuid": "2778d7c7_2bbf420d",
+      "range": {
+        "startLine": 21,
+        "startChar": 4,
+        "endLine": 21,
+        "endChar": 108
+      },
+      "revId": "fa82a3d7e340aced90c1e05492ead881f20e38be",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     },
     {
       "key": {
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "6399421e_f81793be",
+        "filename": "roles/packet_gen/trex/bind_dpdk_nics/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-04-03T12:56:13Z",
+      "side": 1,
+      "message": "Command will not work on this scenario since I\u0027m passing a file glob, \u0027/sys/class/net/*/address\u0027.\n\nSlurp will require me to iterate over a list of files I\u0027ll have to retrieve, seems like an overkill for me.",
+      "parentUuid": "b3357d6d_dcdd06c1",
+      "range": {
+        "startLine": 27,
+        "startChar": 6,
+        "endLine": 27,
+        "endChar": 73
+      },
+      "revId": "fa82a3d7e340aced90c1e05492ead881f20e38be",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4fa6f286_dd31e2ad",
         "filename": "roles/packet_gen/trex/bind_dpdk_nics/tasks/main.yml",
         "patchSetId": 3
@@ -229,6 +445,30 @@
       "revId": "fa82a3d7e340aced90c1e05492ead881f20e38be",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee8778ab_06f69b7b",
+        "filename": "roles/packet_gen/trex/bind_dpdk_nics/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-04-03T12:56:13Z",
+      "side": 1,
+      "message": "OpenStack instances that are created with an underscore, might appear with dashes as their hostname.\n\nFor now will put a disclaimer to the user and will fix the issue later with regex.",
+      "parentUuid": "4fa6f286_dd31e2ad",
+      "range": {
+        "startLine": 34,
+        "startChar": 8,
+        "endLine": 34,
+        "endChar": 67
+      },
+      "revId": "fa82a3d7e340aced90c1e05492ead881f20e38be",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     },
     {
       "key": {
@@ -255,6 +495,30 @@
     },
     {
       "key": {
+        "uuid": "454ab5cf_305f7b4c",
+        "filename": "roles/packet_gen/trex/launch_testpmd/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-04-03T12:56:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6e1adb71_dc4e459b",
+      "range": {
+        "startLine": 38,
+        "startChar": 2,
+        "endLine": 38,
+        "endChar": 7
+      },
+      "revId": "fa82a3d7e340aced90c1e05492ead881f20e38be",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "52b914c1_3eab538b",
         "filename": "roles/packet_gen/trex/launch_trex/tasks/main.yml",
         "patchSetId": 3
@@ -275,6 +539,30 @@
       "revId": "fa82a3d7e340aced90c1e05492ead881f20e38be",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "154c62eb_da427055",
+        "filename": "roles/packet_gen/trex/launch_trex/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-04-03T12:56:13Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "52b914c1_3eab538b",
+      "range": {
+        "startLine": 37,
+        "startChar": 2,
+        "endLine": 37,
+        "endChar": 7
+      },
+      "revId": "fa82a3d7e340aced90c1e05492ead881f20e38be",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
