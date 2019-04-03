@@ -1,10 +1,20 @@
 servers:
-{% for instance in reg_instance.results %}
-  - name: {{ instance.server.name }}
-    id: {{ instance.server.id }}
-    fip: {{ instance.server.accessIPv4 }}
+{% if reg_floating_ip.changed %}
+{% for instance in reg_instance.results | zip(reg_floating_ip.results) %}
+  - name: {{ instance[0].server.name }}
+    id: {{ instance[0].server.id }}
+    fip: {{ instance[1].floating_ip.floating_ip_address }}
     addresses:
+        - addr: {{ instance[0].openstack.private_v4 }}
+{% endfor %}
+{% else %}
+{% for instance in reg_instance.results %}
+   - name: {{ instance.server.name }}
+     id: {{ instance.server.id }}
+     fip: {{ instance.openstack.private_v4 }}
+     addresses:
         - addr: {{ instance.openstack.private_v4 }}
 {% endfor %}
+{% endif %}
 
 key_pair: "{{ resources_output_file | dirname }}/{{ keypair_name }}.key"

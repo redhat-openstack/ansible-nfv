@@ -29,7 +29,9 @@
     network: "{{ item.floating_ip.ext_net }}"
     nat_destination: "{{ item.floating_ip.int_net }}"
     reuse: 'yes'
+    wait: 'yes'
   loop: "{{ instances | flatten(levels=1) }}"
+  register: reg_floating_ip
   when:
     - item.floating_ip is defined
     - resource_state == 'present'
@@ -38,9 +40,9 @@
   add_host:
     name: "{{ item.0.item.name }}"
     group: "{{ item.1.groups | default(omit) }}"
-    ansible_host: "{{ item.0.openstack.accessIPv4 }}"
+    ansible_host: "{% if item.1.floating_ip is defined %}{{ item.0.floating_ip.floating_ip_address }}{% else%}{{ item.0.openstack.private_v4 }}{% endif %}"
     ansible_user: "{{ item.1.connection_user | default(connection_user) }}"
     ansible_ssh_port: 22
     ansible_ssh_private_key_file: "/tmp/{{ keypair_name }}.key"
-  loop: "{{ reg_instance.results | zip(instances) | list }}"
+  loop: "{% if reg_floating_ip.changed %}{{ reg_floating_ip.results | zip(instances) | list }}{% else %}{{ reg_instance.results | zip(instances) | list }}{% endif %}"
   when: resource_state == 'present'
