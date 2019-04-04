@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cbdc27a7_c6cfa811",
+        "filename": "docs/packet_gen/trex/performance_scenario.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-04-04T07:11:56Z",
+      "side": 1,
+      "message": "Please check the relative path to the file instead of the public url.\nGithub supports that.\n\nOthervise, the url is hardcoded to the devel branch.",
+      "range": {
+        "startLine": 215,
+        "startChar": 88,
+        "endLine": 215,
+        "endChar": 194
+      },
+      "revId": "bc4846dced5272f5af48b93f33198220f09a45b2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "51d6f18d_9f5f9710",
+        "filename": "docs/packet_gen/trex/performance_scenario.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 562,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-04-04T07:11:56Z",
+      "side": 1,
+      "message": "At the top of the page, you put a note regarding instances names.\nShould be changed accordingly, I think.",
+      "range": {
+        "startLine": 562,
+        "startChar": 10,
+        "endLine": 562,
+        "endChar": 30
+      },
+      "revId": "bc4846dced5272f5af48b93f33198220f09a45b2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "96e67660_899c5c35",
+        "filename": "docs/packet_gen/trex/performance_scenario.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 583,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-04-04T07:11:56Z",
+      "side": 1,
+      "message": "Same as previous comment.",
+      "range": {
+        "startLine": 583,
+        "startChar": 10,
+        "endLine": 583,
+        "endChar": 26
+      },
+      "revId": "bc4846dced5272f5af48b93f33198220f09a45b2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "24b1c456_41ac06fd",
+        "filename": "roles/packet_gen/trex/binary_search/tasks/main.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-04-04T07:11:56Z",
+      "side": 1,
+      "message": "Remove this.\nTask performs an action on the host.\nIt will be wrong to skip the changed flag.",
+      "range": {
+        "startLine": 27,
+        "startChar": 2,
+        "endLine": 27,
+        "endChar": 21
+      },
+      "revId": "bc4846dced5272f5af48b93f33198220f09a45b2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5d5b6c95_07209de2",
+        "filename": "roles/packet_gen/trex/bind_dpdk_nics/tasks/main.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-04-04T07:11:56Z",
+      "side": 1,
+      "message": "Use the following command instead:\ngrep -vh \"00:00:00:00:00:00\" /sys/class/net/*/address\n\nAvoid using pipes when not needed, as it creates a new process.",
+      "range": {
+        "startLine": 52,
+        "startChar": 14,
+        "endLine": 52,
+        "endChar": 72
+      },
+      "revId": "bc4846dced5272f5af48b93f33198220f09a45b2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1b733028_58c24836",
+        "filename": "roles/packet_gen/trex/bind_dpdk_nics/tasks/main.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-04-04T07:11:56Z",
+      "side": 1,
+      "message": "I guess if you put a warning in the documentation regarding the instances names, the first line could be deleted and second enabled.",
+      "range": {
+        "startLine": 59,
+        "startChar": 8,
+        "endLine": 60,
+        "endChar": 49
+      },
+      "revId": "bc4846dced5272f5af48b93f33198220f09a45b2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "363a9f63_60c58a2b",
+        "filename": "roles/packet_gen/trex/launch_testpmd/tasks/main.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-04-04T07:11:56Z",
+      "side": 1,
+      "message": "You need to decode the string as \"slurp\" module takes the content as base64 string.\n\nhttps://docs.ansible.com/ansible/latest/modules/slurp_module.html",
+      "range": {
+        "startLine": 43,
+        "startChar": 13,
+        "endLine": 43,
+        "endChar": 42
+      },
+      "revId": "bc4846dced5272f5af48b93f33198220f09a45b2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6deb3724_58025740",
+        "filename": "roles/packet_gen/trex/launch_trex/tasks/main.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-04-04T07:11:56Z",
+      "side": 1,
+      "message": "Same as on the previous.",
+      "range": {
+        "startLine": 43,
+        "startChar": 10,
+        "endLine": 43,
+        "endChar": 42
+      },
+      "revId": "bc4846dced5272f5af48b93f33198220f09a45b2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
