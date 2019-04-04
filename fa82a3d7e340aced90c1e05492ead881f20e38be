@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "64fcc136_0a57bc8a",
+        "filename": "roles/packet_gen/trex/binary_search/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-04-04T08:00:18Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "42adf3e8_07df2f98",
+      "range": {
+        "startLine": 3,
+        "startChar": 44,
+        "endLine": 3,
+        "endChar": 47
+      },
+      "revId": "fa82a3d7e340aced90c1e05492ead881f20e38be",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "008608b4_53402cd1",
         "filename": "roles/packet_gen/trex/binary_search/tasks/main.yml",
         "patchSetId": 3
@@ -188,6 +212,30 @@
       "revId": "fa82a3d7e340aced90c1e05492ead881f20e38be",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0bc85c4_371b168a",
+        "filename": "roles/packet_gen/trex/binary_search/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-04-04T08:00:18Z",
+      "side": 1,
+      "message": "replace works for multiline.",
+      "parentUuid": "c535317b_4c65c250",
+      "range": {
+        "startLine": 39,
+        "startChar": 2,
+        "endLine": 39,
+        "endChar": 83
+      },
+      "revId": "fa82a3d7e340aced90c1e05492ead881f20e38be",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     },
     {
       "key": {
