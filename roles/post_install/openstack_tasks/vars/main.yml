@@ -8,7 +8,7 @@ packages:
     - gcc
     - libffi-devel
     - platform-python-devel
-    - platform-python-setuptools
+    - python3-setuptools
     - git
   rhel7:
     - gcc

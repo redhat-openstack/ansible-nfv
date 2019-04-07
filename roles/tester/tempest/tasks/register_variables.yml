@@ -17,14 +17,12 @@
 
 - name: Get rc params
   shell: "grep {{ item.value }}=  {{ rc_version_file_path }} | cut -d '=' -f 2"
-  with_items:
+  loop:
     "{{ rc_params }}"
   register: rc_results
   changed_when: False
 
 - name: Register rc_vars variables
   set_fact:
-    rc_vars: "{{ rc_vars| combine( {item.0.name: item.1} ) }}"
-  with_together:
-    - "{{ rc_params }}"
-    - "{{ rc_results.results|map(attribute='stdout_lines')|list }}"
+    rc_vars: "{{ rc_vars| combine( {item.0.name: item.1.0} ) }}"
+  loop: "{{ rc_params|zip(rc_results.results|map(attribute='stdout_lines'))|list }}"
