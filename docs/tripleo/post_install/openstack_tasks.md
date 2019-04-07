@@ -65,6 +65,9 @@ The run could be separated by specifying tags of specific run.
 * overcloud_delete - Executed if 'true'. False by default.
 * resources_output - Executed if 'true'. False by default.
 
+**Sample file:**  
+For the sample file, refer to the following [link](openstack_tasks_config_sample.yml).
+
 
 ## Role default variables
 #### State of the resource
