@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f44239c4_29448646",
+        "filename": "roles/post_install/openstack_tasks/vars/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-04-07T12:55:26Z",
+      "side": 1,
+      "message": "I prefer to wait with the change of the package names.\nLet\u0027s wait for the final version of rhel8 and then make all the required changes regarding packages.\n\nThe reason for this is that this package defines explicitly python3.\nAs a result, the python3 binary is available and python binary does not exist.\nThis requires another set of adaptation for the python interpreter.",
+      "range": {
+        "startLine": 11,
+        "startChar": 6,
+        "endLine": 11,
+        "endChar": 24
+      },
+      "revId": "8c7d230c3d80d26fb1a9a9f5f42c3c38c574339b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1f5f5881_1ce7bb28",
+        "filename": "roles/tester/tempest/tasks/register_variables.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-04-07T12:55:26Z",
+      "side": 1,
+      "message": "Could you place the variable on the same line as loop?",
+      "range": {
+        "startLine": 21,
+        "startChar": 4,
+        "endLine": 21,
+        "endChar": 21
+      },
+      "revId": "8c7d230c3d80d26fb1a9a9f5f42c3c38c574339b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
