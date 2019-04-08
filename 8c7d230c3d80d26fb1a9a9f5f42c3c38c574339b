@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "cb66c640_bb349d14",
+        "filename": "roles/post_install/openstack_tasks/vars/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-04-08T12:10:43Z",
+      "side": 1,
+      "message": "No. I would like to change the packages once rhel 8 will be GA, because the names of the packages changed already at least twice.\n\nCurrently, we only need the fix of the loop you made.",
+      "parentUuid": "a95e3ba1_6ed2710b",
+      "range": {
+        "startLine": 11,
+        "startChar": 6,
+        "endLine": 11,
+        "endChar": 24
+      },
+      "revId": "8c7d230c3d80d26fb1a9a9f5f42c3c38c574339b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1f5f5881_1ce7bb28",
         "filename": "roles/tester/tempest/tasks/register_variables.yml",
         "patchSetId": 1
