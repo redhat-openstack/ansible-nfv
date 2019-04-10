@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "b5af47f6_a1f6ae00",
+        "filename": "roles/post_install/openstack_tasks/vars/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-04-10T09:21:02Z",
+      "side": 1,
+      "message": "The problem here is much deeper than it looks.\nWhen I tested rhel8, the os came with python3 as the only python binary and as a result available as \"python\" without the requirements to specify the python version - \"python3\".\n\nWhen any package with pyton version is installed - python3-\u003csomenting\u003e, rhel 8 changes the \"python\" binary to \"python3\" and \"python\" is removed.\nThe issue here is that ansible is unable to interact with the remote system if \"python\" is not found. It could be solved by specifying the \"ansible_python_interpreter\" for the host within the inventory file.\n\nSo, if we will need to install python packages that are specific to a version, we need to deal with the \"ansible_python_interpreter\" variable.\nI just suggest to wait for the GA release, and then make all the changes for the packages that need to be done, because then we will not that the packages that we need to install will not change as it happened.\n\nWhat do you think?",
+      "parentUuid": "e7fc0c43_7ae95437",
+      "range": {
+        "startLine": 11,
+        "startChar": 6,
+        "endLine": 11,
+        "endChar": 24
+      },
+      "revId": "8c7d230c3d80d26fb1a9a9f5f42c3c38c574339b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1f5f5881_1ce7bb28",
         "filename": "roles/tester/tempest/tasks/register_variables.yml",
         "patchSetId": 1
