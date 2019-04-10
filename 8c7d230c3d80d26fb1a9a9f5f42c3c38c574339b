@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "e7fc0c43_7ae95437",
+        "filename": "roles/post_install/openstack_tasks/vars/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1014336
+      },
+      "writtenOn": "2019-04-10T09:05:25Z",
+      "side": 1,
+      "message": "I personally don\u0027t mind that scenario although it\u0027ll change, we\u0027ll just put a comment(really important one) that we\u0027ll have to modify it for RHEL8 GA next month. Meanwhile, for the period until GA, we can use this.",
+      "parentUuid": "cb66c640_bb349d14",
+      "range": {
+        "startLine": 11,
+        "startChar": 6,
+        "endLine": 11,
+        "endChar": 24
+      },
+      "revId": "8c7d230c3d80d26fb1a9a9f5f42c3c38c574339b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1f5f5881_1ce7bb28",
         "filename": "roles/tester/tempest/tasks/register_variables.yml",
         "patchSetId": 1
