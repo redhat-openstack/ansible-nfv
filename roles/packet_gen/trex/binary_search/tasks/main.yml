@@ -35,8 +35,10 @@
     content: "{{ perf_output['stdout'] }}"
     dest: "{{ binary_perf_log }}"
 
-- name: Kill Tmux Sessions
+- name: Stop TestPMD On DuT
   shell: "tmux list-sessions -F '#S' | xargs -n1 tmux kill-session -t"
+  become: True
+  delegate_to: "{{ groups[dut_group] | first }}"
 
 - name: Parse JSON Result From Output File
   block:
