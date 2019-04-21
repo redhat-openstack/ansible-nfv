@@ -64,6 +64,7 @@ The run could be separated by specifying tags of specific run.
 * instance - Executed if 'true'. False by default.
 * overcloud_delete - Executed if 'true'. False by default.
 * resources_output - Executed if 'true'. False by default.
+* resource_generate_inventory - Add generated instances to dynamic Ansible inventory **NOTE:** Currently broken and set to `False`.
 
 **Sample file:**  
 For the sample file, refer to the following [link](openstack_tasks_config_sample.yml).
@@ -299,6 +300,13 @@ Example of usage: Could be used by the tempest in order to execute the tests
 on already provisioned resources.
 ```
 resources_output_file: /home/stack/resources_output_file.yml
+```
+
+Generate a dynamic Ansible inventory based on resources created.  
+**NOTE:** As of now, it's broken due to `os_floating_ip` module not being consistent. Please refer to [Dynamic Host Inventory Role](/docs/tripleo/post_install/dynamic_host_inventory.md) for a workaround.
+Default is - **False**
+```
+resource_generate_inventory: False
 ```
 
 ***
