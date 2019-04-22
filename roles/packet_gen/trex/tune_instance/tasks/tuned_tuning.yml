@@ -1,0 +1,20 @@
+- name: Install Tuned RPMs
+  package:
+    name:
+      - tuned
+      - tuned-profiles-cpu-partitioning
+
+- name: Configure Tuned CPU Partitioning Config
+  lineinfile:
+    path: /etc/tuned/cpu-partitioning-variables.conf
+    regexp: 'isolated_cores=.*'
+    line: "isolated_cores={{ guest_isolated_cores }}"
+
+- name: Set Tuned Profile
+  command: tuned-adm profile cpu-partitioning
+  register: guest_tuned_update
+
+- name: Enable Tuned Daemon
+  systemd:
+    name: tuned
+    enabled: yes

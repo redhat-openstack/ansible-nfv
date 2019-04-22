@@ -1,0 +1,2 @@
+# Isolated CPUs list for tuned
+guest_isolated_cores: '2-7'
