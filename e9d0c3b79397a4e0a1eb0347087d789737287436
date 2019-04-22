@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3ba4335f_582cdae9",
+        "filename": "docs/tripleo/post_install/openstack_tasks.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-04-22T06:49:43Z",
+      "side": 1,
+      "message": "This is not fully true.\nThe issue appears when multiple interfaces are used for the instance.\nPlease, note it here and in all other nessesary places.",
+      "range": {
+        "startLine": 306,
+        "startChar": 10,
+        "endLine": 306,
+        "endChar": 84
+      },
+      "revId": "e9d0c3b79397a4e0a1eb0347087d789737287436",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75b718fa_b723b197",
+        "filename": "roles/post_install/openstack_tasks/templates/resources_output.j2",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-04-22T06:49:43Z",
+      "side": 1,
+      "message": "Same here.\nPlease, note that the module is inconsistent when multiple interfaces are used for the instance.",
+      "range": {
+        "startLine": 6,
+        "startChar": 7,
+        "endLine": 6,
+        "endChar": 46
+      },
+      "revId": "e9d0c3b79397a4e0a1eb0347087d789737287436",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
