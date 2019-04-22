@@ -1,0 +1,25 @@
+- name: Guest Hugepages Tuning
+  import_tasks: hugepages_tuning.yml
+  when: tune_hugepages | default(True)
+
+- name: Guest Hugepages Tuning
+  import_tasks: tuned_tuning.yml
+  when:
+    - tune_tuned | default(True)
+    - "'isolcpus' not in ansible_cmdline"
+    - ansible_hostname == groups[dut_group] | first
+  become: True
+
+- name: Fetch CPU + NUMA Topology Of Hypervisor
+  import_tasks: hypervisor_topo.yml
+
+- name: DPDK Perfomance Scenario Tuning
+  import_tasks: dpdk_tuning.yml
+  when:
+    - dut_type == "dpdk"
+    - dut_group in group_names
+
+- name: Reboot Guest Instance
+  reboot:
+  when: (guest_grub_update['changed']) or (guest_tuned_update['changed'])
+  become: True

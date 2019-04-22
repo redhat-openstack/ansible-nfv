@@ -1,0 +1,9 @@
+- name: Check If HugePages Assigned
+  shell: "cat /proc/meminfo | grep -i 'HugePages_Total' | awk '{print $2}'"
+  register: guest_hugepages_amount
+
+- name: Update GRUB With HugePages If Not Assigned
+  shell: 'grubby --update-kernel=$(grubby --default-kernel) --args="default_hugepagesz=1G hugepagesz=1G hugepages=32"'
+  register: guest_grub_update
+  when: guest_hugepages_amount['stdout'] | int == 0
+  become: True

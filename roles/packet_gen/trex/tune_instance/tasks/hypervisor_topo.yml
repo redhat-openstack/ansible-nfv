@@ -1,0 +1,55 @@
+- name: Query DuT Guest From OpenStack APIs
+  os_server_facts:
+    cloud: overcloud
+    server: "{{ ansible_hostname }}"
+    validate_certs: "{{ cloud_validate_certs }}"
+  vars:
+    ansible_python_interpreter: "{{ venv_path }}/bin/python"
+  delegate_to: undercloud-0
+
+- name: Map DuT Instance's Hypervisor
+  set_fact:
+    dut_instance_hypervisor: "{{ openstack_servers[0]['hypervisor_hostname'].split('.')[0] }}"
+
+- name: Map NUMA + CPU Topology
+  block:
+    - name: Discover Guest NUMA Cores
+      shell: "lscpu | grep 'NUMA node[0-9]' | awk '{print $4}'"
+      register: guest_lscpu_numa
+
+    - name: Parse Guest NUMA Cores
+      set_fact:
+        guest_cores_numa: "{{ guest_cores_numa | default([]) }} + [{{ item.split(',') }}]"
+      loop: "{{ guest_lscpu_numa['stdout_lines'] }}"
+
+    - name: Fetch Cores Siblings
+      shell: 'for file in /sys/devices/system/cpu/cpu[0-9]*/topology/thread_siblings_list; do cat $file; done | sort -n | uniq'
+      register: hypervisor_cores
+
+    # If Hyper Threading is not enabled, will only output physical cores
+    - name: Map Hypervisor Cores
+      set_fact:
+        hypervisor_core_siblings: "{{ hypervisor_cores['stdout_lines'] }}"
+
+    - name: Fetch libvirt QEMU+KVM Instance Name
+      set_fact:
+        dut_instance_libvirt_name:  "{{ openstack_servers[0]['instance_name'] }}"
+
+    - name: Get QEMU+KVM Instance XML
+      command: "virsh dumpxml {{ dut_instance_libvirt_name }}"
+      register: libvirt_instance_dumpxml
+
+    - name: Fetch Guest vCPU Info From Instance XML
+      xml:
+        xmlstring: "{{ libvirt_instance_dumpxml['stdout'] }}"
+        xpath: '/domain/cputune//vcpupin'
+        content: "attribute"
+        attribute: "vcpu"
+      register: libvirt_instance_dumpxml_vcpupin
+
+    - name: Map guest vCPU To Hypervisor Cores
+      set_fact:
+        livbirt_instance_vcpu_topo: "{{ livbirt_instance_vcpu_topo | default([]) }} + [{{ item['vcpupin'] }}]"
+      loop: "{{ libvirt_instance_dumpxml_vcpupin['matches'] }}"
+  become: True
+  delegate_to: "{{ dut_instance_hypervisor }}"

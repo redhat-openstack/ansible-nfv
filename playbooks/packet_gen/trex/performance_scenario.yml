@@ -48,6 +48,9 @@
 # TODO (vkhitrin): Make it skippable
 - hosts: "{{ dut_group }}"
   roles:
+    - role: roles/packet_gen/trex/tune_instance
+      when: tune_instance | default(True)
+
     - role: roles/packet_gen/trex/bind_dpdk_nics
       vars:
         discover_dut_macs: True
@@ -58,6 +61,9 @@
 
 - hosts: trex
   roles:
+    - role: roles/packet_gen/trex/tune_instance
+      when: tune_instance | default(True)
+
     - role: roles/packet_gen/trex/trex_instance_config
       when: trex_instance_config | default(True)
 
