@@ -1,0 +1,47 @@
+- name: Check If HugePages Assigned
+  shell: "cat /proc/meminfo | grep -i 'HugePages_Total' | awk '{print $2}'"
+  register: guest_hugepages_amount
+
+- name: Update GRUB With HugePages If Not Assigned
+  shell: 'grubby --update-kernel=$(grubby --default-kernel) --args="default_hugepagesz=1G hugepagesz=1G hugepages=32"'
+  register: guest_grub_update
+  when: guest_hugepages_amount['stdout'] | int == 0
+  become: True
+
+- name: Configure Core Isolation In Guest
+  block:
+    - name: Install Tuned RPMs
+      package:
+        name:
+          - tuned
+          - tuned-profiles-cpu-partitioning
+
+    - name: Configure Tuned CPU Partitioning Config
+      lineinfile:
+        path: /etc/tuned/cpu-partitioning-variables.conf
+        regexp: 'isolated_cores=.*'
+        line: "isolated_cores={{ guest_isolated_cores }}"
+
+    - name: Set Tuned Profile
+      command: tuned-adm profile cpu-partitioning
+      register: guest_tuned_update
+
+    - name: Enable Tuned Daemon
+      systemd:
+        name: tuned
+        enabled: yes
+  when:
+    - "'isolcpus' not in ansible_cmdline"
+    - ansible_hostname == groups[dut_group] | first
+  become: True
+
+- name: DPDK Perfomance Scenario Tuning
+  import_tasks: dpdk_tuning.yml
+  when:
+    - dut_type == "dpdk"
+    - dut_group in group_names
+
+- name: Reboot Guest Instance
+  reboot:
+  when: (guest_grub_update['changed']) or (guest_tuned_update['changed'])
+  become: True

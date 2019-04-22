@@ -1,0 +1,22 @@
+- name: Query DPDK DuT Guest From OpenStack APIs
+  os_server_facts:
+    cloud: overcloud
+    server: "{{ ansible_hostname }}"
+    validate_certs: "{{ cloud_validate_certs }}"
+  vars:
+    ansible_python_interpreter: "{{ venv_path }}/bin/python"
+  register: MY_TEST
+  delegate_to: undercloud-0
+
+# Stop, need to parse hypervisor
+- fail:
+    msg: "A"
+
+- name: Discover Guest NUMA Cores
+  shell: "lscpu | grep 'NUMA node[0-9]' | awk '{print $4}'"
+  register: guest_lscpu_numa
+
+- name: Parse Guest NUMA Cores
+  set_fact:
+    guest_cores_numa: "{{ guest_cores_numa | default([]) }} + [{{ item.split(',') }}]"
+  loop: "{{ guest_lscpu_numa['stdout_lines'] }}"
