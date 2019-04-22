@@ -1,0 +1,21 @@
+- name: Check If HugePages Assigned
+  shell: "cat /proc/meminfo | grep -i 'HugePages_Total' | awk '{print $2}'"
+  register: guest_hugepages_amount
+
+- name: Update GRUB With HugePages If Not Assigned
+  block:
+    - name: Update GRUB Arguments
+      shell: 'grubby --update-kernel=$(grubby --default-kernel) --args="default_hugepagesz=1G hugepagesz=1G hugepages=32"'
+      register: guest_grub_update
+
+    - name: Reboot Guest Instance
+      reboot:
+      when: guest_grub_update['changed']
+  when: guest_hugepages_amount['stdout'] | int == 0
+  become: True
+
+- name: DPDK Perfomance Scenario Tuning
+  import_tasks: dpdk_tuning.yml
+  when:
+    - dut_type == "DPDK"
+    - ansible_hostname == groups[dut_group] | first 
