@@ -52,19 +52,47 @@
         - item.router_name is defined
       with_items: "{{ networks }}"
 
-    # TODO: Refactor the task in order to match the following scenarios:
-    #       * Add more than single internal interface to the router (currently stopping on a first match).
-    #       * Check the behavior of the task in case 'external' var omitted and 'router_name' var exists.
-    - name: Set router interfaces
+    # Note - In order to attach multiple interfaces to the router, a list of
+    # interfaces should be provided.
+    # The next set_fact definitions build a list on interfaces and routers
+    # for the interation to create and attach the required subnets.
+    - name: Set routers names
+      set_fact:
+        routers_names: "{{ networks
+          | selectattr('router_name', 'defined')
+          | map(attribute='router_name')
+          | list
+          | unique }}"
+
+    - name: Set subnets for routers interfaces
+      set_fact:
+        subnets_for_routers_interfaces: "{{ subnets_for_routers_interfaces
+          | default([]) }}
+          + [ {{ networks
+          | selectattr('router_name', 'defined')
+          | selectattr('external', 'defined')
+          | selectattr('external', 'equalto', False)
+          | selectattr('router_name', 'match', item)
+          | map(attribute='name')
+          | map('regex_replace', '^(.*)$', '\\1_subnet')
+          | list }} ]"
+      loop: "{{ routers_names | flatten(levels=1) }}"
+
+    - name: Set routers list
+      set_fact:
+        routers_lists: "{{ routers_lists | default([]) + [[ item ]] }}"
+      loop: "{{ routers_names | flatten(levels=1) }}"
+
+    - name: Create router if required and set router interfaces
       vars:
         ansible_python_interpreter: "{{ venv_path }}/bin/python"
       os_router:
         cloud: "{{ overcloud_name }}"
-        name: "{{ item.router_name }}"
-        interfaces: "{{ item.name }}_subnet"
+        name: "{{ item.0.0 }}"
+        interfaces: "{{ item.1 }}"
         state: present
-      when: "item.external is defined and not item.external"
-      with_items: "{{ networks }}"
+      loop: "{{ routers_lists | zip(subnets_for_routers_interfaces) | list }}"
+      when: routers_lists is defined
 
     - name: Create network ports
       vars:
@@ -119,12 +147,10 @@
       os_router:
         cloud: "{{ overcloud_name }}"
         name: "{{ item.router_name }}"
-        network: "{{ item.name }}"
         state: absent
       with_items: "{{ networks }}"
       when:
         - item.external is defined
-        - item.external
         - item.router_name is defined
 
     - name: Delete networks
