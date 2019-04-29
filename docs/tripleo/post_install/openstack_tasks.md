@@ -121,22 +121,25 @@ networks:
     physical_network: public
     segmentation_id: 25
     network_type: vlan
-    external: true
     allocation_pool_start: 10.0.0.12
     allocation_pool_end: 10.0.0.100
     cidr: 10.0.0.0/24
     enable_dhcp: false
     gateway_ip: 10.0.0.254
+    external: true   # The "external: true" with "router_name" adds the network as the default gateway.
     router_name: router1
     shared: true
   - name: private1
     physical_network: tenant1
     segmentation_id: 32
     cidr: 172.20.0.0/24
+    external: false   # The "external: false" with the "router_name" sets the network as an interface for the router.
     router_name: router1
   - name: private2
     physical_network: tenant2
     cidr: 173.30.0.0/24
+    external: false
+    router_name: router1
   - name: private3
     physical_network: tenant3
     cidr: 174.40.0.0/24
