@@ -136,7 +136,9 @@
         {% if tempest_flavor_name is defined %}
         compute.flavor_ref {{ openstack_flavors[0].id }} \
         {% endif %}
+        compute.image_ssh_user {{ image_ssh_user }} \
         compute-feature-enabled.live_migration true \
+        validation.image_ssh_user {{ image_ssh_user }} \
         {% if tempest_config is defined %}
         nfv_plugin_options.external_config_file {{ tempest_dir }}/{{ tempest_config | basename }} \
         {% endif %}
@@ -148,7 +150,7 @@
         auth.admin_project_name {{ rc_vars.osp_project_name }} \
         auth.admin_domain_name {{ rc_vars.osp_domain_name }} \
         {% endif %}
-        neutron_plugin_options.advanced_image_ref true \
+        neutron_plugin_options.default_image_is_advanced true \
         neutron_plugin_options.max_networks_per_project 1 \
         {% if tempest_options is defined %}
           {% for option in tempest_options %}
