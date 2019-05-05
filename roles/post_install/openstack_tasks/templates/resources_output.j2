@@ -3,7 +3,8 @@ servers:
 {% for instance in reg_instance.results | zip(reg_floating_ip.results) %}
   - name: {{ instance[0].server.name }}
     id: {{ instance[0].server.id }}
-    fip: {{ instance[1].floating_ip.floating_ip_address }}
+    {# Currenty os_floating_ip is incosistent when an instance contains multiple NICs, return 'None' if can't be fetched #}
+    fip: {{ instance[1].floating_ip.floating_ip_address | default('None') }}
     addresses:
         - addr: {{ instance[0].openstack.private_v4 }}
 {% endfor %}
