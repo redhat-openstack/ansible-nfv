@@ -1,4 +1,6 @@
 ---
+- name: Gather facts
+  setup:
 
 - name: Register variables
   include_tasks: register_variables.yml
@@ -27,6 +29,13 @@
   set_fact:
     tempest_venv: "{{ tempest_dir }}/venv"
 
+# A pip bug prevents us to use the pip module for the python3 venv creation.
+# Remove when fixed.
+# Reference: https://github.com/ansible/ansible/issues/52275
+- name: Install venv if python3 present
+  command: "{{ ansible_python.executable }} -m venv {{ tempest_venv }}"
+  when: ansible_python.version.major == 3
+
 - name: Create a virtual environment and upgrade it to the latest version
   pip:
     name:
@@ -39,22 +48,14 @@
     virtualenv: "{{ tempest_venv }}"
     state: latest
 
-- name: Install repo requirements
-  pip:
-    virtualenv: "{{ tempest_venv }}"
-    chdir: '{{ tempest_dir }}/{{ item[0] }}'
-    requirements: "{{ item[1] }}"
-  with_nested:
-    - [ "{{ tempest_conf }}", "{{ tempest_main }}" ]
-    - [ 'test-requirements.txt', 'requirements.txt' ]
-
-- name: Install tempest-nfv-plugin and openstack-tempest repos in a virtual environment
+- name: Install repos in a virtual environment
   pip:
     virtualenv: "{{ tempest_venv }}"
     name:
       - "{{ tempest_dir }}/{{ neutron_tempest_plugin }}"
       - "{{ tempest_dir }}/{{ nfv_tempest_plugin }}"
       - "{{ tempest_dir }}/{{ tempest_main }}"
+      - "{{ tempest_dir }}/{{ tempest_conf }}"
     state: present
     editable: true
 
@@ -75,12 +76,12 @@
 
 - name: Check if tempestconf tool installed
   stat:
-    path: /usr/bin/discover-tempest-config
+    path: "{{ tempest_venv }}/bin/discover-tempest-config"
   register: tempest_conf_tool
 
 - name: Define tempestconf tool if exists
   set_fact:
-    config_command: /usr/bin/discover-tempest-config
+    config_command: "{{ tempest_venv }}/bin/discover-tempest-config"
   when: tempest_conf_tool.stat.exists
 
 - name: Check for the spesific flavor id if it's required
@@ -135,7 +136,9 @@
         {% if tempest_flavor_name is defined %}
         compute.flavor_ref {{ openstack_flavors[0].id }} \
         {% endif %}
+        compute.image_ssh_user {{ image_ssh_user }} \
         compute-feature-enabled.live_migration true \
+        validation.image_ssh_user {{ image_ssh_user }} \
         {% if tempest_config is defined %}
         nfv_plugin_options.external_config_file {{ tempest_dir }}/{{ tempest_config | basename }} \
         {% endif %}
@@ -147,7 +150,7 @@
         auth.admin_project_name {{ rc_vars.osp_project_name }} \
         auth.admin_domain_name {{ rc_vars.osp_domain_name }} \
         {% endif %}
-        neutron_plugin_options.advanced_image_ref true \
+        neutron_plugin_options.default_image_is_advanced true \
         neutron_plugin_options.max_networks_per_project 1 \
         {% if tempest_options is defined %}
           {% for option in tempest_options %}
@@ -202,6 +205,13 @@
   args:
     executable: /bin/bash
     chdir: "{{ tempest_dir }}/{{ tempest_main }}"
+
+- name: Set the name for the testsuite
+  tags: run_tempest_test
+  replace:
+    path: "{{ tempest_dir }}/tempest.xml"
+    regexp: '^(<testsuite.*name=")'
+    replace: '\1nfv'
 
 - name: Generate statistics of executed tests
   tags: run_tempest_test

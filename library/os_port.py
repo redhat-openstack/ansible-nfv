@@ -37,6 +37,7 @@ options:
    admin_state_up:
      description:
         - Sets admin state.
+     type: bool
    mac_address:
      description:
         - MAC address of this port.
@@ -47,6 +48,7 @@ options:
    no_security_groups:
      description:
         - Do not associate a security group with this port.
+     type: bool
      default: 'no'
    allowed_address_pairs:
      description:
@@ -83,6 +85,11 @@ options:
        - The type of the port that should be created
      choices: [normal, direct, direct-physical, macvtap, baremetal, virtio-forwarder]
      default: normal
+     version_added: "2.8"
+   port_security_enabled:
+     description:
+       - Whether to enable or disable the port security on the network.
+     type: bool
      version_added: "2.8"
 '''
 
@@ -163,15 +170,15 @@ RETURN = '''
 id:
     description: Unique UUID.
     returned: success
-    type: string
+    type: str
 name:
     description: Name given to the port.
     returned: success
-    type: string
+    type: str
 network_id:
     description: Network ID this port belongs in.
     returned: success
-    type: string
+    type: str
 security_groups:
     description: Security group(s) associated with this port.
     returned: success
@@ -179,7 +186,7 @@ security_groups:
 status:
     description: Port's status.
     returned: success
-    type: string
+    type: str
 fixed_ips:
     description: Fixed ip(s) associated with this port.
     returned: success
@@ -187,7 +194,7 @@ fixed_ips:
 tenant_id:
     description: Tenant id associated with this port.
     returned: success
-    type: string
+    type: str
 allowed_address_pairs:
     description: Allowed address pairs with this port.
     returned: success
@@ -199,7 +206,11 @@ admin_state_up:
 vnic_type:
     description: Type of the created port
     returned: success
-    type: string
+    type: str
+port_security_enabled:
+    description: Port security state on the network.
+    returned: success
+    type: bool
 '''
 
 from ansible.module_utils.basic import AnsibleModule
@@ -215,7 +226,8 @@ def _needs_update(module, port, cloud):
                       'mac_address',
                       'device_owner',
                       'device_id',
-                      'binding:vnic_type']
+                      'binding:vnic_type',
+                      'port_security_enabled']
     compare_dict = ['allowed_address_pairs',
                     'extra_dhcp_opts']
     compare_list = ['security_groups']
@@ -281,7 +293,8 @@ def _compose_port_args(module, cloud):
                            'extra_dhcp_opts',
                            'device_owner',
                            'device_id',
-                           'binding:vnic_type']
+                           'binding:vnic_type',
+                           'port_security_enabled']
     for optional_param in optional_parameters:
         if module.params[optional_param] is not None:
             port_kwargs[optional_param] = module.params[optional_param]
@@ -317,6 +330,7 @@ def main():
         vnic_type=dict(default='normal',
                        choices=['normal', 'direct', 'direct-physical',
                                 'macvtap', 'baremetal', 'virtio-forwarder']),
+        port_security_enabled=dict(default=None, type='bool')
     )
 
     module_kwargs = openstack_module_kwargs(
@@ -394,4 +408,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-

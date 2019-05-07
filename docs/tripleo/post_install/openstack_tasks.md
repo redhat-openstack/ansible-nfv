@@ -16,6 +16,10 @@ Openstack tasks play perform the following tasks on the existing Openstack envir
       The interfaces for the instance could be specified as a network name or as a created port name.
 * Upload images
     * Upload provided images to the glance store of the overcloud.
+* Aggregate groups
+    * Creates aggregation groups with defined hosts and metadata.  
+      **NOTE** - a must configuration is required: enable "AggregateInstanceExtraSpecsFilter"  
+      in a /etc/nova/nova.conf file (controllers nodes) to the scheduler_default_filters defenition.
 * Creates flavors and extra_specs
     * Creates flavors for the instances. Extra_specs could be created for the flavors if required.
 * Creates keypair
@@ -38,6 +42,7 @@ The run could be separated by specifying tags of specific run.
 * user - Run users and projects creation and sets quotas.
 * network - Run networks creation.
 * net_port - Run instance port creation.
+* aggregate - Run group aggregate creation.
 * flavor - Run flavors creation.
 * image - Upload images to the Openstack environment.
 * keypair - Run keypair creation.
@@ -51,6 +56,7 @@ The run could be separated by specifying tags of specific run.
 * user - Executed if 'true'. False by default.
 * network - Executed if 'true'. True by default.
 * net_port - Executed if 'true'. True be default.
+* aggregate - Executed if 'true'. False by default.
 * flavor - Executed if 'true'. True by default.
 * image - Executed if 'true'. True by default.
 * keypair - Executed if 'true'. True by default.
@@ -58,6 +64,12 @@ The run could be separated by specifying tags of specific run.
 * instance - Executed if 'true'. False by default.
 * overcloud_delete - Executed if 'true'. False by default.
 * resources_output - Executed if 'true'. False by default.
+**NOTE:** Currently os_floating_ip module doesn't return FIP in a consistent matter when an instance contains multiple NICs
+* resource_generate_inventory - Add generated instances to dynamic Ansible inventory
+
+**Sample file:**  
+For the sample file, refer to the following [link](openstack_tasks_config_sample.yml).
+
 
 ## Role default variables
 #### State of the resource
@@ -111,22 +123,25 @@ networks:
     physical_network: public
     segmentation_id: 25
     network_type: vlan
-    external: true
     allocation_pool_start: 10.0.0.12
     allocation_pool_end: 10.0.0.100
     cidr: 10.0.0.0/24
     enable_dhcp: false
     gateway_ip: 10.0.0.254
+    external: true   # The "external: true" with "router_name" adds the network as the default gateway.
     router_name: router1
     shared: true
   - name: private1
     physical_network: tenant1
     segmentation_id: 32
     cidr: 172.20.0.0/24
+    external: false   # The "external: false" with the "router_name" sets the network as an interface for the router.
     router_name: router1
   - name: private2
     physical_network: tenant2
     cidr: 173.30.0.0/24
+    external: false
+    router_name: router1
   - name: private3
     physical_network: tenant3
     cidr: 174.40.0.0/24
@@ -137,6 +152,19 @@ Set DNS servers.
 dns_nameservers:
   - 8.8.8.8
   - 8.8.4.4
+```
+
+#### Aggregate groups creation
+Specify the aggregation groups that should be created.
+```
+aggregate_groups:
+  - name: TREX_AG
+    hosts:
+      - compute-0.localdomain
+      - compute-1.localdomain
+    metadata:
+      - flavor=trex_ag
+        flavor=dut_ag
 ```
 
 #### Flavors creation
@@ -159,6 +187,9 @@ flavors:
         "hw:numa_nodes": "1"
         "hw:numa_cpus.0": "0,1,2,3"
         "hw:cpu_policy": "dedicated"
+        # Configure metadata of the created aggregation group as a flavor extra specs
+        in order to initially boot an instance on a preferred hypervisor.
+        "aggregate_instance_extra_specs:flavor": "trex_ag"
 ```
 
 #### Images upload variables
@@ -212,7 +243,11 @@ instances:
     image: centos
     key_name: "{{ keypair_name }}"
     sec_groups: test_secgroup
-    floating_ip: yes
+    # Assigning FIP address to an instance, choose 'ext_net' as your routable network
+    and 'int_net' as an internal NATed network that the FIP address will be assigned to it
+    floating_ip:
+      ext_net: public
+      int_net: private_net3
     # NICs to be attached to instance, must be present or created by `net_ports`
     nics: port-name=private_net1_port1,port-name=private_net2_port2,net-name=private_net3
     config_drive: True # Optional, Specify if nova should attach metadata content via CD-ROM to instance
@@ -225,13 +260,17 @@ instances:
       - name: private_net2_port2
         network: private_net2
         type: direct
+        port_security: false
+        sec_groups: test_secgroup
   - name: vm2
     connection_user: user     # The variable could be omitted
     flavor: nfv_flavor
     image: centos
     key_name: "{{ keypair_name }}"
     sec_groups: test_secgroup
-    floating_ip: yes
+    floating_ip:
+      ext_net: public
+      int_net: private_net3
     nics: net-name=private_net3,port-name=private_net1_port3
     net_ports:
       - name: private_net1_port3
@@ -265,6 +304,13 @@ Example of usage: Could be used by the tempest in order to execute the tests
 on already provisioned resources.
 ```
 resources_output_file: /home/stack/resources_output_file.yml
+```
+
+Generate a dynamic Ansible inventory based on resources created.  
+**NOTE:** As of now, it's broken due to `os_floating_ip` module not being consistent when an instance contains multiple NICs. Please refer to [Dynamic Host Inventory Role](/docs/tripleo/post_install/dynamic_host_inventory.md) for a workaround.
+Default is - **False**
+```
+resource_generate_inventory: False
 ```
 
 ***

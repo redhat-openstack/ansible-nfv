@@ -5,6 +5,7 @@ setup_os_env: true
 user: false
 network: true
 net_port: true
+aggregate: false
 flavor: true
 image: true
 keypair: true
@@ -12,6 +13,7 @@ security_group: true
 instance: false
 overcloud_delete: false
 resources_output: false
+resource_generate_inventory: False
 
 ### Set the state of the resource.
 ### The state could be 'present' or 'absent'.
@@ -26,25 +28,7 @@ users:
     project: test_project1
     domain: default
     role: member
-    quota:
-      - cores: 20
-        ram: 20480
-        instances: 25
-  - name: test_user2
-    pass: 87654321
-    project: test_project2
-    domain: default
-    role: member
 
-### Networks
-### Define the networks that should be created on the overcloud.
-### 'External: true' value could be defined just for the external network.
-### Allocation pools could be defined as an option in case specific pool range should be defined.
-### Otherwise, pool will be calculated by 'cidr' value.
-### 'network_type' and 'ip_version' arguments could be defined as an option.
-### By default, 'network_type' uses 'vlan', 'ip_version' uses 'ipv4'
-### 'gateway_ip' could be defined in case there is a need to specify gateway ip address.
-### 'shared', define whether this network is shared or not.
 networks:
   - name: public
     physical_network: public
@@ -64,12 +48,6 @@ networks:
     segmentation_id: 32
     cidr: 172.20.0.0/24
     router_name: router1
-  - name: private2
-    physical_network: tenant2
-    cidr: 173.30.0.0/24
-  - name: private3
-    physical_network: tenant3
-    cidr: 174.40.0.0/24
 
 dns_nameservers:
   - 8.8.8.8
@@ -79,6 +57,16 @@ dns_nameservers:
 images:
   - name: centos
     url: http://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud.qcow2
+
+# Default aggregation groups to create
+aggregate_groups:
+  - name: TREX_AG
+    hosts:
+      - compute-0.localdomain
+      - compute-1.localdomain
+    metadata:
+      - flavor=trex_ag
+        flavor=dut_ag
 
 # Default flavor to create
 flavors:
@@ -115,28 +103,12 @@ instances:
     image: centos
     key_name: "{{ keypair_name }}"
     sec_groups: test_secgroup
-    floating_ip: yes
-    # The nics attached to the instance could be a created ports specified below,
-    # or just a network name. Note the port-name and net-name.
-    nics: port-name=private_net1_port1,port-name=private_net2_port2,net-name=private_net3
+    floating_ip:
+      ext_net: public
+      int_net: private1
+    nics: port-name=private_net1_port1
     net_ports:
       - name: private_net1_port1
-        network: private_net1
-        type: normal
-        sec_groups: test_secgroup
-      - name: private_net2_port2
-        network: private_net2
-        type: direct
-  - name: vm2
-    connection_user: user
-    flavor: nfv_flavor
-    image: centos
-    key_name: "{{ keypair_name }}"
-    sec_groups: test_secgroup
-    floating_ip: yes
-    nics: net-name=private_net3,port-name=private_net1_port3
-    net_ports:
-      - name: private_net1_port3
         network: private_net1
         type: normal
         sec_groups: test_secgroup

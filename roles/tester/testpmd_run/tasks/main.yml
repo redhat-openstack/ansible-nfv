@@ -1,4 +1,6 @@
 ---
+- name: Gather facts
+  setup:
 
 - name: Get instance virsh name
   shell: "source /home/stack/overcloudrc;nova show {{ groups['testpmd'][0] }} | grep instance_name | awk '{print $4}'"
@@ -25,7 +27,7 @@
   when: "'computeovsdpdk' in groups"
 
 - name: Install driverctl
-  yum:
+  package:
     name: "{{ item }}"
     state: latest
   with_items:
@@ -140,6 +142,13 @@
   command: /root/dpdk/tools/dpdk_nic_bind.py -u "{{ dpdk_bind_check2.stdout }}"
   when: dpdk_bind_check2.stdout.strip()
   ignore_errors: true
+
+# A pip bug prevents us to use the pip module for the python3 venv creation.
+# Remove when fixed.
+# Reference: https://github.com/ansible/ansible/issues/52275
+- name: Install venv if python3 present
+  command: "{{ ansible_python.executable }} -m venv {{ venv_path }}"
+  when: ansible_python.version.major == 3
 
 - name: Install required pip packages
   pip:

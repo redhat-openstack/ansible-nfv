@@ -1,0 +1,12 @@
+packages:
+  rhel8:
+    - gcc
+    - libffi-devel
+    - platform-python-devel
+    - platform-python-setuptools
+    - git
+  rhel7:
+    - gcc
+    - libffi-devel
+    - python-devel
+    - python-setuptools

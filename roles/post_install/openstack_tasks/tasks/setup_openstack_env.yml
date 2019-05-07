@@ -1,4 +1,6 @@
 ---
+- name: Gather facts
+  setup:
 
 # Delete the venv in order to avoid packages conflicts
 - name: Delete existing venv if exists
@@ -7,26 +9,39 @@
     state: absent
   become: true
 
-- name: Install requirements for pip virtualenv
+- name: Install required packages
+  vars:
+    os_version: "{%- if ansible_distribution_major_version == '8' -%}
+                 rhel8
+                 {%- elif ansible_distribution_major_version == '7' -%}
+                 rhel7
+                 {%- endif -%}"
+    pkg_ver_list: "{{ packages[os_version] }}"
   package:
-    name:
-      - gcc
-      - python-devel
-      - python-setuptools
-      - libffi-devel
+    name: "{{ item }}"
     state: present
+  loop: "{{ pkg_ver_list | flatten(levels=1) }}"
   become: true
 
-- name: Install pip package
-  easy_install:
-    name: pip
-  become: true
+- block:
+    - name: Install pip package
+      easy_install:
+        name: pip
+      become: true
 
-- name: Install virtualenv pip module
-  pip:
-    name: virtualenv
-    state: forcereinstall
-  become: true
+    - name: Install venv if python2 present
+      pip:
+        name: virtualenv
+        state: forcereinstall
+      become: true
+  when: ansible_python.version.major == 2
+
+# A pip bug prevents us to use the pip module for the python3 venv creation.
+# Remove when fixed.
+# Reference: https://github.com/ansible/ansible/issues/52275
+- name: Install venv if python3 present
+  command: "{{ ansible_python.executable }} -m venv {{ venv_path }}"
+  when: ansible_python.version.major == 3
 
 # Install pip and setuptools should happen before other rpackages
 - name: Install virtualenv core deps
@@ -45,4 +60,4 @@
     virtualenv: "{{ venv_path }}"
 
 - name: Generate clouds.yaml file
-  include_tasks: clouds.yml
+  import_tasks: clouds.yml

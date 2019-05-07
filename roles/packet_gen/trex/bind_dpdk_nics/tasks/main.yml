@@ -1,0 +1,72 @@
+- name: Check if DPDK Compiled Binaries Directory Exists
+  stat:
+    path: "{{ dpdk_compiled_dir }}"
+  register: dpdk_dir
+  failed_when: not dpdk_dir['stat']['exists']
+  become: True
+
+- name: Retrieve Non Active NICs' PCI Slots
+  shell: "python {{ dpdk_root_dir }}/usertools/dpdk-devbind.py --status | grep -v Active | grep 0000 | cut -d ' ' -f 1 | paste -sd ' '"
+  register: instance_nics_pci_slots
+  become: True
+
+- name: Bind Parsed NICs to DPDK
+  block:
+    - name: Create Hugepages Mountpoint
+      file:
+        path: /mnt/huge
+        state: directory
+        recurse: True
+
+    - name: Set Huge Pages Amount
+      sysctl:
+        name: vm.nr_hugepages
+        value: 64
+        state: present
+
+    - name: Mount Hugepages
+      mount:
+        path: /mnt/huge
+        src: nodev
+        fstype: hugetlbfs
+        opts: pagesize=1GB
+        state: mounted
+
+    - name: Load Required Kernel Modules
+      modprobe:
+        name: "{{ item['name'] }}"
+        state: present
+        params: "{{ item['params'] | default(omit) }}"
+      loop:
+        - {'name': 'vfio', 'params': 'enable_unsafe_noiommu_mode=1'}
+        - {'name': 'vfio-pci'}
+
+    - name: Bind DPDK NICs
+      command: "{{ dpdk_root_dir }}/usertools/dpdk-devbind.py -b vfio-pci {{ instance_nics_pci_slots['stdout'] }}"
+
+  become: True
+
+- name: Set DuT Destination MAC Addresses
+  block:
+    - name: Fetch Mac Addresses Of NICs Bound To Kernel
+      shell: 'grep -vh "00:00:00:00:00:00" /sys/class/net/*/address'
+      register: kernel_nics
+
+    - name: Query DuT Server Ports
+      import_role:
+        name: roles/post_install/discover_instance_ports
+      vars:
+        query_instance: "{{ ansible_hostname }}"
+      delegate_to: undercloud-0
+
+    - name: Map DuT NICs To Helper Variable
+      set_fact:
+        dut_ports: "{{ dut_ports | default([]) }} + {{ item['ansible_facts']['openstack_ports'] }}"
+      loop: "{{ instance_ports['results'] }}"
+
+    - name: Parse DuT Destination Macs
+      set_fact:
+        dut_macs: "{{ dut_ports | map(attribute='mac_address') | reject('search', kernel_nics['stdout']) | list | join(',') }}"
+  when:
+    - dut_mac is not defined
+    - discover_dut_macs | default(False)

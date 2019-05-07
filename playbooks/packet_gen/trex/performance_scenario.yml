@@ -1,0 +1,71 @@
+---
+- hosts: undercloud
+  gather_facts: False
+  pre_tasks:
+    - name: Require Resource Method
+      fail:
+        msg: "cloud_resources is not set to correct values: 'create' or 'external', please refer to documentation"
+      when: cloud_resources is not defined or cloud_resources not in ['create', 'external']
+
+    - block:
+        - name: Generate Resources
+          import_role:
+            name: roles/post_install/openstack_tasks
+
+        # Workaround for adding generated instances to dynamic inventory
+        - meta: refresh_inventory
+
+        - name: Map Instances To Helper Variable
+          set_fact:
+            generated_instances: >-
+              {{ generated_instances | default([]) }} + [{'name': '{{ item['name'] }}',
+              'group': '{{ item['groups'] }}',
+              'user': '{{ connection_user }}',
+              'ssh_key': '/tmp/{{ item['key_name'] }}.key' }]
+          loop: "{{ instances }}"
+
+        - name: Workaround - Add Generated Instances To Dynamic Inventory
+          include_role:
+            name: roles/post_install/dynamic_host_inventory
+          vars:
+            discover_instance_external_ip: True
+          loop: "{{ generated_instances }}"
+      when: cloud_resources == 'create'
+
+    - name: Use Pre-exisisting Resources
+      block:
+        - name: Prepare Virtual Environment
+          include_role:
+            name: roles/post_install/openstack_tasks
+            tasks_from: setup_openstack_env
+
+        - name: Add Pre-existing Instances To Dynamic Inventory
+          include_role:
+            name: roles/post_install/dynamic_host_inventory
+          loop: "{{ dynamic_instances }}"
+      when: cloud_resources == 'external'
+
+# TODO (vkhitrin): Make it skippable
+- hosts: "{{ dut_group }}"
+  roles:
+    - role: roles/packet_gen/trex/bind_dpdk_nics
+      vars:
+        discover_dut_macs: True
+      when: bind_dpdk_nics | default(True)
+
+    - role: roles/packet_gen/trex/launch_testpmd
+      when: launch_testpmd | default(True)
+
+- hosts: trex
+  roles:
+    - role: roles/packet_gen/trex/trex_instance_config
+      when: trex_instance_config | default(True)
+
+    - role: roles/packet_gen/trex/bind_dpdk_nics
+      when: bind_dpdk_nics | default(True)
+
+    - role: roles/packet_gen/trex/launch_trex
+      when: launch_trex | default(True)
+
+    - role: roles/packet_gen/trex/binary_search
+      when: binary_search | default(True)
