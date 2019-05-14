@@ -43,6 +43,12 @@ images:
     url: http://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud.qcow2
 ```
 
+Whether to validate certificates when downloading guest image.
+Default image: False.
+```
+os_image_cert_validation: False
+```
+
 Private key and overcloud username for establishing connection between undercloud and overcloud nodes.  
 Used for gathering various data like aggregation groups, etc...
 ```
