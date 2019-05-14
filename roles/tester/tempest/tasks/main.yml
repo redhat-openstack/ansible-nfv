@@ -73,6 +73,7 @@
     url: "{{ images[0].url }}"
     dest: "/tmp/{{ images[0].url | basename }}"
     timeout: 100
+    validate_certs: "{{ os_image_cert_validation | default(False) }}"
 
 - name: Check if tempestconf tool installed
   stat:
