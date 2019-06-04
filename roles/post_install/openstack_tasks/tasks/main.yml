@@ -25,6 +25,11 @@
   import_tasks: networks_and_routers.yml
   when: network
 
+- name: Quota
+  tags: quota
+  import_tasks: quota.yml
+  when: quota
+
 - name: Aggregate groups
   tags: aggregate
   import_tasks: aggregate.yml

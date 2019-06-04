@@ -34,16 +34,3 @@
     state: "{{ resource_state }}"
   loop: "{{ users | flatten(levels=1) }}"
   when: reg_users.changed and reg_users.results.0.user is defined
-
-- name: Add quota to project
-  vars:
-    ansible_python_interpreter: "{{ venv_path }}/bin/python"
-  os_quota:
-    cloud: "{{ overcloud_name }}"
-    name: "{{ item.0.project }}"
-    cores: "{{ item.1.cores | default(omit) }}"
-    ram: "{{ item.1.ram | default(omit) }}"
-    instances: "{{ item.1.instances | default(omit) }}"
-    state: "{{ resource_state }}"
-  loop: "{{ users | subelements('quota', 'skip_missing=True') }}"
-  when: resource_state == 'present'
