@@ -1,5 +1,7 @@
 ---
 
+# In order to prevent deletion of the OSP admin user and breaking
+# the environemnt by mistake, skip any manipulation with the "admin" user.
 - name: Copy overcloudrc file for users
   copy:
     src: "{{ tripleo_overcloud_file }}"
@@ -7,6 +9,7 @@
     remote_src: yes
     mode: preserve
   loop: "{{ users | flatten(levels=1) }}"
+  when: item.name != 'admin'
 
 - name: Replace rc file values to user values
   vars:
@@ -26,13 +29,16 @@
     regexp: (.*{{ item.0.os_key }})=.*
     replace: \1={{ item.1[item.0.users_key] }}
   loop: "{{ keys | product(users) | list }}"
+  when: item.1.name != 'admin'
 
 - name: Append users rc files to list
   set_fact:
     rc_files: "{{ rc_files }} + [ '{{ tripleo_overcloud_file | dirname }}/{{ item.name }}_rc' ]"
   loop: "{{ users }}"
+  when: item.name != 'admin'
 
 - name: Append users cloudnames to list
   set_fact:
     cloudname: "{{ cloudname }} + [ '{{ item.name }}' ]"
   loop: "{{ users }}"
+  when: item.name != 'admin'
