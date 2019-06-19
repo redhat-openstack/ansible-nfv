@@ -51,6 +51,7 @@
     - name: Parse Perfomance Log To JSON Format
       set_fact:
         perf_json: "{{ perf_result['content'] | b64decode | replace('RESULT', '') }}"
+  delegate_to: "{{ groups['undercloud'] | first }}"
 
 - name: Print Perfomance Result JSON
   debug:
