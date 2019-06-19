@@ -34,12 +34,12 @@
   copy:
     content: "{{ perf_output['stdout'] }}"
     dest: "{{ binary_perf_log }}"
-  delegate_to: "{{ groups[undercloud] | first }}"
+  delegate_to: "{{ groups['undercloud'] | first }}"
 
 - name: Stop TestPMD On DuT
   shell: "tmux list-sessions -F '#S' | xargs -n1 tmux kill-session -t"
   become: True
-  delegate_to: "{{ groups[dut_group] | first }}"
+  delegate_to: "{{ groups['dut_group'] | first }}"
 
 - name: Parse JSON Result From Output File
   block:
