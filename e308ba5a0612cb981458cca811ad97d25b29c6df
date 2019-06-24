@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "9d33c399_0de6de80",
+        "filename": "playbooks/tripleo/tuning/default_emulatorpin.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-06-24T12:18:55Z",
+      "side": 1,
+      "message": "And documentation of course.",
+      "range": {
+        "startLine": 3,
+        "startChar": 9,
+        "endLine": 3,
+        "endChar": 59
+      },
+      "revId": "e308ba5a0612cb981458cca811ad97d25b29c6df",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0b057e67_dbf65725",
         "filename": "roles/workarounds/tasks/cpu_emulatorpin.yml",
         "patchSetId": 1
