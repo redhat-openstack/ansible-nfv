@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "e1127509_f05f82dc",
+        "filename": "playbooks/tripleo/tuning/default_emulatorpin.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-06-24T13:17:53Z",
+      "side": 1,
+      "message": "The documentation resides within the docs directory according to the path of the playbook.\nSame path of the playbook should be reflected in the documentation path.",
+      "parentUuid": "81511cc6_047767e7",
+      "range": {
+        "startLine": 3,
+        "startChar": 9,
+        "endLine": 3,
+        "endChar": 59
+      },
+      "revId": "e308ba5a0612cb981458cca811ad97d25b29c6df",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "0b057e67_dbf65725",
         "filename": "roles/workarounds/tasks/cpu_emulatorpin.yml",
         "patchSetId": 1
