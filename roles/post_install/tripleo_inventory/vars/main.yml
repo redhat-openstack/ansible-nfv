@@ -5,6 +5,7 @@ packages:
     - platform-python-devel
     - platform-python-setuptools
     - git
+    - virtualenv
   rhel7:
     - gcc
     - libffi-devel
