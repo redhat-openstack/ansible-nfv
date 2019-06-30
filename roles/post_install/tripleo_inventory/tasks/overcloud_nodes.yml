@@ -3,12 +3,15 @@
 - block:
     # Delete the venv in order to avoid packages conflicts
     - name: Delete existing venv if exists
+      vars:
+        ansible_python_interpreter: /usr/libexec/platform-python
       file:
         path: "{{ venv_path }}"
         state: absent
 
     - name: Install requirements for pip virtualenv
       vars:
+        ansible_python_interpreter: /usr/libexec/platform-python
         os_version: "{%- if hostvars[groups['undercloud'][0]].ansible_distribution_major_version == '8' -%}
                      rhel8
                      {%- elif hostvars[groups['undercloud'][0]].ansible_distribution_major_version == '7' -%}
@@ -20,7 +23,10 @@
         state: present
       loop: "{{ pkg_ver_list | flatten(levels=1) }}"
 
-    - block:
+    - name: Install venv if python present
+      vars:
+        python_version: "{{ hostvars[groups['undercloud'][0]]['ansible_python']['version']['major'] }}"
+      block:
         - name: Install pip package
           easy_install:
             name: pip
@@ -29,34 +35,41 @@
           pip:
             name: virtualenv
             version: '15.1.0'
-      when: hostvars[groups['undercloud'][0]].ansible_python.version.major == 2
+      when: python_version == 2
   become: true
 
 # A pip bug prevents us to use the pip module for the python3 venv creation.
 # Remove when fixed.
 # Reference: https://github.com/ansible/ansible/issues/52275
 - name: Install venv if python3 present
-  command: "{{ ansible_python.executable }} -m venv {{ venv_path }}"
-  when: hostvars[groups['undercloud'][0]].ansible_python.version.major == 3
+  command: "{{ ansible_python_interpreter }} -m venv {{ venv_path }}"
+  vars:
+    ansible_python_interpreter: /usr/libexec/platform-python
+    python_version: "{{ hostvars[groups['undercloud'][0]]['ansible_python']['version']['major'] }}"
+  when: python_version == 3
 
 - name: Install venv packages
+  vars:
+    ansible_python_interpreter: /usr/libexec/platform-python
   pip:
-    name: "{{ item.key }}"
-    version: "{{ item.value }}"
+    name:
+      - pip>=10.0.1
+      - setuptools>=39.0.0
+      - pytz>=2017.3
+      - shade>=1.25.0
     virtualenv: "{{ venv_path }}"
-  with_dict:
-    pip: '10.0.1'
-    setuptools: '39.0.0'
-    pytz: '2017.3'
-    shade: '1.25.0'
 
 - name: Fetch private key from the undercloud host
+  vars:
+    ansible_python_interpreter: /usr/libexec/platform-python
   fetch:
     src: "/home/stack/.ssh/id_rsa"
     dest: "{{ overcloud_private_key }}"
     flat: yes
 
 - name: Set SSH key permissions
+  vars:
+    ansible_python_interpreter: /usr/bin/env python
   file:
     path: "{{ overcloud_private_key }}"
     mode: 0600
@@ -65,6 +78,8 @@
 - name: Grab auth data from stackrc file and publish it as YAML
   ### ToDo(MaximB): Convert the task to more generic execution.
   ###               Implement reuse.
+  vars:
+    ansible_python_interpreter: /usr/libexec/platform-python
   shell: |
       source "{{ rc_file_path | default('/home/stack/stackrc') }}"
       echo "
