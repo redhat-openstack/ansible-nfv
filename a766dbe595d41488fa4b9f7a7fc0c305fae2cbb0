@@ -46,6 +46,30 @@
       "revId": "a766dbe595d41488fa4b9f7a7fc0c305fae2cbb0",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17b54c63_98e0c19d",
+        "filename": "roles/post_install/tripleo_inventory/tasks/overcloud_nodes.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2019-06-30T13:37:21Z",
+      "side": 1,
+      "message": "Good catch, should be replaced with     ansible_python_interpreter: \"{{ venv_path }}/bin/python\"\nWill catch python 2 and python 3",
+      "parentUuid": "bb417fef_d22ac761",
+      "range": {
+        "startLine": 97,
+        "startChar": 4,
+        "endLine": 97,
+        "endChar": 61
+      },
+      "revId": "a766dbe595d41488fa4b9f7a7fc0c305fae2cbb0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
