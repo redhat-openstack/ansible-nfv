@@ -22,21 +22,20 @@
         name: "{{ item }}"
         state: present
       loop: "{{ pkg_ver_list | flatten(levels=1) }}"
-
-    - name: Install venv if python present
-      vars:
-        python_version: "{{ hostvars[groups['undercloud'][0]]['ansible_python']['version']['major'] }}"
-      block:
-        - name: Install pip package
-          easy_install:
-            name: pip
-
-        - name: Install virtualenv
-          pip:
-            name: virtualenv
-            version: '15.1.0'
-      when: python_version == 2
   become: true
+
+- name: Install venv if python2 present
+  block:
+    - name: Install pip package
+      easy_install:
+        name: pip
+
+    - name: Install virtualenv
+      pip:
+        name: virtualenv
+        version: '15.1.0'
+  become: True
+  when: hostvars[groups['undercloud'][0]]['ansible_python']['version']['major'] == 2
 
 # A pip bug prevents us to use the pip module for the python3 venv creation.
 # Remove when fixed.
@@ -45,8 +44,7 @@
   command: "{{ ansible_python_interpreter }} -m venv {{ venv_path }}"
   vars:
     ansible_python_interpreter: /usr/libexec/platform-python
-    python_version: "{{ hostvars[groups['undercloud'][0]]['ansible_python']['version']['major'] }}"
-  when: python_version == 3
+  when: hostvars[groups['undercloud'][0]]['ansible_python']['version']['major'] == 3
 
 - name: Install venv packages
   vars:
