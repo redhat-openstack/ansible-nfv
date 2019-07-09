@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aea6cb69_ce37cd48",
+        "filename": "roles/post_install/tripleo_inventory/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1007976
+      },
+      "writtenOn": "2019-07-09T07:05:49Z",
+      "side": 1,
+      "message": "would\u0027nt it hamper python2 and python3 interoperability?",
+      "range": {
+        "startLine": 47,
+        "startChar": 41,
+        "endLine": 47,
+        "endChar": 47
+      },
+      "revId": "55c0c9be60921a5d341d1073a097d22ae83458c1",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
