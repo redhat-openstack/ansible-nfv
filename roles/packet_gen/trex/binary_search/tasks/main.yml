@@ -34,6 +34,7 @@
   copy:
     content: "{{ perf_output['stdout'] }}"
     dest: "{{ binary_perf_log }}"
+  delegate_to: "{{ groups['undercloud'] | first }}"
 
 - name: Stop TestPMD On DuT
   shell: "tmux list-sessions -F '#S' | xargs -n1 tmux kill-session -t"
@@ -50,6 +51,7 @@
     - name: Parse Perfomance Log To JSON Format
       set_fact:
         perf_json: "{{ perf_result['content'] | b64decode | replace('RESULT', '') }}"
+  delegate_to: "{{ groups['undercloud'] | first }}"
 
 - name: Print Perfomance Result JSON
   debug:

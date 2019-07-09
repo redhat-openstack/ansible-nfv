@@ -1,6 +1,7 @@
 ### Run triggers
 setup_os_env: true
 user: true
+quota: true
 network: true
 net_port: true
 aggregate: true

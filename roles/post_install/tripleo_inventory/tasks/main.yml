@@ -43,8 +43,6 @@
   when: setup_type == 'virt'
 
 - name: Generate Inventory file
-  vars:
-    ansible_python_interpreter: /usr/bin/python
   template:
     src: 'inventory.j2'
     dest: "{{ environment_dir }}/inventory_{{ host }}"
@@ -54,6 +52,8 @@
   when: ssh_pass is defined
 
 - name: Gather undercloud node details
+  vars:
+    ansible_python_interpreter: /usr/libexec/platform-python
   setup:
   delegate_to: "{{ groups['undercloud'] | first }}"
   delegate_facts: True
@@ -77,7 +77,7 @@
 
     - name: Enable SSH forwarding using Undercloud node for baremetal Overcloud nodes
       vars:
-        ansible_python_interpreter: /usr/bin/python
+        ansible_python_interpreter: /usr/libexec/platform-python
       add_host:
         name: "{{ item.name }}"
         ansible_ssh_common_args: "-o ProxyCommand=\"ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
@@ -88,7 +88,7 @@
 
     - name: Enable SSH forwarding using Undercloud node for virt Overcloud nodes
       vars:
-        ansible_python_interpreter: /usr/bin/python
+        ansible_python_interpreter: /usr/libexec/platform-python
       add_host:
         name: "{{ item.name }}"
         ansible_ssh_common_args: "-o ProxyCommand=\"ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
@@ -99,8 +99,6 @@
   when: not undercloud_only|bool
 
 - name: Update ansible.ssh.config for SSH tunneling
-  vars:
-    ansible_python_interpreter: /usr/bin/python
   template:
     src: 'ansible.ssh.config.j2'
     dest: "{{ environment_dir }}/ansible.ssh.config.{{ host }}"
@@ -112,8 +110,6 @@
     state: link
 
 - name: Generate Inventory file
-  vars:
-    ansible_python_interpreter: /usr/bin/python
   template:
     src: 'inventory.j2'
     dest: "{{ environment_dir }}/inventory_{{ host }}"

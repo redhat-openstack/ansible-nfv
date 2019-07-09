@@ -201,8 +201,8 @@
   tags: run_tempest_test
   shell: |
     source {{ tempest_dir }}/venv/bin/activate
-    subunit2junitxml --output-to={{ tempest_dir }}/tempest.xml \
-    < .stestr/tempest_results.subunit | subunit2pyunit
+    subunit2junitxml < .stestr/tempest_results.subunit  \
+    >> {{ tempest_dir }}/tempest.xml
   args:
     executable: /bin/bash
     chdir: "{{ tempest_dir }}/{{ tempest_main }}"

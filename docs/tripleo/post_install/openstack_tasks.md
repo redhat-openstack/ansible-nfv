@@ -6,10 +6,12 @@ Openstack tasks play perform the following tasks on the existing Openstack envir
 * Setup Openstack environment
     * Creates and prepares the virtual pip environment with all required command line tools.  
       Creates clouds.yml file with all the details for the connection to the Openstack env.
-* Creates users, projects, clouds.yaml user configs and set quotas.
+* Creates users, projects, clouds.yaml user configs.
     * Creates users and projects based on the specified variables.
     * Generates users rc files.
     * Generates users configs within the clouds.yaml file for the later tasks by the users.
+* Creates quota
+    * Creates quota for a project such as number of cpu's cores, ram, instances.
 * Creates networks
     * Creates networks, subnets, routers and ports by using the variables list provided to the play.  
       Public networks sets as a gateway on the router and private networks sets as a router interface by using the 'external' flag within the variables provided.  
@@ -39,7 +41,8 @@ The run could be separated by specifying tags of specific run.
 
 ## Role tags
 * setup_os_env - Run Openstack virtual env creation for env tasks.
-* user - Run users and projects creation and sets quotas.
+* user - Run users and projects creation and.
+* quota - Run quota creation.
 * network - Run networks creation.
 * net_port - Run instance port creation.
 * aggregate - Run group aggregate creation.
@@ -54,6 +57,7 @@ The run could be separated by specifying tags of specific run.
 ## Run triggers
 * setup_os_env - Executed if 'true'. True by default.
 * user - Executed if 'true'. False by default.
+* quota - Executed if 'true'. False by default.
 * network - Executed if 'true'. True by default.
 * net_port - Executed if 'true'. True be default.
 * aggregate - Executed if 'true'. False by default.
