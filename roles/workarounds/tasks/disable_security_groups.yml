@@ -17,6 +17,5 @@
         source "{{ rc_file | default('/home/stack/overcloudrc') }}"
         openstack port set --no-security-group "{{ item.id }}"
         openstack port set --disable-port-security "{{ item.id }}"
-      with_items:
-        - "{{ instance_ports.ansible_facts.openstack_ports }}"
+      loop: "{{ instance_ports.ansible_facts.openstack_ports }}"
   when: openstack_version.stdout|int >= 12
