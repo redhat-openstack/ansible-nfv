@@ -12,7 +12,7 @@
     line: 'GRUB_CMDLINE_LINUX="\1 {{ item.context }}"'
     state: present
     backrefs: yes
-  with_items:
+  loop:
     - { regex: 'intel_iommu=on', context: 'intel_iommu=on' }
     - { regex: 'hugepagesz=', context: 'hugepagesz={{ hugepages_size }} default_hugepagesz={{ hugepages_size }} hugepages={{ hugepages_count }}' }
     - { regex: 'isolcpus=', context: 'isolcpus={{ vcpu_pin }} rcu_nocbs={{ vcpu_pin }} nohz_full={{ vcpu_pin }}' }
@@ -27,7 +27,7 @@
   yum:
     name: "{{ item.name }}"
     state: 'installed'
-  with_items:
+  loop:
     - { name: 'gcc' }
     - { name: 'make' }
     - { name: 'cmake' }
@@ -93,7 +93,7 @@
   file:
     path: "{{ item.dir }}"
     mode: 0755
-  with_items:
+  loop:
     - { dir: '/mnt/MoonGen/build.sh' }
     - { dir: '/mnt/MoonGen/setup-hugetlbfs.sh' }
 
@@ -141,6 +141,6 @@
   copy:
     src: "{{ item.source }}"
     dest: "{{ item.destination }}"
-  with_items:
+  loop:
     - { source: 'opnfv-vsperf-cfg.lua', destination: '/mnt/MoonGen/' }
     - { source: 'opnfv-vsperf.lua', destination: '/mnt/MoonGen/examples/' }

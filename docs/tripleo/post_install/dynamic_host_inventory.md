@@ -24,7 +24,7 @@ This role recieves a list of dictionaries and performs accordingly, here is a sa
 
         - include_role: 
             name: roles/post_install/dynamic_host_inventory
-          with_items: "{{ dynamic_instances }}"
+          loop: "{{ dynamic_instances }}"
 
 - hosts: trex
   gather_facts: False

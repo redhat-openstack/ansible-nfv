@@ -30,14 +30,14 @@
 #     access_vlan: "vlan{{ vlan_id }}"
 #     unit: 0
 #     state: present
-#   with_items: "{{ vars[server_name_item].ports }}"
+#   loop: "{{ vars[server_name_item].ports }}"
 
 - name: Delete current configuration
   junos_config:
     provider: "{{ junos_creds }}"
     lines:
       - "delete interfaces {{ item }}"
-  with_items: "{{ vars[server_name_item].ports }}"
+  loop: "{{ vars[server_name_item].ports }}"
 
 - name: Set requested Interfaces to access and set description
   junos_config:
@@ -45,14 +45,14 @@
     lines:
       - "set interfaces {{ item }} description {{ server_name_item }}"
       - "set interfaces {{ item }} unit 0 family ethernet-switching interface-mode access"
-  with_items: "{{ vars[server_name_item].ports }}"
+  loop: "{{ vars[server_name_item].ports }}"
 
 - name: Set VLAN ID to requested Interfaces
   junos_config:
     provider: "{{ junos_creds }}"
     lines:
       - "set interfaces {{ item }} unit 0 family ethernet-switching vlan members {{ vlan_id }}"
-  with_items: "{{ vars[server_name_item].ports }}"
+  loop: "{{ vars[server_name_item].ports }}"
 
 - name: Save configuration
   junos_config:
