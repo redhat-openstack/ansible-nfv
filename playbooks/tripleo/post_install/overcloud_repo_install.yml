@@ -11,7 +11,7 @@
     - name: Copy repo files
       slurp:
         src: "{{ item.path }}"
-      with_items: "{{ repos_list.files }}"
+      loop: "{{ repos_list.files }}"
       register: repos_copy
 
 - name: Install repos on overcloud nodes
@@ -27,4 +27,4 @@
         owner: root
         group: root
         mode: 0644
-      with_items: "{{ hostvars[groups['undercloud'][0]].repos_copy.results }}"
+      loop: "{{ hostvars[groups['undercloud'][0]].repos_copy.results }}"

@@ -37,7 +37,7 @@
 
 - name: Switch {{ device_type }} configuration
   include_tasks: "{{ device_type }}_config.yml"
-  with_items: "{{ server_name.split(',') }}"
+  loop: "{{ server_name.split(',') }}"
   loop_control:
     loop_var: server_name_item
   when: config

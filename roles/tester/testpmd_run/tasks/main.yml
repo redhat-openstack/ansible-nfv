@@ -30,7 +30,7 @@
   package:
     name: "{{ item }}"
     state: latest
-  with_items:
+  loop:
     - driverctl
     - tuned
     - tuned-profiles-cpu-partitioning
@@ -54,7 +54,7 @@
     line: 'GRUB_CMDLINE_LINUX="\1 {{ item.context }}"'
     state: present
     backrefs: yes
-  with_items:
+  loop:
     - { regex: 'intel_iommu=on', context: 'intel_iommu=on' }
     - { regex: 'iommu=pt', context: 'iommu=pt' }
     - { regex: 'hugepagesz=', context: 'hugepagesz={{ hugepages_size }} default_hugepagesz={{ hugepages_size }} hugepages={{ hugepages_count }}' }
@@ -167,7 +167,7 @@
   delegate_to: "{{ item }}"
   become: true
   become_user: root
-  with_items: "{{ groups['undercloud'] }}"
+  loop: "{{ groups['undercloud'] }}"
 
 - name: Run testpmd python script
   shell: 'source /tmp/ansible_venv/bin/activate; python /tmp/testpmd-app.py'
@@ -176,7 +176,7 @@
   delegate_to: "{{ item }}"
   become: true
   become_user: root
-  with_items: "{{ groups['undercloud'] }}"
+  loop: "{{ groups['undercloud'] }}"
 
 - name: Pause the play, wait until testpmd app ready to recieve packets
   pause:

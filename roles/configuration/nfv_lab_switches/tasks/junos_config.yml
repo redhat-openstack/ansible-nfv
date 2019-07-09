@@ -30,7 +30,7 @@
 #     access_vlan: "vlan{{ vlan_id }}"
 #     unit: 0
 #     state: present
-#   with_items: "{{ vars[server_name_item].ports }}"
+#   loop: "{{ vars[server_name_item].ports }}"
 
 - name: Delete current configuration
   junos_config:

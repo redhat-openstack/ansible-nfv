@@ -5,7 +5,7 @@
     url: "{{ item.url }}"
     dest: "/tmp/{{ item.url | basename }}"
     timeout: 100
-  with_items: "{{ images }}"
+  loop: "{{ images }}"
 
 - name: Upload images
   vars:
@@ -18,4 +18,4 @@
     state: present
     filename: "/tmp/{{ item.url | basename }}"
     is_public: yes
-  with_items: "{{ images }}"
+  loop: "{{ images }}"
