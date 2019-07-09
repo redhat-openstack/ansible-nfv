@@ -28,7 +28,7 @@
 #     mode: access
 #     access_vlan: "{{ vlan_id }}"
 #     state: present
-#   with_items: "{{ vars[server_name_item].ports }}"
+#   loop: "{{ vars[server_name_item].ports }}"
 
 - name: Set description on requested Interfaces
   ios_config:
@@ -36,7 +36,7 @@
     lines:
       - "description {{ server_name_item }}"
     parents: "interface {{ item }}"
-  with_items: "{{ vars[server_name_item].ports }}"
+  loop: "{{ vars[server_name_item].ports }}"
 
 - name: Set access VLAN ID to requested Interfaces
   ios_config:
@@ -44,7 +44,7 @@
     lines:
       - "switchport access vlan {{ vlan_id }}"
     parents: "interface {{ item }}"
-  with_items: "{{ vars[server_name_item].ports }}"
+  loop: "{{ vars[server_name_item].ports }}"
 
 - name: Save configuration
   ios_config:

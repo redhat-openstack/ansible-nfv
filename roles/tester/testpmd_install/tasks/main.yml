@@ -32,7 +32,7 @@
       yum:
         state: latest
         name: "{{ item }}"
-      with_items:
+      loop:
         - git
         - gcc
         - make
@@ -57,7 +57,7 @@
         dest: /root/dpdk/config/common_linuxapp
         regexp: "{{ item.regexp }}"
         line: "{{ item.line }}"
-      with_items:
+      loop:
         - { regexp: 'CONFIG_RTE_KNI_KMOD=', line: 'CONFIG_RTE_KNI_KMOD=n' }
         - { regexp: 'CONFIG_RTE_LIBRTE_KNI=', line: 'CONFIG_RTE_LIBRTE_KNI=n' }
 

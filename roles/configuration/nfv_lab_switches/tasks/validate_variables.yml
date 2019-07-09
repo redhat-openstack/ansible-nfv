@@ -6,7 +6,7 @@
           Please, define the following variables -
           junos_ip and/or cisco_ip, switch_user, switch_pass, server_name, vlan_id"
       when: not item
-      with_items:
+      loop:
         - "{{ junos_ip |default(cisco_ip) }}"
         - "{{ switch_user }}"
         - "{{ switch_pass }}"
@@ -22,7 +22,7 @@
           Please, define the following variables -
           junos_ip and/or cisco_ip, switch_user, switch_pass"
       when: not item
-      with_items:
+      loop:
         - "{{ junos_ip |default(cisco_ip) }}"
         - "{{ switch_user }}"
         - "{{ switch_pass }}"
@@ -36,7 +36,7 @@
           Please, define the following variables -
           junos_ip and/or cisco_ip, switch_user, switch_pass, configuration_file"
       when: not item and restore
-      with_items:
+      loop:
         - "{{ junos_ip |default(cisco_ip) }}"
         - "{{ switch_user }}"
         - "{{ switch_pass }}"
