@@ -29,7 +29,7 @@
 - name: Define Undercloud vm
   set_fact:
     undercloud_vm: "{{ item }}"
-  with_items:
+  loop:
     - undercloud
     - undercloud-0
   when: 'item in vms.list_vms'
