@@ -201,8 +201,13 @@
   tags: run_tempest_test
   shell: |
     source {{ tempest_dir }}/venv/bin/activate
+    {% if overcloud_version | int >= 15 %}
     subunit2junitxml < .stestr/tempest_results.subunit  \
     >> {{ tempest_dir }}/tempest.xml
+    {% else %}
+    subunit2junitxml --output-to={{ tempest_dir }}/tempest.xml \
+    < .stestr/tempest_results.subunit | subunit2pyunit
+    {% endif %}
   args:
     executable: /bin/bash
     chdir: "{{ tempest_dir }}/{{ tempest_main }}"
