@@ -5,7 +5,7 @@
     ansible_python_interpreter: "{{ venv_path }}/bin/python"
   os_server:
     state: "{{ resource_state }}"
-    cloud: "{{ overcloud_name }}"
+    cloud: "{{ item.overcloud_name | default(overcloud_name) }}"
     name: "{{ item.name }}"
     image: "{{ item.image | default(images[0].name) }}"
     flavor: "{{ item.flavor | default(flavors[0].name) }}"
@@ -24,7 +24,7 @@
     ansible_python_interpreter: "{{ venv_path }}/bin/python"
   os_floating_ip:
     state: "{{ resource_state }}"
-    cloud: "{{ overcloud_name }}"
+    cloud: "{{ item.overcloud_name | default(overcloud_name) }}"
     server: "{{ item.name }}"
     network: "{{ item.floating_ip.ext_net }}"
     nat_destination: "{{ item.floating_ip.int_net }}"
