@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9e631e32_8da60541",
+        "filename": "roles/packet_gen/moongen/install/tasks/main.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2019-07-14T08:49:50Z",
+      "side": 1,
+      "message": "You are correct, I forgot.\n\nFixing.",
+      "parentUuid": "8dc2ec71_2c27782b",
+      "range": {
+        "startLine": 26,
+        "startChar": 2,
+        "endLine": 40,
+        "endChar": 21
+      },
+      "revId": "512888bbb4e4f0fbbd191f10253b05159314ae77",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "869628b5_401af7e8",
         "filename": "roles/post_install/openstack_tasks/tasks/flavors.yml",
         "patchSetId": 4
@@ -45,6 +69,30 @@
       "revId": "512888bbb4e4f0fbbd191f10253b05159314ae77",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a9ee8029_d2893e1c",
+        "filename": "roles/post_install/openstack_tasks/tasks/flavors.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2019-07-14T08:49:50Z",
+      "side": 1,
+      "message": "Thanks, I was not aware that ‘skip_missing’ could be passed with the subelements filter, but I guess it is the same behaviour as ‘with_subelements’.",
+      "parentUuid": "869628b5_401af7e8",
+      "range": {
+        "startLine": 29,
+        "startChar": 2,
+        "endLine": 29,
+        "endChar": 52
+      },
+      "revId": "512888bbb4e4f0fbbd191f10253b05159314ae77",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "65fac898_d535ac7c",
+        "filename": "roles/post_install/openstack_tasks/tasks/networks_and_routers.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2019-07-14T08:49:50Z",
+      "side": 1,
+      "message": "Thanks.",
+      "parentUuid": "66831835_8e4dbb3f",
+      "range": {
+        "startLine": 108,
+        "startChar": 6,
+        "endLine": 108,
+        "endChar": 56
+      },
+      "revId": "512888bbb4e4f0fbbd191f10253b05159314ae77",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "66fb6251_1c8e3ff8",
         "filename": "roles/post_install/openstack_tasks/tasks/networks_and_routers.yml",
         "patchSetId": 4
@@ -91,6 +163,30 @@
       "revId": "512888bbb4e4f0fbbd191f10253b05159314ae77",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cf1f9899_5990a6fa",
+        "filename": "roles/post_install/openstack_tasks/tasks/networks_and_routers.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2019-07-14T08:49:50Z",
+      "side": 1,
+      "message": "Thanks",
+      "parentUuid": "66fb6251_1c8e3ff8",
+      "range": {
+        "startLine": 123,
+        "startChar": 6,
+        "endLine": 123,
+        "endChar": 56
+      },
+      "revId": "512888bbb4e4f0fbbd191f10253b05159314ae77",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "00f4a946_e090ca47",
+        "filename": "roles/post_install/openstack_tasks/tasks/security_groups.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2019-07-14T08:49:50Z",
+      "side": 1,
+      "message": "Thanks.",
+      "parentUuid": "5db912bc_118932ff",
+      "range": {
+        "startLine": 23,
+        "startChar": 2,
+        "endLine": 23,
+        "endChar": 54
+      },
+      "revId": "512888bbb4e4f0fbbd191f10253b05159314ae77",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f1544a5c_5f9bc707",
         "filename": "roles/tester/testpmd_install/tasks/main.yml",
         "patchSetId": 4
@@ -137,6 +257,30 @@
       "revId": "512888bbb4e4f0fbbd191f10253b05159314ae77",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "62419acd_0114dda8",
+        "filename": "roles/tester/testpmd_install/tasks/main.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2019-07-14T08:49:50Z",
+      "side": 1,
+      "message": "You are correct, thanks.",
+      "parentUuid": "f1544a5c_5f9bc707",
+      "range": {
+        "startLine": 31,
+        "startChar": 4,
+        "endLine": 45,
+        "endChar": 45
+      },
+      "revId": "512888bbb4e4f0fbbd191f10253b05159314ae77",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "042dae1d_8f4f7fcc",
+        "filename": "roles/tester/testpmd_run/tasks/main.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2019-07-14T08:49:50Z",
+      "side": 1,
+      "message": "Thanks.",
+      "parentUuid": "f79d1c5f_895d6231",
+      "range": {
+        "startLine": 30,
+        "startChar": 2,
+        "endLine": 36,
+        "endChar": 37
+      },
+      "revId": "512888bbb4e4f0fbbd191f10253b05159314ae77",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "cb171226_7eded0d3",
         "filename": "roles/tuning/tuned_configuration/tasks/main.yml",
         "patchSetId": 4
@@ -183,6 +351,30 @@
       "revId": "512888bbb4e4f0fbbd191f10253b05159314ae77",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "af8a2cb8_b593ce46",
+        "filename": "roles/tuning/tuned_configuration/tasks/main.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2019-07-14T08:49:50Z",
+      "side": 1,
+      "message": "Thanks.",
+      "parentUuid": "cb171226_7eded0d3",
+      "range": {
+        "startLine": 14,
+        "startChar": 2,
+        "endLine": 20,
+        "endChar": 52
+      },
+      "revId": "512888bbb4e4f0fbbd191f10253b05159314ae77",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
