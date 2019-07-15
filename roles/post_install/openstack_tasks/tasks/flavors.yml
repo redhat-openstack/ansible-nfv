@@ -12,7 +12,7 @@
     disk: "{{ item.disk }}"
     vcpus: "{{ item.vcpus }}"
     state: "{{ resource_state }}"
-  with_items: "{{ flavors }}"
+  loop: "{{ flavors }}"
   register: reg_flavors
 
 - name: Set flavor extra specs
@@ -26,8 +26,5 @@
     vcpus: "{{ item.0.vcpus }}"
     extra_specs: "{{ item.1 }}"
     state: present
-  with_subelements:
-    - "{{ flavors }}"
-    - extra_specs
-    - skip_missing: True
+  loop: "{{ flavors | subelements('extra_specs', 'skip_missing=True') }}"
   when: reg_flavors.changed and reg_flavors.results.0.id is defined

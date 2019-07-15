@@ -19,7 +19,7 @@
         external: "{{ item.external | default('false') }}"
         shared: "{{ item.shared | default(omit) }}"
         state: present
-      with_items: "{{ networks }}"
+      loop: "{{ networks }}"
 
     - name: Create subnets
       vars:
@@ -36,7 +36,7 @@
         gateway_ip: "{{ item.gateway_ip | default(omit) }}"
         ip_version: "{{ item.ip_version | default('4') }}"
         state: present
-      with_items: "{{ networks }}"
+      loop: "{{ networks }}"
 
     - name: Create router and set router gateway
       vars:
@@ -50,7 +50,7 @@
         - item.external is defined
         - item.external
         - item.router_name is defined
-      with_items: "{{ networks }}"
+      loop: "{{ networks }}"
 
     # Note - In order to attach multiple interfaces to the router, a list of
     # interfaces should be provided.
@@ -105,10 +105,7 @@
         security_groups: "{{ item.1.sec_groups | default(omit) }}"
         port_security_enabled: "{{ item.1.port_security | default(omit) }}"
         state: present
-      with_subelements:
-        - "{{ instances }}"
-        - net_ports
-        - skip_missing: True
+      loop: "{{ instances | subelements('net_ports', 'skip_missing=True') }}"
       when: net_port
   when: resource_state == 'present'
 
@@ -123,10 +120,7 @@
         network: "{{ item.1.network }}"
         vnic_type: "{{ item.1.type }}"
         state: absent
-      with_subelements:
-        - "{{ instances }}"
-        - net_ports
-        - skip_missing: True
+      loop: "{{ instances | subelements('net_ports', 'skip_missing=True') }}"
       when: net_port
 
     # The os_router module unable to detach the interface from the router
@@ -135,7 +129,7 @@
         openstack --os-cloud "{{ overcloud_name }}" router
         remove subnet "{{ item.router_name }}" "{{ item.name }}_subnet"
       when: "item.external is defined and not item.external"
-      with_items: "{{ networks }}"
+      loop: "{{ networks }}"
       register: detach_interfaces
       failed_when:
         - detach_interfaces.rc == 1
@@ -148,7 +142,7 @@
         cloud: "{{ overcloud_name }}"
         name: "{{ item.router_name }}"
         state: absent
-      with_items: "{{ networks }}"
+      loop: "{{ networks }}"
       when:
         - item.external is defined
         - item.router_name is defined
@@ -160,7 +154,7 @@
         cloud: "{{ overcloud_name }}"
         name: "{{ item.name }}"
         state: absent
-      with_items: "{{ networks }}"
+      loop: "{{ networks }}"
       register: delete_networks
       failed_when:
         - delete_networks.msg is defined

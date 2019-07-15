@@ -7,7 +7,7 @@
     line: 'GRUB_CMDLINE_LINUX="\1 {{ item.context }}"'
     state: present
     backrefs: yes
-  with_items:
+  loop:
     - { regex: 'isolcpus=', context: 'isolcpus={{ cpu_pinning_cores }}' }
     - { regex: 'hugepagesz=', context: 'hugepagesz={{ hugepages_size }} default_hugepagesz={{ hugepages_size }} transparent_hugepage=never hugepages={{ hugepages_count }}' }
   register: grub

@@ -23,7 +23,7 @@
     clone: yes
     update: yes
     force: yes
-  with_items: "{{ tempest_repos }}"
+  loop: "{{ tempest_repos }}"
 
 - name: Set tempest venv path
   set_fact:
@@ -117,7 +117,7 @@
     - name: Populate extra variables array
       set_fact:
         tempest_options: "{{ tempest_options | default([]) }} + ['{{ item.replace('=',' ') }}']"
-      with_items: "{{ tempest_options_parser }}"
+      loop: "{{ tempest_options_parser }}"
   when: tempest_extra_vars is defined
 
 - name: tempest.conf file creation
@@ -195,7 +195,7 @@
   args:
     executable: /bin/bash
     chdir: "{{ tempest_dir }}/{{ tempest_main }}"
-  with_items: "{{ tempest_tests }}"
+  loop: "{{ tempest_tests }}"
 
 - name: Generate results report in a JunitXML format
   tags: run_tempest_test

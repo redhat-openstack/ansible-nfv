@@ -16,7 +16,7 @@
       add_host:
         host: "{{ item }}"
         group: idrac
-      with_items: "{{ idrac_ip }}"
+      loop: "{{ idrac_ip }}"
 
 - name: iDRAC configuration
   hosts: idrac
