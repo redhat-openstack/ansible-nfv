@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dbe6fa45_f6ea4d29",
+        "filename": "roles/post_install/openstack_tasks/tasks/instances.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-07-16T08:12:22Z",
+      "side": 1,
+      "message": "This flow could work.\nAnd I know it solves your current scenario.\n\nBut I just want to warn you that when you would like to add a flow that includes access to the instance, it will require you to add security groups, ssh keypair and such, this flow will not work for you.\n\nSetting +2. Will wait for the other guys to give their opinion.",
+      "range": {
+        "startLine": 8,
+        "startChar": 15,
+        "endLine": 8,
+        "endChar": 34
+      },
+      "revId": "1f20c9a14676a6564f83f3b98462619b34f8eae0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
