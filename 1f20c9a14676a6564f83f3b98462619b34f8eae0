@@ -141,6 +141,30 @@
       "revId": "1f20c9a14676a6564f83f3b98462619b34f8eae0",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85fec5c2_e66b41aa",
+        "filename": "roles/post_install/openstack_tasks/tasks/instances.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-07-18T07:58:06Z",
+      "side": 1,
+      "message": "Vadim, we already support it.\nYou just need to rewrite the \"overcloud_name\" variable.\n\nThe downside of this is that you need to execute the playbook twice.\nFirst time to create users, flavors, images and some of the networks with admin user.\nAnd the second time when you execute it with your created user and create remain networks, keypair, secgroups and boot instances.",
+      "parentUuid": "fe10940f_2eb9716a",
+      "range": {
+        "startLine": 8,
+        "startChar": 15,
+        "endLine": 8,
+        "endChar": 34
+      },
+      "revId": "1f20c9a14676a6564f83f3b98462619b34f8eae0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
