@@ -22,6 +22,53 @@
       "revId": "1f20c9a14676a6564f83f3b98462619b34f8eae0",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c737b4ce_4716e798",
+        "filename": "roles/post_install/openstack_tasks/tasks/instances.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2019-07-18T06:54:36Z",
+      "side": 1,
+      "message": "This is nitpicking, but when I first saw it I was thinking you were referring to deploy resources on a completely different stack instead of cloud.\n\nPerhaps it’s worth to change the var name to something that represents the action more, like ‘cloud_name’?",
+      "range": {
+        "startLine": 8,
+        "startChar": 20,
+        "endLine": 8,
+        "endChar": 34
+      },
+      "revId": "1f20c9a14676a6564f83f3b98462619b34f8eae0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8a943359_28708376",
+        "filename": "roles/post_install/openstack_tasks/tasks/instances.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2019-07-18T06:54:36Z",
+      "side": 1,
+      "message": "Maxim raised a good point,\nYou may want to consider to adding the same logic to the files: \nroles/post_install/openstack_tasks/tasks/aggregate.yml\nroles/post_install/openstack_tasks/tasks/keypair.yml\nroles/post_install/openstack_tasks/tasks/quota.yml\nroles/post_install/openstack_tasks/tasks/users.yml\nroles/post_install/openstack_tasks/tasks/flavors.yml\nroles/post_install/openstack_tasks/tasks/images.yml\nroles/post_install/openstack_tasks/tasks/networks_and_routers.yml\nroles/post_install/openstack_tasks/tasks/security_groups.yml",
+      "parentUuid": "dbe6fa45_f6ea4d29",
+      "range": {
+        "startLine": 8,
+        "startChar": 15,
+        "endLine": 8,
+        "endChar": 34
+      },
+      "revId": "1f20c9a14676a6564f83f3b98462619b34f8eae0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
