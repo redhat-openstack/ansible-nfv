@@ -117,6 +117,30 @@
       "revId": "1f20c9a14676a6564f83f3b98462619b34f8eae0",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe10940f_2eb9716a",
+        "filename": "roles/post_install/openstack_tasks/tasks/instances.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2019-07-18T07:54:26Z",
+      "side": 1,
+      "message": "If we create instances in a different cloud/project/tenant, we will most likely need additional configuration applied there.\n\nWhy not have an option to support this?\n\nPerhaps in the future we would like to create resources not as an admin and do it as a user like tempest. We would leverage neutron policies which currently are an important part of our deployments.",
+      "parentUuid": "c6142221_d2bdd1fb",
+      "range": {
+        "startLine": 8,
+        "startChar": 15,
+        "endLine": 8,
+        "endChar": 34
+      },
+      "revId": "1f20c9a14676a6564f83f3b98462619b34f8eae0",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
