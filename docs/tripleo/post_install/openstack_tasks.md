@@ -87,6 +87,11 @@ resource_state: present
 overcloud_name: overcloud
 ```
 
+#### The path to the clouds.yaml file.
+```
+clouds_yaml_file_path: ~/.config/openstack/clouds.yaml
+```
+
 #### List of users and projects that should be created
 #### Quotas could be defined for a user if needed.
 ```
