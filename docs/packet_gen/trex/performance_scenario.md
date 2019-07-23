@@ -362,6 +362,37 @@ Minimum rate for of packets to generate, sized in mpps(milion packets per second
 trex_rate: 2
 ```
 
+### Tuning
+
+#### Default emulatorpin
+Provides the ability to change the target hosts that the playbook should run on. This variable is required.  
+```
+dut_compute: compute-1
+```
+
+Sets the range of shared cpus that should be set to the emulatorpin.
+```
+cpu_list: '0,20,1,21'
+```
+
+
+#### EMC insertion probability
+Provides the ability to change the target hosts that the playbook should run on. This variable is required.  
+```
+dut_compute: compute-1
+```
+
+Provides the ability to change the Exact Match Cache (EMC) insertion in Open vSwitch
+
+`1` emc insertion enabled by default
+```
+emc_insert_inv_prob: 1
+```
+`0` emc insertion disabled
+```
+emc_insert_inv_prob: 0
+```
+
 ## Example
 Examples of running this playbook:
 
@@ -600,6 +631,15 @@ instances:
         network: testpmd_net_nic1_800
         port_security: false
         type: normal
+
+# DUT compute
+dut_compute: compute-1
+
+# Default emulatorpin parameters
+cpu_list: '0,20,1,21'
+
+# EMC insertion probability
+emc_insert_inv_prob: 0
 ```
 
 Generate Trex instance and configure it using information gathered from instance at run time(assuming the instance is confgured as mentioned [above](#automatic-discovery)):

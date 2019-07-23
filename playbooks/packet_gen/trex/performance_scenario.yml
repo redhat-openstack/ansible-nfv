@@ -45,6 +45,11 @@
           loop: "{{ dynamic_instances }}"
       when: cloud_resources == 'external'
 
+- hosts: "{{ dut_compute }}"
+  become: true
+  roles:
+    - role: roles/packet_gen/trex/compute_tuning
+
 # TODO (vkhitrin): Make it skippable
 - hosts: "{{ dut_group }}"
   roles:

@@ -1,0 +1,11 @@
+- name: Check OSP version
+  include_role:
+    name: discover_osp_version
+
+- name: Apply default emulatorpin solution for the RHOS10 release
+  import_tasks: cpu_emulatorpin.yml
+  when: overcloud_version == "10"
+
+- name: Apply EMC insertion probability
+  import_tasks: emc_definition.yml
+  when: emc_insert_inv_prob is defined
