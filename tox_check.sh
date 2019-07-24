@@ -27,6 +27,8 @@ print_failed() {
 
 for tEnv in ${RUN_ENVS}; do run_tox ${tEnv}; done
 wait
+# Delete the .tox/ directory with the venv libs
+rm -rf .tox/
 set +x
 for tEnv in ${RUN_ENVS}; do verify_tox ${tEnv} || exit 1; done
 if [[ ! -z "$FAILED" ]]; then
