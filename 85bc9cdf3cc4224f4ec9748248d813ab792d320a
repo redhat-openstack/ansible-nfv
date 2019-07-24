@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5e7a89fc_75725a4a",
+        "filename": "roles/packet_gen/trex/compute_tuning/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-07-24T05:56:16Z",
+      "side": 1,
+      "message": "You should compare to the integer (number) and not a string.\nIt should be like:\n\nwhen: overcloud_version | int \u003d\u003d 10",
+      "range": {
+        "startLine": 7,
+        "startChar": 8,
+        "endLine": 7,
+        "endChar": 33
+      },
+      "revId": "85bc9cdf3cc4224f4ec9748248d813ab792d320a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
