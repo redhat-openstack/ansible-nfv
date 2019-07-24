@@ -1,8 +1,5 @@
-six
-selinux==0.1.6
-future
 ansible>=2.7.5,<2.8.0
-requests!=2.12.2,!=2.13.0,>=2.10.0
 Jinja2>=2.8.0 # avoid exception due to use of 'equalto', like openstack_servers
+selinux==0.1.6
 ncclient>=0.5.3
 omsdk
