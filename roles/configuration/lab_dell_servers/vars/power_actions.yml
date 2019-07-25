@@ -1,7 +1,0 @@
-power_actions:
-  - 'On'
-  - 'ForceOff'
-  - 'GracefulRestart'
-  - 'GracefulShutdown'
-  - 'PushPowerButton'
-  - 'Nmi'

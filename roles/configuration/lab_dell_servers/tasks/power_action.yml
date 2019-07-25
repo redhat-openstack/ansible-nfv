@@ -1,7 +1,0 @@
-- name: Performing Power Action "{{ power_action }}"
-  dellemc_change_power_state:
-    idrac_ip: "{{ inventory_hostname }}"
-    idrac_port: "{{ idrac_port }}"
-    idrac_user: "{{ idrac_user }}"
-    idrac_pwd: "{{ idrac_pass }}"
-    change_power: "{{ power_action }}"
