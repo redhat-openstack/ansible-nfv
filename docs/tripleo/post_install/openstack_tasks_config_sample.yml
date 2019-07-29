@@ -137,7 +137,9 @@ security_groups:
 
 instances:
   - name: vm1
-    groups: vm_groups
+    groups:
+      - vm_groups
+      - group1
     flavor: m1.medium.huge_pages
     image: centos7
     key_name: "{{ keypair_name }}"
@@ -158,7 +160,9 @@ instances:
         type: direct
         port_security: false
   - name: vm2
-    groups: vm_groups
+    groups:
+      - vm_groups
+      - group2
     flavor: m1.medium.huge_pages
     image: centos7
     key_name: "{{ keypair_name }}"
@@ -177,7 +181,8 @@ instances:
         type: direct
         port_security: false
   - name: vm3
-    groups: vm_groups
+    groups:
+      - vm_groups
     flavor: m1.medium.huge_pages
     image: centos7
     key_name: "{{ keypair_name }}"
