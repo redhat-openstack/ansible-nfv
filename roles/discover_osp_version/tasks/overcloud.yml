@@ -11,5 +11,5 @@
 
 - name: Set the Overcloud version from /etc/rhosp-release output
   set_fact:
-    overcloud_version: "{{ rhosp_release_content.content | b64decode | regex_replace('^Red Hat OpenStack Platform release ([0-9]+)\\.\\d+.*', '\\1') | int }}"
+    overcloud_version: "{{ rhosp_release_content.content | b64decode | regex_replace(' ([0-9].{1})', '\\1') | int }}"
   when: rhosp_release_file.stat.exists
