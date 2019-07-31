@@ -202,8 +202,8 @@
   shell: |
     source {{ tempest_dir }}/venv/bin/activate
     {% if overcloud_version | int >= 15 %}
-    subunit2junitxml < .stestr/tempest_results.subunit  \
-    >> {{ tempest_dir }}/tempest.xml
+    subunit2junitxml < .stestr/tempest_results.subunit \
+    >> {{ tempest_dir }}/tempest.xml | subunit2pyunit
     {% else %}
     subunit2junitxml --output-to={{ tempest_dir }}/tempest.xml \
     < .stestr/tempest_results.subunit | subunit2pyunit
