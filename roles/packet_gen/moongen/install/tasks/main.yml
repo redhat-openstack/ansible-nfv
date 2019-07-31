@@ -12,7 +12,7 @@
     line: 'GRUB_CMDLINE_LINUX="\1 {{ item.context }}"'
     state: present
     backrefs: yes
-  with_items:
+  loop:
     - { regex: 'intel_iommu=on', context: 'intel_iommu=on' }
     - { regex: 'hugepagesz=', context: 'hugepagesz={{ hugepages_size }} default_hugepagesz={{ hugepages_size }} hugepages={{ hugepages_count }}' }
     - { regex: 'isolcpus=', context: 'isolcpus={{ vcpu_pin }} rcu_nocbs={{ vcpu_pin }} nohz_full={{ vcpu_pin }}' }
@@ -25,20 +25,19 @@
 
 - name: Install packages and dependency
   yum:
-    name: "{{ item.name }}"
+    name:
+      - 'gcc'
+      - 'make'
+      - 'cmake'
+      - 'kernel-headers'
+      - 'gcc-c++'
+      - 'kernel-headers.x86_64'
+      - 'kernel-devel'
+      - 'glibc-headers'
+      - 'glibc-devel'
+      - 'git'
+      - 'driverctl'
     state: 'installed'
-  with_items:
-    - { name: 'gcc' }
-    - { name: 'make' }
-    - { name: 'cmake' }
-    - { name: 'kernel-headers' }
-    - { name: 'gcc-c++' }
-    - { name: 'kernel-headers.x86_64' }
-    - { name: 'kernel-devel' }
-    - { name: 'glibc-headers' }
-    - { name: 'glibc-devel' }
-    - { name: 'git' }
-    - { name: 'driverctl' }
 
 - name: Load vfio_pci module to the kernel
   modprobe:
@@ -93,7 +92,7 @@
   file:
     path: "{{ item.dir }}"
     mode: 0755
-  with_items:
+  loop:
     - { dir: '/mnt/MoonGen/build.sh' }
     - { dir: '/mnt/MoonGen/setup-hugetlbfs.sh' }
 
@@ -141,6 +140,6 @@
   copy:
     src: "{{ item.source }}"
     dest: "{{ item.destination }}"
-  with_items:
+  loop:
     - { source: 'opnfv-vsperf-cfg.lua', destination: '/mnt/MoonGen/' }
     - { source: 'opnfv-vsperf.lua', destination: '/mnt/MoonGen/examples/' }

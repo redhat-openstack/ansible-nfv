@@ -8,16 +8,15 @@
     enabled: yes
     gpgcheck: no
     state: present
-  with_items: "{{ repos }}"
+  loop: "{{ repos }}"
 
 - name: Install the latest version of Tuna, Tuned and Cpu-partitioning profile
   yum:
-    name: "{{ item.package }}"
+    name:
+      - "tuned"
+      - "tuna"
+      - "tuned-profiles-cpu-partitioning"
     state: latest
-  with_items:
-    - { package: "tuned" }
-    - { package: "tuna" }
-    - { package: "tuned-profiles-cpu-partitioning" }
 
 - name: Set the cores to isolate
   lineinfile:

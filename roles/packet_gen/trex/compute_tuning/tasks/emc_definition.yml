@@ -1,0 +1,8 @@
+- name: Set EMC insertion probability
+  openvswitch_db:
+    state: present
+    table: open_vswitch
+    record: .
+    col: other_config
+    key: emc-insert-inv-prob
+    value: "{{ emc_insert_inv_prob }}"

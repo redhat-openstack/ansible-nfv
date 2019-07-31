@@ -14,7 +14,7 @@
   file:
     path: "{{ item }}"
     state: absent
-  with_items:
+  loop:
     - "{{ lookup('env', 'PWD') }}/inventory"
     - "{{ lookup('env', 'PWD') }}/ansible.ssh.config"
 
@@ -73,7 +73,7 @@
         ansible_ssh_pass: ""
         ansible_host: "{{ item.accessIPv4 }}"
         ansible_ssh_private_key_file: "{{ overcloud_private_key }}"
-      with_items: "{{ openstack_servers }}"
+      loop: "{{ openstack_servers }}"
 
     - name: Enable SSH forwarding using Undercloud node for baremetal Overcloud nodes
       vars:
@@ -83,7 +83,7 @@
         ansible_ssh_common_args: "-o ProxyCommand=\"ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
                                   -W %h:%p -i {{ hostvars[groups['undercloud'][0]].ansible_ssh_private_key_file }} \
                                   {{ hostvars[groups['undercloud'][0]].ansible_user }}@{{ hostvars[groups['undercloud'][0]].ansible_host }}\""
-      with_items: "{{ openstack_servers }}"
+      loop: "{{ openstack_servers }}"
       when: setup_type == 'baremetal'
 
     - name: Enable SSH forwarding using Undercloud node for virt Overcloud nodes
@@ -94,7 +94,7 @@
         ansible_ssh_common_args: "-o ProxyCommand=\"ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
                                   -F {{ environment_dir }}/ansible.ssh.config.{{ host }} \
                                   {{ undercloud_vm }} -W {{ item.addresses.ctlplane.0.addr }}:22\""
-      with_items: "{{ openstack_servers }}"
+      loop: "{{ openstack_servers }}"
       when: setup_type == 'virt'
   when: not undercloud_only|bool
 

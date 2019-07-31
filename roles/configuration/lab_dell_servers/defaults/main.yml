@@ -1,5 +1,0 @@
-idrac_port: 443
-verify_dependencies: true
-query_server: false
-power_action: false
-set_boot_order: false
