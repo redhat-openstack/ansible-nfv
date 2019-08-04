@@ -247,7 +247,9 @@ Specify the instance and arguments that the instance should be created with.
 ```
 instances:
   - name: vm1
-    groups: vm_group     # The variable could be omitted
+    groups:        # Instance could be attached to multiple groups. The groups will be created as inventory groups.
+      - vm_group1
+      - vm_group2
     flavor: nfv_flavor
     image: centos
     key_name: "{{ keypair_name }}"
