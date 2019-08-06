@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "5410e3ca_c37a5471",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2019-08-06T13:50:42Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "75c16d2e_74ef7aa2",
+      "range": {
+        "startLine": 205,
+        "startChar": 4,
+        "endLine": 205,
+        "endChar": 9
+      },
+      "revId": "42c72c0b0d877aec1070dcfaf68c850f0a411e00",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "70bf881b_4f134008",
         "filename": "roles/tester/tempest/tasks/main.yml",
         "patchSetId": 4
