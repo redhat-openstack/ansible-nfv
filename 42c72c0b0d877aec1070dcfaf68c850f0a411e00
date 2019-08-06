@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3d7212f1_cebcee34",
+        "filename": "roles/discover_osp_version/tasks/overcloud.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-08-06T13:31:17Z",
+      "side": 1,
+      "message": "We do not need this change since as we see, the regex works properly.",
+      "range": {
+        "startLine": 14,
+        "startChar": 4,
+        "endLine": 14,
+        "endChar": 23
+      },
+      "revId": "42c72c0b0d877aec1070dcfaf68c850f0a411e00",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "75c16d2e_74ef7aa2",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-08-06T13:31:17Z",
+      "side": 1,
+      "message": "The job [1] failed on this task because it was missing the \"subunit2pyunit\" convention.\nAs a result, the exit code was 1. Once you are converting the output, everything works as expected.\n\nThe command should look like the following:\n\nsubunit2junitxml \u003c .stestr/tempest_results.subunit \\\n\u003e\u003e {{ tempest_dir }}/tempest.xml | subunit2pyunit\n\n\n[1] - https://rhos-qe-jenkins.rhev-ci-vms.eng.rdu2.redhat.com/view/DFG/view/nfv/view/nfv/job/DFG-nfv-15-director-3cont-2comp-ipv4-vxlan-dpdk-sriov-ctlplane-dataplane-bonding-hybrid/lastBuild/console",
+      "range": {
+        "startLine": 205,
+        "startChar": 4,
+        "endLine": 205,
+        "endChar": 9
+      },
+      "revId": "42c72c0b0d877aec1070dcfaf68c850f0a411e00",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "70bf881b_4f134008",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-08-06T13:31:17Z",
+      "side": 1,
+      "message": "This is not required due to the above.",
+      "range": {
+        "startLine": 213,
+        "startChar": 1,
+        "endLine": 221,
+        "endChar": 22
+      },
+      "revId": "42c72c0b0d877aec1070dcfaf68c850f0a411e00",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
