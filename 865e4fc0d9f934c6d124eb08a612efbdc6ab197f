@@ -70,6 +70,30 @@
       "revId": "865e4fc0d9f934c6d124eb08a612efbdc6ab197f",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "081e84b2_e5f1e489",
+        "filename": "roles/discover_osp_version/tasks/overcloud.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2019-08-07T15:58:47Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "525c434a_8ff1e7ab",
+      "range": {
+        "startLine": 14,
+        "startChar": 127,
+        "endLine": 14,
+        "endChar": 132
+      },
+      "revId": "865e4fc0d9f934c6d124eb08a612efbdc6ab197f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
