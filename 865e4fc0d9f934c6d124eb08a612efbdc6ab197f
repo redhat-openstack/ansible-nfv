@@ -22,6 +22,30 @@
       "revId": "865e4fc0d9f934c6d124eb08a612efbdc6ab197f",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a070921_d6a5e565",
+        "filename": "roles/discover_osp_version/tasks/overcloud.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2019-08-07T11:19:14Z",
+      "side": 1,
+      "message": "Because this is the rule you just need 2 Digits number to catch\nless complicated to debug.\nYou are searching [0-9] 2 repetitions exactly",
+      "parentUuid": "8277cbac_c3b63c04",
+      "range": {
+        "startLine": 14,
+        "startChar": 127,
+        "endLine": 14,
+        "endChar": 132
+      },
+      "revId": "865e4fc0d9f934c6d124eb08a612efbdc6ab197f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
