@@ -149,7 +149,9 @@ instances:
       int_net: dpdk-mgmt
     # The nics attached to the instance could be a created ports specified below,
     # or just a network name. Note the port-name and net-name.
-    nics: port-name=dpdk-mgmt_port1,port-name=sriov-1_port1
+    nics:
+      - port-name=dpdk-mgmt_port1
+      - port-name=sriov-1_port1
     net_ports:
       - name: dpdk-mgmt_port1
         network: dpdk-mgmt
@@ -170,7 +172,9 @@ instances:
     floating_ip:
       ext_net: access
       int_net: dpdk-mgmt
-    nics: port-name=dpdk-mgmt_port2,port-name=sriov-2_port1
+    nics:
+      - port-name=dpdk-mgmt_port2
+      - port-name=sriov-2_port1
     net_ports:
       - name: dpdk-mgmt_port2
         network: dpdk-mgmt
@@ -190,7 +194,9 @@ instances:
     floating_ip:
       ext_net: access
       int_net: dpdk_mgmt
-    nics: net-name=dpdk-mgmt,port-name=sriov-1_port2
+    nics:
+      - net-name=dpdk-mgmt
+      - port-name=sriov-1_port2
     net_ports:
       - name: sriov-1_port2
         network: sriov-1

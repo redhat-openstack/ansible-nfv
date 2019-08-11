@@ -11,7 +11,7 @@
     flavor: "{{ item.flavor | default(flavors[0].name) }}"
     key_name: "{{ item.key_name | default(omit) }}"
     security_groups: "{{ item.sec_groups | default(omit) }}"
-    userdata: "{{ userdata | default(omit) }}"
+    userdata: "{% if item.userdata is defined %}{{ item.userdata }}{% else %}{{ global_userdata | default(omit) }}{% endif %}"
     config_drive: "{{ item.config_drive | default(True) }}"
     nics: "{{ item.nics }}"
     auto_ip: 'no'
