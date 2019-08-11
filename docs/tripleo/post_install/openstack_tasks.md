@@ -260,8 +260,17 @@ instances:
       ext_net: public
       int_net: private_net3
     # NICs to be attached to instance, must be present or created by `net_ports`
-    nics: port-name=private_net1_port1,port-name=private_net2_port2,net-name=private_net3
-    config_drive: True # Optional, Specify if nova should attach metadata content via CD-ROM to instance
+    nics:
+      - port-name=private_net1_port1
+      - port-name=private_net2_port2
+      - net-name=private_net3
+    # Pass userdata to the instance
+    userdata: |
+      #cloud-config
+      user: root
+      password: 123456
+    # Optional, Specify if nova should attach metadata content via CD-ROM to instance
+    config_drive: True
     # Ports to be created, which can be attached to instance using `nics`
     net_ports:
       - name: private_net1_port1
@@ -282,7 +291,9 @@ instances:
     floating_ip:
       ext_net: public
       int_net: private_net3
-    nics: net-name=private_net3,port-name=private_net1_port3
+    nics:
+      - net-name=private_net3
+      - port-name=private_net1_port3
     net_ports:
       - name: private_net1_port3
         network: private_net1

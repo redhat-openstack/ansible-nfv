@@ -108,7 +108,8 @@ instances:
     floating_ip:
       ext_net: public
       int_net: private1
-    nics: port-name=private_net1_port1
+    nics:
+      - port-name=private_net1_port1
     net_ports:
       - name: private_net1_port1
         network: private_net1
