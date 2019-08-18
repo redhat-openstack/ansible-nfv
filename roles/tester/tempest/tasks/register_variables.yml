@@ -1,9 +1,16 @@
 ---
 
+- name: Check for non empty v3 overcloudrc file
+  lineinfile:
+    path: "{{ rc_file }}.v3"
+    line: "null"
+  register: overcloud_v3_empty
+
 - name: Check for the v3 overcloudrc file
   stat:
     path: "{{ rc_file }}.v3"
   register: rc_file_path
+  when: not overcloud_v3_empty
 
 - name: Set rc files vars
   set_fact:
