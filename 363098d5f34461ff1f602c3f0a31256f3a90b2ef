@@ -46,6 +46,30 @@
       "revId": "363098d5f34461ff1f602c3f0a31256f3a90b2ef",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3815882a_0d2459b0",
+        "filename": "roles/tester/tempest/tasks/register_variables.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-08-18T09:13:39Z",
+      "side": 1,
+      "message": "How TripleO relates here?\nWe are talking about the existence check of the v3 file.\n\nIf the v3 file exists, it will be used, otherwise it will use the rc standard file.",
+      "parentUuid": "100de188_131c1ef5",
+      "range": {
+        "startLine": 3,
+        "startChar": 2,
+        "endLine": 3,
+        "endChar": 13
+      },
+      "revId": "363098d5f34461ff1f602c3f0a31256f3a90b2ef",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
