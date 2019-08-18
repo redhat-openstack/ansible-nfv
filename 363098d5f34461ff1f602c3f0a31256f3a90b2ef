@@ -118,6 +118,30 @@
       "revId": "363098d5f34461ff1f602c3f0a31256f3a90b2ef",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b071851c_cebadc4e",
+        "filename": "roles/tester/tempest/tasks/register_variables.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2019-08-18T12:27:22Z",
+      "side": 1,
+      "message": "It is created like that\nIt is checking if the content of the file is null\nIf it is it ignores the overcloudrc.v3\nThe default of the module is checking existence of string in the file\nMaybe we should open a BZ for tripleo\nCurrent status in 15 it is created with null, in 14 and 13 it has content.\nThis is failing tempest playbook,\nIt is stared with latest pass_phase2",
+      "parentUuid": "288b414b_bb136d17",
+      "range": {
+        "startLine": 3,
+        "startChar": 2,
+        "endLine": 3,
+        "endChar": 13
+      },
+      "revId": "363098d5f34461ff1f602c3f0a31256f3a90b2ef",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
