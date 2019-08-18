@@ -70,6 +70,30 @@
       "revId": "363098d5f34461ff1f602c3f0a31256f3a90b2ef",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2ada4876_0e44afbe",
+        "filename": "roles/tester/tempest/tasks/register_variables.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2019-08-18T10:41:25Z",
+      "side": 1,
+      "message": "It is created with String null in it.\nSee the following\n[stack@undercloud-0 ~]$ cat overcloudrc.v3 \nnull",
+      "parentUuid": "3815882a_0d2459b0",
+      "range": {
+        "startLine": 3,
+        "startChar": 2,
+        "endLine": 3,
+        "endChar": 13
+      },
+      "revId": "363098d5f34461ff1f602c3f0a31256f3a90b2ef",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
