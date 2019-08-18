@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "15f2323d_9b9674ef",
+        "filename": "roles/tester/tempest/tasks/register_variables.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-08-18T08:06:52Z",
+      "side": 1,
+      "message": "I can\u0027t understand what is the logic of this task.\nNext task checks the existence of the v3 file.\nAnd this task will fail as it will not find the requested file.\n\nI\u0027m looking on the last ci \"15\" job, if this is the job you pointed on, and the reason for the failure is that the overcloudrc.v3 file exists but empty, which should not happen.\n\nIn any case, the \"10\" job is working properly and it is missing the v3 file as well.",
+      "range": {
+        "startLine": 3,
+        "startChar": 2,
+        "endLine": 3,
+        "endChar": 13
+      },
+      "revId": "363098d5f34461ff1f602c3f0a31256f3a90b2ef",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
