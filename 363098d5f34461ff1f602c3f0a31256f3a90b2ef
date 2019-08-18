@@ -22,6 +22,30 @@
       "revId": "363098d5f34461ff1f602c3f0a31256f3a90b2ef",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "100de188_131c1ef5",
+        "filename": "roles/tester/tempest/tasks/register_variables.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2019-08-18T08:45:57Z",
+      "side": 1,
+      "message": "Correct, but 13 is checking for overcloudrc.v3\nAnd the content is valid and not \"null\"\n\nIt is output if the following commands in TripleO\nopenstack action execution run   --save-result   --run-sync   tripleo.deployment.overcloudrc   \u0027{\"container\":\"overcloud\"}\u0027   | jq -r \u0027.[\"result\"][\"overcloudrc\"]\u0027 \u003e overcloudrc\nor \nopenstack action execution run   --save-result   --run-sync   tripleo.deployment.overcloudrc   \u0027{\"container\":\"overcloud\"}\u0027   | jq -r \u0027.[\"result\"][\"overcloudrc.v3\"]\u0027 \u003e overcloudrc.v3",
+      "parentUuid": "15f2323d_9b9674ef",
+      "range": {
+        "startLine": 3,
+        "startChar": 2,
+        "endLine": 3,
+        "endChar": 13
+      },
+      "revId": "363098d5f34461ff1f602c3f0a31256f3a90b2ef",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
