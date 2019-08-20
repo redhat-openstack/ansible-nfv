@@ -31,20 +31,44 @@
     reuse: 'yes'
     wait: 'yes'
   loop: "{{ instances | flatten(levels=1) }}"
+  when:
+    - item.floating_ip is defined
+    - resource_state == 'present'
+
+# The following workaround created because the os_floating_ip module is
+# incosistent when an instance contains multiple NICs.
+# As a result, the floating ip can't be fetched.
+# TODO(maximb): Fix the behavior of the multiple floating ips fetch.
+- name: Locate floating ip of the instance
+  shell: >
+    openstack --os-cloud "{{ overcloud_name }}" server
+    show "{{ item.name }}" -c addresses -f value
+  loop: "{{ instances | flatten(levels=1) }}"
   register: reg_floating_ip
   when:
     - item.floating_ip is defined
     - resource_state == 'present'
 
+- name: Parse floating ip output
+  set_fact:
+    floating_ip_var: "{{ floating_ip_var | default([]) }}
+      + [ '{{ item.stdout
+      | regex_search('\\s\\b(?:[0-9]{1,3}\\.){3}[0-9]{1,3}\\b')
+      | replace(' ', '') }}' ]"
+  loop: "{{ reg_floating_ip.results }}"
+  when:
+    - resource_state == 'present'
+    - reg_floating_ip.changed
+
 - name: Add instances to dynamic inventory
   add_host:
-    name: "{{ item.0.item.name }}"
+    name: "{{ item.1.name }}"
     group: "{{ item.1.groups | default(omit) }}"
-    ansible_host: "{% if item.1.floating_ip is defined %}{{ item.0.floating_ip.floating_ip_address }}{% else%}{{ item.0.openstack.private_v4 }}{% endif %}"
+    ansible_host: "{% if item.1.floating_ip is defined %}{{ item.0 }}{% else%}{{ item.0.openstack.private_v4 }}{% endif %}"
     ansible_user: "{{ item.1.connection_user | default(connection_user) }}"
     ansible_ssh_port: 22
     ansible_ssh_private_key_file: "/tmp/{{ keypair_name }}.key"
-  loop: "{% if reg_floating_ip.changed %}{{ reg_floating_ip.results | zip(instances) | list }}{% else %}{{ reg_instance.results | zip(instances) | list }}{% endif %}"
+  loop: "{% if reg_floating_ip.changed %}{{ floating_ip_var | zip(instances) | list }}{% else %}{{ reg_instance.results | zip(instances) | list }}{% endif %}"
   when:
     - resource_state == 'present'
     - resource_generate_inventory
