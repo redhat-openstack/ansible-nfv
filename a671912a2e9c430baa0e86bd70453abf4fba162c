@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "03a3e330_41a3e25d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2019-09-03T14:06:31Z",
+      "side": 1,
+      "message": "Can you explain the default route?\nIf tag exist this is the default route? \nIf we would like to use tags for other usage also? like network id to mac? will it work?",
+      "range": {
+        "startLine": 22,
+        "startChar": 3,
+        "endLine": 25,
+        "endChar": 0
+      },
+      "revId": "a671912a2e9c430baa0e86bd70453abf4fba162c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9b3b51c0_65736970",
+        "filename": "roles/post_install/openstack_tasks/files/custom_net_config.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2019-09-03T14:06:31Z",
+      "side": 1,
+      "message": "I would advise use the following json format\n  \u0027{\"os-net-config\": {\"mapping\": \"nicX\"}}\u0027 \nPlease refer the following doc, https://docs.google.com/document/d/1D0suffdLbIYBubzqez1Rbto16w6fNyNVET2sTjFwVqQ/edit#bookmark\u003did.dx4zlmwxgquu\n\nOnce we will go on that approach also, we will use the same API for ports,\nInstead of external.\nWe can agree nic1 is default route\n\nI would advise to hear @vkhitrin opinion here,",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 19
+      },
+      "revId": "a671912a2e9c430baa0e86bd70453abf4fba162c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3e4e2bcd_a3b5d97d",
+        "filename": "roles/post_install/openstack_tasks/files/custom_net_config.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2019-09-03T14:06:31Z",
+      "side": 1,
+      "message": "reading this:\nhttps://docs.python.org/2/library/subprocess.html\nfor shell commands, it recommends to use it a bit different:\nsubprocess.check_call(del_route_cmd)\nand than checkoutput\nsubprocess.check_output(\"exit 1\", shell\u003dTrue) \nPlease refer how it is advised to catch ERRORS",
+      "range": {
+        "startLine": 227,
+        "startChar": 8,
+        "endLine": 228,
+        "endChar": 62
+      },
+      "revId": "a671912a2e9c430baa0e86bd70453abf4fba162c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17e22355_7866a144",
+        "filename": "roles/post_install/openstack_tasks/files/custom_net_config.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2019-09-03T14:06:31Z",
+      "side": 1,
+      "message": "Please refer my comment to comment file,\nIf additional tags exist who is the default route?\n\nConsider having another parameter in main, searching for tag[\u0027default-route\u0027]\nThis way only if default route marked, in tag this port will be default route.",
+      "range": {
+        "startLine": 252,
+        "startChar": 4,
+        "endLine": 252,
+        "endChar": 19
+      },
+      "revId": "a671912a2e9c430baa0e86bd70453abf4fba162c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
