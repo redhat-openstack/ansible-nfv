@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "2f1eb7e7_92acbc77",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-09-03T21:16:07Z",
+      "side": 1,
+      "message": "During the boot, the mgmt network could be set in any network   interface order - eth0, eth1, etc...\nIf the mgmt network gets configuration other than eth0, the default    gateway should be updated in order to provide access to the instance.\nFor such reason, a \"tag\" mapped to the port could be used.\nThe script updates the default route for the proper interface with the minimum metric value based on the provided \"tag\" by the user. The \"tag\" should be tied to the port that the default route should be set with.\n\nSo the tag is mapped to the port that should be set as the primary default gateway.\nWe already using such behavior in nfv-tempest-plugin.\n\nIf additional tags will be provided, it will work properly and will not interrupt the script.",
+      "parentUuid": "03a3e330_41a3e25d",
+      "range": {
+        "startLine": 22,
+        "startChar": 3,
+        "endLine": 25,
+        "endChar": 0
+      },
+      "revId": "a671912a2e9c430baa0e86bd70453abf4fba162c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9b3b51c0_65736970",
         "filename": "roles/post_install/openstack_tasks/files/custom_net_config.py",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2019-09-03T14:06:31Z",
       "side": 1,
       "message": "I would advise use the following json format\n  \u0027{\"os-net-config\": {\"mapping\": \"nicX\"}}\u0027 \nPlease refer the following doc, https://docs.google.com/document/d/1D0suffdLbIYBubzqez1Rbto16w6fNyNVET2sTjFwVqQ/edit#bookmark\u003did.dx4zlmwxgquu\n\nOnce we will go on that approach also, we will use the same API for ports,\nInstead of external.\nWe can agree nic1 is default route\n\nI would advise to hear @vkhitrin opinion here,",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 19
+      },
+      "revId": "a671912a2e9c430baa0e86bd70453abf4fba162c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec83099a_2522e9b4",
+        "filename": "roles/post_install/openstack_tasks/files/custom_net_config.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-09-03T21:16:07Z",
+      "side": 1,
+      "message": "The os-net-config solution will not be needed, as this script covers all the network configuration aspect of the multiple interfaces instance.\n\nBecause the order of the nics is not consistent, for one instance the default gateway will reside on eth0 and for other on eth1. In addition, it could be changed after reboot.",
+      "parentUuid": "9b3b51c0_65736970",
       "range": {
         "startLine": 58,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "029bc60d_32aa4834",
+        "filename": "roles/post_install/openstack_tasks/files/custom_net_config.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-09-03T21:16:07Z",
+      "side": 1,
+      "message": "Changed it to subprocess.check_output.\nCreated a separate function that serves shell commands.",
+      "parentUuid": "3e4e2bcd_a3b5d97d",
+      "range": {
+        "startLine": 227,
+        "startChar": 8,
+        "endLine": 228,
+        "endChar": 62
+      },
+      "revId": "a671912a2e9c430baa0e86bd70453abf4fba162c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "17e22355_7866a144",
         "filename": "roles/post_install/openstack_tasks/files/custom_net_config.py",
         "patchSetId": 2
@@ -82,6 +154,30 @@
       "writtenOn": "2019-09-03T14:06:31Z",
       "side": 1,
       "message": "Please refer my comment to comment file,\nIf additional tags exist who is the default route?\n\nConsider having another parameter in main, searching for tag[\u0027default-route\u0027]\nThis way only if default route marked, in tag this port will be default route.",
+      "range": {
+        "startLine": 252,
+        "startChar": 4,
+        "endLine": 252,
+        "endChar": 19
+      },
+      "revId": "a671912a2e9c430baa0e86bd70453abf4fba162c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3b9ebfb_4b980312",
+        "filename": "roles/post_install/openstack_tasks/files/custom_net_config.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-09-03T21:16:07Z",
+      "side": 1,
+      "message": "The script search for the tags in the metadata and compares it to the tag used by the script. By the default it is \"external\" (Similar to what we are using in nfv-tempest-plugin).\n\nOnce there is a match between the tag within the metadata (that is attached to specific port) and the tag used by the script, it uses this port (it\u0027s mac) to configure the proper interface.",
+      "parentUuid": "17e22355_7866a144",
       "range": {
         "startLine": 252,
         "startChar": 4,
