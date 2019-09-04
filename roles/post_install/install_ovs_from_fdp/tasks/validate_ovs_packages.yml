@@ -1,0 +1,29 @@
+---
+
+- name: Fetch Available YUM Packages
+  yum:
+    list: available
+  register: available_packages
+
+- name: Detect Available OVS Versions
+  set_fact:
+    available_ovs_rpms: "{{ available_ovs_rpms | default([]) }} + [ '{{ item['envra'] | replace('0:', '') }}' ]"
+  loop: "{{ available_packages['results'] }}"
+  when: item['name'] | regex_search(ovs_name_regex)
+
+- name: Print Available OVS Versions
+  debug:
+    msg: |
+      Available OVS RPMs from repo:
+      {{ available_ovs_rpms }}
+
+- name: Set OVS RPM To Install
+  set_fact:
+    install_ovs_rpm: "{{ item }}"
+  loop: "{{ available_ovs_rpms }}"
+  when: install_ovs_version in item
+
+- name: "Fail To Locate RPM Containing '{{ install_ovs_version }}'"
+  fail:
+    msg: "Failed to locate an OVS RPM containing the string '{{ install_ovs_version }}'"
+  when: install_ovs_rpm is not defined

@@ -1,0 +1,35 @@
+---
+
+- name: Check Status If Not Performed Uninstall
+  block:
+    - name: Query systemd Daemons Before Installation
+      service_facts:
+
+    - name: Fail To Verify OVS systemd Daemons Are Not Present Before Installation If Required
+      fail: >
+        "Located systemd daemon {{ item }} before installation"
+      loop: "{{ ovs_systemd_daemons }}"
+      when: item in ansible_facts['services']
+  when: ovs_uninstall_status is skipped
+
+- name: "Installing OVS RPM '{{ install_ovs_rpm }}'"
+  yum:
+    name: "{{ install_ovs_rpm }}"
+    state: present
+
+- name: Query systemd Daemons After Installation
+  service_facts:
+
+- name: Fail To Verify OVS systemd Daemons Are Present After Installation
+  fail: >
+    "Not located systemd daemon {{ item }} after installation"
+  loop: "{{ ovs_systemd_daemons }}"
+  when: item not in ansible_facts['services']
+
+- name: Enable systemd Daemons After Installation
+  systemd:
+    name: "{{ item }}"
+    state: started
+    enabled: True
+    masked: False
+  loop: "{{ ovs_systemd_daemons }}"

@@ -1,0 +1,39 @@
+---
+
+- name: Perform Pre Execution Validations
+  hosts: undercloud
+  gather_facts: False
+  vars:
+    skip_overcloud_check: False
+    skip_openstack_setup: False
+  pre_tasks:
+    - name: Prepare Virtual Environment
+      include_role:
+        name: roles/post_install/openstack_tasks
+        tasks_from: setup_openstack_env
+      when: not skip_openstack_setup
+
+  tasks:
+    - name: Check If Overcloud Is Populated With Guests
+      vars:
+        venv_path: "/tmp/ansible_venv"
+        ansible_python_interpreter: "{{ venv_path }}/bin/python"
+      os_server_facts:
+        cloud: "{{ query_cloud | default('overcloud') }}"
+        validate_certs: "{{ cloud_validate_certs | default(False) }}"
+
+    - name: Fail If Overcloud Is Populated And No Skip Flag Is Passed
+      fail:
+        msg: >
+          Overcloud is populated with guest instances,
+          please remove them or use extra arg 'skip_overcloud_check=True'
+      when: not skip_overcloud_check
+
+- name: "Install OVS from FDP On Ansible Group '{{ node_group }}'"
+  hosts: "{{ node_group | default('overcloud_nodes') }}"
+  become: True
+  gather_facts: False
+  vars:
+    node_group: overcloud_nodes
+  roles:
+    - post_install/install_ovs_from_fdp
