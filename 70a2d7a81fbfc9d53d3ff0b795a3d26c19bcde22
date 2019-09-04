@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "6d716e62_ea618234",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2019-09-04T06:48:24Z",
+      "side": 1,
+      "message": "Can you give sample command line for running the script please for at least 2 interfaces?",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 32
+      },
+      "revId": "70a2d7a81fbfc9d53d3ff0b795a3d26c19bcde22",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
