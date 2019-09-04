@@ -22,6 +22,30 @@
       "revId": "70a2d7a81fbfc9d53d3ff0b795a3d26c19bcde22",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e632ddf7_d9ff43c3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-09-04T06:53:41Z",
+      "side": 1,
+      "message": "There is no difference between single or multiple interfaces in script execution.\n\nThe script loop over the \"/sys/class/net/\u003cinterfaces\u003e\" and takes the mac address from the \"/sys/class/net/\u003cinterfaces\u003e/address\".\nThen it takes the content of \"ifcfg\" files and compares the mac address between both.\n\nOnce there is a match, the data stores within the json file, that will be used by the script on the next boot.\n\nSo the execution of the script for single or multiple interfaces is the same:\n\"python custon_net_config.py\"",
+      "parentUuid": "6d716e62_ea618234",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 32
+      },
+      "revId": "70a2d7a81fbfc9d53d3ff0b795a3d26c19bcde22",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
