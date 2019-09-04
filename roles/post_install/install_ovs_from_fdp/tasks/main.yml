@@ -1,0 +1,21 @@
+---
+
+- name: Download FDP YUM Repo File
+  get_url:
+    url: "{{ remote_fdp_repo_file }}"
+    dest: "{{ local_fdp_repo_file }}"
+
+- name: Query Installed RPMs
+  yum:
+    list: installed
+  register: installed_rpms
+
+- name: Detect Installed OVS Versions
+  set_fact:
+    current_installed_ovs_rpm: "{{ item['envra'] | replace('0:', '') }}"
+  loop: "{{ installed_rpms['results'] }}"
+  when: item['name'] == "openvswitch"
+
+- name: Remove OVS RPMs If Required
+  include_tasks: remove_ovs.yml
+  when: current_installed_ovs_rpm is defined
