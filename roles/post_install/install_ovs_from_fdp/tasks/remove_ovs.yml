@@ -1,0 +1,31 @@
+---
+
+- name: Query systemd Daemons Before Uninstall
+  service_facts:
+
+- name: Verify OVS systemd Daemons Are Present Before Uninstall
+  fail: >
+    "Unable to locate systemd daemon {{ item }} before uninstall"
+  loop: "{{ ovs_systemd_daemons }}"
+  failed_when: item not in ansible_facts['services']
+
+- name: Stop OVS systemd Daemons Before Uninstall
+  systemd:
+      name: "{{ item }}"
+      state: stopped
+  loop: "{{ ovs_systemd_daemons }}"
+
+# There is no way using native Ansible modules to remove a RPM package without removing dependencies
+- name: "Remove OVS RPM '{{ current_installed_ovs_rpm }}'"
+  command: rpm -e --nodeps {{ current_installed_ovs_rpm }}
+  args:
+    warn: False
+
+- name: Query systemd Daemons After Uninstall
+  service_facts:
+
+- name: Verify OVS systemd Daemons Are Not Present After Uninstall
+  fail: >
+    "Unable to locate systemd daemon {{ item }} before uninstall"
+  loop: "{{ ovs_systemd_daemons }}"
+  failed_when: item in ansible_facts['services']

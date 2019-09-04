@@ -1,0 +1,4 @@
+# Location of FDP YUM repo
+remote_fdp_repo_file: "http://openvswitch-ci.usersys.redhat.com/staging/7Server/x86_64/fast-datapath/fast-datapath-staging.repo"
+local_fdp_repo_file: "/etc/yum.repos.d/fast-datapath-staging.repo"
+ovs_systemd_daemons: [ovs-vswitchd.service, ovsdb-server.service]
