@@ -1,0 +1,12 @@
+# URL of FDP YUM repo
+remote_fdp_repo_file: 'http://openvswitch-ci.usersys.redhat.com/staging/7Server/x86_64/fast-datapath/fast-datapath-staging.repo'
+# Path of FDP YUM repo to be created locally
+local_fdp_repo_file: '/etc/yum.repos.d/fast-datapath-staging.repo'
+# OVS systemd Daemons to monitor and check
+ovs_systemd_daemons: ['ovs-vswitchd.service', 'ovsdb-server.service']
+# Trigger to uninstall OVS
+uninstall_ovs: True
+# Trigger to install OVS
+install_ovs: True
+# OVS regex naming
+ovs_name_regex: '^openvswitch(\d\.\d+)?$'
