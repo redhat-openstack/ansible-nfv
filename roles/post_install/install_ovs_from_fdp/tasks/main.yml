@@ -1,0 +1,35 @@
+---
+
+- name: Download FDP YUM Repo File
+  get_url:
+    url: "{{ remote_fdp_repo_file }}"
+    dest: "{{ local_fdp_repo_file }}"
+
+- name: Query Installed RPMs
+  yum:
+    list: installed
+  register: installed_rpms
+
+- name: Detect Installed OVS Version
+  set_fact:
+    current_installed_ovs_rpm: "{{ item['envra'] | replace('0:', '') }}"
+  loop: "{{ installed_rpms['results'] }}"
+  when: item['name'] | regex_search(ovs_name_regex)
+
+- name: Print Detected Installed OVS Version In Required
+  debug:
+    var: current_installed_ovs_rpm
+  when: current_installed_ovs_rpm is defined
+
+- name: Remove OVS RPM If Required
+  include_tasks: remove_ovs.yml
+  when:
+    - uninstall_ovs
+    - current_installed_ovs_rpm is defined
+  register: ovs_uninstall_status
+
+- name: Install OVS RPM If Required
+  include_tasks: install_ovs.yml
+  when:
+    - install_ovs
+    - install_ovs_version is defined
