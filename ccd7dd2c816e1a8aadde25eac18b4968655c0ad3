@@ -16,6 +16,24 @@
       "revId": "ccd7dd2c816e1a8aadde25eac18b4968655c0ad3",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45e4ac7a_5d19cd44",
+        "filename": "roles/post_install/openstack_tasks/files/custom_net_config.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-09-05T12:01:16Z",
+      "side": 1,
+      "message": "How are you running the server creation and passing the file?\n\nI have just verified it once again with the newly created server and it works as expected.",
+      "parentUuid": "cdb66a7b_f8158d78",
+      "revId": "ccd7dd2c816e1a8aadde25eac18b4968655c0ad3",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
