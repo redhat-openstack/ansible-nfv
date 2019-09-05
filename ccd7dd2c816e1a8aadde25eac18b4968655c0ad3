@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "297ec99b_d91af0f4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2019-09-05T12:28:25Z",
+      "side": 1,
+      "message": "I would considering rephrasing the description.\nThe functionality below, should be explained here, sorry for me nagging,\n\nlike.. the script dump network config, and reorder nic to mac based on that file.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 32
+      },
+      "revId": "ccd7dd2c816e1a8aadde25eac18b4968655c0ad3",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "cdb66a7b_f8158d78",
         "filename": "roles/post_install/openstack_tasks/files/custom_net_config.py",
         "patchSetId": 4
