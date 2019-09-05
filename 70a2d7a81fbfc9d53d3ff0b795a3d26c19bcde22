@@ -66,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "9f824a5e_8ac95412",
+        "filename": "roles/post_install/openstack_tasks/files/custom_net_config.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-09-05T10:47:12Z",
+      "side": 1,
+      "message": "Changed.",
+      "parentUuid": "d1bcfcbf_c6f9cab7",
+      "revId": "70a2d7a81fbfc9d53d3ff0b795a3d26c19bcde22",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "719fa00c_04e204ec",
         "filename": "roles/post_install/openstack_tasks/files/custom_net_config.py",
         "patchSetId": 3
@@ -77,6 +95,24 @@
       "writtenOn": "2019-09-05T10:26:37Z",
       "side": 1,
       "message": "Before restarting sshd, you need to flush the file (f.flush()), otherwise the change will not be taken into account",
+      "revId": "70a2d7a81fbfc9d53d3ff0b795a3d26c19bcde22",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7a4d9854_0f5fb3dc",
+        "filename": "roles/post_install/openstack_tasks/files/custom_net_config.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-09-05T10:47:12Z",
+      "side": 1,
+      "message": "Fixed. Thanks.",
+      "parentUuid": "719fa00c_04e204ec",
       "revId": "70a2d7a81fbfc9d53d3ff0b795a3d26c19bcde22",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
