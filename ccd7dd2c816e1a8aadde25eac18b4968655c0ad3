@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cdb66a7b_f8158d78",
+        "filename": "roles/post_install/openstack_tasks/files/custom_net_config.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 1016373
+      },
+      "writtenOn": "2019-09-05T11:00:54Z",
+      "side": 1,
+      "message": "I think there is a problem with this. If I execute the script manually, it works properly. But when the vm  starts, these are the routes:\ndefault via 10.20.157.254 dev eth0 proto dhcp metric 100 \ndefault via 10.20.162.254 dev eth1 proto static metric 101  \n10.20.157.0/24 dev eth0 proto kernel scope link src 10.20.157.110 metric 100 \n10.20.162.0/24 dev eth1 proto kernel scope link src 10.20.162.116 metric 101 \n169.254.169.254 via 10.20.157.254 dev eth0 proto dhcp metric 100 \n\nFirst one should have metric 10.\nHaving a look to the logs, I see this info. Could it be possible that cloud-init overwrites the route?\nSep 05 06:30:55 CustomNetConfig INFO: The tag \"external\" for mac \"fa:16:3e:5e:7e:c6\" found\nSep  5 06:30:55 tempest-testlacpscenarios-server-142195333 cloud-init: The tag \"external\" for mac \"fa:16:3e:5e:7e:c6\" found",
+      "revId": "ccd7dd2c816e1a8aadde25eac18b4968655c0ad3",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
