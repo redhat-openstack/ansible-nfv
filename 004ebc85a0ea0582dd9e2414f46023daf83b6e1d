@@ -22,6 +22,30 @@
       "revId": "004ebc85a0ea0582dd9e2414f46023daf83b6e1d",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b0a93eb_ea067310",
+        "filename": "roles/post_install/install_ovs_from_fdp/defaults/main.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2019-09-05T09:52:58Z",
+      "side": 1,
+      "message": "You are correct, fixed.",
+      "parentUuid": "9723dedf_a0ce07fe",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 6,
+        "endChar": 20
+      },
+      "revId": "004ebc85a0ea0582dd9e2414f46023daf83b6e1d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
