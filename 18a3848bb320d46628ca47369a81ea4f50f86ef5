@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "cd7f4c52_6dc7f47d",
+        "filename": "docs/tripleo/post_install/install_ovs_from_fdp.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1007976
+      },
+      "writtenOn": "2019-09-05T15:30:01Z",
+      "side": 1,
+      "message": "installed",
+      "range": {
+        "startLine": 5,
+        "startChar": 35,
+        "endLine": 5,
+        "endChar": 42
+      },
+      "revId": "18a3848bb320d46628ca47369a81ea4f50f86ef5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7d54028_199a916a",
+        "filename": "playbooks/tripleo/post_install/install_ovs_from_fdp.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1007976
+      },
+      "writtenOn": "2019-09-05T15:30:01Z",
+      "side": 1,
+      "message": "i dont see we are checking overcloud is populated, should this be also querying openstack_servers",
+      "range": {
+        "startLine": 30,
+        "startChar": 6,
+        "endLine": 30,
+        "endChar": 36
+      },
+      "revId": "18a3848bb320d46628ca47369a81ea4f50f86ef5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b3edc61_ded16c64",
+        "filename": "roles/post_install/install_ovs_from_fdp/defaults/main.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1007976
+      },
+      "writtenOn": "2019-09-05T15:30:01Z",
+      "side": 1,
+      "message": "can we have this as a composite variable, like {{ ovs_repo_url | \u0027http://openvswitch-ci.usersys.redhat.com/staging/7Server/x86_64/fast-datapath/fast-datapath-staging.repo\u0027 }}",
+      "range": {
+        "startLine": 2,
+        "startChar": 22,
+        "endLine": 2,
+        "endChar": 128
+      },
+      "revId": "18a3848bb320d46628ca47369a81ea4f50f86ef5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
