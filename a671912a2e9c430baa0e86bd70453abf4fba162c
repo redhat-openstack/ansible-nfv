@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "ef6e234c_df8739d8",
+        "filename": "roles/post_install/openstack_tasks/files/custom_net_config.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2019-09-05T10:06:50Z",
+      "side": 1,
+      "message": "The os-net-config approach allows to perform more advanced use cases like creating bonds inside guest and etc\u0027.\n\nSince there doesn\u0027t seem any interest in that approach, I don\u0027t have any particular opinion on how to solve it as long as it works.",
+      "parentUuid": "ec83099a_2522e9b4",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 19
+      },
+      "revId": "a671912a2e9c430baa0e86bd70453abf4fba162c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "3e4e2bcd_a3b5d97d",
         "filename": "roles/post_install/openstack_tasks/files/custom_net_config.py",
         "patchSetId": 2
