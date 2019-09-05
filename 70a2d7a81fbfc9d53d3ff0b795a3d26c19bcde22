@@ -46,6 +46,23 @@
       "revId": "70a2d7a81fbfc9d53d3ff0b795a3d26c19bcde22",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d1bcfcbf_c6f9cab7",
+        "filename": "roles/post_install/openstack_tasks/files/custom_net_config.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1016373
+      },
+      "writtenOn": "2019-09-05T09:39:24Z",
+      "side": 1,
+      "message": "It is \"UseDNS no\", without \"\u003d\"",
+      "revId": "70a2d7a81fbfc9d53d3ff0b795a3d26c19bcde22",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
