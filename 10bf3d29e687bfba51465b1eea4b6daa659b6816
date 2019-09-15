@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5e398808_d876f56b",
+        "filename": "roles/post_install/openstack_tasks/files/custom_net_config.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2019-09-15T13:25:28Z",
+      "side": 1,
+      "message": "Is\u0027nt a duplication? see line \nhttps://review.gerrithub.io/c/redhat-openstack/ansible-nfv/+/467151/2..6/roles/post_install/openstack_tasks/files/custom_net_config.py#206\n\nI think it is redundant since default route is changing all time, based on vm reboot\nSo only place should be 206. it is done on each script start.",
+      "range": {
+        "startLine": 131,
+        "startChar": 0,
+        "endLine": 131,
+        "endChar": 75
+      },
+      "revId": "10bf3d29e687bfba51465b1eea4b6daa659b6816",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
