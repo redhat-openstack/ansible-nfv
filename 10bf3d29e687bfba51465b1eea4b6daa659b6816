@@ -22,6 +22,30 @@
       "revId": "10bf3d29e687bfba51465b1eea4b6daa659b6816",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "93e2646c_2f71a190",
+        "filename": "roles/post_install/openstack_tasks/files/custom_net_config.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-09-15T13:32:35Z",
+      "side": 1,
+      "message": "It is not a duplication.\nHere the value is stored within the dump file for the later restore config process.\nAnd inline 206, is a process of setting the route during the first boot if the interfaces are flipped.\n\n\nRegarding the second note.\nIt is not the route that is not redundant, but the interfaces is not redundant.\nSo we always would like the mgmt network interface to have a priority in routing.\n\nWhat will happen if the interfaces will switch after the reboot, is that the script will take the interfaces and the macs, and compare it to the stored data.\nThe mac address is the anchor, so the during the network config recreation, the name of the interface could change according to the mac address.\nAs a result, the routing will be set always on the mgmt network which is the behaviour we would like to reach.",
+      "parentUuid": "5e398808_d876f56b",
+      "range": {
+        "startLine": 131,
+        "startChar": 0,
+        "endLine": 131,
+        "endChar": 75
+      },
+      "revId": "10bf3d29e687bfba51465b1eea4b6daa659b6816",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
