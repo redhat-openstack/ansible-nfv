@@ -74,6 +74,9 @@ The run could be separated by specifying tags of specific run.
 **Sample file:**  
 For the sample file, refer to the following [link](openstack_tasks_config_sample.yml).
 
+**Multiple network interfaces configuration:**  
+For the multiple network interfaces configuration, refer to the [explanation](openstack_tasks_net_config.md).
+
 
 ## Role default variables
 #### State of the resource
@@ -82,9 +85,13 @@ The state could be 'present' or 'absent'.
 resource_state: present
 ```
 
-#### The name of the overcloud/user, the tasks should be run on.
+#### The name of the "cloud", the tasks should be run on.
+The "cloud" represents a stack (undercloud/overcloud), or a user that the playbook should interact with.  
+All "clouds" configuration resides within the "~/.config/openstack/clouds.yaml" file.  
+A different cloud name could be set on each resource.  
+As a result multiple users resources could be created at a single playbook run.
 ```
-overcloud_name: overcloud
+cloud_name: overcloud
 ```
 
 #### The path to the clouds.yaml file.
@@ -209,11 +216,12 @@ images:
     url: http://download.cirros-cloud.net/0.3.4/cirros-0.3.4-x86_64-disk.img
 ```
 
-#### Keypair name
-Keypair to be created.  
+#### Keypairs names list
+Keypairs to be created.  
 The private key fetched to the client local.
 ```
-keypair_name: test_keypair
+keypairs:
+  - name: test_keypair
 ```
 
 #### Security groups
@@ -254,7 +262,7 @@ instances:
       - vm_group2
     flavor: nfv_flavor
     image: centos
-    key_name: "{{ keypair_name }}"
+    key_name: test_keypair
     sec_groups: test_secgroup
     # Assigning FIP address to an instance, choose 'ext_net' as your routable network
     and 'int_net' as an internal NATed network that the FIP address will be assigned to it
@@ -288,7 +296,7 @@ instances:
     connection_user: user     # The variable could be omitted
     flavor: nfv_flavor
     image: centos
-    key_name: "{{ keypair_name }}"
+    key_name: test_keypair
     sec_groups: test_secgroup
     floating_ip:
       ext_net: public

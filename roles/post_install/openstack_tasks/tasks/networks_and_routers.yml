@@ -11,7 +11,7 @@
       vars:
         ansible_python_interpreter: "{{ venv_path }}/bin/python"
       os_network:
-        cloud: "{{ overcloud_name }}"
+        cloud: "{{ item.cloud_name | default(cloud_name) }}"
         name: "{{ item.name }}"
         provider_network_type: "{{ item.network_type | default(omit) }}"
         provider_physical_network: "{{ item.physical_network | default(omit) }}"
@@ -25,7 +25,7 @@
       vars:
         ansible_python_interpreter: "{{ venv_path }}/bin/python"
       os_subnet:
-        cloud: "{{ overcloud_name }}"
+        cloud: "{{ item.cloud_name | default(cloud_name) }}"
         name: "{{ item.name }}_subnet"
         allocation_pool_start: "{{ item.allocation_pool_start | default(omit) }}"
         allocation_pool_end: "{{ item.allocation_pool_end | default(omit) }}"
@@ -42,7 +42,7 @@
       vars:
         ansible_python_interpreter: "{{ venv_path }}/bin/python"
       os_router:
-        cloud: "{{ overcloud_name }}"
+        cloud: "{{ item.cloud_name | default(cloud_name) }}"
         name: "{{ item.router_name }}"
         network: "{{ item.name }}"
         state: present
@@ -87,7 +87,7 @@
       vars:
         ansible_python_interpreter: "{{ venv_path }}/bin/python"
       os_router:
-        cloud: "{{ overcloud_name }}"
+        cloud: "{{ cloud_name }}"
         name: "{{ item.0.0 }}"
         interfaces: "{{ item.1 }}"
         state: present
@@ -98,7 +98,7 @@
       vars:
         ansible_python_interpreter: "{{ venv_path }}/bin/python"
       os_port:
-        cloud: "{{ overcloud_name }}"
+        cloud: "{{ item.0.cloud_name | default(cloud_name) }}"
         name: "{{ item.1.name }}"
         network: "{{ item.1.network }}"
         vnic_type: "{{ item.1.type }}"
@@ -115,7 +115,7 @@
       vars:
         ansible_python_interpreter: "{{ venv_path }}/bin/python"
       os_port:
-        cloud: "{{ overcloud_name }}"
+        cloud: "{{ item.0.cloud_name | default(cloud_name) }}"
         name: "{{ item.1.name }}"
         network: "{{ item.1.network }}"
         vnic_type: "{{ item.1.type }}"
@@ -126,8 +126,8 @@
     # The os_router module unable to detach the interface from the router
     - name: Detach router interfaces
       command: >
-        openstack --os-cloud "{{ overcloud_name }}" router
-        remove subnet "{{ item.router_name }}" "{{ item.name }}_subnet"
+        openstack --os-cloud "{{ item.cloud_name | default(cloud_name) }}"
+        router remove subnet "{{ item.router_name }}" "{{ item.name }}_subnet"
       when: "item.external is defined and not item.external"
       loop: "{{ networks }}"
       register: detach_interfaces
@@ -139,7 +139,7 @@
       vars:
         ansible_python_interpreter: "{{ venv_path }}/bin/python"
       os_router:
-        cloud: "{{ overcloud_name }}"
+        cloud: "{{ item.cloud_name | default(cloud_name) }}"
         name: "{{ item.router_name }}"
         state: absent
       loop: "{{ networks }}"
@@ -151,7 +151,7 @@
       vars:
         ansible_python_interpreter: "{{ venv_path }}/bin/python"
       os_network:
-        cloud: "{{ overcloud_name }}"
+        cloud: "{{ item.cloud_name | default(cloud_name) }}"
         name: "{{ item.name }}"
         state: absent
       loop: "{{ networks }}"

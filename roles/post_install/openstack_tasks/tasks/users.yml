@@ -6,7 +6,7 @@
   vars:
     ansible_python_interpreter: "{{ venv_path }}/bin/python"
   os_project:
-    cloud: "{{ overcloud_name }}"
+    cloud: "{{ item.cloud_name | default(cloud_name) }}"
     name: "{{ item.project }}"
     domain_id: "{{ item.domain }}"
     state: "{{ resource_state }}"
@@ -17,7 +17,7 @@
   vars:
     ansible_python_interpreter: "{{ venv_path }}/bin/python"
   os_user:
-    cloud: "{{ overcloud_name }}"
+    cloud: "{{ item.cloud_name | default(cloud_name) }}"
     name: "{{ item.name }}"
     password: "{{ item.pass }}"
     default_project: "{{ item.project }}"
@@ -31,7 +31,7 @@
   vars:
     ansible_python_interpreter: "{{ venv_path }}/bin/python"
   os_user_role:
-    cloud: "{{ overcloud_name }}"
+    cloud: "{{ item.cloud_name | default(cloud_name) }}"
     user: "{{ item.name }}"
     project: "{{ item.project }}"
     role: "{{ item.role }}"

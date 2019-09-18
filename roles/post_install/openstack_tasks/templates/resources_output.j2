@@ -25,4 +25,6 @@ servers:
 {% endfor %}
 {% endif %}
 
-key_pair: "{{ resources_output_file | dirname }}/{{ keypair_name }}.key"
+{% for key in keypairs %}
+key_pair: "{{ resources_output_file | dirname }}/{{ key.name }}.key"
+{% endfor %}

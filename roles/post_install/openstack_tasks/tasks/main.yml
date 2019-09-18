@@ -10,10 +10,10 @@
   import_tasks: instances.yml
   when: instance and resource_state == 'absent'
 
-- name: Projects, users and roles
+- name: Projects, users and roles creation
   tags: user
   import_tasks: users.yml
-  when: user
+  when: user and resource_state == 'present'
 
 - name: Security groups creation
   tags: security_group
@@ -55,6 +55,11 @@
   import_tasks: security_groups.yml
   when: security_group and resource_state == 'absent'
 
+- name: Projects, users and roles creation
+  tags: user
+  import_tasks: users.yml
+  when: user and resource_state == 'absent'
+
 - name: Instances
   tags: instance
   import_tasks: instances.yml
@@ -75,7 +80,9 @@
       The following files have been generated:
 
       Instances ssh private key:
-      {{ resources_output_file | dirname }}/{{ keypair_name }}.key
+      {% for key in keypairs %}
+      {{ resources_output_file | dirname }}/{{ key.name }}.key
+      {% endfor %}
       The key is also fetched to your local machine to /tmp directory.
 
       Resources output file:
