@@ -74,6 +74,8 @@ The run could be separated by specifying tags of specific run.
 **Sample file:**  
 For the sample file, refer to the following [link](openstack_tasks_config_sample.yml).
 
+**Multiple network interfaces configuration:**  
+For the multiple network interfaces configuration, refer to the [explanation](openstack_instance_net_config.md).
 
 ## Role default variables
 #### State of the resource
