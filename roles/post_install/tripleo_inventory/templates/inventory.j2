@@ -7,9 +7,15 @@ localhost ansible_connection=local ansible_python_interpreter=python
 {{ host }} ansible_host={{ hostvars[host]['ansible_host'] }} ansible_user={{ hostvars[host]['ansible_user'] }}
 {%- if hostvars[host]['ansible_ssh_private_key_file'] is defined %} ansible_ssh_private_key_file={{ hostvars[host]['ansible_ssh_private_key_file'] }}
 {%- else %} ansible_ssh_pass={{ hostvars[host]['ansible_ssh_pass'] }}
-{% endif %}
+{%- endif %}
+
 {%- if hostvars[host]['ansible_ssh_common_args'] is defined %} ansible_ssh_common_args='{{ hostvars[host]['ansible_ssh_common_args'] }}'
-{% endif %}
+{%- endif %}
+
+{%- if hostvars[host]['ansible_distribution'] | default('') in ('CentOS', 'RedHat', 'Red Hat Enterprise Linux') and hostvars[host]['ansible_distribution_major_version'] | default('0') >= '8' %} ansible_python_interpreter='/usr/libexec/platform-python'
+{%- elif hostvars[host]['ansible_python_interpreter'] is defined %} ansible_python_interpreter='{{ hostvars[host]['ansible_python_interpreter'] }}'
+{%- endif %}
+
 {% endif %}
 {% endfor %}
 
