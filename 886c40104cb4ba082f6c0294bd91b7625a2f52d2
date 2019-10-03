@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "c05748d4_a748e0bc",
+        "filename": "docs/tripleo/post_install/openstack_instance_net_config.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2019-10-03T08:53:28Z",
+      "side": 1,
+      "message": "consider replacing %s/a big issue/known issue/",
+      "range": {
+        "startLine": 8,
+        "startChar": 47,
+        "endLine": 8,
+        "endChar": 59
+      },
+      "revId": "886c40104cb4ba082f6c0294bd91b7625a2f52d2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14f3c8fb_c248ef29",
+        "filename": "docs/tripleo/post_install/openstack_instance_net_config.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2019-10-03T08:53:28Z",
+      "side": 1,
+      "message": "consider replacing with: vm boot with multiple interfaces with different io drivers",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 44
+      },
+      "revId": "886c40104cb4ba082f6c0294bd91b7625a2f52d2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "a2dbc51d_8f2e1af4",
         "filename": "docs/tripleo/post_install/openstack_instance_net_config.md",
         "patchSetId": 4
@@ -18,6 +64,76 @@
         "startChar": 0,
         "endLine": 15,
         "endChar": 69
+      },
+      "revId": "886c40104cb4ba082f6c0294bd91b7625a2f52d2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "98c748bf_425c0010",
+        "filename": "docs/tripleo/post_install/openstack_instance_net_config.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2019-10-03T08:53:28Z",
+      "side": 1,
+      "message": "See above comment",
+      "parentUuid": "a2dbc51d_8f2e1af4",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 69
+      },
+      "revId": "886c40104cb4ba082f6c0294bd91b7625a2f52d2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "995aa338_854db391",
+        "filename": "docs/tripleo/post_install/openstack_instance_net_config.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2019-10-03T08:53:28Z",
+      "side": 1,
+      "message": "Consider replacing with:\n\nThe above behavior will cause default route inside vm to be inconsistent, it could cause ssh connection to be unreachable.",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 0
+      },
+      "revId": "886c40104cb4ba082f6c0294bd91b7625a2f52d2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a73332d6_75ab7961",
+        "filename": "docs/tripleo/post_install/openstack_instance_net_config.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2019-10-03T08:53:28Z",
+      "side": 1,
+      "message": "consider replacing with:\nTo work around the above known issue, we propose custome_net_config.py script\nrunning during cloud-init, and configure networking base on neutron metadata.\n\nIn details .... and use existing section",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 12
       },
       "revId": "886c40104cb4ba082f6c0294bd91b7625a2f52d2",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
