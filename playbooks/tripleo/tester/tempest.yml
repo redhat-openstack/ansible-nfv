@@ -1,18 +1,5 @@
 ---
 
-- name: Prepare the environment
-  hosts: tester
-  gather_facts: False
-  vars:
-    user: false
-    net_port: false
-    image: false
-    keypair: false
-    security_group: false
-    ansible_python_interpreter: /usr/libexec/platform-python
-  roles:
-    - post_install/openstack_tasks
-
 - name: Tempest deployment and execution
   hosts: tester
   gather_facts: False
