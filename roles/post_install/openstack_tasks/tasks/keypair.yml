@@ -16,6 +16,7 @@
     dest: "{{ resources_output_file | dirname }}/{{ item.item.name }}.key"
     mode: 0600
   loop: "{{ reg_keypair.results }}"
+  no_log: true
   when: item.changed and item.id is defined
 
 - name: Fetch private key from generated keypair
@@ -24,4 +25,5 @@
     dest: "/tmp/{{ item.item.name }}.key"
     flat: yes
   loop: "{{ reg_keypair.results }}"
+  no_log: true
   when: item.changed and item.id is defined
