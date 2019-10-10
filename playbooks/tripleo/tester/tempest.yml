@@ -1,22 +1,31 @@
 ---
-
-- name: Prepare the environment
-  hosts: tester
-  gather_facts: False
-  vars:
-    user: false
-    net_port: false
-    image: false
-    keypair: false
-    security_group: false
-    ansible_python_interpreter: /usr/libexec/platform-python
-  roles:
-    - post_install/openstack_tasks
-
 - name: Tempest deployment and execution
   hosts: tester
   gather_facts: False
   vars:
     ansible_python_interpreter: /usr/libexec/platform-python
   roles:
-    - tester/tempest
+    - role: post_install/openstack_tasks
+      resource_state: present
+
+    - role: tester/tempest
+
+    - role: post_install/openstack_tasks
+      resource_state: absent
+      setup_os_env: false
+      when: not keep_resources | bool
+
+  post_tasks:
+    - name: Print the output results of the tempest tests
+      tags: run_tempest_test
+      vars:
+        msg: |
+          Tests statistics:
+
+          {{ tests_stats.stdout }}
+
+          For the details, look at the:
+          {{ tempest_dir }}/tempest.xml
+          {{ tempest_dir }}/tempest.log
+      debug:
+        msg: "{{ msg.split('\n') }}"

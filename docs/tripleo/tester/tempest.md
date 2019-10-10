@@ -96,6 +96,12 @@ Used by tempest in pre-provision mode.
 accounts_file_path: "{{ tempest_dir }}/accounts.yaml"
 ```
 
+Keep the resources after the tests execution.  
+Use "keep_resources: true" to keep the resources.
+```
+keep_resources
+```
+
 List of tempest tests that should be executed.
 ```
 tempest_tests:
