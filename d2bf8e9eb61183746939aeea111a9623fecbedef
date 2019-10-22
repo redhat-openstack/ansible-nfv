@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "ca260e3e_a7ae6b69",
+        "filename": "playbooks/tripleo/tester/tempest.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-10-22T07:56:40Z",
+      "side": 1,
+      "message": "It shouldn\u0027t hold a \"when\" condition.\nIn both cases - \"resources created by the ansible\" and \"resources created by the tempest\", the resources should be created.\nIt is just the matter of the provided variable file.\n\nThe play was validated for both cases.",
+      "parentUuid": "da052417_d55fee1d",
+      "range": {
+        "startLine": 8,
+        "startChar": 6,
+        "endLine": 8,
+        "endChar": 40
+      },
+      "revId": "d2bf8e9eb61183746939aeea111a9623fecbedef",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "de7486ee_bc7d8844",
         "filename": "playbooks/tripleo/tester/tempest.yml",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2019-10-22T07:49:18Z",
       "side": 1,
       "message": "Shouldn\u0027t there be a when condition? Or is it present inside the role?",
+      "range": {
+        "startLine": 13,
+        "startChar": 6,
+        "endLine": 13,
+        "endChar": 40
+      },
+      "revId": "d2bf8e9eb61183746939aeea111a9623fecbedef",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "73c43ee7_cf53369a",
+        "filename": "playbooks/tripleo/tester/tempest.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-10-22T07:56:40Z",
+      "side": 1,
+      "message": "Same as above.",
+      "parentUuid": "de7486ee_bc7d8844",
       "range": {
         "startLine": 13,
         "startChar": 6,
