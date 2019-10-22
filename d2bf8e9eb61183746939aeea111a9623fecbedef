@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "9777e9ab_f46df772",
+        "filename": "playbooks/tripleo/tester/tempest.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-10-22T08:26:25Z",
+      "side": 1,
+      "message": "The resources creation/deletion should be a part of the single play for a number of reasons.\n1) This is the play that dedicated to the tempest test execution.\nThe user should not keep in mind to execute a number of plays to get the results of the tempest tests.\n2) The creation of the resources is a required part of the test flow and should not be separated.\n3) Some of the variables are used across the roles. In case they will be separated, they will not work.\n4) If the debugging work is done, the creation of the resources could be done by using the same openstack_tasks roles as a standalone play (that already exists) with the same configuration file.",
+      "parentUuid": "2ee4d0fa_3afff7fd",
+      "range": {
+        "startLine": 8,
+        "startChar": 6,
+        "endLine": 8,
+        "endChar": 40
+      },
+      "revId": "d2bf8e9eb61183746939aeea111a9623fecbedef",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "de7486ee_bc7d8844",
         "filename": "playbooks/tripleo/tester/tempest.yml",
         "patchSetId": 2
