@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "2ee4d0fa_3afff7fd",
+        "filename": "playbooks/tripleo/tester/tempest.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1016373
+      },
+      "writtenOn": "2019-10-22T08:14:12Z",
+      "side": 1,
+      "message": "I think we should be able to control when to create/destroy resources. For example, in performance jobs it has been introduced resource creation/resource deletions phases. So, it is possible to execute the tests without creating resources if they are already created, or to not to destroy resources if some debuging is needed.\nSo i think that maybe, resource creation/deletion should not be toguether with the test execution.",
+      "parentUuid": "ca260e3e_a7ae6b69",
+      "range": {
+        "startLine": 8,
+        "startChar": 6,
+        "endLine": 8,
+        "endChar": 40
+      },
+      "revId": "d2bf8e9eb61183746939aeea111a9623fecbedef",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "de7486ee_bc7d8844",
         "filename": "playbooks/tripleo/tester/tempest.yml",
         "patchSetId": 2
