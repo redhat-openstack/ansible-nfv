@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "2fc8a171_7c52968f",
+        "filename": "playbooks/tripleo/tester/tempest.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2019-10-24T10:07:41Z",
+      "side": 1,
+      "message": "To the mentioned in the previous comment.\nI have added the \"keep_resources\" variable which will allow to not delete the resources created by the resource creator in case needed. For debug, for example.",
+      "parentUuid": "9777e9ab_f46df772",
+      "range": {
+        "startLine": 8,
+        "startChar": 6,
+        "endLine": 8,
+        "endChar": 40
+      },
+      "revId": "d2bf8e9eb61183746939aeea111a9623fecbedef",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "de7486ee_bc7d8844",
         "filename": "playbooks/tripleo/tester/tempest.yml",
         "patchSetId": 2
