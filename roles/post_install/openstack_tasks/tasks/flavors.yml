@@ -6,7 +6,7 @@
   vars:
     ansible_python_interpreter: "{{ venv_path }}/bin/python"
   os_nova_flavor:
-    cloud: "{{ overcloud_name }}"
+    cloud: "{{ item.cloud_name | default(cloud_name) }}"
     name: "{{ item.name }}"
     ram: "{{ item.ram }}"
     disk: "{{ item.disk }}"
@@ -19,7 +19,7 @@
   vars:
     ansible_python_interpreter: "{{ venv_path }}/bin/python"
   os_nova_flavor:
-    cloud: "{{ overcloud_name }}"
+    cloud: "{{ item.0.cloud_name | default(cloud_name) }}"
     name: "{{ item.0.name }}"
     ram: "{{ item.0.ram }}"
     disk: "{{ item.0.disk }}"

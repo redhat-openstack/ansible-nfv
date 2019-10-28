@@ -74,6 +74,8 @@ The run could be separated by specifying tags of specific run.
 **Sample file:**  
 For the sample file, refer to the following [link](openstack_tasks_config_sample.yml).
 
+**Multiple network interfaces configuration:**  
+For the multiple network interfaces configuration, refer to the [explanation](openstack_instance_net_config.md).
 
 ## Role default variables
 #### State of the resource
@@ -82,9 +84,13 @@ The state could be 'present' or 'absent'.
 resource_state: present
 ```
 
-#### The name of the overcloud/user, the tasks should be run on.
+#### The name of the "cloud", the tasks should be run on.
+The "cloud" represents a stack (undercloud/overcloud), or a user that the playbook should interact with.  
+All "clouds" configuration resides within the "~/.config/openstack/clouds.yaml" file.  
+A different cloud name could be set on each resource.  
+As a result multiple users resources could be created at a single playbook run.
 ```
-overcloud_name: overcloud
+cloud_name: overcloud
 ```
 
 #### The path to the clouds.yaml file.
@@ -209,11 +215,12 @@ images:
     url: http://download.cirros-cloud.net/0.3.4/cirros-0.3.4-x86_64-disk.img
 ```
 
-#### Keypair name
-Keypair to be created.  
+#### Keypairs names list
+Keypairs to be created.  
 The private key fetched to the client local.
 ```
-keypair_name: test_keypair
+keypairs:
+  - name: test_keypair
 ```
 
 #### Security groups
@@ -233,9 +240,11 @@ security_groups:
 ```
 
 #### User Data
-Specify user data content to be passed via metadata server to cloud-init:
+Specify global userdata content to be passed via metadata server to cloud-init.
+The global userdata could be used in case it is similar for all the instances.
+The userdata could be overridden by passing it to specific instance.
 ```
-userdata: |
+global_userdata: |
   users:
   - name: cloud-init
     lock-passwd: false
@@ -247,10 +256,12 @@ Specify the instance and arguments that the instance should be created with.
 ```
 instances:
   - name: vm1
-    groups: vm_group     # The variable could be omitted
+    groups:        # Instance could be attached to multiple groups. The groups will be created as inventory groups.
+      - vm_group1
+      - vm_group2
     flavor: nfv_flavor
     image: centos
-    key_name: "{{ keypair_name }}"
+    key_name: test_keypair
     sec_groups: test_secgroup
     # Assigning FIP address to an instance, choose 'ext_net' as your routable network
     and 'int_net' as an internal NATed network that the FIP address will be assigned to it
@@ -258,8 +269,17 @@ instances:
       ext_net: public
       int_net: private_net3
     # NICs to be attached to instance, must be present or created by `net_ports`
-    nics: port-name=private_net1_port1,port-name=private_net2_port2,net-name=private_net3
-    config_drive: True # Optional, Specify if nova should attach metadata content via CD-ROM to instance
+    nics:
+      - port-name=private_net1_port1
+      - port-name=private_net2_port2
+      - net-name=private_net3
+    # Pass userdata to the instance
+    userdata: |
+      #cloud-config
+      user: root
+      password: 123456
+    # Optional, Specify if nova should attach metadata content via CD-ROM to instance
+    config_drive: True
     # Ports to be created, which can be attached to instance using `nics`
     net_ports:
       - name: private_net1_port1
@@ -275,12 +295,14 @@ instances:
     connection_user: user     # The variable could be omitted
     flavor: nfv_flavor
     image: centos
-    key_name: "{{ keypair_name }}"
+    key_name: test_keypair
     sec_groups: test_secgroup
     floating_ip:
       ext_net: public
       int_net: private_net3
-    nics: net-name=private_net3,port-name=private_net1_port3
+    nics:
+      - net-name=private_net3
+      - port-name=private_net1_port3
     net_ports:
       - name: private_net1_port3
         network: private_net1

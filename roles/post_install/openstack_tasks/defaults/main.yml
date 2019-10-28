@@ -20,8 +20,12 @@ resource_generate_inventory: False
 ### The state could be 'present' or 'absent'.
 resource_state: present
 
-### The name of the overcloud/user, the tasks should be run on.
-overcloud_name: overcloud
+### The name of the "cloud", the tasks should be run on.
+### The "cloud" represents a stack (undercloud/overcloud), or a user that the playbook should interact with.
+### All "clouds" configuration resides within the "~/.config/openstack/clouds.yaml" file.
+### A different cloud name could be set on each resource.
+### As a result multiple users resources could be created at a single playbook run.
+cloud_name: overcloud
 
 users:
   - name: test_user1
@@ -83,7 +87,8 @@ flavors:
         "hw:cpu_policy": "dedicated"
 
 connection_user: cloud_user
-keypair_name: test_keypair
+keypairs:
+  - name: test_keypair
 
 security_groups:
   - name: test_secgroup
@@ -99,15 +104,17 @@ security_groups:
 
 instances:
   - name: vm1
-    groups: vm_group
+    groups:
+      - vm_group
     flavor: nfv_flavor
     image: centos
-    key_name: "{{ keypair_name }}"
+    key_name: test_keypair
     sec_groups: test_secgroup
     floating_ip:
       ext_net: public
       int_net: private1
-    nics: port-name=private_net1_port1
+    nics:
+      - port-name=private_net1_port1
     net_ports:
       - name: private_net1_port1
         network: private_net1

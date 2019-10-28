@@ -1,5 +1,4 @@
 ---
-
 # Defind the user for the ssh validation and testing.
 image_ssh_user: centos
 
@@ -24,7 +23,11 @@ user_for_overcloud_nodes: heat-admin
 ## Uncomment if exists.
 #tests_config_file: <path_to_the_config_file>
 
+## When external resource creator is used, the path to the resource file should be defined
+external_resources_output_file: /home/stack/resources_output_file.yml
+
 ## Trigger to generate accounts.yaml file
+## The file is used in the Tempest "Pre-Provisioned Credentials" mode
 generate_accounts: false
 
 users:

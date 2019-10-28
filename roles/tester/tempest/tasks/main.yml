@@ -146,10 +146,7 @@
         {% if generate_accounts %}
         auth.test_accounts_file {{ accounts_file_path }} \
         auth.use_dynamic_credentials false \
-        auth.admin_username {{ rc_vars.osp_username }} \
-        auth.admin_password {{ rc_vars.osp_password }} \
-        auth.admin_project_name {{ rc_vars.osp_project_name }} \
-        auth.admin_domain_name {{ rc_vars.osp_domain_name }} \
+        nfv_plugin_options.external_resources_output_file {{ external_resources_output_file }} \
         {% endif %}
         neutron_plugin_options.default_image_is_advanced true \
         neutron_plugin_options.max_networks_per_project 1 \

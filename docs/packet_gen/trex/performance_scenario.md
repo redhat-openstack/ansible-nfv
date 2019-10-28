@@ -2,7 +2,7 @@
 
 ## Description
 
-**NOTE:** Assumes that the instances are using a special image containing Trex and DPDK binaries. An Image can be generated using `playbooks/images/prepare_performance_images.yml`, refer to the playbook's [documentation](docs/images/prepare_performance_images.md).
+**NOTE:** Assumes that the instances are using a special image containing Trex and DPDK binaries. An Image can be generated using `playbooks/images/prepare_performance_images.yml`, refer to the playbook's [documentation](../../images/prepare_performance_images.md).
 
 **NOTE:** Please avoid using instance names for perfomance scenario that containts udnerscore(_), the automation will fail otherwise.
 

@@ -17,10 +17,12 @@ resources_output: true
 # The state could be 'present' or 'absent'.
 resource_state: present
 
-# The name of the overcloud/user, the tasks should be run on.
-# The user created below could be used as an overcloud_name to
-# run the tasks from the created user.
-overcloud_name: overcloud
+# The name of the "cloud", the tasks should be run on.
+# The "cloud" represents a stack (undercloud/overcloud), or a user that the playbook should interact with.
+# All "clouds" configuration resides within the "~/.config/openstack/clouds.yaml" file.
+# A different cloud name could be set on each resource.
+# As a result multiple users resources could be created at a single playbook run.
+cloud_name: overcloud
 
 # Custom quotas could be defined for each user during the user creation.
 users:
@@ -121,7 +123,8 @@ images:
     url: http://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud.qcow2
 
 # The keypair that will be used by the instances.
-keypair_name: test_keypair
+keypairs:
+  - name: test_keypair
 
 security_groups:
   - name: test_secgroup
@@ -137,17 +140,21 @@ security_groups:
 
 instances:
   - name: vm1
-    groups: vm_groups
+    groups:
+      - vm_groups
+      - group1
     flavor: m1.medium.huge_pages
     image: centos7
-    key_name: "{{ keypair_name }}"
+    key_name: test_keypair
     sec_groups: test_secgroup
     floating_ip:
       ext_net: access
       int_net: dpdk-mgmt
     # The nics attached to the instance could be a created ports specified below,
     # or just a network name. Note the port-name and net-name.
-    nics: port-name=dpdk-mgmt_port1,port-name=sriov-1_port1
+    nics:
+      - port-name=dpdk-mgmt_port1
+      - port-name=sriov-1_port1
     net_ports:
       - name: dpdk-mgmt_port1
         network: dpdk-mgmt
@@ -158,15 +165,19 @@ instances:
         type: direct
         port_security: false
   - name: vm2
-    groups: vm_groups
+    groups:
+      - vm_groups
+      - group2
     flavor: m1.medium.huge_pages
     image: centos7
-    key_name: "{{ keypair_name }}"
+    key_name: test_keypair
     sec_groups: test_secgroup
     floating_ip:
       ext_net: access
       int_net: dpdk-mgmt
-    nics: port-name=dpdk-mgmt_port2,port-name=sriov-2_port1
+    nics:
+      - port-name=dpdk-mgmt_port2
+      - port-name=sriov-2_port1
     net_ports:
       - name: dpdk-mgmt_port2
         network: dpdk-mgmt
@@ -177,15 +188,18 @@ instances:
         type: direct
         port_security: false
   - name: vm3
-    groups: vm_groups
+    groups:
+      - vm_groups
     flavor: m1.medium.huge_pages
     image: centos7
-    key_name: "{{ keypair_name }}"
+    key_name: test_keypair
     sec_groups: test_secgroup
     floating_ip:
       ext_net: access
       int_net: dpdk_mgmt
-    nics: net-name=dpdk-mgmt,port-name=sriov-1_port2
+    nics:
+      - net-name=dpdk-mgmt
+      - port-name=sriov-1_port2
     net_ports:
       - name: sriov-1_port2
         network: sriov-1

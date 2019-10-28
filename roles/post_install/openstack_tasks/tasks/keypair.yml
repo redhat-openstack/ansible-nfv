@@ -4,21 +4,26 @@
   vars:
     ansible_python_interpreter: "{{ venv_path }}/bin/python"
   os_keypair:
-    cloud: "{{ overcloud_name }}"
+    cloud: "{{ item.cloud_name | default(cloud_name) }}"
     state: "{{ resource_state }}"
-    name: "{{ keypair_name }}"
+    name: "{{ item.name }}"
+  loop: "{{ keypairs }}"
   register: reg_keypair
 
 - name: Create private key for vm connection
   copy:
-    content: "{{ reg_keypair.key.private_key }}"
-    dest: "{{ resources_output_file | dirname }}/{{ keypair_name }}.key"
+    content: "{{ item.key.private_key }}"
+    dest: "{{ resources_output_file | dirname }}/{{ item.item.name }}.key"
     mode: 0600
-  when: reg_keypair.changed and reg_keypair.id is defined
+  loop: "{{ reg_keypair.results }}"
+  no_log: true
+  when: item.changed and item.id is defined
 
 - name: Fetch private key from generated keypair
   fetch:
-    src: "{{ resources_output_file | dirname }}/{{ keypair_name }}.key"
-    dest: "/tmp/{{ keypair_name }}.key"
+    src: "{{ resources_output_file | dirname }}/{{ item.item.name }}.key"
+    dest: "/tmp/{{ item.item.name }}.key"
     flat: yes
-  when: reg_keypair.changed and reg_keypair.id is defined
+  loop: "{{ reg_keypair.results }}"
+  no_log: true
+  when: item.changed and item.id is defined

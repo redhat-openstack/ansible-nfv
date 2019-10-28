@@ -1,21 +1,30 @@
 servers:
-{% if reg_floating_ip.changed %}
-{% for instance in reg_instance.results | zip(reg_floating_ip.results) %}
+{% if floating_ip_var is defined %}
+{% for instance in reg_instance.results | zip(floating_ip_var) %}
   - name: {{ instance[0].server.name }}
+    groups:
+{% for group in instance[0].item.groups %}
+      - {{ group }}
+{% endfor %}
     id: {{ instance[0].server.id }}
-    {# Currenty os_floating_ip is incosistent when an instance contains multiple NICs, return 'None' if can't be fetched #}
-    fip: {{ instance[1].floating_ip.floating_ip_address | default('None') }}
+    fip: {{ instance[1] }}
     addresses:
-        - addr: {{ instance[0].openstack.private_v4 }}
+      - addr: {{ instance[0].openstack.private_v4 }}
 {% endfor %}
 {% else %}
 {% for instance in reg_instance.results %}
-   - name: {{ instance.server.name }}
-     id: {{ instance.server.id }}
-     fip: {{ instance.openstack.private_v4 }}
-     addresses:
-        - addr: {{ instance.openstack.private_v4 }}
+  - name: {{ instance.server.name }}
+    groups:
+{% for group in instance.item.groups %}
+      - {{ group }}
+{% endfor %}
+    id: {{ instance.server.id }}
+    fip: {{ instance.openstack.private_v4 }}
+    addresses:
+      - addr: {{ instance.openstack.private_v4 }}
 {% endfor %}
 {% endif %}
 
-key_pair: "{{ resources_output_file | dirname }}/{{ keypair_name }}.key"
+{% for key in keypairs %}
+key_pair: "{{ resources_output_file | dirname }}/{{ key.name }}.key"
+{% endfor %}
