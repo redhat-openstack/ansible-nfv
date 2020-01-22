@@ -16,6 +16,24 @@
       "revId": "fef3aa2aab52bddec30c6e4916c0ff8c4e5dc1cf",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "46698198_f0060856",
+        "filename": "roles/packet_gen/trex/bind_dpdk_nics/defaults/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-01-22T13:53:00Z",
+      "side": 1,
+      "message": "Agree.\nAs you made the value parametrized it will be easy to change it during playbook execution.\nBut keep the default value as 64.",
+      "parentUuid": "c8765ca8_003d6276",
+      "revId": "fef3aa2aab52bddec30c6e4916c0ff8c4e5dc1cf",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
