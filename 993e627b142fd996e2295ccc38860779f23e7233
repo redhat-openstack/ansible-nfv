@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa83d8aa_15b6c732",
+        "filename": "roles/packet_gen/trex/launch_testpmd/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1010167
+      },
+      "writtenOn": "2020-01-22T11:59:36Z",
+      "side": 1,
+      "message": "This will change the default to mac forward, which is not expected. Default behavior should not change. it cane added as additional user variable, but by default disabled.",
+      "revId": "993e627b142fd996e2295ccc38860779f23e7233",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
