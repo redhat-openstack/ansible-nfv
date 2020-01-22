@@ -50,6 +50,11 @@
   roles:
     - role: roles/packet_gen/trex/compute_tuning
 
+- hosts: trex
+  roles:
+    - role: roles/packet_gen/trex/trex_instance_config
+      when: trex_instance_config | default(True)
+
 # TODO (vkhitrin): Make it skippable
 - hosts: "{{ dut_group }}"
   roles:
@@ -63,9 +68,6 @@
 
 - hosts: trex
   roles:
-    - role: roles/packet_gen/trex/trex_instance_config
-      when: trex_instance_config | default(True)
-
     - role: roles/packet_gen/trex/bind_dpdk_nics
       when: bind_dpdk_nics | default(True)
 
