@@ -30,6 +30,9 @@ external_resources_output_file: /home/stack/resources_output_file.yml
 ## The file is used in the Tempest "Pre-Provisioned Credentials" mode
 generate_accounts: false
 
+# Enable a nfv-tempest-plugin feature to test all provider networks attached to guests
+enable_test_all_provider_networks: False
+
 users:
   - name: test_user1
     pass: 12345678
