@@ -24,6 +24,10 @@
 - name: Run Binary Search Script
   shell: "{{ traffic_cmd }}"
   register: perf_output
+  until: perf_output.rc == 0
+  retries: 3
+  delay: 10
+  ignore_errors: yes
   failed_when: False
   become: True
 
