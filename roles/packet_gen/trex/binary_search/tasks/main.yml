@@ -15,9 +15,12 @@
       --send-teaching-warmup
       --dst-macs {{ dut_macs }}
       --num-flows {{ trex_flows }}
+      {% if 'AnsibleUndefined' not in trex_instance_sriov_vlans %}
+        --vlan-ids {{ trex_instance_sriov_vlans|join(',') }}
+      {%- endif %}
       {% if dut_type == 'dpdk' %}
         --rate {{ trex_rate }}
-      {% endif %}
+      {%- endif %}
   when: traffic_cmd is not defined
 
 # TODO: Proper print function
