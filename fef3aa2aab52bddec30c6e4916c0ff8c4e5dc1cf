@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c8765ca8_003d6276",
+        "filename": "roles/packet_gen/trex/bind_dpdk_nics/defaults/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1010167
+      },
+      "writtenOn": "2020-01-22T12:22:07Z",
+      "side": 1,
+      "message": "lets not change the default value, which is 64.",
+      "revId": "fef3aa2aab52bddec30c6e4916c0ff8c4e5dc1cf",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
