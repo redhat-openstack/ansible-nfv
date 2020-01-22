@@ -123,6 +123,14 @@ Append additional tempest.conf variables during it's generation, using the follo
 tempest_extra_vars: ""compute.min_microversion=2,compute.max_microversion=3""
 ```
 
+nfv-tempest-plugin has the option to enable all provider networks for all interfaces attached to guest interfaces.  
+This will set `nfv_plugin_options.test_all_provider_networks` to `true` in tempest.conf.  
+This is set to `False` by default.  
+For more details refer to [nfv-tempest-plugin patch implementing this feature](https://github.com/redhat-openstack/nfv-tempest-plugin/commit/10b454667a602d08edcfd7ccefc5e9deeab9ebf4):
+```ini
+enable_test_all_provider_networks: False
+```
+
 #### Tests configuration
 **Note!** - For the tests configuration, refer to the tempest-nfv-plugin [documentation](https://github.com/redhat-openstack/tempest-nfv-plugin/tree/master/docs).
 
