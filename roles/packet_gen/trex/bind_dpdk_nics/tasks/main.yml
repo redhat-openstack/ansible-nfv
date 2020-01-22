@@ -21,7 +21,7 @@
     - name: Set Huge Pages Amount
       sysctl:
         name: vm.nr_hugepages
-        value: 64
+        value: "{{ hugepages_count }}"
         state: present
 
     - name: Mount Hugepages
