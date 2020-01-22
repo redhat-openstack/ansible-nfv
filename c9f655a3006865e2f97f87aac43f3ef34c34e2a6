@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d274e34c_b85a055f",
+        "filename": "roles/packet_gen/trex/binary_search/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1010167
+      },
+      "writtenOn": "2020-01-22T12:05:08Z",
+      "side": 1,
+      "message": "Are you expecting \u0027AnsibleUndefined\u0027 string to be present in the list? if yes, then, its better to change the trex_instance_sriov_vlans\u0027s set_fact to ignore if undefined. so that we can check only the length \u003e0",
+      "revId": "c9f655a3006865e2f97f87aac43f3ef34c34e2a6",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
