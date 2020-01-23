@@ -22,6 +22,30 @@
       "revId": "23fbba74dcd6858e7400e22b85c9be8c4aa51127",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a0136b35_a49b955e",
+        "filename": "roles/packet_gen/trex/binary_search/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1016264
+      },
+      "writtenOn": "2020-01-23T09:45:09Z",
+      "side": 1,
+      "message": "trex_instance_sriov_vlans would be populated with AnsibleUndefined when \u0027vlan\u0027 is not present in binding:vif_details",
+      "parentUuid": "e00339ad_facfae75",
+      "range": {
+        "startLine": 18,
+        "startChar": 9,
+        "endLine": 18,
+        "endChar": 30
+      },
+      "revId": "23fbba74dcd6858e7400e22b85c9be8c4aa51127",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
