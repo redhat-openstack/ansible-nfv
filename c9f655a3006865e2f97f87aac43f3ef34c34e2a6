@@ -16,6 +16,24 @@
       "revId": "c9f655a3006865e2f97f87aac43f3ef34c34e2a6",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a7510ae1_e35bace3",
+        "filename": "roles/packet_gen/trex/binary_search/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1016264
+      },
+      "writtenOn": "2020-01-23T08:17:52Z",
+      "side": 1,
+      "message": "Thanks will change. \nIt would be wonderful if you also give your view on general code. \n- Instead of vlan in vif profile, should we opt for a flag to indicate we want to use vlan, since even though sriov vif has vlan in its vif profile, nic should be able to generate tagged or untagged vlan traffic. \nThe vlan from sriov vif profile is used as a hint for trex to traffic on vlan, the testpmd vm is on.\n- so should a different variable be used as indicator for vlans used by testpmd VM.",
+      "parentUuid": "d274e34c_b85a055f",
+      "revId": "c9f655a3006865e2f97f87aac43f3ef34c34e2a6",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
