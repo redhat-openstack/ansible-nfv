@@ -1,0 +1,7 @@
+switch_banner: |
+  NFV QE private Juniper switch.
+
+  The switch is under NFV QE team management.
+  Do not change configuration manually as it will be overriden by the playbook.
+
+  Contact info - nfv-cloud-qe-team[at]redhat.com
