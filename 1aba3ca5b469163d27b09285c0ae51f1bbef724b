@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ab4b66a1_232e57b2",
+        "filename": "roles/configuration/switches_config/tasks/ios_config.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2020-01-26T10:54:38Z",
+      "side": 1,
+      "message": "This part look identical to junos_config.yml\nWhy not using code static reuse?\nOnce you would like to add other parameters, you will maintain single file instead of two.",
+      "range": {
+        "startLine": 24,
+        "startChar": 1,
+        "endLine": 41,
+        "endChar": 31
+      },
+      "revId": "1aba3ca5b469163d27b09285c0ae51f1bbef724b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
