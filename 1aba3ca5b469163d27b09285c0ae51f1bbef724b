@@ -22,6 +22,30 @@
       "revId": "1aba3ca5b469163d27b09285c0ae51f1bbef724b",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e149896b_f273ecd0",
+        "filename": "roles/configuration/switches_config/tasks/ios_config.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-01-27T14:11:40Z",
+      "side": 1,
+      "message": "I agree with you about the reuse.\nUnfortunately, I don\u0027t see how it could be implemented.\n\nThe reason for this is the fact that each variable built for each item separately on the iteration of each interface from the \"switch_vars.interfaces\".\nDepends of the key in the interfaces - \"access\" or \"trunk\", the \"access_vlan\" or \"trunk_vlans\" variables created accordingly and passed to the required param (one of the two).\n\nI can\u0027t really build the list before and pass it alongside with the \"switch_vars.interfaces\", because two different lists should be used (for access and for trunk).\n\nI\u0027m open to any ideas that will help to make it reusable and will not make a duplication of the module.",
+      "parentUuid": "ab4b66a1_232e57b2",
+      "range": {
+        "startLine": 24,
+        "startChar": 1,
+        "endLine": 41,
+        "endChar": 31
+      },
+      "revId": "1aba3ca5b469163d27b09285c0ae51f1bbef724b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
