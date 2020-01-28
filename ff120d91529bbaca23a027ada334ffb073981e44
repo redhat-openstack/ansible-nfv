@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d2d6a62e_01024c00",
+        "filename": "roles/post_install/openstack_tasks/tasks/images.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-01-28T19:25:25Z",
+      "side": 1,
+      "message": "The \"openstack_tasks\" role is a generic role and used not only for the performance.\nAs a result, do not use names related to \"performance\", please.\n\nRegarding the patch, I suggest to add a param to the images, called for example: local.\n\nimages:\n  - name: centos\n    url: https://example.com/image.qcow\n  - name: perf image\n    url: /tmp/perf_image\n    local: true\n\nAnd then, add the following conditional to the \"Download images\" task.\n\nwhen: item.local is not defined or not item.local\n\nIn such case, you will be able to define when you would like to use the images that should be downloaded from the external source and specify the local images that should be uploaded.",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 24
+      },
+      "revId": "ff120d91529bbaca23a027ada334ffb073981e44",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
