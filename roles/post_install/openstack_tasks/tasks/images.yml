@@ -1,11 +1,19 @@
 ---
+- name: Check if performance image is present
+  stat:
+    path: "/tmp/{{ item.url | basename }}"
+  register: st
+  loop: '{{ images }}'
 
-- name: Download images
+- name: Download images if performance image is not present
   get_url:
-    url: "{{ item.url }}"
-    dest: "/tmp/{{ item.url | basename }}"
+    url: "{{ item.0.url }}"
+    dest: "/tmp/{{ item.0.url | basename }}"
     timeout: 100
-  loop: "{{ images }}"
+  when: item.1.stat.isreg is not defined
+  with_together:
+    -  "{{ images }}"
+    -  "{{ st.results }}"
 
 - name: Upload images
   vars:
