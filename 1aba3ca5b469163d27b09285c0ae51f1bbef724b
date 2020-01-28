@@ -46,6 +46,30 @@
       "revId": "1aba3ca5b469163d27b09285c0ae51f1bbef724b",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0911ef51_0fcec49a",
+        "filename": "roles/configuration/switches_config/tasks/ios_config.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2020-01-28T12:07:26Z",
+      "side": 1,
+      "message": "I did not try it yet, still have problems to simulate,\n\nIs it optional to store the variables with filters in file?\n\nname:  Configure interfaces - mode (access/trunk), vlans\ninclude_vars:\n    file: filters.yaml",
+      "parentUuid": "e149896b_f273ecd0",
+      "range": {
+        "startLine": 24,
+        "startChar": 1,
+        "endLine": 41,
+        "endChar": 31
+      },
+      "revId": "1aba3ca5b469163d27b09285c0ae51f1bbef724b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
