@@ -18,7 +18,7 @@ dpdk_branch: 'v17.05'
 
 # Trex Variables
 trex_version: 'v2.43'
-trex_url: 'http://trex-tgn.cisco.com/trex/release'
+trex_url: 'https://trex-tgn.cisco.com/trex/release'
 trex_dir: '/opt/trex/'
 
 # Trafficgen Variables
