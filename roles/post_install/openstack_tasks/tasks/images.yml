@@ -5,6 +5,7 @@
     url: "{{ item.url }}"
     dest: "/tmp/{{ item.url | basename }}"
     timeout: 100
+  when: item.local is not defined or not item.local
   loop: "{{ images }}"
 
 - name: Upload images
