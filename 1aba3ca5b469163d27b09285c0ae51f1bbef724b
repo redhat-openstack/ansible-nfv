@@ -70,6 +70,30 @@
       "revId": "1aba3ca5b469163d27b09285c0ae51f1bbef724b",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71a2f96b_3c608476",
+        "filename": "roles/configuration/switches_config/tasks/ios_config.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-01-28T18:50:06Z",
+      "side": 1,
+      "message": "What do you mean by \"filters in file\"?",
+      "parentUuid": "0911ef51_0fcec49a",
+      "range": {
+        "startLine": 24,
+        "startChar": 1,
+        "endLine": 41,
+        "endChar": 31
+      },
+      "revId": "1aba3ca5b469163d27b09285c0ae51f1bbef724b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
