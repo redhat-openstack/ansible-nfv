@@ -22,6 +22,30 @@
       "revId": "ff120d91529bbaca23a027ada334ffb073981e44",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee75669f_0b37e80f",
+        "filename": "roles/post_install/openstack_tasks/tasks/images.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1010167
+      },
+      "writtenOn": "2020-01-29T09:38:45Z",
+      "side": 1,
+      "message": "Nice suggestion on using \"local\"",
+      "parentUuid": "d2d6a62e_01024c00",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 24
+      },
+      "revId": "ff120d91529bbaca23a027ada334ffb073981e44",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
