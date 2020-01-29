@@ -22,6 +22,30 @@
       "revId": "5f812dbd43c1f1e501666bd2d4c070d5ba9745de",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "843fd918_671eb36a",
+        "filename": "roles/packet_gen/trex/bind_dpdk_nics/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1016264
+      },
+      "writtenOn": "2020-01-29T09:22:16Z",
+      "side": 1,
+      "message": "Thanks for the catch, will fix and resubmit",
+      "parentUuid": "857cfce6_213c28ba",
+      "range": {
+        "startLine": 7,
+        "startChar": 4,
+        "endLine": 7,
+        "endChar": 12
+      },
+      "revId": "5f812dbd43c1f1e501666bd2d4c070d5ba9745de",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
