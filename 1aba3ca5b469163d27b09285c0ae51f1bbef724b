@@ -94,6 +94,30 @@
       "revId": "1aba3ca5b469163d27b09285c0ae51f1bbef724b",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0401455_47278575",
+        "filename": "roles/configuration/switches_config/tasks/ios_config.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2020-01-29T10:56:01Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "71a2f96b_3c608476",
+      "range": {
+        "startLine": 24,
+        "startChar": 1,
+        "endLine": 41,
+        "endChar": 31
+      },
+      "revId": "1aba3ca5b469163d27b09285c0ae51f1bbef724b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
