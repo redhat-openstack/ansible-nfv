@@ -22,6 +22,30 @@
       "revId": "c17118f6f4ff4c0b85b202e9bdad8b506baa1ce4",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3d78b55f_064bd4a9",
+        "filename": "roles/images/performance/tasks/prepare_dpdk.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1016264
+      },
+      "writtenOn": "2020-01-29T10:32:44Z",
+      "side": 1,
+      "message": "Since library/virt_customize_command.py module is used to customize the image, used \"sed\" instead of ansible selniux module to configure selinux.",
+      "parentUuid": "4e69c013_94339d1b",
+      "range": {
+        "startLine": 28,
+        "startChar": 9,
+        "endLine": 28,
+        "endChar": 81
+      },
+      "revId": "c17118f6f4ff4c0b85b202e9bdad8b506baa1ce4",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
