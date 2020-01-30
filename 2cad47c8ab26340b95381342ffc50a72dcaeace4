@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ee52e052_fb0690a7",
+        "filename": "docs/tripleo/post_install/openstack_tasks.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1010167
+      },
+      "writtenOn": "2020-01-30T08:43:44Z",
+      "side": 1,
+      "message": "I would have recommended to remove the \"/tmp\" dependency in the tasks, so that any url can be supported. If not atleast, an explict statement that no other paths are supported other than \"/tmp\" (it is implicit with the statement, but paves a way to modify to any url).",
+      "range": {
+        "startLine": 217,
+        "startChar": 116,
+        "endLine": 217,
+        "endChar": 123
+      },
+      "revId": "2cad47c8ab26340b95381342ffc50a72dcaeace4",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
