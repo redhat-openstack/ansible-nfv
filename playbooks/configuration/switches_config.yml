@@ -1,0 +1,5 @@
+- name: Switches configuration
+  hosts: switches
+  gather_facts: false
+  roles:
+    - configuration/switches_config

@@ -1,0 +1,56 @@
+---
+- name: Set login banner
+  ios_banner:
+    banner: motd
+    text: "{{ switch_banner }}"
+    state: present
+
+- name: Set VLANs
+  ios_vlan:
+    name: "vlan{{ item }}"
+    vlan_id: "{{ item }}"
+    state: present
+  loop: "{{ vlan_list }}"
+
+- name: Set interface description and MTU
+  ios_interface:
+    name: "{{ item.iface }}"
+    description: "{{ item.description }}"
+    mtu: "{{ item.mtu |default(omit) }}"
+    state: present
+  loop: "{{ switch_vars.interfaces }}"
+
+- name: Configure interfaces - mode (access/trunk), vlans
+  vars:
+    iface_vlans: "{%- if item.iface_mode == 'trunk' and item.vlan != 'all' -%}
+                  {{ item.vlan.split('-') }}
+                  {%- endif -%}"
+    iface_vlan_range: "{%- if item.iface_mode == 'trunk' and item.vlan != 'all' -%}
+                       {{ range(iface_vlans.0 | int, iface_vlans.1 | int + 1) | list }}
+                       {%- endif -%}"
+    vlans_string: "{%- if item.iface_mode == 'trunk' and item.vlan != 'all' -%}
+                   {% for item in iface_vlan_range %}vlan{{ item }} {% endfor %}
+                   {%- endif -%}"
+    trunk_vlans_list: "{%- if item.iface_mode == 'trunk' and item.vlan != 'all' -%}
+                       {{ vlans_string.split() }}
+                       {%- elif item.iface_mode == 'trunk' and item.vlan == 'all'-%}
+                       {{ item.vlan }}
+                       {%- endif -%}"
+    access_vlan: "{%- if item.iface_mode == 'access' -%}
+                  {{ item.vlan |regex_replace('^(.*)$', 'vlan\\1') }}
+                  {%- endif -%}"
+  ios_l2_interface:
+    name: "{{ item.iface }}"
+    description: "{{ item.description }}"
+    mode: "{{ item.iface_mode }}"
+    access_vlan: "{%- if item.iface_mode == 'access' -%}
+                  {{ access_vlan }}{% else %}{{ omit }}{% endif %}"
+    trunk_vlans: "{%- if item.iface_mode == 'trunk' -%}
+                  {{ trunk_vlans_list }}{% else %}{{ omit }}{% endif %}"
+    unit: 0
+    state: present
+  loop: "{{ switch_vars.interfaces }}"
+
+- name: Save configuration
+  ios_config:
+    save_when: changed

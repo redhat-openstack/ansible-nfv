@@ -1,0 +1,63 @@
+---
+- name: Junos configuration block
+  block:
+    - name: Set login banner
+      junos_banner:
+        banner: motd
+        text: "{{ switch_banner }}"
+        state: present
+
+    - name: Set VLANs
+      junos_vlan:
+        name: "vlan{{ item }}"
+        vlan_id: "{{ item }}"
+        state: present
+      loop: "{{ vlan_list }}"
+
+    - name: Configure interfaces - description, mode (access/trunk), vlans
+      vars:
+        iface_vlans: "{%- if item.iface_mode == 'trunk' and item.vlan != 'all' -%}
+                      {{ item.vlan.split('-') }}
+                      {%- endif -%}"
+        iface_vlan_range: "{%- if item.iface_mode == 'trunk' and item.vlan != 'all' -%}
+                           {{ range(iface_vlans.0 | int, iface_vlans.1 | int + 1) | list }}
+                           {%- endif -%}"
+        vlans_string: "{%- if item.iface_mode == 'trunk' and item.vlan != 'all' -%}
+                       {% for item in iface_vlan_range %}vlan{{ item }} {% endfor %}
+                       {%- endif -%}"
+        trunk_vlans_list: "{%- if item.iface_mode == 'trunk' and item.vlan != 'all' -%}
+                           {{ vlans_string.split() }}
+                           {%- elif item.iface_mode == 'trunk' and item.vlan == 'all'-%}
+                           {{ item.vlan }}
+                           {%- endif -%}"
+        access_vlan: "{%- if item.iface_mode == 'access' -%}
+                      {{ item.vlan |regex_replace('^(.*)$', 'vlan\\1') }}
+                      {%- endif -%}"
+      junos_l2_interface:
+        name: "{{ item.iface }}"
+        description: "{{ item.description }}"
+        mode: "{{ item.iface_mode }}"
+        access_vlan: "{%- if item.iface_mode == 'access' -%}
+                      {{ access_vlan }}{% else %}{{ omit }}{% endif %}"
+        trunk_vlans: "{%- if item.iface_mode == 'trunk' -%}
+                      {{ trunk_vlans_list }}{% else %}{{ omit }}{% endif %}"
+        unit: 0
+        state: present
+      loop: "{{ switch_vars.interfaces }}"
+
+    - name: Set MTU value on the interface
+      junos_interface:
+        name: "{{ item.iface }}"
+        mtu: "{{ item.mtu }}"
+        state: present
+      loop: "{{ switch_vars.interfaces }}"
+      when: item.mtu is defined
+
+    - name: Save configuration
+      junos_config:
+        confirm_commit: yes
+
+  rescue:
+    - name: Configuration rollback
+      junos_config:
+        rollback: 1
