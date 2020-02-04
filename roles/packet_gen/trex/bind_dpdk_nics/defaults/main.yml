@@ -3,3 +3,14 @@ dpdk_root_dir: '/root/dpdk'
 
 # Compiled DPDK binaries directory
 dpdk_compiled_dir: '{{ dpdk_root_dir }}/build/app'
+
+# Map list of cores to physical cpu set
+testpmd_lcores: '3,4,7'
+
+# Platform sepcific Trex configuration
+trex_platform:
+  master_thread_id: 2
+  latency_thread_id: 3
+  dual_if:
+    - socket: 0
+      threads: [4, 5, 6, 7, 8, 9, 10, 11]
