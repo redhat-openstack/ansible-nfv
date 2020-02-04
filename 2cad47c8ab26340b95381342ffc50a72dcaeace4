@@ -22,6 +22,30 @@
       "revId": "2cad47c8ab26340b95381342ffc50a72dcaeace4",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3a63c36a_7b8b61fe",
+        "filename": "docs/tripleo/post_install/openstack_tasks.md",
+        "patchSetId": 4
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2020-02-04T10:02:31Z",
+      "side": 1,
+      "message": "I agree with Saravanan.\n\nI\u0027m unsure on why I hardcoded /tmp/ when I initially worked on this.",
+      "parentUuid": "ee52e052_fb0690a7",
+      "range": {
+        "startLine": 217,
+        "startChar": 116,
+        "endLine": 217,
+        "endChar": 123
+      },
+      "revId": "2cad47c8ab26340b95381342ffc50a72dcaeace4",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
