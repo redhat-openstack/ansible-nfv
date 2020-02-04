@@ -46,6 +46,30 @@
       "revId": "c17118f6f4ff4c0b85b202e9bdad8b506baa1ce4",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "accb2225_3b9db19c",
+        "filename": "roles/images/performance/tasks/prepare_dpdk.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-02-04T07:12:55Z",
+      "side": 1,
+      "message": "Ok. Got it.",
+      "parentUuid": "3d78b55f_064bd4a9",
+      "range": {
+        "startLine": 28,
+        "startChar": 9,
+        "endLine": 28,
+        "endChar": 81
+      },
+      "revId": "c17118f6f4ff4c0b85b202e9bdad8b506baa1ce4",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
