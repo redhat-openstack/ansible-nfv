@@ -18,3 +18,5 @@ testpmd_rxd: 1024
 
 # TestPMD RX Queue size
 testpmd_txd: 1024
+
+forward_mode: io
