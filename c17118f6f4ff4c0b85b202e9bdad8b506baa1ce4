@@ -117,6 +117,30 @@
       "revId": "c17118f6f4ff4c0b85b202e9bdad8b506baa1ce4",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "71f92af4_014df0de",
+        "filename": "roles/images/performance/tasks/prepare_dpdk.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1016264
+      },
+      "writtenOn": "2020-02-11T09:05:29Z",
+      "side": 1,
+      "message": "Centos cloud image with selinux policy set as permissive, boots and run performance tests without any issue. Based on Yarbo\u0027s suggestion will parameterize it and set default to disabled",
+      "parentUuid": "cf445d76_b3911e05",
+      "range": {
+        "startLine": 28,
+        "startChar": 29,
+        "endLine": 28,
+        "endChar": 37
+      },
+      "revId": "c17118f6f4ff4c0b85b202e9bdad8b506baa1ce4",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
