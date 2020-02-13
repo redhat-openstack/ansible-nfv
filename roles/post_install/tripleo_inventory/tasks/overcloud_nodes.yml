@@ -30,10 +30,12 @@
       easy_install:
         name: pip
 
+# As the "virtualenv" package has dropped its support for outdated Python 2 libraries,
+# a hardcoded version definition is required.
     - name: Install virtualenv
       pip:
         name: virtualenv
-        version: '15.1.0'
+        version: '16.7.9'
   become: True
   when: hostvars[groups['undercloud'][0]]['ansible_python']['version']['major'] == 2
 
