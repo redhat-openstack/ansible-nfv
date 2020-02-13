@@ -69,6 +69,30 @@
       "revId": "dae96f969a8c59c16fc51cb5927f478c0e1823fe",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2976a4c5_7232dcaa",
+        "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2020-02-13T16:05:29Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9beb1c6e_3a90662a",
+      "range": {
+        "startLine": 35,
+        "startChar": 17,
+        "endLine": 35,
+        "endChar": 25
+      },
+      "revId": "dae96f969a8c59c16fc51cb5927f478c0e1823fe",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
