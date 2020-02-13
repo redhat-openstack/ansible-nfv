@@ -32,7 +32,7 @@
     - name: Install venv if python2 present
       pip:
         name: virtualenv
-        state: forcereinstall
+        version: '16.7.9'
       become: true
   when: ansible_python.version.major == 2
 
