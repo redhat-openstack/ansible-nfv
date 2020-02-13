@@ -29,10 +29,11 @@
         name: pip
       become: true
 
+# The version of virtualenv hardcoded because python 2 has issues installing latest version of dependencies for the virtualenv.
     - name: Install venv if python2 present
       pip:
         name: virtualenv
-        state: forcereinstall
+        version: '16.7.9'
       become: true
   when: ansible_python.version.major == 2
 
