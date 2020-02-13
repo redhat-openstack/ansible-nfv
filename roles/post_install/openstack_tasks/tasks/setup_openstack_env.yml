@@ -29,10 +29,23 @@
         name: pip
       become: true
 
+    # We need to install virtualenv package version based on the OSP version.
+    # Because of the python2/3 support libraries
+    - name: Check OSP version
+      include_role:
+        name: discover_osp_version
+
     - name: Install venv if python2 present
+      vars:
+        venv_version: "{%- if overcloud_version <= '16' -%}
+                       '16.7.9'
+                       {%- else -%}
+                       latest
+                       {%- endif -%}"
       pip:
         name: virtualenv
-        state: forcereinstall
+        executable: pip
+        version: "{{ venv_version }}"
       become: true
   when: ansible_python.version.major == 2
 
