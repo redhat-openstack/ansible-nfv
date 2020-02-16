@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fb628ea2_6feea187",
+        "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-02-16T08:09:09Z",
+      "side": 1,
+      "message": "Sorry for being niggling, but the above is not true.\nThe installation fails because of dependencies failures.\n\nPlease, change it to something similar to:\n\"The version of virtualenv hard coded because python 2 has issues installing latest version of dependencies for the virtualenv.\"",
+      "range": {
+        "startLine": 32,
+        "startChar": 3,
+        "endLine": 32,
+        "endChar": 53
+      },
+      "revId": "d609177d74f82cdc95f14ea56e6e9406730277ea",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
