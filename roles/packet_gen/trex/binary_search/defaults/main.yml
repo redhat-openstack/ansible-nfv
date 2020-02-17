@@ -18,3 +18,9 @@ trex_flows: 1
 
 # Minimum rate for of packets to generate, sized in mpps(milion packets per second)
 trex_rate: 2
+
+# Tiral period in seconds during final validation
+trex_validation: 30
+
+# Tiral period in seconds during binary search
+trex_search: 30
