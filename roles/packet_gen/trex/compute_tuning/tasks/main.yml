@@ -9,3 +9,7 @@
 - name: Apply EMC insertion probability
   import_tasks: emc_definition.yml
   when: emc_insert_inv_prob is defined
+
+- name: Query multiqueue value
+  import_tasks: query_multiqueue.yml
+  when: multiqueue_set is defined and  multiqueue_set
