@@ -16,8 +16,8 @@ Openstack tasks play perform the following tasks on the existing Openstack envir
     * Creates networks, subnets, routers and ports by using the variables list provided to the play.  
       Public networks sets as a gateway on the router and private networks sets as a router interface by using the 'external' flag within the variables provided.  
       The interfaces for the instance could be specified as a network name or as a created port name.
-* Upload images
-    * Upload provided images to the glance store of the overcloud.
+* Upload images and set image properties
+    * Upload provided images to the glance store of the overcloud. Properties can set if required.
 * Aggregate groups
     * Creates aggregation groups with defined hosts and metadata.  
       **NOTE** - a must configuration is required: enable "AggregateInstanceExtraSpecsFilter"  
@@ -209,10 +209,16 @@ flavors:
 
 #### Images upload variables
 Default images to upload
+Image properties value are optional.
 ```
 images:
   - name: cirros
     url: http://download.cirros-cloud.net/0.3.4/cirros-0.3.4-x86_64-disk.img
+
+  - name: multiqueue
+    url: http://download.cirros-cloud.net/0.3.4/cirros-0.3.4-x86_64-disk.img
+    properties:
+    - hw_vif_multiqueue_enabled: "true"
 ```
 
 #### Keypairs names list
