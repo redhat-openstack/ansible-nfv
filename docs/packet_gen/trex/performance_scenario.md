@@ -361,6 +361,21 @@ Minimum rate for of packets to generate, sized in mpps(milion packets per second
 ```
 trex_rate: 2
 ```
+Tiral period in seconds during final validation
+
+`30` by default.
+```
+trex_validation: 30
+
+```
+
+Tiral period in seconds during binary search
+
+`30` by default.
+```
+trex_search: 30
+
+```
 
 ### Tuning
 
