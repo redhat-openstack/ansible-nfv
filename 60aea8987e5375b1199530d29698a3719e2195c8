@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9099a628_e4214880",
+        "filename": "roles/post_install/openstack_tasks/tasks/images.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1010167
+      },
+      "writtenOn": "2020-02-18T08:06:29Z",
+      "side": 1,
+      "message": "This could be simplified if the input properties is taken as dict instead of list. A single task is enough. Sample:\n\n- hosts: localhost\n  connection: local\n  gather_facts: no\n  vars:\n    images:\n      - name: \u0027image1\u0027\n        url: \u0027http_url\u0027\n      - name: \u0027image2\u0027\n        url: \u0027http_url\u0027\n        properties:\n          \u0027test1\u0027: 1\n          \u0027test2\u0027: 2\n  tasks:\n    - debug:\n        msg: \"{{ item.properties|default({}) }}\"\n      loop: \"{{ images }}\"",
+      "range": {
+        "startLine": 37,
+        "startChar": 8,
+        "endLine": 37,
+        "endChar": 28
+      },
+      "revId": "60aea8987e5375b1199530d29698a3719e2195c8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
