@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "471944ec_8cfbf42b",
+        "filename": "roles/packet_gen/trex/compute_tuning/tasks/query_multiqueue.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1016264
+      },
+      "writtenOn": "2020-02-18T18:10:05Z",
+      "side": 1,
+      "message": "both openvswitch_port and openvswitch_db module are related setting the value, rather then retrieving value from ovsdb, hence have not used ansible module.",
+      "parentUuid": "fb7e95bd_f7824ff0",
+      "range": {
+        "startLine": 2,
+        "startChar": 2,
+        "endLine": 2,
+        "endChar": 88
+      },
+      "revId": "2cfbd5ee60b313cebd6c8fa363cdb03f2581e640",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dc6c4e37_c37e89d2",
         "filename": "roles/packet_gen/trex/compute_tuning/tasks/query_multiqueue.yml",
         "patchSetId": 1
