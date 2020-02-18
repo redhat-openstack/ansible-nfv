@@ -70,6 +70,30 @@
       "revId": "60aea8987e5375b1199530d29698a3719e2195c8",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a537700d_cdb97c04",
+        "filename": "roles/post_install/openstack_tasks/tasks/images.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1016264
+      },
+      "writtenOn": "2020-02-18T18:01:20Z",
+      "side": 1,
+      "message": "Thanks for suggestion, will resubmit with the changes.",
+      "parentUuid": "08b1eac6_e2ebcee4",
+      "range": {
+        "startLine": 37,
+        "startChar": 8,
+        "endLine": 37,
+        "endChar": 28
+      },
+      "revId": "60aea8987e5375b1199530d29698a3719e2195c8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
