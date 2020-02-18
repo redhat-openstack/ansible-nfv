@@ -22,6 +22,30 @@
       "revId": "60aea8987e5375b1199530d29698a3719e2195c8",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c71bc4c4_3067aded",
+        "filename": "roles/post_install/openstack_tasks/tasks/images.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-02-18T10:01:15Z",
+      "side": 1,
+      "message": "Very nice!\nWill implement this in the flavors task.",
+      "parentUuid": "9099a628_e4214880",
+      "range": {
+        "startLine": 37,
+        "startChar": 8,
+        "endLine": 37,
+        "endChar": 28
+      },
+      "revId": "60aea8987e5375b1199530d29698a3719e2195c8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
