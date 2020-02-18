@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fb7e95bd_f7824ff0",
+        "filename": "roles/packet_gen/trex/compute_tuning/tasks/query_multiqueue.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-02-18T09:42:52Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "7d955ac1_9f17bfe5",
+      "range": {
+        "startLine": 2,
+        "startChar": 2,
+        "endLine": 2,
+        "endChar": 88
+      },
+      "revId": "2cfbd5ee60b313cebd6c8fa363cdb03f2581e640",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dc6c4e37_c37e89d2",
         "filename": "roles/packet_gen/trex/compute_tuning/tasks/query_multiqueue.yml",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2020-02-18T07:29:27Z",
       "side": 1,
       "message": "same as above? need to play with commands",
+      "range": {
+        "startLine": 6,
+        "startChar": 1,
+        "endLine": 6,
+        "endChar": 35
+      },
+      "revId": "2cfbd5ee60b313cebd6c8fa363cdb03f2581e640",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1dc53c74_cd1fed83",
+        "filename": "roles/packet_gen/trex/compute_tuning/tasks/query_multiqueue.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-02-18T09:42:52Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "dc6c4e37_c37e89d2",
       "range": {
         "startLine": 6,
         "startChar": 1,
