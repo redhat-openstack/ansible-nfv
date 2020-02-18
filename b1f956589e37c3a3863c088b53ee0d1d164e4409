@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b665cb98_045c36b9",
+        "filename": "roles/packet_gen/trex/binary_search/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-02-18T13:27:29Z",
+      "side": 1,
+      "message": "Are these value changes the default behavior of the command?",
+      "range": {
+        "startLine": 18,
+        "startChar": 6,
+        "endLine": 23,
+        "endChar": 28
+      },
+      "revId": "b1f956589e37c3a3863c088b53ee0d1d164e4409",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
