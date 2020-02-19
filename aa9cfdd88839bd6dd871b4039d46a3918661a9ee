@@ -22,6 +22,30 @@
       "revId": "aa9cfdd88839bd6dd871b4039d46a3918661a9ee",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "78438d93_8253e35d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1016264
+      },
+      "writtenOn": "2020-02-19T07:29:06Z",
+      "side": 1,
+      "message": "my bad, had fixed the doc but forgot to fix commit message.",
+      "parentUuid": "d76db80a_a20304ec",
+      "range": {
+        "startLine": 14,
+        "startChar": 4,
+        "endLine": 14,
+        "endChar": 6
+      },
+      "revId": "aa9cfdd88839bd6dd871b4039d46a3918661a9ee",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
