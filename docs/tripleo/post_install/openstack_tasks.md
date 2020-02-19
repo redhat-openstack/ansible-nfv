@@ -197,14 +197,14 @@ flavors:
     disk: 20
     vcpus: 4
     extra_specs:
-      - "hw:mem_page_size": "1GB"
-        "hw:numa_mem.0": "4096"
-        "hw:numa_nodes": "1"
-        "hw:numa_cpus.0": "0,1,2,3"
-        "hw:cpu_policy": "dedicated"
-        # Configure metadata of the created aggregation group as a flavor extra specs
-        in order to initially boot an instance on a preferred hypervisor.
-        "aggregate_instance_extra_specs:flavor": "trex_ag"
+      "hw:mem_page_size": "1GB"
+      "hw:numa_mem.0": "4096"
+      "hw:numa_nodes": "1"
+      "hw:numa_cpus.0": "0,1,2,3"
+      "hw:cpu_policy": "dedicated"
+      # Configure metadata of the created aggregation group as a flavor extra specs
+      in order to initially boot an instance on a preferred hypervisor.
+      "aggregate_instance_extra_specs:flavor": "trex_ag"
 ```
 
 #### Images upload variables

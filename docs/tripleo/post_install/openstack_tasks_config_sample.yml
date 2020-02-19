@@ -112,10 +112,10 @@ flavors:
     disk: 20
     vcpus: 6
     extra_specs:
-      - "hw:mem_page_size": "1GB"
-        "hw:cpu_policy": "dedicated"
-        "hw:emulator_threads_policy": "share"
-        "aggregate_instance_extra_specs:flavor": "host0"
+      "hw:mem_page_size": "1GB"
+      "hw:cpu_policy": "dedicated"
+      "hw:emulator_threads_policy": "share"
+      "aggregate_instance_extra_specs:flavor": "host0"
 
 # Images to upload
 images:

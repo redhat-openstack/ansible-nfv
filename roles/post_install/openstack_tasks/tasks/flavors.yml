@@ -11,20 +11,7 @@
     ram: "{{ item.ram }}"
     disk: "{{ item.disk }}"
     vcpus: "{{ item.vcpus }}"
+    extra_specs: "{{ item.extra_specs | default({}) }}"
     state: "{{ resource_state }}"
   loop: "{{ flavors }}"
   register: reg_flavors
-
-- name: Set flavor extra specs
-  vars:
-    ansible_python_interpreter: "{{ venv_path }}/bin/python"
-  os_nova_flavor:
-    cloud: "{{ item.0.cloud_name | default(cloud_name) }}"
-    name: "{{ item.0.name }}"
-    ram: "{{ item.0.ram }}"
-    disk: "{{ item.0.disk }}"
-    vcpus: "{{ item.0.vcpus }}"
-    extra_specs: "{{ item.1 }}"
-    state: present
-  loop: "{{ flavors | subelements('extra_specs', 'skip_missing=True') }}"
-  when: reg_flavors.changed and reg_flavors.results.0.id is defined
