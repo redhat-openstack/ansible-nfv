@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d76db80a_a20304ec",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1010167
+      },
+      "writtenOn": "2020-02-19T05:32:48Z",
+      "side": 1,
+      "message": "Remove this dash too",
+      "range": {
+        "startLine": 14,
+        "startChar": 4,
+        "endLine": 14,
+        "endChar": 6
+      },
+      "revId": "aa9cfdd88839bd6dd871b4039d46a3918661a9ee",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
