@@ -53,6 +53,25 @@
       loop: "{{ switch_vars.interfaces }}"
       when: item.mtu is defined
 
+    # LACP aggregation can't override existing configuration
+    # that is not LACP related on the memeber interfaces.
+    # Required to delete the config before setting the LACP dependency interface.
+    - name: Reset LACP member interface
+      junos_interface:
+        name: "{{ item.1 }}"
+        state: absent
+      loop: "{{ switch_vars.interfaces | subelements('aggr_members', 'skip_missing=True') }}"
+      when: item.0.aggr_members is defined
+
+    - name: Set aggregation for the interface
+      junos_linkagg:
+        name: "{{ item.iface }}"
+        description: "{{ item.description }}"
+        members: "{{ item.aggr_members }}"
+        mode: active
+      loop: "{{ switch_vars.interfaces }}"
+      when: item.aggr_members is defined
+
     - name: Save configuration
       junos_config:
         confirm_commit: yes
