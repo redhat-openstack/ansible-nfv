@@ -46,6 +46,53 @@
       "revId": "f54ec42fd5b2a49054be02f0e91ef953224685f7",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d092a8c5_a9353493",
+        "filename": "contribution.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2020-02-24T13:57:40Z",
+      "side": 1,
+      "message": "ansible-nfv is deployment agnostic.\nIf it works on hybrid, it should work on baremetal or virt.",
+      "parentUuid": "31b06f7e_92873568",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 95
+      },
+      "revId": "f54ec42fd5b2a49054be02f0e91ef953224685f7",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "56d2a768_270b8c84",
+        "filename": "contribution.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2020-02-24T13:57:40Z",
+      "side": 1,
+      "message": "Like Sanjay mentioned in other patch, IRC or mailing list to ask for support?",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 31
+      },
+      "revId": "f54ec42fd5b2a49054be02f0e91ef953224685f7",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
