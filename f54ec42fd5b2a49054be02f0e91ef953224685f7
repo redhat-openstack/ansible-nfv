@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fbef501a_793e4b8b",
+        "filename": "contribution.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1007976
+      },
+      "writtenOn": "2020-02-24T09:56:58Z",
+      "side": 1,
+      "message": "I think a common environment setup (hybrid or baremetal) should have its own page, and link that from here.",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 95
+      },
+      "revId": "f54ec42fd5b2a49054be02f0e91ef953224685f7",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
