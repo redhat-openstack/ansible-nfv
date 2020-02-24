@@ -22,6 +22,30 @@
       "revId": "f54ec42fd5b2a49054be02f0e91ef953224685f7",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "31b06f7e_92873568",
+        "filename": "contribution.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-02-24T13:06:29Z",
+      "side": 1,
+      "message": "I\u0027m not sure we should add it.\nIt is a tool and not related to the setup type.",
+      "parentUuid": "fbef501a_793e4b8b",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 95
+      },
+      "revId": "f54ec42fd5b2a49054be02f0e91ef953224685f7",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
