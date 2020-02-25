@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5b6307df_26950b87",
+        "filename": "docs/configuration/switches_config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1016373
+      },
+      "writtenOn": "2020-02-25T08:00:50Z",
+      "side": 1,
+      "message": "I think mode is missing. I will configure an aggregate group but it will not be lacp\nmode: active\nhttps://docs.ansible.com/ansible/latest/modules/junos_linkagg_module.html",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 141
+      },
+      "revId": "51238373805b7d4e3e4dfcb7cc2cced24212fa54",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf61b4d3_4e9271da",
+        "filename": "roles/configuration/switches_config/tasks/junos_config.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1016373
+      },
+      "writtenOn": "2020-02-25T08:00:50Z",
+      "side": 1,
+      "message": "junos_interface is deprecated, i think we should use  junos_lag_interfaces \nhttps://docs.ansible.com/ansible/latest/modules/junos_linkagg_module.html",
+      "range": {
+        "startLine": 60,
+        "startChar": 6,
+        "endLine": 60,
+        "endChar": 21
+      },
+      "revId": "51238373805b7d4e3e4dfcb7cc2cced24212fa54",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
