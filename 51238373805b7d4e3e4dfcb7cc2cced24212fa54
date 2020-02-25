@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0d1992f0_f05e1e96",
+        "filename": "docs/configuration/switches_config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-02-25T08:07:49Z",
+      "side": 1,
+      "message": "The mode is not missing.\nIn the module, I\u0027m using the \"mode: on\", which sets the lacp mode to \"active\" within the switch.\n\nI have verified it multiple times.\nWhen passing by the variables and see the \"aggr_memeber\" value exists, I refer to it as the configuration with the lacp and activate it.",
+      "parentUuid": "5b6307df_26950b87",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 141
+      },
+      "revId": "51238373805b7d4e3e4dfcb7cc2cced24212fa54",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bf61b4d3_4e9271da",
         "filename": "roles/configuration/switches_config/tasks/junos_config.yml",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2020-02-25T08:00:50Z",
       "side": 1,
       "message": "junos_interface is deprecated, i think we should use  junos_lag_interfaces \nhttps://docs.ansible.com/ansible/latest/modules/junos_linkagg_module.html",
+      "range": {
+        "startLine": 60,
+        "startChar": 6,
+        "endLine": 60,
+        "endChar": 21
+      },
+      "revId": "51238373805b7d4e3e4dfcb7cc2cced24212fa54",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0e6b15c_ed98e4ca",
+        "filename": "roles/configuration/switches_config/tasks/junos_config.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-02-25T08:07:49Z",
+      "side": 1,
+      "message": "I totally agree with you.\nBut these modules available since ansible version 2.9.\nSo until we reach there, we will need to use the deprecated modules.\nBy the way, these modules will be deprecated in ansible version 2.13, which means that we will have enough time to update the modules once reach the 2.9 ansible version.",
+      "parentUuid": "bf61b4d3_4e9271da",
       "range": {
         "startLine": 60,
         "startChar": 6,
