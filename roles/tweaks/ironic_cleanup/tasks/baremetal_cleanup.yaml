@@ -1,0 +1,24 @@
+---
+- name: "Set baremetal node '{{ node }}' to state 'manageable'"
+  shell: |
+    source {{ undercloud_credentials_file }}
+    openstack baremetal node manage {{ node }}
+
+- name: "Initiate cleanup with required steps on baremetal node '{{ node }}'"
+  shell: |
+    source {{ undercloud_credentials_file }}
+    openstack baremetal node clean {{ node }} --clean-steps '{{ cleanup_steps | to_json }}'
+
+- name: "Wait for cleanup to finish for baremetal node '{{ node }}'"
+  shell: |
+    source {{ undercloud_credentials_file }}
+    openstack baremetal node show -c 'provision_state' -f value '{{ node }}'
+  register: baremetal_node_current_state
+  retries: "{{ cleanup_retries }}"
+  delay: "{{ cleanup_delay }}"
+  until: baremetal_node_current_state['stdout'] == 'manageable'
+
+- name: "Set baremetal node '{{ node }}' to state 'available'"
+  shell: |
+    source {{ undercloud_credentials_file }}
+    openstack baremetal node provide '{{ node }}'
