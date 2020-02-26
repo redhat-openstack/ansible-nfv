@@ -22,6 +22,30 @@
       "revId": "b1f956589e37c3a3863c088b53ee0d1d164e4409",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "908089e1_3ca90685",
+        "filename": "roles/packet_gen/trex/binary_search/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1016264
+      },
+      "writtenOn": "2020-02-26T14:56:16Z",
+      "side": 1,
+      "message": "the default behavior is to set use-src-mac-flows and use-dst-mac-flows, but disable use-src-port-flows,use-dst-port-flows\nBelow is extract from default behaviour:\n--use-src-ip-flows\u003d1 --use-dst-ip-flows\u003d1 --use-src-mac-flows\u003d1 --use-dst-mac-flows\u003d1 --use-src-port-flows\u003d0 --use-dst-port-flows\u003d0\n\nOther option, would be to expose \"all\" the above options as variables and set default to the one used by current behavior.",
+      "parentUuid": "b665cb98_045c36b9",
+      "range": {
+        "startLine": 18,
+        "startChar": 6,
+        "endLine": 23,
+        "endChar": 28
+      },
+      "revId": "b1f956589e37c3a3863c088b53ee0d1d164e4409",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
