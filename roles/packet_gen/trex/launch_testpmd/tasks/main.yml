@@ -14,6 +14,11 @@
       --socket-mem {{ testpmd_socket_mem }} -- -i \
       --nb-cores={{ testpmd_forward_cores }} \
       --auto-start \
+      {% if forward_mode == 'mac' %}
+        --forward-mode=mac \
+        --eth-peer=0,{{hostvars[(groups['trex'] | first) ]['trex_instance_sriov_macs'][0]}} \
+        --eth-peer=1,{{hostvars[(groups['trex'] | first) ]['trex_instance_sriov_macs'][1]}} \
+      {% endif %}
       --rxd={{ testpmd_rxd }} \
       --txd={{ testpmd_txd }} &>/tmp/testpmd.log
   when: testpmd_cmd is not defined
