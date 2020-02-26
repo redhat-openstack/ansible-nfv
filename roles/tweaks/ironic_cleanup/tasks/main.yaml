@@ -1,0 +1,31 @@
+---
+- name: Fetch baremetal nodes state from ironic
+  shell: |
+    source /home/stack/stackrc
+    openstack baremetal node list -c 'Name' -c 'Provisioning State' -f json
+  register: baremetal_nodes_output
+
+- name: Define variable with baremetal nodes in JSON format
+  set_fact:
+    baremetal_nodes: "{{ baremetal_nodes_output['stdout'] }}"
+
+- name: Set additional helper variables
+  set_fact:
+    baremetal_node_count: "{{ baremetal_nodes | count }}"
+    baremetal_nodes_in_available_state: "{{ baremetal_nodes | selectattr('Provisioning State', 'match', 'available') | map(attribute='Provisioning State') | list | count }}"
+
+- name: Fail if baremetal nodes are not in available state
+  fail:
+    msg:
+      - "Not all baremetal nodes are not in available state."
+      - "Please make sure introspection has passed on all baremetal nodes before proceeding."
+      - "Expected nodes in available state: {{ baremetal_node_count }}"
+      - "Current nodes in available state: {{ baremetal_nodes_in_available_state }}"
+  when:
+    - baremetal_node_count != baremetal_nodes_in_available_state
+
+- name: "Perform cleanup on baremetal node '{{ node }}'"
+  include_tasks: baremetal_cleanup.yaml
+  loop: "{{ baremetal_nodes | map(attribute='Name') | list }}"
+  loop_control:
+    loop_var: node
