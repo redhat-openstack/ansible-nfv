@@ -1,0 +1,24 @@
+---
+- name: "Move baremetal node {{ node }} to state 'manageable'"
+  shell: |
+    source /home/stack/stackrc
+    openstack baremetal node manage {{ node }}
+
+- name: "Initiate cleanup with required steps on baremetal node {{ node }}"
+  shell: |
+    source /home/stack/stackrc
+    openstack baremetal node clean {{ node }} --clean-steps '{{ cleanup_steps | to_json }}'
+
+- name: "Wait for cleanup to finish for baremetal node {{ node }}"
+  shell: |
+    source /home/stack/stackrc
+    openstack baremetal node show -c 'provision_state' -f value {{ node }}
+  register: baremetal_node_current_state
+  retries: 60
+  delay: 5
+  until: baremetal_node_current_state['stdout'] != 'manageable'
+
+- name: "Move baremetal node {{ node }} to state 'available'"
+  shell: |
+    source /home/stack/stackrc
+    openstack baremetal node provide {{ node }};

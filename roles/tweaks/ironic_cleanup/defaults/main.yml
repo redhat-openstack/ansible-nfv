@@ -1,0 +1,4 @@
+---
+cleanup_steps:
+  - interface: "deploy"
+    step: "erase_devices_metadata"
