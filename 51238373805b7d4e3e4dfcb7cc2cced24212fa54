@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "cb2491af_80cac545",
+        "filename": "docs/configuration/switches_config.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 1016373
+      },
+      "writtenOn": "2020-03-02T15:31:59Z",
+      "side": 1,
+      "message": "I have not seen it, it is harcoded: mode: active, it would be nice to have it configurable in the yml, but it is ok as it is.",
+      "parentUuid": "0d1992f0_f05e1e96",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 141
+      },
+      "revId": "51238373805b7d4e3e4dfcb7cc2cced24212fa54",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bf61b4d3_4e9271da",
         "filename": "roles/configuration/switches_config/tasks/junos_config.yml",
         "patchSetId": 1
