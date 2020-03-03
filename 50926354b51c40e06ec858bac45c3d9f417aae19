@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fbb7e6ca_e934584e",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-03-03T07:48:03Z",
+      "side": 1,
+      "message": "Please, add more details to the content of the commit message.\nLater in the log it will be easier to understand what exactly changed/added.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 42
+      },
+      "revId": "50926354b51c40e06ec858bac45c3d9f417aae19",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7fefcca8_46941a3e",
+        "filename": "roles/tweaks/ironic_cleanup/tasks/baremetal_cleanup.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-03-03T07:48:03Z",
+      "side": 1,
+      "message": "Why do you need this?",
+      "range": {
+        "startLine": 24,
+        "startChar": 49,
+        "endLine": 24,
+        "endChar": 50
+      },
+      "revId": "50926354b51c40e06ec858bac45c3d9f417aae19",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2bbf9842_628001e9",
+        "filename": "roles/tweaks/ironic_cleanup/tasks/main.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-03-03T07:48:03Z",
+      "side": 1,
+      "message": "As the tripleo-inventory role is used anyway before executing this play, it means that clouds.yaml file will be generated.\nI suggest to use the \"--os-cloud\" param in the openstack commands.\n\nSee example:\nhttps://github.com/redhat-openstack/ansible-nfv/blob/master/roles/post_install/openstack_tasks/tasks/networks_and_routers.yml#L129",
+      "range": {
+        "startLine": 4,
+        "startChar": 4,
+        "endLine": 4,
+        "endChar": 30
+      },
+      "revId": "50926354b51c40e06ec858bac45c3d9f417aae19",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
