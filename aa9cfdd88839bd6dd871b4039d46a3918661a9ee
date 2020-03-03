@@ -46,6 +46,30 @@
       "revId": "aa9cfdd88839bd6dd871b4039d46a3918661a9ee",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9d416a7c_780b9d59",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-03-03T08:31:03Z",
+      "side": 1,
+      "message": "Please, fix this.",
+      "parentUuid": "78438d93_8253e35d",
+      "range": {
+        "startLine": 14,
+        "startChar": 4,
+        "endLine": 14,
+        "endChar": 6
+      },
+      "revId": "aa9cfdd88839bd6dd871b4039d46a3918661a9ee",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
