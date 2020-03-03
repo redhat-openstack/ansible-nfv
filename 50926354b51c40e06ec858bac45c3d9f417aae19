@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5cb6d37a_f3317cf4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2020-03-03T11:14:21Z",
+      "side": 1,
+      "message": "Ack, done.",
+      "parentUuid": "fbb7e6ca_e934584e",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 42
+      },
+      "revId": "50926354b51c40e06ec858bac45c3d9f417aae19",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7fefcca8_46941a3e",
         "filename": "roles/tweaks/ironic_cleanup/tasks/baremetal_cleanup.yaml",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "b8ca071e_c1d430b8",
+        "filename": "roles/tweaks/ironic_cleanup/tasks/baremetal_cleanup.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2020-03-03T11:14:21Z",
+      "side": 1,
+      "message": "This is unnecessary, will remove.",
+      "parentUuid": "7fefcca8_46941a3e",
+      "range": {
+        "startLine": 24,
+        "startChar": 49,
+        "endLine": 24,
+        "endChar": 50
+      },
+      "revId": "50926354b51c40e06ec858bac45c3d9f417aae19",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2bbf9842_628001e9",
         "filename": "roles/tweaks/ironic_cleanup/tasks/main.yaml",
         "patchSetId": 2
@@ -68,6 +116,30 @@
       "revId": "50926354b51c40e06ec858bac45c3d9f417aae19",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b7189f38_bb6bb6fb",
+        "filename": "roles/tweaks/ironic_cleanup/tasks/main.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2020-03-03T11:14:21Z",
+      "side": 1,
+      "message": "As discussed, this is not possible since at the time this playbook is intended to be executed, clouds.yaml does not exist.",
+      "parentUuid": "2bbf9842_628001e9",
+      "range": {
+        "startLine": 4,
+        "startChar": 4,
+        "endLine": 4,
+        "endChar": 30
+      },
+      "revId": "50926354b51c40e06ec858bac45c3d9f417aae19",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
