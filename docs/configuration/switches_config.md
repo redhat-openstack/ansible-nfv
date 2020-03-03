@@ -4,6 +4,7 @@
 The switches config play performs the following tasks:
 - VLAN configuration access/trunk on the switch port.
 - MTU configuration on the switch port.
+- LACP configuration on interface and members attach.
 
 Supported switch platforms:
 - Cisco
@@ -54,6 +55,7 @@ switch01:
     - { description: 'host1_port1', iface: 'xe-0/0/0', iface_mode: 'access', vlan: '10', mtu: '9000' }
     - { description: 'host2_port3', iface: 'xe-0/0/1', iface_mode: 'trunk', vlan: '15-20', mtu: '9000' }
     - { description: 'host3_port1', iface: 'xe-0/0/4', iface_mode: 'trunk', vlan: '50-53' }
+    - { description: 'aggregation', iface: 'ae2', iface_mode: 'trunk', vlan: '53-55', mtu: '9192', aggr_members: ['xe-0/0/12', 'xe-0/0/13'] }
 
 switch02:
   vlans:
