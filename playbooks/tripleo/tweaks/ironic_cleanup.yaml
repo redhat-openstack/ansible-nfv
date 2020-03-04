@@ -1,0 +1,6 @@
+---
+- name: Perform cleanup on ironic baremetals
+  hosts: undercloud
+  gather_facts: False
+  roles:
+    - tweaks/ironic_cleanup

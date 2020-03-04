@@ -1,0 +1,11 @@
+---
+# Undercloud credentials file
+undercloud_credentials_file: '/home/stack/stackrc'
+# Default cleanup state will cleanup metadata from devices
+cleanup_steps:
+  - interface: "deploy"
+    step: "erase_devices_metadata"
+# Amount of retries Ansible will perform during cleanup
+cleanup_retries: 60
+# Amount of seconds to pause between retries
+cleanup_delay: 5
