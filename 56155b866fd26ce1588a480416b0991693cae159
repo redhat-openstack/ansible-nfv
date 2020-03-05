@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f89b4928_1f01b93d",
+        "filename": "contribution.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-03-05T12:18:39Z",
+      "side": 1,
+      "message": "Added and changed the whole prepare env section.",
+      "parentUuid": "5d5c27e2_4fdb6930",
+      "range": {
+        "startLine": 14,
+        "startChar": 45,
+        "endLine": 14,
+        "endChar": 51
+      },
+      "revId": "56155b866fd26ce1588a480416b0991693cae159",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "13f1ffed_681d054e",
         "filename": "contribution.md",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2020-02-26T15:22:29Z",
       "side": 1,
       "message": "why only the structure? are we allow to merge code that could be useless or code that could be implemented in an easy way?",
+      "range": {
+        "startLine": 24,
+        "startChar": 2,
+        "endLine": 24,
+        "endChar": 115
+      },
+      "revId": "56155b866fd26ce1588a480416b0991693cae159",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "481edb89_434dbd3c",
+        "filename": "contribution.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-03-05T12:18:39Z",
+      "side": 1,
+      "message": "Changed according to Yariv notes in the second patch.",
+      "parentUuid": "13f1ffed_681d054e",
       "range": {
         "startLine": 24,
         "startChar": 2,
