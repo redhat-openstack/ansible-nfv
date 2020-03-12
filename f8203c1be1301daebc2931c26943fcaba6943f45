@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "338eee3d_88bc6fb7",
+        "filename": "roles/packet_gen/trex/launch_testpmd/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1008576
+      },
+      "writtenOn": "2020-03-12T10:21:27Z",
+      "side": 1,
+      "message": "Hey @yogananth\n\nI think if you\u0027d like to add it, you should also try to provide a solution to the Trex cfg file with the necessary changes.\nOtherwise, whoever going to execute it with the \"mac\" mode, will probably encounter a broken perf flow.\n\nIn our current setup, Trex cfg file is tied to work with the binary search script flow: TRex port 0 \u003e Trex port 1, and Trex port 1 \u003e Trex port 0.\n\nWhere in the proposed change above, you should also alight Trex server to support it: Trex port 0 \u003e DUT port 1, and Trex port 1 \u003e DUT port 0.\n\nThanks.",
+      "range": {
+        "startLine": 17,
+        "startChar": 4,
+        "endLine": 21,
+        "endChar": 17
+      },
+      "revId": "f8203c1be1301daebc2931c26943fcaba6943f45",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
