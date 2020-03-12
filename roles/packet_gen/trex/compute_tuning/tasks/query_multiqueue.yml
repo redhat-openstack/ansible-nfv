@@ -1,0 +1,13 @@
+- name: Query dpdk interface
+  shell: ovs-vsctl  -f csv --no-heading -d bare --columns=name find  Interface type=dpdk
+  become: True
+  register: result
+
+- name: Query interface queue value
+  shell: ovs-vsctl get interface "{{result.stdout_lines[0]}}" options:n_rxq
+  become: True
+  register: result
+
+- name: Strip quotes from result
+  set_fact:
+    multiqueue: "{{ result.stdout|regex_replace('\"', '') }}"
