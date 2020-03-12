@@ -362,6 +362,13 @@ Minimum rate for of packets to generate, sized in mpps(milion packets per second
 trex_rate: 2
 ```
 
+Enables using vlan-ids with binary search. Vlan id is obtained from vif_details of port associated with Trex VM.
+
+`False` by default.
+```
+trex_set_vlan: False
+```
+
 ### Tuning
 
 #### Default emulatorpin
