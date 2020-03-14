@@ -214,6 +214,12 @@ images:
   - name: cirros
     url: http://download.cirros-cloud.net/0.3.4/cirros-0.3.4-x86_64-disk.img
 ```
+Local images on undercloud can also be used, by using the file URI scheme.
+```
+images:
+  - name: centos7cloud
+    url: file:///tmp/CentOS-7-x86_64-GenericCloud.qcow2
+```
 
 #### Keypairs names list
 Keypairs to be created.  
