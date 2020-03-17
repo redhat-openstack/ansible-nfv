@@ -1,3 +1,61 @@
+- name: Set isolcpus for testpmd
+  set_fact:
+    isolcpus: "{{ testpmd_lcores.split(',')[1:]|join(',') }}"
+  when: "'trex' not in group_names"
+
+- name: Set isolcpus for trex
+  set_fact:
+    isolcpus: "{{ ([trex_platform['latency_thread_id']]+trex_platform['dual_if'][0]['threads'])|join(',') }}"
+  when: "'trex' in group_names"
+
+- name: Add parameter to the grub
+  lineinfile:
+    dest: /etc/default/grub
+    regexp: '^GRUB_CMDLINE_LINUX="(?!.* {{ item.regex }})(.*)"'
+    line: 'GRUB_CMDLINE_LINUX="\1 {{ item.context }}"'
+    state: present
+    backrefs: yes
+  loop:
+    - { regex: 'hugepagesz=', context: 'hugepagesz=1G default_hugepagesz=1G hugepages={{ hugepages_count }}' }
+    - { regex: 'isolcpus=', context: "isolcpus={{ isolcpus }}" }
+  register: grub
+  become: True
+
+- name: Make grub
+  command: "grub2-mkconfig -o /boot/grub2/grub.cfg"
+  when: grub.changed
+  register: makegrub
+  become: True
+
+- name: Set the vfio_pci module to load on boot
+  lineinfile:
+    dest: /etc/modules-load.d/vfio_pci.conf
+    regexp: "^vfio_pci"
+    line: "vfio_pci"
+    create: yes
+  become: True
+
+- name: Permanently enable the no-IOMMU mode
+  lineinfile:
+    dest: /etc/modprobe.d/vfio-noiommu.conf
+    regexp: "^options vfio"
+    line: "options vfio enable_unsafe_noiommu_mode=1"
+    create: yes
+  become: True
+
+- name: Restart machine
+  shell: sleep 2 && shutdown -r now "Ansible updates triggered"
+  async: 1
+  poll: 0
+  ignore_errors: true
+  when: makegrub.changed
+  become: True
+
+- name: Wait 300 seconds, but only start checking after 60 seconds
+  wait_for_connection:
+    delay: 60
+    timeout: 300
+
 - name: Check if DPDK Compiled Binaries Directory Exists
   stat:
     path: "{{ dpdk_compiled_dir }}"
