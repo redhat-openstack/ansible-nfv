@@ -220,6 +220,12 @@ images:
     properties:
       hw_vif_multiqueue_enabled: "true"
 ```
+Local images on undercloud can also be used, by using the file URI scheme.
+```
+images:
+  - name: centos7cloud
+    url: file:///tmp/CentOS-7-x86_64-GenericCloud.qcow2
+```
 
 #### Keypairs names list
 Keypairs to be created.  
