@@ -299,6 +299,13 @@ TestPMD RX Queue size.
 testpmd_rxd: 1024
 ```
 
+TestPMD forwarding mode, currently supported mode io, mac.
+
+`io` by default.
+```
+forward_mode: io
+```
+
 ### Binary Search Sript Variables
 
 binary-search script result log file to be generated on DuT instance.
