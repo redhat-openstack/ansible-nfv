@@ -22,6 +22,30 @@
       "revId": "3e88677b96ba6dc20edbc5b80a30e5773ebaf6d5",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1c9c071e_c1d16d8e",
+        "filename": "roles/packet_gen/trex/bind_dpdk_nics/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1016264
+      },
+      "writtenOn": "2020-03-19T10:09:54Z",
+      "side": 1,
+      "message": "Hello Maxim\nDid try it with ansible modprobe module first, but it did not work with centos7 cloud image, so opted to do it this way.",
+      "parentUuid": "ea4af3c6_3a38be12",
+      "range": {
+        "startLine": 111,
+        "startChar": 4,
+        "endLine": 111,
+        "endChar": 38
+      },
+      "revId": "3e88677b96ba6dc20edbc5b80a30e5773ebaf6d5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
