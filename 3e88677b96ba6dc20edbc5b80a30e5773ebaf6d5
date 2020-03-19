@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ea4af3c6_3a38be12",
+        "filename": "roles/packet_gen/trex/bind_dpdk_nics/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-03-19T08:54:28Z",
+      "side": 1,
+      "message": "Maybe enable it permanently?\nhttps://dpdk-guide.gitlab.io/dpdk-guide/setup/binding.html#vfio-no-iommu\n\nMaybe using https://docs.ansible.com/ansible/latest/modules/modprobe_module.html",
+      "range": {
+        "startLine": 111,
+        "startChar": 4,
+        "endLine": 111,
+        "endChar": 38
+      },
+      "revId": "3e88677b96ba6dc20edbc5b80a30e5773ebaf6d5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
