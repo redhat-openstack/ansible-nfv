@@ -57,7 +57,12 @@
 
 # TODO (vkhitrin): Make it skippable
 - hosts: "{{ dut_group }}"
+  become: true
   roles:
+    - role: tuning/cpu_pinning_huge_pages
+      vars:
+        cpu_pinning_cores: "{{ testpmd_lcores }}"
+
     - role: roles/packet_gen/trex/bind_dpdk_nics
       vars:
         discover_dut_macs: True
@@ -67,7 +72,13 @@
       when: launch_testpmd | default(True)
 
 - hosts: trex
+  become: true
   roles:
+    - role: tuning/cpu_pinning_huge_pages
+      become_user: root
+      vars:
+        cpu_pinning_cores: "{{ trex_lcores }}"
+
     - role: roles/packet_gen/trex/bind_dpdk_nics
       when: bind_dpdk_nics | default(True)
 
