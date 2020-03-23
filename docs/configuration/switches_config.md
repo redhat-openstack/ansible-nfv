@@ -18,10 +18,11 @@ The inventory for this play should be created by the user.
 
 ```
 [ios]
-switch01 ansible_host=10.10.10.100
+cisco_switch01 ansible_host=10.10.10.120
 
 [junos]
-switch02 ansible_host=10.10.10.101
+juniper_switch01 ansible_host=10.10.10.100
+juniper_switch02 ansible_host=10.10.10.101
 
 [switches:children]
 ios
@@ -45,7 +46,7 @@ ansible_connection=netconf
 The names of the switches in the variables should represent the name of the switch in the inventory.
 
 ```
-switch01:
+juniper_switch01:
   vlans:
     - start: 10
       end: 20
@@ -57,7 +58,7 @@ switch01:
     - { description: 'host3_port1', iface: 'xe-0/0/4', iface_mode: 'trunk', vlan: '50-53' }
     - { description: 'aggregation', iface: 'ae2', iface_mode: 'trunk', vlan: '53-55', mtu: '9192', aggr_members: ['xe-0/0/12', 'xe-0/0/13'] }
 
-switch02:
+juniper_switch02:
   vlans:
     - start: 25
       end: 30
@@ -67,4 +68,15 @@ switch02:
     - { description: 'host1_port1', iface: 'xe-0/0/0', iface_mode: 'trunk', vlan: '25-27', mtu: '9000' }
     - { description: 'host2_port3', iface: 'xe-0/0/1', iface_mode: 'access', vlan: '29', mtu: '9000' }
     - { description: 'host3_port1', iface: 'xe-0/0/4', iface_mode: 'trunk', vlan: '70-75' }
+    - { description: 'host3_port1', iface: 'xe-0/0/5', iface_mode: 'trunk', vlan: '70' }
+
+cisco_switch01:
+  vlans:
+    - start: 100
+      end: 105
+  interfaces:
+     - { description: 'tigon15', iface: 'GigabitEthernet5/0/6', iface_mode: 'access', vlan: '20' }
+     - { description: 'tigon16', iface: 'GigabitEthernet5/0/7', iface_mode: 'access', vlan: '20' }
+     - { description: 'tigon17', iface: 'GigabitEthernet5/0/8', iface_mode: 'access', vlan: '90' }
+     - { description: 'uplink_port', iface: 'GigabitEthernet5/0/9', iface_mode: 'trunk', vlan: '', encapsulation: true }
 ```

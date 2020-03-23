@@ -22,35 +22,36 @@
 
 - name: Configure interfaces - mode (access/trunk), vlans
   vars:
-    iface_vlans: "{%- if item.iface_mode == 'trunk' and item.vlan != 'all' -%}
+    iface_vlans: "{%- if item.iface_mode == 'trunk' and '-' in item.vlan -%}
                   {{ item.vlan.split('-') }}
                   {%- endif -%}"
-    iface_vlan_range: "{%- if item.iface_mode == 'trunk' and item.vlan != 'all' -%}
+    iface_vlan_range: "{%- if iface_vlans -%}
                        {{ range(iface_vlans.0 | int, iface_vlans.1 | int + 1) | list }}
                        {%- endif -%}"
-    vlans_string: "{%- if item.iface_mode == 'trunk' and item.vlan != 'all' -%}
-                   {% for item in iface_vlan_range %}vlan{{ item }} {% endfor %}
-                   {%- endif -%}"
-    trunk_vlans_list: "{%- if item.iface_mode == 'trunk' and item.vlan != 'all' -%}
-                       {{ vlans_string.split() }}
-                       {%- elif item.iface_mode == 'trunk' and item.vlan == 'all'-%}
-                       {{ item.vlan }}
-                       {%- endif -%}"
-    access_vlan: "{%- if item.iface_mode == 'access' -%}
-                  {{ item.vlan |regex_replace('^(.*)$', 'vlan\\1') }}
-                  {%- endif -%}"
+    trunk_vlans_list: "{%- if iface_vlan_range[0] is defined -%}
+                       {{ iface_vlan_range.split() }}{% else %}{{ item.vlan }}{% endif %}"
+    access_vlan: "{% if item.iface_mode == 'access' %}{{ item.vlan }}{% endif %}"
   ios_l2_interface:
     name: "{{ item.iface }}"
-    description: "{{ item.description }}"
     mode: "{{ item.iface_mode }}"
     access_vlan: "{%- if item.iface_mode == 'access' -%}
                   {{ access_vlan }}{% else %}{{ omit }}{% endif %}"
     trunk_vlans: "{%- if item.iface_mode == 'trunk' -%}
                   {{ trunk_vlans_list }}{% else %}{{ omit }}{% endif %}"
-    unit: 0
     state: present
   loop: "{{ switch_vars.interfaces }}"
 
+# TODO: Once moving to 2.9 version, replace the task below with the new ios_l2_interface
+# module and merge with the task above.
+- name: Set encapsulation on the interface
+  ios_config:
+    lines:
+      - switchport trunk encapsulation dot1q
+      - switchport mode trunk
+    parents: "interface {{ item.iface }}"
+  loop: "{{ switch_vars.interfaces }}"
+  when: item.encapsulation is defined and item.encapsulation
+
 - name: Save configuration
   ios_config:
-    save_when: changed
+    save_when: always
