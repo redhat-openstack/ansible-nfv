@@ -16,6 +16,24 @@
       "revId": "439270889b9017b4ae1647ae181bba904b2b084d",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0a93c118_23f9dd7c",
+        "filename": "roles/packet_gen/trex/bind_dpdk_nics/defaults/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1016264
+      },
+      "writtenOn": "2020-03-23T11:27:07Z",
+      "side": 1,
+      "message": "I guess, if the number of vcpus to be used by testpmd is constant, we could derive the testpmd_lcores from number of vcpus in vm. But I think in either case, we might need a variable to indicate the number of cores to be used by testpmd, unless the number of cores it going to be constant.",
+      "parentUuid": "00abd7f8_ce9ee1cb",
+      "revId": "439270889b9017b4ae1647ae181bba904b2b084d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
