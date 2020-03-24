@@ -7,11 +7,19 @@
 - name: Gather Instance Facts From OpenStack API
   vars:
     ansible_python_interpreter: "{{ venv_path }}/bin/python"
-  os_server_facts:
+  os_server_info:
     cloud: "{{ query_cloud }}"
     server: "{{ query_instance | mandatory }}"
     validate_certs: "{{ cloud_validate_certs }}"
-  failed_when: openstack_servers == []
+  register: result
+
+- name: print openstack_servers
+  debug:
+    msg: "{{ result }}"
+
+- name: Create openstack_servers fact
+  set_fact:
+    openstack_servers: "{{ result.openstack_servers }}"
 
 - name: Parse Instance Server NICs' MAC Addresses
   set_fact:
