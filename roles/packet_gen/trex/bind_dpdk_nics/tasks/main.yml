@@ -74,7 +74,7 @@
         name: roles/post_install/discover_instance_ports
       vars:
         query_instance: "{{ ansible_hostname }}"
-      delegate_to: undercloud-0
+      delegate_to: "{{ groups['undercloud'] | first }}"
 
     - name: Map DuT NICs To Helper Variable
       set_fact:
