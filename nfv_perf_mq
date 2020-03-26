@@ -1,0 +1,1068 @@
+#!/bin/bash
+########################################################################
+#                                                                      #
+#  nfv_perf_mq - a test harness to execute various multiqueue tests    #
+#  for openstack cluster using ansible-nfv test framework.             #
+#                                                                      #
+#  Usage:                                                              #
+#  ncd_perf_mq [-p] [-t] [-C] [-n] [-v]                                #
+#    options:"                                                         #
+#    p - pre-balance before perf test                                  #
+#    t - enable tracing assistance in load balance                     #
+#    C - disable cleanup of cluster at the end of tests                #
+#    n - netcontrold version for the testing                           #
+#    v - enable verbosity in logging                                   #
+#                                                                      #
+#  Note:                                                               #
+#    Set MOCK_RUN=1 in environment for a dry-run on this tool.         #
+#                                                                      #
+########################################################################
+
+if [[ "$SCR" == "" ]]
+then 
+    export SCR=1
+    /usr/bin/script "$0.log" /bin/bash -c "$0 $*" 2>"$0.err"
+    exit 0
+fi
+
+# test globals
+dut_node="overcloud-computeovsdpdksriov-0"
+dpdk_nic_0="dpdk-link1-port"
+dpdk_nic_1="dpdk-link2-port"
+pmd_cpu_mask_2pmd="0x2002"
+pmd_cpu_mask_4pmd="0x6006"
+pmd_cpu_mask_8pmd="0xC06C06"
+
+# shared variables (do not modify)
+td="$0.results"
+tname=""
+yamld=""
+cfgd=""
+logd=""
+verbosity=0
+lb_pretest=0
+lb_trace=0
+final_cleanup=1
+ncd_container="openvswitch_dpdk_netcontrold"
+ncd_sys_version=""
+ncd_version=""
+ncd_dev=""
+mock_run="$MOCK_RUN"
+
+# test functions
+banner()
+{
+    m=""
+    [[ "$mock_run" != "" ]] && m="mock> "
+
+    echo "$m+------------------------------------------+"
+    printf "$m| %-40s |\n" "`date -u`"
+    echo "$m|                                          |"
+    printf "$m|`tput bold` %-40s `tput sgr0`|\n" "$@"
+    echo "$m+------------------------------------------+"
+}
+
+info() {
+    m=""
+    [[ "$mock_run" != "" ]] && m="mock> "
+    echo "$m$*"
+}
+
+verbose() {
+    [[ "$verbosity" == "1" ]] && info $*
+}
+
+dut() {
+    verbose "executing \"$*\" in dut.."
+    ansible $dut_node -m shell -b -a "$*" 2>&1
+}
+
+dut_q() {
+    dut $@ 2>&1 1>/dev/null
+}
+
+dut_port_mq_enable() {
+     nq="$1"
+
+    dut_q "ovs-vsctl set Interface $dpdk_nic_0 options:n_rxq=$nq"
+    dut_q "ovs-vsctl set Interface $dpdk_nic_1 options:n_rxq=$nq"
+}
+
+dut_port_mq_disable() {
+    dut_q "ovs-vsctl remove Interface $dpdk_nic_0 options n_rxq"
+    dut_q "ovs-vsctl remove Interface $dpdk_nic_1 options n_rxq"
+}
+
+dut_pmd_lb_ovs_enable() {
+    dut_pmd_lb_ncd_is_enabled && dut_pmd_lb_ncd_disable
+    dut_q "ovs-vsctl set Open_vSwitch . other_config:pmd-auto-lb='true'"
+}
+
+dut_pmd_lb_ovs_is_enabled() {
+    dut "ovs-vsctl get Open_vSwitch . other_config:pmd-auto-lb" | grep -q true
+}
+
+dut_pmd_lb_ovs_disable() {
+    dut_q "ovs-vsctl set Open_vSwitch . other_config:pmd-auto-lb='false'"
+}
+
+dut_pmd_lb_ncd_dev_trace() {
+    dut_q "env PATH=$ncd_dev:$ncd_dev/linux:$PATH ncd_ctl config trace $1"
+}
+
+dut_pmd_lb_ncd_container_trace() {
+    dut_q "podman exec $ncd_container ncd_ctl config trace $1"
+}
+
+dut_pmd_lb_ncd_trace_off() {
+    if [[ "$ncd_dev" != "" ]]
+    then
+        dut_pmd_lb_ncd_dev_trace off
+    else
+        dut_pmd_lb_ncd_container_trace off
+    fi
+}
+
+dut_pmd_lb_ncd_trace_check() {
+    if [[ "$lb_trace" == "0" ]]
+    then
+       dut_pmd_lb_ncd_trace_off
+       return 0
+    fi
+
+    if [[ "$ncd_dev" != "" ]]
+    then
+        dut_pmd_lb_ncd_dev_trace on
+    else
+        dut_pmd_lb_ncd_container_trace on
+    fi
+}
+
+dut_pmd_lb_ncd_dev_disable() {
+    dut_q "env PATH=$ncd_dev:$PATH ncd_ctl stop"
+}
+
+dut_pmd_lb_ncd_container_disable() {
+    dut_q "podman exec $ncd_container ncd_ctl stop"
+}
+
+dut_pmd_lb_ncd_disable() {
+    if [[ "$ncd_dev" != "" ]]
+    then
+        dut_pmd_lb_ncd_dev_disable
+    else
+        dut_pmd_lb_ncd_container_disable
+    fi
+}
+
+dut_pmd_lb_ncd_container_rm() {
+    dut_q "podman rm -f $ncd_container"
+}
+
+dut_pmd_lb_ncd_container_install() {
+    dut_pmd_lb_ovs_is_enabled && dut_pmd_lb_ovs_disable
+    dut_q "podman run --name $ncd_container --pid=host --net=host -v /var/run/openvswitch:/var/run/openvswitch -v /sys/kernel/debug:/sys/kernel/debug --entrypoint=/usr/local/bin/ncd_watch -dit quay.io/netcontrold/netcontrold-py:$ncd_version"
+}
+
+dut_pmd_lb_ncd_dev_is_enabled() {
+    dut_q "env PATH=$ncd_dev:$PATH ncd_ctl status"
+}
+
+dut_pmd_lb_ncd_container_is_enabled() {
+    dut_q "podman exec $ncd_container ncd_ctl status"
+}
+
+dut_pmd_lb_ncd_is_enabled() {
+    if [[ "$ncd_dev" != "" ]]
+    then
+        dut_pmd_lb_ncd_dev_is_enabled
+    else
+        dut_pmd_lb_ncd_container_is_enabled
+    fi
+}
+
+dut_pmd_lb_ncd_dev_enable() {
+    dut_q "env PATH=$ncd_dev:$ncd_dev/linux:$PATH ncd_ctl start"
+}
+
+dut_pmd_lb_ncd_container_enable() {
+    dut_q "podman exec $ncd_container ncd_ctl start"
+}
+
+dut_pmd_lb_ncd_enable() {
+    dut_pmd_lb_ovs_is_enabled && dut_pmd_lb_ovs_disable
+    if [[ "$ncd_dev" != "" ]]
+    then
+        dut_pmd_lb_ncd_dev_enable
+    else
+        dut_pmd_lb_ncd_container_enable
+    fi
+}
+
+dut_pmd_lb_ncd_dev_status_clear() {
+    dut_q "env PATH=$ncd_dev:$ncd_dev/linux:$PATH ncd_ctl status clear"
+}
+
+dut_pmd_lb_ncd_container_status_clear() {
+    dut_q "podman exec $ncd_container ncd_ctl status clear"
+}
+
+dut_pmd_lb_ncd_status_clear() {
+    if [[ "$ncd_dev" != "" ]]
+    then
+        dut_pmd_lb_ncd_dev_status_clear
+    else
+        dut_pmd_lb_ncd_container_status_clear
+    fi
+}
+
+dut_pmd_lb_disable() {
+    dut_pmd_lb_ovs_disable
+    dut_pmd_lb_ncd_disable
+    dut_pmd_lb_ovs_is_enabled || dut_pmd_lb_ncd_is_enabled || return 0
+}
+
+dut_pmd_conf_1p_2l() {
+    dut_q "ovs-vsctl set Open_vSwitch . other_config:pmd-cpu-mask=$pmd_cpu_mask_2pmd"
+}
+
+dut_pmd_conf_2p_4l() {
+    dut_q "ovs-vsctl set Open_vSwitch . other_config:pmd-cpu-mask=$pmd_cpu_mask_4pmd"
+}
+
+dut_pmd_conf_4p_8l() {
+    dut_q "ovs-vsctl set Open_vSwitch . other_config:pmd-cpu-mask=$pmd_cpu_mask_8pmd"
+}
+
+dut_pmd_conf_reset() {
+    dut_pmd_conf_1p_2l
+}
+
+update_key() {
+    # Update key with value in yaml.
+    # Optionally, provide "tag_key: tag_value" to match to update key
+    # following that.
+    file=$1
+    key=$2
+    value=$3
+    tkey=$4
+    tvalue=$5
+
+    if [[ "$4" == "" ]]
+    then
+        sed -i -E "s@.*?($key: )(.*)@\1$value@" $file
+    else
+        awk -F ": " -v tk="$tkey" -v tv="$tvalue" -v k="$key" -v v="$value" '$1 ~ tk { tag = ($2 ~ tv) } tag && $1 ~ k {$1 = $1": "v;;{for (i=2; i<=NF; i++) $i = ""}} 1' $file > tmp && mv tmp $file
+    fi
+}
+
+config_flows() {
+    update_key $yamld/user-config.yaml "trex_flows" "$1"
+}
+
+config_no_mq() {
+    update_key $yamld/user-config.yaml "vcpus" "4" "name" "trex"
+    update_key $yamld/user-config.yaml "hw:numa_cpus.0" "'0,1,2,3'" "name" "trex"
+
+    update_key $yamld/user-config.yaml "trex_lcores" "'2,3'"
+    update_key $yamld/user-config.yaml "threads" "[2, 3]" "trex_platform"
+    update_key $yamld/user-config.yaml "trex_process_threads" "2"
+    update_key $yamld/user-config.yaml "trex_rate" "2"
+
+    update_key $yamld/user-config.yaml "vcpus" "4" "name" "dut"
+    update_key $yamld/user-config.yaml "hw:numa_cpus.0" "'0,1,2,3'" "name" "dut"
+
+    update_key $yamld/user-config.yaml "testpmd_lcores" "'1,2,3'"
+    update_key $yamld/user-config.yaml "testpmd_forward_cores" "2"
+
+    update_key $yamld/user-config.yaml "multiqueue_set" "False"
+    update_key $yamld/user-config.yaml "image" "centos7cloud" "name" "testpmd-dpdk-dut"
+    
+    config_flows 1
+}
+
+config_mq() {
+    if [[ "$1" == "1" ]]
+    then
+        # same as no multiqueue, except multiqueue property set in flavor.
+        config_no_mq
+        
+    elif [[ "$1" == "2" ]]
+    then
+    update_key $yamld/user-config.yaml "vcpus" "6" "name" "trex"
+    update_key $yamld/user-config.yaml "hw:numa_cpus.0" "'0,1,2,3,4,5'" "name" "trex"
+
+    update_key $yamld/user-config.yaml "trex_lcores" "'2,3,4,5'"
+    update_key $yamld/user-config.yaml "threads" "[2, 3, 4, 5]" "trex_platform"
+    update_key $yamld/user-config.yaml "trex_process_threads" "4"
+    update_key $yamld/user-config.yaml "trex_rate" "4"
+
+    update_key $yamld/user-config.yaml "vcpus" "6" "name" "dut"
+    update_key $yamld/user-config.yaml "hw:numa_cpus.0" "'0,1,2,3,4,5'" "name" "dut"
+
+    update_key $yamld/user-config.yaml "testpmd_lcores" "'1,2,3,4,5'"
+    update_key $yamld/user-config.yaml "testpmd_forward_cores" "4"
+    
+    config_flows 4
+    elif [[ "$1" == "4" ]]
+    then
+    update_key $yamld/user-config.yaml "vcpus" "8" "name" "trex"
+    update_key $yamld/user-config.yaml "hw:numa_cpus.0" "'0,1,2,3,4,5,6,7'" "name" "trex"
+
+    update_key $yamld/user-config.yaml "trex_lcores" "'2,3,4,5,6,7'"
+    update_key $yamld/user-config.yaml "threads" "[2, 3, 4, 5, 6, 7]" "trex_platform"
+    update_key $yamld/user-config.yaml "trex_process_threads" "6"
+    update_key $yamld/user-config.yaml "trex_rate" "8"
+
+    update_key $yamld/user-config.yaml "vcpus" "10" "name" "dut"
+    update_key $yamld/user-config.yaml "hw:numa_cpus.0" "'0,1,2,3,4,5,6,7,8,9'" "name" "dut"
+
+    update_key $yamld/user-config.yaml "testpmd_lcores" "'1,2,3,4,5,6,7,8,9'"
+    update_key $yamld/user-config.yaml "testpmd_forward_cores" "8"
+    
+    config_flows 16
+    fi
+
+    update_key $yamld/user-config.yaml "multiqueue_set" "True"
+    update_key $yamld/user-config.yaml "image" "centos7cloud_mq" "name" "testpmd-dpdk-dut"
+}
+
+config_lb_pmd() {
+    start=""
+    stop=""
+    pause=""
+    status=""
+    lb=""
+
+    dut_pmd_lb_ncd_dev_is_enabled
+    if [[ "$?" == "0" ]]
+    then
+        lb="user"
+        _config='env PATH='"$ncd_dev"':$PATH ncd_ctl config'
+        _start='env PATH='"$ncd_dev"':'"$ncd_dev/linux"':$PATH ncd_ctl start'
+        _stop='env PATH='"$ncd_dev"':$PATH ncd_ctl stop'
+        _status='env PATH='"$ncd_dev"':$PATH ncd_ctl status'
+        stop="$_stop"
+        start="$_stop {{';'}} $_start {{';'}} $_config rebalance on"
+        pause="$_config rebalance off"
+        status="$_config show {{';'}} $_status"
+    fi
+
+    dut_pmd_lb_ncd_container_is_enabled
+    if [[ "$?" == "0" ]]
+    then
+        lb="user"
+        _config="podman exec $ncd_container ncd_ctl config"
+        _start="podman exec $ncd_container ncd_ctl start"
+        _stop="podman exec $ncd_container ncd_ctl stop"
+        _status="podman exec $ncd_container ncd_ctl status"
+        stop="$_stop"
+        start="$_stop {{';'}} $_start {{';'}} $_config rebalance on"
+        pause="$_config rebalance off"
+        status="$_config show {{';'}} $_status"
+    fi
+
+    dut_pmd_lb_ovs_is_enabled
+    if [[ "$?" == "0" ]]
+    then
+        lb="ovs"
+        start="ovs-vsctl set Open_vSwitch . other_config:pmd-auto-lb=true"
+        stop="ovs-vsctl set Open_vSwitch . other_config:pmd-auto-lb=false"
+        pause="ovs-vsctl set Open_vSwitch . other_config:pmd-auto-lb=false"
+        status=""
+    fi
+
+    # This test harness takes care of stopping lb after collecting logs.
+    update_key $yamld/user-config.yaml "pmd_lb_stop" ""
+    update_key $yamld/user-config.yaml "pmd_lb_start" "$start"
+    update_key $yamld/user-config.yaml "pmd_lb_pause" "$pause"
+    update_key $yamld/user-config.yaml "pmd_lb_status" "$status"    
+    update_key $yamld/user-config.yaml "pmd_lb" "$lb"
+    [[ "$lb_pretest" == "1" ]] && update_key $yamld/user-config.yaml "pmd_lb_pretest" True
+
+    return 0
+}
+
+config_override() {
+    #config_flows 1024
+    return 0
+}
+
+perf_benchmark() {
+    [[ "$mock_run" != "" ]] && return 0
+
+    ansible undercloud-0 -m file -b -a "path=/tmp/perf.csv state=absent" &>/dev/null
+    ansible undercloud-0 -m file -b -a "path=/tmp/performance.log state=absent" &>/dev/null
+    ansible-playbook playbooks/packet_gen/trex/performance_scenario.yml --extra @$yamld/user-config.yaml -e cloud_resources=create 2>&1 > $logd/performance_scenario.log
+}
+
+collect_ncd_dev_config() {
+    dut "env PATH=$ncd_dev:$PATH ncd_ctl config show" &>$cfgd/ncd_config 
+    dut "env PATH=$ncd_dev:$PATH ncd_ctl version" &>$cfgd/ncd_version
+}
+
+collect_ncd_container_config() {
+    dut "podman exec $ncd_container ncd_ctl config show" &>$cfgd/ncd_config
+    dut "podman exec $ncd_container ncd_ctl version" &>$cfgd/ncd_version
+}
+
+collect_ncd_config() {
+    if [[ "$ncd_dev" != "" ]]
+    then
+        collect_ncd_dev_config
+    else
+        collect_ncd_container_config
+    fi
+}
+
+collect_ovs_config() {
+    dut "ovs-vsctl list Open_vSwitch" &>$cfgd/ovs_config
+    dut "ovs-vsctl show" &>$cfgd/ovs_status
+    dut "ovs-vswitchd -V" 2>/dev/null 1>$logd/ovs_version
+    dut "ovs-appctl dpif-netdev/pmd-rxq-show" &>$logd/ovs-appctl_pmd-rxq-show
+}
+
+collect_config() {
+    dut_pmd_lb_ncd_is_enabled && collect_ncd_config
+    collect_ovs_config
+}
+
+collect_ncd_dev_log() {
+    dut_q "rm -rf /tmp/netcontrold*"
+    dut_q "cp -rp /var/log/netcontrold /tmp/"
+    dut_q "tar -C /tmp -czf netcontrold.tar.gz netcontrold"
+    ansible $dut_node -m fetch -b -a "src=netcontrold.tar.gz dest=$logd" &>/dev/null
+}
+
+collect_ncd_container_log() {
+    dut_q "rm -rf /tmp/netcontrold*"
+    dut_q "podman cp $ncd_container:/var/log/netcontrold/ /tmp/"
+    dut_q "tar -C /tmp -czf netcontrold.tar.gz netcontrold"
+    ansible $dut_node -m fetch -b -a "src=netcontrold.tar.gz dest=$logd" &>/dev/null
+}
+
+collect_ncd_log() {
+    if [[ "$ncd_dev" != "" ]]
+    then
+        collect_ncd_dev_log
+    else
+        collect_ncd_container_log
+    fi
+    ansible undercloud-0 -m fetch -a "src=/tmp/pmd_lb_status.log dest=$logd/" &>/dev/null
+}
+
+collect_ovs_log() {
+    ansible $dut_node -m fetch -b -a "src=/var/log/openvswitch/ovs-vswitchd.log dest=$logd/" &>/dev/null
+    dut "ovs-appctl dpif-netdev/pmd-rxq-show" &>$logd/ovs-appctl_pmd-rxq-show
+    dut "ovs-appctl dpif-netdev/pmd-stats-show" &>$logd/ovs-appctl_pmd-stats-show
+    dut "ovs-appctl dpctl/show -s" &>$logd/ovs-appctl_dpctl_show_-s
+    dut "ovs-vsctl list Interface" &>$logd/ovs-vsctl_list_interface
+}
+
+collect_log() {
+    ansible undercloud-0 -m fetch -a "src=/tmp/perf.csv dest=$logd/" &>/dev/null
+    ansible undercloud-0 -m fetch -a "src=/tmp/performance.log dest=$logd/" &>/dev/null
+    dut_pmd_lb_ncd_is_enabled && collect_ncd_log
+    collect_ovs_log
+    vm_id=$(dut "virsh list" | awk '/instance/{print $2}')
+    dut "virsh vcpupin $vm_id" &>$logd/virsh_vcpupin
+}
+
+do_perf() {
+    # collect env info
+    collect_config
+
+    # run test
+    info "running test"
+    perf_benchmark
+
+    # collect test results
+    collect_log
+}
+
+common_prep() {
+    # internal folders for the tests.
+    tname=$1
+    logd="$td/$tname/log"
+    yamld="$td/$tname/ansible"
+    cfgd="$td/$tname/config"
+    mkdir -p $logd $yamld $cfgd
+
+    # copy of yaml for tests.
+    cp user-config.yaml $yamld/
+
+    # cleanup existing resources in cluster.
+    dut_q "ovs-appctl dpif-netdev/pmd-stats-clear"
+    cleanup
+}
+
+cleanup() {
+    [[ "$mock_run" != "" ]] && return 0
+
+    info "performing cleanup.."
+    ansible-playbook -i inventory  playbooks/tripleo/post_install/openstack_tasks.yml --extra @user-config.yaml  -e resource_state=absent 2>&1 > $td/cleanup.log
+    dut_port_mq_disable
+    dut_pmd_lb_disable
+    dut_q "ovs-vsctl list Interface | egrep '(name|other_config)\s.*:' | grep -B1 pmd-rxq-affinity | awk -F: 'BEGIN{ORS=\" \";print \"ovs-vsctl \"};/name/ {print \"-- remove Interface \"\$2\" other_config pmd-rxq-affinity \"}' | sh"
+    dut_q "rm -rf /var/log/netcontrold*"
+    return 0
+}
+
+ncd_enabled() {
+    [[ "$ncd_version" != "" ]] || [[ "$ncd_sys_version" != "" ]]
+}
+
+#
+# Test env:
+# single phy cpu core with two logical cores.
+# one rxq in dpdk enabled ports.
+# no rxq rebalance.
+#
+test_1c_2pmd_nolb() {
+    banner "Running $FUNCNAME.."
+
+    # prepare test setup
+    info "preparing test setup"
+    common_prep $FUNCNAME
+    config_no_mq
+    config_override
+
+    # configure dut
+    info "configuring cluster for $FUNCNAME"
+    dut_pmd_conf_1p_2l
+    dut_port_mq_disable
+    dut_pmd_lb_disable
+    [[ "$?" == "0" ]] || (info "unable to disable load balance" && return 1)
+
+    # run test
+    do_perf
+
+    # deconfigure dut
+    dut_pmd_conf_reset
+}
+
+#
+# Test env:
+# single phy cpu core with two logical cores.
+# one rxq in dpdk enabled ports.
+# ncd performing rxq rebalance.
+#
+test_1c_2pmd_ncd_lb() {
+    ncd_enabled || return 0
+
+    banner "Running $FUNCNAME.."
+
+    # prepare test setup
+    info "preparing test setup"
+    common_prep $FUNCNAME
+    config_no_mq
+    config_override
+
+    # configure dut
+    info "configuring cluster for $FUNCNAME"
+    dut_pmd_conf_1p_2l
+    dut_port_mq_disable
+    dut_pmd_lb_ncd_enable
+    [[ "$?" == "0" ]] || (info "unable to enable load balance using ncd for ovs" && return 1)
+    dut_pmd_lb_ncd_status_clear
+    dut_pmd_lb_ncd_trace_check
+    config_lb_pmd
+    
+    # run test
+    do_perf
+
+    # deconfigure dut
+    dut_pmd_lb_ncd_disable
+    dut_pmd_conf_reset
+}
+
+#
+# Test env:
+# single phy cpu core with two logical cores.
+# one rxq in dpdk enabled ports.
+# ovs performing rxq rebalance.
+#
+test_1c_2pmd_ovs_lb() {
+    banner "Running $FUNCNAME.."
+
+    # prepare test setup
+    info "preparing test setup"
+    common_prep $FUNCNAME
+    config_no_mq
+    config_override
+
+    # configure dut
+    info "configuring cluster for $FUNCNAME"
+    dut_pmd_conf_1p_2l
+    dut_port_mq_disable
+    dut_pmd_lb_ovs_enable
+    [[ "$?" == "0" ]] || (info "unable to enable load balance using autolb in ovs" && return 1)
+    config_lb_pmd
+
+    # run test
+    do_perf
+
+    # deconfigure dut
+    dut_pmd_lb_ovs_disable
+    dut_pmd_conf_reset
+}
+
+config_extra_for_2c_4pmd() {
+    update_key $yamld/user-config.yaml "trex_rate" "4"
+}
+
+#
+# Test env:
+# two phy cpu core, each with two logical cores.
+# one rxq in dpdk enabled ports.
+# no rxq rebalance.
+#
+test_2c_4pmd_nolb() {
+    banner "Running $FUNCNAME.."
+
+    # prepare test setup
+    info "preparing test setup"
+    common_prep $FUNCNAME
+    config_no_mq
+    config_override
+
+    # additional changes only for this test
+    config_extra_for_2c_4pmd
+
+    # configure dut
+    info "configuring cluster for $FUNCNAME"
+    dut_pmd_conf_2p_4l
+    dut_port_mq_disable
+    dut_pmd_lb_disable
+    [[ "$?" == "0" ]] || (info "unable to disable load balance" && return 1)
+
+    # run test
+    do_perf
+
+    # deconfigure dut
+    dut_pmd_conf_reset
+}
+
+#
+# Test env:
+# two phy cpu core, each with two logical cores.
+# one rxq in dpdk enabled ports.
+# ncd performing rxq rebalance.
+#
+test_2c_4pmd_ncd_lb() {
+    ncd_enabled || return 0
+
+    banner "Running $FUNCNAME.."
+
+    # prepare test setup
+    info "preparing test setup"
+    common_prep $FUNCNAME
+    config_no_mq
+    config_override
+
+    # additional changes only for this test
+    config_extra_for_2c_4pmd
+
+    # configure dut
+    info "configuring cluster for $FUNCNAME"
+    dut_pmd_conf_2p_4l
+    dut_port_mq_disable
+    dut_pmd_lb_ncd_enable
+    [[ "$?" == "0" ]] || (info "unable to enable load balance using ncd for ovs" && return 1)
+    dut_pmd_lb_ncd_status_clear
+    dut_pmd_lb_ncd_trace_check
+    config_lb_pmd
+
+    # run test
+    do_perf
+
+    # deconfigure dut
+    dut_pmd_lb_ncd_disable
+    dut_pmd_conf_reset
+}
+
+#
+# Test env:
+# two phy cpu core, each with two logical cores.
+# one rxq in dpdk enabled ports.
+# ovs performing rxq rebalance.
+#
+test_2c_4pmd_ovs_lb() {
+    banner "Running $FUNCNAME.."
+
+    # prepare test setup
+    info "preparing test setup"
+    common_prep $FUNCNAME
+    config_no_mq
+    config_override
+
+    # additional changes only for this test
+    config_extra_for_2c_4pmd
+
+    # configure dut
+    info "configuring cluster for $FUNCNAME"
+    dut_pmd_conf_2p_4l
+    dut_port_mq_disable
+    dut_pmd_lb_ovs_enable
+    [[ "$?" == "0" ]] || (info "unable to enable load balance using autolb in ovs" && return 1)
+    config_lb_pmd
+
+    # run test
+    do_perf
+
+    # deconfigure dut
+    dut_pmd_lb_ovs_disable
+    dut_pmd_conf_reset
+}
+
+#
+# Test env:
+# two phy cpu core, each with two logical cores.
+# two rxq in dpdk enabled ports.
+# no rxq rebalance.
+#
+test_2q_2c_4pmd_nolb() {
+    banner "Running $FUNCNAME.."
+
+    # prepare test setup
+    info "preparing test setup"
+    common_prep $FUNCNAME
+    config_mq 2
+    config_override
+
+    # configure dut
+    info "configuring cluster for $FUNCNAME"
+    dut_pmd_conf_2p_4l
+    dut_port_mq_enable 2
+    dut_pmd_lb_disable
+    [[ "$?" == "0" ]] || (info "unable to disable load balance" && return 1)
+
+    # run test
+    do_perf
+
+    # deconfigure dut
+    dut_port_mq_disable
+    dut_pmd_conf_reset
+}
+
+#
+# Test env:
+# two phy cpu core, each with two logical cores.
+# two rxq in dpdk enabled ports.
+# ncd performing rxq rebalance.
+#
+test_2q_2c_4pmd_ncd_lb() {
+    ncd_enabled || return 0
+
+    banner "Running $FUNCNAME.."
+
+    # prepare test setup
+    info "preparing test setup"
+    common_prep $FUNCNAME
+    config_mq 2
+    config_override
+
+    # configure dut
+    info "configuring cluster for $FUNCNAME"
+    dut_pmd_conf_2p_4l
+    dut_port_mq_enable 2
+    dut_pmd_lb_ncd_enable
+    [[ "$?" == "0" ]] || (info "unable to enable load balance using ncd for ovs" && return 1)
+    dut_pmd_lb_ncd_status_clear
+    dut_pmd_lb_ncd_trace_check
+    config_lb_pmd
+
+    # run test
+    do_perf
+
+    # deconfigure dut
+    dut_pmd_lb_ncd_disable
+    dut_port_mq_disable
+    dut_pmd_conf_reset
+}
+
+#
+# Test env:
+# two phy cpu core, each with two logical cores.
+# two rxq in dpdk enabled ports.
+# ovs performing rxq rebalance.
+#
+test_2q_2c_4pmd_ovs_lb() {
+    banner "Running $FUNCNAME.."
+
+    # prepare test setup
+    info "preparing test setup"
+    common_prep $FUNCNAME
+    config_mq 2
+    config_override
+
+    # configure dut
+    info "configuring cluster for $FUNCNAME"
+    dut_pmd_conf_2p_4l
+    dut_port_mq_enable 2
+    dut_pmd_lb_ovs_enable
+    [[ "$?" == "0" ]] || (info "unable to enable load balance using autolb in ovs" && return 1)
+    config_lb_pmd
+
+    # run test
+    do_perf
+
+    # deconfigure dut
+    dut_pmd_lb_ovs_disable
+    dut_port_mq_disable
+    dut_pmd_conf_reset
+}
+
+#
+# Test env:
+# four phy cpu core, each with two logical cores.
+# four rxq in dpdk enabled ports.
+# no rxq rebalance.
+#
+test_4q_4c_8pmd_nolb() {
+    banner "Running $FUNCNAME.."
+
+    # prepare test setup
+    info "preparing test setup"
+    common_prep $FUNCNAME
+    config_mq 4
+    config_override
+
+    # configure dut
+    info "configuring cluster for $FUNCNAME"
+    dut_pmd_conf_4p_8l
+    dut_port_mq_enable 4
+    dut_pmd_lb_disable
+    [[ "$?" == "0" ]] || (info "unable to disable load balance" && return 1)
+
+    # collect env info
+    collect_config
+
+    # run test
+    info "running test"
+    perf_benchmark
+
+    # collect test results
+    collect_log
+
+    # deconfigure dut
+    dut_port_mq_disable
+    dut_pmd_conf_reset
+}
+
+#
+# Test env:
+# four phy cpu core, each with two logical cores.
+# four rxq in dpdk enabled ports.
+# ncd performing rxq rebalance.
+#
+test_4q_4c_8pmd_ncd_lb() {
+    ncd_enabled || return 0
+
+    banner "Running $FUNCNAME.."
+
+    # prepare test setup
+    info "preparing test setup"
+    common_prep $FUNCNAME
+    config_mq 4
+    config_override
+
+    # configure dut
+    info "configuring cluster for $FUNCNAME"
+    dut_pmd_conf_4p_8l
+    dut_port_mq_enable 4
+    dut_pmd_lb_ncd_enable
+    [[ "$?" == "0" ]] || (info "unable to enable load balance using ncd for ovs" && return 1)
+    dut_pmd_lb_ncd_status_clear
+    dut_pmd_lb_ncd_trace_check
+    config_lb_pmd
+
+    # run test
+    do_perf
+
+    # deconfigure dut
+    dut_pmd_lb_ncd_disable
+    dut_port_mq_disable
+    dut_pmd_conf_reset
+}
+
+#
+# Test env:
+# four phy cpu core, each with two logical cores.
+# four rxq in dpdk enabled ports.
+# ovs performing rxq rebalance.
+#
+test_4q_4c_8pmd_ovs_lb() {
+    banner "Running $FUNCNAME.."
+
+    # prepare test setup
+    info "preparing test setup"
+    common_prep $FUNCNAME
+    config_mq 4
+    config_override
+
+    # configure dut
+    info "configuring cluster for $FUNCNAME"
+    dut_pmd_conf_4p_8l
+    dut_port_mq_enable 4
+    dut_pmd_lb_ovs_enable
+    [[ "$?" == "0" ]] || (info "unable to enable load balance using autolb in ovs" && return 1)
+    config_lb_pmd
+
+    # run test
+    do_perf
+
+    # deconfigure dut
+    dut_pmd_lb_ovs_disable
+    dut_port_mq_disable
+    dut_pmd_conf_reset
+}
+
+check_ncd_version() {
+    # check for installed version
+    dut_pmd_lb_ncd_container_is_enabled
+    if [[ "$?" == "0" ]]
+    then
+        curv=$(dut "podman exec $ncd_container ncd_ctl version" | awk '/netcontrold/ {print $2}')
+        ncd_sys_version="${curv:1}"
+    fi
+
+    # check requested version
+    if [[ "$ncd_version" =~ netcontrold-py ]]
+    then
+        # use dev version for the testing.
+        if [[ "$ncd_sys_version" != "" ]]
+        then
+            info "Found netcontrold of $ncd_sys_version version installed in system, disabling it.."
+            dut_pmd_lb_ncd_container_disable
+        fi
+        info "Requested $ncd_version be used for the tests .."
+        ncd_dev=$ncd_version
+        dut_pmd_lb_ncd_dev_disable
+    elif [[ "$ncd_version" != "" ]]
+    then
+        # use version mentioned by user for the testing.
+        if [[ "$ncd_sys_version" != "" ]]
+        then
+            info "Found netcontrold of $ncd_sys_version version installed in system, removing it.."
+            dut_pmd_lb_ncd_container_rm
+        fi
+        info "Requested netcontrold of $ncd_version version be used for the tests .."
+        dut_pmd_lb_ncd_container_install
+        dut_pmd_lb_ncd_container_disable
+    else
+        # use version current installed in system for the testing.
+        if [[ "$ncd_sys_version" != "" ]]
+        then
+            ncd_version="$ncd_sys_version"
+            info "Found netcontrold of $ncd_sys_version version installed in system, using it.."
+            dut_pmd_lb_ncd_container_disable
+        else
+            info "Netcontrold neither found running, nor requested by user (try -n option)."
+            info "Proceeding however with OVS auto load balance for the tests."
+        fi
+    fi
+    dut_pmd_lb_ovs_disable
+    return 0
+}
+
+sigint() {
+    echo "Interrupt received.. stopping tests!."
+    final_cleanup=0
+    _exit
+}
+
+sigquit() {
+    sigint
+}
+
+_help() {
+    echo "$0 [-p] [-t] [-C] [-n] [-v]"
+    echo "  options:"
+    echo "    p - pre-balance before perf test"
+    echo "    t - enable tracing assistance in load balance"
+    echo "    C - disable cleanup of cluster at the end of tests"
+    echo "    n - netcontrold version for the testing"
+    echo "    v - enable verbosity in logging"
+}
+
+_init() {
+    # setup signal handlers
+    trap 'sigquit' QUIT
+    trap 'sigint'  INT
+    trap ':'       HUP
+
+    # create test root directory.
+    rm -rf $td.bak
+    [ -d "$td" ] && mv "$td" "$td.bak"
+    mkdir $td
+    info "Test results available at $td"
+
+    # check test globals
+    check_ncd_version
+}
+
+_exit() {
+    [[ "$final_cleanup" == "1" ]] && cleanup
+    if [[ "$ncd_sys_version" != "" ]]
+    then
+        info "Re-installing netcontrold of $ncd_sys_version version in system .."
+        ncd_version="$ncd_sys_version"
+        dut_pmd_lb_ncd_container_install
+    fi
+    exit 0
+}
+
+main() {
+    # parse args
+    OPTIND=1
+    while getopts "h?vCptn:" opt; do
+        case "$opt" in
+        h|\?)
+            _help
+            exit 0
+            ;;
+        p)  lb_pretest=1
+            ;;
+        t)  lb_trace=1
+            ;;
+        v)  verbosity=1
+            ;;
+        C)  final_cleanup=0
+            ;;
+        n)  ncd_version=$OPTARG
+            ;;
+        esac
+    done
+
+    shift $((OPTIND-1))
+    [ "${1:-}" = "--" ] && shift
+
+    # initialize harness
+    _init $* || exit
+
+
+    # execute test suites for single rxq on two pmds
+    #test_1c_2pmd_nolb
+    test_1c_2pmd_ncd_lb
+    test_1c_2pmd_ovs_lb
+
+    # execute test suites for single rxq on four pmds
+    #test_2c_4pmd_nolb
+    test_2c_4pmd_ncd_lb
+    test_2c_4pmd_ovs_lb
+
+    # execute test suites for two rxqs on four pmds
+    #test_2q_2c_4pmd_nolb  
+    test_2q_2c_4pmd_ncd_lb
+    test_2q_2c_4pmd_ovs_lb
+
+    # execute test suites for four rxqs on eight pmds
+    #test_4q_4c_8pmd_nolb
+    test_4q_4c_8pmd_ncd_lb
+    test_4q_4c_8pmd_ovs_lb
+
+    _exit
+}
+
+main $@
