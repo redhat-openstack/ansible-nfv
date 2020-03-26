@@ -54,8 +54,13 @@
     name:
       - pip>=10.0.1
       - setuptools>=39.0.0
+<<<<<<< HEAD   (baef21 tweak: Add ironic baremetal clean playbook)
       - pytz>=2017.3
       - shade>=1.25.0
+=======
+      - openstacksdk>=0.39,<0.40.0 ; python_version < '3'
+      - openstacksdk>=0.39 ; python_version >= '3'
+>>>>>>> CHANGE (cccec5 post_install: Update openstacksdk requirment)
     virtualenv: "{{ venv_path }}"
 
 - name: Fetch private key from the undercloud host

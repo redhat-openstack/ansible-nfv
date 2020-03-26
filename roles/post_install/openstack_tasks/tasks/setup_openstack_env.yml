@@ -50,6 +50,7 @@
     name:
       - pip>=10.0.1
       - setuptools>=39.0.0
+<<<<<<< HEAD   (baef21 tweak: Add ironic baremetal clean playbook)
     virtualenv: "{{ venv_path }}"
 
 - name: Install virtualenv packages
@@ -58,6 +59,10 @@
       - pytz==2016.4
       - cmd2==0.8.6
       - shade>=1.25
+=======
+      - openstacksdk>=0.39,<0.40.0 ; python_version < '3'
+      - openstacksdk>=0.39 ; python_version >= '3'
+>>>>>>> CHANGE (cccec5 post_install: Update openstacksdk requirment)
     virtualenv: "{{ venv_path }}"
 
 - name: Generate clouds.yaml file
