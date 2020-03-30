@@ -2,6 +2,7 @@
   set_fact:
     trex_instance_sriov_macs: "{{ trex_instance_sriov_nics | map(attribute='mac_address') | list }}"
     trex_instance_sriov_ips: "{{ trex_instance_sriov_nics | map(attribute='fixed_ips') | sum(start=[]) | map(attribute='ip_address') | list }}"
+    trex_instance_sriov_vlans: "{{ trex_instance_sriov_nics | map(attribute='binding:vif_details') | list | map(attribute='vlan') | list }}"
   failed_when: trex_instance_sriov_macs | length != trex_instance_sriov_ips | length
 
 - name: Prepare Trex Config Interfaces List

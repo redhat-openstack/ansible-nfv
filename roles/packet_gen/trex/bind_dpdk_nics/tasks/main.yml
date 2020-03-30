@@ -5,6 +5,23 @@
   failed_when: not dpdk_dir['stat']['exists']
   become: True
 
+- name: Retrieve default NIC
+  set_fact:
+    nic_def: "{{hostvars[inventory_hostname]['ansible_default_ipv4']['alias']}}"
+
+- name: Retrieve all NICs
+  set_fact:
+    nic_lst: "{{hostvars[inventory_hostname]['ansible_interfaces']}}"
+
+- name: List of NICs to be bound to DPDK
+  set_fact:
+    nic_down: "{{ nic_lst | difference([nic_def]+['lo'])  }}"
+
+- name: Deactivate NICs to be bound to DPDK
+  shell: "ifconfig {{ item }} down"
+  loop: "{{nic_down}}"
+  become: True
+
 - name: Retrieve Non Active NICs' PCI Slots
   shell: "python {{ dpdk_root_dir }}/usertools/dpdk-devbind.py --status | grep -v Active | grep 0000 | cut -d ' ' -f 1 | paste -sd ' '"
   register: instance_nics_pci_slots
@@ -21,7 +38,7 @@
     - name: Set Huge Pages Amount
       sysctl:
         name: vm.nr_hugepages
-        value: 64
+        value: "{{ hugepages_count }}"
         state: present
 
     - name: Mount Hugepages

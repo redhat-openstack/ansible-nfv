@@ -299,6 +299,13 @@ TestPMD RX Queue size.
 testpmd_rxd: 1024
 ```
 
+TestPMD forwarding mode, currently supported mode io, mac.
+
+`io` by default.
+```
+forward_mode: io
+```
+
 ### Binary Search Sript Variables
 
 binary-search script result log file to be generated on DuT instance.
@@ -361,6 +368,28 @@ Minimum rate for of packets to generate, sized in mpps(milion packets per second
 ```
 trex_rate: 2
 ```
+Tiral period in seconds during final validation
+
+`30` by default.
+```
+trex_validation: 30
+
+```
+
+Tiral period in seconds during binary search
+
+`30` by default.
+```
+trex_search: 30
+
+```
+
+Enables using vlan-ids with binary search. Vlan id is obtained from vif_details of port associated with Trex VM.
+
+`False` by default.
+```
+trex_set_vlan: False
+```
 
 ### Tuning
 
@@ -391,6 +420,17 @@ emc_insert_inv_prob: 1
 `0` emc insertion disabled
 ```
 emc_insert_inv_prob: 0
+```
+
+#### Query multiqueue of OVS-DPDK interfaces
+Enables setting number of rxq and txq to use for Testpmd based on multiqueue value of OVS-DPDK physical interfaces.
+Reuses the dut_compute variable value from above and is required.
+```
+dut_compute: compute-1
+```
+multiqueue_set must be set to true to query OVSDB
+```
+multiqueue_set: True
 ```
 
 ## Example

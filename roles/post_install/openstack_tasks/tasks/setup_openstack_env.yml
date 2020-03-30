@@ -45,19 +45,13 @@
   when: ansible_python.version.major == 3
 
 # Install pip and setuptools should happen before other rpackages
-- name: Install virtualenv core deps
+- name: Install virtualenv packages
   pip:
     name:
       - pip>=10.0.1
       - setuptools>=39.0.0
-    virtualenv: "{{ venv_path }}"
-
-- name: Install virtualenv packages
-  pip:
-    name:
-      - pytz==2016.4
-      - cmd2==0.8.6
-      - shade>=1.25
+      - openstacksdk>=0.39,<0.40.0 ; python_version < '3'
+      - openstacksdk>=0.39 ; python_version >= '3'
     virtualenv: "{{ venv_path }}"
 
 - name: Generate clouds.yaml file

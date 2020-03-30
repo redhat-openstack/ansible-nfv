@@ -16,8 +16,8 @@ Openstack tasks play perform the following tasks on the existing Openstack envir
     * Creates networks, subnets, routers and ports by using the variables list provided to the play.  
       Public networks sets as a gateway on the router and private networks sets as a router interface by using the 'external' flag within the variables provided.  
       The interfaces for the instance could be specified as a network name or as a created port name.
-* Upload images
-    * Upload provided images to the glance store of the overcloud.
+* Upload images and set image properties
+    * Upload provided images to the glance store of the overcloud. Properties can set if required.
 * Aggregate groups
     * Creates aggregation groups with defined hosts and metadata.  
       **NOTE** - a must configuration is required: enable "AggregateInstanceExtraSpecsFilter"  
@@ -197,22 +197,34 @@ flavors:
     disk: 20
     vcpus: 4
     extra_specs:
-      - "hw:mem_page_size": "1GB"
-        "hw:numa_mem.0": "4096"
-        "hw:numa_nodes": "1"
-        "hw:numa_cpus.0": "0,1,2,3"
-        "hw:cpu_policy": "dedicated"
-        # Configure metadata of the created aggregation group as a flavor extra specs
-        in order to initially boot an instance on a preferred hypervisor.
-        "aggregate_instance_extra_specs:flavor": "trex_ag"
+      "hw:mem_page_size": "1GB"
+      "hw:numa_mem.0": "4096"
+      "hw:numa_nodes": "1"
+      "hw:numa_cpus.0": "0,1,2,3"
+      "hw:cpu_policy": "dedicated"
+      # Configure metadata of the created aggregation group as a flavor extra specs
+      in order to initially boot an instance on a preferred hypervisor.
+      "aggregate_instance_extra_specs:flavor": "trex_ag"
 ```
 
 #### Images upload variables
 Default images to upload
+Image properties value are optional.
 ```
 images:
   - name: cirros
     url: http://download.cirros-cloud.net/0.3.4/cirros-0.3.4-x86_64-disk.img
+
+  - name: multiqueue
+    url: http://download.cirros-cloud.net/0.3.4/cirros-0.3.4-x86_64-disk.img
+    properties:
+      hw_vif_multiqueue_enabled: "true"
+```
+Local images on undercloud can also be used, by using the file URI scheme.
+```
+images:
+  - name: centos7cloud
+    url: file:///tmp/CentOS-7-x86_64-GenericCloud.qcow2
 ```
 
 #### Keypairs names list

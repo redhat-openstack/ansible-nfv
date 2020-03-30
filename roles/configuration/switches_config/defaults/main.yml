@@ -1,0 +1,24 @@
+# The name of the switch should reflect inventory switch name
+switch01:
+  vlans:
+    - start: 10
+      end: 20
+    - start: 50
+      end: 55
+  interfaces:
+    - { description: 'host1_port1', iface: 'xe-0/0/0', iface_mode: 'access', vlan: '10', mtu: '9000' }
+    - { description: 'host2_port3', iface: 'xe-0/0/1', iface_mode: 'trunk', vlan: '15-20', mtu: '9000' }
+    - { description: 'host3_port1', iface: 'xe-0/0/4', iface_mode: 'trunk', vlan: '50-53' }
+    - { description: 'host3_port1', iface: 'xe-0/0/4', iface_mode: 'trunk', vlan: '54' }
+    - { description: 'aggregation', iface: 'ae2', iface_mode: 'trunk', vlan: '53-55', mtu: '9192', aggr_members: ['xe-0/0/12', 'xe-0/0/13'] }
+
+switch02:
+  vlans:
+    - start: 25
+      end: 30
+    - start: 70
+      end: 75
+  interfaces:
+    - { description: 'host1_port1', iface: 'xe-0/0/0', iface_mode: 'trunk', vlan: '25-27', mtu: '9000' }
+    - { description: 'host2_port3', iface: 'xe-0/0/1', iface_mode: 'access', vlan: '29', mtu: '9000' }
+    - { description: 'host3_port1', iface: 'xe-0/0/4', iface_mode: 'trunk', vlan: '70-75' }

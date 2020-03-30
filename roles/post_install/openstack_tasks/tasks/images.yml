@@ -18,4 +18,5 @@
     state: present
     filename: "/tmp/{{ item.url | basename }}"
     is_public: yes
+    properties:  "{{ item.properties|default({}) }}"
   loop: "{{ images }}"

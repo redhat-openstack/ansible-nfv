@@ -1,0 +1,12 @@
+---
+- name: Load {{ inventory_hostname }} switch configuration
+  set_fact:
+    switch_vars: "{{ (lookup('vars', inventory_hostname)) }}"
+
+- name: Create VLANs list
+  set_fact:
+    vlan_list: "{{ vlan_list | default([]) + range(item.start, item.end + 1) | list }}"
+  loop: "{{ switch_vars.vlans }}"
+
+- name: "Include {{ ansible_network_os }} tasks"
+  include_tasks: "{{ ansible_network_os }}_config.yml"

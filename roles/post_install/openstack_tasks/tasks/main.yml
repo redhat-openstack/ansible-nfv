@@ -43,7 +43,7 @@
 - name: Images
   tags: image
   import_tasks: images.yml
-  when: image
+  when: image and resource_state == 'present'
 
 - name: Keypair
   tags: keypair
