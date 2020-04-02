@@ -1,0 +1,37 @@
+- name: Check If Tmux Sessions Are Running
+  shell: "tmux list-sessions -F '#S'"
+  register: tmux_sessions
+  failed_when: False
+
+- name: Kill Tmux Sessions
+  shell: "tmux list-sessions -F '#S' | xargs -n1 tmux kill-session -t"
+  when: tmux_sessions['stdout_lines'] != []
+
+- name: Set HCI stress command using block size 4K
+  set_fact:
+    hci_cmd: "sudo /usr/local/bin/fio --name=root --filename=/dev/vdb --ramp_time=5 --startdelay=5 -rw=randrw --bs=4k --direct=1 --size=40G --runtime=600 --time_based=1 --output=/home/cloud-user/rand-write.log  &>/tmp/hci.log"
+  when: hci_cmd is not defined
+
+- name: Log HCI Command
+  debug:
+    var: trex_cmd
+
+- name: Run HCI Stress In Dettached Tmux Session
+  shell: |
+    tmux new -d -s hci
+    tmux send-keys -t hci "{{ hci_cmd }}" ENTER
+  become: True
+
+- name: Pause And Let HCI Stress Run
+  pause:
+    seconds: 10
+
+- name: Query If HCI Aborted
+  slurp:
+    src: '/tmp/hci.log'
+  register: hci_log_output
+
+- name: Print HCI Error
+  fail:
+    msg: "{{ hci_log_output['content'] | b64decode }}"
+  failed_when: "'ERROR' in hci_log_output['content'] | b64decode"
