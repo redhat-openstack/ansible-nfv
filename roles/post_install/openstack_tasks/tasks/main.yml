@@ -10,6 +10,11 @@
   import_tasks: instances.yml
   when: instance and resource_state == 'absent'
 
+- name: Volumes
+  tags: volume
+  import_tasks: volumes.yml
+  when: volume and resource_state == 'absent'
+
 - name: Projects, users and roles creation
   tags: user
   import_tasks: users.yml
@@ -64,6 +69,11 @@
   tags: instance
   import_tasks: instances.yml
   when: instance and resource_state == 'present'
+
+- name: Volumes
+  tags: volume
+  import_tasks: volumes.yml
+  when: volume and resource_state == 'present'
 
 - name: Generate resources output file
   tags: resources_output
