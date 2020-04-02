@@ -1,0 +1,6 @@
+- name: Performs read/write operations using 1 K block size
+  shell: /usr/local/bin/fio --name={{ user }} --filename=/dev/vdb --ramp_time=5 --startdelay=5 -rw=randrw --bs=1k --direct=1 --size=40G --runtime=600 --time_based=1 --output=/home/cloud-user/rand-write.log
+  become: True
+
+## iostat result parsing
+##################

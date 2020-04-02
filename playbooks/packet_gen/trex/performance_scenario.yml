@@ -1,4 +1,18 @@
 ---
+- name: HCI tasks
+  hosts: "{{ dut_compute }}"
+  gather_facts: False
+  roles:
+    - roles/post_install/hci_tasks
+
+- name: Generate Resources
+  hosts: "{{ osp_tasks_host | default('undercloud') }}"
+  gather_facts: True
+  vars:
+    guest_count: "{{ hostvars[dut_compute]['guest_limit'] | int }}"
+  roles:
+    - post_install/openstack_tasks
+
 - hosts: undercloud
   gather_facts: False
   pre_tasks:
@@ -8,9 +22,6 @@
       when: cloud_resources is not defined or cloud_resources not in ['create', 'external']
 
     - block:
-        - name: Generate Resources
-          import_role:
-            name: roles/post_install/openstack_tasks
 
         # Workaround for adding generated instances to dynamic inventory
         - meta: refresh_inventory
@@ -49,6 +60,11 @@
   become: true
   roles:
     - role: roles/packet_gen/trex/compute_tuning
+
+- hosts: "{{ hci_group }}"
+  roles:
+    - role: roles/packet_gen/trex/launch_fio
+      when: launch_fio | default(True)
 
 - hosts: trex
   roles:
