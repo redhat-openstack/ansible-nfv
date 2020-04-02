@@ -1,14 +1,18 @@
 ---
-- name: HCI tasks
+
+- name: Guest instances limit
   hosts: "{{ dut_compute }}"
   gather_facts: False
   roles:
-    - roles/post_install/hci_tasks
+    - roles/hci/guest_count
+
+- name: HCI tasks
+  hosts: "{{ osp_tasks_host | default('undercloud') }}"
+  roles:
+    - roles/hci/hci_tasks
 
 - name: Openstack tasks
   hosts: "{{ osp_tasks_host | default('undercloud') }}"
   gather_facts: True
-  vars:
-    guest_count: "{{ hostvars[dut_compute]['guest_limit'] | int }}"
   roles:
     - post_install/openstack_tasks

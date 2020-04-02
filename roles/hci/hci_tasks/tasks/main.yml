@@ -1,0 +1,31 @@
+- name: Gets HCI Instances limit per compute
+  set_fact:
+    hci_guest_limit: "{{ hostvars[dut_compute]['guest_limit'] | int }}"
+
+- name: Generates hci instances
+  set_fact:
+    hci_instances: >-
+      {{ hci_instances | default([]) }} + [{'name': '{{ dut_compute }}-hciinstance-{{ count }}',
+      'flavor': '{{ hci_instance.flavor }}',
+      'image': '{{ hci_instance.image }}',
+      'key_name': '{{ hci_instance.key_name }}',
+      'sec_groups': '{{ hci_instance.sec_groups }}',
+      'config_drive': '{{ hci_instance.config_drive }}',
+      'nics': '{{ hci_instance.nics }}',
+      'floating_ip': {'ext_net': '{{ hci_instance.floating_ip.ext_net }}',
+                      'int_net': '{{ hci_instance.floating_ip.int_net }}'},
+      'groups': '{{ hci_instance.groups }}' }]
+  with_sequence: start=1 end={{ hci_guest_limit }} stride=1 format=%02x
+  loop_control:
+    loop_var: count
+
+- name: Generates hci volumes
+  set_fact:
+    hci_volumes: >-
+      {{ hci_volumes | default([]) }} + [{'name': '{{ dut_compute }}-hcivolume-{{ count }}',
+      'availability_zone': '{{ hci_volume.availability_zone }}',
+      'size': '{{ hci_volume.size }}',
+      'device': '{{ hci_volume.device }}' }]
+  with_sequence: start=1 end={{ hci_guest_limit }} stride=1 format=%02x
+  loop_control:
+    loop_var: count

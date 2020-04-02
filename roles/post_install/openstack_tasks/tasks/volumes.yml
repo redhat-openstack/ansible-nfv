@@ -1,0 +1,28 @@
+---
+- name: "Volumes {{ resource_state }}"
+  vars:
+    ansible_python_interpreter: "{{ venv_path }}/bin/python"
+  os_volume:
+    state: "{{ resource_state }}"
+    cloud: "{{ item.cloud_name | default(cloud_name) }}"
+    availability_zone: "{{ item.availability_zone }}"
+    size: "{{ item.size }}"
+    display_name: "{{ item.name }}"
+    scheduler_hints:
+      same_host: "{{ item.name | replace('hcivolume', 'hciinstance') }}"
+      when: ephemeral | default(False)
+  loop: "{{ hci_volumes | flatten(levels=1) }}"
+  register: reg_volume
+
+- name: "Attaches volume to instance {{ resource_state }}"
+  vars:
+    ansible_python_interpreter: "{{ venv_path }}/bin/python"
+  os_server_volume:
+    state: "{{ resource_state }}"
+    cloud: "{{ item.cloud_name | default(cloud_name) }}"
+    server: "{{ item.name | replace('hcivolume', 'hciinstance') }}"
+    volume:  "{{ item.name }}"
+    device: "{{ item.device }}"
+  loop: "{{ hci_volumes| flatten(levels=1) }}"
+  when:
+    - resource_state == 'present'
