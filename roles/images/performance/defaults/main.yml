@@ -33,3 +33,8 @@ custom_users:
 
 # selinux config
 selinux_config: disabled
+
+# fio Variables
+fio_git: 'git clone git://git.kernel.dk/fio.git'
+fio_dir: '/root/fio'
+fio_branch: 'master'

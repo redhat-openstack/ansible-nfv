@@ -1,0 +1,26 @@
+- name: Install packages inside guest image
+  virt_customize_packages:
+    name:
+      - git
+      - gcc
+      - make
+      - cmake
+      - gcc-c++
+      - pciutils
+      - glibc-devel
+      - glibc-headers
+      - numactl-devel
+      - vim
+    state: present
+    image: "{{ fetched_image }}"
+    debug: "{{ guest_debug }}"
+
+# Compile fio package
+- name: Prepare fio binaries inside guest image
+  virt_customize_command:
+    shell:
+      - "if [ ! -d {{ fio_dir }} ];then git clone {{ fio_git }} {{ fio_dir }};cd {{ fio_dir }};git checkout {{ fio_branch }};fi"
+      - 'cd {{ fio_dir }}; ./configure;/usr/bin/make;/usr/bin/make install;'
+      - "echo 'fio Version: {{ fio_branch }}' | tee {{ fio_customization_log }}"
+    image: "{{ fetched_image }}"
+    debug: "{{ guest_debug }}"
