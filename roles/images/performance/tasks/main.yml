@@ -24,3 +24,7 @@
 
 - name: Customize Guest Image - Generic Flow
   include_tasks: generic_customizations.yml
+
+- name: Customize Guest Image - HCI IO's
+  include_tasks: prepare_guest_hci.yml
+  when: prepare_guest_hci | default(True)

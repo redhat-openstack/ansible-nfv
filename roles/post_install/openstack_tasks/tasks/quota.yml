@@ -9,6 +9,7 @@
     cores: "{{ item.1.cores | default(omit) }}"
     ram: "{{ item.1.ram | default(omit) }}"
     instances: "{{ item.1.instances | default(omit) }}"
+    volumes: "{{ item.1.volumes | default(omit) }}"
     state: "{{ resource_state }}"
   loop: "{{ users | subelements('quota', 'skip_missing=True') }}"
   when: resource_state == 'present'
