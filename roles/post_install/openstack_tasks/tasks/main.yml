@@ -10,6 +10,14 @@
   import_tasks: instances.yml
   when: instance and resource_state == 'absent'
 
+- name: HCI Instances
+  tags: instance
+  include_tasks: hci_instances.yml
+  with_sequence: start=1 end={{ guest_count }} stride=1 format=%02x
+  loop_control:
+    loop_var: count
+  when: launch_hci_stress and instance and resource_state == 'absent'
+
 - name: Projects, users and roles creation
   tags: user
   import_tasks: users.yml
@@ -64,6 +72,14 @@
   tags: instance
   import_tasks: instances.yml
   when: instance and resource_state == 'present'
+
+- name: HCI Instances
+  tags: instance
+  include_tasks: hci_instances.yml
+  with_sequence: start=1 end={{ guest_count }} stride=1 format=%02x
+  loop_control:
+    loop_var: count
+  when: launch_hci_stress and instance and resource_state == 'present'
 
 - name: Generate resources output file
   tags: resources_output

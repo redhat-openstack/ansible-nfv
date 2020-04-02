@@ -1,0 +1,115 @@
+---
+- name: "HCI Instance {{ resource_state }} (instance-{{ count }})"
+  vars:
+    ansible_python_interpreter: "{{ venv_path }}/bin/python"
+  os_server:
+    state: "{{ resource_state }}"
+    cloud: "{{ item.cloud_name | default(cloud_name) }}"
+    name: "{{ item.name }}-hciinstance-{{ count }}"
+    image: "{{ item.image | default(images[0].name) }}"
+    flavor: "{{ item.flavor | default(flavors[0].name) }}"
+    key_name: "{{ item.key_name | default(omit) }}"
+    security_groups: "{{ item.sec_groups | default(omit) }}"
+    userdata: "{% if item.userdata is defined %}{{ item.userdata }}{% else %}{{ global_userdata | default(omit) }}{% endif %}"
+    config_drive: "{{ item.config_drive | default(True) }}"
+    nics: "{{ item.nics }}"
+    auto_ip: 'no'
+    delete_fip: 'yes'
+  loop: "{{ hci_instances | flatten(levels=1) }}"
+  register: reg_instance
+
+- name: "Add floating IP to an hci instance"
+  vars:
+    ansible_python_interpreter: "{{ venv_path }}/bin/python"
+  os_floating_ip:
+    state: "{{ resource_state }}"
+    cloud: "{{ item.cloud_name | default(cloud_name) }}"
+    server: "{{ item.name }}-hciinstance-{{ count }}"
+    network: "{{ item.floating_ip.ext_net }}"
+    nat_destination: "{{ item.floating_ip.int_net }}"
+    reuse: 'yes'
+    wait: 'yes'
+  loop: "{{ hci_instances | flatten(levels=1) }}"
+  when:
+    - item.floating_ip is defined
+    - resource_state == 'present'
+
+# The following workaround created because the os_floating_ip module is
+# # # incosistent when an instance contains multiple NICs.
+# # # As a result, the floating ip can't be fetched.
+# # # TODO(maximb): Fix the behavior of the multiple floating ips fetch.
+- name: Locate floating ip of the instance
+  shell: >
+    openstack --os-cloud "{{ item.cloud_name | default(cloud_name) }}"
+    server show "{{ item.name + "-" + item}}" -c addresses -f value
+  loop: "{{ hci_instances | flatten(levels=1) }}"
+  register: reg_floating_ip
+  when:
+    - item.floating_ip is defined
+    - resource_state == 'present'
+
+- name: Parse floating ip output
+  set_fact:
+    floating_ip_var: "{{ floating_ip_var | default([]) }}
+      + [ '{{ item.stdout
+      | regex_search('\\s\\b(?:[0-9]{1,3}\\.){3}[0-9]{1,3}\\b')
+      | replace(' ', '') }}' ]"
+  loop: "{{ reg_floating_ip.results }}"
+  when:
+    - resource_state == 'present'
+    - reg_floating_ip.changed
+
+- name: Add instances to dynamic inventory
+  add_host:
+    name: "{{ item.1.name }}"
+    group: "{{ item.1.groups | default(omit) }}"
+    ansible_host: "{% if item.1.floating_ip is defined %}{{ item.0 }}{% else%}{{ item.0.openstack.private_v4 }}{% endif %}"
+    ansible_user: "{{ item.1.connection_user | default(connection_user) }}"
+    ansible_ssh_port: 22
+    ansible_ssh_private_key_file: "/tmp/{{ item.1.key_name }}.key"
+  loop: "{% if reg_floating_ip.changed %}{{ floating_ip_var | zip(instances) | list }}{% else %}{{ reg_instance.results | zip(instances) | list }}{% endif %}"
+  when:
+    - resource_state == 'present'
+    - resource_generate_inventory
+
+- name: Create 10g volume as fml for hci instance
+  vars:
+    ansible_python_interpreter: "{{ venv_path }}/bin/python"
+  os_volume:
+    state: "{{ resource_state }}"
+    cloud: "{{ item.cloud_name | default(cloud_name) }}"
+    availability_zone: nova
+    size: 10
+    display_name: "{{ item.name }}-volume-{{ count }}"
+    scheduler_hints:
+      same_host: "{{ item.name }}"
+  loop: "{{ hci_instances | flatten(levels=1) }}"
+  when: ephermel | default(True)
+  register: reg_instance
+
+- name: Create 10g volume as non fml for hci instance 
+  vars:
+    ansible_python_interpreter: "{{ venv_path }}/bin/python"
+  os_volume:
+    state: "{{ resource_state }}"
+    cloud: "{{ item.cloud_name | default(cloud_name) }}"
+    availability_zone: nova
+    size: 10
+    display_name: "{{ item.name }}-volume-{{ count }}"
+  loop: "{{ hci_instances | flatten(levels=1) }}"
+  when: not ephermel| default(False)
+  register: reg_instance
+
+# Attaches a volume to a guest
+- name: Attach volume to hci instance
+  vars:
+    ansible_python_interpreter: "{{ venv_path }}/bin/python"
+  os_server_volume:
+    state: "{{ resource_state }}"
+    cloud: "{{ item.cloud_name | default(cloud_name) }}"
+    server: "{{ item.name }}-hciinstance-{{ count }}"
+    volume:  "{{ item.name }}-volume-{{ count }}"
+    device: /dev/vdb
+  loop: "{{ hci_instances | flatten(levels=1) }}"
+  when:
+    - resource_state == 'present'
