@@ -1,0 +1,59 @@
+- name: Check directory exists
+  stat:
+    path: "{{ container_path }}"
+  register: container_path
+
+- name: Check OSP version
+  include_role:
+    name: discover_osp_version
+
+- name: Sets nova cpu parameter
+  set_fact:
+    nova_cps_parameter: "{% if overcloud_version | int >= 16 %}cpu_dedicated_set{% else %}vcpu_pin_set{% endif %}"
+
+- name: Find the nova cpus count in container based environment
+  shell: >
+    cat /var/lib/config-data/nova_libvirt/etc/nova/nova.conf | grep '{{ nova_cps_parameter }}' |
+    grep -v ^# | cut -d'=' -f2 | sed 's/^[ \t]*//;s/[ \t]*$//' |
+    perl -pe 's/(\d+)-(\d+)/join(",",$1..$2)/eg' | tr "," "\n" | wc -l
+  become: yes
+  register: nova_cpus_count
+  when: container_path.stat.exists and container_path.stat.isdir
+
+- name: nova cpus if container based environment
+  set_fact:
+    nova_cpus: "{{ nova_cpus_count.stdout | int }}"
+  when: container_path.stat.exists and container_path.stat.isdir
+
+- name: Log nova cpus count
+  debug:
+    var: nova_cpus
+
+- name: Find the nova cpus count if no container based environment
+  shell: >
+    cat /etc/nova/nova.conf | grep 'vcpu_pin_set' | grep -v ^# | cut -d'=' -f2 |
+    sed 's/^[ \t]*//;s/[ \t]*$//' | perl -pe 's/(\d+)-(\d+)/join(",",$1..$2)/eg' | tr "," "\n" | wc -l
+  become: yes
+  register: nova_cpus_count
+  when: not container_path.stat.exists
+
+- name: nova cpus if not container based environment  
+  set_fact:
+    nova_cpus: "{{ nova_cpus_count.stdout | int }}"   
+  when: not container_path.stat.exists
+
+- name: testpmd cpus count
+  set_fact:
+    testpmd_cpus: "{{ testpmd_lcores.split(',') | length }}"
+
+- name: Log testpmd cpus count
+  debug:
+    var: testpmd_cpus
+
+- name: find guest instances limit
+  set_fact:
+    guest_limit: "{{nova_cpus|int - testpmd_cpus|int}}"
+
+- name: Log guest limit count
+  debug:
+    var: guest_limit

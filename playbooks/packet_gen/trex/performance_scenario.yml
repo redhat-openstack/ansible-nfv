@@ -1,4 +1,11 @@
 ---
+- name: HCI tasks
+  hosts: "{{ dut_compute }}"
+  gather_facts: False
+  roles:
+    - roles/post_install/dynamic_instances_count
+  when: launch_hci_stress | default(False)
+
 - hosts: undercloud
   gather_facts: False
   pre_tasks:
@@ -6,6 +13,11 @@
       fail:
         msg: "cloud_resources is not set to correct values: 'create' or 'external', please refer to documentation"
       when: cloud_resources is not defined or cloud_resources not in ['create', 'external']
+
+    - name: HCI Instances and Volumes
+      import_role:
+        name: roles/post_install/prepare_dynamic_instances
+      when: launch_hci_stress | default(False)
 
     - block:
         - name: Generate Resources
@@ -24,12 +36,29 @@
               'ssh_key': '/tmp/{{ item['key_name'] }}.key' }]
           loop: "{{ instances }}"
 
+        - name: Map Dynamic Instances To Helper Variable
+          set_fact:
+            generated_dynamic_instances: >-
+              {{ generated_dynamic_instances | default([]) }} + [{'name': '{{ dynamic_instance_group_template.name }}-dynamicinstance-{{ count }}',
+              'group': '{{ dynamic_instance_group_template.group }}',
+              'user': '{{ dynamic_instance_group_template.user }}',
+              'ssh_key': '{{ dynamic_instance_group_template.ssh_key }}' }]
+          with_sequence: start=1 end={{ hci_guest_limit }} stride=1 format=%02x
+          loop_control:
+            loop_var: count
+          when: launch_hci_stress | default(False)
+
+        - name: Update dynamic instances if any  generated dynamic instances
+          set_fact:
+            all_dynamic_instances: >-
+              {{ generated_instances | default([]) }} + {{ generated_dynamic_instances | default([]) }}
+
         - name: Workaround - Add Generated Instances To Dynamic Inventory
           include_role:
             name: roles/post_install/dynamic_host_inventory
           vars:
             discover_instance_external_ip: True
-          loop: "{{ generated_instances }}"
+          loop: "{{ all_dynamic_instances }}"
       when: cloud_resources == 'create'
 
     - name: Use Pre-exisisting Resources
@@ -39,16 +68,38 @@
             name: roles/post_install/openstack_tasks
             tasks_from: setup_openstack_env
 
+        - name: Map Dynamic Instances To Helper Variable
+          set_fact:
+            generated_dynamic_instances: >-
+              {{ generated_dynamic_instances | default([]) }} + [{'name': '{{ dynamic_instance_group_template.name }}-dynamicinstance-{{ count }}',
+              'group': '{{ dynamic_instance_group_template.group }}',
+              'user': '{{ dynamic_instance_group_template.user }}',
+              'ssh_key': '{{ dynamic_instance_group_template.ssh_key }}' }]
+          with_sequence: start=1 end={{ hci_guest_limit }} stride=1 format=%02x
+          loop_control:
+            loop_var: count
+          when: launch_hci_stress | default(False)
+
+        - name: Update dynamic instances if any  generated dynamic instances
+          set_fact:
+            all_dynamic_instances: >-
+              {{ dynamic_instances | default([]) }} + {{ generated_dynamic_instances | default([]) }}
+
         - name: Add Pre-existing Instances To Dynamic Inventory
           include_role:
             name: roles/post_install/dynamic_host_inventory
-          loop: "{{ dynamic_instances }}"
+          loop: "{{ all_dynamic_instances }}"
       when: cloud_resources == 'external'
 
 - hosts: "{{ dut_compute }}"
   become: true
   roles:
     - role: roles/packet_gen/trex/compute_tuning
+
+- hosts: "{{ hci_group }}"
+  roles:
+    - role: roles/packet_gen/trex/launch_fio
+      when: launch_hci_stress | default(True)
 
 - hosts: trex
   roles:
