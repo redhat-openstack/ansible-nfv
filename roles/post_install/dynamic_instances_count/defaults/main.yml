@@ -1,0 +1,3 @@
+container_path = "/var/lib/kolla/config_files/"
+
+testpmd_lcores = "3,4,5"
