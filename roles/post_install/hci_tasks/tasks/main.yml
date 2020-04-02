@@ -1,0 +1,3 @@
+- name: Gets the Non NFV instances limit
+  import_tasks: guest_count.yml
+  when: launch_hci_stress | default(False)
