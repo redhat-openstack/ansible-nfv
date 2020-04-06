@@ -21,6 +21,8 @@ tempest_repos:
     version:
       10:
         branch: '17.2.0'
+      13:
+        branch: '23.0.0'
       defaults:
         branch: 'master'
   - name: python-tempestconf
