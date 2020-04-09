@@ -6,6 +6,17 @@
     - hostvars[groups[dut_group][0]]['dut_macs'] is defined
     - dut_macs is not defined
 
+- name: Start PMD load balance in DuT
+  delegate_to: "{{ dut_compute }}"
+  become: True
+  block:
+    - include_role:
+        name: pmd_load_balance
+        tasks_from: start.yml
+  when:
+    - pmd_lb is defined
+    - pmd_lb in ['ovs', 'user']
+
 - name: Set Binary Search Command
   set_fact:
     traffic_cmd: >
@@ -31,6 +42,63 @@
       {%- endif %}
   when: traffic_cmd is not defined
 
+- name: Load balance PMD before binary search starts (if requested)
+  block:
+    - name: Set time period for load balance test
+      set_fact:
+        pmd_lb_pretest_sec: "{{ trex_search }}"
+      when:
+        - pmd_lb_pretest_sec is not defined
+
+    - name: Generate traffic for load balancing PMD
+      shell: python -u {{ trafficgen_dir }}/trex-txrx.py
+          --device-pairs=0:1
+          --active-device-pairs=0:1
+          --mirrored-log
+          {% if dut_type == 'dpdk' %}
+            --rate {{ trex_rate }}
+          {%- endif %}
+          --rate-unit=mpps
+          --size={{ trex_frame_size }}
+          --runtime={{ pmd_lb_pretest_sec }}
+          --runtime-tolerance=5
+          --run-bidirec=1
+          --run-revunidirec=0
+          --num-flows={{ trex_flows }}
+          --dst-macs={{ dut_macs }}
+          {% if trex_set_vlan %}
+            --vlan-ids={{ trex_instance_sriov_vlans|join(',') }}
+          {%- endif %}
+          --use-src-ip-flows=1
+          --use-dst-ip-flows=1
+          --use-src-mac-flows=0
+          --use-dst-mac-flows=0
+          --use-src-port-flows=1
+          --use-dst-port-flows=1
+          --use-protocol-flows=0
+          --packet-protocol=UDP
+          --stream-mode=continuous
+      register: pmd_lb_pretest_output
+  when:
+    - pmd_lb is defined
+    - pmd_lb in ['ovs', 'user']
+    - pmd_lb_pretest == True
+
+- debug:
+    var: pmd_lb_pretest_output
+
+- name: Pause PMD load balance in DuT
+  delegate_to: "{{ dut_compute }}"
+  become: True
+  block:
+    - include_role:
+        name: pmd_load_balance
+        tasks_from: pause.yml
+  when:
+    - pmd_lb is defined
+    - pmd_lb in ['ovs', 'user']
+    - pmd_lb_pretest == True
+
 # TODO: Proper print function
 - name: Run Binary Search Script
   shell: "{{ traffic_cmd }}"
@@ -44,6 +112,42 @@
 
 - debug:
     var: perf_output
+
+- name: Report PMD load balance status and stop it in DuT
+  delegate_to: "{{ dut_compute }}"
+  become: True
+  block:
+    - name: Query PMD load balance status
+      include_role:
+        name: pmd_load_balance
+        tasks_from: status.yml
+
+    - name: Remove any existing status log
+      file:
+        path: "{{ pmd_lb_status_log }}"
+        state: absent
+
+    - name: Save PMD load balance status
+      copy:
+        content: "{{ pmd_lb_status_output['stdout'] }}"
+        dest: "{{ pmd_lb_status_log }}"
+
+    - name: Stop PMD load balance
+      include_role:
+        name: pmd_load_balance
+        tasks_from: stop.yml
+  when:
+    - pmd_lb is defined
+    - pmd_lb in ['ovs', 'user']
+
+- name: Copy PMD load balance status from DuT
+  delegate_to: "{{ groups['undercloud'] | first }}"
+  copy:
+    content: "{{ pmd_lb_status_output['stdout'] }}"
+    dest: "{{ pmd_lb_status_log }}"
+  when:
+    - pmd_lb is defined
+    - pmd_lb in ['ovs', 'user']
 
 - name: Save Binary Search Script Result To File
   copy:
