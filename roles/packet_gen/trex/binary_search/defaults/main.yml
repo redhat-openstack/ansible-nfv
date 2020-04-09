@@ -4,6 +4,9 @@ binary_perf_log: '/tmp/performance.log'
 # Trafficgen repo directory on host
 trafficgen_dir: '/opt/trafficgen'
 
+# trex-txrx binary
+trex_txrx_bin: "python -u {{ trafficgen_dir }}/trex-txrx.py"
+
 # binary-search binary
 binary_search_bin: "{{ trafficgen_dir }}/binary-search.py"
 
@@ -27,3 +30,12 @@ trex_validation: 30
 
 # Tiral period in seconds during binary search
 trex_search: 30
+
+# Enable PMD load balance in DuT
+pmd_lb: None
+
+# Perform load balance before binary search test
+pmd_lb_pretest: True
+
+# Status of PMD load balance
+pmd_lb_status_log: '/tmp/pmd_lb_status.log'

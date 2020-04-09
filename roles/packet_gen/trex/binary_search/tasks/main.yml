@@ -6,6 +6,81 @@
     - hostvars[groups[dut_group][0]]['dut_macs'] is defined
     - dut_macs is not defined
 
+- name: Report unsupported load balance control if requested
+  fail: msg="unsupported load balance '{{ pmd_lb }}' is requested"
+  when:
+    - pmd_lb is defined and pmd_lb
+    - pmd_lb != 'ovs'
+    - pmd_lb != 'user'
+
+- name: Set PMD load balance in OVS control (AutoLB)
+  set_fact:
+    pmd_lb_start: "ovs-vsctl set Open_vSwitch . other_config:pmd-auto-lb='true'"
+    pmd_lb_stop: "ovs-vsctl set Open_vSwitch . other_config:pmd-auto-lb='false'"
+    pmd_lb_pause: "{{ pmd_lb_stop }}"
+    pmd_lb_status: ""
+  when:
+    - pmd_lb == 'ovs'
+
+- name: Check PMD load balance is in user control if requested
+  fail: msg="variable {{ item }} is undefined"
+  when:
+    - item not in hostvars[inventory_hostname]
+    - pmd_lb == 'user'
+  with_items:
+    - pmd_lb_start
+    - pmd_lb_stop
+    - pmd_lb_pause
+    - pmd_lb_status
+
+- name: Start PMD load balance in DuT
+  shell: "{{ pmd_lb_start }}"
+  register: pmd_lb_start_output
+  become: True
+  delegate_to: "{{ dut_compute }}"
+  when:
+    - pmd_lb_start is defined and pmd_lb_start
+
+- debug:
+    var: pmd_lb_start_output
+
+- name: Set time period for load balance pretest profile
+  set_fact:
+    pmd_lb_pretest_sec: "{{ trex_search }}"
+  when: pmd_lb_pretest_sec is not defined
+
+- name: Set traffic profile for load balancing PMD threads before test
+  set_fact:
+    pmd_lb_pretest_cmd: >
+      {{ trex_txrx_bin }}
+      --device-pairs=0:1
+      --active-device-pairs=0:1
+      --mirrored-log
+      {% if dut_type == 'dpdk' %}
+        --rate {{ trex_rate }}
+      {%- endif %}
+      --rate-unit=mpps
+      --size={{ trex_frame_size }}
+      --runtime={{ pmd_lb_pretest_sec }}
+      --runtime-tolerance=5
+      --run-bidirec=1
+      --run-revunidirec=0
+      --num-flows={{ trex_flows }}
+      --dst-macs={{ dut_macs }}
+      {% if trex_set_vlan %}
+        --vlan-ids={{ trex_instance_sriov_vlans|join(',') }}
+      {%- endif %}
+      --use-src-ip-flows=1
+      --use-dst-ip-flows=1
+      --use-src-mac-flows=0
+      --use-dst-mac-flows=0
+      --use-src-port-flows=1
+      --use-dst-port-flows=1
+      --use-protocol-flows=0
+      --packet-protocol=UDP
+      --stream-mode=continuous
+  when: pmd_lb_pretest_cmd is not defined
+
 - name: Set Binary Search Command
   set_fact:
     traffic_cmd: >
@@ -32,6 +107,32 @@
   when: traffic_cmd is not defined
 
 # TODO: Proper print function
+- name: Generate traffic for load balancing PMD
+  shell: "{{ pmd_lb_pretest_cmd }}"
+  register: pmd_lb_pretest_output
+  until: pmd_lb_pretest_output.rc == 0
+  retries: 2
+  delay: 10
+  ignore_errors: yes
+  failed_when: False
+  become: True
+  when: pmd_lb_pretest == True
+
+- debug:
+    var: pmd_lb_pretest_output
+
+- name: Pause PMD load balance in DuT
+  shell: "{{ pmd_lb_pause }}"
+  register: pmd_lb_pause_output
+  become: True
+  delegate_to: "{{ dut_compute }}"
+  when:
+    - pmd_lb_pretest == True
+    - pmd_lb_pause is defined and pmd_lb_pause
+
+- debug:
+    var: pmd_lb_pause_output
+
 - name: Run Binary Search Script
   shell: "{{ traffic_cmd }}"
   register: perf_output
@@ -44,6 +145,37 @@
 
 - debug:
     var: perf_output
+
+- name: Status of PMD load balance in DuT
+  shell: "{{ pmd_lb_status }}"
+  register: pmd_lb_status_output
+  become: True
+  delegate_to: "{{ dut_compute }}"
+  when:
+    - pmd_lb_status is defined and pmd_lb_status
+
+- debug:
+    var: pmd_lb_status_output
+
+- name: Stop PMD load balance in DuT
+  shell: "{{ pmd_lb_stop }}"
+  register: pmd_lb_stop_output
+  become: True
+  delegate_to: "{{ dut_compute }}"
+  when:
+    - pmd_lb_pretest == True
+    - pmd_lb_stop is defined and pmd_lb_stop
+
+- debug:
+    var: pmd_lb_stop_output
+
+- name: Save PMD load balance status into File
+  copy:
+    content: "{{ pmd_lb_status_output['stdout'] }}"
+    dest: "{{ pmd_lb_status_log }}"
+  delegate_to: "{{ groups['undercloud'] | first }}"
+  when:
+    - pmd_lb_status is defined and pmd_lb_status
 
 - name: Save Binary Search Script Result To File
   copy:
