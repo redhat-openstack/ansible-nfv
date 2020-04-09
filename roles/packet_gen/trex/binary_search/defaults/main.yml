@@ -27,3 +27,12 @@ trex_validation: 30
 
 # Tiral period in seconds during binary search
 trex_search: 30
+
+# Perform PMD load balance before binary search test
+pmd_lb_pretest: True
+
+# Time period for pretest (default is value of trex_search).
+pmd_lb_pretest_sec: None
+
+# Status of PMD load balance
+pmd_lb_status_log: '/tmp/pmd_lb_status.log'
