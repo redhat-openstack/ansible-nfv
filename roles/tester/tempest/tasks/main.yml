@@ -153,9 +153,6 @@
         {% if enable_test_all_provider_networks %}
           nfv_plugin_options.test_all_provider_networks true \
         {% endif %}
-        {% if overcloud_version | int == 16 %}
-          auth.tempest_roles member \
-        {% endif %}
         {% if tempest_options is defined %}
           {% for option in tempest_options %}
             {{ option }} \
