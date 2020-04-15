@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "927b2564_d0ba4dee",
+        "filename": "roles/packet_gen/trex/bind_dpdk_nics/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1010167
+      },
+      "writtenOn": "2020-04-15T04:58:42Z",
+      "side": 1,
+      "message": "can you confirm whether it work fine in CI? Does CI execution has undercloud as host or group?",
+      "revId": "8a799e47a774e7b43c8893cc8755337cd834a0a7",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
