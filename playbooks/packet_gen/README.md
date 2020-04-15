@@ -14,4 +14,9 @@
   * packet_gen/trex/launch_trex
   * packet_gen/trex/binary_search
 
+* iperf/performance_scenario - Execute performance scenario using iperf.
+  Roles that are used in the playbook:
+  * packet_gen/iperf/server
+  * packet_gen/iperf/client
+
 **Note** - For more details, refer to the role.
