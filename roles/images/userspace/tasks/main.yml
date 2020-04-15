@@ -1,0 +1,33 @@
+---
+- name: Install libguest RPM prerequisites
+  package:
+    name:
+      - libguestfs
+      - python-libguestfs
+    state: present
+  become: True
+
+- name: Fetch image
+  include_role:
+    name: images/performance
+    tasks_from: fetch_image.yml
+
+- name: Prepare repos inside image
+  include_role:
+    name: images/performance
+    tasks_from: prepare_repos.yml
+
+- name: Customize Guest Image - DPDK
+  include_role:
+    name: images/performance
+    tasks_from: prepare_dpdk.yml
+  when: prepare_dpdk | default(True)
+
+- name: Customize Guest Image - iperf
+  include_tasks: prepare_iperf.yml
+  when: prepare_iperf | default(True)
+
+- name: Customize Guest Image - Generic Flow
+  include_role:
+    name: images/performance
+    tasks_from: generic_customizations.yml

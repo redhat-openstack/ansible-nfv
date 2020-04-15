@@ -1,0 +1,38 @@
+- name: Set iperf client command if not defined
+  set_fact:
+    iperf_client_cmd: |
+      {{ iperf_bin }} -p 5001 -c {{ groups[dut_group][0] }} -A {{ iperf_lcores }} --logfile {{iperf_log }}
+  when: iperf_client_cmd is not defined
+
+- name: Log iperf client command
+  debug:
+    var: iperf_client_cmd
+
+- name: Run iperf client
+  shell: "{{ iperf_client_cmd }}"
+  become: True
+
+- name: Stop iperf server on "{{ groups[dut_group][0] }}"
+  shell: "tmux list-sessions -F '#S' | xargs -n1 tmux kill-session -t"
+  become: True
+  delegate_to: "{{ groups[dut_group][0] }}"
+
+- name: Display iperf results
+  block:
+    - name: Read iperf log
+      slurp:
+        src: "{{ iperf_log }}"
+      register: iperf_result
+
+    - name: Print iperf result
+      vars:
+       out: "{{ iperf_result['content'] | b64decode }}"
+      debug:
+        msg: "{{ out.split('\n') }}"
+
+- name: Copy iperf result
+  copy:
+    content: "{{ iperf_result['content'] | b64decode }}"
+    dest: "{{ iperf_log }}"
+  delegate_to: "{{ groups['undercloud'] | first }}"
+

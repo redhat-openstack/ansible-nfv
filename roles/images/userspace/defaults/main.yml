@@ -1,0 +1,25 @@
+# Image Variables
+guest_image: 'https://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud.qcow2'
+guest_image_output: '/tmp/'
+guest_debug: False
+
+# Repo Variables
+repo_dir: '/tmp/guest_repos'
+guest_repos:
+  - name: 'base'
+    state: 'present'
+    baseurl: 'http://mirror.centos.org/centos/7/os/$basearch/'
+
+# DPDK Variables
+dpdk_dir: '/root/dpdk'
+dpdk_customization_log: "{{ dpdk_dir }}/customization.log"
+dpdk_git: 'git://dpdk.org/dpdk'
+dpdk_branch: 'v17.05'
+
+# Customize users Variables
+custom_users:
+  - user: root
+    password: 12345678
+
+# selinux config
+selinux_config: disabled

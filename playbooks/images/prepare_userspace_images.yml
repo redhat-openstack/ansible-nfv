@@ -1,0 +1,6 @@
+---
+- name: Performance Image for Userspace testing
+  hosts: "{{ customization_host | default('undercloud') }}"
+  gather_facts: False
+  roles:
+    - images/userspace

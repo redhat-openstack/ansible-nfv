@@ -1,0 +1,7 @@
+- name: Install iperf binaries inside guest image
+  virt_customize_packages:
+    name:
+      - iperf3
+    state: present
+    image: "{{ fetched_image }}"
+    selinux_relabel: True
