@@ -28,3 +28,7 @@
 - name: Customize Guest Image - HCI IO's
   include_tasks: prepare_guest_hci.yml
   when: prepare_guest_hci | default(True)
+
+- name: Customize Guest Image - iperf
+  include_tasks: prepare_iperf.yml
+  when: prepare_iperf | default(True)
