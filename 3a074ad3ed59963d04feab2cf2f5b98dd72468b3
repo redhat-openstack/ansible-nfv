@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "16d19091_ade641fc",
+        "filename": "roles/packet_gen/trex/binary_search/defaults/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1010167
+      },
+      "writtenOn": "2020-04-15T04:54:16Z",
+      "side": 1,
+      "message": "It could be better if the variable only points to the file, and the python execution is carried as part of the ansible task",
+      "revId": "3a074ad3ed59963d04feab2cf2f5b98dd72468b3",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cbbb73a6_9e7622c0",
+        "filename": "roles/packet_gen/trex/binary_search/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1010167
+      },
+      "writtenOn": "2020-04-15T04:54:16Z",
+      "side": 1,
+      "message": "It fails when pmd_lb is not ovs or user. It changes the default behavior. I would like to not to alter the default behavior and add additional behavior if not none. Like,\n\nwhen: pmd_lb is not None and pmd_lb not in [\u0027ovs\u0027, \u0027user\u0027]\n\nWith this, if pmd_lb is None (which is deault), no change in behavior",
+      "revId": "3a074ad3ed59963d04feab2cf2f5b98dd72468b3",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8371f30_328127dd",
+        "filename": "roles/packet_gen/trex/binary_search/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1010167
+      },
+      "writtenOn": "2020-04-15T04:54:16Z",
+      "side": 1,
+      "message": "redundant condition, as the varible is already part of defaults it will be defined always. The below check for not None is enough. Chech all below tasks too.",
+      "range": {
+        "startLine": 12,
+        "startChar": 6,
+        "endLine": 12,
+        "endChar": 23
+      },
+      "revId": "3a074ad3ed59963d04feab2cf2f5b98dd72468b3",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e8a65ab_fed6e587",
+        "filename": "roles/packet_gen/trex/binary_search/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1010167
+      },
+      "writtenOn": "2020-04-15T04:54:16Z",
+      "side": 1,
+      "message": "Move the all the new tasks above, to a block task with condition \"pmd_lb is not None\"",
+      "revId": "3a074ad3ed59963d04feab2cf2f5b98dd72468b3",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f45a983b_4ffd58f9",
+        "filename": "roles/packet_gen/trex/binary_search/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 1010167
+      },
+      "writtenOn": "2020-04-15T04:54:16Z",
+      "side": 1,
+      "message": "this variable is not defined in this file?",
+      "range": {
+        "startLine": 121,
+        "startChar": 8,
+        "endLine": 121,
+        "endChar": 22
+      },
+      "revId": "3a074ad3ed59963d04feab2cf2f5b98dd72468b3",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
