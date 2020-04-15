@@ -1,0 +1,36 @@
+- name: Set iperf client command if not defined
+  set_fact:
+    iperf_client_cmd: |
+      {{ iperf_bin }} -p 5001 -c {{ iperf_server_ip }} -A {{ iperf_lcores }} --json --logfile {{iperf_log }}
+  when: iperf_client_cmd is not defined
+
+- name: Log iperf client command
+  debug:
+    var: iperf_client_cmd
+
+- name: Run iperf client
+  command: "{{ iperf_client_cmd }}"
+  become: True
+
+- name: Display iperf results
+  block:
+    - name: Read iperf log
+      slurp:
+        src: "{{ iperf_log }}"
+      register: iperf_result
+
+    - name: Print iperf result
+      debug:
+        msg: "{{ (iperf_result['content'] | b64decode | from_json).end.sum_sent.bits_per_second }}"
+
+- name: Copy iperf result
+  delegate_to: "{{ groups['undercloud'] | first }}"
+  block:
+    - file:
+        path: "{{ iperf_log }}"
+        state: absent
+
+    - copy:
+        content: "{{ iperf_result['content'] | b64decode }}"
+        dest: "{{ iperf_log }}"
+
