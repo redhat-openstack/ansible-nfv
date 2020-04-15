@@ -16,6 +16,24 @@
       "revId": "8a799e47a774e7b43c8893cc8755337cd834a0a7",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85b19b5a_6c748f23",
+        "filename": "roles/packet_gen/trex/bind_dpdk_nics/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1017708
+      },
+      "writtenOn": "2020-04-15T06:23:46Z",
+      "side": 1,
+      "message": "I need access to CI lab to verify this. Thanks.",
+      "parentUuid": "927b2564_d0ba4dee",
+      "revId": "8a799e47a774e7b43c8893cc8755337cd834a0a7",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
