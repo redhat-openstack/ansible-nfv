@@ -1,0 +1,38 @@
+- name: Check If Tmux Sessions Are Running
+  shell: "tmux list-sessions -F '#S'"
+  register: tmux_sessions
+  failed_when: False
+
+- name: Kill Tmux Sessions
+  shell: "tmux list-sessions -F '#S' | xargs -n1 tmux kill-session -t"
+  when: tmux_sessions['stdout_lines'] != []
+
+- name: Set iperf server command if not defined
+  set_fact:
+    iperf_server_cmd: |
+      {{ iperf_bin }} -s -p 5001 -A {{ iperf_lcores }} --logfile {{ iperf_log }}
+  when: iperf_server_cmd is not defined
+
+- name: Log iperf server command
+  debug:
+    var: iperf_server_cmd
+
+- name: Run iperf server In Dettached Tmux Session
+  shell: |
+    tmux new -d -s iperf_server
+    tmux send-keys -t iperf_server "{{ iperf_server_cmd }}" ENTER
+  become: True
+
+- name: Pause and let iperf server run
+  pause:
+    seconds: 10
+
+- name: Query if iperf server is aborted
+  slurp:
+    src: '/tmp/iperf_server.log'
+  register: iperfs_log_output
+
+- name: Print iperf server error
+  fail:
+    msg: "{{ iperfs_log_output['content'] | b64decode }}"
+  failed_when: "'PANIC' in iperfs_log_output['content'] | b64decode"

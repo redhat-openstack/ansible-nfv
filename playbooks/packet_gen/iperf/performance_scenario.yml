@@ -1,0 +1,77 @@
+---
+- hosts: undercloud
+  gather_facts: False
+  pre_tasks:
+    - name: Require Resource Method
+      fail:
+        msg: "cloud_resources is not set to correct values: 'create' or 'external', please refer to documentation"
+      when: cloud_resources is not defined or cloud_resources not in ['create', 'external']
+
+    - block:
+        - name: Generate Resources
+          import_role:
+            name: roles/post_install/openstack_tasks
+      when: cloud_resources == 'create'
+
+    - name: Use Pre-exisisting Resources
+      block:
+        - name: Prepare Virtual Environment
+          include_role:
+            name: roles/post_install/openstack_tasks
+            tasks_from: setup_openstack_env
+
+        - name: Add Pre-existing Instances To Dynamic Inventory
+          include_role:
+            name: roles/post_install/dynamic_host_inventory
+          loop: "{{ dynamic_instances }}"
+      when: cloud_resources == 'external'
+
+- hosts: "{{ dut_compute }}"
+  become: true
+  roles:
+    - role: roles/packet_gen/trex/compute_tuning
+
+- hosts: "{{ dut_group }}"
+  become: true
+  roles:
+    - role: tuning/cpu_pinning_huge_pages
+      vars:
+        cpu_pinning_cores: "{{ iperf_lcores }}"
+
+- hosts: undercloud
+  pre_tasks:
+    - block:
+      - name: instance facts
+        os_server_facts:
+          cloud: "{{ cloud_name | default('overcloud') }}"
+          server: "iperf_server"
+          validate_certs: "{{ cert_validate | default(False) }}"
+        failed_when: openstack_servers == []
+
+    - set_fact:
+        iperf_server_ip: "{{ openstack_servers[0]['addresses'][iperf_network][0]['addr'] }}"
+
+- hosts: "{{ groups[dut_group][0] }}"
+  roles:
+    - role: roles/packet_gen/iperf/server
+      when: iperf_server | default(True)
+
+- hosts: "{{ groups[dut_group][1] }}"
+  pre_tasks:
+    - set_fact:
+        iperf_log: "/tmp/iperf_inter_compute.json"
+        iperf_server_ip: "{{ hostvars[groups['undercloud'][0]].iperf_server_ip }}"
+
+  roles:
+    - role: roles/packet_gen/iperf/client
+      when: iperf_client | default(True)
+
+- hosts: "{{ groups[dut_group][2] }}"
+  pre_tasks:
+    - set_fact:
+        iperf_log: "/tmp/iperf_intra_compute.json"
+        iperf_server_ip: "{{ hostvars[groups['undercloud'][0]].iperf_server_ip }}"
+
+  roles:
+    - role: roles/packet_gen/iperf/client
+      when: iperf_client | default(True)
