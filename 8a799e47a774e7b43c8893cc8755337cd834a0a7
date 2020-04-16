@@ -52,6 +52,24 @@
       "revId": "8a799e47a774e7b43c8893cc8755337cd834a0a7",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eb8e88af_5c891e51",
+        "filename": "roles/packet_gen/trex/bind_dpdk_nics/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-04-16T07:38:27Z",
+      "side": 1,
+      "message": "Yes, it should work fine.",
+      "parentUuid": "5496b669_d2c4493c",
+      "revId": "8a799e47a774e7b43c8893cc8755337cd834a0a7",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
