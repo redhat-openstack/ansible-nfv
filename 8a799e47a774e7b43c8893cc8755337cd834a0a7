@@ -34,6 +34,24 @@
       "revId": "8a799e47a774e7b43c8893cc8755337cd834a0a7",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5496b669_d2c4493c",
+        "filename": "roles/packet_gen/trex/bind_dpdk_nics/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2020-04-16T03:37:38Z",
+      "side": 1,
+      "message": "This should work, we use it here:\nhttps://github.com/redhat-openstack/ansible-nfv/blob/36a1fe5cbdd98c044e56c2257d8c30df4dd219eb/roles/packet_gen/trex/binary_search/tasks/main.yml#L69\n\nFrom my point of view, I think we can proceed with this.",
+      "parentUuid": "85b19b5a_6c748f23",
+      "revId": "8a799e47a774e7b43c8893cc8755337cd834a0a7",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
