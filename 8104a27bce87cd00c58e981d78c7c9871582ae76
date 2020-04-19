@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f7b25406_d8c82b99",
+        "filename": "roles/packet_gen/trex/binary_search/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-04-19T06:53:56Z",
+      "side": 1,
+      "message": "A tip.\n\nWhen using the shell or command module, the following sign could be used - \"|\" or \"\u003e\".\nYou actually used the first one.\n\nThe difference between them is that when a very long line is used, like in your case, when using the \"|\" sign, you can break the line using the \"\\\" sign, like here [1].\nWhen \"\u003e\" sign is used, the breaking sign \"\\\" even do not needed. Every new line will be placed in one long single line, like here [2].\n\nPlease, change it, as it is very hard to read this bulk of lines.\n\n[1] - https://github.com/redhat-openstack/ansible-nfv/blob/master/roles/tester/tempest/tasks/main.yml#L124-L164\n[2] - https://github.com/redhat-openstack/ansible-nfv/blob/master/roles/post_install/openstack_tasks/tasks/instances.yml#L42-L50",
+      "range": {
+        "startLine": 94,
+        "startChar": 2,
+        "endLine": 94,
+        "endChar": 10
+      },
+      "revId": "8104a27bce87cd00c58e981d78c7c9871582ae76",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
