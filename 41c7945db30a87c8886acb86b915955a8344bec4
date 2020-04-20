@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ffea3c13_1d363464",
+        "filename": "roles/packet_gen/trex/binary_search/defaults/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1010167
+      },
+      "writtenOn": "2020-04-20T06:20:38Z",
+      "side": 1,
+      "message": "Can we get the file name in the variable and execute it using the task?",
+      "range": {
+        "startLine": 8,
+        "startChar": 16,
+        "endLine": 8,
+        "endChar": 26
+      },
+      "revId": "41c7945db30a87c8886acb86b915955a8344bec4",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07efc881_3bc84b52",
+        "filename": "roles/packet_gen/trex/binary_search/defaults/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1010167
+      },
+      "writtenOn": "2020-04-20T06:20:38Z",
+      "side": 1,
+      "message": "can you also add the comments on possible values and description of them?",
+      "revId": "41c7945db30a87c8886acb86b915955a8344bec4",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a6ed2c9e_f9f265da",
+        "filename": "roles/packet_gen/trex/binary_search/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1010167
+      },
+      "writtenOn": "2020-04-20T06:20:38Z",
+      "side": 1,
+      "message": "when:\n  - pmd_lb not in [\u0027ovs\u0027, \u0027user\u0027]",
+      "range": {
+        "startLine": 12,
+        "startChar": 4,
+        "endLine": 14,
+        "endChar": 22
+      },
+      "revId": "41c7945db30a87c8886acb86b915955a8344bec4",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f1a205f_51d5d8ec",
+        "filename": "roles/packet_gen/trex/binary_search/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1010167
+      },
+      "writtenOn": "2020-04-20T06:20:38Z",
+      "side": 1,
+      "message": "This is not the correct usage of variables. This command ca nbe executed directly when the mode is \u0027ovs\u0027, no need of intermediate variable. applicable for all below. We should have explicit tasks and manage it with when condition. No need to have a variable to have commands and execute them. All below tasks need to be modified based on the mode.",
+      "revId": "41c7945db30a87c8886acb86b915955a8344bec4",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
