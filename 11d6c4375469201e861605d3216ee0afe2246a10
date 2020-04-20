@@ -46,6 +46,30 @@
       "revId": "11d6c4375469201e861605d3216ee0afe2246a10",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "02a87c19_9a5e6eb9",
+        "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-04-20T13:42:56Z",
+      "side": 1,
+      "message": "Ok. Let\u0027s move with the current solution.\nIf we will face an issue and see that installing the rpm package will solve it, we will implement it.",
+      "parentUuid": "88612890_e9db40f2",
+      "range": {
+        "startLine": 32,
+        "startChar": 6,
+        "endLine": 35,
+        "endChar": 44
+      },
+      "revId": "11d6c4375469201e861605d3216ee0afe2246a10",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
