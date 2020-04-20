@@ -163,6 +163,24 @@
       "revId": "41c7945db30a87c8886acb86b915955a8344bec4",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2efd657_b9f18f36",
+        "filename": "roles/packet_gen/trex/binary_search/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1017708
+      },
+      "writtenOn": "2020-04-20T07:23:42Z",
+      "side": 1,
+      "message": "Intention of keeping entire command as variable was to let user give own commands (like netcontrold), check nfV_perf_mq for how it expands when I set LB as user and override LB control.",
+      "parentUuid": "ef36b380_b3af31a1",
+      "revId": "41c7945db30a87c8886acb86b915955a8344bec4",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
