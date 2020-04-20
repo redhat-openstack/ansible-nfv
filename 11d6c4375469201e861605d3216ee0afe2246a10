@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c46a2bdf_99c8c154",
+        "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-04-20T13:32:05Z",
+      "side": 1,
+      "message": "Could be a chance that the rpm exists in repo but not installed?\nIn that case, the rpm needs to be installed.\n\nWhat do you think?",
+      "range": {
+        "startLine": 32,
+        "startChar": 6,
+        "endLine": 35,
+        "endChar": 44
+      },
+      "revId": "11d6c4375469201e861605d3216ee0afe2246a10",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
