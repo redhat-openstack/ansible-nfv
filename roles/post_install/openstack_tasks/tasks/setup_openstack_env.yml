@@ -23,19 +23,25 @@
   loop: "{{ pkg_ver_list | flatten(levels=1) }}"
   become: true
 
-- block:
+- name: Ensure virtualenv is present for python2 deployments
+  block:
     - name: Install pip package
       easy_install:
         name: pip
-      become: true
 
-# The version of virtualenv hardcoded because python 2 has issues installing latest version of dependencies for the virtualenv.
-    - name: Install venv if python2 present
+    - name: Check if virtualenv is provided via RPM
+      yum:
+        list: python-virtualenv
+      register: check_virtualenv_rpm_package
+
+# The version of virtualenv hard coded because python 2 has issues installing latest version of dependencies for the virtualenv.
+    - name: Install virtualenv from pypi if RPM is not installed
       pip:
         name: virtualenv
         version: '16.7.9'
-      become: true
-  when: ansible_python.version.major == 2
+      when: "'installed' not in check_virtualenv_rpm_package | json_query('results[*].yumstate')"
+  become: True
+  when: hostvars[groups['undercloud'][0]]['ansible_python']['version']['major'] == 2
 
 # A pip bug prevents us to use the pip module for the python3 venv creation.
 # Remove when fixed.
