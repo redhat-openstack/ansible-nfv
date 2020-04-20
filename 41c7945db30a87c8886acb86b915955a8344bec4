@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "127174e5_a8ce33d8",
+        "filename": "roles/packet_gen/trex/binary_search/defaults/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1017708
+      },
+      "writtenOn": "2020-04-20T06:47:32Z",
+      "side": 1,
+      "message": "trex-txrx.py does not have execute permission in its repo, and hence we call python. I think it should be fine and I don\u0027t find any reason why python should not be called externally, can you make your wish more clear ?.",
+      "parentUuid": "ffea3c13_1d363464",
+      "range": {
+        "startLine": 8,
+        "startChar": 16,
+        "endLine": 8,
+        "endChar": 26
+      },
+      "revId": "41c7945db30a87c8886acb86b915955a8344bec4",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "07efc881_3bc84b52",
         "filename": "roles/packet_gen/trex/binary_search/defaults/main.yml",
         "patchSetId": 1
@@ -39,6 +63,24 @@
       "revId": "41c7945db30a87c8886acb86b915955a8344bec4",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "581c9305_ae2a738e",
+        "filename": "roles/packet_gen/trex/binary_search/defaults/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1017708
+      },
+      "writtenOn": "2020-04-20T06:47:32Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "07efc881_3bc84b52",
+      "revId": "41c7945db30a87c8886acb86b915955a8344bec4",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     },
     {
       "key": {
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "b4d85956_e90dc5dc",
+        "filename": "roles/packet_gen/trex/binary_search/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1017708
+      },
+      "writtenOn": "2020-04-20T06:47:32Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a6ed2c9e_f9f265da",
+      "range": {
+        "startLine": 12,
+        "startChar": 4,
+        "endLine": 14,
+        "endChar": 22
+      },
+      "revId": "41c7945db30a87c8886acb86b915955a8344bec4",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0f1a205f_51d5d8ec",
         "filename": "roles/packet_gen/trex/binary_search/tasks/main.yml",
         "patchSetId": 1
@@ -76,6 +142,24 @@
       "writtenOn": "2020-04-20T06:20:38Z",
       "side": 1,
       "message": "This is not the correct usage of variables. This command ca nbe executed directly when the mode is \u0027ovs\u0027, no need of intermediate variable. applicable for all below. We should have explicit tasks and manage it with when condition. No need to have a variable to have commands and execute them. All below tasks need to be modified based on the mode.",
+      "revId": "41c7945db30a87c8886acb86b915955a8344bec4",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ef36b380_b3af31a1",
+        "filename": "roles/packet_gen/trex/binary_search/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1017708
+      },
+      "writtenOn": "2020-04-20T06:47:32Z",
+      "side": 1,
+      "message": "This was how when I had master bash script controlling this role. I need to rework on adapting roles instead of bash and hence we will revisit it if still needed. Thanks.",
+      "parentUuid": "0f1a205f_51d5d8ec",
       "revId": "41c7945db30a87c8886acb86b915955a8344bec4",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
