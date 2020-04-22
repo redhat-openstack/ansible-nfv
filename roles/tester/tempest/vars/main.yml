@@ -30,8 +30,10 @@ tempest_repos:
     version:
       10:
         branch: '1.1.3'
-      defaults:
+      13:
         branch: '2.1.0'
+      defaults:
+        branch: '2.5.0'
   - name: nfv-tempest-plugin
     url: https://github.com/redhat-openstack/nfv-tempest-plugin
     version:
