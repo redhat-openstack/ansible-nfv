@@ -70,6 +70,23 @@
       loop: "{{ switch_vars.interfaces }}"
       when: item.aggr_members is defined
 
+    # For each vlan for which igmp snooping is configured, remove previous
+    # configuration if it exists to ensure that applied configuration is 
+    # as specified in configuration file
+    - name: Reset IGMP snooping
+      junos_config:
+        lines:
+          - delete protocols igmp-snooping vlan "vlan{{ item.vlan }}"
+      loop: "{{ switch_vars.igmp_snooping }}"
+      when: item.vlan is defined
+
+    - name: Configure IGMP snooping
+      junos_config:
+        lines:
+          - set protocols igmp-snooping vlan "vlan{{ item.0.vlan }}" l2-querier source-address {{ item.0.ip_address }}
+          - set protocols igmp-snooping vlan "vlan{{ item.0.vlan }}" interface {{ item.1 }}
+      loop: "{{ switch_vars.igmp_snooping | subelements('interfaces') }}"
+
     - name: Save configuration
       junos_config:
         confirm_commit: yes
