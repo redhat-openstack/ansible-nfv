@@ -5,6 +5,7 @@ The switches config play performs the following tasks:
 - VLAN configuration access/trunk on the switch port.
 - MTU configuration on the switch port.
 - LACP configuration on interface and members attach.
+- IGMP Snooping configuration
 
 Supported switch platforms:
 - Cisco
@@ -57,6 +58,8 @@ juniper_switch01:
     - { description: 'host2_port3', iface: 'xe-0/0/1', iface_mode: 'trunk', vlan: '15-20', mtu: '9000' }
     - { description: 'host3_port1', iface: 'xe-0/0/4', iface_mode: 'trunk', vlan: '50-53' }
     - { description: 'aggregation', iface: 'ae2', iface_mode: 'trunk', vlan: '53-55', mtu: '9192', aggr_members: ['xe-0/0/12', 'xe-0/0/13'] }
+ igmp-snooping:                                                                 
+    - { vlan: '55', ip_address: '10.20.155.5', interfaces: ['ae2'] }     
 
 juniper_switch02:
   vlans:
