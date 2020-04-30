@@ -188,6 +188,30 @@
       "revId": "6da7a1a2d7e1c65a4bdb3d66e0a1791ce9625822",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f3b0a30d_8a328e04",
+        "filename": "roles/configuration/switches_config/tasks/junos_config.yml",
+        "patchSetId": 11
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-04-30T14:34:06Z",
+      "side": 1,
+      "message": "Strange.\nI was not able to recreate the problem. For me it passed.\nBut ok. Not critical for me.",
+      "parentUuid": "2e608623_035081b9",
+      "range": {
+        "startLine": 97,
+        "startChar": 42,
+        "endLine": 97,
+        "endChar": 55
+      },
+      "revId": "6da7a1a2d7e1c65a4bdb3d66e0a1791ce9625822",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
