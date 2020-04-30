@@ -1,0 +1,84 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "be963642_9e27a5ab",
+        "filename": "molecule-requirements.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-04-30T15:55:11Z",
+      "side": 1,
+      "message": "These values already defined in the main requirements.txt files.\n\nI suggest to put all the test related packages in test-requirements.txt\nA package openstacksdk not relates to test only, so it could be placed in requirements.txt.\n\nIn test-requirements.txt at the top line, put:\n\n-r requirements.txt\n\nSo every time you will install test-requirements.txt, it will pull and install requirements.txt as well.",
+      "revId": "0d7615baae5710b33e91ddaefa520c7603f2c5b9",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f20d424b_e9031e2b",
+        "filename": "molecule-requirements.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-04-30T15:55:11Z",
+      "side": 1,
+      "message": "Please, change it to the following:\n\nopenstacksdk\u003e\u003d0.39 ; python_version \u003e\u003d \u00273\u0027\nopenstacksdk\u003e\u003d0.39,\u003c0.40.0 ; python_version \u003c \u00273\u0027\n\n\nUnfortunately, we are still working on the osp versions that the main python version is - 2.",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 12
+      },
+      "revId": "0d7615baae5710b33e91ddaefa520c7603f2c5b9",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "acde889b_5f7876d1",
+        "filename": "tools/_skeleton_role_/defaults/main.yml.j2",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-04-30T15:55:11Z",
+      "side": 1,
+      "message": "Honesly, I think skeleton role is not needed here.\nIt could be generated or copied from the official doc.",
+      "revId": "0d7615baae5710b33e91ddaefa520c7603f2c5b9",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17e772a8_51d1dc2a",
+        "filename": "tools/configure-env.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-04-30T15:55:11Z",
+      "side": 1,
+      "message": "Is there missing pip3 install step?",
+      "range": {
+        "startLine": 20,
+        "startChar": 4,
+        "endLine": 20,
+        "endChar": 26
+      },
+      "revId": "0d7615baae5710b33e91ddaefa520c7603f2c5b9",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
