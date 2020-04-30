@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "60aa5fa4_d9a787c7",
+        "filename": "roles/configuration/switches_config/tasks/junos_config.yml",
+        "patchSetId": 11
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1016373
+      },
+      "writtenOn": "2020-04-30T11:03:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "47eb949b_02828c92",
+      "range": {
+        "startLine": 81,
+        "startChar": 6,
+        "endLine": 81,
+        "endChar": 15
+      },
+      "revId": "6da7a1a2d7e1c65a4bdb3d66e0a1791ce9625822",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2d9ae2e6_f01d499a",
         "filename": "roles/configuration/switches_config/tasks/junos_config.yml",
         "patchSetId": 11
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "cdebba18_b1a72d58",
+        "filename": "roles/configuration/switches_config/tasks/junos_config.yml",
+        "patchSetId": 11
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1016373
+      },
+      "writtenOn": "2020-04-30T11:03:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2d9ae2e6_f01d499a",
+      "range": {
+        "startLine": 95,
+        "startChar": 68,
+        "endLine": 95,
+        "endChar": 69
+      },
+      "revId": "6da7a1a2d7e1c65a4bdb3d66e0a1791ce9625822",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8fb47ccd_7df383be",
         "filename": "roles/configuration/switches_config/tasks/junos_config.yml",
         "patchSetId": 11
@@ -59,6 +107,30 @@
       "writtenOn": "2020-04-30T10:54:39Z",
       "side": 1,
       "message": "The default here does not make sense.\nWithout the switch_vars.igmp_snooping, interfaces as subelement will not be available.",
+      "range": {
+        "startLine": 97,
+        "startChar": 42,
+        "endLine": 97,
+        "endChar": 55
+      },
+      "revId": "6da7a1a2d7e1c65a4bdb3d66e0a1791ce9625822",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15054158_f27fe865",
+        "filename": "roles/configuration/switches_config/tasks/junos_config.yml",
+        "patchSetId": 11
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1016373
+      },
+      "writtenOn": "2020-04-30T11:03:20Z",
+      "side": 1,
+      "message": "I was getting an error, that is the reason i included it",
+      "parentUuid": "8fb47ccd_7df383be",
       "range": {
         "startLine": 97,
         "startChar": 42,
