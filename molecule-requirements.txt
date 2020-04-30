@@ -1,0 +1,13 @@
+ansible>=2.8
+docker
+openstacksdk
+pytest
+pytest-cov
+pytest-html
+pytest-xdist
+mock
+molecule
+molecule-vagrant
+ruamel.yaml
+testinfra
+netaddr
