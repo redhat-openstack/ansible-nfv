@@ -1,0 +1,40 @@
+---
+driver:
+  name: vagrant
+  provider:
+    name: libvirt
+
+log: true
+
+platforms:
+  - name: instance-1
+    interfaces:
+      - auto_config: true
+        network_name: private_network
+        type: dhcp
+    config_options:
+      synced_folder: True
+    box: centos/7
+    memory: 1024
+    cpus: 2
+    provider_options:
+      gui: True
+
+provisioner:
+  name: ansible
+  log: true
+  env:
+    ANSIBLE_STDOUT_CALLBACK: yaml
+
+scenario:
+  test_sequence:
+    - destroy
+    - create
+    - prepare
+    - converge
+    - check
+    - verify
+    - destroy
+
+verifier:
+  name: testinfra
