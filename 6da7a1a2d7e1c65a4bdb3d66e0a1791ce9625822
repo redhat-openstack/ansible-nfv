@@ -164,6 +164,30 @@
       "revId": "6da7a1a2d7e1c65a4bdb3d66e0a1791ce9625822",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2e608623_035081b9",
+        "filename": "roles/configuration/switches_config/tasks/junos_config.yml",
+        "patchSetId": 11
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1016373
+      },
+      "writtenOn": "2020-04-30T11:46:15Z",
+      "side": 1,
+      "message": "Even with the latest version of the patch, if I remove the default, I get:\nASK [configuration/switches_config : Configure interfaces in which IGMP queries are broadcasted] ***************************************************************************************\ntask path: /var/jenkins_home/workspace/DFG-nfv-16-director-3cont-2comp-ipv4-vxlan-dpdk-sriov-ctlplane-dataplane-bonding-hybrid-panther02/ansible-nfv/roles/configuration/switches_config/tasks/junos_config.yml:93\nMETA: noop\nfatal: [nfv_private_sw02]: FAILED! \u003d\u003e {\n    \"msg\": \"obj must be a list of dicts or a nested dict\"",
+      "parentUuid": "4e4439fe_6e224e6d",
+      "range": {
+        "startLine": 97,
+        "startChar": 42,
+        "endLine": 97,
+        "endChar": 55
+      },
+      "revId": "6da7a1a2d7e1c65a4bdb3d66e0a1791ce9625822",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
