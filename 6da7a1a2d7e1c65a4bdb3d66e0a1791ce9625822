@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "47eb949b_02828c92",
+        "filename": "roles/configuration/switches_config/tasks/junos_config.yml",
+        "patchSetId": 11
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-04-30T10:54:39Z",
+      "side": 1,
+      "message": "You can save the multiple when and loop conditions.\nYou can put the three tasks under the block statement and perform when and loop once.\n\nDo it right away with the subelements.\nYou will cover all your needs.",
+      "range": {
+        "startLine": 81,
+        "startChar": 6,
+        "endLine": 81,
+        "endChar": 15
+      },
+      "revId": "6da7a1a2d7e1c65a4bdb3d66e0a1791ce9625822",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2d9ae2e6_f01d499a",
+        "filename": "roles/configuration/switches_config/tasks/junos_config.yml",
+        "patchSetId": 11
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-04-30T10:54:39Z",
+      "side": 1,
+      "message": "At the previous task, you didn\u0027t use it.\nDo you actually need it?",
+      "range": {
+        "startLine": 95,
+        "startChar": 68,
+        "endLine": 95,
+        "endChar": 69
+      },
+      "revId": "6da7a1a2d7e1c65a4bdb3d66e0a1791ce9625822",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8fb47ccd_7df383be",
+        "filename": "roles/configuration/switches_config/tasks/junos_config.yml",
+        "patchSetId": 11
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-04-30T10:54:39Z",
+      "side": 1,
+      "message": "The default here does not make sense.\nWithout the switch_vars.igmp_snooping, interfaces as subelement will not be available.",
+      "range": {
+        "startLine": 97,
+        "startChar": 42,
+        "endLine": 97,
+        "endChar": 55
+      },
+      "revId": "6da7a1a2d7e1c65a4bdb3d66e0a1791ce9625822",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
