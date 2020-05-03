@@ -1,5 +1,6 @@
 - name: Change vcpu_pin_set for cross numa performance
-  tags: vcpu_pin_set_cross_numa
+  tags:
+    - vcpu_pin_set_cross_numa
   include_tasks: change_vcpu_cross.yml
   when: vcpu_pin_set_cross_numa
 
