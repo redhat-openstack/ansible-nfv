@@ -68,6 +68,25 @@
         perf_json: "{{ perf_result['content'] | b64decode | replace('RESULT', '') }}"
   delegate_to: "{{ groups['undercloud'] | first }}"
 
+- name: Fetch OVS version from compute node
+  shell: "ovs-vsctl --version | grep 'Open vSwitch' | sed 's/ovs-vsctl \(.*\) //'"
+  register: compute_ovs_version
+  delegate_to: "{{ dut_compute }}"
+
+- name: Fetch puddle/compose from undercloud
+  slurp:
+    src: /home/stack/core_puddle_version
+  register: deployment_core_puddle
+  delegate_to: "{{ groups['undercloud'] | first }}"
+
+- name: Append extra info to performance log
+  lineinfile:
+    path: "{{ binary_perf_log }}"
+    line: "{{ item }}"
+  loop:
+    - "OVS_Version: {{ compute_ovs_version['stdout'] }}"
+    - "Puddle: {{ deployment_core_puddle['content'] | b64decode }}"
+
 - name: Print Perfomance Result JSON
   debug:
     var: perf_json
