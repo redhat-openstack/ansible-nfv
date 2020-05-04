@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "6d0603d0_f6e1ce67",
+        "filename": "molecule-requirements.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-05-04T10:36:37Z",
+      "side": 1,
+      "message": "Got it.\nYeah, in that case we need to separate it.",
+      "parentUuid": "89247e0e_e516aa10",
+      "revId": "0d7615baae5710b33e91ddaefa520c7603f2c5b9",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f20d424b_e9031e2b",
         "filename": "molecule-requirements.txt",
         "patchSetId": 1
