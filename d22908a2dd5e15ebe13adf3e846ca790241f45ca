@@ -22,6 +22,30 @@
       "revId": "d22908a2dd5e15ebe13adf3e846ca790241f45ca",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a2a2b90_4d27724b",
+        "filename": "tools/configure-env.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1010167
+      },
+      "writtenOn": "2020-05-04T12:45:59Z",
+      "side": 1,
+      "message": "yes it does, i can remove this section.",
+      "parentUuid": "01199cb3_b50e4e31",
+      "range": {
+        "startLine": 16,
+        "startChar": 4,
+        "endLine": 16,
+        "endChar": 26
+      },
+      "revId": "d22908a2dd5e15ebe13adf3e846ca790241f45ca",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
