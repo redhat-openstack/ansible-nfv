@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "89247e0e_e516aa10",
+        "filename": "molecule-requirements.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1010167
+      },
+      "writtenOn": "2020-05-04T10:30:19Z",
+      "side": 1,
+      "message": "I got the issue back on why i added it as separate requirements file. Here is the issue:\n\nERROR: molecule 3.0.4 has requirement ansible\u003e\u003d2.8, but you\u0027ll have ansible 2.7.17 which is incompatible.\nERROR: molecule-vagrant 0.2 has requirement ansible\u003e\u003d2.9.5, but you\u0027ll have ansible 2.7.17 which is incompatible.\n\nmolecule requires a higher version. I didn\u0027t want to change the existing requiremebts file, I will clean up the file to remove unnecessary entries and keep ansible requirements. Once we support ansible 2.9 in general, asnible can be removed from this requirement file.",
+      "parentUuid": "6c20a0b3_c1a639d6",
+      "revId": "0d7615baae5710b33e91ddaefa520c7603f2c5b9",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f20d424b_e9031e2b",
         "filename": "molecule-requirements.txt",
         "patchSetId": 1
