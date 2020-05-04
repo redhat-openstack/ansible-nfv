@@ -131,6 +131,24 @@
     },
     {
       "key": {
+        "uuid": "38a9a6bd_8f76d896",
+        "filename": "tools/_skeleton_role_/defaults/main.yml.j2",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1010167
+      },
+      "writtenOn": "2020-05-04T10:35:45Z",
+      "side": 1,
+      "message": "Sure. I would like to hear others opinion too and happy to change. I thought it would be helpful because molecule.yml file which has the test platform and the strucuture of the files will be predefined for all roles. So we dont need to spend time in reading and understanding the docs and replicating it. Just copy the items and focus on the actual test than the structer of the tests.",
+      "parentUuid": "5fae4624_1e7ab50b",
+      "revId": "0d7615baae5710b33e91ddaefa520c7603f2c5b9",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "17e772a8_51d1dc2a",
         "filename": "tools/configure-env.sh",
         "patchSetId": 1
