@@ -167,6 +167,24 @@
     },
     {
       "key": {
+        "uuid": "42204abc_98aff623",
+        "filename": "tools/_skeleton_role_/defaults/main.yml.j2",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1007976
+      },
+      "writtenOn": "2020-05-04T12:36:33Z",
+      "side": 1,
+      "message": "I also agree that skeleton role could be generated and not required here.",
+      "parentUuid": "38a9a6bd_8f76d896",
+      "revId": "0d7615baae5710b33e91ddaefa520c7603f2c5b9",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "17e772a8_51d1dc2a",
         "filename": "tools/configure-env.sh",
         "patchSetId": 1
