@@ -2,6 +2,201 @@
   "comments": [
     {
       "key": {
+        "uuid": "216a8f66_2d20c6b9",
+        "filename": "playbooks/tripleo/post_install/openstack_tasks.yml",
+        "patchSetId": 10
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-05-04T07:56:52Z",
+      "side": 1,
+      "message": "This is not needed.\nMore details within the tasks.",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 6,
+        "endChar": 34
+      },
+      "revId": "1c1c30feef971d01d26c313e316f966814c529d5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0accb0c3_0ae1cfdd",
+        "filename": "roles/images/performance/tasks/prepare_guest_hci.yml",
+        "patchSetId": 10
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-05-04T07:56:52Z",
+      "side": 1,
+      "message": "The prepare hci guest is pretty identical to prepare_dpdk.yml file.\nThe only change are the steps within the second task.\n\nWhy not to unify it instead of duplicate?\n\nThe steps could be as a variable block and prepare of the image could be based on the trigger - dpdk/hci.\nThen it will take the required block of steps and use it.\n\nIn such case ,we will not need to remember to change multiple placed if there will be some fix or update.",
+      "revId": "1c1c30feef971d01d26c313e316f966814c529d5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "17e370d3_4601fa50",
+        "filename": "roles/packet_gen/trex/launch_fio/tasks/main.yml",
+        "patchSetId": 10
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-05-04T07:56:52Z",
+      "side": 1,
+      "message": "What is \"fio\"?\nIs it related to trex?",
+      "range": {
+        "startLine": 12,
+        "startChar": 34,
+        "endLine": 12,
+        "endChar": 37
+      },
+      "revId": "1c1c30feef971d01d26c313e316f966814c529d5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6d002e74_1babc951",
+        "filename": "roles/packet_gen/trex/launch_fio/tasks/main.yml",
+        "patchSetId": 10
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-05-04T07:56:52Z",
+      "side": 1,
+      "message": "Most of the values here should be provided as variables for easy of editing.",
+      "range": {
+        "startLine": 12,
+        "startChar": 82,
+        "endLine": 12,
+        "endChar": 189
+      },
+      "revId": "1c1c30feef971d01d26c313e316f966814c529d5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b029e36e_d173db89",
+        "filename": "roles/packet_gen/trex/launch_fio/tasks/main.yml",
+        "patchSetId": 10
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-05-04T07:56:52Z",
+      "side": 1,
+      "message": "Should be a variable.",
+      "range": {
+        "startLine": 31,
+        "startChar": 10,
+        "endLine": 31,
+        "endChar": 22
+      },
+      "revId": "1c1c30feef971d01d26c313e316f966814c529d5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e69f16fc_e17d0f57",
+        "filename": "roles/post_install/hci_tasks/tasks/guest_count.yml",
+        "patchSetId": 10
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-05-04T07:56:52Z",
+      "side": 1,
+      "message": "The tasks are not related to openstack_tasks role.\nPlease, move it into a separate dedicated role.",
+      "revId": "1c1c30feef971d01d26c313e316f966814c529d5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d1d9a76_96cd52c5",
+        "filename": "roles/post_install/openstack_tasks/tasks/hci_instances.yml",
+        "patchSetId": 10
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-05-04T07:56:52Z",
+      "side": 1,
+      "message": "This is the exact duplicate of the instances.yml tasks.\nIt is not required at all.\nThe existing instances.yml tasks covers all the requirements for booting an instances with all needed properties.",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 33
+      },
+      "revId": "1c1c30feef971d01d26c313e316f966814c529d5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a45803d1_482ea48f",
+        "filename": "roles/post_install/openstack_tasks/tasks/hci_instances.yml",
+        "patchSetId": 10
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-05-04T07:56:52Z",
+      "side": 1,
+      "message": "All the os_volume tasks should be placed in a separate file, for example volumes.yml and called from the main.yml file.",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 12
+      },
+      "revId": "1c1c30feef971d01d26c313e316f966814c529d5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ee6497c5_46c2c885",
+        "filename": "roles/post_install/openstack_tasks/tasks/hci_instances.yml",
+        "patchSetId": 10
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-05-04T07:56:52Z",
+      "side": 1,
+      "message": "I see it is the only change between the two tasks.\nIt could be used in a single task by using the proper default value.",
+      "range": {
+        "startLine": 84,
+        "startChar": 4,
+        "endLine": 85,
+        "endChar": 34
+      },
+      "revId": "1c1c30feef971d01d26c313e316f966814c529d5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8344bce6_50974510",
         "filename": "roles/post_install/openstack_tasks/tasks/hci_instances.yml",
         "patchSetId": 10
