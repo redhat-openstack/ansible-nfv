@@ -95,6 +95,24 @@
     },
     {
       "key": {
+        "uuid": "5fae4624_1e7ab50b",
+        "filename": "tools/_skeleton_role_/defaults/main.yml.j2",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-05-04T09:01:33Z",
+      "side": 1,
+      "message": "Molecule has a very specific structure.\nIt is a role based testing framework and we have exactly roles so the structure should be similar not to only our projects but to any molecule project.\n\nWe can define specific notes related to the testing in our repo, but even here it will not be strict.\nSome of the roles could be checked by using docker/virtualbox and some will require an osp setup. Like openstack_tasks role.\n\nThat\u0027s why I think it doesn\u0027t really required to keep here the skeleton.\n\nBut that is only my opinion.\nLet\u0027s wait for others to provide their comments as well.",
+      "parentUuid": "e4ea42e3_6636e6be",
+      "revId": "0d7615baae5710b33e91ddaefa520c7603f2c5b9",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "17e772a8_51d1dc2a",
         "filename": "tools/configure-env.sh",
         "patchSetId": 1
