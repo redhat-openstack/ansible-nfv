@@ -134,6 +134,8 @@
         identity.region regionOne DEFAULT.debug false \
         compute.min_microversion {{ compute_min_microversion }} \
         compute.max_microversion {{ compute_max_microversion }} \
+        placement.min_microversion {{ placement_microversion }} \
+        placement.max_microversion {{ placement_microversion }} \
         {% if tempest_flavor_name is defined %}
         compute.flavor_ref {{ openstack_flavors[0].id }} \
         {% endif %}
