@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d227c75d_9cf49e72",
+        "filename": "playbooks/tripleo/post_install/openstack_tasks.yml",
+        "patchSetId": 10
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1015848
+      },
+      "writtenOn": "2020-05-08T10:31:39Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "216a8f66_2d20c6b9",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 6,
+        "endChar": 34
+      },
+      "revId": "1c1c30feef971d01d26c313e316f966814c529d5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0accb0c3_0ae1cfdd",
         "filename": "roles/images/performance/tasks/prepare_guest_hci.yml",
         "patchSetId": 10
@@ -39,6 +63,24 @@
       "revId": "1c1c30feef971d01d26c313e316f966814c529d5",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bba3352e_faa31d52",
+        "filename": "roles/images/performance/tasks/prepare_guest_hci.yml",
+        "patchSetId": 10
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1015848
+      },
+      "writtenOn": "2020-05-08T10:31:39Z",
+      "side": 1,
+      "message": "Ack but planning to add more additional test cases for HCI using pbench-fio. so we may need more customization for HCI guest image. so i would like to have separate role for hci image changes.",
+      "parentUuid": "0accb0c3_0ae1cfdd",
+      "revId": "1c1c30feef971d01d26c313e316f966814c529d5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     },
     {
       "key": {
@@ -88,6 +130,54 @@
     },
     {
       "key": {
+        "uuid": "95326ad5_a28c7d10",
+        "filename": "roles/packet_gen/trex/launch_fio/tasks/main.yml",
+        "patchSetId": 10
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1015848
+      },
+      "writtenOn": "2020-05-08T10:31:39Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6d002e74_1babc951",
+      "range": {
+        "startLine": 12,
+        "startChar": 82,
+        "endLine": 12,
+        "endChar": 189
+      },
+      "revId": "1c1c30feef971d01d26c313e316f966814c529d5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d1c14c6a_37f1dadb",
+        "filename": "roles/packet_gen/trex/launch_fio/tasks/main.yml",
+        "patchSetId": 10
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1015848
+      },
+      "writtenOn": "2020-05-08T10:31:39Z",
+      "side": 1,
+      "message": "fio is not related to trex which is used to generate the HCI stress (read/write operations on ceph volumes).",
+      "parentUuid": "17e370d3_4601fa50",
+      "range": {
+        "startLine": 12,
+        "startChar": 34,
+        "endLine": 12,
+        "endChar": 37
+      },
+      "revId": "1c1c30feef971d01d26c313e316f966814c529d5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b029e36e_d173db89",
         "filename": "roles/packet_gen/trex/launch_fio/tasks/main.yml",
         "patchSetId": 10
@@ -111,6 +201,30 @@
     },
     {
       "key": {
+        "uuid": "91731f88_f61576d3",
+        "filename": "roles/packet_gen/trex/launch_fio/tasks/main.yml",
+        "patchSetId": 10
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1015848
+      },
+      "writtenOn": "2020-05-08T10:31:39Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b029e36e_d173db89",
+      "range": {
+        "startLine": 31,
+        "startChar": 10,
+        "endLine": 31,
+        "endChar": 22
+      },
+      "revId": "1c1c30feef971d01d26c313e316f966814c529d5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e69f16fc_e17d0f57",
         "filename": "roles/post_install/hci_tasks/tasks/guest_count.yml",
         "patchSetId": 10
@@ -125,6 +239,24 @@
       "revId": "1c1c30feef971d01d26c313e316f966814c529d5",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6decb3fc_e279613b",
+        "filename": "roles/post_install/hci_tasks/tasks/guest_count.yml",
+        "patchSetId": 10
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1015848
+      },
+      "writtenOn": "2020-05-08T10:31:39Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e69f16fc_e17d0f57",
+      "revId": "1c1c30feef971d01d26c313e316f966814c529d5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     },
     {
       "key": {
@@ -151,6 +283,30 @@
     },
     {
       "key": {
+        "uuid": "44c13539_dcecf338",
+        "filename": "roles/post_install/openstack_tasks/tasks/hci_instances.yml",
+        "patchSetId": 10
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1015848
+      },
+      "writtenOn": "2020-05-08T10:31:39Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8d1d9a76_96cd52c5",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 33
+      },
+      "revId": "1c1c30feef971d01d26c313e316f966814c529d5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "a45803d1_482ea48f",
         "filename": "roles/post_install/openstack_tasks/tasks/hci_instances.yml",
         "patchSetId": 10
@@ -171,6 +327,30 @@
       "revId": "1c1c30feef971d01d26c313e316f966814c529d5",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bc957d97_31483e5b",
+        "filename": "roles/post_install/openstack_tasks/tasks/hci_instances.yml",
+        "patchSetId": 10
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1015848
+      },
+      "writtenOn": "2020-05-08T10:31:39Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a45803d1_482ea48f",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 12
+      },
+      "revId": "1c1c30feef971d01d26c313e316f966814c529d5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     },
     {
       "key": {
@@ -197,6 +377,30 @@
     },
     {
       "key": {
+        "uuid": "aa6bc0bf_41dd0e86",
+        "filename": "roles/post_install/openstack_tasks/tasks/hci_instances.yml",
+        "patchSetId": 10
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1015848
+      },
+      "writtenOn": "2020-05-08T10:31:39Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ee6497c5_46c2c885",
+      "range": {
+        "startLine": 84,
+        "startChar": 4,
+        "endLine": 85,
+        "endChar": 34
+      },
+      "revId": "1c1c30feef971d01d26c313e316f966814c529d5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "8344bce6_50974510",
         "filename": "roles/post_install/openstack_tasks/tasks/hci_instances.yml",
         "patchSetId": 10
@@ -217,6 +421,30 @@
       "revId": "1c1c30feef971d01d26c313e316f966814c529d5",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3418dcc8_47648ecc",
+        "filename": "roles/post_install/openstack_tasks/tasks/hci_instances.yml",
+        "patchSetId": 10
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1015848
+      },
+      "writtenOn": "2020-05-08T10:31:39Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8344bce6_50974510",
+      "range": {
+        "startLine": 90,
+        "startChar": 1,
+        "endLine": 90,
+        "endChar": 59
+      },
+      "revId": "1c1c30feef971d01d26c313e316f966814c529d5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
