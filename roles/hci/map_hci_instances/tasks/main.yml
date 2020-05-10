@@ -1,0 +1,8 @@
+- name: Map HCI Instances To Helper Variable
+  set_fact:
+    generated_hci_instances: >-
+      {{ generated_hci_instances | default([]) }} + [{'name': '{{ dynamic_hci_instance.name | replace("<server_name>", node)  }}-hciinstance-{{ item }}',
+      'group': '{{ dynamic_hci_instance.group }}',
+      'user': '{{ dynamic_hci_instance.user }}',
+      'ssh_key': '{{ dynamic_hci_instance.ssh_key }}' }]
+  with_sequence: start=1 end={{ hostvars[node]['guest_limit'] | int  }} stride=1 format=%02x

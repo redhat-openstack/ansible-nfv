@@ -36,16 +36,10 @@
               'ssh_key': '/tmp/{{ item['key_name'] }}.key' }]
           loop: "{{ instances }}"
 
-        - name: Map HCI Instances To Helper Variable
-          set_fact:
-            generated_hci_instances: >-
-              {{ generated_hci_instances | default([]) }} + [{'name': '{{ dynamic_hci_instance.name }}-hciinstance-{{ count }}',
-              'group': '{{ dynamic_hci_instance.group }}',
-              'user': '{{ dynamic_hci_instance.user }}',
-              'ssh_key': '{{ dynamic_hci_instance.ssh_key }}' }]
-          with_sequence: start=1 end={{ hci_guest_limit }} stride=1 format=%02x
-          loop_control:
-            loop_var: count
+        - name: Map HCI Instances To Helper Variable in All Computes
+          include_role:
+            name: roles/hci/map_hci_instances
+          loop: "{{ dut_compute }}"
           when: launch_hci_stress | default(False)
 
         - name: Update dynamic instances if any  generated HCI instances
@@ -68,16 +62,10 @@
             name: roles/post_install/openstack_tasks
             tasks_from: setup_openstack_env
 
-        - name: Map HCI Instances To Helper Variable
-          set_fact:
-            generated_hci_instances: >-
-              {{ generated_hci_instances | default([]) }} + [{'name': '{{ dynamic_hci_instance.name }}-hciinstance-{{ count }}',
-              'group': '{{ dynamic_hci_instance.group }}',
-              'user': '{{ dynamic_hci_instance.user }}',
-              'ssh_key': '{{ dynamic_hci_instance.ssh_key }}' }]
-          with_sequence: start=1 end={{ hci_guest_limit }} stride=1 format=%02x
-          loop_control:
-            loop_var: count
+        - name: Map HCI Instances To Helper Variable in All Computes
+          include_role:
+            name: roles/hci/map_hci_instances
+          loop: "{{ dut_compute }}"
           when: launch_hci_stress | default(False)
 
         - name: Update dynamic instances if any  generated HCI instances

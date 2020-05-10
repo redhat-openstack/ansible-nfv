@@ -1,0 +1,23 @@
+- name: Generates hci instances
+  set_fact:
+    hci_instances: >-
+      {{ hci_instances | default([]) }} + [{'name': '{{ node }}-hciinstance-{{ item }}',
+      'flavor': '{{ hci_instance.flavor | replace("<server_name>", node) }}',
+      'image': '{{ hci_instance.image }}',
+      'key_name': '{{ hci_instance.key_name }}',
+      'sec_groups': '{{ hci_instance.sec_groups }}',
+      'config_drive': '{{ hci_instance.config_drive }}',
+      'nics': '{{ hci_instance.nics }}',
+      'floating_ip': {'ext_net': '{{ hci_instance.floating_ip.ext_net }}',
+                      'int_net': '{{ hci_instance.floating_ip.int_net }}'},
+      'groups': '{{ hci_instance.groups }}' }]
+  with_sequence: start=1 end={{ hostvars[node]['guest_limit'] | int }} stride=1 format=%02x
+
+- name: Generates hci volumes
+  set_fact:
+    hci_volumes: >-
+      {{ hci_volumes | default([]) }} + [{'name': '{{ node }}-hcivolume-{{ item }}',
+      'availability_zone': '{{ hci_volume.availability_zone }}',
+      'size': '{{ hci_volume.size }}',
+      'device': '{{ hci_volume.device }}' }]
+  with_sequence: start=1 end={{ hostvars[node]['guest_limit'] | int }} stride=1 format=%02x
