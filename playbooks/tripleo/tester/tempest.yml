@@ -1,4 +1,15 @@
 ---
+
+# Temporary workaround, infrared virsh does not assign undercloud node to tester group
+- hosts: localhost
+  gather_facts: False
+  tasks:
+    - name: Add undercloud node to tester group if tester group not defined
+      add_host:
+        name: "{{ groups['undercloud'] | first }}"
+        groups: "tester"
+      when: "'tester' not in groups"
+
 - name: Tempest deployment and execution
   hosts: tester
   gather_facts: False
