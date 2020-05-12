@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "42263251_4f66a863",
+        "filename": "playbooks/tripleo/post_install/openstack_tasks.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1015848
+      },
+      "writtenOn": "2020-05-12T12:35:05Z",
+      "side": 1,
+      "message": "Ack, Missed check out this file since created new playbook hci_stress.yml for hci setup.\nNo changes required in this file. i will checkout this file.",
+      "parentUuid": "a44c6bce_b1590e72",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 6,
+        "endChar": 34
+      },
+      "revId": "84f77a6f3bb6ba451a21b470ed3b5488969058e8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "bf939d67_a9e381d9",
         "filename": "roles/hci/guest_count/tasks/main.yml",
         "patchSetId": 13
@@ -45,6 +69,30 @@
       "revId": "84f77a6f3bb6ba451a21b470ed3b5488969058e8",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "03b350ea_7b7db540",
+        "filename": "roles/hci/guest_count/tasks/main.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1015848
+      },
+      "writtenOn": "2020-05-12T12:35:05Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "bf939d67_a9e381d9",
+      "range": {
+        "startLine": 3,
+        "startChar": 10,
+        "endLine": 3,
+        "endChar": 38
+      },
+      "revId": "84f77a6f3bb6ba451a21b470ed3b5488969058e8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "d624fa90_f08a5f30",
+        "filename": "roles/hci/guest_count/tasks/main.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1015848
+      },
+      "writtenOn": "2020-05-12T12:35:05Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "65de10d4_f75a8743",
+      "range": {
+        "startLine": 7,
+        "startChar": 74,
+        "endLine": 7,
+        "endChar": 86
+      },
+      "revId": "84f77a6f3bb6ba451a21b470ed3b5488969058e8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1e28cbcb_45e9f6a5",
         "filename": "roles/hci/hci_tasks/tasks/main.yml",
         "patchSetId": 13
@@ -82,6 +154,30 @@
       "writtenOn": "2020-05-12T12:03:33Z",
       "side": 1,
       "message": "The definition of the hci should be done as a regular instances with a config file.\nSame for the volumes.\n\nThe hci instances are the same instances as a regular ones, so there should be no difference.",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 19
+      },
+      "revId": "84f77a6f3bb6ba451a21b470ed3b5488969058e8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bfa557d2_68835a7c",
+        "filename": "roles/hci/hci_tasks/tasks/main.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1015848
+      },
+      "writtenOn": "2020-05-12T12:35:05Z",
+      "side": 1,
+      "message": "@Maxim,\nWe need to find the hci instances count dynamically based on environment and it\u0027s not static.\nSo i am just defining the single common instance with only management network and will be duplicated in ansible task for required count in each environment.\nwe cannot do it same like other regular instances.",
+      "parentUuid": "1e28cbcb_45e9f6a5",
       "range": {
         "startLine": 5,
         "startChar": 0,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "2285d6c0_a14878a8",
+        "filename": "roles/post_install/openstack_tasks/tasks/instances.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1015848
+      },
+      "writtenOn": "2020-05-12T12:35:05Z",
+      "side": 1,
+      "message": "@Maxim,\n\nDuplicating the hci instances count dynamically and adding with defined instances in resource file.\nVolume could be attached using os_server module but need to add only to hci instances and not for all the instances.\nWe can attach the volume to the hci instances here using condition if needed.",
+      "parentUuid": "20ef0158_f50f11ae",
+      "range": {
+        "startLine": 6,
+        "startChar": 4,
+        "endLine": 6,
+        "endChar": 86
+      },
+      "revId": "84f77a6f3bb6ba451a21b470ed3b5488969058e8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e43d1331_66ba02e6",
         "filename": "roles/post_install/openstack_tasks/tasks/main.yml",
         "patchSetId": 13
@@ -128,6 +248,30 @@
       "writtenOn": "2020-05-12T12:03:33Z",
       "side": 1,
       "message": "If you will move the attachment of the volumes to the os_server module (as I commented in the volumes.yml), you will be able to delete this block. and keep only one single block.\nIt could reside right before the instance creation.",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 76,
+        "endChar": 46
+      },
+      "revId": "84f77a6f3bb6ba451a21b470ed3b5488969058e8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0609aa80_dd4f9d45",
+        "filename": "roles/post_install/openstack_tasks/tasks/main.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1015848
+      },
+      "writtenOn": "2020-05-12T12:35:05Z",
+      "side": 1,
+      "message": "@Maxim,\nThis is volume creation part and not attachment part. i think we also need this task if we attach the volume using os_server module.",
+      "parentUuid": "e43d1331_66ba02e6",
       "range": {
         "startLine": 73,
         "startChar": 0,
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "73575c01_47a35d10",
+        "filename": "roles/post_install/openstack_tasks/tasks/volumes.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1015848
+      },
+      "writtenOn": "2020-05-12T12:35:05Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "dfeb51a1_9f55a8f1",
+      "range": {
+        "startLine": 8,
+        "startChar": 4,
+        "endLine": 8,
+        "endChar": 21
+      },
+      "revId": "84f77a6f3bb6ba451a21b470ed3b5488969058e8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ae075128_5b05d3e0",
         "filename": "roles/post_install/openstack_tasks/tasks/volumes.yml",
         "patchSetId": 13
@@ -174,6 +342,30 @@
       "writtenOn": "2020-05-12T12:03:33Z",
       "side": 1,
       "message": "The os_server module has the support for attaching the volume on the server spawning.\nIt will be much convenient to attach all the resources during the server creation.\n\nAdditional benefit is that you will not have to keep the volume include twice in the main.yml.",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 33
+      },
+      "revId": "84f77a6f3bb6ba451a21b470ed3b5488969058e8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b18109f_e7e576d3",
+        "filename": "roles/post_install/openstack_tasks/tasks/volumes.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1015848
+      },
+      "writtenOn": "2020-05-12T12:35:05Z",
+      "side": 1,
+      "message": "@Maxim, \nVolume included twice is needed for creation even if we move the volume attachment using os_server module in instances.yml",
+      "parentUuid": "ae075128_5b05d3e0",
       "range": {
         "startLine": 17,
         "startChar": 0,
