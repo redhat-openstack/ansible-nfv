@@ -1,6 +1,8 @@
 ---
+
+# Temporary workaround, infrared virsh does not assign undercloud node to tester group
 - name: Tempest deployment and execution
-  hosts: tester
+  hosts: "{{ tester | default('undercloud') }}"
   gather_facts: False
   vars:
     ansible_python_interpreter: /usr/libexec/platform-python
