@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "a44c6bce_b1590e72",
+        "filename": "playbooks/tripleo/post_install/openstack_tasks.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-05-12T12:03:33Z",
+      "side": 1,
+      "message": "The openstack_tasks.yml playbook relates only to post install openstack actions.\nIf other actions should be performed, better to create a separate playbook.\n\nOur playbook are only a pointers to the roles which are reused in a different playbooks.",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 6,
+        "endChar": 34
+      },
+      "revId": "84f77a6f3bb6ba451a21b470ed3b5488969058e8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bf939d67_a9e381d9",
+        "filename": "roles/hci/guest_count/tasks/main.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-05-12T12:03:33Z",
+      "side": 1,
+      "message": "I think such a paths and var names should exists in the defaults as a variables.",
+      "range": {
+        "startLine": 3,
+        "startChar": 10,
+        "endLine": 3,
+        "endChar": 38
+      },
+      "revId": "84f77a6f3bb6ba451a21b470ed3b5488969058e8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "65de10d4_f75a8743",
+        "filename": "roles/hci/guest_count/tasks/main.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-05-12T12:03:33Z",
+      "side": 1,
+      "message": "In osp 16 this parameter has been changed to \"cpu_shared_set\" and \"cpu_dedicated_set\".\nIn current case, the \"cpu_dedicated_set\" param should be used in version 16.",
+      "range": {
+        "startLine": 7,
+        "startChar": 74,
+        "endLine": 7,
+        "endChar": 86
+      },
+      "revId": "84f77a6f3bb6ba451a21b470ed3b5488969058e8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1e28cbcb_45e9f6a5",
+        "filename": "roles/hci/hci_tasks/tasks/main.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-05-12T12:03:33Z",
+      "side": 1,
+      "message": "The definition of the hci should be done as a regular instances with a config file.\nSame for the volumes.\n\nThe hci instances are the same instances as a regular ones, so there should be no difference.",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 19
+      },
+      "revId": "84f77a6f3bb6ba451a21b470ed3b5488969058e8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20ef0158_f50f11ae",
+        "filename": "roles/post_install/openstack_tasks/tasks/instances.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-05-12T12:03:33Z",
+      "side": 1,
+      "message": "Sorry, but I don\u0027t understand why the hci instances should be a separate entity.\nWhat is the difference, from the post install actions to boot, between the regular instance and hci instance?\nFrom what I can see, it is only the volume.\nBut the volume could be attached to a regular instance as well.\n\nFor me, the regular instance and hci instance are the same in the manner of the openstack_tasks role.",
+      "range": {
+        "startLine": 6,
+        "startChar": 4,
+        "endLine": 6,
+        "endChar": 86
+      },
+      "revId": "84f77a6f3bb6ba451a21b470ed3b5488969058e8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e43d1331_66ba02e6",
+        "filename": "roles/post_install/openstack_tasks/tasks/main.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-05-12T12:03:33Z",
+      "side": 1,
+      "message": "If you will move the attachment of the volumes to the os_server module (as I commented in the volumes.yml), you will be able to delete this block. and keep only one single block.\nIt could reside right before the instance creation.",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 76,
+        "endChar": 46
+      },
+      "revId": "84f77a6f3bb6ba451a21b470ed3b5488969058e8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dfeb51a1_9f55a8f1",
+        "filename": "roles/post_install/openstack_tasks/tasks/volumes.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-05-12T12:03:33Z",
+      "side": 1,
+      "message": "As by the documentation, this param is ignored and present for backwards compatibility.\n\nhttps://docs.ansible.com/ansible/latest/modules/os_volume_module.html",
+      "range": {
+        "startLine": 8,
+        "startChar": 4,
+        "endLine": 8,
+        "endChar": 21
+      },
+      "revId": "84f77a6f3bb6ba451a21b470ed3b5488969058e8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ae075128_5b05d3e0",
+        "filename": "roles/post_install/openstack_tasks/tasks/volumes.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-05-12T12:03:33Z",
+      "side": 1,
+      "message": "The os_server module has the support for attaching the volume on the server spawning.\nIt will be much convenient to attach all the resources during the server creation.\n\nAdditional benefit is that you will not have to keep the volume include twice in the main.yml.",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 33
+      },
+      "revId": "84f77a6f3bb6ba451a21b470ed3b5488969058e8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
