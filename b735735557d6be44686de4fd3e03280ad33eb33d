@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9642b94f_686fe25e",
+        "filename": "playbooks/tripleo/tester/tempest.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-05-12T12:06:21Z",
+      "side": 1,
+      "message": "No need for this note.\nEven when we will add the availability to modify groups for the virsh plugin, this should stay, from my point of view.",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 86
+      },
+      "revId": "b735735557d6be44686de4fd3e03280ad33eb33d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
