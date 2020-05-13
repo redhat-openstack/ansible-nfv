@@ -22,6 +22,30 @@
       "revId": "093242770e280d21f73ff665845639a1705ec8a4",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "beb93b3b_bae23636",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2020-05-13T11:25:05Z",
+      "side": 1,
+      "message": "I know that this situation is not possible without manual intervention, but is it possible to have \u0027tempest.xml\u0027 without \u0027.stestr\u0027?\n\nTask at line 174 has a conditional, I\u0027m positive that it will be triggered every time that it is needed but I just want to verify.",
+      "parentUuid": "5980b9a9_b4cfaf9e",
+      "range": {
+        "startLine": 202,
+        "startChar": 8,
+        "endLine": 202,
+        "endChar": 22
+      },
+      "revId": "093242770e280d21f73ff665845639a1705ec8a4",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
