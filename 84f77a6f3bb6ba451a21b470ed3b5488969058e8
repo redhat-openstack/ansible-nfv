@@ -214,6 +214,30 @@
     },
     {
       "key": {
+        "uuid": "1ddcab25_f570c299",
+        "filename": "roles/hci/hci_tasks/tasks/main.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1015848
+      },
+      "writtenOn": "2020-05-13T09:15:39Z",
+      "side": 1,
+      "message": "@Vadim, Using naming format for HCI instances here to provide the input to Openstack API\u0027s to create the instance with specified format.",
+      "parentUuid": "6bf68a62_826a596c",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 19
+      },
+      "revId": "84f77a6f3bb6ba451a21b470ed3b5488969058e8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "20ef0158_f50f11ae",
         "filename": "roles/post_install/openstack_tasks/tasks/instances.yml",
         "patchSetId": 13
@@ -273,6 +297,30 @@
       "side": 1,
       "message": "This should be done outside of this task.\nPerhaps a conditional can be triggered when volumes are needed.",
       "parentUuid": "2285d6c0_a14878a8",
+      "range": {
+        "startLine": 6,
+        "startChar": 4,
+        "endLine": 6,
+        "endChar": 86
+      },
+      "revId": "84f77a6f3bb6ba451a21b470ed3b5488969058e8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cec9494d_ada4b988",
+        "filename": "roles/post_install/openstack_tasks/tasks/instances.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1015848
+      },
+      "writtenOn": "2020-05-13T09:15:39Z",
+      "side": 1,
+      "message": "@Vadim,\n\nWe can trigger from outside also fine but need separate variable name and cannot use instances variable which is already defined in resource file and tried updating this instances variable is not worked (did not get updated values here, only resource file value exists), also condition is not required here when hci instances empty",
+      "parentUuid": "4b7599f4_4e0d2062",
       "range": {
         "startLine": 6,
         "startChar": 4,
