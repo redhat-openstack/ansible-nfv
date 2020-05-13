@@ -190,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "6bf68a62_826a596c",
+        "filename": "roles/hci/hci_tasks/tasks/main.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2020-05-13T08:36:33Z",
+      "side": 1,
+      "message": "Assuming that the naming convention for HCI instances is \u0027name-%index%\u0027, why can we fetch this information from OpenStack APIs?",
+      "parentUuid": "bfa557d2_68835a7c",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 19
+      },
+      "revId": "84f77a6f3bb6ba451a21b470ed3b5488969058e8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "20ef0158_f50f11ae",
         "filename": "roles/post_install/openstack_tasks/tasks/instances.yml",
         "patchSetId": 13
@@ -225,6 +249,30 @@
       "side": 1,
       "message": "@Maxim,\n\nDuplicating the hci instances count dynamically and adding with defined instances in resource file.\nVolume could be attached using os_server module but need to add only to hci instances and not for all the instances.\nWe can attach the volume to the hci instances here using condition if needed.",
       "parentUuid": "20ef0158_f50f11ae",
+      "range": {
+        "startLine": 6,
+        "startChar": 4,
+        "endLine": 6,
+        "endChar": 86
+      },
+      "revId": "84f77a6f3bb6ba451a21b470ed3b5488969058e8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4b7599f4_4e0d2062",
+        "filename": "roles/post_install/openstack_tasks/tasks/instances.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2020-05-13T08:36:33Z",
+      "side": 1,
+      "message": "This should be done outside of this task.\nPerhaps a conditional can be triggered when volumes are needed.",
+      "parentUuid": "2285d6c0_a14878a8",
       "range": {
         "startLine": 6,
         "startChar": 4,
