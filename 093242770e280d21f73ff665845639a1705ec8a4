@@ -46,6 +46,30 @@
       "revId": "093242770e280d21f73ff665845639a1705ec8a4",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d0bb2d27_ff5c71c9",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-05-13T11:27:42Z",
+      "side": 1,
+      "message": "As you said it could only happen with manual intervention.\nBut let\u0027s take that in mind as well.",
+      "parentUuid": "beb93b3b_bae23636",
+      "range": {
+        "startLine": 202,
+        "startChar": 8,
+        "endLine": 202,
+        "endChar": 22
+      },
+      "revId": "093242770e280d21f73ff665845639a1705ec8a4",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
