@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5980b9a9_b4cfaf9e",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-05-13T10:05:50Z",
+      "side": 1,
+      "message": "Could you maybe add it to the \"Delete the tempest tests repository to drop previous results\" task. Line 174. Set a loop there.\nIt will minimize an additional task.",
+      "range": {
+        "startLine": 202,
+        "startChar": 8,
+        "endLine": 202,
+        "endChar": 22
+      },
+      "revId": "093242770e280d21f73ff665845639a1705ec8a4",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
