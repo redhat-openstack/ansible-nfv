@@ -199,6 +199,11 @@
     chdir: "{{ tempest_dir }}/{{ tempest_main }}"
   loop: "{{ tempest_tests }}"
 
+- name: Ensure '{{ tempest_dir }}/tempest.xml' is absent before logging results
+  file:
+    path: "{{ tempest_dir }}/tempest.xml"
+    state: absent
+
 - name: Generate results report in a JunitXML format
   tags: run_tempest_test
   shell: |
