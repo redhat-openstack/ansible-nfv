@@ -143,6 +143,53 @@
     },
     {
       "key": {
+        "uuid": "f911ed7b_6b020e81",
+        "filename": "roles/hci/guest_count/tasks/main.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-05-17T17:57:11Z",
+      "side": 1,
+      "message": "I would suggest to use the our discover_osp_version role.\nUse the include role and then depending on the version of osp, use the appropriate variable - \"cpu_dedicated_set\" for osp 16 and above and \"vcpu_pin_set\" for versions below.",
+      "parentUuid": "d624fa90_f08a5f30",
+      "range": {
+        "startLine": 7,
+        "startChar": 74,
+        "endLine": 7,
+        "endChar": 86
+      },
+      "revId": "84f77a6f3bb6ba451a21b470ed3b5488969058e8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "d27b5964_95cf713a",
+        "filename": "roles/hci/guest_count/tasks/main.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-05-17T17:57:11Z",
+      "side": 1,
+      "message": "Where this variable is defined?",
+      "range": {
+        "startLine": 34,
+        "startChar": 22,
+        "endLine": 34,
+        "endChar": 36
+      },
+      "revId": "84f77a6f3bb6ba451a21b470ed3b5488969058e8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1e28cbcb_45e9f6a5",
         "filename": "roles/hci/hci_tasks/tasks/main.yml",
         "patchSetId": 13
@@ -226,6 +273,30 @@
       "side": 1,
       "message": "@Vadim, Using naming format for HCI instances here to provide the input to Openstack API\u0027s to create the instance with specified format.",
       "parentUuid": "6bf68a62_826a596c",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 19
+      },
+      "revId": "84f77a6f3bb6ba451a21b470ed3b5488969058e8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0591b6e_aec07a92",
+        "filename": "roles/hci/hci_tasks/tasks/main.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-05-17T17:57:11Z",
+      "side": 1,
+      "message": "@Jagan,\n\nSo I played with these changes in my environment.\nAnd thanks for the explanations in the last week meeting.\n\nI would say, that this is very interesting alternative way to fill up the environment with the instances based on available cores.\nI played with it in a non hci setup - ovs dpdk, so for me it could be a generic role.\n\nMy suggestion is the following:\n1) Rename this role to something like - roles/post_install/prepare_dynamic_instances because it could serve multiple scenarios (not just hci).\n2) Move the \"hci/guest_count\" into this new role as it obviously should be part of the new role.\n3) Set the variable of hci_instances to dynamic_instances.\n\nAs I already said, with all the above, this new way of defining instances for creation could be used and reused in almost any scenario, so why we should limit our self to one specific?\n\nWhat do you say?",
+      "parentUuid": "1ddcab25_f570c299",
       "range": {
         "startLine": 5,
         "startChar": 0,
@@ -333,6 +404,30 @@
     },
     {
       "key": {
+        "uuid": "a6ae3a25_11d61ce1",
+        "filename": "roles/post_install/openstack_tasks/tasks/instances.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-05-17T17:57:11Z",
+      "side": 1,
+      "message": "The change of variable name and other stuff I mentioned in the hci/hci_tasks/tasks/main.yml file.",
+      "parentUuid": "cec9494d_ada4b988",
+      "range": {
+        "startLine": 6,
+        "startChar": 4,
+        "endLine": 6,
+        "endChar": 86
+      },
+      "revId": "84f77a6f3bb6ba451a21b470ed3b5488969058e8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e43d1331_66ba02e6",
         "filename": "roles/post_install/openstack_tasks/tasks/main.yml",
         "patchSetId": 13
@@ -368,6 +463,30 @@
       "side": 1,
       "message": "@Maxim,\nThis is volume creation part and not attachment part. i think we also need this task if we attach the volume using os_server module.",
       "parentUuid": "e43d1331_66ba02e6",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 76,
+        "endChar": 46
+      },
+      "revId": "84f77a6f3bb6ba451a21b470ed3b5488969058e8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "86f9adbc_a27f9d3d",
+        "filename": "roles/post_install/openstack_tasks/tasks/main.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-05-17T17:57:11Z",
+      "side": 1,
+      "message": "What I wanted to say, is that we could call the volume.yml file once for both creation and deletion, at start of the play, if we will move the attachment of the colume to os_server.\nSimilar to what we are doing for networks.yml, flavor.yml, image.yml and such.",
+      "parentUuid": "0609aa80_dd4f9d45",
       "range": {
         "startLine": 73,
         "startChar": 0,
@@ -462,6 +581,30 @@
       "side": 1,
       "message": "@Maxim, \nVolume included twice is needed for creation even if we move the volume attachment using os_server module in instances.yml",
       "parentUuid": "ae075128_5b05d3e0",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 33
+      },
+      "revId": "84f77a6f3bb6ba451a21b470ed3b5488969058e8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "85c95eda_a5572dea",
+        "filename": "roles/post_install/openstack_tasks/tasks/volumes.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-05-17T17:57:11Z",
+      "side": 1,
+      "message": "As I mentioned in the main.yml, if we will move the attachment of the volume to os_server, the creation and deletion of the volume could be done in the same call.\nIt will depend of the \"resource_state\" variable (present or absent).\nSimilar to flavor, image, networks calls.",
+      "parentUuid": "3b18109f_e7e576d3",
       "range": {
         "startLine": 17,
         "startChar": 0,
