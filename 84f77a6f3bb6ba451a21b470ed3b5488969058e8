@@ -167,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "be2359ed_a5ebd05e",
+        "filename": "roles/hci/guest_count/tasks/main.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1015848
+      },
+      "writtenOn": "2020-05-18T05:32:33Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f911ed7b_6b020e81",
+      "range": {
+        "startLine": 7,
+        "startChar": 74,
+        "endLine": 7,
+        "endChar": 86
+      },
+      "revId": "84f77a6f3bb6ba451a21b470ed3b5488969058e8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "d27b5964_95cf713a",
         "filename": "roles/hci/guest_count/tasks/main.yml",
         "patchSetId": 13
@@ -178,6 +202,30 @@
       "writtenOn": "2020-05-17T17:57:11Z",
       "side": 1,
       "message": "Where this variable is defined?",
+      "range": {
+        "startLine": 34,
+        "startChar": 22,
+        "endLine": 34,
+        "endChar": 36
+      },
+      "revId": "84f77a6f3bb6ba451a21b470ed3b5488969058e8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "acfad5b3_2e51e382",
+        "filename": "roles/hci/guest_count/tasks/main.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1015848
+      },
+      "writtenOn": "2020-05-18T05:32:33Z",
+      "side": 1,
+      "message": "this will be input as environment variable from resource file or command.",
+      "parentUuid": "d27b5964_95cf713a",
       "range": {
         "startLine": 34,
         "startChar": 22,
@@ -309,6 +357,30 @@
     },
     {
       "key": {
+        "uuid": "5ff634c6_e31d613f",
+        "filename": "roles/hci/hci_tasks/tasks/main.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1015848
+      },
+      "writtenOn": "2020-05-18T05:32:33Z",
+      "side": 1,
+      "message": "@Maxim,\nAck.\nWill update the role name.",
+      "parentUuid": "c0591b6e_aec07a92",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 19
+      },
+      "revId": "84f77a6f3bb6ba451a21b470ed3b5488969058e8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "20ef0158_f50f11ae",
         "filename": "roles/post_install/openstack_tasks/tasks/instances.yml",
         "patchSetId": 13
@@ -428,6 +500,30 @@
     },
     {
       "key": {
+        "uuid": "a2f79aad_cf78920a",
+        "filename": "roles/post_install/openstack_tasks/tasks/instances.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1015848
+      },
+      "writtenOn": "2020-05-18T05:32:33Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a6ae3a25_11d61ce1",
+      "range": {
+        "startLine": 6,
+        "startChar": 4,
+        "endLine": 6,
+        "endChar": 86
+      },
+      "revId": "84f77a6f3bb6ba451a21b470ed3b5488969058e8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e43d1331_66ba02e6",
         "filename": "roles/post_install/openstack_tasks/tasks/main.yml",
         "patchSetId": 13
@@ -496,6 +592,30 @@
       "revId": "84f77a6f3bb6ba451a21b470ed3b5488969058e8",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "df0fdb17_2c189020",
+        "filename": "roles/post_install/openstack_tasks/tasks/main.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 1015848
+      },
+      "writtenOn": "2020-05-18T05:32:33Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "86f9adbc_a27f9d3d",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 76,
+        "endChar": 46
+      },
+      "revId": "84f77a6f3bb6ba451a21b470ed3b5488969058e8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     },
     {
       "key": {
@@ -614,6 +734,30 @@
       "revId": "84f77a6f3bb6ba451a21b470ed3b5488969058e8",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bd6c6bae_0fe847b9",
+        "filename": "roles/post_install/openstack_tasks/tasks/volumes.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1015848
+      },
+      "writtenOn": "2020-05-18T05:32:33Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "85c95eda_a5572dea",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 33
+      },
+      "revId": "84f77a6f3bb6ba451a21b470ed3b5488969058e8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
