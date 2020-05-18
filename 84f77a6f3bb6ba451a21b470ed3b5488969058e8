@@ -262,6 +262,30 @@
     },
     {
       "key": {
+        "uuid": "6a33b929_6af39b88",
+        "filename": "roles/hci/guest_count/tasks/main.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1015848
+      },
+      "writtenOn": "2020-05-18T06:48:54Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d23f3978_3232a1c8",
+      "range": {
+        "startLine": 34,
+        "startChar": 22,
+        "endLine": 34,
+        "endChar": 36
+      },
+      "revId": "84f77a6f3bb6ba451a21b470ed3b5488969058e8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1e28cbcb_45e9f6a5",
         "filename": "roles/hci/hci_tasks/tasks/main.yml",
         "patchSetId": 13
