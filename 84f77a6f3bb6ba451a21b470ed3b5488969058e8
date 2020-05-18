@@ -238,6 +238,30 @@
     },
     {
       "key": {
+        "uuid": "d23f3978_3232a1c8",
+        "filename": "roles/hci/guest_count/tasks/main.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-05-18T05:51:23Z",
+      "side": 1,
+      "message": "Ok.\nPlease, add some cores to the defaults variables.\nOtherwise, the play will fail with undefined variable error message.",
+      "parentUuid": "acfad5b3_2e51e382",
+      "range": {
+        "startLine": 34,
+        "startChar": 22,
+        "endLine": 34,
+        "endChar": 36
+      },
+      "revId": "84f77a6f3bb6ba451a21b470ed3b5488969058e8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1e28cbcb_45e9f6a5",
         "filename": "roles/hci/hci_tasks/tasks/main.yml",
         "patchSetId": 13
