@@ -1,0 +1,205 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "798d7319_45958594",
+        "filename": "playbooks/tripleo/post_install/hci_stress.yml",
+        "patchSetId": 15
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-05-20T10:35:46Z",
+      "side": 1,
+      "message": "Please, add a space between the plays.",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 1
+      },
+      "revId": "e61567215cff157a91b49024118e417e7560c321",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b41ff7ae_898ae4dd",
+        "filename": "roles/packet_gen/trex/launch_fio/tasks/main.yml",
+        "patchSetId": 15
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-05-20T10:35:46Z",
+      "side": 1,
+      "message": "The command is too long.\nThe linting gate fails because of it.\n\nPlease, use the \u0027\u003e\u0027 sign to use multiple lines for one single command.\nThe command will be much easier to view.\n\nExample:\nhttps://github.com/redhat-openstack/ansible-nfv/blob/master/roles/tester/testpmd_run/tasks/main.yml#L14-L17",
+      "range": {
+        "startLine": 12,
+        "startChar": 4,
+        "endLine": 12,
+        "endChar": 11
+      },
+      "revId": "e61567215cff157a91b49024118e417e7560c321",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d16a6c5a_39fea1bf",
+        "filename": "roles/post_install/dynamic_instances_count/tasks/main.yml",
+        "patchSetId": 15
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-05-20T10:35:46Z",
+      "side": 1,
+      "message": "Remove the space.\nIt fails the gate.",
+      "revId": "e61567215cff157a91b49024118e417e7560c321",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3472610f_325ec08d",
+        "filename": "roles/post_install/dynamic_instances_count/tasks/main.yml",
+        "patchSetId": 15
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-05-20T10:35:46Z",
+      "side": 1,
+      "message": "The command is too long.\nThe linting gate fails because of it.\n\nPlease, use the \u0027\u003e\u0027 sign to use multiple lines for one single command.\nThe command will be much easier to view.\n\nExample:\nhttps://github.com/redhat-openstack/ansible-nfv/blob/master/roles/tester/testpmd_run/tasks/main.yml#L14-L17",
+      "range": {
+        "startLine": 15,
+        "startChar": 2,
+        "endLine": 15,
+        "endChar": 7
+      },
+      "revId": "e61567215cff157a91b49024118e417e7560c321",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "07758ff8_163f6856",
+        "filename": "roles/post_install/dynamic_instances_count/tasks/main.yml",
+        "patchSetId": 15
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-05-20T10:35:46Z",
+      "side": 1,
+      "message": "The command is too long.\nThe linting gate fails because of it.\n\nPlease, use the \u0027\u003e\u0027 sign to use multiple lines for one single command.\nThe command will be much easier to view.\n\nExample:\nhttps://github.com/redhat-openstack/ansible-nfv/blob/master/roles/tester/testpmd_run/tasks/main.yml#L14-L17",
+      "range": {
+        "startLine": 30,
+        "startChar": 2,
+        "endLine": 30,
+        "endChar": 7
+      },
+      "revId": "e61567215cff157a91b49024118e417e7560c321",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5e93590_ea4f13d2",
+        "filename": "roles/post_install/openstack_tasks/tasks/main.yml",
+        "patchSetId": 15
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-05-20T10:35:46Z",
+      "side": 1,
+      "message": "The when condition could be removed.\nThe volume.yml file contains just creation/deletion of the volumes, no need to specify it twice in the main.yml.\n\nOn the creation of the resources, the volumes will be created and later added to the instances on spawning and on resources deletion, it will be deleted at the same call.",
+      "range": {
+        "startLine": 16,
+        "startChar": 2,
+        "endLine": 16,
+        "endChar": 45
+      },
+      "revId": "e61567215cff157a91b49024118e417e7560c321",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3c953f7a_71475466",
+        "filename": "roles/post_install/openstack_tasks/tasks/main.yml",
+        "patchSetId": 15
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-05-20T10:35:46Z",
+      "side": 1,
+      "message": "This section could be removed.",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 46
+      },
+      "revId": "e61567215cff157a91b49024118e417e7560c321",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "394e24d8_7d770617",
+        "filename": "roles/post_install/openstack_tasks/tasks/volumes.yml",
+        "patchSetId": 15
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-05-20T10:35:46Z",
+      "side": 1,
+      "message": "Please, remove.\nNo longer in use.",
+      "range": {
+        "startLine": 8,
+        "startChar": 4,
+        "endLine": 8,
+        "endChar": 53
+      },
+      "revId": "e61567215cff157a91b49024118e417e7560c321",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8021dc60_9b975c94",
+        "filename": "roles/post_install/openstack_tasks/tasks/volumes.yml",
+        "patchSetId": 15
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-05-20T10:35:46Z",
+      "side": 1,
+      "message": "I assume that is not needed.",
+      "range": {
+        "startLine": 15,
+        "startChar": 2,
+        "endLine": 15,
+        "endChar": 10
+      },
+      "revId": "e61567215cff157a91b49024118e417e7560c321",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
