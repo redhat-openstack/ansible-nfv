@@ -102,6 +102,15 @@
     mode: 0755
   when: tempest_config is defined
 
+- name: Copying deployer input file to "{{ tempest_dir }}" directory
+  copy:
+    src: "{{ deployer_input_config }}"
+    dest: "{{ tempest_dir }}"
+    owner: "{{ tempest_user }}"
+    group: "{{ tempest_user }}"
+    mode: 0755
+  when: deployer_input_config is defined
+
 - name: Generate accounts.yaml file
   template:
     src: accounts.yaml.j2
@@ -159,6 +168,9 @@
           {% for option in tempest_options %}
             {{ option }} \
           {% endfor %}
+        {% endif %}
+        {% if deployer_input_config is defined %}
+          --deployer-input {{ tempest_dir }}/{{ deployer_input_config | basename }} \
         {% endif %}
         --out "{{ tempest_dir }}/{{ tempest_main }}/etc/tempest.conf"
   args:
