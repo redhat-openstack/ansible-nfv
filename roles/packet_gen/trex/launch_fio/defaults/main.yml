@@ -1,0 +1,14 @@
+# HCI Stress FIO Command Parameters
+hci_stress_cmd:
+  user: root
+  file_name: /dev/vdb
+  ramp_time: 5
+  startdelay: 5
+  rw: randrw
+  bs: 4k
+  direct: 1
+  size: 40G
+  runtime: 600
+  time_based: 1
+  output_file: /home/cloud-user/rand-write.log
+  log_file: /tmp/hci.log
