@@ -22,6 +22,30 @@
       "revId": "a1a1afb749f52404f5dc4f5ec829adc9833c2601",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8b03aca8_5d9e31ef",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2020-05-26T09:58:19Z",
+      "side": 1,
+      "message": "\u003e As this play directly dedicated to our plugin, I suggest to do the following:\n\u003e 1) Add a trigger (true/false) to fetch the deployer input file.\nACK\n\u003e 2) If true, get the file from the plugin repo (we are pulling it earlier)\nI think this should be the default.\nAssume, user would like to custom the file and not using the default?\n\nPlease considert the following:\nAdding the following: deployer_input_config\u003ddefault/localfile\n\nIf default, use tempest repo file.\n\nWhat do you think?\n\n\u003e 3) Then use it.\nACK\n\u003e \n\u003e The trigger will control the use of the above.",
+      "parentUuid": "271f9996_30969312",
+      "range": {
+        "startLine": 105,
+        "startChar": 2,
+        "endLine": 105,
+        "endChar": 6
+      },
+      "revId": "a1a1afb749f52404f5dc4f5ec829adc9833c2601",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
