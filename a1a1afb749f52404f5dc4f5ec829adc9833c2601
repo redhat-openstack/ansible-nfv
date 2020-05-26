@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "271f9996_30969312",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-05-26T07:57:35Z",
+      "side": 1,
+      "message": "As this play directly dedicated to our plugin, I suggest to do the following:\n1) Add a trigger (true/false) to fetch the deployer input file.\n2) If true, get the file from the plugin repo (we are pulling it earlier)\n3) Then use it.\n\nThe trigger will control the use of the above.",
+      "range": {
+        "startLine": 105,
+        "startChar": 2,
+        "endLine": 105,
+        "endChar": 6
+      },
+      "revId": "a1a1afb749f52404f5dc4f5ec829adc9833c2601",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
