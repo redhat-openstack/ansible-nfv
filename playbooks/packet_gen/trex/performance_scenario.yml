@@ -2,9 +2,11 @@
 - name: Finds dynamic instances count
   hosts: "{{ dut_compute }}"
   gather_facts: False
-  roles:
-    - roles/post_install/dynamic_instances_count
-  when: launch_hci_stress | default(False)
+  pre_tasks:
+    - name: Gets dynamic instances count
+      import_role:
+        name: roles/post_install/dynamic_instances_count
+      when: launch_hci_stress | default(False)
 
 - hosts: undercloud
   gather_facts: False
@@ -38,12 +40,12 @@
 
         - name: Map Dynamic Instances To Helper Variable
           set_fact:
-            generated_dynamic_instances: >-
-              {{ generated_dynamic_instances | default([]) }} + [{'name': '{{ dynamic_instance_group_template.name }}-dynamicinstance-{{ count }}',
+            generated_dynamic_instances_group: >-
+              {{ generated_dynamic_instances_group | default([]) }} + [{'name': '{{ dynamic_instance_group_template.name }}-dynamicinstance-{{ count }}',
               'group': '{{ dynamic_instance_group_template.group }}',
               'user': '{{ dynamic_instance_group_template.user }}',
               'ssh_key': '{{ dynamic_instance_group_template.ssh_key }}' }]
-          with_sequence: start=1 end={{ hci_guest_limit }} stride=1 format=%02x
+          with_sequence: start=1 end={{ dynamic_instances_limit }} stride=1 format=%02x
           loop_control:
             loop_var: count
           when: launch_hci_stress | default(False)
@@ -51,7 +53,7 @@
         - name: Update dynamic instances if any  generated dynamic instances
           set_fact:
             all_dynamic_instances: >-
-              {{ generated_instances | default([]) }} + {{ generated_dynamic_instances | default([]) }}
+              {{ generated_instances | default([]) }} + {{ generated_dynamic_instances_group | default([]) }}
 
         - name: Workaround - Add Generated Instances To Dynamic Inventory
           include_role:
@@ -70,12 +72,12 @@
 
         - name: Map Dynamic Instances To Helper Variable
           set_fact:
-            generated_dynamic_instances: >-
-              {{ generated_dynamic_instances | default([]) }} + [{'name': '{{ dynamic_instance_group_template.name }}-dynamicinstance-{{ count }}',
+            generated_dynamic_instances_group: >-
+              {{ generated_dynamic_instances_group | default([]) }} + [{'name': '{{ dynamic_instance_group_template.name }}-dynamicinstance-{{ count }}',
               'group': '{{ dynamic_instance_group_template.group }}',
               'user': '{{ dynamic_instance_group_template.user }}',
               'ssh_key': '{{ dynamic_instance_group_template.ssh_key }}' }]
-          with_sequence: start=1 end={{ hci_guest_limit }} stride=1 format=%02x
+          with_sequence: start=1 end={{ dynamic_instances_limit }} stride=1 format=%02x
           loop_control:
             loop_var: count
           when: launch_hci_stress | default(False)
@@ -83,7 +85,7 @@
         - name: Update dynamic instances if any  generated dynamic instances
           set_fact:
             all_dynamic_instances: >-
-              {{ dynamic_instances | default([]) }} + {{ generated_dynamic_instances | default([]) }}
+              {{ dynamic_instances | default([]) }} + {{ generated_dynamic_instances_group | default([]) }}
 
         - name: Add Pre-existing Instances To Dynamic Inventory
           include_role:
