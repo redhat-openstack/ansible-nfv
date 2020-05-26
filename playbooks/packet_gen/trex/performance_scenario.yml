@@ -2,8 +2,8 @@
 - name: Finds dynamic instances count
   hosts: "{{ dut_compute }}"
   gather_facts: False
-  roles:
-    - roles/post_install/dynamic_instances_count
+  import_role:
+    name: roles/post_install/prepare_dynamic_instances
   when: launch_hci_stress | default(False)
 
 - hosts: undercloud
@@ -43,7 +43,7 @@
               'group': '{{ dynamic_instance_group_template.group }}',
               'user': '{{ dynamic_instance_group_template.user }}',
               'ssh_key': '{{ dynamic_instance_group_template.ssh_key }}' }]
-          with_sequence: start=1 end={{ hci_guest_limit }} stride=1 format=%02x
+          with_sequence: start=1 end={{ dynamic_instances_limit }} stride=1 format=%02x
           loop_control:
             loop_var: count
           when: launch_hci_stress | default(False)
@@ -75,7 +75,7 @@
               'group': '{{ dynamic_instance_group_template.group }}',
               'user': '{{ dynamic_instance_group_template.user }}',
               'ssh_key': '{{ dynamic_instance_group_template.ssh_key }}' }]
-          with_sequence: start=1 end={{ hci_guest_limit }} stride=1 format=%02x
+          with_sequence: start=1 end={{ dynamic_instances_limit }} stride=1 format=%02x
           loop_control:
             loop_var: count
           when: launch_hci_stress | default(False)
