@@ -46,6 +46,30 @@
       "revId": "a1a1afb749f52404f5dc4f5ec829adc9833c2601",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ec9b7c1e_7f0bef4e",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-05-26T10:02:19Z",
+      "side": 1,
+      "message": "Agree.",
+      "parentUuid": "8b03aca8_5d9e31ef",
+      "range": {
+        "startLine": 105,
+        "startChar": 2,
+        "endLine": 105,
+        "endChar": 6
+      },
+      "revId": "a1a1afb749f52404f5dc4f5ec829adc9833c2601",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
