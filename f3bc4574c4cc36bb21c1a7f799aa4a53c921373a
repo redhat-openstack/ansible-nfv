@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ddad88a2_bcd257f1",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2020-05-27T06:44:04Z",
+      "side": 1,
+      "message": "default_source is defined but not used.\nYou don\u0027t need the vars, you should be able to use the same filters in the copy task.",
+      "range": {
+        "startLine": 106,
+        "startChar": 0,
+        "endLine": 111,
+        "endChar": 22
+      },
+      "revId": "f3bc4574c4cc36bb21c1a7f799aa4a53c921373a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
