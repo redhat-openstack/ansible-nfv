@@ -75,7 +75,7 @@
     ansible_user: "{{ item.1.connection_user | default(connection_user) }}"
     ansible_ssh_port: 22
     ansible_ssh_private_key_file: "/tmp/{{ item.1.key_name }}.key"
-  loop: "{% if reg_floating_ip.changed %}{{ floating_ip_var | zip(all_nstances) | list }}{% else %}{{ reg_instance.results | zip(all_instances) | list }}{% endif %}"
+  loop: "{% if reg_floating_ip.changed %}{{ floating_ip_var | zip(all_instances) | list }}{% else %}{{ reg_instance.results | zip(all_instances) | list }}{% endif %}"
   when:
     - resource_state == 'present'
     - resource_generate_inventory
