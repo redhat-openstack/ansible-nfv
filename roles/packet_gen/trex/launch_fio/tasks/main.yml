@@ -20,7 +20,7 @@
 
 - name: Log HCI Command
   debug:
-    var: trex_cmd
+    var: hci_cmd
 
 - name: Run HCI Stress In Dettached Tmux Session
   shell: |
