@@ -7,6 +7,26 @@
   shell: "tmux list-sessions -F '#S' | xargs -n1 tmux kill-session -t"
   when: tmux_sessions['stdout_lines'] != []
 
+- name: Get host name
+  shell: echo $HOSTNAME
+  register: hostname
+
+- name: Find node details
+  set_fact:
+    compute_index: "{{ item | int }}"
+  when: "{{ dut_compute[item | int] in hostname.stdout }}"
+  with_sequence: start=0 end={{ dut_compute | length - 1}} stride=1
+
+- name: min and max dut_compute indexes
+  set_fact:
+    dut_compute_min_index: 0
+    dut_compute_max_index: "{{ dut_compute | length - 1 }}"
+
+- name: Finds peer macs
+  set_fact:
+    peer_0: "{% if compute_index | int == dut_compute_min_index | int %}{{ hostvars[(groups['trex'] | first) ]['trex_instance_sriov_macs'][0] }}{% else%}{{ hostvars[groups[dut_group][compute_index | int - 1]]['dut_macs'].split(',')[1]}}{% endif %}"
+    peer_1: "{% if compute_index | int == dut_compute_max_index | int %}{{ hostvars[(groups['trex'] | first) ]['trex_instance_sriov_macs'][1] }}{% else%}{{ hostvars[groups[dut_group][compute_index | int + 1]]['dut_macs'].split(',')[0]}}{% endif %}"
+
 - name: Set TestPMD Command If Not Defined
   set_fact:
     testpmd_cmd: |
@@ -15,13 +35,13 @@
       --nb-cores={{ testpmd_forward_cores }} \
       --auto-start \
       {% if multiqueue_set is defined and multiqueue_set %}
-        --rxq={{hostvars[dut_compute]['multiqueue']}} \
-        --txq={{hostvars[dut_compute]['multiqueue']}} \
+        --rxq={{hostvars[dut_compute[compute_index]]['multiqueue']}} \
+        --txq={{hostvars[dut_compute[compute_index]]['multiqueue']}} \
       {% endif %}
       {% if forward_mode == 'mac' %}
         --forward-mode=mac \
-        --eth-peer=0,{{hostvars[(groups['trex'] | first) ]['trex_instance_sriov_macs'][0]}} \
-        --eth-peer=1,{{hostvars[(groups['trex'] | first) ]['trex_instance_sriov_macs'][1]}} \
+        --eth-peer=0,{{ peer_0 }} \
+        --eth-peer=1,{{peer_1 }} \
       {% endif %}
       --rxd={{ testpmd_rxd }} \
       --txd={{ testpmd_txd }} &>/tmp/testpmd.log
