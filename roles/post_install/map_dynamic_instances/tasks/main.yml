@@ -1,0 +1,10 @@
+- name: Map Dynamic Instances To Helper Variable
+  set_fact:
+    generated_dynamic_instances_group: >-
+      {{ generated_dynamic_instances_group | default([]) }} + [{'name': '{{ dynamic_instance_group_template.name | replace("<server_name>", node) }}-dynamicinstance-{{ count }}',
+      'group': '{{ dynamic_instance_group_template.group }}',
+      'user': '{{ dynamic_instance_group_template.user }}',
+      'ssh_key': '{{ dynamic_instance_group_template.ssh_key }}' }]
+  with_sequence: start=1 end={{ hostvars[node]['guest_limit'] | int }} stride=1 format=%02x
+  loop_control:
+    loop_var: count
