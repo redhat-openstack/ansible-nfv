@@ -1,9 +1,10 @@
 # TODO (vkhitrin): Refactor tasks to fetch MACs in single play
 - name: Parse DuT MACs
   set_fact:
-    dut_macs: "{{ hostvars[groups[dut_group][0]]['dut_macs'] }}"
+    dut_macs: "{{ hostvars[groups[dut_group][0]]['dut_macs'].split(',')[0] | string }},{{ hostvars[groups[dut_group][dut_compute | length - 1]]['dut_macs'].split(',')[1] | string }}"
   when:
     - hostvars[groups[dut_group][0]]['dut_macs'] is defined
+    - hostvars[groups[dut_group][dut_compute | length - 1]]['dut_macs'] is defined
     - dut_macs is not defined
 
 - name: Set Binary Search Command
@@ -71,7 +72,7 @@
 - name: Fetch OVS version from compute node
   shell: "ovs-vsctl --version | grep 'Open vSwitch' | sed 's/ovs-vsctl \\(.*\\) //'"
   register: compute_ovs_version
-  delegate_to: "{{ dut_compute }}"
+  delegate_to: "{{ dut_compute | first }}"
 
 - name: Fetch puddle/compose from undercloud
   slurp:
