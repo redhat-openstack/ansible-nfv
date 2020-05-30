@@ -1,0 +1,27 @@
+- name: Generates dynamic instances
+  set_fact:
+    generated_dynamic_instances: >-
+      {{ generated_dynamic_instances | default([]) }} + [{'name': '{{ node }}-dynamicinstance-{{ count }}',
+      'flavor': '{{ dynamic_instance_template.flavor | replace('<server_name>', node) }}',
+      'image': '{{ dynamic_instance_template.image }}',
+      'key_name': '{{ dynamic_instance_template.key_name }}',
+      'sec_groups': '{{ dynamic_instance_template.sec_groups }}',
+      'config_drive': '{{ dynamic_instance_template.config_drive }}',
+      'nics': '{{ dynamic_instance_template.nics }}',
+      'floating_ip': {'ext_net': '{{ dynamic_instance_template.floating_ip.ext_net }}',
+                      'int_net': '{{ dynamic_instance_template.floating_ip.int_net }}'},
+      'groups': '{{ dynamic_instance_template.groups }}' }]
+  with_sequence: start=1 end={{ hostvars[node]['guest_limit'] | int }} stride=1 format=%02x
+  loop_control:
+    loop_var: count
+
+- name: Generates dynamic volumes
+  set_fact:
+    generated_dynamic_volumes: >-
+      {{ generated_dynamic_volumes | default([]) }} + [{'name': '{{ node }}-dynamicvolume-{{ count }}',
+      'availability_zone': '{{ dynamic_volume_template.availability_zone }}',
+      'size': '{{ dynamic_volume_template.size }}',
+      'device': '{{ dynamic_volume_template.device }}' }]
+  with_sequence: start=1 end={{ hostvars[node]['guest_limit'] | int }} stride=1 format=%02x
+  loop_control:
+    loop_var: count

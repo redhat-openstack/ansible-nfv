@@ -38,16 +38,12 @@
               'ssh_key': '/tmp/{{ item['key_name'] }}.key' }]
           loop: "{{ instances }}"
 
-        - name: Map Dynamic Instances To Helper Variable
-          set_fact:
-            generated_dynamic_instances_group: >-
-              {{ generated_dynamic_instances_group | default([]) }} + [{'name': '{{ dynamic_instance_group_template.name }}-dynamicinstance-{{ count }}',
-              'group': '{{ dynamic_instance_group_template.group }}',
-              'user': '{{ dynamic_instance_group_template.user }}',
-              'ssh_key': '{{ dynamic_instance_group_template.ssh_key }}' }]
-          with_sequence: start=1 end={{ dynamic_instances_limit }} stride=1 format=%02x
+        - name: Map Dynamic Instances Of All Computes To Helper Variable
+          include_role:
+            name: roles/post_install/map_dynamic_instances
+          loop: "{{ dut_compute }}"
           loop_control:
-            loop_var: count
+            loop_var: node
           when: launch_hci_stress | default(False)
 
         - name: Update dynamic instances if any  generated dynamic instances
@@ -70,16 +66,12 @@
             name: roles/post_install/openstack_tasks
             tasks_from: setup_openstack_env
 
-        - name: Map Dynamic Instances To Helper Variable
-          set_fact:
-            generated_dynamic_instances_group: >-
-              {{ generated_dynamic_instances_group | default([]) }} + [{'name': '{{ dynamic_instance_group_template.name }}-dynamicinstance-{{ count }}',
-              'group': '{{ dynamic_instance_group_template.group }}',
-              'user': '{{ dynamic_instance_group_template.user }}',
-              'ssh_key': '{{ dynamic_instance_group_template.ssh_key }}' }]
-          with_sequence: start=1 end={{ dynamic_instances_limit }} stride=1 format=%02x
+        - name: Map Dynamic Instances Of All Computes To Helper Variable
+          include_role:
+            name: roles/post_install/map_dynamic_instances
+          loop: "{{ dut_compute }}"
           loop_control:
-            loop_var: count
+            loop_var: node
           when: launch_hci_stress | default(False)
 
         - name: Update dynamic instances if any  generated dynamic instances

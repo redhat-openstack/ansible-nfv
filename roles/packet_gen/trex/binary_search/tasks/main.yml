@@ -1,9 +1,10 @@
 # TODO (vkhitrin): Refactor tasks to fetch MACs in single play
 - name: Parse DuT MACs
   set_fact:
-    dut_macs: "{{ hostvars[groups[dut_group][0]]['dut_macs'] }}"
+    dut_macs: "{{ hostvars[groups[dut_group][0]]['dut_macs'].split(',')[0] }},{{ hostvars[groups[dut_group][dut_compute | length - 1]]['dut_macs'].split(',')[1] }}"
   when:
     - hostvars[groups[dut_group][0]]['dut_macs'] is defined
+    - hostvars[groups[dut_group][dut_compute | length - 1]]['dut_macs'] is defined
     - dut_macs is not defined
 
 - name: Set Binary Search Command
