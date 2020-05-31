@@ -6,6 +6,7 @@ user: false
 network: true
 net_port: true
 quota: false
+volume: false
 aggregate: false
 flavor: true
 image: true
