@@ -1,0 +1,39 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: openstack
+lint:
+  name: yamllint
+  options:
+    config-file: ../../../.yamllint
+platforms:
+  - name: hypervisor
+provisioner:
+  name: ansible
+  inventory:
+    links:
+      hosts: inventory
+  lint:
+    name: ansible-lint
+    options:
+      x: ["204,301,306,403,405,503"]
+      force-color: true
+verifier:
+  name: ansible
+  lint:
+    name: ansible-lint
+    options:
+      x: ["204,301,306,403,405,503"]
+      force-color: true
+scenario:
+  name: default
+  test_sequence:
+    - prepare
+    - lint
+    - destroy
+    - syntax
+    - prepare
+    - converge
+    - verify
+    - destroy
