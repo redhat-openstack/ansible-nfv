@@ -1,0 +1,173 @@
+---
+##############################
+### Resource creator variables
+##############################
+setup_os_env: true
+user: true
+network: true
+net_port: true
+quota: true
+aggregate: false
+flavor: true
+image: true
+keypair: true
+security_group: true
+instance: true
+resources_output: true
+resource_generate_inventory: true
+
+cloud_name: overcloud
+
+users:
+  - name: nfv_tempest
+    pass: nfv_tempest
+    project: nfv_tempest
+    domain: default
+    role: member
+    quota:
+      - cores: 50
+        ram: 40480
+
+flavors:
+  - name: test_flavor
+    ram: 2048
+    disk: 20
+    vcpus: 2
+    extra_specs:
+      "hw:cpu_policy": "dedicated"
+      "hw:emulator_threads_policy": "share"
+
+images:
+  - name: rhel7.6
+    url: https://url.corp.redhat.com/rhel-guest-image-7-6-210-x86-64-qcow2
+
+networks:
+  - name: 'access'
+    physical_network: 'datacentre'
+    allocation_pool_start: '10.0.0.10'
+    allocation_pool_end: '10.0.0.20'
+    cidr: '10.0.0.0/24'
+    enable_dhcp: true
+    gateway_ip: '10.0.0.254'
+    network_type: flat
+    external: true
+    shared: true
+    router_name: router1
+
+  - name: 'data'
+    physical_network: 'tenant'
+    allocation_pool_start: '10.10.10.100'
+    allocation_pool_end: '10.10.10.200'
+    cidr: '10.10.10.0/24'
+    enable_dhcp: true
+    gateway_ip: '10.10.10.254'
+    network_type: vlan
+    external: false
+    router_name: router1
+
+dns_nameservers:
+  - 10.46.0.31
+  - 8.8.8.8
+
+keypairs:
+  - name: test_keypair
+
+resources_output_file: /home/stack/resources_output_file.yml
+
+security_groups:
+  - name: test_secgroup
+    rules:
+      - protocol: icmp
+        port_range_min: -1
+        port_range_max: -1
+        remote_ip_prefix: 0.0.0.0/0
+      - protocol: tcp
+        port_range_min: 22
+        port_range_max: 22
+        remote_ip_prefix: 0.0.0.0/0
+
+global_userdata: |
+  #cloud-config
+  chpasswd:
+    list: |
+      root:password
+    expire: False
+  write_files:
+    - path: /var/lib/cloud/scripts/per-boot/custom_net_config.py
+      owner: root:root
+      permissions: '0755'
+      encoding: gzip+base64
+      content: |
+        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
+        eOdCR/8FYyEGgDcnAAA=
+
+instances:
+  - name: test_vm
+    groups:
+      - test_instances
+    flavor: test_flavor
+    image: rhel7.6
+    key_name: test_keypair
+    sec_groups: test_secgroup
+    config_drive: true
+    floating_ip:
+      ext_net: access
+      int_net: data
+    nics:
+      - net-name: data
+        tag: external

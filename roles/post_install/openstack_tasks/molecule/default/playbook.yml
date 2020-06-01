@@ -1,0 +1,9 @@
+---
+- name: Converge
+  hosts: "{{ osp_tasks_host | default('undercloud') }}"
+  gather_facts: false
+  vars_files:
+    - play_vars.yml
+  roles:
+    - role: openstack_tasks
+      resource_state: present

@@ -1,0 +1,246 @@
+---
+- name: Verify
+  hosts: undercloud
+  gather_facts: false
+  vars_files:
+    - play_vars.yml
+  tasks:
+    # User test
+    - name: Fetch user state
+      os_user_facts:
+        cloud: "{{ cloud_name }}"
+        name: "{{ users[0].name }}"
+
+    - name: Verify test user creation
+      assert:
+        that:
+          - "openstack_users[0].name"
+          - "openstack_users[0].name == users[0].name"
+
+    # Flavor test
+    - name: Fetch flavor state
+      os_flavor_facts:
+        cloud: "{{ cloud_name }}"
+        name: "{{ flavors[0].name }}"
+
+    - name: Verify test flavor creation
+      assert:
+        that:
+          - "openstack_flavors[0].name"
+          - "openstack_flavors[0].name == flavors[0].name"
+
+    - name: Verify test flavor extra specs
+      assert:
+        that:
+          - "openstack_flavors[0].extra_specs"
+
+    # Image test
+    - name: Fetch image state
+      os_image_facts:
+        cloud: "{{ cloud_name }}"
+        image: "{{ images[0].name }}"
+
+    - name: Verify test image creation
+      assert:
+        that:
+          - "openstack_image.name"
+          - "openstack_image.name == images[0].name"
+
+    # Security group test
+    - name: Fetch security group state
+      shell: >
+        openstack --os-cloud "{{ cloud_name }}" security group list
+        -c Name -f value | grep "{{ security_groups[0].name }}"
+      register: os_secgroup
+      changed_when: false
+
+    - name: Fetch security group rules
+      command: >
+        openstack --os-cloud "{{ cloud_name }}" security group show
+        "{{ security_groups[0].name }}" -f json --noindent
+      register: os_secgroup_rules
+      changed_when: false
+
+    - name: Extract rules from security groups
+      set_fact:
+        secgroup_rules: "{{ os_secgroup_rules.stdout | from_json }}"
+
+    - name: Locate SSH ingress rule
+      set_fact:
+        secgroup_ssh: "{{ item.id }}"
+      loop: "{{ secgroup_rules.rules }}"
+      when:
+        - item.direction == 'ingress'
+        - item.port_range_min == 22
+
+    - name: Locate ICMP ingress rule
+      set_fact:
+        secgroup_icmp: "{{ item.id }}"
+      loop: "{{ secgroup_rules.rules }}"
+      when:
+        - item.direction == 'ingress'
+        - item.protocol == 'icmp'
+
+    - name: Verify test security group creation
+      assert:
+        that:
+          - "os_secgroup.stdout == security_groups[0].name"
+
+    - name: Verify SSH config in test security group
+      assert:
+        that:
+          - "secgroup_ssh is defined"
+
+    - name: Verify ICMP config in test security group
+      assert:
+        that:
+          - "secgroup_icmp is defined"
+
+    # Keypair test
+    - name: Fetch keypair state
+      shell: >
+        openstack --os-cloud "{{ cloud_name }}" keypair list
+        -c Name -f value | grep "{{ keypairs[0].name }}"
+      register: os_keypair
+      changed_when: false
+
+    - name: Check for fetched private key
+      stat:
+        path: "/tmp/{{ keypairs[0].name }}.key"
+      register: os_keypair_key
+      delegate_to: localhost
+
+    - name: Verify keypair creation
+      assert:
+        that:
+          - "os_keypair.stdout == keypairs[0].name"
+
+    - name: Verify keypair private key exists on localhost
+      assert:
+        that:
+          - "os_keypair_key.stat.exists"
+
+    # Network and subnet test
+    - name: Fetch networks state
+      os_networks_facts:
+        cloud: "{{ cloud_name }}"
+
+    - name: Exclude HA router network
+      set_fact:
+        nets: "{{ nets | default([]) }} + [ {{ item }} ]"
+      loop: "{{ openstack_networks }}"
+      when: item.tenant_id
+
+    - name: Fetch subnets state
+      os_subnets_facts:
+        cloud: "{{ cloud_name }}"
+
+    - name: Filter external network
+      set_fact:
+        ext_net: "{{ item }}"
+      loop: "{{ nets }}"
+      when: item['router:external']
+
+    - name: Combine network and subnet info for external network
+      set_fact:
+        ext_net: "{{ {} | combine(item, ext_net) }}"
+      loop: "{{ openstack_subnets }}"
+      when: "ext_net.name in item.name"
+
+    - name: Filter internal network
+      set_fact:
+        int_net: "{{ item }}"
+      loop: "{{ nets }}"
+      when: not item['router:external']
+
+    - name: Combine network and subnet info for external network
+      set_fact:
+        int_net: "{{ {} | combine(item, int_net) }}"
+      loop: "{{ openstack_subnets }}"
+      when: "int_net.name in item.name"
+
+    - name: Set external config network
+      set_fact:
+        conf_ext_net: "{{ item }}"
+      loop: "{{ networks }}"
+      when: item.external
+
+    - name: Set internal config network
+      set_fact:
+        conf_int_net: "{{ item }}"
+      loop: "{{ networks }}"
+      when: not item.external
+
+    - name: Verify the amount of created networks
+      assert:
+        that:
+          - "networks | length == nets | length"
+
+    - name: Verify network and subnet proper cofiguration
+      assert:
+        that:
+          - "ext_net.status == 'ACTIVE'"
+          - "ext_net.name == conf_ext_net.name"
+          - "ext_net['router:external'] == conf_ext_net.external"
+          - "ext_net['provider:network_type'] == conf_ext_net.network_type"
+          - "ext_net.cidr == conf_ext_net.cidr"
+          - "ext_net.gateway_ip == conf_ext_net.gateway_ip"
+          - "ext_net.enable_dhcp == conf_ext_net.enable_dhcp"
+          - "ext_net.shared == conf_ext_net.shared"
+          - "ext_net.allocation_pools[0].start == conf_ext_net.allocation_pool_start"
+          - "ext_net.allocation_pools[0].end == conf_ext_net.allocation_pool_end"
+          - "int_net.status == 'ACTIVE'"
+          - "int_net.name == conf_int_net.name"
+          - "int_net['router:external'] == conf_int_net.external"
+          - "int_net['provider:network_type'] == conf_int_net.network_type"
+          - "int_net.cidr == conf_int_net.cidr"
+          - "int_net.gateway_ip == conf_int_net.gateway_ip"
+          - "int_net.enable_dhcp == conf_int_net.enable_dhcp"
+          - "int_net.allocation_pools[0].start == conf_int_net.allocation_pool_start"
+          - "int_net.allocation_pools[0].end == conf_int_net.allocation_pool_end"
+
+    # Instance test
+    - name: Fetch server state
+      os_server_facts:
+        cloud: "{{ cloud_name }}"
+        detailed: yes
+
+    - name: Verify instances state
+      assert:
+        that:
+          - "item.0.name == item.1.name"
+          - "item.0.status == 'ACTIVE'"
+          - "item.0.flavor.name == item.1.flavor"
+          - "item.0.image.name == item.1.image"
+          - "item.0.key_name == item.1.key_name"
+          - "item.0.config_drive | bool == item.1.config_drive | bool"
+          - "item.0.security_groups[0].name == item.1.sec_groups"
+      loop: "{{ openstack_servers | zip(instances) | list }}"
+
+    # Resources output test
+    - name: Test resource output file existance
+      stat:
+        path: "{{ resources_output_file }}"
+      register: output_file
+
+    - name: Read resource output file
+      slurp:
+        src: "{{ resources_output_file }}"
+      register: res_output
+      when: output_file.stat.exists
+
+    - name: Import file content into variable
+      set_fact:
+        res_output_var: "{{ res_output.content | b64decode | from_yaml_all | list }}"
+
+    - name: Verify resource output file existance
+      assert:
+        that:
+          - output_file.stat.exists
+
+    - name: Verify resource output file structure
+      assert:
+        that:
+          - "res_output_var[0].key_pair"
+          - "res_output_var[0].servers[0].name"
+          - "res_output_var[0].servers[0].id"
