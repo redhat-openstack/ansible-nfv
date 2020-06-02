@@ -1,8 +1,11 @@
 ---
+- name: Set inventory path
+  set_fact:
+    inventory_path: "{{ inv_path | default(lookup('env', 'PWD')) }}"
 
 - name: Set environment variable
   set_fact:
-    environment_dir: "{{ lookup('env', 'PWD') }}/environments/{{ host }}_env"
+    environment_dir: "{{ inventory_path }}/environments/{{ host }}_env"
 
 - name: Set SSH key variables
   set_fact:
@@ -15,8 +18,8 @@
     path: "{{ item }}"
     state: absent
   loop:
-    - "{{ lookup('env', 'PWD') }}/inventory"
-    - "{{ lookup('env', 'PWD') }}/ansible.ssh.config"
+    - "{{ inventory_path }}/inventory"
+    - "{{ inventory_path }}/ansible.ssh.config"
 
   # Flash in-memory inventory in order to recreate
   # the inventory file with the new parameters
@@ -106,7 +109,7 @@
 - name: Link the current environment SSH file
   file:
     src: "{{ environment_dir }}/ansible.ssh.config.{{ host }}"
-    dest: "{{ lookup('env', 'PWD') }}/ansible.ssh.config"
+    dest: "{{ inventory_path }}/ansible.ssh.config"
     state: link
 
 - name: Generate Inventory file
@@ -117,5 +120,5 @@
 - name: Link the current environment inventory file
   file:
     src: "{{ environment_dir }}/inventory_{{ host }}"
-    dest: "{{ lookup('env', 'PWD') }}/inventory"
+    dest: "{{ inventory_path }}/inventory"
     state: link
