@@ -115,7 +115,7 @@
     owner: "{{ tempest_user }}"
     group: "{{ tempest_user }}"
     mode: 0755
-  when: tempest_config is defined
+  when: deployer_input_config is defined
   register: copy_output
 
 - name: Generate accounts.yaml file
