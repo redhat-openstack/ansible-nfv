@@ -1,6 +1,6 @@
-environments/*_env
-inventory
-ansible.ssh.config*
+/environments/*_env
+/inventory
+/ansible.ssh.config*
 ssh/ansible.ssh.config*
 ssh/id_rsa*
 *.retry
