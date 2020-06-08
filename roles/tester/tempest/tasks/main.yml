@@ -102,6 +102,22 @@
     mode: 0755
   when: tempest_config is defined
 
+- name: Copying deployer input file to "{{ tempest_dir }}" directory
+  vars:
+    remote_source: "{{ (deployer_input_config != 'default') | ternary('no','yes') }}"
+    copy_file: "{{ (deployer_input_config != 'default') | ternary(deployer_input_config,
+                   [tempest_dir, '/', nfv_tempest_plugin, '/docs/tempest-deployer-input.conf.sample']|join('')
+                 ) }}"
+  copy:
+    remote_src: "{{ remote_source }}"
+    src: "{{ copy_file }}"
+    dest: "{{ tempest_dir }}"
+    owner: "{{ tempest_user }}"
+    group: "{{ tempest_user }}"
+    mode: 0755
+  when: deployer_input_config is defined
+  register: copy_output
+
 - name: Generate accounts.yaml file
   template:
     src: accounts.yaml.j2
@@ -160,6 +176,9 @@
             {{ option }} \
           {% endfor %}
         {% endif %}
+        {% if deployer_input_config is defined %}
+          --deployer-input {{ tempest_dir }}/{{ copy_output['dest'] | basename }} \
+        {% endif %}
         --out "{{ tempest_dir }}/{{ tempest_main }}/etc/tempest.conf"
   args:
     executable: /bin/bash
@@ -198,6 +217,11 @@
     executable: /bin/bash
     chdir: "{{ tempest_dir }}/{{ tempest_main }}"
   loop: "{{ tempest_tests }}"
+
+- name: Ensure '{{ tempest_dir }}/tempest.xml' is absent before logging results
+  file:
+    path: "{{ tempest_dir }}/tempest.xml"
+    state: absent
 
 - name: Generate results report in a JunitXML format
   tags: run_tempest_test

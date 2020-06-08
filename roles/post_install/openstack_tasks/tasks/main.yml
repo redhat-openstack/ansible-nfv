@@ -15,6 +15,16 @@
   import_tasks: users.yml
   when: user and resource_state == 'present'
 
+- name: Quota
+  tags: quota
+  import_tasks: quota.yml
+  when: quota
+
+- name: Volumes
+  tags: volume
+  import_tasks: volumes.yml
+  when: volume
+
 - name: Security groups creation
   tags: security_group
   import_tasks: security_groups.yml
@@ -24,11 +34,6 @@
   tags: network
   import_tasks: networks_and_routers.yml
   when: network
-
-- name: Quota
-  tags: quota
-  import_tasks: quota.yml
-  when: quota
 
 - name: Aggregate groups
   tags: aggregate

@@ -1,0 +1,26 @@
+---
+- name: Destroy
+  hosts: "{{ osp_tasks_host | default('undercloud') }}"
+  gather_facts: false
+  vars_files:
+    - play_vars.yml
+  roles:
+    - role: openstack_tasks
+      resource_state: absent
+
+  tasks:
+    - name: Delete created inventory
+      file:
+        path: "{{ item }}"
+        state: absent
+      loop:
+        - inventory
+        - ansible.ssh.config
+        - environments
+      delegate_to: localhost
+
+    - name: Restore dump inventory
+      copy:
+        content: 'localhost'
+        dest: inventory
+      delegate_to: localhost

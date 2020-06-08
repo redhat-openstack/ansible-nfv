@@ -4,6 +4,7 @@
   get_url:
     url: "{{ item.url }}"
     dest: "/tmp/{{ item.url | basename }}"
+    validate_certs: "{{ image_valid_certs | default(False) }}"
     timeout: 100
   loop: "{{ images }}"
 

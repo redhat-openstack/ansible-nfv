@@ -3,12 +3,14 @@
 - name: "Instances {{ resource_state }}"
   vars:
     ansible_python_interpreter: "{{ venv_path }}/bin/python"
+    all_instances: '{{ instances | default([]) }} + {{ generated_dynamic_instances | default([]) }}'
   os_server:
     state: "{{ resource_state }}"
     cloud: "{{ item.cloud_name | default(cloud_name) }}"
     name: "{{ item.name }}"
     image: "{{ item.image | default(images[0].name) }}"
     flavor: "{{ item.flavor | default(flavors[0].name) }}"
+    volumes: "{% if 'dynamicinstance' in item.name %}['{{ item.name | replace('dynamicinstance', 'dynamicvolume') }}']{% else %}{{ [] }} {% endif %}"
     key_name: "{{ item.key_name | default(omit) }}"
     security_groups: "{{ item.sec_groups | default(omit) }}"
     userdata: "{% if item.userdata is defined %}{{ item.userdata }}{% else %}{{ global_userdata | default(omit) }}{% endif %}"
@@ -16,12 +18,13 @@
     nics: "{{ item.nics }}"
     auto_ip: 'no'
     delete_fip: 'yes'
-  loop: "{{ instances | flatten(levels=1) }}"
+  loop: "{{ all_instances | flatten(levels=1) }}"
   register: reg_instance
 
 - name: Add floating IP to an instance
   vars:
     ansible_python_interpreter: "{{ venv_path }}/bin/python"
+    all_instances: '{{ instances | default([]) }} + {{ generated_dynamic_instances | default([]) }}'
   os_floating_ip:
     state: "{{ resource_state }}"
     cloud: "{{ item.cloud_name | default(cloud_name) }}"
@@ -30,7 +33,7 @@
     nat_destination: "{{ item.floating_ip.int_net }}"
     reuse: 'yes'
     wait: 'yes'
-  loop: "{{ instances | flatten(levels=1) }}"
+  loop: "{{ all_instances | flatten(levels=1) }}"
   when:
     - item.floating_ip is defined
     - resource_state == 'present'
@@ -40,10 +43,12 @@
 # As a result, the floating ip can't be fetched.
 # TODO(maximb): Fix the behavior of the multiple floating ips fetch.
 - name: Locate floating ip of the instance
-  shell: >
+  vars:
+    all_instances: '{{ instances | default([]) }} + {{ generated_dynamic_instances | default([]) }}'
+  command: >
     openstack --os-cloud "{{ item.cloud_name | default(cloud_name) }}"
     server show "{{ item.name }}" -c addresses -f value
-  loop: "{{ instances | flatten(levels=1) }}"
+  loop: "{{ all_instances | flatten(levels=1) }}"
   register: reg_floating_ip
   when:
     - item.floating_ip is defined
@@ -61,6 +66,8 @@
     - reg_floating_ip.changed
 
 - name: Add instances to dynamic inventory
+  vars:
+    all_instances: '{{ instances | default([]) }} + {{ generated_dynamic_instances | default([]) }}'
   add_host:
     name: "{{ item.1.name }}"
     group: "{{ item.1.groups | default(omit) }}"
@@ -68,7 +75,7 @@
     ansible_user: "{{ item.1.connection_user | default(connection_user) }}"
     ansible_ssh_port: 22
     ansible_ssh_private_key_file: "/tmp/{{ item.1.key_name }}.key"
-  loop: "{% if reg_floating_ip.changed %}{{ floating_ip_var | zip(instances) | list }}{% else %}{{ reg_instance.results | zip(instances) | list }}{% endif %}"
+  loop: "{% if reg_floating_ip.changed %}{{ floating_ip_var | zip(all_instances) | list }}{% else %}{{ reg_instance.results | zip(all_instances) | list }}{% endif %}"
   when:
     - resource_state == 'present'
     - resource_generate_inventory

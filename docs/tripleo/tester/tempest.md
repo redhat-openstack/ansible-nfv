@@ -102,6 +102,16 @@ Use "keep_resources: true" to keep the resources.
 keep_resources
 ```
 
+Use prepared deployer-input config file for tempest.conf  
+A file in the format of tempest.conf that will override the default values.  
+The variable has two different options:
+* default - Will take the file from the nfv-tempest-plugin repository
+* path_to_custom_file - Allows to provide a path to the custom deployer-input file.  
+By default the variable is not defined.
+```
+deployer_input_config
+```
+
 List of tempest tests that should be executed.
 ```
 tempest_tests:
