@@ -1,14 +1,14 @@
 # TripleO Inventory
 
 ## Description
-TripleO Inventory play will generate a new inventory file from the provided Undercloud/Hypervisor host.
+TripleO Inventory role will generate a new inventory file from the provided Undercloud/Hypervisor host.
 
 From time to time, we may get an already installed Openstack environment for work/testing/etc.
 In order to be able to run an Ansible playbooks or different ad-hoc commands against the overcloud nodes,
 inventory file is required.
 
 ## Structure
-At the end of the play the following structure will appear:
+At the end of the execution the following structure will appear:
 ```
 |-> inventory file (soft link to the last environment)
 |-> ansible.ssh.config (soft link to the last environment)
@@ -28,22 +28,22 @@ At the end of the play the following structure will appear:
 **Note!** - Each run, the latest generated environment will be symlink to the **inventory** and **ansible.ssh.config** at the root of the ansible repo directory.
 
 ## Supported environment types:
-The play adapted to the baremetal, hybrid or virt environment.  
+The role adapted to the baremetal, hybrid or virt environment.  
 **Baremetal** - Undercloud and Overcloud nodes (Controllers, Computes, etc...) are fully baremetal.  
 **Hybrid** - Undercloud and Controllers nodes are virtual (Resides on a single host) and the Computes are baremetal.  
 **Virt** - Undercloud and Overcloud nodes (Controllers, Computes, etc...) are virtual and resides on a single machine.
 
 **Note!** - For baremetal environment add ```-e setup_type=baremetal```, and for virt or hybrid environment add ```-e setup_type=virt```
 
-The play could be run in two available scenarios:
+The role could be executed in two available scenarios:
 1. The public key of your ssh key already located on the Undercloud/Hypervisor host.  
-   The play will generate three files:
+   The role will generate three files:
   * inventory
   * ansible.ssh.config
   * id_rsa_overcloud
 
 2. You have only the password of the Undercloud/Hypervisor host.  
-   The play will generate five files:
+   The role will generate five files:
   * inventory
   * ansible.ssh.config
   * id_rsa_overcloud
@@ -62,7 +62,7 @@ Id_rsa_undercloud - In case, password provided to Undercloud host, play will gen
 Id_rsa_undercloud.pub - Public key of the id_rsa_undercloud.
 
 ***
-## Play variables
+## Role variables
 Provide the type of the environment.  
 Default: 'baremetal'  
 Mandatory variable.

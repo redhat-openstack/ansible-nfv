@@ -4,8 +4,8 @@
 
 Performs ironic cleanup steps on baremetal nodes.
 
-This playbook requires Ansible inventory of your deployment.  
-Generate an inventory using [tripleo-inventory playbook](../post_install/tripleo_inventory.md).
+This role requires Ansible inventory of your deployment.  
+Generate an inventory using [tripleo-inventory playbook](../../post_install/tripleo_inventory/README.md).
 
 ## Playbook Variables
 

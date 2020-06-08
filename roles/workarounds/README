@@ -1,4 +1,0 @@
-This roles created for workaround tasks.
-Currently holding:
-- W/A for bz https://bugzilla.redhat.com/show_bug.cgi?id=1459543
-  Changing vcpu_pin_set in nova.conf and restart compute service.

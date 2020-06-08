@@ -1,10 +1,10 @@
 # Cpu pinning and Huge pages configuration
 
 ## Description
-The play sets CPU pinning and Huge pages configuration to the grub.  
+The role sets CPU pinning and Huge pages configuration to the grub.  
 By default, play runs on compute node, but could be overridden by providing the 'hosts' variable during the run.
 
-The playbook could be combined with DPDK or SRIOV playbooks.
+The role could be added to DPDK or SRIOV playbooks.
 
 ## Role variables
 The variable provides the ability to change the target hosts that the playbook should run on. This variable is not required.  

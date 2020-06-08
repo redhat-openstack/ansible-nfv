@@ -1,7 +1,7 @@
 # Guest Image Customization For Perfomance Usecases
 
 ## Description
-The prepare_performance_images play performs the following tasks:
+The prepare_performance_images role performs the following tasks:
 - Prepares repos for RHEL/CentOS 7 images
 - Clones Trex from upstream repo to guest image
 - Clones DPDK from upstream repo and compiles it

@@ -1,7 +1,7 @@
 # Switches config
 
 ## Description
-The switches config play performs the following tasks:
+The switches config role performs the following tasks:
 - VLAN configuration access/trunk on the switch port.
 - MTU configuration on the switch port.
 - LACP configuration on interface and members attach.
@@ -12,10 +12,10 @@ Supported switch platforms:
 - Juniper
 
 ## Inventory
-The play requires an inventory file that will describe switches that the play should run on.  
+The play requires an inventory file that will describe switches that the playbook should run on.  
 **Note** - Switches are static resources that not changing frequently.  
 As a result the inventory could be static and not generated dynamically.  
-The inventory for this play should be created by the user.
+The inventory for this playbook should be created by the user.
 
 ```
 [ios]

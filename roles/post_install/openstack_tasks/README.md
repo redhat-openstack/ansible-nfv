@@ -1,7 +1,7 @@
 # Openstack tasks
 
 ## Description
-Openstack tasks play perform the following tasks on the existing Openstack environment.
+The `openstack tasks` role performs the following tasks on the existing Openstack environment.
 
 * Setup Openstack environment
     * Creates and prepares the virtual pip environment with all required command line tools.  
@@ -350,7 +350,7 @@ resources_output_file: /home/stack/resources_output_file.yml
 ```
 
 Generate a dynamic Ansible inventory based on resources created.  
-**NOTE:** As of now, it's broken due to `os_floating_ip` module not being consistent when an instance contains multiple NICs. Please refer to [Dynamic Host Inventory Role](/docs/tripleo/post_install/dynamic_host_inventory.md) for a workaround.
+**NOTE:** As of now, it's broken due to `os_floating_ip` module not being consistent when an instance contains multiple NICs. Please refer to [Dynamic Host Inventory Role](../tripleo_inventory/README.md) for a workaround.
 Default is - **False**
 ```
 resource_generate_inventory: False

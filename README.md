@@ -2,38 +2,13 @@
 Ansible NFV repository holds various playbooks for installation, configuration, tuning, testing and day to day tasks related to NFV and Openstack.
 
 ## Documentation
-For the repository documentation, refer to the **docs** directory, which provide explanation regarding the playbooks.  
-In order to start working with TripleO environment, refer to the following doc - **docs/tripleo/post_install/tripleo_inventory.md**.  
-The playbook will generate an inventory file for the tripleo environment.
+Each role holds it's own documentation. Refer to the README.md file within the role.
 
 **The minimum required version of Ansible for the playbooks >=2.7.5,<2.8.0**  
 **Note** - In order to work properly with the selinux, make sure the **libselinux-python** package is installed on your host.
 
-## Playbooks
-* TripleO
-    * Tester
-      * Tempest
-      * Testpmd deploy and MoonGen run
-      * Testpmd deploy and MoonGen run on secondary NUMA node
-    * Tuning
-      * CPU pinning and Huge pages
-      * Tuned
-    * Post install
-      * Openstack tasks
-      * Overcloud repo install
-      * TripleO Inventory
-    * Configuration
-      * Config NFV Lab switches
-      * Interact with Dell EMC iDRAC:
-        * Power Actions
-        * Query information
-        * Set device boot order
-* Moongen
-    * Moongen install
-    * Moongen run
-
 ## How to contribue
-Patches should be submitted using git review to the GerritHub.
+Refer to the `contribution.md` guide.
 
 ## Note
 Please, modify the playbooks variables to meet your needs before running the playbooks.
