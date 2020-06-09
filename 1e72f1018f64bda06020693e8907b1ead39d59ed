@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2128ffdb_ddb42a47",
+        "filename": "README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1007976
+      },
+      "writtenOn": "2020-06-09T06:20:38Z",
+      "side": 1,
+      "message": "I think a few examples here would help? or a sample of @/path/to/the/variable/file.yml",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 87
+      },
+      "revId": "1e72f1018f64bda06020693e8907b1ead39d59ed",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
