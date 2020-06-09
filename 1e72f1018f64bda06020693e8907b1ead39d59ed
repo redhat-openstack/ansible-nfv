@@ -22,6 +22,30 @@
       "revId": "1e72f1018f64bda06020693e8907b1ead39d59ed",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "34408667_bb697d70",
+        "filename": "README.md",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-06-09T06:50:37Z",
+      "side": 1,
+      "message": "The example of variables file use with \u0027@\u0027 sign present in line 20.",
+      "parentUuid": "2128ffdb_ddb42a47",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 87
+      },
+      "revId": "1e72f1018f64bda06020693e8907b1ead39d59ed",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
