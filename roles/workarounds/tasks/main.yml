@@ -1,9 +1,0 @@
-- name: Change vcpu_pin_set for cross numa performance
-  tags: vcpu_pin_set_cross_numa
-  include_tasks: change_vcpu_cross.yml
-  when: vcpu_pin_set_cross_numa
-
-- name: Disable security groups on testpmd instance NICs
-  tags: disable_security_groups
-  include_tasks: disable_security_groups.yml
-  when: disable_security_groups

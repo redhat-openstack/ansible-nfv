@@ -1,5 +1,4 @@
 ---
-
 - name: Add parameter to the grub
   lineinfile:
     dest: /etc/default/grub
@@ -11,19 +10,16 @@
     - { regex: 'isolcpus=', context: 'isolcpus={{ cpu_pinning_cores }}' }
     - { regex: 'hugepagesz=', context: 'hugepagesz={{ hugepages_size }} default_hugepagesz={{ hugepages_size }} transparent_hugepage=never hugepages={{ hugepages_count }}' }
   register: grub
-
 - name: Make grub
   command: "grub2-mkconfig -o /boot/grub2/grub.cfg"
   when: grub.changed
   register: makegrub
-
 - name: Restart server
   shell: sleep 2 && shutdown -r now "Ansible updates triggered"
   async: 1
   poll: 0
   ignore_errors: true
   when: makegrub.changed
-
 - name: Wait for server to restart successfully
   wait_for:
     host: "{{ ansible_default_ipv4.address }}"
