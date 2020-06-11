@@ -9,7 +9,5 @@
   Roles that are used in the playbook:  
   * post_install/openstack_tasks
   * tester/tempest
-* crossnuma-performance - Deprecated performance playbook. Will be removed.
-* testpmd-deploy-run - Deprecated performance playbook. Will be removed.
 
 **Note** - For more details, refer to the role.
