@@ -1,8 +1,0 @@
----
-
-- name: Cpu pinning and huge pages set
-  hosts: "{{ hosts | default('compute') }}"
-  gather_facts: False
-  roles:
-    - tuning/cpu_pinning_huge_pages
-  become: true
