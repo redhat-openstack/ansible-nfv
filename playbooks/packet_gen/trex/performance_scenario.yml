@@ -98,7 +98,7 @@
   roles:
     - role: roles/packet_gen/trex/compute_tuning
 
-- hosts: "{{ hci_group }}"
+- hosts: "{{ hci_group | default(omit) }}"
   roles:
     - role: roles/packet_gen/trex/launch_fio
       when: launch_hci_stress | default(False)
