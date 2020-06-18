@@ -5,4 +5,4 @@ pep8>=1.7.0
 sphinx!=1.6.6,>=1.6.2
 ansible-lint>=4.0.0
 yamllint>=1.8.1
-molecule[openstack]==2.22
+molecule[openstack,docker]==2.22
