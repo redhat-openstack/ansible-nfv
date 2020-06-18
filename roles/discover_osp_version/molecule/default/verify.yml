@@ -1,0 +1,17 @@
+---
+- name: Verify
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Read versions files
+      slurp:
+        src: "{{ item }}"
+      loop:
+        - '/tmp/undercloud_ver'
+        - '/tmp/overcloud_ver'
+      register: osp_versions
+
+    - name: Verify Undercloud and Overcloud versions
+      assert:
+        that: item.content | b64decode | int == 16
+      loop: "{{ osp_versions.results }}"
