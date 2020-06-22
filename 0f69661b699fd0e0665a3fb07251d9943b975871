@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d4068b33_db7e8a09",
+        "filename": "playbooks/userspace/iperf/stream_n1.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-06-22T08:25:25Z",
+      "side": 1,
+      "message": "If you are generating the resources by using the \"openstack_tasks\" role, why not to use the inventory that is created at the end of the resources creation?",
+      "range": {
+        "startLine": 18,
+        "startChar": 8,
+        "endLine": 32,
+        "endChar": 43
+      },
+      "revId": "0f69661b699fd0e0665a3fb07251d9943b975871",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48557aae_aafe2810",
+        "filename": "roles/images/userspace/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-06-22T08:25:25Z",
+      "side": 1,
+      "message": "The only difference of this role from the \"images/performance\" is the use of \"prepare_iperf\" task which installs iperf package.\n\nMy question, why not to extend the \"images/performance\" role and not just duplicate in to this one?",
+      "revId": "0f69661b699fd0e0665a3fb07251d9943b975871",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "243b05c1_d68ea816",
+        "filename": "roles/userspace/iperf/client/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-06-22T08:25:25Z",
+      "side": 1,
+      "message": "Please, move this role under the \"roles/packet_gen/iperf\". It will be more logically ordered this way.\n\nPlease, add a README.md file that explains the purpose of the role and variable.\nLook at every other role README file for example.",
+      "revId": "0f69661b699fd0e0665a3fb07251d9943b975871",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c1601c3_2440bd59",
+        "filename": "roles/userspace/iperf/server/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-06-22T08:25:25Z",
+      "side": 1,
+      "message": "Please, move this role under the \"roles/packet_gen/iperf\". It will be more logically ordered this way.\n\nPlease, add a README.md file that explains the purpose of the role and variable.\nLook at every other role README file for example.",
+      "revId": "0f69661b699fd0e0665a3fb07251d9943b975871",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
