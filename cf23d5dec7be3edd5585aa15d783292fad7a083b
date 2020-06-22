@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "550686f7_c90e3a37",
+        "filename": "roles/packet_gen/trex/binary_search/defaults/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1017708
+      },
+      "writtenOn": "2020-06-22T14:13:40Z",
+      "side": 1,
+      "message": "This option does not affect existing flow unless pmd_lb is enabled (roles/pmd_load_balance/defaults/main.yml). My wish is to recommend running perf with pmd_lb_pretest (pmd lb before binary search starts) by default, when pmd_lb is true.\nI can change this to false as well, considering your suggestion (not to turn on something until required). I\u0027ll update this in next version of patch. Thanks.",
+      "parentUuid": "5c918eb5_b3588b38",
+      "range": {
+        "startLine": 32,
+        "startChar": 16,
+        "endLine": 32,
+        "endChar": 20
+      },
+      "revId": "cf23d5dec7be3edd5585aa15d783292fad7a083b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "dc397ffd_defedf1c",
         "filename": "roles/packet_gen/trex/binary_search/tasks/main.yml",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2020-06-22T13:54:58Z",
       "side": 1,
       "message": "Am I right that this is not running by default as the pmd_lb is none in the pmd_load_balance default vars?\n\nI prefer to not execute it by default in order to not interrupt the existing perf flow.",
+      "range": {
+        "startLine": 9,
+        "startChar": 8,
+        "endLine": 9,
+        "endChar": 37
+      },
+      "revId": "cf23d5dec7be3edd5585aa15d783292fad7a083b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bbf5c716_a05bedce",
+        "filename": "roles/packet_gen/trex/binary_search/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1017708
+      },
+      "writtenOn": "2020-06-22T14:13:40Z",
+      "side": 1,
+      "message": "You are right, there is no pmd load balance until we set pmd_lb to one of [ovs, user].",
+      "parentUuid": "dc397ffd_defedf1c",
       "range": {
         "startLine": 9,
         "startChar": 8,
