@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "e8509d25_3bbc4f55",
+        "filename": "roles/packet_gen/trex/launch_testpmd/tasks/main.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-06-22T14:27:56Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "3e2e125c_e0a0e705",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 20
+      },
+      "revId": "d0d372b4980715e88f1c25ec503b252090b68c09",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ae55c9a0_bc7ca69b",
         "filename": "roles/packet_gen/trex/launch_testpmd/tasks/main.yml",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2020-06-02T15:40:04Z",
       "side": 1,
       "message": "Without previous task this should be:\n  when: \"{{ dut_compute[item | int] in ansible_fqdn }}\"",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 4
+      },
+      "revId": "d0d372b4980715e88f1c25ec503b252090b68c09",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a52fb5a5_5f12f076",
+        "filename": "roles/packet_gen/trex/launch_testpmd/tasks/main.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-06-22T14:27:56Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "ae55c9a0_bc7ca69b",
       "range": {
         "startLine": 17,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "4df2f362_de1f0739",
+        "filename": "roles/packet_gen/trex/launch_testpmd/tasks/main.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-06-22T14:27:56Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "db0c9ee6_8f8fc173",
+      "range": {
+        "startLine": 18,
+        "startChar": 17,
+        "endLine": 23,
+        "endChar": 59
+      },
+      "revId": "d0d372b4980715e88f1c25ec503b252090b68c09",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "be579c66_1e0336d8",
         "filename": "roles/packet_gen/trex/launch_testpmd/tasks/main.yml",
         "patchSetId": 5
@@ -88,6 +160,23 @@
         "endLine": 38,
         "endChar": 17
       },
+      "revId": "d0d372b4980715e88f1c25ec503b252090b68c09",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21b65e9a_1ef320ae",
+        "filename": "roles/post_install/map_dynamic_instances/tasks/main.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-06-22T14:27:56Z",
+      "side": 1,
+      "message": "I wonder why can this role be combined with the \"prepare_dynamic_instances\" role?\nThey are mean for the same purpose.",
       "revId": "d0d372b4980715e88f1c25ec503b252090b68c09",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
