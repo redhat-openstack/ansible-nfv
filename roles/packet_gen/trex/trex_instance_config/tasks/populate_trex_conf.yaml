@@ -1,15 +1,38 @@
-- name: Parse Trex Server SR-IOV MAC Addresses and IP Addresses
+- name: Populate Trex NICs info variable
   set_fact:
-    trex_instance_sriov_macs: "{{ trex_instance_sriov_nics | map(attribute='mac_address') | list }}"
-    trex_instance_sriov_ips: "{{ trex_instance_sriov_nics | map(attribute='fixed_ips') | sum(start=[]) | map(attribute='ip_address') | list }}"
-    trex_instance_sriov_vlans: "{{ trex_instance_sriov_nics | map(attribute='binding:vif_details') | list | map(attribute='vlan') | list }}"
-  failed_when: trex_instance_sriov_macs | length != trex_instance_sriov_ips | length
+    trex_instance_nics_info: >-
+      {{ trex_instance_nics_info | default([]) }} + [{
+      'mac_address': '{{ item['mac_address'] }}',
+      'ip': '{{ item['fixed_ips'][0]['ip_address'] }}',
+      'vlan': '{{ item['binding:vif_details']['vlan'] }}'
+      }]
+  failed_when: >-
+    trex_instance_nics_info | map(attribute='mac_address') | list | length !=
+    trex_instance_nics_info | map(attribute='ip') | list | length
+  loop: "{{ trex_instance_sriov_nics }}"
 
-- name: Prepare Trex Config Interfaces List
+- name: Merge Between Dicts To Build Trex NICs Info
   set_fact:
-    trex_interfaces: "{{ trex_interfaces | default([]) }} + ['{{ item }}']"
-  loop: "{{ trex_instance_kernel_nics['stdout_lines'] }}"
+    trex_full_nic_info: >-
+      {%- for nic in trex_instance_nics_info -%}
+        {%- for nic_topo in ansible_local['nic_topology'] -%}
+          {%- if nic['mac_address'] == nic_topo['mac_address'] -%}
+            {{- nic.update(nic_topo) -}}
+            {{nic}},
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endfor -%}
 
-- name: Populate Trex Config File Variables
-  include_tasks: parse_trex_variables.yaml
-  loop: "{{ trex_instance_sriov_macs |zip(trex_instance_sriov_ips) | list }}"
+- name: Sort Trex NICs Info Dict Based On PCI Slots
+  set_fact:
+    trex_full_nic_info: "{{ trex_full_nic_info | sort(attribute='pci_slot') }}"
+
+- name: Set Trex config Ports Info
+  set_fact:
+    trex_port_info: >-
+      {{ trex_port_info | default([]) }} +
+      [{'src_mac': '{{ trex_full_nic_info[0]['mac_address'] }}', 'dest_mac': '{{ trex_full_nic_info[1]['mac_address'] }}',
+      'ip': '{{ trex_full_nic_info[0]['ip'] }}', 'default_gw': '{{ trex_full_nic_info[1]['ip'] }}'}] +
+      [{'src_mac': '{{ trex_full_nic_info[1]['mac_address'] }}', 'dest_mac': '{{ trex_full_nic_info[0]['mac_address'] }}',
+      'ip': '{{ trex_full_nic_info[1]['ip'] }}', 'default_gw': '{{ trex_full_nic_info[0]['ip'] }}'}]
+
