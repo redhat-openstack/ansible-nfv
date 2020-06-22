@@ -6,6 +6,8 @@
 
 **NOTE:** Please avoid using instance names for performance scenario that contains underscore(_), the automation will fail otherwise.
 
+**NOTE:** Please make sure all of the guest NICs are bound to kernel on first invocation, after initial execution of this playbook, a local facts file will be reused.
+
 Prepares environment for NFV performance scenario using Trex:
 * Configure Trex instance
 * Binds DPDK NICs

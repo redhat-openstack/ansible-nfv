@@ -1,8 +1,0 @@
-- name: Set helper variabels
-  set_fact:
-    port_default_gw: "{{ trex_instance_sriov_ips | reject('search',item[1]) | list | first }}"
-    port_dest_mac: "{{ trex_instance_sriov_macs | reject('search',item[0]) | list | first }}"
-
-- name: Set Trex config ports info
-  set_fact:
-    trex_port_info: "{{ trex_port_info | default([])}} + [{'src_mac': '{{ item[0] }}', 'dest_mac': '{{ port_dest_mac }}', 'ip': '{{ item[1] }}', 'default_gw': '{{ port_default_gw }}'}]"
