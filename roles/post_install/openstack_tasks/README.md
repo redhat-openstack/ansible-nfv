@@ -30,6 +30,7 @@ The `openstack tasks` role performs the following tasks on the existing Openstac
     * Creates security groups with defined protocols.
 * Boot an instance(s)
     * Boot the defined instances on the overcloud.
+    * Create instances dynamically based on template according to available resources/limit.
 * Overcloud delete
     * Deletes the required stack.  
       Default stack is - 'overcloud'.
@@ -50,6 +51,7 @@ The run could be separated by specifying tags of specific run.
 * image - Upload images to the Openstack environment.
 * keypair - Run keypair creation.
 * security_group - Run security groups creation.
+* dynamic_instances - Boot dynamic instances from template.
 * instance - Boot defined instances.
 * overcloud_delete - Delete the required overcloud stack.
 * resources_output - Generate instance and keypair details yaml file.
@@ -65,6 +67,7 @@ The run could be separated by specifying tags of specific run.
 * image - Executed if 'true'. True by default.
 * keypair - Executed if 'true'. True by default.
 * security_group - Executed if 'true'. True by default.
+* dynamic_instances - Executed if 'true'. False by default.
 * instance - Executed if 'true'. False by default.
 * overcloud_delete - Executed if 'true'. False by default.
 * resources_output - Executed if 'true'. False by default.
@@ -320,6 +323,44 @@ instances:
         network: private_net1
         type: normal
         sec_groups: test_secgroup
+```
+
+#### Dynamic Instances
+
+It is possible to boot dynamic instances from template based on available CPU resources.  
+In order to query resources dynamically, pass list of compute node names:
+```
+compute_nodes:
+  - computeovsdpdk-0
+```
+And make sure the following variable is set to `true`:
+```
+query_compute_node_resources: true
+```
+It is possible to overwrite the limit of dynamic instances to be created:
+````
+dynamic_instances_limit: 6
+```
+Dynamic instances and volumes can be created from templates:
+```
+dynamic_instance_template:
+  name: hci
+  groups: hci
+  flavor: hci_<server_name>
+  image: hci
+  key_name: test_keypair
+  sec_groups: test_secgroup
+  config_drive: true
+  nics: net-name=dpdk-mgmt
+  floating_ip:
+    ext_net: access
+    int_net: dpdk_mgmt
+
+dynamic_volume_template:
+  name: hci
+  availability_zone: nova
+  size: 10
+  device: /dev/vdb
 ```
 
 #### Overcloud delete variables

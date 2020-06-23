@@ -1,6 +1,9 @@
 - name: Gets dynamic instances limit per compute
   set_fact:
     dynamic_instances_limit: "{{ hostvars[dut_compute]['guest_limit'] | int }}"
+  when:
+    - query_compute_node_resources
+    - dynamic_instances_limit is not defined
 
 - name: Generates dynamic instances
   set_fact:
@@ -29,3 +32,4 @@
   with_sequence: start=1 end={{ dynamic_instances_limit }} stride=1 format=%02x
   loop_control:
     loop_var: count
+  when: dynamic_volume_template is defined

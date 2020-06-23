@@ -11,6 +11,8 @@ platforms:
   - name: hypervisor
 provisioner:
   name: ansible
+  env:
+    ANSIBLE_ROLES_PATH: ../../../../../roles
   inventory:
     links:
       hosts: inventory

@@ -5,6 +5,14 @@
   import_tasks: setup_openstack_env.yml
   when: setup_os_env
 
+- name: Dynamic instances
+  tags: dynamic_instances
+  import_role:
+    name: roles/post_install/prepare_dynamic_instances
+  when:
+    - dynamic_instances
+    - compute_nodes is defined
+
 - name: Instances
   tags: instance
   import_tasks: instances.yml

@@ -12,6 +12,8 @@ flavor: true
 image: true
 keypair: true
 security_group: true
+dynamic_instances: false
+query_compute_node_resources: true
 instance: false
 overcloud_delete: false
 resources_output: false
