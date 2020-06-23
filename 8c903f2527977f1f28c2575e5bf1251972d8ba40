@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9fd00070_37a08116",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2020-06-23T06:44:01Z",
+      "side": 1,
+      "message": "Is it the following ? \n/etc/ansible/facts.d/nic_topology.json?\n\nHow is it related with this /etc/ansible/facts.d/nic_topology.fact?\nCan you explain for dummies?",
+      "range": {
+        "startLine": 9,
+        "startChar": 45,
+        "endLine": 9,
+        "endChar": 50
+      },
+      "revId": "8c903f2527977f1f28c2575e5bf1251972d8ba40",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
