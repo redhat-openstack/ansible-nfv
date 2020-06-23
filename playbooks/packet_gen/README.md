@@ -13,7 +13,5 @@
   * packet_gen/trex/launch_testpmd
   * packet_gen/trex/launch_trex
   * packet_gen/trex/binary_search
-* moongen/moongen-install - Installs moongen server (deprecated).
-* moongen/moongen-run - Execute performance scenario using moongen server (deprecated).
 
 **Note** - For more details, refer to the role.
