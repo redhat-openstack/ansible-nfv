@@ -22,6 +22,52 @@
       "revId": "8c903f2527977f1f28c2575e5bf1251972d8ba40",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7c688417_96404573",
+        "filename": "roles/packet_gen/trex/trex_instance_config/tasks/populate_trex_conf.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1016373
+      },
+      "writtenOn": "2020-06-23T08:12:46Z",
+      "side": 1,
+      "message": "Do we need this part (failed_when)? I would say that the condition will be always true",
+      "range": {
+        "startLine": 9,
+        "startChar": 14,
+        "endLine": 9,
+        "endChar": 15
+      },
+      "revId": "8c903f2527977f1f28c2575e5bf1251972d8ba40",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5371079a_c44648b3",
+        "filename": "roles/packet_gen/trex/trex_instance_config/tasks/query_trex_instance.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1016373
+      },
+      "writtenOn": "2020-06-23T08:12:46Z",
+      "side": 1,
+      "message": "performance",
+      "range": {
+        "startLine": 37,
+        "startChar": 13,
+        "endLine": 37,
+        "endChar": 23
+      },
+      "revId": "8c903f2527977f1f28c2575e5bf1251972d8ba40",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
