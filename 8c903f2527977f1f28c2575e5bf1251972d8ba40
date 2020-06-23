@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5ae74360_706a3d95",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2020-06-23T09:30:49Z",
+      "side": 1,
+      "message": "Apologies, \u0027/etc/ansible/facts.d/nic_topology.json\u0027 is leftover when I used the wrong naming convention.\n\nWill resolve it.",
+      "parentUuid": "9fd00070_37a08116",
+      "range": {
+        "startLine": 9,
+        "startChar": 45,
+        "endLine": 9,
+        "endChar": 50
+      },
+      "revId": "8c903f2527977f1f28c2575e5bf1251972d8ba40",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7c688417_96404573",
         "filename": "roles/packet_gen/trex/trex_instance_config/tasks/populate_trex_conf.yaml",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "2ba6d6e4_522de5ae",
+        "filename": "roles/packet_gen/trex/trex_instance_config/tasks/populate_trex_conf.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2020-06-23T09:30:49Z",
+      "side": 1,
+      "message": "Yes you are right since we check if \u0027trex_instance_sriov_nics\u0027 is equal to 2 beforehand, and there can not be a situation where we have a port with no MAC or IP address.",
+      "parentUuid": "7c688417_96404573",
+      "range": {
+        "startLine": 9,
+        "startChar": 14,
+        "endLine": 9,
+        "endChar": 15
+      },
+      "revId": "8c903f2527977f1f28c2575e5bf1251972d8ba40",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5371079a_c44648b3",
         "filename": "roles/packet_gen/trex/trex_instance_config/tasks/query_trex_instance.yaml",
         "patchSetId": 2
@@ -68,6 +116,30 @@
       "revId": "8c903f2527977f1f28c2575e5bf1251972d8ba40",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c0f6376b_5023738f",
+        "filename": "roles/packet_gen/trex/trex_instance_config/tasks/query_trex_instance.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2020-06-23T09:30:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5371079a_c44648b3",
+      "range": {
+        "startLine": 37,
+        "startChar": 13,
+        "endLine": 37,
+        "endChar": 23
+      },
+      "revId": "8c903f2527977f1f28c2575e5bf1251972d8ba40",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
