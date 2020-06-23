@@ -13,6 +13,13 @@ instance: true
 overcloud_delete: false
 resources_output: true
 
+# Generate dynamic instances
+dynamic_instances: true
+# Query compute node resources
+query_compute_node_resources: true
+# Set dynamic instance limit
+dynamic_instances_limit: 6
+
 # Set the state of the resource.
 # The state could be 'present' or 'absent'.
 resource_state: present
@@ -205,6 +212,31 @@ instances:
         network: sriov-1
         type: direct
         port_security: false
+
+# Dynamic instances to be created from template
+dynamic_instance_template:
+  name: hci
+  groups: hci
+  flavor: hci_<server_name>
+  image: hci
+  key_name: test_keypair
+  sec_groups: test_secgroup
+  config_drive: true
+  nics: net-name=dpdk-mgmt
+  floating_ip:
+    ext_net: access
+    int_net: dpdk_mgmt
+
+# Dynamic volume to be created from template
+dynamic_volume_template:
+  name: hci
+  availability_zone: nova
+  size: 10
+  device: /dev/vdb
+
+# Compute_nodes for dynamic instance query
+compute_nodes:
+  - computeovsdpdk-0
 
 # The path to the file output of the created resources.
 resources_output_file: /home/stack/resources_output_file.yml

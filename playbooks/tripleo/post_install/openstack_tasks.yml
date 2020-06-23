@@ -1,5 +1,13 @@
 ---
 
+- name: Query compute nodes
+  hosts: "{{ compute_nodes | default([]) }}"
+  gather_facts: False
+  tasks:
+    - import_role:
+        name: roles/post_install/dynamic_instances_count
+      when: query_compute_node_resources
+
 - name: Openstack tasks
   hosts: "{{ osp_tasks_host | default('undercloud') }}"
   gather_facts: False
