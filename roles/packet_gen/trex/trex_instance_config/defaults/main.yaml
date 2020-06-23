@@ -26,3 +26,6 @@ trex_platform:
 
 # DPDK root dir
 dpdk_root_dir: '/root/dpdk'
+
+# Workaround - can't define this variable inside playbook
+trex_full_nic_info: []

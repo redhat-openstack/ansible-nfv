@@ -1,7 +1,7 @@
 #jinja2: lstrip_blocks: "true", trim_blocks: "false"
 - port_limit: {{ trex_port_info | length }}
   version: {{ trex_cfg_version | default(2) }}
-  interfaces: {{ trex_interfaces | sort | to_yaml }}
+  interfaces: {{ trex_full_nic_info | map(attribute='pci_slot') | list | sort | to_yaml }}
   port_info:
   {% for port in trex_port_info %}
     - {{ port | to_nice_yaml | indent(6) }}
