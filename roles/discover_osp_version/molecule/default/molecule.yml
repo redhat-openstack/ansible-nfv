@@ -1,0 +1,29 @@
+---
+driver:
+  name: docker
+lint:
+  name: yamllint
+  options:
+    config-file: ../../.yamllint
+platforms:
+  - name: instance
+    groups:
+      - undercloud
+      - overcloud_nodes
+    image: "geerlingguy/docker-${MOLECULE_DISTRO:-centos7}-ansible:latest"
+    pre_build_image: true
+    command: ${MOLECULE_DOCKER_COMMAND:-""}
+provisioner:
+  name: ansible
+  lint:
+    name: ansible-lint
+    options:
+      x: ["204,301,306,403,405,503"]
+      force-color: true
+verifier:
+  name: ansible
+  lint:
+    name: ansible-lint
+    options:
+      x: ["204,301,306,403,405,503"]
+      force-color: true

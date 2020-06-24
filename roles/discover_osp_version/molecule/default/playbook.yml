@@ -1,0 +1,13 @@
+---
+- name: Converge
+  hosts: all
+  gather_facts: false
+  roles:
+    - role: discover_osp_version
+
+  tasks:
+    - name: Store versions vars within file
+      copy:
+        content: "{{ item.0 }}"
+        dest: "{{ item.1 }}"
+      loop: "{{ [undercloud_version, overcloud_version] | zip(['/tmp/undercloud_ver', '/tmp/overcloud_ver']) | list }}"
