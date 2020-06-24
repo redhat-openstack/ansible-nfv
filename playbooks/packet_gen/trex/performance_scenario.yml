@@ -108,6 +108,13 @@
     - role: roles/packet_gen/trex/trex_instance_config
       when: trex_instance_config | default(True)
 
+- hosts: "{{ dut_group }}"
+  become: true
+  roles:
+    - role: tuning/cpu_pinning_huge_pages
+      vars:
+        cpu_pinning_cores: "{{ testpmd_lcores }}"
+
 # TODO (vkhitrin): Make it skippable
 - hosts: "{{ dut_group }}"
   roles:
@@ -118,6 +125,13 @@
 
     - role: roles/packet_gen/trex/launch_testpmd
       when: launch_testpmd | default(True)
+
+- hosts: trex
+  become: true
+  roles:
+    - role: tuning/cpu_pinning_huge_pages
+      vars:
+        cpu_pinning_cores: "{{ trex_lcores }}"
 
 - hosts: trex
   roles:
