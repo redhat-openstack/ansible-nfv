@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ba016c2_b4feb33e",
+        "filename": "roles/post_install/openstack_tasks/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-06-24T10:41:28Z",
+      "side": 1,
+      "message": "I don\u0027t think that importing the \"prepare_dynamic_instances\" into the \"openstack_roles\" is a good idea.\n\n1) Today, our \"openstack_tasks\" role does not tied to the place it could be executed from.\nAlthough we are executing it from the undercloud all the time, we are able to run it from our laptops if the external_api is reachable.\n\n\"Prepare_dynamic_instances\" role must be used alongside with the \"dynamic_instances_count\" in order to fetch the output data from it.\nAnd it is directly creates a lock for the role for the undercloud.\n\n2) Playbooks in our repository serve as a pointers to the roles, so the roles reuse is always done. No actual \"code\" is duplicated.\n\n3) The \"prepare_dynamic_instance\" role tied directly to the \"dynamic_instances_count\" role, so in my opinion, I would combine both into a single role.\nAt the end, the \"prepare_dynamic_instances\" role prepares an input for the \"openstack_tasks\" role like we are providing it manually, but it is not a mandatory to import this role within the \"openstack_tasks\" role.\n\n4) The maintenance of the multiple playbook is not an issue from my point of view as every playbook serves its scenario but the roles that are use are the same.",
+      "range": {
+        "startLine": 10,
+        "startChar": 2,
+        "endLine": 10,
+        "endChar": 13
+      },
+      "revId": "d4be63063b54847501f3ca463f3c6afa1b9e2d36",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
