@@ -1,0 +1,10 @@
+# Enable PMD load balance in DuT
+# Possible values are:
+#   ovs
+#     - load balance by ovs autolb.
+#   user
+#     - load balance by user application.
+#   none
+#     - no load balance performed.
+#
+pmd_lb: None

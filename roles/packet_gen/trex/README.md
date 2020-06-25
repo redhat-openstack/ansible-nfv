@@ -435,6 +435,19 @@ multiqueue_set must be set to true to query OVSDB
 multiqueue_set: True
 ```
 
+#### Balanced PMD threads
+Enables load balance on PMD threads before or during binary search test.
+
+For OVS controlled load balance:
+```
+pmd_lb: ovs
+```
+
+For user controlled load balance:
+```
+pmd_lb: user
+```
+
 ## Example
 Examples of running this playbook:
 
