@@ -10,12 +10,17 @@
 - name: Set HCI stress command using block size 4K
   set_fact:
     hci_cmd: >
-      sudo /usr/local/bin/fio --name= {{ hci_stress_cmd.user }} --filename=
-      {{ hci_stress_cmd.file_name }} --ramp_time={{ hci_stress_cmd.ramp_time }} --startdelay=
-      {{hci_stress_cmd.startdelay }} -rw={{ hci_stress_cmd.rw }} --bs={{ hci_stress_cmd.bs }} --direct=
-      {{ hci_stress_cmd.direct }} --size={{ hci_stress_cmd.size }} --runtime=
-      {{ hci_stress_cmd.runtime }} --time_based={{ hci_stress_cmd.time_based }} --output=
-      {{ hci_stress_cmd.output_file }}  &>{{ hci_stress_cmd.log_file }}
+      sudo /usr/local/bin/fio --name={{ hci_stress_cmd.user }}
+      --filename={{ hci_stress_cmd.file_name }}
+      --ramp_time={{ hci_stress_cmd.ramp_time }}
+      --startdelay={{hci_stress_cmd.startdelay }}
+      --rw={{ hci_stress_cmd.rw }}
+      --bs={{ hci_stress_cmd.bs }}
+      --direct={{ hci_stress_cmd.direct }}
+      --size={{ hci_stress_cmd.size }}
+      --runtime={{ hci_stress_cmd.runtime }}
+      --time_based={{ hci_stress_cmd.time_based }}
+      --output={{ hci_stress_cmd.output_file }} &>{{ hci_stress_cmd.log_file }}
   when: hci_cmd is not defined
 
 - name: Log HCI Command
