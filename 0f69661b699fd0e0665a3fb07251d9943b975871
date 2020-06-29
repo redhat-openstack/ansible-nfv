@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "75ce2adf_267c6028",
+        "filename": "playbooks/userspace/iperf/stream_n1.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-06-29T07:22:11Z",
+      "side": 1,
+      "message": "I mean that you are generating the resources by importing the role in list 12-13.\nAt the end of the resource creation, an inventory is generated.\nYou could use that generated inventory and not running additional steps to make actually the same.",
+      "parentUuid": "2bffc6d4_80188e65",
+      "range": {
+        "startLine": 18,
+        "startChar": 8,
+        "endLine": 32,
+        "endChar": 43
+      },
+      "revId": "0f69661b699fd0e0665a3fb07251d9943b975871",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "48557aae_aafe2810",
         "filename": "roles/images/userspace/tasks/main.yml",
         "patchSetId": 1
