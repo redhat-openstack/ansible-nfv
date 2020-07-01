@@ -1,0 +1,16 @@
+---
+- name: Collect ovs configs
+  shell: >
+    ovs-vsctl list Open_vSwitch >{{ cfgd }}/ovs_config
+
+- name: Collect ovs status
+  shell: >
+    ovs-vsctl show >{{ cfgd }}/ovs_status
+
+- name: Collect ovs version
+  shell: >
+    ovs-vswitchd -V >{{ logd }}/ovs_version
+
+- name: Collect ovs multiqueue details
+  shell: >
+    ovs-appctl dpif-netdev/pmd-rxq-show >{{ logd }}/ovs-appctl_pmd-rxq-show
