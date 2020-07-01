@@ -1,0 +1,4 @@
+---
+
+cfgd: '/tmp/mq_tests_log/pmd2_no_multiqueue_ovs_lb/config'
+logd: '/tmp/mq_tests_log/pmd2_no_multiqueue_ovs_lb/log'

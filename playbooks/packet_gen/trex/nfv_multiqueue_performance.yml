@@ -1,0 +1,114 @@
+---
+- name: Common preparation
+  hosts: "{{ dut_compute }}"
+  become: true
+  tasks:
+    - name: Set directories path
+      set_fact:
+        logd: "/tmp/mq_tests_log/{{ test_name }}/log"
+        yamld: "/tmp/mq_tests_log/{{ test_name }}/ansible"
+        cfgd: "/tmp/mq_tests_log/{{ test_name }}/config"
+
+    - name: Create required irectories on compute node
+      file:
+        path: "{{ item }}"
+        state: directory
+        recurse: True
+      loop:
+        - "{{ logd }}"
+        - "{{ yamld }}"
+        - "{{ cfgd }}"
+
+    - name: Clean up multiqueue configs
+      include_role:
+        name: roles/post_install/multiqueue_cleanup
+
+- name: Update trex and dut flavors and instances
+  hosts: undercloud
+  tasks:
+    - name: Update trex flavor cpus
+      set_fact:
+        updated_flavors: "{{ [flavor | combine({'extra_specs': trex_extra_specs}, recursive=true) | combine(trex_vcpus, recursive=true)] }}"
+      vars:
+        trex_extra_specs: "{{ flavor.extra_specs | combine({ 'hw:numa_cpus.0': trex.get('hw_numa_cpus','') }) }}"
+        trex_vcpus: "{'vcpus': {{ trex.get('vcpus', 6) }} }"
+      when:
+        - flavor.name == 'trex'
+      loop: "{{ multiqueue_flavors }}"
+      loop_control:
+        loop_var: flavor
+
+    - name: Update testpmd flavors cpus
+      set_fact:
+        updated_flavors: "{{ updated_flavors | default([]) }} + {{ [flavor | combine({'extra_specs': testpmd_extra_specs}, recursive=true) | combine(testpmd_vcpus, recursive=true)] }}"
+      vars:
+        testpmd_extra_specs: "{{ flavor.extra_specs | combine({ 'hw:numa_cpus.0': testpmd.get('hw_numa_cpus','') }) }}"
+        testpmd_vcpus: "{'vcpus': {{ testpmd.get('vcpus', 4) }} }"
+      when:
+        - flavor.name != 'trex'
+      loop: "{{ multiqueue_flavors }}"
+      loop_control:
+        loop_var: flavor
+
+    - name: Gets trex instance
+      set_fact:
+        updated_instances: "{{ [instance] }}"
+      when:
+        - instance.name == 'trex'
+      loop: "{{ multiqueue_instances }}"
+      loop_control:
+        loop_var: instance
+
+    - name: Update testpmd instances with required image
+      set_fact:
+        updated_instances: "{{ updated_instances | default([]) }} + {{ [instance | combine({'image': testpmd_image}, recursive=true)] }}"
+      when:
+        - instance.name != 'trex'
+      loop: "{{ multiqueue_instances }}"
+      loop_control:
+        loop_var: instance
+
+    - name: Create test result log directory on undercloud
+      file:
+        path: "/tmp/mq_perf_results/{{ test_name }}"
+        state: directory
+        recurse: True
+
+- name: Collect and update configs
+  hosts: "{{ dut_compute }}"
+  become: true
+  roles:
+    - name: Collect ovs configs
+      role: roles/post_install/collect_ovs_configs
+      when:
+        - pmd_lb is defined
+        - pmd_lb in ['ovs']
+
+    - name: Update multiqueue configs
+      role: roles/post_install/multiqueue_configs
+
+- name: Run multiqueue performance
+  import_playbook: performance_scenario.yml
+  vars:
+    resource_state: present
+    instances: "{{ updated_instances }}"
+    flavors: "{{ updated_flavors }}"
+    pmd_lb: "{{ pmd_lb }}"
+    multiqueue_set: "{{ multiqueue_set }}"
+    testpmd_lcores: "{{ testpmd.get('lcores', '') }}"
+    testpmd_forward_cores: "{{ testpmd.get('forward_cores', 2) }}"
+    trex_lcores: "{{ trex.get('lcores', '') }}"
+    trex_rate: "{{ trex.get('rate', 2) }}"
+    trex_process_threads: "{{ trex.get('process_threads', 2) }}"
+    trex_platform:  "{{ trex.get('platform', {}) }}"
+    binary_perf_log: "/tmp/mq_perf_results/{{ test_name }}/dpdk_performance.log"
+
+- name: Openstack resources clean up
+  hosts: "{{ osp_tasks_host | default('undercloud') }}"
+  gather_facts: False
+  roles:
+    - post_install/openstack_tasks
+  vars:
+    resource_state: absent
+    instances: "{{ updated_instances }}"
+    flavors: "{{ updated_flavors }}"
