@@ -1,0 +1,8 @@
+---
+- import_playbook: nfv_mq_performance.yml
+  vars:
+    mq_test: "{{ mq_tests[0] }}"
+
+- import_playbook: nfv_mq_performance.yml
+  vars:
+    mq_test: "{{ mq_tests[1] }}"
