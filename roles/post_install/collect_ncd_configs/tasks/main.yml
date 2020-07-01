@@ -1,0 +1,15 @@
+---
+- name: Start netcontrold
+  command: >
+    {{ container_type }} exec {{ ncd_container }} ncd_ctl start
+  ignore_errors: True
+
+- name: Collect netcontrold configs
+  shell: >
+    {{ container_type }} exec {{ ncd_container }} ncd_ctl config show >{{ cfgd }}/ncd_config
+  ignore_errors: True
+
+- name: Collect netcontrold version
+  shell: >
+    {{ container_type }} exec {{ ncd_container }} ncd_ctl version >{{ cfgd }}/ncd_version
+  ignore_errors: True
