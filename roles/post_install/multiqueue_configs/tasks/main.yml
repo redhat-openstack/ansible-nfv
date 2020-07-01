@@ -1,0 +1,30 @@
+---
+- name: PMD configs
+  openvswitch_db:
+    table: open_vswitch
+    record: .
+    col: other_config
+    key: pmd-cpu-mask
+    value: "{{ pmd_mask }}"
+
+- name: Disable multiqueue for DPDK ports if multiqueue is not required
+  command: >
+    ovs-vsctl remove Interface {{ dpdk_nic }} options n_rxq
+  loop: "{{ dpdk_nics }}"
+  loop_control:
+    loop_var: dpdk_nic
+  when:
+    - not multiqueue_set
+
+- name: Enable multiqueue for DPDK ports if multiqueue is required
+  openvswitch_db:
+    table: Interface
+    record: "{{ dpdk_nic }}"
+    col: options
+    key: n_rxq
+    value: "{{ queue_count }}"
+  loop: "{{ dpdk_nics }}"
+  loop_control:
+    loop_var: dpdk_nic
+  when:
+    - multiqueue_set
