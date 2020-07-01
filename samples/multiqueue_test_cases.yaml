@@ -1,0 +1,148 @@
+ncd_container: "openvswitch_dpdk_netcontrold"
+dpdk_nics:
+  - dpdk-link1-port
+  - dpdk-link2-port
+
+pmd_cpu_mask_2pmd: "0x2002"
+pmd_cpu_mask_4pmd: "0x6006"
+pmd_cpu_mask_8pmd: "0xC06C06"
+
+no_multiqueue_trex_platform:
+  master_thread_id: 0
+  latency_thread_id: 1
+  dual_if:
+    - socket: 0
+      threads: [2, 3]
+
+multiqueue2_trex_platform:
+  master_thread_id: 0
+  latency_thread_id: 1
+  dual_if:
+    - socket: 0
+      threads: [2, 3, 4, 5]
+
+multiqueue4_trex_platform:
+  master_thread_id: 0
+  latency_thread_id: 1
+  dual_if:
+    - socket: 0
+      threads: [2, 3, 4, 5, 6, 7]
+
+no_multiqueue:
+  trex:
+    hw_numa_cpus: '0,1,2,3'
+    vcpus: 4
+    lcores: '2,3'
+    process_threads: 2
+    rate: 2
+    platform: "{{ no_multiqueue_trex_platform }}"
+  testpmd:
+    hw_numa_cpus: '0,1,2,3'
+    vcpus: 4
+    lcores: '1,2,3'
+    forward_cores: 2
+
+multiqueue2:
+  trex:
+    hw_numa_cpus: '0,1,2,3,4,5'
+    vcpus: 6
+    lcores: '2,3,4,5'
+    process_threads: 4
+    rate: 4
+    platform: "{{ multiqueue2_trex_platform }}"
+  testpmd:
+    hw_numa_cpus: '0,1,2,3,4,5'
+    vcpus: 6
+    lcores: '1,2,3,4,5'
+    forward_cores: 4
+
+multiqueue4:
+  trex:
+    hw_numa_cpus: '0,1,2,3,4,5,6,7'
+    vcpus: 8
+    lcores: '2,3,4,5,6,7'
+    process_threads: 6
+    rate: 8
+    platform: "{{ multiqueue4_trex_platform }}"
+  testpmd:
+    hw_numa_cpus: '0,1,2,3,4,5,6,7,8,9'
+    vcpus: 10
+    lcores: '1,2,3,4,5,6,7,8,9'
+    forward_cores: 8
+
+# muttiqueue test cases
+multiqueue_test1:
+  name: pmd2_no_multiqueue_ncd_lb
+  pmd_mask: "{{ pmd_cpu_mask_2pmd }}"
+  pmd_lb: user
+  testpmd_image: centos7cloud
+  multiqueue_set: False
+  trex: "{{ no_multiqueue.trex }}"
+  testpmd: "{{ no_multiqueue.testpmd }}"
+
+multiqueue_test2:
+  name: pmd2_no_multiqueue_ovs_lb
+  pmd_mask: "{{ pmd_cpu_mask_2pmd }}"
+  pmd_lb: ovs
+  testpmd_image: centos7cloud
+  multiqueue_set: False
+  trex: "{{ no_multiqueue.trex }}"
+  testpmd: "{{ no_multiqueue.testpmd }}"
+
+multiqueue_test3:
+  name: pmd4_no_multiqueue_ncd_lb
+  pmd_mask: "{{ pmd_cpu_mask_4pmd }}"
+  pmd_lb: user
+  testpmd_image: centos7cloud
+  multiqueue_set: False
+  trex: "{{ no_multiqueue.trex }}"
+  testpmd: "{{ no_multiqueue.testpmd }}"
+
+multiqueue_test4:
+  name: pmd4_no_multiqueue_ovs_lb
+  pmd_mask: "{{ pmd_cpu_mask_4pmd }}"
+  pmd_lb: ovs
+  testpmd_image: centos7cloud
+  multiqueue_set: False
+  trex: "{{ no_multiqueue.trex }}"
+  testpmd: "{{ no_multiqueue.testpmd }}"
+
+multiqueue_test5:
+  name: pmd4_multiqueue2_ncd_lb
+  pmd_mask: "{{ pmd_cpu_mask_4pmd }}"
+  pmd_lb: user
+  testpmd_image: centos7cloud_mq
+  multiqueue_set: True
+  queue_count: 2
+  trex: "{{ multiqueue2.trex }}"
+  testpmd: "{{ multiqueue2.testpmd }}"
+
+multiqueue_test6:
+  name: pmd4_multiqueue2_ovs_lb
+  pmd_mask: "{{ pmd_cpu_mask_4pmd }}"
+  pmd_lb: ovs
+  testpmd_image: centos7cloud_mq
+  multiqueue_set: True
+  queue_count: 2
+  trex: "{{ multiqueue2.trex }}"
+  testpmd: "{{ multiqueue2.testpmd }}"
+
+multiqueue_test7:
+  name: pmd8_multiqueue4_ncd_lb
+  pmd_mask: "{{ pmd_cpu_mask_8pmd }}"
+  pmd_lb: user
+  testpmd_image: centos7cloud_mq
+  multiqueue_set: True
+  queue_count: 4
+  trex: "{{ multiqueue4.trex }}"
+  testpmd: "{{ multiqueue4.testpmd }}"
+
+multiqueue_test8:  
+  name: pmd4_multiqueue2_ovs
+  pmd_mask: "{{ pmd_cpu_mask_8pmd }}"
+  pmd_lb: ovs
+  testpmd_image: centos7cloud_mq
+  multiqueue_set: True
+  queue_count: 4
+  trex: "{{ multiqueue4.trex }}"
+  testpmd: "{{ multiqueue4.testpmd }}"
