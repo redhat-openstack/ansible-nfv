@@ -1,0 +1,8 @@
+---
+- name: Multiqueue performance tests
+  hosts: undercloud
+  pre_tasks:
+    - name: Create multiqueue master playbook
+      template:
+        src: "templates/nfv_multiqueue_tests.yml.j2"
+        dest: "{{ playbook_dir }}/nfv_multiqueue_perf_scenarios.yml"

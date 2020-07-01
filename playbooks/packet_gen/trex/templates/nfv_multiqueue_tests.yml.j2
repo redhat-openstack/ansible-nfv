@@ -1,0 +1,24 @@
+---
+- name: Remove performance log directory in undercloud
+  hosts: undercloud
+  pre_tasks:
+    - name: Remove multiqueue performance log directory
+      file:
+        path: /tmp/mq_tests_log
+        state: absent
+
+{% for mq_test in multiqueue_tests %}
+- import_playbook: nfv_multiqueue_performance.yml
+  vars:
+    multiqueue_test: {{ mq_test }}
+
+{% endfor %}
+
+- name: Copy computes log directories to undercloud
+  hosts: {{ dut_compute }}
+  pre_tasks:
+    - name: Copy multiqueue configuration log directories
+      fetch:
+        src: /tmp/mq_perf_results
+        dest: /tmp
+        mode: 0774
