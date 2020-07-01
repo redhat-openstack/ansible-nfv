@@ -1,0 +1,6 @@
+---
+
+# DPDK NICs configuration
+dpdk_nics:
+  - dpdk-link1-port
+  - dpdk-link2-port

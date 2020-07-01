@@ -1,0 +1,10 @@
+---
+
+# DPDK NICs configuration
+dpdk_nics:
+  - dpdk-link1-port
+  - dpdk-link2-port
+
+pmd_mask: "0x040040"
+
+queue_count: 2
