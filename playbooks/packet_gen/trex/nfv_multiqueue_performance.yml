@@ -1,0 +1,201 @@
+---
+- name: Common preparation
+  hosts: "{{ dut_compute }}"
+  pre_tasks:
+    - name: Set directories path
+      set_fact:
+        logd: "/tmp/mq_perf_results/{{ multiqueue_test.name }}/log"
+        yamld: "/tmp/mq_perf_results/{{ multiqueue_test.name }}/ansible"
+        cfgd: "/tmp/mq_perf_results/{{ multiqueue_test.name }}/config"
+
+    - name: Check test log directory exists on compute node
+      block:
+        - file:
+            path: "{{ logd }}"
+            state: directory
+            recurse: True
+
+        - file:
+            path: "{{ yamld }}"
+            state: directory
+            recurse: True
+
+        - file:
+            path: "{{ cfgd }}"
+            state: directory
+            recurse: True
+
+- name: Performs clean up
+  hosts: "{{ dut_compute }}"
+  become: true
+  pre_tasks:
+    - name: Clean up existing pmd stats
+      shell: >
+        ovs-appctl dpif-netdev/pmd-stats-clear
+
+    - name: Disable multiqueue
+      shell: >
+        ovs-vsctl remove Interface {{ item }} options n_rxq
+      loop: "{{ dpdk_nics }}"
+
+    - name: Disable OvS PMD load balance
+      shell: >
+        ovs-vsctl set Open_vSwitch . other_config:pmd-auto-lb='false'
+
+    - name: Disable netcontrold pmd load balance
+      shell: >
+        podman exec {{ ncd_container }} ncd_ctl stop
+      ignore_errors: True
+
+    - name: Removes the pmd rxq affinity config
+      shell: >
+        ovs-vsctl list Interface | egrep '(name|other_config)\s.*:' | grep -B1 pmd-rxq-affinity | awk -F: 'BEGIN{ORS=\" \";print \"ovs-vsctl \"};/name/ {print \"-- remove Interface \"\$2\" other_config pmd-rxq-affinity \"}' | sh
+
+    - name: Removes netcontrold logs
+      shell: >
+        rm -rf /var/log/netcontrold*
+      ignore_errors: True
+
+- name: PMD Configs
+  hosts: "{{ dut_compute }}"
+  become: true
+  pre_tasks:
+    - name: PMD configs
+      shell: >
+        ovs-vsctl set Open_vSwitch . other_config:pmd-cpu-mask={{ multiqueue_test.pmd_mask }}
+
+- name: Update trex and dut flavors and instances
+  hosts: undercloud
+  pre_tasks:
+    - name: Update trex flavor cpus
+      set_fact:
+        updated_flavors: "{{ [flavor | combine({'extra_specs': trex_extra_specs}, recursive=true) | combine(trex_vcpus, recursive=true)] }}"
+      vars:
+        trex_extra_specs: "{{ flavor.extra_specs | combine({ 'hw:numa_cpus.0': multiqueue_test.get('trex', {}).get('hw_numa_cpus','') }) }}"
+        trex_vcpus: "{'vcpus': {{ multiqueue_test.get('trex', {}).get('vcpus', 6) }} }"
+      when: "{{ flavor.get('name', '') == 'trex' }}"
+      loop: "{{ multiqueue_flavors }}"
+      loop_control:
+        loop_var: flavor
+
+    - name: Update testpmd flavors cpus
+      set_fact:
+        updated_flavors: "{{ updated_flavors | default([]) }} + {{ [flavor | combine({'extra_specs': testpmd_extra_specs}, recursive=true) | combine(testpmd_vcpus, recursive=true)] }}"
+      vars:
+        testpmd_extra_specs: "{{ flavor.extra_specs | combine({ 'hw:numa_cpus.0': multiqueue_test.get('testpmd', {}).get('hw_numa_cpus','') }) }}"
+        testpmd_vcpus: "{'vcpus': {{ multiqueue_test.get('testpmd', {}).get('vcpus', 4) }} }"
+      when: "{{ flavor.get('name', '') != 'trex' }}"
+      loop: "{{ multiqueue_flavors }}"
+      loop_control:
+        loop_var: flavor
+
+    - name: Gets trex instance
+      set_fact:
+        updated_instances: "{{ [instance] }}"
+      when: "{{ instance.get('name', '') == 'trex' }}"
+      loop: "{{ multiqueue_instances }}"
+      loop_control:
+        loop_var: instance
+
+    - name: Update testpmd instances with required image
+      set_fact:
+        updated_instances: "{{ updated_instances | default([]) }} + {{ [instance | combine({'image': multiqueue_test.testpmd_image}, recursive=true)] }}"
+      when: "{{ instance.get('name', '') != 'trex' }}"
+      loop: "{{ multiqueue_instances }}"
+      loop_control:
+        loop_var: instance
+
+- name: Collect ovs configs
+  hosts: "{{ dut_compute }}"
+  become: true
+  pre_tasks:
+    - block:
+        - name: Collect ovs configs
+          shell: >
+            ovs-vsctl list Open_vSwitch >{{ cfgd }}/ovs_config
+
+        - name: Collect ovs status
+          shell: >
+            ovs-vsctl show >{{ cfgd }}/ovs_status
+
+        - name: Collect ovs version
+          shell: >
+            ovs-vswitchd -V >{{ logd }}/ovs_version
+
+        - name: Collect ovs multiqueue details
+          shell: >
+            ovs-appctl dpif-netdev/pmd-rxq-show >{{ logd }}/ovs-appctl_pmd-rxq-show
+      when:
+        - multiqueue_test.pmd_lb is defined
+        - multiqueue_test.pmd_lb in ['ovs']
+
+- name: Collect netcontrold configs
+  hosts: "{{ dut_compute }}"
+  become: true
+  pre_tasks:
+    - block:
+       - name: Collect netcontrold configs
+         shell: >
+           podman exec {{ ncd_container }} ncd_ctl config show >{{ cfgd }}/ncd_config
+
+       - name: Collect netcontrold version
+         shell: >
+           podman exec {{ ncd_container }} ncd_ctl version >{{ cfgd }}/ncd_version
+      when:
+        - multiqueue_test.pmd_lb is defined
+        - multiqueue_test.pmd_lb in ['user']
+
+- name: Update multiqueue status
+  hosts: "{{ dut_compute }}"
+  become: true
+  pre_tasks:
+    - name: Disable multiqueue for DPDK ports if multiqueue is not required
+      shell: >
+        ovs-vsctl remove Interface {{ dpdk_nic }} options n_rxq
+      loop: "{{ dpdk_nics }}"
+      loop_control:
+        loop_var: dpdk_nic
+      when: "{{ not multiqueue_test.multiqueue_set }}"
+
+    - name: Enable multiqueue for DPDK ports if multiqueue is required
+      shell: >
+        ovs-vsctl set Interface {{ dpdk_nic }} options:n_rxq={{ multiqueue_test.queue_count }}
+      loop: "{{ dpdk_nics }}"
+      loop_control:
+        loop_var: dpdk_nic
+      when: "{{ multiqueue_test.multiqueue_set }}"
+
+- name: Create required directories on Undercloud
+  hosts: undercloud
+  pre_tasks:
+    - name: Check test log directory exists on Undercloud
+      file:
+        path: "/tmp/mq_tests_log/{{ multiqueue_test.name }}"
+        state: directory
+        recurse: True
+
+- name: Run performance
+  import_playbook: performance_scenario.yml
+  vars:
+    resource_state: present
+    instances: "{{ updated_instances }}"
+    flavors: "{{ updated_flavors }}"
+    pmd_lb: "{{ multiqueue_test.pmd_lb }}"
+    multiqueue_set: "{{ multiqueue_test.multiqueue_set }}"
+    testpmd_lcores: "{{ multiqueue_test.get('testpmd', {}).get('lcores', '') }}"
+    testpmd_forward_cores: "{{ multiqueue_test.get('testpmd', {}).get('forward_cores', 2) }}"
+    trex_lcores: "{{ multiqueue_test.get('trex', {}).get('lcores', '') }}"
+    trex_rate: "{{ multiqueue_test.get('trex', {}).get('rate', 2) }}"
+    trex_process_threads: "{{ multiqueue_test.get('trex', {}).get('process_threads', 2) }}"
+    trex_platform: "{{ multiqueue_trex_platform | combine({'dual_if': multiqueue_trex_platform.dual_if | combine({ 'threads': multiqueue_test.get('trex', {}).get('platform_threads', [2, 3]) })}, recursive=true) }}"
+    binary_perf_log: "/tmp/mq_tests_log/{{ multiqueue_test.name }}/dpdk_performance.log"
+
+- name: Openstack tasks
+  hosts: "{{ osp_tasks_host | default('undercloud') }}"
+  gather_facts: False
+  roles:
+    - post_install/openstack_tasks
+  vars:
+    resource_state: absent
+    instances: "{{ updated_instances }}"
+    flavors: "{{ updated_flavors }}"
