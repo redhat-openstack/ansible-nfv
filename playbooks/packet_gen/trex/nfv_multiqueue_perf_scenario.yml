@@ -1,0 +1,5 @@
+---
+- hosts: undercloud
+  pre_tasks:
+    - include_role:
+        name: roles/packet_gen/trex/nfv_mq_perf_scenarios

@@ -1,0 +1,4 @@
+ncd_container: "openvswitch_dpdk_netcontrold"
+dpdk_nics:
+   - dpdk-link1-port
+   - dpdk-link2-port

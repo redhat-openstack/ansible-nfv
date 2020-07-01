@@ -1,0 +1,24 @@
+
+pmd_cpu_mask_2pmd: "0x2002"
+pmd_cpu_mask_4pmd: "0x6006"
+pmd_cpu_mask_8pmd: "0xC06C06"
+
+# muttiqueue test cases
+mq_tests:
+   - name: test1
+     multiqueue_enable: True
+     pmd_mask: "{{ pmd_cpu_mask_2pmd }}"
+     pmd_lb: ovs
+     multiqueue_set: False
+     trex:
+       hw_numa_cpus: '0,1,2,3,4,5'
+       vcpus: 6
+       lcores: '2,3'
+       process_threads: 2
+       rate: 2
+       platform_threads: [1, 2]
+     testpmd:
+       hw_numa_cpus: '0,1,2,4'
+       vcpus: 4
+       lcores: '2,3,4,5'
+       forward_cores: 2

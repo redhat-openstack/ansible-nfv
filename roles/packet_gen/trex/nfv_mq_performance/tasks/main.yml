@@ -1,0 +1,244 @@
+---
+- name: Common preparation
+  block:
+    - name: Set directories path
+      set_fact:
+        logd: "mq_perf_results/{{ mq_test.name }}/log"
+        yamld: "mq_perf_results/{{ mq_test.name }}/ansible"
+        cfgd: "mq_perf_results/{{ mq_test.name }}/config"
+
+    - name: Create required directories
+      shell: >
+        mkdir -p {{ logd }} {{ yamld }} {{ cfgd }}
+        ovs-appctl dpif-netdev/pmd-stats-clear
+  delegate_to: "{{ dut_compute }}"
+
+- name: Performs resources clean up
+  block:
+    - name: Update reseource state as absent
+      set_fact:
+        resource_state: absent
+
+    #-  name: Openstack tasks
+    #   include_role:
+    #     name: post_install/openstack_tasks
+
+- name: Performs clean up
+  become: true
+  block:
+    - name: Disable multique
+      shell: >
+        ovs-vsctl remove Interface {{ item }} options n_rxq
+      loop: "{{ dpdk_nics }}"
+
+    - name: Disable OvS PMD load balance
+      shell: >
+        ovs-vsctl set Open_vSwitch . other_config:pmd-auto-lb='false'
+
+    - name: Disable netcontrold pmd load balance
+      shell: >
+        podman exec {{ ncd_container }} ncd_ctl stop
+      ignore_errors: True
+
+    - name: Removes the pmd rxq affinity config
+      shell: >
+        ovs-vsctl list Interface | egrep '(name|other_config)\s.*:' | grep -B1 pmd-rxq-affinity | awk -F: 'BEGIN{ORS=\" \";print \"ovs-vsctl \"};/name/ {print \"-- remove Interface \"\$2\" other_config pmd-rxq-affinity \"}' | sh
+
+    - name: Removes netcontrold logs
+      shell: >
+        rm -rf /var/log/netcontrold*
+  delegate_to: "{{ dut_compute }}"
+
+- name: PMD Configs
+  become: true
+  block:
+    - name: PMD configs
+      shell: >
+        ovs-vsctl set Open_vSwitch . other_config:pmd-cpu-mask={{ mq_test.pmd_mask }}
+
+    - name: PMD load balance config
+      set_fact:
+        pmd_lb: "{{ mq_test.pmd_lb }}"
+  delegate_to: "{{ dut_compute }}"
+
+- name: Update trex and dut flavors configs
+  block:
+    - name: Update trex flavor cpus
+      set_fact:
+        updated_flavors: "{{ updated_flavors | default([]) }} + {{ [flavor | combine({'extra_specs': trex_extra_specs}, recursive=true) | combine(trex_vcpus, recursive=true)] }}"
+      vars:
+        trex_extra_specs: "{{ flavor.extra_specs | combine({ 'hw:numa_cpus.0': mq_test.get('trex', {}).get('hw_numa_cpus','') }) }}"
+        trex_vcpus: "{'vcpus': {{ mq_test.get('trex', {}).get('vcpus','') }} }"
+      when: "{{ flavor.get('name', '') == 'trex' }}"
+      loop: "{{ flavors }}"
+      loop_control:
+        loop_var: flavor
+
+    - name: Update testpmd flavors cpus
+      set_fact:
+        updated_flavors: "{{ updated_flavors | default([]) }} + {{ [flavor | combine({'extra_specs': testpmd_extra_specs}, recursive=true) | combine(testpmd_vcpus, recursive=true)] }}"
+      vars:
+        testpmd_extra_specs: "{{ flavor.extra_specs | combine({ 'hw:numa_cpus.0': mq_test.get('testpmd', {}).get('hw_numa_cpus','') }) }}"
+        testpmd_vcpus: "{'vcpus': {{ mq_test.get('testpmd', {}).get('vcpus','') }} }"
+      when: "{{ flavor.get('name', '') != 'trex' }}"
+      loop: "{{ flavors }}"
+      loop_control:
+        loop_var: flavor
+
+    - name: Update trex lcores
+      set_fact:
+        updated_trex_lcores:  "{{ mq_test.get('trex', {}).get('lcores', '') }}"
+
+    - name: Update trex process threads
+      set_fact:
+        trex_process_threads:  "{{ mq_test.get('trex', {}).get('process_threads', 2) }}" 
+
+    - name: Update trex rate
+      set_fact:
+        updated_trex_rate:  "{{ mq_test.get('trex', {}).get('rate', 2) }}"
+
+    - name: Update testpmd flavors cpus
+      set_fact:
+        updated_trex_platform: "{{ trex_platform | combine({'dual_if': trex_dual_if}, recursive=true) }}"
+      vars:
+        trex_dual_if: "{{ trex_platform.dual_if | combine({ 'threads': mq_test.get('trex', {}).get('platform_threads', [1, 2]) }) }}"
+
+    - name: Update testpmd lcores
+      set_fact:
+        updated_testpmd_lcores:  "{{ mq_test.get('testpmd', {}).get('lcores', '') }}" 
+
+    - name: Update testpmd forward cores
+      set_fact:
+        updated_testpmd_forward_cores:  "{{ mq_test.get('testpmd', {}).get('forward_cores', 2) }}" 
+
+- name: print
+  debug:
+    msg: "{{ updated_flavors + [updated_trex_lcores] + [updated_trex_process_threads] + [updated_trex_rate] + [updated_trex_platform] + [updated_testpmd_lcores] + [updated_testpmd_forward_cores] }}"
+
+- name: Collect ovs configs
+  become: true
+  block:
+    - name: Collect ovs configs
+      shell: >
+        ovs-vsctl list Open_vSwitch >{{ cfgd }}/ovs_config
+
+    - name: Collect ovs status
+      shell: >
+        ovs-vsctl show >{{ cfgd }}/ovs_status
+
+    - name: Collect ovs version
+      shell: >
+        ovs-vswitchd -V >{{ logd }}/ovs_version
+
+    - name: Collect ovs multiqueue details
+      shell: >
+        ovs-appctl dpif-netdev/pmd-rxq-show >{{ logd }}/ovs-appctl_pmd-rxq-show
+  when:
+    - mq_test.pmd_lb is defined
+    - mq_test.pmd_lb in ['ovs']
+  delegate_to: "{{ dut_compute }}"
+
+- name: Collect netcontrold configs
+  become: true
+  block:
+    - name: Collect netcontrold configs
+      shell: >
+        podman exec {{ ncd_container }} ncd_ctl config show >{{ cfgd }}/ncd_config
+
+    - name: Collect netcontrold version
+      shell: >
+        podman exec {{ ncd_container }} ncd_ctl version >{{ cfgd }}/ncd_version
+  when:
+    - mq_test.pmd_lb is defined
+    - mq_test.pmd_lb in ['user']
+  delegate_to: "{{ dut_compute }}"
+
+- name: Update multiqueue status
+  become: true
+  block:
+    - name: Gets multiqueue status
+      set_fact:
+        updated_multiqueue_set: "{{ mq_test.multiqueue_set }}"
+
+    - name: Gets number of queues
+      set_fact:
+        updated_queue_count: "{{ mq_test.queue_count }}"
+      when: "{{ updated_multiqueue_set }}"
+
+    - name: Disable multiqueue for DPDK ports if multiqueue is not required
+      shell: >
+        ovs-vsctl remove Interface {{ dpdk_nic }} options n_rxq
+      loop: "{{ dpdk_nics }}"
+      loop_control:
+        loop_var: dpdk_nic
+      when: "{{ not updated_multiqueue_set }}"
+
+    - name: Enable multiqueue for DPDK ports if multiqueue is required
+      shell: >
+        ovs-vsctl set Interface {{ dpdk_nic }} options:n_rxq={{ updated_queue_count }}
+      loop: "{{ dpdk_nics }}"
+      loop_control:
+        loop_var: dpdk_nic
+      when: "{{ updated_multiqueue_set }}"
+
+  delegate_to: "{{ dut_compute }}"
+
+
+- name: Performs resources setup
+  block:
+    - name: Update reseource state as present
+      set_fact:
+        resource_state: present
+
+    #-  name: Openstack tasks
+    #   include_role:
+    #     name: post_install/openstack_tasks
+
+- name: Use Pre-exisisting Resources
+  block:
+    - name: Prepare Virtual Environment
+      include_role:
+        name: roles/post_install/openstack_tasks
+        tasks_from: setup_openstack_env
+
+    - name: Add Pre-existing Instances To Dynamic Inventory
+      include_role:
+        name: roles/post_install/dynamic_host_inventory
+      loop: "{{ dynamic_instances }}"
+
+- include_role:
+    name: roles/packet_gen/trex/compute_tuning
+  become: true
+  delegate_to: "{{ dut_compute }}"
+
+- include_role:
+    name: roles/packet_gen/trex/trex_instance_config
+  when: trex_instance_config | default(True)
+  delegate_to: trex
+
+- include_role:
+    name: roles/packet_gen/trex/bind_dpdk_nics
+  vars:
+    discover_dut_macs: True
+  when: bind_dpdk_nics | default(True)
+  delegate_to: "{{ dut_group }"
+
+- include_role:
+    name: roles/packet_gen/trex/launch_testpmd
+  when: launch_testpmd | default(True)
+  delegate_to: "{{ dut_group }"
+
+- include_role:
+    name: roles/packet_gen/trex/bind_dpdk_nics
+  when: bind_dpdk_nics | default(True)
+  delegate_to: "{{ dut_group }}"
+
+- include_role:
+    name: roles/packet_gen/trex/launch_trex
+  when: launch_trex | default(True)
+  delegate_to: trex
+  
+- include_role:
+    name: roles/packet_gen/trex/binary_search
+  when: binary_search | default(True)
+  delegate_to: trex

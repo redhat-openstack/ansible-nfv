@@ -1,0 +1,6 @@
+---
+- include_role:
+    name: roles/packet_gen/trex/nfv_mq_performance
+  loop: "{{ mq_tests }}"
+  loop_control:
+    loop_var: mq_test

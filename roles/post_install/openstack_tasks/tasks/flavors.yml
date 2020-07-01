@@ -5,6 +5,7 @@
 - name: "Flavors {{ resource_state }}"
   vars:
     ansible_python_interpreter: "{{ venv_path }}/bin/python"
+    all_flavors: "{% if updated_flavors is defined %}{{ updated_flavors }}{% else %}{{ flavors }}{% endif %}"
   os_nova_flavor:
     cloud: "{{ item.cloud_name | default(cloud_name) }}"
     name: "{{ item.name }}"
@@ -13,5 +14,5 @@
     vcpus: "{{ item.vcpus }}"
     extra_specs: "{{ item.extra_specs | default({}) }}"
     state: "{{ resource_state }}"
-  loop: "{{ flavors }}"
+  loop: "{{ all_flavors }}"
   register: reg_flavors
