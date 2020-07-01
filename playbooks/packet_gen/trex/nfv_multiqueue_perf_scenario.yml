@@ -1,0 +1,187 @@
+---
+- name: Common preparation
+  hosts: "{{ dut_compute }}"
+  gather_facts: False
+  pre_tasks:
+    - name: Set directories path
+      set_fact:
+        logd: "{{ td }}/{{ tname }}/log"
+        yamld="{{ td }}/{{ tname }}/ansible"
+        cfgd: "{{ td }}/{{ tname}}/config"
+
+    - name: Create required directories
+      shell: >
+        mkdir -p {{ logd }} {{ yamld }} {{ cfgd }}
+        #cp user-config.yaml {{ yamld }}/
+        ovs-appctl dpif-netdev/pmd-stats-clear
+
+- name: Performs resources clean up
+  hosts: "{{ osp_tasks_host | default('undercloud') }}"
+  gather_facts: False
+  pre_tasks:
+    - name: Update reseource state as absent
+      set_fact:
+        resource_state: absent
+
+    -  name: Openstack tasks
+       roles:
+        - post_install/openstack_tasks
+
+- name: Performs clean up
+  hosts: "{{ dut_compute }}"
+  gather_facts: False
+  pre_tasks:
+    - name: Disable multique
+      shell: >
+        ovs-vsctl remove Interface {{ item }} options n_rxq
+      loop: "{{ dpdk_nics }}"
+
+    - name: Disable OvS PMD load balance
+      shell: >
+        ovs-vsctl set Open_vSwitch . other_config:pmd-auto-lb='false'
+
+    - name: Disable netcontrold pmd load balance
+      shell: >
+       podman exec {{ ncd_container }} ncd_ctl stop
+
+    - name: Removes the pmd rxq affinity config
+      shell: >
+        ovs-vsctl list Interface | egrep '(name|other_config)\s.*:' | grep -B1 pmd-rxq-affinity | awk -F: 'BEGIN{ORS=\" \";print \"ovs-vsctl \"};/name/ {print \"-- remove Interface \"\$2\" other_config pmd-rxq-affinity \"}' | sh
+
+    - name: Removes netcontrold logs
+      shell: >
+        rm -rf /var/log/netcontrold*
+
+
+- name: Multiqueue configs
+  hosts: "{{ osp_tasks_host | default('undercloud') }}"
+  gather_facts: False
+  pre_tasks:
+    - name: Multiqueue status
+      set_fact:
+        multiqueue_set: {{ mq_test.multiqueue_enable }}
+
+- name: PMD Configs
+  hosts: "{{ dut_compute }}"
+  gather_facts: False
+  pre_tasks:
+    - name: PMD configs
+      shell: >
+        ovs-vsctl set Open_vSwitch . other_config:pmd-cpu-mask={{ mq_test.pmd_cpu_mask }}
+
+     - name: PMD load balance config
+       set_fact:
+         pmd_lb: "{{ mq_test.pld_lb }}"
+
+- name: Update trex and dut flavors configs
+  hosts: "{{ osp_tasks_host | default('undercloud') }}"
+  gather_facts: False
+  pre_tasks:
+    - name: Update flavors
+      set_fact:
+        #flavors: |-
+        #   {{ flavors | default([]) }} +  {item.cpus: {{''}} }
+
+- name: Collect configs
+  hosts: "{{ dut_compute }}"
+  gather_facts: False
+  pre_tasks:
+    - name: Collect ovs configs
+      shell: >
+        ovs-vsctl list Open_vSwitch >{{ cfgd }}/ovs_config
+        ovs-vsctl show >{{ cfgd }}/ovs_status
+        ovs-vswitchd -V >{{ logd }}/ovs_version
+        ovs-appctl dpif-netdev/pmd-rxq-show >{{ logd }}/ovs-appctl_pmd-rxq-show
+      when:
+        - pmd_lb is defined
+        - pmd_lb in ['ovs']
+
+    - name: Collect netcontrold configs
+      shell: >
+        podman exec {{ ncd_container }} ncd_ctl config show >{{ cfgd }}/ncd_config
+        podman exec {{ ncd_container }} ncd_ctl version >{{ cfgd }}/ncd_version
+      when:
+        - pmd_lb is defined
+        - pmd_lb in ['user']
+
+
+- name: Performs resources setup
+  hosts: "{{ osp_tasks_host | default('undercloud') }}"
+  gather_facts: False
+  pre_tasks:
+    - name: Update reseource state as present
+      set_fact:
+        resource_state: present
+
+    -  name: Openstack tasks
+       roles:
+        - post_install/openstack_tasks
+
+
+- name: Do Perf
+  hosts: undercloud
+  gather_facts: False
+  pre_tasks:
+    - name: Use Pre-exisisting Resources
+      block:
+        - name: Prepare Virtual Environment
+          include_role:
+            name: roles/post_install/openstack_tasks
+            tasks_from: setup_openstack_env
+
+        - name: Add Pre-existing Instances To Dynamic Inventory
+          include_role:
+            name: roles/post_install/dynamic_host_inventory
+          loop: "{{ dynamic_instances }}"
+
+- hosts: "{{ dut_compute }}"
+  become: true
+  roles:
+    - role: roles/packet_gen/trex/compute_tuning
+
+- hosts: trex
+  roles:
+    - role: roles/packet_gen/trex/trex_instance_config
+      when: trex_instance_config | default(True)
+
+# TODO (vkhitrin): Make it skippable
+- hosts: "{{ dut_group }}"
+  roles:
+    - role: roles/packet_gen/trex/bind_dpdk_nics
+      vars:
+        discover_dut_macs: True
+      when: bind_dpdk_nics | default(True)
+
+    - role: roles/packet_gen/trex/launch_testpmd
+      when: launch_testpmd | default(True)
+
+- hosts: trex
+  roles:
+    - role: roles/packet_gen/trex/bind_dpdk_nics
+      when: bind_dpdk_nics | default(True)
+
+    - role: roles/packet_gen/trex/launch_trex
+      when: launch_trex | default(True)
+
+    - role: roles/packet_gen/trex/binary_search
+      when: binary_search | default(True)
+
+
+- name: Collect logs
+  hosts: "{{ dut_compute }}"
+  gather_facts: False
+  pre_tasks:
+    - name: Collect ovs logs
+      shell: >
+        #commands
+      when:
+        - pmd_lb is defined
+        - pmd_lb in ['ovs']
+
+    - name: Collect netcontrold logs
+      shell: >
+       #commands
+      when:
+        - pmd_lb is defined
+        - pmd_lb in ['user']
+
