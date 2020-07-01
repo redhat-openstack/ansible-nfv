@@ -1,0 +1,102 @@
+---
+- name: Remove performance log directory in undercloud
+  hosts: undercloud
+  pre_tasks:
+    - name: Remove multiqueue performance log directories
+      file:
+        path: "{{ item }}"
+        state: absent
+      loop: "{{ ['/tmp/mq_perf_results' , '/tmp/mq_tests_log'] }}"
+
+- import_playbook: nfv_multiqueue_performance.yml
+  vars:
+    test_name: pmd2_no_multiqueue_ncd_lb
+    pmd_mask: "{{ pmd_cpu_mask_2pmd }}"
+    pmd_lb: user
+    testpmd_image: {{ image_no_mq }}
+    multiqueue_set: False
+    trex: "{{ no_multiqueue.trex }}"
+    testpmd: "{{ no_multiqueue.testpmd }}"
+
+- import_playbook: nfv_multiqueue_performance.yml
+  vars:
+    test_name: pmd2_no_multiqueue_ovs_lb
+    pmd_mask: "{{ pmd_cpu_mask_2pmd }}"
+    pmd_lb: ovs
+    testpmd_image: {{ image_no_mq }}
+    multiqueue_set: False
+    trex: "{{ no_multiqueue.trex }}"
+    testpmd: "{{ no_multiqueue.testpmd }}"
+
+- import_playbook: nfv_multiqueue_performance.yml
+  vars:
+    test_name: pmd4_no_multiqueue_ncd_lb
+    pmd_mask: "{{ pmd_cpu_mask_4pmd }}"
+    pmd_lb: user
+    testpmd_image: {{ image_no_mq }}
+    multiqueue_set: False
+    trex: "{{ no_multiqueue.trex }}"
+    testpmd: "{{ no_multiqueue.testpmd }}"
+
+- import_playbook: nfv_multiqueue_performance.yml
+  vars:
+    test_name: pmd4_no_multiqueue_ovs_lb
+    pmd_mask: "{{ pmd_cpu_mask_4pmd }}"
+    pmd_lb: ovs
+    testpmd_image: {{ image_no_mq }}
+    multiqueue_set: False
+    trex: "{{ no_multiqueue.trex }}"
+    testpmd: "{{ no_multiqueue.testpmd }}"
+
+- import_playbook: nfv_multiqueue_performance.yml
+  vars:
+    test_name: pmd4_multiqueue2_ncd_lb
+    pmd_mask: "{{ pmd_cpu_mask_4pmd }}"
+    pmd_lb: user
+    testpmd_image: {{ image_mq }}
+    multiqueue_set: True
+    queue_count: 2
+    trex: "{{ multiqueue2.trex }}"
+    testpmd: "{{ multiqueue2.testpmd }}"
+
+- import_playbook: nfv_multiqueue_performance.yml
+  vars:
+    test_name: pmd4_multiqueue2_ovs_lb
+    pmd_mask: "{{ pmd_cpu_mask_4pmd }}"
+    pmd_lb: ovs
+    testpmd_image: {{ image_mq }}
+    multiqueue_set: True
+    queue_count: 2
+    trex: "{{ multiqueue2.trex }}"
+    testpmd: "{{ multiqueue2.testpmd }}"
+
+- import_playbook: nfv_multiqueue_performance.yml
+  vars:
+    test_name: pmd8_multiqueue4_ncd_lb
+    pmd_mask: "{{ pmd_cpu_mask_8pmd }}"
+    pmd_lb: user
+    testpmd_image: {{ image_mq }}
+    multiqueue_set: True
+    queue_count: 4
+    trex: "{{ multiqueue4.trex }}"
+    testpmd: "{{ multiqueue4.testpmd }}"
+
+- import_playbook: nfv_multiqueue_performance.yml
+  vars:
+    test_name: pmd4_multiqueue2_ovs
+    pmd_mask: "{{ pmd_cpu_mask_8pmd }}"
+    pmd_lb: ovs
+    testpmd_image: {{ image_mq }}
+    multiqueue_set: True
+    queue_count: 4
+    trex: "{{ multiqueue4.trex }}"
+    testpmd: "{{ multiqueue4.testpmd }}"
+
+- name: Copy computes log directories to undercloud
+  hosts: "{{ dut_compute }}"
+  pre_tasks:
+    - name: Copy multiqueue configuration log directories
+      synchronize:
+        mode: pull
+        src: /tmp/mq_tests_log
+        dest: /tmp/
