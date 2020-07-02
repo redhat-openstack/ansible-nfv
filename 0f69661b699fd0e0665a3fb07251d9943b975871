@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "94b7b876_ac997bb1",
+        "filename": "playbooks/userspace/iperf/stream_n1.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1017708
+      },
+      "writtenOn": "2020-07-02T06:28:31Z",
+      "side": 1,
+      "message": "Thanks for pointing out. After resource_generate_inventory set, I could get in-memory inventory updated (as instance.yaml would do). However, I notice that, i should not do \"meta: refresh_inventory\" otherwise, I lost my iperf instances from groups (leaving only controller, compute, undercloud etc). But I see your comment said it is required to update inventory, but it is not as in my case.\n\nAny insight there for why so ?.",
+      "parentUuid": "75ce2adf_267c6028",
+      "range": {
+        "startLine": 18,
+        "startChar": 8,
+        "endLine": 32,
+        "endChar": 43
+      },
+      "revId": "0f69661b699fd0e0665a3fb07251d9943b975871",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "48557aae_aafe2810",
         "filename": "roles/images/userspace/tasks/main.yml",
         "patchSetId": 1
@@ -111,6 +135,24 @@
       "revId": "0f69661b699fd0e0665a3fb07251d9943b975871",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "792c3770_7eb17d95",
+        "filename": "roles/images/userspace/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1017708
+      },
+      "writtenOn": "2020-07-02T06:28:31Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "48557aae_aafe2810",
+      "revId": "0f69661b699fd0e0665a3fb07251d9943b975871",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     },
     {
       "key": {
