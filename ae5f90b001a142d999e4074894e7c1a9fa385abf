@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "060e19a3_0f0cdb97",
+        "filename": "roles/packet_gen/iperf/client/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-07-16T09:11:52Z",
+      "side": 1,
+      "message": "I saw you are defining this variable within the playbook, but the role will fail if you will try to use in another playbook.\nI suggest to set this variable as dump, like - iperf_server_ip: 127.0.0.1",
+      "range": {
+        "startLine": 4,
+        "startChar": 36,
+        "endLine": 4,
+        "endChar": 51
+      },
+      "revId": "ae5f90b001a142d999e4074894e7c1a9fa385abf",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "36e60c87_bec71f4b",
+        "filename": "roles/packet_gen/iperf/client/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-07-16T09:11:52Z",
+      "side": 1,
+      "message": "Prefer using command over shell module.",
+      "range": {
+        "startLine": 12,
+        "startChar": 2,
+        "endLine": 12,
+        "endChar": 7
+      },
+      "revId": "ae5f90b001a142d999e4074894e7c1a9fa385abf",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe750842_39ce0004",
+        "filename": "roles/packet_gen/iperf/server/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-07-16T09:11:52Z",
+      "side": 1,
+      "message": "Prefer using command module rather than shell.",
+      "range": {
+        "startLine": 2,
+        "startChar": 2,
+        "endLine": 2,
+        "endChar": 7
+      },
+      "revId": "ae5f90b001a142d999e4074894e7c1a9fa385abf",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3800f914_f26feec6",
+        "filename": "roles/packet_gen/iperf/server/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-07-16T09:11:52Z",
+      "side": 1,
+      "message": "Prefer using command module rather than shell.",
+      "range": {
+        "startLine": 21,
+        "startChar": 2,
+        "endLine": 21,
+        "endChar": 7
+      },
+      "revId": "ae5f90b001a142d999e4074894e7c1a9fa385abf",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
