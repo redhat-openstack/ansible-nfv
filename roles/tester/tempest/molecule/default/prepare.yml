@@ -10,7 +10,7 @@
     env_type: "{{ (env_type_override | length > 0) | ternary(env_type_override, 'virt') }}"
     inventory_generated: "{{ lookup('env', 'TEST_INV_GENERATED') }}"
   roles:
-    - role: tripleo_inventory
+    - role: post_install/tripleo_inventory
       host: "{{ env_host }}"
       ssh_key: "{{ env_ssh_key }}"
       setup_type: "{{ env_type }}"
