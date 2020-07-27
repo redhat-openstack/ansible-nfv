@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "c72c583d_030ad388",
+        "filename": "roles/packet_gen/iperf/client/tasks/main.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-07-27T10:17:06Z",
+      "side": 1,
+      "message": "I saw you added the variable in the iperf server role as it is used over there.\nPlease, add it to the defaults of this role as well.",
+      "range": {
+        "startLine": 4,
+        "startChar": 36,
+        "endLine": 4,
+        "endChar": 51
+      },
+      "revId": "75b0015a218b9fbcd9e64d0a13e0cbd588dfae05",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
