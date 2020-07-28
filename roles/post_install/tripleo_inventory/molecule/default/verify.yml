@@ -1,0 +1,28 @@
+---
+- name: Verify
+  hosts: undercloud:overcloud_nodes
+  gather_facts: true
+  tasks:
+    - name: Verify existence of groups and nodes
+      assert:
+        that:
+          - "'hypervisor' in groups"
+          - "'hypervisor' in groups.hypervisor"
+          - "'undercloud' in groups"
+          - "'undercloud-0' in groups.undercloud"
+          - "'overcloud_nodes' in groups"
+      run_once: true
+
+    - name: Verify connectivity by generating a file on the dest hosts
+      copy:
+        content: "{{ hostvars[inventory_hostname]['ansible_facts']['hostname'] }}"
+        dest: /tmp/test_file
+
+    - name: Fetch generated file
+      slurp:
+        src: /tmp/test_file
+      register: test_files
+
+    - name: Verify proper mapping of the nodes to inventory
+      assert:
+        that: "test_files.content | b64decode == inventory_hostname"
