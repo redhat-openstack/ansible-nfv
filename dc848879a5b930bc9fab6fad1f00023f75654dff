@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b64ef9d0_c8243fa4",
+        "filename": "roles/post_install/tripleo_inventory/molecule/default/verify.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2020-07-28T16:06:04Z",
+      "side": 1,
+      "message": "This is nitpicking, but maybe others will deploy undercloud node with different naming convention?",
+      "range": {
+        "startLine": 12,
+        "startChar": 14,
+        "endLine": 12,
+        "endChar": 26
+      },
+      "revId": "dc848879a5b930bc9fab6fad1f00023f75654dff",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
