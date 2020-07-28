@@ -1,0 +1,44 @@
+---
+- name: Verify
+  hosts: undercloud:overcloud_nodes
+  gather_facts: true
+  tasks:
+    - block:
+        - name: Verify existence of groups and nodes
+          assert:
+            that:
+              - "'hypervisor' in groups"
+              - "'hypervisor' in groups.hypervisor"
+              - "'undercloud' in groups"
+              - "'overcloud_nodes' in groups"
+
+        # The role looks for the undercloud node by using two names:
+        # - undercloud-0
+        # - undercloud
+        # Find which name actually exists in the inventory
+        - name: Locate undercloud nodes in inventory
+          set_fact:
+            undercloud_node: "{{ item }}"
+          loop:
+            - undercloud
+            - undercloud-0
+          when: 'item in groups.undercloud'
+
+        - name: Verify undercloud node in inventory
+          assert:
+            that: undercloud_node is defined
+      run_once: true
+
+    - name: Verify connectivity by generating a file on the dest hosts
+      copy:
+        content: "{{ hostvars[inventory_hostname]['ansible_facts']['hostname'] }}"
+        dest: /tmp/test_file
+
+    - name: Fetch generated file
+      slurp:
+        src: /tmp/test_file
+      register: test_files
+
+    - name: Verify proper mapping of the nodes to inventory
+      assert:
+        that: "test_files.content | b64decode == inventory_hostname"
