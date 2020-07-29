@@ -221,6 +221,14 @@ Compilation steps can be found inside `Prepare DPDK binaries inside guest image`
 dpdk_compiled_dir: '/root/dpdk/build/app'
 ```
 
+Binding drivers used by dpdk (vfio-pci, mlx5_core)
+'vfio-pci' by default
+
+```
+dpdk_binding_driver: 'vfio-pci'
+```
+
+
 ### Trex Server Variables
 
 Symlinked Trex directory to be used for binary-search(as currently hard coded requirment of binary-search).
@@ -299,6 +307,20 @@ TestPMD RX Queue size.
 `1024` by default.
 ```
 testpmd_rxd: 1024
+```
+
+TestPMD RX queues per port
+
+`1` by default.
+```
+testpmd_rxq: 1024
+```
+
+TestPMD TX queues per port 
+
+`1` by default.
+```
+testpmd_txq: 1024
 ```
 
 TestPMD forwarding mode, currently supported mode io, mac.
@@ -677,6 +699,7 @@ instances:
         network: sriov_net_nic1_800
         port_security: false
         type: direct
+        binding_profile: '"capabilities"= ["switchdev"]'
 
   - name: testpmd-dpdk-dut
     groups: dut
