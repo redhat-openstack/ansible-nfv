@@ -19,5 +19,11 @@ testpmd_rxd: 1024
 # TestPMD RX Queue size
 testpmd_txd: 1024
 
+# Number of TestPMD TX Queues
+testpmd_rxq: 1
+
+# Number of TestPMD RX Queues
+testpmd_txq: 1
+
 # TestPMD forwarding mode
 forward_mode: io
