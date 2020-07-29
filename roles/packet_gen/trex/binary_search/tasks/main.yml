@@ -12,6 +12,7 @@
   when:
     - trex_instance_nics_info is defined
     - trex_vlans is not defined
+    - trex_set_vlan
 
 - name: Start PMD load balance in DuT
   delegate_to: "{{ dut_compute }}"
