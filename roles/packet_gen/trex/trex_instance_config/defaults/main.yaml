@@ -18,11 +18,11 @@ trafficgen_dir: '/opt/trafficgen/'
 
 # Platform sepcific Trex configuration
 trex_platform:
-  master_thread_id: 2
-  latency_thread_id: 3
+  master_thread_id: 0
+  latency_thread_id: 1
   dual_if:
     - socket: 0
-      threads: [4, 5, 6, 7, 8, 9, 10, 11]
+      threads: [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
 
 # DPDK root dir
 dpdk_root_dir: '/root/dpdk'
