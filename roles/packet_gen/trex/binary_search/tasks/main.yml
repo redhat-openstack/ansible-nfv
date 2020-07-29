@@ -26,9 +26,12 @@
       --use-dst-port-flows 1
       --validation-runtime {{ trex_validation }}
       --search-runtime {{ trex_search }}
-      {% if dut_type == 'dpdk' %}
+      {% if dut_type == 'dpdk' or dut_type == 'hwoffload' %}
         --rate {{ trex_rate }}
       {%- endif %}
+      {% if binary_search_use_device_stats %}                                   
+        --use-device-stats
+      {%- endif %}                                         
   when: traffic_cmd is not defined
 
 # TODO: Proper print function
