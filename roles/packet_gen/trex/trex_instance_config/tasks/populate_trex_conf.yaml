@@ -4,7 +4,7 @@
       {{ trex_instance_nics_info | default([]) }} + [{
       'mac_address': '{{ item['mac_address'] }}',
       'ip': '{{ item['fixed_ips'][0]['ip_address'] }}',
-      'vlan': '{{ item['binding:vif_details']['vlan'] }}'
+      'vlan': '{{ item['binding:vif_details']['vlan'] | default(omit) }}'
       }]
   loop: "{{ trex_instance_sriov_nics }}"
 

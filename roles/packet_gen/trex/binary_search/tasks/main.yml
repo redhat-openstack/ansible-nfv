@@ -5,6 +5,7 @@
   when:
     - hostvars[groups[dut_group][0]]['dut_macs'] is defined
     - dut_macs is not defined
+    - trex_set_vlan
 
 - name: Parse TRex VLANs
   set_fact:
