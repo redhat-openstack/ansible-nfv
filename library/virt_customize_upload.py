@@ -11,51 +11,46 @@ ANSIBLE_METADATA = {'metadata_version': '1.0',
                     'status': ['preview'],
                     'supported_by': 'community'}
 
-DOCUMENTATION = """
+DOCUMENTATION = '''
 module: virt_customize_upload
-short_description: Uploads files/directories to guest disk image
-version_added: "2.5.11"
+short_description: Uploads files to guest image
 description:
-    - Uploads files/directories to guest disk image
-
+    - Uploads files to guest image
 options:
-    image:
-        required: True
-        description: image path on filesystem.
-    src:
-        required: True
-        description: source file path on filesystem.
-    dest:
-        required: True
-        description: dest file path on guest diks image.
-    remote_src:
-        required: True
-        description: perform copy of source file from remote host instead on ansible host.
-    recursive:
-        required: False
-        description: copies nested directories to a directory on guest disk image.
-    automount:
-        required: False
-        description: Whether to perform auto mount of mountpoints inside guest disk image (REQUIRED for this module)
-        default: True
-    selinux_relabel:
-        required: False
-        description: Whether to perform SELinux contect relabeling during invocation
-    network:
-        required: False
-        description: Whether to enable network for appliance
-        default: True
-
----
+  image:
+    required: True
+    description: Image path on filesystem
+  src:
+    required: True
+    description: Source file path on filesystem
+  dest:
+    required: True
+    description: Destination file path in guest image
+  recursive:
+    required: False
+    description: Copies nested directories from a directory on guest disk image
+  automount:
+    required: False
+    description: Whether to perform auto mount of mountpoints inside guest disk image (REQUIRED for this module)
+    default: True
+  selinux_relabel:
+    required: False
+    description: Whether to perform SELinux context relabeling
+  network:
+    required: False
+    description: Whether to enable network for appliance
+    default: True
+notes:
+  - If your Ansible host is not your Ansible Controller host, use the module 'copy' to copy files to Ansible Host
 requirements:
-    - "guestfs"
-    - "python >= 2.7.5"
-author: Vadim Khitrin (@vkhitrin)
+- "libguestfs"
+- "libguestfs-devel"
+- "python >= 2.7.5 || python >= 3.4"
+author:
+    - Vadim Khitrin (@vkhitrin)
+'''
 
-"""
-
-EXAMPLES = """
----
+EXAMPLES = '''
 - name: Upload a file to a directory in guest disk image
   virt_customize_upload:
     image: /tmp/rhel7-5.qcow2
@@ -74,36 +69,39 @@ EXAMPLES = """
     src: '/tmp/logs/'
     dest: '/tmp/'
     recursive: True
-"""
+'''
 
-RETURN = """
+RETURN = '''
 - msg:
     type: string
     when: failure
     description: Contains the error message (may include python exceptions)
     example: "read: /tmp/aaaa: Is a directory'
 
-- results:
-    type: dictionary
-    when: success
-    description: Contains the module successful execution results
-    example: {
-        "dest": "/tmp/RESULT_ANS.log",
-        "src": "/tmp/RESULT_ANS.log"
-    }
+- src:
+    type: string
+    when: always
+    description: source path of file(s) on host
+    example: "/tmp/RESULT_ANS.log"
+
+- dest:
+    type: string
+    when: always
+    description: dest path of file(s) on guest image
+    example: "/tmp/RESULT_ANS.log"
 
 - md5:
     type: string
     when: success upload file
     description: displays md5 checksum of file
     "debug": "d6fe77f000341b5f9a952e744f34901a"
+'''
 
-"""
-
-from ansible.module_utils.virt_customize import guest
+from ansible.module_utils.libguestfs.libguestfs import guest
 from ansible.module_utils.basic import AnsibleModule
 
 import os
+
 
 def upload(guest, module):
 
@@ -112,58 +110,66 @@ def upload(guest, module):
         'changed': False,
         'failed': False
     }
-    md5sum_src = md5sum_dest = None
+    md5sum_src = None
+    md5sum_dest = None
+    src = module.params['src']
+    dest = module.params['dest']
 
-    if not os.path.exists(module.params['src']) and not err:
+    if not os.path.exists(src):
         err = True
         results['failed'] = True
-        results['msg'] = 'Source file {file} not found'.format(file=module.params['src'])
+        results['msg'] = 'Source path {path} not found'.format(path=src)
 
-    if not os.access(module.params['src'], os.R_OK) and not err:
+    elif not os.access(src, os.R_OK):
         err = True
         results['failed'] = True
-        results['msg'] = 'Source file {file} not accessable'.format(file=module.params['src'])
+        results['msg'] = 'Source path {path} not accessable'.format(path=src)
 
-    if os.path.isfile(module.params['src']):
-        md5sum_src = module.md5(module.params['src'])
-
-    if module.params['automount']:
-        if not err:
-            try:
+    if not err:
+        try:
+            # Check if source path is a file and not a directory/symlink
+            if not os.path.isfile(src) and not module.params['recursive']:
+                err = True
+                results['msg'] = "Source file is either directory or symlink, if it's a directory use 'recursive' argument"
+            else:
                 if module.params['recursive']:
-                    guest.copy_in(module.params['src'], module.params['dest'])
-                    if not module.params['src'].endswith(os.path.sep):
-                        module.params['dest'] = module.params['dest'] + os.path.basename(module.params['src'])
+                    guest.copy_in(src, dest)
+                    if not src.endswith(os.path.sep):
+                        dest = dest + os.path.basename(src)
                 else:
-                    if module.params['dest'].endswith(os.path.sep):
-                        module.params['dest'] = module.params['dest'] + os.path.basename(module.params['src'])
-                    guest.upload(module.params['src'], module.params['dest'])
-            except Exception as e:
-                err = True
-                results['failed'] = True
-                results['msg'] = str(e)
+                    md5sum_src = module.md5(src)
+                    if dest.endswith(os.path.sep):
+                        dest = dest + os.path.basename(src)
+                    # Check if destination file exists on guest image
+                    if guest.is_file(dest):
+                        md5sum_dest = guest.checksum("md5", dest)
+                    # If md5sum of source file and dest file are different, upload file to guest
+                    if md5sum_src != md5sum_dest:
+                        results['changed'] = True
+                        guest.upload(src, dest)
 
-            if md5sum_src:
-                md5sum_dest = guest.checksum("md5", module.params['dest'])
+        except Exception as e:
+            err = True
+            results['failed'] = True
+            results['msg'] = str(e)
 
-            if md5sum_src != md5sum_dest:
-                err = True
-                results['failed'] = True
-                results['msg'] = 'Uploaded file does not match source file md5 checksum'
+        if md5sum_src:
+            md5sum_dest = guest.checksum("md5", dest)
 
-            if not err:
-                results['changed'] = True
-                results['result'] = {
-                    'src': module.params['src'],
-                    'dest': module.params['dest']
-                }
+        if not err:
+            results['src'] = src
+            '''
+            Not using 'dest' in results due to
+            'ansible.module_utils.basic' containing the method
+            'add_path_info' which attempts to retrieve info
+            regarding the path which does not exist on target host
+            (Fixed in Ansible 2.8,
+            commit: cc9c72d6f845710b24e952670b534a57f6948513)
+            '''
+            results['guest_dest'] = dest
 
-                if md5sum_src and md5sum_dest:
-                    results['md5'] = md5sum_src 
-
-    else:
-        err = True
-        results['msg'] = "automount is false, can't proceed with this module"
+            if md5sum_src and md5sum_dest:
+                results['md5'] = md5sum_src
 
     return results, err
 
@@ -175,13 +181,12 @@ def main():
             image=dict(required=True, type='str'),
             src=dict(required=True, type='path'),
             dest=dict(required=True, type='path'),
-            remote_src=dict(required=False, type='bool', default=False),
             recursive=dict(required=False, type='bool', default=False),
             automount=dict(required=False, type='bool', default=True),
             network=dict(required=False, type='bool', default=True),
             selinux_relabel=dict(required=False, type='bool', default=False),
         ),
-        supports_check_mode=True
+        supports_check_mode=False
     )
 
     g = guest(module)
@@ -192,6 +197,7 @@ def main():
     if err:
         module.fail_json(**results)
     module.exit_json(**results)
+
 
 if __name__ == '__main__':
     main()

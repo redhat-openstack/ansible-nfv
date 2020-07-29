@@ -1,5 +1,5 @@
 - name: Install packages inside guest image
-  virt_customize_packages:
+  virt_customize_package:
     name:
       - git
       - gcc
@@ -12,7 +12,28 @@
       - numactl-devel
       - vim
       - tmux
+      - gtk2
+      - atk
+      - cairo
+      - gcc-gfortran
+      - tcsh
+      - lsof
+      - tcl
+      - tk
+      - python-devel
+      - redhat-rpm-config
+      - rpm-build
+      - kernel
+      - kernel-devel
+      - wget
     state: present
+    image: "{{ fetched_image }}"
+
+- name: Install mellanox drivers
+  virt_customize_command:
+    shell:
+      - "wget -c {{ mellanox_drivers_url }} -O - | tar -xz -C {{ mellanox_drivers_dir | dirname }}"
+#      - "cd {{ mellanox_drivers_dir }}; ./mlnxofedinstall --force --without-fw-update"
     image: "{{ fetched_image }}"
     debug: "{{ guest_debug }}"
 
@@ -25,6 +46,7 @@
       - "sed -i 's/CONFIG_RTE_KNI_KMOD=.*/CONFIG_RTE_KNI_KMOD=n/g' {{ dpdk_dir }}/config/common_linuxapp"
       - "sed -i 's/CONFIG_RTE_LIBRTE_KNI=.*/CONFIG_RTE_LIBRTE_KNI=n/g' {{ dpdk_dir }}/config/common_linuxapp"
       - "sed -i 's/CONFIG_RTE_EAL_IGB_UIO=.*/CONFIG_RTE_LIBRTE_KNI=n/g' {{ dpdk_dir }}/config/common_linuxapp"
+      - "sed -i 's/CONFIG_RTE_LIBRTE_MLX5_PMD=.*/CONFIG_RTE_LIBRTE_MLX5_PMD=y/g' {{ dpdk_dir }}/config/common_base"
       - "sed -i 's/enforcing/{{ selinux_config }}/g' /etc/selinux/config /etc/selinux/config"
       - 'cd {{ dpdk_dir }}; /usr/bin/make config T=x86_64-native-linuxapp-gcc; /usr/bin/make'
       - "echo 'DPDK Version: {{ dpdk_branch }}' | tee {{ dpdk_customization_log }}"

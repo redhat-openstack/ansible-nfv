@@ -3,7 +3,7 @@
   package:
     name:
       - libguestfs
-      - python-libguestfs
+      - python3-libguestfs
     state: present
   become: True
 

@@ -1,5 +1,5 @@
-# Image Variables
-guest_image: 'https://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud.qcow2'
+# Image Variables Centos 7.6
+guest_image: 'https://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud-1811.qcow2'
 guest_image_output: '/tmp/'
 guest_debug: False
 
@@ -38,3 +38,7 @@ selinux_config: disabled
 fio_git: 'git clone git://git.kernel.dk/fio.git'
 fio_dir: '/root/fio'
 fio_branch: 'master'
+
+# mellanox variables
+mellanox_drivers_url: http://file.mad.redhat.com/~mnietoji/MLNX_OFED_LINUX-5.0-2.1.8.0-rhel7.6-x86_64.tgz
+mellanox_drivers_dir: /root/MLNX_OFED_LINUX-5.0-2.1.8.0-rhel7.6-x86_64.tgz

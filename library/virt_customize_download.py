@@ -11,50 +11,49 @@ ANSIBLE_METADATA = {'metadata_version': '1.0',
                     'status': ['preview'],
                     'supported_by': 'community'}
 
-DOCUMENTATION = """
+DOCUMENTATION = '''
+---
 module: virt_customize_download
-short_description: Downloads files/directories from guest disk image
-version_added: "2.5.11"
+short_description: Fetch files from guest image
 description:
-    - Downloads files/directories from guest disk image
+    - Fetch files from guest image
 options:
-    image:
-        required: True
-        description: image path on filesystem.
-    src:
-        required: True
-        description: source file path on guest disk image.
-    dest:
-        required: True
-        description: dest file path on host
-    remote_src:
-        required: True
-        description: perform copy of source file from remote host instead on ansible host.
-    recursive:
-        required: False
-        description: copies nested directories to a directory on guest disk image.
-    automount:
-        required: False
-        description: Whether to perform auto mount of mountpoints inside guest disk image (REQUIRED for this module)
-        default: True
-    network:
-        required: False
-        description: Whether to enable network for appliance
-        default: True
-    selinux_relabel:
-        required: False
-        description: Whether to perform SELinux contect relabeling during invocation
-
----
+  image:
+    required: True
+    description: Image path on filesystem
+  src:
+    required: True
+    description: Source file path on guest image
+  dest:
+    required: True
+    description: Destination file path on filesystem
+  recursive:
+    required: False
+    description: Copies nested directories from a directory on guest disk image
+    default: False
+  automount:
+    required: False
+    description: Whether to perform auto mount of mountpoints inside guest disk image (REQUIRED for this module)
+    default: True
+  network:
+    required: False
+    description: Whether to enable network for appliance
+    default: True
+  selinux_relabel:
+    required: False
+    description: Whether to perform SELinux context relabeling
+    default: False
+notes:
+  - If your Ansible host is not your Ansible Controller host, use the module 'fetch' or 'synchronize' to retrieve remote files
 requirements:
-    - "guestfs"
-    - "python >= 2.7.5"
-author: Vadim Khitrin (@vkhitrin)
+- "libguestfs"
+- "libguestfs-devel"
+- "python >= 2.7.5 || python >= 3.4"
+author:
+    - Vadim Khitrin (@vkhitrin)
+'''
 
-"""
-
-EXAMPLES = """
----
+EXAMPLES = '''
 - name: Download a file from guest disk image
   virt_customize_download:
     image: /tmp/rhel7-5.qcow2
@@ -73,82 +72,83 @@ EXAMPLES = """
     src: '/tmp/logs/'
     dest: '/tmp/'
     recursive: True
-"""
+'''
 
-RETURN = """
+RETURN = '''
 - msg:
     type: string
     when: failure
     description: Contains the error message (may include python exceptions)
     example: "read: /tmp/aaaa: Is a directory'
 
-- results:
-    type: dictionary
-    when: success
-    description: Contains the module successful execution results
-    example: {
-        "dest": "/tmp/RESULT_ANS.log",
-        "src": "/tmp/RESULT_ANS.log"
-    }
+- src:
+    type: string
+    when: always
+    description: source path of file(s) to download on guest image
+    example: "/tmp/RESULT_ANS.log"
+
+- dest:
+    type: string
+    when: always
+    description: dest path of file(s) to download to host
+    example: "/tmp/RESULT_ANS.log"
 
 - md5:
     type: string
-    when: success upload file
-    description: displays md5 checksum of file
-    "debug": "d6fe77f000341b5f9a952e744f34901a"
+    when: successful download of a single file
+    description: displays md5 checksum of single file
+    "example": "d6fe77f000341b5f9a952e744f34901a"
+'''
 
-"""
-
-from ansible.module_utils.virt_customize import guest
+from ansible.module_utils.libguestfs.libguestfs import guest
 from ansible.module_utils.basic import AnsibleModule
 
 import os
+
 
 def download(guest, module):
 
     err = False
     results = {
         'changed': False,
-        'failed': False
+        'failed': False,
+        'src': module.params['src'],
     }
-    md5sum_src = md5sum_dest = None
+    md5sum_src = None
+    md5sum_dest = None
+    src = module.params['src']
+    dest = module.params['dest']
 
-    if module.params['automount']:
-       try:
-           if module.params['recursive']:
-               guest.copy_out(module.params['src'], module.params['dest'])
-               if not module.params['src'].endswith(os.path.sep):
-                   module.params['dest'] = module.params['dest'] + os.path.basename(module.params['src'])
-           else:
-               if module.params['dest'].endswith(os.path.sep):
-                   module.params['dest'] = module.params['dest'] + os.path.basename(module.params['src'])
-               guest.download(module.params['src'], module.params['dest'])
-       except Exception as e:
-           err = True
-           results['failed'] = True
-           results['msg'] = str(e)
+    try:
+        # Check if source path is a file and not a directory/symlink
+        if not guest.is_file(src) and not module.params['recursive']:
+            err = True
+            results['msg'] = "Source file is either directory or symlink, if it's a directory use 'recursive' argument"
+        else:
+            if module.params['recursive']:
+                if not src.endswith(os.path.sep):
+                    dest = dest + os.path.basename(src)
+                guest.copy_out(src, dest)
+            else:
+                md5sum_src = guest.checksum("md5", src)
+                if dest.endswith(os.path.sep):
+                    dest = dest + os.path.basename(src)
+                # Check if destination file exists on host
+                if os.path.isfile(dest):
+                    md5sum_dest = module.md5(dest)
+                # If md5sum of source file and dest file are different, download file from guest
+                if md5sum_src != md5sum_dest:
+                    results['changed'] = True
+                    guest.download(src, dest)
 
-       if md5sum_src:
-           md5sum_dest = guest.checksum("md5", module.params['dest'])
-
-       if md5sum_src != md5sum_dest:
-           err = True
-           results['failed'] = True
-           results['msg'] = 'Uploaded file does not match source file md5 checksum'
-
-       if not err:
-           results['changed'] = True
-           results['result'] = {
-               'src': module.params['src'],
-               'dest': module.params['dest']
-           }
-
-           if md5sum_src and md5sum_dest:
-               results['md5'] = md5sum_src 
-
-    else:
+    except Exception as e:
         err = True
-        results['msg'] = "automount is false, can't proceed with this module"
+        results['failed'] = True
+        results['msg'] = str(e)
+
+    if not err:
+        results['md5sum'] = md5sum_src
+        results['dest'] = dest
 
     return results, err
 
@@ -160,13 +160,12 @@ def main():
             image=dict(required=True, type='str'),
             src=dict(required=True, type='path'),
             dest=dict(required=True, type='path'),
-            remote_src=dict(required=False, type='bool', default=False),
             recursive=dict(required=False, type='bool', default=False),
             automount=dict(required=False, type='bool', default=True),
             network=dict(required=False, type='bool', default=True),
             selinux_relabel=dict(required=False, type='bool', default=False),
         ),
-        supports_check_mode=True
+        supports_check_mode=False
     )
 
     g = guest(module)
@@ -177,6 +176,7 @@ def main():
     if err:
         module.fail_json(**results)
     module.exit_json(**results)
+
 
 if __name__ == '__main__':
     main()

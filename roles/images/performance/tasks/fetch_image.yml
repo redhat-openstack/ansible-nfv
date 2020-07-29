@@ -1,11 +1,13 @@
-- name: Fetch image from URL
-  get_url:
-    url: "{{ guest_image | mandatory }}"
-    dest: "{{ guest_image_output }}"
-    mode: 0640
-    validate_certs: False
-  register: image_result
+#- name: Fetch image from URL
+#  get_url:
+#    url: "{{ guest_image | mandatory }}"
+#    dest: "{{ guest_image_output }}"
+#    mode: 0640
+#    validate_certs: False
+#    force: no
+#  register: image_result
 
 - name: Set path of fetched image
   set_fact:
-    fetched_image: "{{ image_result['dest'] }}"
+#    fetched_image: "{{ image_result['dest'] }}"
+    fetched_image: /tmp/CentOS-7-x86_64-GenericCloud-1811.qcow2
