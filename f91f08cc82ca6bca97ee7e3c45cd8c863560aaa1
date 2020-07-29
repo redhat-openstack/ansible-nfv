@@ -22,6 +22,30 @@
       "revId": "f91f08cc82ca6bca97ee7e3c45cd8c863560aaa1",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6eb10599_9a616ecb",
+        "filename": "playbooks/packet_gen/iperf/performance_scenario.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1017708
+      },
+      "writtenOn": "2020-07-29T05:10:00Z",
+      "side": 1,
+      "message": "That might have impact in throughput on each client, as it is one port that iperf server listening.",
+      "parentUuid": "60c9e716_7a63e49a",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 37
+      },
+      "revId": "f91f08cc82ca6bca97ee7e3c45cd8c863560aaa1",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
