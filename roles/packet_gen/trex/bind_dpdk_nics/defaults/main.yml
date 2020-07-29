@@ -5,3 +5,6 @@ dpdk_root_dir: '/root/dpdk'
 dpdk_compiled_dir: '{{ dpdk_root_dir }}/build/app'
 
 hugepages_count: 64
+
+# Use Mellanox drivers
+dpdk_binding_driver: 'vfio-pci'
