@@ -57,9 +57,10 @@
       loop:
         - {'name': 'vfio', 'params': 'enable_unsafe_noiommu_mode=1'}
         - {'name': 'vfio-pci'}
+        - {'name': 'mlx5_core'}
 
     - name: Bind DPDK NICs
-      command: "{{ dpdk_root_dir }}/usertools/dpdk-devbind.py -b vfio-pci {{ instance_nics_pci_slots['stdout'] }}"
+      command: "{{ dpdk_root_dir }}/usertools/dpdk-devbind.py -b mlx5_core {{ instance_nics_pci_slots['stdout'] }}"
 
   become: True
 
