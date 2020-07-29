@@ -9,7 +9,8 @@
   set_fact:
     trex_instance_sriov_nics: "{{ trex_instance_sriov_nics | default([]) }} + [ {{ item }} ]"
   loop: "{{ instance_nics | flatten(levels=1) }}"
-  when: item['binding:vnic_type'] == "direct-physical"
+  when: item['binding:vnic_type'] == "direct-physical" or 
+        item['binding:vnic_type'] == "direct"
 
 - name: Fail If There Are More/Less Than 2 SR-IOV NICs
   fail:

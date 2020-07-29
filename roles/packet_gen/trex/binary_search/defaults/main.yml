@@ -27,3 +27,7 @@ trex_validation: 30
 
 # Tiral period in seconds during binary search
 trex_search: 30
+
+# Should device stats be used instead of stream stats
+binary_search_use_device_stats: False
+
