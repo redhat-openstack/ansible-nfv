@@ -46,6 +46,30 @@
       "revId": "f91f08cc82ca6bca97ee7e3c45cd8c863560aaa1",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cbef189a_6b466503",
+        "filename": "playbooks/packet_gen/iperf/performance_scenario.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-07-29T05:57:27Z",
+      "side": 1,
+      "message": "Ok.\nMakes sense.\nAnd why do we execute it twice?",
+      "parentUuid": "6eb10599_9a616ecb",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 37
+      },
+      "revId": "f91f08cc82ca6bca97ee7e3c45cd8c863560aaa1",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
