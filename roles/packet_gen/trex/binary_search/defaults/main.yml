@@ -36,3 +36,6 @@ pmd_lb_pretest_sec: None
 
 # Status of PMD load balance
 pmd_lb_status_log: '/tmp/pmd_lb_status.log'
+
+# Should device stats be used instead of stream stats
+binary_search_use_device_stats: False
