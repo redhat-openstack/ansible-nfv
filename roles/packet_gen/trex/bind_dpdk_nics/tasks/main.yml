@@ -58,8 +58,14 @@
         - {'name': 'vfio', 'params': 'enable_unsafe_noiommu_mode=1'}
         - {'name': 'vfio-pci'}
 
+    - name: Load Mellanox Kernel Modules when configured
+      modprobe:
+        name: mlx5_core
+        state: present
+      when: dpdk_binding_driver == "mlx5_core"
+
     - name: Bind DPDK NICs
-      command: "{{ dpdk_root_dir }}/usertools/dpdk-devbind.py -b vfio-pci {{ instance_nics_pci_slots['stdout'] }}"
+      command: "{{ dpdk_root_dir }}/usertools/dpdk-devbind.py -b {{dpdk_binding_driver}} {{ instance_nics_pci_slots['stdout'] }}"
 
   become: True
 

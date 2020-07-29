@@ -121,6 +121,7 @@
     - role: roles/packet_gen/trex/bind_dpdk_nics
       vars:
         discover_dut_macs: True
+        dpdk_binding_driver: "{{ dut_dpdk_binding_driver | default(omit) }}"
       when: bind_dpdk_nics | default(True)
 
     - role: roles/packet_gen/trex/launch_testpmd
@@ -136,6 +137,8 @@
 - hosts: trex
   roles:
     - role: roles/packet_gen/trex/bind_dpdk_nics
+      vars:
+        dpdk_binding_driver: "{{ trex_dpdk_binding_driver | default(omit) }}"
       when: bind_dpdk_nics | default(True)
 
     - role: roles/packet_gen/trex/launch_trex

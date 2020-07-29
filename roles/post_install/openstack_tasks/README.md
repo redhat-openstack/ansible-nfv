@@ -303,6 +303,7 @@ instances:
         type: direct
         port_security: false
         sec_groups: test_secgroup
+        binding_profile: '"capabilities"= ["switchdev"]'
   - name: vm2
     connection_user: user     # The variable could be omitted
     flavor: nfv_flavor

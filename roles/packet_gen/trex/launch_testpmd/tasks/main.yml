@@ -18,6 +18,7 @@
   set_fact:
     testpmd_cmd: |
       {{ testpmd_bin }} -l {{ testpmd_lcores }} \
+      -n {{ testpmd_mem_channels}} \
       --socket-mem {{ testpmd_socket_mem }} -- -i \
       --nb-cores={{ testpmd_forward_cores }} \
       --auto-start \
@@ -31,7 +32,9 @@
         --eth-peer=1,{{ trex_macs.split(',')[1] }} \
       {% endif %}
       --rxd={{ testpmd_rxd }} \
-      --txd={{ testpmd_txd }} &>/tmp/testpmd.log
+      --txd={{ testpmd_txd }} \
+      --rxq={{ testpmd_rxq }} \
+      --txq={{ testpmd_txq }} &>/tmp/testpmd.log
   when: testpmd_cmd is not defined
 
 - name: Log testpmd Command

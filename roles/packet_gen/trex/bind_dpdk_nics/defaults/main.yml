@@ -5,3 +5,6 @@ dpdk_root_dir: '/root/dpdk'
 dpdk_compiled_dir: '{{ dpdk_root_dir }}/build/app'
 
 hugepages_count: 64
+
+# dpdk drivers to use: vfio-pci, mlx5_core
+dpdk_binding_driver: 'vfio-pci'
