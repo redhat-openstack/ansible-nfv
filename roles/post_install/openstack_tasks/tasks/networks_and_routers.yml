@@ -108,6 +108,14 @@
         state: present
       loop: "{{ instances | subelements('net_ports', 'skip_missing=True') }}"
       when: net_port
+    - name: set binding_profile to the port
+      vars:                                                     
+        ansible_python_interpreter: /usr/libexec/platform-python
+      shell: |                                              
+        source "{{ rc_file_path | default('/home/stack/overcloudrc') }}"
+        openstack port set --binding-profile "{{ item.1.binding_profile }}" "{{ item.1.name }}"
+      loop: "{{ instances | subelements('net_ports', 'skip_missing=True') }}"   
+      when: net_port and item.1.binding_profile is defined      
   when: resource_state == 'present'
 
 - name: Delete networks and routers
