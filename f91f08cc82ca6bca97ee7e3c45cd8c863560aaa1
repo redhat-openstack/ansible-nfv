@@ -70,6 +70,30 @@
       "revId": "f91f08cc82ca6bca97ee7e3c45cd8c863560aaa1",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d6be0aad_e4701945",
+        "filename": "playbooks/packet_gen/iperf/performance_scenario.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1017708
+      },
+      "writtenOn": "2020-07-29T06:01:14Z",
+      "side": 1,
+      "message": "It is not twice, but one by one. One client measures performance from within the same compute (where iperf server is running), while the other client does so but from different compute, hence we measure intra and inter compute performance.",
+      "parentUuid": "cbef189a_6b466503",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 37
+      },
+      "revId": "f91f08cc82ca6bca97ee7e3c45cd8c863560aaa1",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
