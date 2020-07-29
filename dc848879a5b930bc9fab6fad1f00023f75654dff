@@ -22,6 +22,30 @@
       "revId": "dc848879a5b930bc9fab6fad1f00023f75654dff",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "48847b34_03121b8f",
+        "filename": "roles/post_install/tripleo_inventory/molecule/default/verify.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-07-29T11:19:06Z",
+      "side": 1,
+      "message": "Fixed.\nI\u0027m wondering if any other tests could be added?\nI added those that came to my mind.",
+      "parentUuid": "b64ef9d0_c8243fa4",
+      "range": {
+        "startLine": 12,
+        "startChar": 14,
+        "endLine": 12,
+        "endChar": 26
+      },
+      "revId": "dc848879a5b930bc9fab6fad1f00023f75654dff",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
