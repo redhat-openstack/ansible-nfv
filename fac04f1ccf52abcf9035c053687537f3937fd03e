@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "fb5d3847_778812fc",
+        "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
+        "patchSetId": 9
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-08-03T17:41:51Z",
+      "side": 1,
+      "message": "If you are reusing the roles in another playbook, it is not a duplication, it is reuse.\n\nI will appreciate if you will explain the flow you are trying to create, so we could make a brainstorm on how to implement this.\n\nI would like to keep extending the repo according to best practices.\nKeep it simple and properly test it.",
+      "parentUuid": "b67c013f_6e883db5",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 3
+      },
+      "revId": "fac04f1ccf52abcf9035c053687537f3937fd03e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f25c7858_238eddfe",
         "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
         "patchSetId": 9
@@ -463,6 +487,30 @@
       "side": 1,
       "message": "@maxim,\nNot multiple delegate_to definitions, mean multi levels delegate_to triggers when invoking from playbook using multiple smaller roles.\n\nYes code reuse is the benefit for using roles but we are not able to get current host exactly when using multiple smaller roles using delegate_to tasks in multi levels.\n\neven in multiple playbooks, invoking the multiple smaller roles needs to be duplicated in the performance scenario playbooks.\n\ninstead of that, i am using existing performance playbook in this multiqueue performance automation. No code duplication changes required if any changes to be done in performance_scenario yml file later.\n\nJust reusing performance scenario yml in the NFV multiqueue performance automation.",
       "parentUuid": "041ea8e4_baf7c3c8",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 12
+      },
+      "revId": "fac04f1ccf52abcf9035c053687537f3937fd03e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7885314f_d6060226",
+        "filename": "playbooks/packet_gen/trex/templates/nfv_multiqueue_tests.yml.j2",
+        "patchSetId": 9
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-08-03T17:41:51Z",
+      "side": 1,
+      "message": "I\u0027m sorry, but using a jinja to generate a role from a role is against all best practices.\nAnd I don\u0027t see a proper way of testing and maintaining it.\n\nAs I mentioned in another comment, I would appreaciate if you could share the flow you are trying to reach and we could see how to best implement it.",
+      "parentUuid": "298bf762_a798fb57",
       "range": {
         "startLine": 15,
         "startChar": 0,
