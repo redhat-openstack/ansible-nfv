@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5ef0454b_b68c1224",
+        "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
+        "patchSetId": 9
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-08-03T12:53:22Z",
+      "side": 1,
+      "message": "Ansible-nfv repository has the playbooks as a pointers to the roles.\nThe playbooks calls to the roles, reuses them and may perform some very simple logic that not mature enough to be converted into a role.\n\nHere I see that the tasks are definitely could be converted into a role and not hold all the login in a playbook.\n\nPlease, create a role that will host all these tasks and a playbook that will call that role.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 3
+      },
+      "revId": "fac04f1ccf52abcf9035c053687537f3937fd03e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f25c7858_238eddfe",
+        "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
+        "patchSetId": 9
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-08-03T12:53:22Z",
+      "side": 1,
+      "message": "Podman had been introduced in osp 16 and later.\nShould it work with osp 13 as will, which has docker in it?\n\nIf yes, one task ahead should check for the podman/docker and set a fact that will be executed in this task.",
+      "range": {
+        "startLine": 50,
+        "startChar": 8,
+        "endLine": 50,
+        "endChar": 14
+      },
+      "revId": "fac04f1ccf52abcf9035c053687537f3937fd03e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "15d4d2a9_29971312",
+        "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
+        "patchSetId": 9
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-08-03T12:53:22Z",
+      "side": 1,
+      "message": "Please, do not over complicate the tasks.\nI assume this task could be split into a number of tasks.\nOne (more?) that gather the information and other that performs a change.",
+      "range": {
+        "startLine": 55,
+        "startChar": 8,
+        "endLine": 55,
+        "endChar": 228
+      },
+      "revId": "fac04f1ccf52abcf9035c053687537f3937fd03e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b96ec083_e0d45083",
+        "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
+        "patchSetId": 9
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-08-03T12:53:22Z",
+      "side": 1,
+      "message": "Why not use the openstack_tasks role with the proper flavor details definition?",
+      "range": {
+        "startLine": 71,
+        "startChar": 8,
+        "endLine": 71,
+        "endChar": 49
+      },
+      "revId": "fac04f1ccf52abcf9035c053687537f3937fd03e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "14a064c8_9145a373",
+        "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
+        "patchSetId": 9
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-08-03T12:53:22Z",
+      "side": 1,
+      "message": "I did not checked, but just a question.\nDoes the existing openvswitch ansible modules, support any kind of data gathering?",
+      "range": {
+        "startLine": 116,
+        "startChar": 8,
+        "endLine": 116,
+        "endChar": 27
+      },
+      "revId": "fac04f1ccf52abcf9035c053687537f3937fd03e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8cf51419_7a789bf7",
+        "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
+        "patchSetId": 9
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-08-03T12:53:22Z",
+      "side": 1,
+      "message": "Same as above regarding podman/docker.",
+      "range": {
+        "startLine": 147,
+        "startChar": 12,
+        "endLine": 147,
+        "endChar": 18
+      },
+      "revId": "fac04f1ccf52abcf9035c053687537f3937fd03e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b5d82a14_39ee9063",
+        "filename": "playbooks/packet_gen/trex/templates/nfv_multiqueue_tests.yml.j2",
+        "patchSetId": 9
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-08-03T12:53:22Z",
+      "side": 1,
+      "message": "Holding a jinja template under the playbooks structure is not a good idea.\n\nYou can maybe loop over the role, but it still sounds not the right approach.\nThe better way is to loop over the scenarios inside the role.",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 12
+      },
+      "revId": "fac04f1ccf52abcf9035c053687537f3937fd03e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "44c7e1e2_17d5efcf",
+        "filename": "samples/multiqueue_test_cases.yaml",
+        "patchSetId": 9
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-08-03T12:53:22Z",
+      "side": 1,
+      "message": "This file should be located inside the role I mentioned in the previous comments.",
+      "revId": "fac04f1ccf52abcf9035c053687537f3937fd03e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
