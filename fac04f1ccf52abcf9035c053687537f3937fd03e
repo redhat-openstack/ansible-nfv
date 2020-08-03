@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "c2f89eef_72e754ce",
+        "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
+        "patchSetId": 9
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-08-03T15:25:20Z",
+      "side": 1,
+      "message": "Instead of making multiple delegates, split a role into smaller roles.",
+      "parentUuid": "9ea200d1_44e71a6e",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 3
+      },
+      "revId": "fac04f1ccf52abcf9035c053687537f3937fd03e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f25c7858_238eddfe",
         "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
         "patchSetId": 9
@@ -190,6 +214,30 @@
     },
     {
       "key": {
+        "uuid": "601a341b_1eb4359a",
+        "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
+        "patchSetId": 9
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-08-03T15:25:20Z",
+      "side": 1,
+      "message": "Where do you take the \"multiqueue_flavors\" and \"multiqueue_instances\" from?",
+      "parentUuid": "bee53bde_6390b7a1",
+      "range": {
+        "startLine": 71,
+        "startChar": 8,
+        "endLine": 71,
+        "endChar": 49
+      },
+      "revId": "fac04f1ccf52abcf9035c053687537f3937fd03e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "14a064c8_9145a373",
         "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
         "patchSetId": 9
@@ -225,6 +273,30 @@
       "side": 1,
       "message": "@maxim,\nI did not find data gathering support in openvswitch ansible modules.",
       "parentUuid": "14a064c8_9145a373",
+      "range": {
+        "startLine": 116,
+        "startChar": 8,
+        "endLine": 116,
+        "endChar": 27
+      },
+      "revId": "fac04f1ccf52abcf9035c053687537f3937fd03e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc17393b_887544a1",
+        "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
+        "patchSetId": 9
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-08-03T15:25:20Z",
+      "side": 1,
+      "message": "ok.",
+      "parentUuid": "422f0329_1b2fe049",
       "range": {
         "startLine": 116,
         "startChar": 8,
@@ -319,6 +391,30 @@
       "side": 1,
       "message": "@maxim,\n\nWe can not use roles for this since lot of code duplication in performance playbooks and multiple existing tasks are not supporting due to multi level delegate_to requirements.\n\nI think, this is better approach than using roles with code duplication and impacting existing multiple tasks for this changes.\n\nlooping playbooks are not supported in another playbook. so just we need to run prerun playbook to create the required playbook for the automation.",
       "parentUuid": "b5d82a14_39ee9063",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 12
+      },
+      "revId": "fac04f1ccf52abcf9035c053687537f3937fd03e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "041ea8e4_baf7c3c8",
+        "filename": "playbooks/packet_gen/trex/templates/nfv_multiqueue_tests.yml.j2",
+        "patchSetId": 9
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-08-03T15:25:20Z",
+      "side": 1,
+      "message": "If a role contains multiple \"delegate_to\" definitions, it means that the role needs to be separated to a smaller roles.\n\nWhat do you mean by code duplication?\nTHe purpose of the roles and playbooks and pointers is to perform a code reuse and not make a duplication.\nIf the tasks will reside in the role, you will be able to call it multiple times with a different variables definition.\nIn such way, you will reuse the roles.",
+      "parentUuid": "69474a05_098c2010",
       "range": {
         "startLine": 15,
         "startChar": 0,
