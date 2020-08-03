@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9ea200d1_44e71a6e",
+        "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
+        "patchSetId": 9
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1015848
+      },
+      "writtenOn": "2020-08-03T13:57:26Z",
+      "side": 1,
+      "message": "@Maxim,\nFaced need code duplication to run performance and was not supported in multiple existing tasks when using roles for this performance automation.\nI have already tried using the roles and also you can see patchset 2 in this patch but was not supporting because of multiple levels required using delegate_to since host is always same as undercloud from playbook for all the tasks for looping multiple test cases.",
+      "parentUuid": "5ef0454b_b68c1224",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 3
+      },
+      "revId": "fac04f1ccf52abcf9035c053687537f3937fd03e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f25c7858_238eddfe",
         "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
         "patchSetId": 9
@@ -36,6 +60,30 @@
       "writtenOn": "2020-08-03T12:53:22Z",
       "side": 1,
       "message": "Podman had been introduced in osp 16 and later.\nShould it work with osp 13 as will, which has docker in it?\n\nIf yes, one task ahead should check for the podman/docker and set a fact that will be executed in this task.",
+      "range": {
+        "startLine": 50,
+        "startChar": 8,
+        "endLine": 50,
+        "endChar": 14
+      },
+      "revId": "fac04f1ccf52abcf9035c053687537f3937fd03e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e98bbd3f_78530f51",
+        "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
+        "patchSetId": 9
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1015848
+      },
+      "writtenOn": "2020-08-03T13:57:26Z",
+      "side": 1,
+      "message": "@maxim, Ack.\n@gowri,\n\nPlease let me know whether need to run this on osp13.",
+      "parentUuid": "f25c7858_238eddfe",
       "range": {
         "startLine": 50,
         "startChar": 8,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "fb31928f_0ea000a1",
+        "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
+        "patchSetId": 9
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1015848
+      },
+      "writtenOn": "2020-08-03T13:57:26Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "15d4d2a9_29971312",
+      "range": {
+        "startLine": 55,
+        "startChar": 8,
+        "endLine": 55,
+        "endChar": 228
+      },
+      "revId": "fac04f1ccf52abcf9035c053687537f3937fd03e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "b96ec083_e0d45083",
         "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
         "patchSetId": 9
@@ -82,6 +154,30 @@
       "writtenOn": "2020-08-03T12:53:22Z",
       "side": 1,
       "message": "Why not use the openstack_tasks role with the proper flavor details definition?",
+      "range": {
+        "startLine": 71,
+        "startChar": 8,
+        "endLine": 71,
+        "endChar": 49
+      },
+      "revId": "fac04f1ccf52abcf9035c053687537f3937fd03e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bee53bde_6390b7a1",
+        "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
+        "patchSetId": 9
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1015848
+      },
+      "writtenOn": "2020-08-03T13:57:26Z",
+      "side": 1,
+      "message": "@maxim,\n\nWe need to recreate the flavor with new config which is based on multiple queues in the test cases. so only providing required configs in the test cases and updating those fields here and passing as dynamic local variables for existing performance playbook.",
+      "parentUuid": "b96ec083_e0d45083",
       "range": {
         "startLine": 71,
         "startChar": 8,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "422f0329_1b2fe049",
+        "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
+        "patchSetId": 9
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1015848
+      },
+      "writtenOn": "2020-08-03T13:57:26Z",
+      "side": 1,
+      "message": "@maxim,\nI did not find data gathering support in openvswitch ansible modules.",
+      "parentUuid": "14a064c8_9145a373",
+      "range": {
+        "startLine": 116,
+        "startChar": 8,
+        "endLine": 116,
+        "endChar": 27
+      },
+      "revId": "fac04f1ccf52abcf9035c053687537f3937fd03e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "8cf51419_7a789bf7",
         "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
         "patchSetId": 9
@@ -137,6 +257,30 @@
       "revId": "fac04f1ccf52abcf9035c053687537f3937fd03e",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3947df98_2f43e5c8",
+        "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
+        "patchSetId": 9
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 1015848
+      },
+      "writtenOn": "2020-08-03T13:57:26Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8cf51419_7a789bf7",
+      "range": {
+        "startLine": 147,
+        "startChar": 12,
+        "endLine": 147,
+        "endChar": 18
+      },
+      "revId": "fac04f1ccf52abcf9035c053687537f3937fd03e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     },
     {
       "key": {
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "69474a05_098c2010",
+        "filename": "playbooks/packet_gen/trex/templates/nfv_multiqueue_tests.yml.j2",
+        "patchSetId": 9
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1015848
+      },
+      "writtenOn": "2020-08-03T13:57:26Z",
+      "side": 1,
+      "message": "@maxim,\n\nWe can not use roles for this since lot of code duplication in performance playbooks and multiple existing tasks are not supporting due to multi level delegate_to requirements.\n\nI think, this is better approach than using roles with code duplication and impacting existing multiple tasks for this changes.\n\nlooping playbooks are not supported in another playbook. so just we need to run prerun playbook to create the required playbook for the automation.",
+      "parentUuid": "b5d82a14_39ee9063",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 12
+      },
+      "revId": "fac04f1ccf52abcf9035c053687537f3937fd03e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "44c7e1e2_17d5efcf",
         "filename": "samples/multiqueue_test_cases.yaml",
         "patchSetId": 9
@@ -174,6 +342,24 @@
       "writtenOn": "2020-08-03T12:53:22Z",
       "side": 1,
       "message": "This file should be located inside the role I mentioned in the previous comments.",
+      "revId": "fac04f1ccf52abcf9035c053687537f3937fd03e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "54f9abd9_ae489023",
+        "filename": "samples/multiqueue_test_cases.yaml",
+        "patchSetId": 9
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1015848
+      },
+      "writtenOn": "2020-08-03T13:57:26Z",
+      "side": 1,
+      "message": "@maxim,\nAgree, If we use roles, we need to move this to role default main yaml but here i am using nested playbooks so we need to decide the new path to place this test cases file.",
+      "parentUuid": "44c7e1e2_17d5efcf",
       "revId": "fac04f1ccf52abcf9035c053687537f3937fd03e",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
