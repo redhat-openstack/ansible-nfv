@@ -121,6 +121,30 @@
     },
     {
       "key": {
+        "uuid": "3d8a7bb8_7122bbf2",
+        "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
+        "patchSetId": 9
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1015848
+      },
+      "writtenOn": "2020-08-04T06:12:26Z",
+      "side": 1,
+      "message": "@Maxim,\n\nSure we can discuss and finalize the approach.\n\nCan you share the best practices link which we are following in ansible nfv?\n\nI could see importing playbooks also part of best practices.\nhttps://docs.ansible.com/ansible/latest/user_guide/playbooks_best_practices.html\n\nyes, i agree using the roles increases the re-usability. \nI am confused, we already performance-scenario playbook and just importing in multiqueue automation.",
+      "parentUuid": "fb5d3847_778812fc",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 3
+      },
+      "revId": "fac04f1ccf52abcf9035c053687537f3937fd03e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "f25c7858_238eddfe",
         "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
         "patchSetId": 9
@@ -535,6 +559,30 @@
       "side": 1,
       "message": "I\u0027m sorry, but using a jinja to generate a role from a role is against all best practices.\nAnd I don\u0027t see a proper way of testing and maintaining it.\n\nAs I mentioned in another comment, I would appreaciate if you could share the flow you are trying to reach and we could see how to best implement it.",
       "parentUuid": "298bf762_a798fb57",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 12
+      },
+      "revId": "fac04f1ccf52abcf9035c053687537f3937fd03e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a779d0b8_0e1f295f",
+        "filename": "playbooks/packet_gen/trex/templates/nfv_multiqueue_tests.yml.j2",
+        "patchSetId": 9
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1015848
+      },
+      "writtenOn": "2020-08-04T06:12:26Z",
+      "side": 1,
+      "message": "@maxim,\nHere i am not generating the roles, generating required playbook for multiqueue perf automation since we are already following jinja 2 template like creating trex config file etc..",
+      "parentUuid": "7885314f_d6060226",
       "range": {
         "startLine": 15,
         "startChar": 0,
