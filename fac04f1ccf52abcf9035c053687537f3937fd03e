@@ -168,6 +168,30 @@
     },
     {
       "key": {
+        "uuid": "36e93878_77df7ed9",
+        "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
+        "patchSetId": 9
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1017708
+      },
+      "writtenOn": "2020-08-04T06:10:52Z",
+      "side": 1,
+      "message": "I ack on adding fact that irrespective of podman or docker, code will run always. We will see if osp 13 needs execution but that is different scope.",
+      "parentUuid": "e98bbd3f_78530f51",
+      "range": {
+        "startLine": 50,
+        "startChar": 8,
+        "endLine": 50,
+        "endChar": 14
+      },
+      "revId": "fac04f1ccf52abcf9035c053687537f3937fd03e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "15d4d2a9_29971312",
         "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
         "patchSetId": 9
