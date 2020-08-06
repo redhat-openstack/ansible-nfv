@@ -12,19 +12,19 @@
 
 - name: Prepare repos inside image
   include_tasks: prepare_repos.yml
-  when: prepare_repos | default(True)
+  when: prepare_repos | default(True) | bool
 
 - name: Customize Guest Image - DPDK Flow
   include_tasks: prepare_dpdk.yml
-  when: prepare_dpdk | default(True)
+  when: prepare_dpdk | default(True) | bool
 
 - name: Customize Guest Image - Trex Flow
   include_tasks: prepare_trex.yml
-  when: prepare_trex | default(True)
+  when: prepare_trex | default(True) | bool
 
 - name: Customize Guest Image - Generic Flow
   include_tasks: generic_customizations.yml
 
 - name: Customize Guest Image - HCI IO's
   include_tasks: prepare_guest_hci.yml
-  when: prepare_guest_hci | default(True)
+  when: prepare_guest_hci | default(True) | bool
