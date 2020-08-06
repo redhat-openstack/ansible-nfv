@@ -1,6 +1,7 @@
 - name: Status of OVS controlled PMD load balance in DuT
   command: grep 'PMD auto lb dry run. requesting datapath reconfigure' /var/log/openvswitch/ovs-vswitchd.log
   register: pmd_lb_ovs_status_output
+  ignore_errors: True
   when:
     - pmd_lb == 'ovs'
 
