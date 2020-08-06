@@ -6,6 +6,13 @@
     - hostvars[groups[dut_group][0]]['dut_macs'] is defined
     - dut_macs is not defined
 
+- name: Parse TRex VLANs
+  set_fact:
+    trex_vlans: "{{ trex_instance_nics_info|map(attribute='vlan')|list|join(',') }}"
+  when:
+    - trex_instance_nics_info is defined
+    - trex_vlans is not defined
+
 - name: Start PMD load balance in DuT
   delegate_to: "{{ dut_compute }}"
   become: True
@@ -27,7 +34,7 @@
       --dst-macs {{ dut_macs }}
       --num-flows {{ trex_flows }}
       {% if trex_set_vlan %}
-        --vlan-ids {{ trex_instance_sriov_vlans|join(',') }}
+        --vlan-ids {{ trex_vlans }}
       {%- endif %}
       --use-src-ip-flows 1
       --use-dst-ip-flows 1
@@ -67,7 +74,7 @@
           --num-flows={{ trex_flows }}
           --dst-macs={{ dut_macs }}
           {% if trex_set_vlan %}
-            --vlan-ids={{ trex_instance_sriov_vlans|join(',') }}
+            --vlan-ids={{ trex_vlans }}
           {%- endif %}
           --use-src-ip-flows=1
           --use-dst-ip-flows=1
