@@ -1,0 +1,15 @@
+---
+
+- hosts: "{{ idrac_inventory_hosts }}"
+  name: Configure Dell iDRAC Bios Configuration
+  gather_facts: False
+  tasks:
+    - name: Parse BIOS Atrributes And Values From 'idrac_bios_attributes' Variable
+      set_fact:
+        dell_idrac_bios_attribute: "{{ idrac_bios_attributes.split(',') }}"
+    - name: Print Parsed iDRAC BIOS Attributes
+      debug:
+        var: dell_idrac_bios_attribute | mandatory
+    - name: Iterate Over iDRAC Hosts
+      include_role:
+        name: configuration/dell_idrac_configuration
