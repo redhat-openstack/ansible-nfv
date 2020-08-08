@@ -1,0 +1,53 @@
+---
+
+- name: "Attempt to Power On iDRAC Host '{{ item }}'"
+  redfish_command:
+    category: Systems
+    command: PowerOn
+    baseuri: "{{ item }}"
+    user: "{{ idrac_user }}"
+    password: "{{ idrac_password }}"
+  register: idrac_power_state
+  ignore_errors: True
+
+- name: "Failed to Power On iDRAC Host '{{ item }}'"
+  fail:
+    msg: "Reason: {{ idrac_power_state['msg']}}"
+  # Override errors handling due to 'HTTP ERROR: 409' meaning host is powered on
+  when: >
+    idrac_power_state['msg'] not in [
+      'HTTP Error: 409',
+      'Action was successful'
+      ]
+
+- name: "Set BIOS Attribute For Host '{{ item }}'"
+  redfish_config:
+    category: Systems
+    command: SetBiosAttributes
+    bios_attr_name: "{{ bios_attribute.split(':')[0] }}"
+    bios_attr_value: "{{ bios_attribute.split(':')[1] }}"
+    baseuri: "{{ item }}"
+    user: "{{ idrac_user }}"
+    password: "{{ idrac_password }}"
+  loop: "{{ dell_idrac_bios_attribute }}"
+  loop_control:
+    loop_var: bios_attribute
+  register: bios_attribute_change
+
+- name: "Create BIOS Configuration Job (Schedule BIOS Setting Update) For '{{ item }}'"
+  redfish_command:
+    category: Systems
+    command: CreateBiosConfigJob
+    baseuri: "{{ item }}"
+    user: "{{ idrac_user }}"
+    password: "{{ idrac_password }}"
+  when: bios_attribute_change['changed']
+
+- name: "Reboot iDRAC '{{ item }}' To Apply New BIOS Settings"
+  redfish_command:
+    category: Systems
+    command: "{{ dell_idrac_power_mode }}"
+    baseuri: "{{ item }}"
+    user: "{{ idrac_user }}"
+    password: "{{ idrac_password }}"
+  when: bios_attribute_change['changed']
