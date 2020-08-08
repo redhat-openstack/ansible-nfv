@@ -1,0 +1,10 @@
+---
+
+- hosts: "{{ idrac_inventory_hosts }}"
+  connection: local
+  name: Configure Dell iDRAC Bios Configuration
+  gather_facts: False
+  tasks:
+    - name: "Attempting To Configure iDRAC Host '{{ inventory_hostname }}'"
+      include_role:
+        name: configuration/dell_idrac_configuration
