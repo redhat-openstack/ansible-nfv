@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2bbf8a45_81ce5054",
+        "filename": "roles/pmd_load_balance/tasks/status.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-08-09T11:15:12Z",
+      "side": 1,
+      "message": "It is recommended to avoid using \"ignore_errors\" on a task when possible.\n\nI suggest to do the following:\nAdd a pipe to cat command.\n\ncommand: grep \u0027PMD auto lb dry run. requesting datapath reconfigure\u0027 /var/log/openvswitch/ovs-vswitchd.log | cat\n\nIn such way, when the string will exist in the file, the output will be taken.\nAnd when the value will not exist, the exit code will remain zero.",
+      "range": {
+        "startLine": 4,
+        "startChar": 2,
+        "endLine": 4,
+        "endChar": 21
+      },
+      "revId": "980f4a993f2aeb24b0419a04d2de0bef7bd003b8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
