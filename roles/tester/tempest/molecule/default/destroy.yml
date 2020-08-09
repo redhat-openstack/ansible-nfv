@@ -1,16 +1,15 @@
 ---
 - name: Destroy
-  hosts: "{{ osp_tasks_host | default('undercloud') }}"
+  hosts: undercloud
   gather_facts: false
   vars:
     inventory_generated: "{{ lookup('env', 'TEST_INV_GENERATED') }}"
-  vars_files:
-    - play_vars.yml
-  roles:
-    - role: openstack_tasks
-      resource_state: absent
-
   tasks:
+    - name: Delete tempest directory
+      file:
+        path: /home/stack/tempest
+        state: absent
+
     - block:
         - name: Delete created inventory
           file:

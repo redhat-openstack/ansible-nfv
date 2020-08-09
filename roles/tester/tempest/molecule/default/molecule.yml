@@ -1,6 +1,4 @@
 ---
-dependency:
-  name: galaxy
 driver:
   name: openstack
 lint:
@@ -11,6 +9,8 @@ platforms:
   - name: hypervisor
 provisioner:
   name: ansible
+  env:
+    ANSIBLE_ROLES_PATH: ../../../../../roles
   inventory:
     links:
       hosts: ${MOLECULE_INVENTORY_PATH:-inventory}
@@ -28,6 +28,12 @@ verifier:
       force-color: true
 scenario:
   name: default
+  create_sequence:
+    - prepare
+  converge_sequence:
+    - dependency
+    - prepare
+    - converge
   test_sequence:
     - prepare
     - lint

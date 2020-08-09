@@ -67,6 +67,7 @@
     filters:
       router:external: true
   register: tempest_net_id
+  when: external_net_id
 
 - name: Download the test os image
   get_url:
@@ -74,6 +75,7 @@
     dest: "/tmp/{{ images[0].url | basename }}"
     timeout: 100
     validate_certs: "{{ os_image_cert_validation }}"
+  when: image_for_tempest
 
 - name: Check if tempestconf tool installed
   stat:
@@ -143,8 +145,12 @@
     {{ config_command | default('python config_tempest/config_tempest.py') }} \
         --create \
         --debug \
+        {% if image_for_tempest %}
         --image "/tmp/{{ images[0].url | basename }}" \
+        {% endif %}
+        {% if external_net_id %}
         --network-id {{ tempest_net_id.ansible_facts.openstack_networks.0.id }} \
+        {% endif %}
         identity.uri {{ rc_vars.osp_auth }} \
         identity.admin_password {{ rc_vars.osp_password }} \
         identity.region regionOne DEFAULT.debug false \
@@ -256,12 +262,19 @@
   register: tests_stats
   failed_when: "tests_stats.rc == 2"
 
+- name: Check existence of tempest log
+  tags: run_tempest_test
+  stat:
+    path: "{{ tempest_dir }}/{{ tempest_main }}/tempest.log"
+  register: tempest_log
+
 - name: Copy tempest log file to the main tempest directory
   tags: run_tempest_test
   copy:
     remote_src: yes
     src: "{{ tempest_dir }}/{{ tempest_main }}/tempest.log"
     dest: "{{ tempest_dir }}/tempest.log"
+  when: tempest_log.stat.exists
 
 - name: Print the output results of the tempest tests
   tags: run_tempest_test

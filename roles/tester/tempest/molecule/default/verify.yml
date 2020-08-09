@@ -1,0 +1,99 @@
+---
+- name: Verify
+  hosts: undercloud
+  gather_facts: false
+  vars_files:
+    - ../../defaults/main.yml
+    - ../../vars/main.yml
+  tasks:
+    - name: Test cloned tempest repos
+      stat:
+        path: "{{ tempest_dir }}/{{ item }}"
+      loop:
+        - "{{ tempest_main }}"
+        - "{{ tempest_conf }}"
+        - "{{ nfv_tempest_plugin }}"
+        - "{{ neutron_tempest_plugin }}"
+      register: tempest_repos_state
+
+    - name: Verify tempest repositories exist
+      assert:
+        that: item.stat.exists
+      loop: "{{ tempest_repos_state.results }}"
+
+    - name: Test virtualenv existence
+      stat:
+        path: "{{ tempest_dir }}/venv"
+      register: tempest_venv_state
+
+    - name: Verify virtualenv existence
+      assert:
+        that: tempest_venv_state.stat.exists
+
+    - name: Test accounts.yaml file existence
+      stat:
+        path: "{{ accounts_file_path }}"
+      register: accounts_file_state
+
+    - name: Verify accounts.yaml file existence
+      assert:
+        that: accounts_file_state.stat.exists
+
+    - name: Read resource output file
+      slurp:
+        src: "{{ accounts_file_path }}"
+      register: accounts_output_file
+
+    - name: Import file content into variable
+      set_fact:
+        accounts_output_var: "{{ accounts_output_file.content | b64decode | from_yaml_all | list }}"
+
+    - name: Verify accounts.yaml file structure
+      assert:
+        that:
+          - "accounts_output_var[0][0].username"
+          - "accounts_output_var[0][0].password"
+          - "accounts_output_var[0][0].domain_name"
+          - "accounts_output_var[0][0].project_name"
+          - "accounts_output_var[0][0].types"
+
+    - name: Test tempest.conf file generation
+      stat:
+        path: "{{ tempest_dir }}/{{ tempest_main }}/etc/tempest.conf"
+      register: tempest_conf_state
+
+    - name: Verify tempest.conf file generation
+      assert:
+        that: tempest_conf_state.stat.exists
+
+    - name: Test tempest .stestr test repository
+      stat:
+        path: "{{ tempest_dir }}/{{ tempest_main }}/.stestr"
+      register: stestr_repo_state
+
+    - name: Verify .stestr test repository existence
+      assert:
+        that: stestr_repo_state.stat.exists
+
+    - name: Test generated tempest.xml file
+      stat:
+        path: "{{ tempest_dir }}/tempest.xml"
+      register: tempest_xml_state
+
+    - name: Verify generated tempest.xml file
+      assert:
+        that: tempest_conf_state.stat.exists
+
+    - name: Test nfv tests existence
+      shell: |
+        source {{ tempest_dir }}/venv/bin/activate
+        stestr list nfv
+      args:
+        executable: /bin/bash
+        chdir: "{{ tempest_dir }}/{{ tempest_main }}"
+      register: nfv_tests_state
+      changed_when: false
+
+    - name: Verify nfv test existence
+      assert:
+        that: '"nfv_tempest_plugin.tests.scenario.test_nfv_basic.TestNfvBasic.test_numa0_provider_network" in nfv_tests_state.stdout'
