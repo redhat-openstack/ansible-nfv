@@ -307,6 +307,12 @@ TestPMD forwarding mode, currently supported mode io, mac.
 ```
 forward_mode: io
 ```
+TRex MAC Addresses that testpmd will forward traffic to if forward_mode is set to mac:
+
+ **Not** defined by default, can be discovered automatically or supplied by user.
+```
+trex_macs: '00:00:00:03:00:00,00:00:00:04:00:00'
+```
 
 ### Binary Search Sript Variables
 
@@ -391,6 +397,12 @@ Enables using vlan-ids with binary search. Vlan id is obtained from vif_details 
 `False` by default.
 ```
 trex_set_vlan: False
+```
+TRex VLANs to use when trex_set_vlan is set:
+
+ **Not** defined by default, can be discovered automatically or supplied by user.
+```
+trex_vlans: '406,407'
 ```
 
 ### Tuning
