@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "aba04395_319d4fdb",
+        "filename": "playbooks/configuration/dell_idrac_bios_config.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-08-09T09:21:07Z",
+      "side": 1,
+      "message": "I will raise a suggestion and let you decide to apply it or continue with the existing flow.\n\nYou are looping trough the ipmi hosts by accepting them via the extra variables.\nIn the previous version of switch configuration role, I did the same flow, but later changed it to work with the inventory file.\n\nThe reason for the change, and my suggestion to work with the inventory is the following.\n* Our ipmi hosts are permanent. They do not change recently and update of the inventory will not be required.\n* When using inventory, the flow of the playbook will be performed in a single run and execute on the hosts in parallel. When you are looping through the hosts it will take much more time to update the hosts because the update will be performed one by one.",
+      "range": {
+        "startLine": 8,
+        "startChar": 12,
+        "endLine": 8,
+        "endChar": 52
+      },
+      "revId": "ea08c1242d33f6499207908cc74af44fde52ba89",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "52c8f0df_ce5ca807",
+        "filename": "roles/configuration/dell_idrac_configuration/README.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-08-09T09:21:07Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 9,
+        "startChar": 35,
+        "endLine": 9,
+        "endChar": 38
+      },
+      "revId": "ea08c1242d33f6499207908cc74af44fde52ba89",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
