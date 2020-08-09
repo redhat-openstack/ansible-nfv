@@ -48,7 +48,7 @@
       set_fact:
         pmd_lb_pretest_sec: "{{ trex_search }}"
       when:
-        - pmd_lb_pretest_sec is not defined
+        - pmd_lb_pretest_sec is not defined or pmd_lb_pretest_sec == 'None'
 
     - name: Generate traffic for load balancing PMD
       shell: python -u {{ trafficgen_dir }}/trex-txrx.py
