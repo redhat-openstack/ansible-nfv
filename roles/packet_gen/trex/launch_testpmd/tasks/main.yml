@@ -7,6 +7,13 @@
   shell: "tmux list-sessions -F '#S' | xargs -n1 tmux kill-session -t"
   when: tmux_sessions['stdout_lines'] != []
 
+- name: Parse TRex MACs
+  set_fact:
+    trex_macs: "{{ (hostvars[(groups['trex'] | first) ]['trex_instance_nics_info'])|map(attribute='mac_address')|list|join(',') }}"
+  when:
+    - hostvars[(groups['trex'] | first) ]['trex_instance_nics_info'] is defined
+    - trex_macs is not defined
+
 - name: Set TestPMD Command If Not Defined
   set_fact:
     testpmd_cmd: |
@@ -20,8 +27,8 @@
       {% endif %}
       {% if forward_mode == 'mac' %}
         --forward-mode=mac \
-        --eth-peer=0,{{hostvars[(groups['trex'] | first) ]['trex_instance_sriov_macs'][0]}} \
-        --eth-peer=1,{{hostvars[(groups['trex'] | first) ]['trex_instance_sriov_macs'][1]}} \
+        --eth-peer=0,{{ trex_macs.split(',')[0] }} \
+        --eth-peer=1,{{ trex_macs.split(',')[1] }} \
       {% endif %}
       --rxd={{ testpmd_rxd }} \
       --txd={{ testpmd_txd }} &>/tmp/testpmd.log
