@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "dabb14b3_23c09fa3",
+        "filename": "playbooks/configuration/dell_idrac_bios_config.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2020-08-10T13:05:20Z",
+      "side": 1,
+      "message": "Done as discussed in IRC.",
+      "parentUuid": "98d9b267_b747e1a9",
+      "range": {
+        "startLine": 8,
+        "startChar": 12,
+        "endLine": 8,
+        "endChar": 52
+      },
+      "revId": "ea08c1242d33f6499207908cc74af44fde52ba89",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "52c8f0df_ce5ca807",
         "filename": "roles/configuration/dell_idrac_configuration/README.md",
         "patchSetId": 3
