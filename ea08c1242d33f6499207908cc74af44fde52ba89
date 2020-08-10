@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "98d9b267_b747e1a9",
+        "filename": "playbooks/configuration/dell_idrac_bios_config.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-08-10T09:11:24Z",
+      "side": 1,
+      "message": "The storing of the ipmi hosts inventory could be in the nfv-qe repo as we are doing with the switches inventory.\n\nCurrently, we have a branch called \"switches_config\".\nWe could do two options:\n1) Rename the \"switches_config\" branch to let\u0027s say \"global_config\" to store all nfv qe related configurations.\n2) Create a separate branch to store ipmi related config.\n\nI\u0027m voting for the first option. But it is up to your decision.\n\n\nYou can just execute the playbook directly on the ipmi hosts. As every usual playbook. No need to delegate_to.",
+      "parentUuid": "0aebb0d9_f6da86ac",
+      "range": {
+        "startLine": 8,
+        "startChar": 12,
+        "endLine": 8,
+        "endChar": 52
+      },
+      "revId": "ea08c1242d33f6499207908cc74af44fde52ba89",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "52c8f0df_ce5ca807",
         "filename": "roles/configuration/dell_idrac_configuration/README.md",
         "patchSetId": 3
