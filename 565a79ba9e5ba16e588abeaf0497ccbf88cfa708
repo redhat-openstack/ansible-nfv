@@ -22,6 +22,30 @@
       "revId": "565a79ba9e5ba16e588abeaf0497ccbf88cfa708",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a3625f48_aa57b694",
+        "filename": "/MERGE_LIST",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1016264
+      },
+      "writtenOn": "2020-08-10T10:08:27Z",
+      "side": 1,
+      "message": "my bad.. let me fix that.",
+      "parentUuid": "c6e2b4d6_624e31db",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 11
+      },
+      "revId": "565a79ba9e5ba16e588abeaf0497ccbf88cfa708",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
