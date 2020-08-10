@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "50661c33_48f16604",
+        "filename": "roles/images/performance/tasks/main.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-08-10T09:16:52Z",
+      "side": 1,
+      "message": "Please, add boolean definition as in line 30.\nOtherwise it may lead into acondition confusion.",
+      "range": {
+        "startLine": 34,
+        "startChar": 36,
+        "endLine": 34,
+        "endChar": 37
+      },
+      "revId": "56673d501ac96faf55a102d9413ad05aa4f68805",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e71fa390_795885d6",
+        "filename": "roles/packet_gen/iperf/README.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-08-10T09:16:52Z",
+      "side": 1,
+      "message": "typo",
+      "range": {
+        "startLine": 5,
+        "startChar": 37,
+        "endLine": 5,
+        "endChar": 40
+      },
+      "revId": "56673d501ac96faf55a102d9413ad05aa4f68805",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
