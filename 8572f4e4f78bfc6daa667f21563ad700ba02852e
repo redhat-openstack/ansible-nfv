@@ -2,6 +2,75 @@
   "comments": [
     {
       "key": {
+        "uuid": "a7d893e2_c29e6051",
+        "filename": "playbooks/configuration/dell_idrac_bios_config.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-08-10T19:40:25Z",
+      "side": 1,
+      "message": "Maybe we could add a default value here, similar to what we did in tempest playbook [1].\nIt could be even \"none\", so in case the \"idrac_inventory_hosts\" variable not specified, it will not fail, but skipped.\n\n[1] - https://github.com/redhat-openstack/ansible-nfv/blob/master/playbooks/tripleo/tester/tempest.yml#L4",
+      "range": {
+        "startLine": 3,
+        "startChar": 13,
+        "endLine": 3,
+        "endChar": 34
+      },
+      "revId": "8572f4e4f78bfc6daa667f21563ad700ba02852e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "682a3f0e_80f5ba1e",
+        "filename": "roles/configuration/dell_idrac_configuration/README.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-08-10T19:40:25Z",
+      "side": 1,
+      "message": "Not relevant anymore.",
+      "range": {
+        "startLine": 7,
+        "startChar": 14,
+        "endLine": 7,
+        "endChar": 43
+      },
+      "revId": "8572f4e4f78bfc6daa667f21563ad700ba02852e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "20790cce_59117afc",
+        "filename": "roles/configuration/dell_idrac_configuration/README.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-08-10T19:40:25Z",
+      "side": 1,
+      "message": "That should be defined within the playbook.",
+      "range": {
+        "startLine": 31,
+        "startChar": 19,
+        "endLine": 31,
+        "endChar": 35
+      },
+      "revId": "8572f4e4f78bfc6daa667f21563ad700ba02852e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "fd774d20_a2271a41",
         "filename": "roles/configuration/dell_idrac_configuration/README.md",
         "patchSetId": 5
@@ -37,6 +106,30 @@
       "side": 1,
       "message": "This is a great point.\n\nWe can override those parameters as part of inventory file.\nFor example let\u0027s assume we have AMD and Intel based servers.\n\n[AMD]\nhost01\nhost02\n\n[INTEL]\nhost03\nhost4\n\nSo in order to have unique values for those we could do the following for AMD (BIOS attribute names are made up):\n\n[AMD:vars]\nidrac_bios_attributes\u003d\u0027if_freq:\u003cVALUE\u003e\u0027\n\nWhile for Intel we could do:\n[INTEL:vars]\nidrac_bios_attributes\u003d\u0027intel_core_boost:\u003cVALUE\u003e\u0027\n\nThis way we will could manage the variables based on hosts.",
       "parentUuid": "fd774d20_a2271a41",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 44
+      },
+      "revId": "8572f4e4f78bfc6daa667f21563ad700ba02852e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "43839ea0_0e773ebd",
+        "filename": "roles/configuration/dell_idrac_configuration/README.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-08-10T19:40:25Z",
+      "side": 1,
+      "message": "I suggest not to use the \"idrac_bios_attributes\" variable as extra_vars at all.\nIf we will store those variables within the inventory file [1], we will get the benefit of specifying different variable option for each host/group.\n\n[1] - https://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html#assigning-a-variable-to-one-machine-host-variables",
+      "parentUuid": "8dc9f9a0_5c65e14d",
       "range": {
         "startLine": 37,
         "startChar": 0,
