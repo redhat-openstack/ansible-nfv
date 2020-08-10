@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "0aebb0d9_f6da86ac",
+        "filename": "playbooks/configuration/dell_idrac_bios_config.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2020-08-10T07:26:34Z",
+      "side": 1,
+      "message": "Hey Maxim.\n\nThis is a great suggestion I\u0027m just unsure on how to build this flow correctly.\nWhere should I store our private IPMI hosts, I don\u0027t want to expose it in this repo.\nAlso, how should I approach on managing an inventory for IPMI hosts when I want to run everything from local, can I just do a general delegate_host on the hosts level?",
+      "parentUuid": "aba04395_319d4fdb",
+      "range": {
+        "startLine": 8,
+        "startChar": 12,
+        "endLine": 8,
+        "endChar": 52
+      },
+      "revId": "ea08c1242d33f6499207908cc74af44fde52ba89",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "52c8f0df_ce5ca807",
         "filename": "roles/configuration/dell_idrac_configuration/README.md",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2020-08-09T09:21:07Z",
       "side": 1,
       "message": "typo",
+      "range": {
+        "startLine": 9,
+        "startChar": 35,
+        "endLine": 9,
+        "endChar": 38
+      },
+      "revId": "ea08c1242d33f6499207908cc74af44fde52ba89",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "21d68497_2ea4b27d",
+        "filename": "roles/configuration/dell_idrac_configuration/README.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2020-08-10T07:26:34Z",
+      "side": 1,
+      "message": "Thanks, will resolve this.",
+      "parentUuid": "52c8f0df_ce5ca807",
       "range": {
         "startLine": 9,
         "startChar": 35,
