@@ -22,6 +22,30 @@
       "revId": "980f4a993f2aeb24b0419a04d2de0bef7bd003b8",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0e53375f_9c4a9a76",
+        "filename": "roles/pmd_load_balance/tasks/status.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1016264
+      },
+      "writtenOn": "2020-08-10T07:50:36Z",
+      "side": 1,
+      "message": "Thanks for the suggestion Maxim, will change and resubmit.",
+      "parentUuid": "2bbf8a45_81ce5054",
+      "range": {
+        "startLine": 4,
+        "startChar": 2,
+        "endLine": 4,
+        "endChar": 21
+      },
+      "revId": "980f4a993f2aeb24b0419a04d2de0bef7bd003b8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
