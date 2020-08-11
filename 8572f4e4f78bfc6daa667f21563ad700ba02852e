@@ -49,6 +49,29 @@
     },
     {
       "key": {
+        "uuid": "643aecf8_ad60fb71",
+        "filename": "roles/configuration/dell_idrac_configuration/README.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2020-08-11T13:53:19Z",
+      "side": 1,
+      "message": "Is there a link to iDRAC BIOS configuration parameters?\nI would add it here",
+      "range": {
+        "startLine": 5,
+        "startChar": 13,
+        "endLine": 5,
+        "endChar": 49
+      },
+      "revId": "8572f4e4f78bfc6daa667f21563ad700ba02852e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "682a3f0e_80f5ba1e",
         "filename": "roles/configuration/dell_idrac_configuration/README.md",
         "patchSetId": 5
@@ -274,6 +297,30 @@
       "side": 1,
       "message": "Yes, this can be done, this way we can still override this so no changes are needed.",
       "parentUuid": "6f399170_83f19216",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 44
+      },
+      "revId": "8572f4e4f78bfc6daa667f21563ad700ba02852e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fe74db73_536a233b",
+        "filename": "roles/configuration/dell_idrac_configuration/README.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2020-08-11T13:53:19Z",
+      "side": 1,
+      "message": "So, what is bottom line? are we supporting for now mix of machines?",
+      "parentUuid": "a209e5e0_a0058137",
       "range": {
         "startLine": 37,
         "startChar": 0,
