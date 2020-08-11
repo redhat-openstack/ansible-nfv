@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "67a73f58_f8e1df33",
+        "filename": "roles/configuration/dell_idrac_configuration/README.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2020-08-11T14:00:12Z",
+      "side": 1,
+      "message": "Hey Yarboa sorry not familiar with an official document that has all values.\n\nYou can get the current values using this script:\nhttps://github.com/dell/iDRAC-Redfish-Scripting/blob/master/Redfish%20Python/BiosGetAttributesREDFISH.py",
+      "parentUuid": "643aecf8_ad60fb71",
+      "range": {
+        "startLine": 5,
+        "startChar": 13,
+        "endLine": 5,
+        "endChar": 49
+      },
+      "revId": "8572f4e4f78bfc6daa667f21563ad700ba02852e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "682a3f0e_80f5ba1e",
         "filename": "roles/configuration/dell_idrac_configuration/README.md",
         "patchSetId": 5
@@ -119,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "01b9b78e_3a246008",
+        "filename": "roles/configuration/dell_idrac_configuration/README.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2020-08-11T14:00:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2cd6f957_e7a6547b",
+      "range": {
+        "startLine": 7,
+        "startChar": 14,
+        "endLine": 7,
+        "endChar": 43
+      },
+      "revId": "8572f4e4f78bfc6daa667f21563ad700ba02852e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "20790cce_59117afc",
         "filename": "roles/configuration/dell_idrac_configuration/README.md",
         "patchSetId": 5
@@ -163,6 +211,30 @@
       "revId": "8572f4e4f78bfc6daa667f21563ad700ba02852e",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "d3c05279_74b9a837",
+        "filename": "roles/configuration/dell_idrac_configuration/README.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2020-08-11T14:00:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "89b9e0f1_e5406b2d",
+      "range": {
+        "startLine": 31,
+        "startChar": 19,
+        "endLine": 31,
+        "endChar": 35
+      },
+      "revId": "8572f4e4f78bfc6daa667f21563ad700ba02852e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     },
     {
       "key": {
@@ -321,6 +393,30 @@
       "side": 1,
       "message": "So, what is bottom line? are we supporting for now mix of machines?",
       "parentUuid": "a209e5e0_a0058137",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 44
+      },
+      "revId": "8572f4e4f78bfc6daa667f21563ad700ba02852e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8ee5109_c988b428",
+        "filename": "roles/configuration/dell_idrac_configuration/README.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2020-08-11T14:00:12Z",
+      "side": 1,
+      "message": "Mix of machines is supported via inventory parameters.",
+      "parentUuid": "fe74db73_536a233b",
       "range": {
         "startLine": 37,
         "startChar": 0,
