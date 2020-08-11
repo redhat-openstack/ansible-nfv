@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9cb632da_8f70bb9b",
+        "filename": "playbooks/configuration/dell_idrac_bios_config.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2020-08-11T07:56:57Z",
+      "side": 1,
+      "message": "Perhaps, but if this playbook meant to be generic, the use can have several groups.",
+      "parentUuid": "a7d893e2_c29e6051",
+      "range": {
+        "startLine": 3,
+        "startChar": 13,
+        "endLine": 3,
+        "endChar": 34
+      },
+      "revId": "8572f4e4f78bfc6daa667f21563ad700ba02852e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "682a3f0e_80f5ba1e",
         "filename": "roles/configuration/dell_idrac_configuration/README.md",
         "patchSetId": 5
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "2cd6f957_e7a6547b",
+        "filename": "roles/configuration/dell_idrac_configuration/README.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2020-08-11T07:56:57Z",
+      "side": 1,
+      "message": "True will remove.",
+      "parentUuid": "682a3f0e_80f5ba1e",
+      "range": {
+        "startLine": 7,
+        "startChar": 14,
+        "endLine": 7,
+        "endChar": 43
+      },
+      "revId": "8572f4e4f78bfc6daa667f21563ad700ba02852e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "20790cce_59117afc",
         "filename": "roles/configuration/dell_idrac_configuration/README.md",
         "patchSetId": 5
@@ -59,6 +107,30 @@
       "writtenOn": "2020-08-10T19:40:25Z",
       "side": 1,
       "message": "That should be defined within the playbook.",
+      "range": {
+        "startLine": 31,
+        "startChar": 19,
+        "endLine": 31,
+        "endChar": 35
+      },
+      "revId": "8572f4e4f78bfc6daa667f21563ad700ba02852e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "89b9e0f1_e5406b2d",
+        "filename": "roles/configuration/dell_idrac_configuration/README.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2020-08-11T07:56:57Z",
+      "side": 1,
+      "message": "True, thanks for raising this.",
+      "parentUuid": "20790cce_59117afc",
       "range": {
         "startLine": 31,
         "startChar": 19,
@@ -130,6 +202,30 @@
       "side": 1,
       "message": "I suggest not to use the \"idrac_bios_attributes\" variable as extra_vars at all.\nIf we will store those variables within the inventory file [1], we will get the benefit of specifying different variable option for each host/group.\n\n[1] - https://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html#assigning-a-variable-to-one-machine-host-variables",
       "parentUuid": "8dc9f9a0_5c65e14d",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 44
+      },
+      "revId": "8572f4e4f78bfc6daa667f21563ad700ba02852e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3bfcd6a4_3c59c752",
+        "filename": "roles/configuration/dell_idrac_configuration/README.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2020-08-11T07:56:57Z",
+      "side": 1,
+      "message": "Hey, one problem I have with this is that if we\u0027ll want it to add it to our own CI, we will maybe want to have a parameter that will allow us to modify several attributes.\n\nFor example, the main reason for this playbook currently is to have real time automation disable Hyper threading, and non real time jobs will re-enable hyper threading.\n\nSo we\u0027ll have to either maybe support several file for each deployment type or find a way to modify it in automation (but this point is outside of the scope of this patch).",
+      "parentUuid": "43839ea0_0e773ebd",
       "range": {
         "startLine": 37,
         "startChar": 0,
