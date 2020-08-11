@@ -235,6 +235,30 @@
       "revId": "8572f4e4f78bfc6daa667f21563ad700ba02852e",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6f399170_83f19216",
+        "filename": "roles/configuration/dell_idrac_configuration/README.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-08-11T08:44:30Z",
+      "side": 1,
+      "message": "If the variable exists within the inventory or some other file, it could be overridden using extra_vars from cli. Of course if the variable is not nested (as overriding nested var could be a problem).",
+      "parentUuid": "3bfcd6a4_3c59c752",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 44
+      },
+      "revId": "8572f4e4f78bfc6daa667f21563ad700ba02852e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
