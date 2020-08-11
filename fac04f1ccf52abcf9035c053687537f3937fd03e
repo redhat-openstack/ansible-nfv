@@ -715,6 +715,30 @@
     },
     {
       "key": {
+        "uuid": "bba4e372_d5929e16",
+        "filename": "playbooks/packet_gen/trex/templates/nfv_multiqueue_tests.yml.j2",
+        "patchSetId": 9
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1015848
+      },
+      "writtenOn": "2020-08-11T10:38:18Z",
+      "side": 1,
+      "message": "Maxim,\n\nOk, Let\u0027s hard code the playbook calls for all the scenario\u0027s.\n\nFor running all scenarios in one shot: this is the optimal option i can think of, what do you think else?",
+      "parentUuid": "93cde4dc_e7728ea7",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 12
+      },
+      "revId": "fac04f1ccf52abcf9035c053687537f3937fd03e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "44c7e1e2_17d5efcf",
         "filename": "samples/multiqueue_test_cases.yaml",
         "patchSetId": 9
