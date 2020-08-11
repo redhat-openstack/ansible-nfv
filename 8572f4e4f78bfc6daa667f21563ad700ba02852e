@@ -259,6 +259,30 @@
       "revId": "8572f4e4f78bfc6daa667f21563ad700ba02852e",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a209e5e0_a0058137",
+        "filename": "roles/configuration/dell_idrac_configuration/README.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2020-08-11T10:08:19Z",
+      "side": 1,
+      "message": "Yes, this can be done, this way we can still override this so no changes are needed.",
+      "parentUuid": "6f399170_83f19216",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 44
+      },
+      "revId": "8572f4e4f78bfc6daa667f21563ad700ba02852e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
