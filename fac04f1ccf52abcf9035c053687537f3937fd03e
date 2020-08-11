@@ -691,6 +691,30 @@
     },
     {
       "key": {
+        "uuid": "93cde4dc_e7728ea7",
+        "filename": "playbooks/packet_gen/trex/templates/nfv_multiqueue_tests.yml.j2",
+        "patchSetId": 9
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-08-11T10:09:34Z",
+      "side": 1,
+      "message": "Jagan,\n\nAs following to our conversation.\nUnfortunately, as we discussed, the import_playbooks does not support loop invocation.\n\nFrom the other side, the jinja2 usage within the playbook is very confusing and misleading.\nIt means that in the future, the maintenance and support of those playbooks may be hard to understand.\nI spoke with Vadim to see if he has some addition ideas, but the only way of solution we thought, is to specify the playbook call, is hardcoded.\n\nI agree that it is not the best option, but at least it will be pretty easy to understand what is going on later.\n\nAnother question that I would like to rise, is, why do we need to test so much scenarios in one shot?",
+      "parentUuid": "b5d55a02_87f354f3",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 12
+      },
+      "revId": "fac04f1ccf52abcf9035c053687537f3937fd03e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "44c7e1e2_17d5efcf",
         "filename": "samples/multiqueue_test_cases.yaml",
         "patchSetId": 9
