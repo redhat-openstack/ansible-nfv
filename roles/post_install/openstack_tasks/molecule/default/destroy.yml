@@ -2,6 +2,8 @@
 - name: Destroy
   hosts: "{{ osp_tasks_host | default('undercloud') }}"
   gather_facts: false
+  vars:
+    inventory_generated: "{{ lookup('env', 'TEST_INV_GENERATED') }}"
   vars_files:
     - play_vars.yml
   roles:
@@ -9,18 +11,20 @@
       resource_state: absent
 
   tasks:
-    - name: Delete created inventory
-      file:
-        path: "{{ item }}"
-        state: absent
-      loop:
-        - inventory
-        - ansible.ssh.config
-        - environments
-      delegate_to: localhost
+    - block:
+        - name: Delete created inventory
+          file:
+            path: "{{ item }}"
+            state: absent
+          loop:
+            - inventory
+            - ansible.ssh.config
+            - environments
+          delegate_to: localhost
 
-    - name: Restore dump inventory
-      copy:
-        content: 'localhost'
-        dest: inventory
-      delegate_to: localhost
+        - name: Restore dump inventory
+          copy:
+            content: 'localhost'
+            dest: inventory
+          delegate_to: localhost
+      when: not inventory_generated

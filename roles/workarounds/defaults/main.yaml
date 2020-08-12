@@ -1,6 +1,0 @@
----
-
-crossnuma_vcpus: 9,10,25,26
-vcpu_pin_set_cross_numa: false
-disable_security_groups: false
-cpu_list: ''

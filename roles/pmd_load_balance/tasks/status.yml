@@ -1,0 +1,24 @@
+- name: Status of OVS controlled PMD load balance in DuT
+  shell: grep 'PMD auto lb dry run. requesting datapath reconfigure' /var/log/openvswitch/ovs-vswitchd.log | cat
+  register: pmd_lb_ovs_status_output
+  when:
+    - pmd_lb == 'ovs'
+
+- name: Status of user controlled PMD load balance in DuT
+  command: podman exec openvswitch_dpdk_netcontrold ncd_ctl status
+  register: pmd_lb_user_status_output
+  when:
+    - pmd_lb == 'user'
+
+- debug:
+    var: pmd_lb_user_status_output
+
+- set_fact:
+    pmd_lb_status_output: "{{ pmd_lb_ovs_status_output }}"
+  when:
+    pmd_lb == 'ovs'
+
+- set_fact:
+    pmd_lb_status_output: "{{ pmd_lb_user_status_output }}"
+  when:
+    pmd_lb == 'user'

@@ -69,6 +69,11 @@ rc_params:
   - name: osp_domain_name
     value: OS_USER_DOMAIN_NAME
 
+# Query the OSP env for the external network
+external_net_id: true
+# Download image for tempest
+image_for_tempest: true
+
 # Virtual environment path
 # Recommended to be equal to venv_path from post_install/openstack_tasks role
 venv_path: "/tmp/ansible_venv"

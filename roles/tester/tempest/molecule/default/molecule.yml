@@ -1,0 +1,45 @@
+---
+driver:
+  name: openstack
+lint:
+  name: yamllint
+  options:
+    config-file: ../../../.yamllint
+platforms:
+  - name: hypervisor
+provisioner:
+  name: ansible
+  env:
+    ANSIBLE_ROLES_PATH: ../../../../../roles
+  inventory:
+    links:
+      hosts: ${MOLECULE_INVENTORY_PATH:-inventory}
+  lint:
+    name: ansible-lint
+    options:
+      x: ["204,301,306,403,405,503"]
+      force-color: true
+verifier:
+  name: ansible
+  lint:
+    name: ansible-lint
+    options:
+      x: ["204,301,306,403,405,503"]
+      force-color: true
+scenario:
+  name: default
+  create_sequence:
+    - prepare
+  converge_sequence:
+    - dependency
+    - prepare
+    - converge
+  test_sequence:
+    - prepare
+    - lint
+    - destroy
+    - syntax
+    - prepare
+    - converge
+    - verify
+    - destroy

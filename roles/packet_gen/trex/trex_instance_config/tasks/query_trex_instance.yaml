@@ -23,24 +23,48 @@
   failed_when: not dpdk_dir['stat']['exists']
   become: True
 
-- name: Retrieve default NIC
-  set_fact:
-    nic_def: "{{hostvars[inventory_hostname]['ansible_default_ipv4']['alias']}}"
+- name: Retrieve info From dpdk-devbind script
+  shell: "python {{ dpdk_root_dir }}/usertools/dpdk-devbind.py --status"
+  register: dpdk_devbind_info
+  become: true
 
-- name: Retrieve all NICs
-  set_fact:
-    nic_lst: "{{hostvars[inventory_hostname]['ansible_interfaces']}}"
+- name: Check Existence Of Performance Ansible Local Facts
+  stat:
+    path: /etc/ansible/facts.d/nic_topology.fact
+  become: true
+  register: trex_nics_topology_fact_file
 
-- name: List of NICs to be bound to DPDK
-  set_fact:
-    nic_down: "{{ nic_lst | difference([nic_def]+['lo'])  }}"
+- name: Dump Performance Facts To Ansible Local Facts
+  block:
+    - name: Create Local Facts Directory
+      file:
+        path: /etc/ansible/facts.d
+        state: directory
+        recurse: True
+      become: True
 
-- name: Deactivate NICs to be bound to DPDK
+    - name: Retrieve NICs Gathered By Ansible Facts
+      set_fact:
+        ans_nics: >-
+          {{ ans_nics | default([]) }} + [{
+          'name': '{{ item }}',
+          'mac_address': '{{ ansible_facts[item]['macaddress'] }}',
+          'pci_slot': '{{ dpdk_devbind_info['stdout'] | regex_search('.{4}:.{2}:.{2}\..*if=' + item + '.*',
+          multiline=True) | regex_search('.{4}:.{2}:.{2}\..') }}'
+          }]
+      loop: "{{ ansible_interfaces | difference(['lo']) }}"
+
+    - name: Dump Content To File
+      copy:
+        content: "{{ ans_nics }}"
+        dest: /etc/ansible/facts.d/nic_topology.fact
+      become: true
+
+    - name: Gather Ansible Facts
+      setup:
+  when: not trex_nics_topology_fact_file['stat']['exists']
+
+- name: Deactivate Non External Kernel NICs
   shell: "ifconfig {{ item }} down"
-  loop: "{{nic_down}}"
-  become: True
-
-- name: Retrieve Non Active NICs' PCI Slots
-  shell: "python {{ dpdk_root_dir }}/usertools/dpdk-devbind.py --status | grep -v Active | grep 0000 | cut -d ' ' -f 1"
-  register: trex_instance_kernel_nics
+  loop: "{{ ansible_interfaces | difference(['lo', ansible_default_ipv4['alias']]) }}"
   become: True

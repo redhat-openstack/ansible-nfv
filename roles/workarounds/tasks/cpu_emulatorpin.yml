@@ -1,9 +1,0 @@
-- name: List available running instances
-  virt:
-    command: list_vms
-    state: running
-  register: runing_instances
-
-- name: Set emulatorpin to the running DUT instances
-  command: "virsh emulatorpin {{ item }} --cpulist {{ cpu_list }}"
-  loop: "{{ runing_instances.list_vms }}"

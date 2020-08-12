@@ -25,12 +25,6 @@
   when: makegrub.changed
 
 - name: Wait for server to restart successfully
-  wait_for:
-    host: "{{ ansible_default_ipv4.address }}"
-    search_regex: OpenSSH
-    port: 22
+  wait_for_connection:
     timeout: 300
-    connect_timeout: 30
     delay: 5
-  delegate_to: localhost
-  become: false

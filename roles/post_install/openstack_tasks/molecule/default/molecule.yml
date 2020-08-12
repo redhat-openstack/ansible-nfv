@@ -13,7 +13,7 @@ provisioner:
   name: ansible
   inventory:
     links:
-      hosts: inventory
+      hosts: ${MOLECULE_INVENTORY_PATH:-inventory}
   lint:
     name: ansible-lint
     options:

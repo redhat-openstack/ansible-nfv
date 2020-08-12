@@ -1,0 +1,9 @@
+---
+- name: Prepare
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Create rhos-release file
+      copy:
+        content: 'Red Hat OpenStack Platform release 16.1.0 Beta (Train)'
+        dest: /etc/rhosp-release

@@ -1,0 +1,32 @@
+- name: Report unsupported load balance control if requested
+  fail: msg="unsupported load balance '{{ pmd_lb }}' is requested"
+  when:
+    - pmd_lb is defined
+    - pmd_lb not in ['ovs', 'user']
+
+- name: Start OVS controlled PMD load balance in DuT
+  openvswitch_db:
+    table: open_vswitch
+    record: .
+    col: other_config
+    key: pmd-auto-lb
+    value: true
+  register: pmd_lb_start_output
+  when:
+    - pmd_lb == 'ovs'
+
+- debug:
+    var: pmd_lb_start_output
+
+- name: Start user controlled PMD load balance in DuT
+  command: "{{ item }}"
+  with_items:
+    - podman exec openvswitch_dpdk_netcontrold ncd_ctl start
+    - podman exec openvswitch_dpdk_netcontrold ncd_ctl status clear
+    - podman exec openvswitch_dpdk_netcontrold ncd_ctl config rebalance on
+  register: pmd_lb_start_output
+  when:
+    - pmd_lb == 'user'
+
+- debug:
+    var: pmd_lb_start_output

@@ -1,0 +1,11 @@
+---
+- name: Converge
+  hosts: undercloud
+  gather_facts: false
+  roles:
+    - role: tempest
+      external_net_id: false
+      image_for_tempest: false
+      generate_accounts: true
+      tempest_tests:
+        - tempest_nfv_plugin.tests.scenario.test_nfv_epa.TestBasicEpa.test_numa0_provider_network

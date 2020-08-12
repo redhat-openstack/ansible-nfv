@@ -1,0 +1,19 @@
+- name: Stop OVS controlled PMD load balance in DuT
+  openvswitch_db:
+    table: open_vswitch
+    record: .
+    col: other_config
+    key: pmd-auto-lb
+    value: false
+  register: pmd_lb_stop_output
+  when:
+    - pmd_lb == 'ovs'
+
+- name: Stop user controlled PMD load balance in DuT
+  command: podman exec openvswitch_dpdk_netcontrold ncd_ctl stop
+  register: pmd_lb_stop_output
+  when:
+    - pmd_lb == 'user'
+
+- debug:
+    var: pmd_lb_stop_output

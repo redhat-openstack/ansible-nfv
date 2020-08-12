@@ -1,0 +1,29 @@
+---
+- name: Destroy
+  hosts: undercloud
+  gather_facts: false
+  vars:
+    inventory_generated: "{{ lookup('env', 'TEST_INV_GENERATED') }}"
+  tasks:
+    - name: Delete tempest directory
+      file:
+        path: /home/stack/tempest
+        state: absent
+
+    - block:
+        - name: Delete created inventory
+          file:
+            path: "{{ item }}"
+            state: absent
+          loop:
+            - inventory
+            - ansible.ssh.config
+            - environments
+          delegate_to: localhost
+
+        - name: Restore dump inventory
+          copy:
+            content: 'localhost'
+            dest: inventory
+          delegate_to: localhost
+      when: not inventory_generated
