@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "d7a9576d_93d90940",
+        "filename": "playbooks/packet_gen/trex/nfv_multiqueue_perf_scenarios.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1015848
+      },
+      "writtenOn": "2020-08-18T07:23:47Z",
+      "side": 1,
+      "message": "Saravanan,\n\nIn Ansible, import playbook with loop is not supported. already i have tried using the roles with looping but faced delegate_to multi level tasks could not get the right host name and failing existing tasks and also performance scenario tasks duplicated in multiple playbooks.\n\nalso tried using jinja2 to generate the required playbook to avoid import playbook duplication but changed later due to best practices",
+      "parentUuid": "ad8836dd_40cfc34e",
+      "revId": "977e1851105a8389ac034c5937b5e835223f21b2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4540b445_fcbd2c11",
         "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
         "patchSetId": 13
@@ -30,6 +48,24 @@
       "writtenOn": "2020-08-18T06:20:15Z",
       "side": 1,
       "message": "I dont understand why there are muliple plays all witht the same host (dut_compute). Why not add it to single play itself? It can have multiple play only when the hosts change, like using undercloud then dut_compute and then undercloud, but there is no use in having it with the same host.",
+      "revId": "977e1851105a8389ac034c5937b5e835223f21b2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5e90249a_f42499de",
+        "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1015848
+      },
+      "writtenOn": "2020-08-18T07:23:47Z",
+      "side": 1,
+      "message": "Grouped as multiple steps, like common preparation, clean up, multiqueue setup and performance run.\nAgree, we can also update as grouping this multiple plays as single play with same host.",
+      "parentUuid": "4540b445_fcbd2c11",
       "revId": "977e1851105a8389ac034c5937b5e835223f21b2",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
@@ -59,6 +95,30 @@
     },
     {
       "key": {
+        "uuid": "db3469a7_a510cc95",
+        "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1015848
+      },
+      "writtenOn": "2020-08-18T07:23:47Z",
+      "side": 1,
+      "message": "Used similar like performance scenario\u0027s, also tried using tasks but had ansible error. will check once again.",
+      "parentUuid": "458a7440_75f7673b",
+      "range": {
+        "startLine": 4,
+        "startChar": 2,
+        "endLine": 4,
+        "endChar": 11
+      },
+      "revId": "977e1851105a8389ac034c5937b5e835223f21b2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4f91fca8_a35c16a8",
         "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
         "patchSetId": 13
@@ -70,6 +130,24 @@
       "writtenOn": "2020-08-18T06:20:15Z",
       "side": 1,
       "message": "Why are the facts applied on the undercloud? Any specific reason?",
+      "revId": "977e1851105a8389ac034c5937b5e835223f21b2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "90162353_dd138a26",
+        "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1015848
+      },
+      "writtenOn": "2020-08-18T07:23:47Z",
+      "side": 1,
+      "message": "Yes, just for invoking and reusing the existing performance playbook from the undercloud host.",
+      "parentUuid": "4f91fca8_a35c16a8",
       "revId": "977e1851105a8389ac034c5937b5e835223f21b2",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
