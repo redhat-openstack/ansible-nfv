@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ad8836dd_40cfc34e",
+        "filename": "playbooks/packet_gen/trex/nfv_multiqueue_perf_scenarios.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1010167
+      },
+      "writtenOn": "2020-08-18T06:20:15Z",
+      "side": 1,
+      "message": "This is not an optimal way to write the tests. The tests should be provided in a loop which should be adaptable in this playbook. If there are any restrictions in the import_playbook with loop, then introduce a role to specific to multi-queue testing.",
+      "revId": "977e1851105a8389ac034c5937b5e835223f21b2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4540b445_fcbd2c11",
+        "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1010167
+      },
+      "writtenOn": "2020-08-18T06:20:15Z",
+      "side": 1,
+      "message": "I dont understand why there are muliple plays all witht the same host (dut_compute). Why not add it to single play itself? It can have multiple play only when the hosts change, like using undercloud then dut_compute and then undercloud, but there is no use in having it with the same host.",
+      "revId": "977e1851105a8389ac034c5937b5e835223f21b2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "458a7440_75f7673b",
+        "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1010167
+      },
+      "writtenOn": "2020-08-18T06:20:15Z",
+      "side": 1,
+      "message": "Why not \"tasks\"? pre_tasks are used generally with \"roles:\" to have pre tasks before the role. But even that can be overcome with the newer syntax of \"include_role\" inside the tasks. I don\u0027t see a need to use \"pre_tasks\" at all.",
+      "range": {
+        "startLine": 4,
+        "startChar": 2,
+        "endLine": 4,
+        "endChar": 11
+      },
+      "revId": "977e1851105a8389ac034c5937b5e835223f21b2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4f91fca8_a35c16a8",
+        "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1010167
+      },
+      "writtenOn": "2020-08-18T06:20:15Z",
+      "side": 1,
+      "message": "Why are the facts applied on the undercloud? Any specific reason?",
+      "revId": "977e1851105a8389ac034c5937b5e835223f21b2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
