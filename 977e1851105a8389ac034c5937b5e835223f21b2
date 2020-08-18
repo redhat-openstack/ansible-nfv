@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "d42325d1_b9b1259d",
+        "filename": "playbooks/packet_gen/trex/nfv_multiqueue_perf_scenarios.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1015848
+      },
+      "writtenOn": "2020-08-18T08:55:00Z",
+      "side": 1,
+      "message": "Different approaches tried,\n\n1) using role and looping roles. issues: getting correct play host is wrong when using delete_to when moving performance scenario pre_tasks as part of new role. (Already tried patch 2).\n\n2) Reusing and importing existing performance playbook in each scenario.\n\nIf approach 1, we need to fix the issues due to delegate_to in existing performance tasks and extract the common performance scenario code into new role. we need to test all the performance scenarios.\n\nShall we discuss and finalize the approach?",
+      "parentUuid": "e6185c7a_fbbb7edc",
+      "revId": "977e1851105a8389ac034c5937b5e835223f21b2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4540b445_fcbd2c11",
         "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
         "patchSetId": 13
@@ -105,6 +123,24 @@
       "revId": "977e1851105a8389ac034c5937b5e835223f21b2",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "23623697_2b509ca7",
+        "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1015848
+      },
+      "writtenOn": "2020-08-18T08:55:00Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "307f2cf6_4668b882",
+      "revId": "977e1851105a8389ac034c5937b5e835223f21b2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     },
     {
       "key": {
@@ -179,6 +215,30 @@
     },
     {
       "key": {
+        "uuid": "d8f73789_7749028f",
+        "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1015848
+      },
+      "writtenOn": "2020-08-18T08:55:00Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "de791432_816674f5",
+      "range": {
+        "startLine": 4,
+        "startChar": 2,
+        "endLine": 4,
+        "endChar": 11
+      },
+      "revId": "977e1851105a8389ac034c5937b5e835223f21b2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "4f91fca8_a35c16a8",
         "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
         "patchSetId": 13
@@ -226,6 +286,24 @@
       "side": 1,
       "message": "This approach is not optimal. Isn\u0027t there a better way to do it, something like passing approriate vars while invoking? Irrespective of it, why do we need to set_facts on undercloud in the middle of the play, can be moved as first step?",
       "parentUuid": "90162353_dd138a26",
+      "revId": "977e1851105a8389ac034c5937b5e835223f21b2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "38686c62_72a0bb05",
+        "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1015848
+      },
+      "writtenOn": "2020-08-18T08:55:00Z",
+      "side": 1,
+      "message": "Ack, we can move this as first step.\n\nActually, We can do this step in two ways, either using new flavors var in each performance run or using common flavors var with updating the required parameters and setting as facts on undercloud to assign to var for flavors in performance scenario playbook.",
+      "parentUuid": "9c9b1a8b_780f54af",
       "revId": "977e1851105a8389ac034c5937b5e835223f21b2",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
