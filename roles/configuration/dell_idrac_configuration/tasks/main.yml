@@ -16,6 +16,8 @@
     password: "{{ ansible_password }}"
   register: idrac_power_state
   ignore_errors: True
+  retries: "{{ task_retries }}"
+  until: "'URL' not in idrac_power_state['msg']"
 
 - name: "Failed to Power On iDRAC Host '{{ inventory_hostname }}'"
   fail:
@@ -40,6 +42,8 @@
   loop_control:
     loop_var: bios_attribute
   register: bios_attribute_change
+  retries: "{{ task_retries }}"
+  until: "'URL' not in bios_attribute_change['msg']"
 
 - name: "Create BIOS Configuration Job (Schedule BIOS Setting Update) For '{{ inventory_hostname }}'"
   redfish_command:
@@ -49,6 +53,9 @@
     user: "{{ ansible_user }}"
     password: "{{ ansible_password }}"
   when: bios_attribute_change['changed']
+  register: bios_config_job
+  retries: "{{ task_retries }}"
+  until: "'URL' not in bios_config_job['msg']"
 
 - name: "Reboot iDRAC '{{ inventory_hostname }}' To Apply New BIOS Settings"
   redfish_command:
@@ -58,3 +65,6 @@
     user: "{{ ansible_user }}"
     password: "{{ ansible_password }}"
   when: bios_attribute_change['changed']
+  register: bios_idrac_reboot
+  retries: "{{ task_retries }}"
+  until: "'URL' not in bios_idrac_reboot['msg']"
