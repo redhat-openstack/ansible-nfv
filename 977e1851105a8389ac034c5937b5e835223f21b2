@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "e6185c7a_fbbb7edc",
+        "filename": "playbooks/packet_gen/trex/nfv_multiqueue_perf_scenarios.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1010167
+      },
+      "writtenOn": "2020-08-18T08:35:03Z",
+      "side": 1,
+      "message": "IMO, this is not a preferred approach to have maintanable code. I think we need to figure out a solution for this problem. We can discuss in detail one all other comments are addressed.",
+      "parentUuid": "d7a9576d_93d90940",
+      "revId": "977e1851105a8389ac034c5937b5e835223f21b2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4540b445_fcbd2c11",
         "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
         "patchSetId": 13
@@ -66,6 +84,24 @@
       "side": 1,
       "message": "Grouped as multiple steps, like common preparation, clean up, multiqueue setup and performance run.\nAgree, we can also update as grouping this multiple plays as single play with same host.",
       "parentUuid": "4540b445_fcbd2c11",
+      "revId": "977e1851105a8389ac034c5937b5e835223f21b2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "307f2cf6_4668b882",
+        "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1010167
+      },
+      "writtenOn": "2020-08-18T08:35:03Z",
+      "side": 1,
+      "message": "You should use \"block\" instead of a separate play.",
+      "parentUuid": "5e90249a_f42499de",
       "revId": "977e1851105a8389ac034c5937b5e835223f21b2",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
@@ -119,6 +155,30 @@
     },
     {
       "key": {
+        "uuid": "de791432_816674f5",
+        "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1010167
+      },
+      "writtenOn": "2020-08-18T08:35:03Z",
+      "side": 1,
+      "message": "Yes, I  might have missed to review the perferomance scenarios, but do address it, There is no need for pre_tasks are we are not using roles directly (role is always used in the newer syntax via include_role)",
+      "parentUuid": "db3469a7_a510cc95",
+      "range": {
+        "startLine": 4,
+        "startChar": 2,
+        "endLine": 4,
+        "endChar": 11
+      },
+      "revId": "977e1851105a8389ac034c5937b5e835223f21b2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4f91fca8_a35c16a8",
         "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
         "patchSetId": 13
@@ -148,6 +208,64 @@
       "side": 1,
       "message": "Yes, just for invoking and reusing the existing performance playbook from the undercloud host.",
       "parentUuid": "4f91fca8_a35c16a8",
+      "revId": "977e1851105a8389ac034c5937b5e835223f21b2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9c9b1a8b_780f54af",
+        "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1010167
+      },
+      "writtenOn": "2020-08-18T08:35:03Z",
+      "side": 1,
+      "message": "This approach is not optimal. Isn\u0027t there a better way to do it, something like passing approriate vars while invoking? Irrespective of it, why do we need to set_facts on undercloud in the middle of the play, can be moved as first step?",
+      "parentUuid": "90162353_dd138a26",
+      "revId": "977e1851105a8389ac034c5937b5e835223f21b2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "eccaf36f_c8d411a5",
+        "filename": "samples/multiqueue_test_cases.yaml",
+        "patchSetId": 13
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1010167
+      },
+      "writtenOn": "2020-08-18T08:35:03Z",
+      "side": 1,
+      "message": "why do you expect the mask to be provided as input? can a filter be created like cpu_mask in tripleo-ansible?",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 6,
+        "endChar": 17
+      },
+      "revId": "977e1851105a8389ac034c5937b5e835223f21b2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cfd9abd4_a106a541",
+        "filename": "samples/multiqueue_test_cases.yaml",
+        "patchSetId": 13
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1010167
+      },
+      "writtenOn": "2020-08-18T08:35:03Z",
+      "side": 1,
+      "message": "Why not just take the count and generate the required output as we need? Lets use ansible to be maximum extent and reduce user inputs. Understand what are the possible variable factors in the multi-queue test and get it as input (instead of the whole trex cfg template).",
       "revId": "977e1851105a8389ac034c5937b5e835223f21b2",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
