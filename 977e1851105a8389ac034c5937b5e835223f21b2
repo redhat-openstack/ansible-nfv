@@ -181,6 +181,24 @@
     },
     {
       "key": {
+        "uuid": "32137ae1_aadd5245",
+        "filename": "playbooks/packet_gen/trex/nfv_multiqueue_perf_scenarios.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-08-19T12:51:35Z",
+      "side": 1,
+      "message": "I would like to avoid generation of the playbook file, if that\u0027s what you mean.",
+      "parentUuid": "3759edbb_cc2c817b",
+      "revId": "977e1851105a8389ac034c5937b5e835223f21b2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4540b445_fcbd2c11",
         "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
         "patchSetId": 13
@@ -401,6 +419,30 @@
       "side": 1,
       "message": "There is no need of pre_tasks when there is no role. just \"tasks\" is enough. By seeing pre_tasks, I would look if there is role inclusion related to it, which can be avoided and it simplifies reviews.",
       "parentUuid": "e653c78e_d5fac1bd",
+      "range": {
+        "startLine": 4,
+        "startChar": 2,
+        "endLine": 4,
+        "endChar": 11
+      },
+      "revId": "977e1851105a8389ac034c5937b5e835223f21b2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "4548cbd2_353f7022",
+        "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-08-19T12:51:35Z",
+      "side": 1,
+      "message": "Agree.",
+      "parentUuid": "15ce0942_f6014d21",
       "range": {
         "startLine": 4,
         "startChar": 2,
