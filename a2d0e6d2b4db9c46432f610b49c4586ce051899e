@@ -1,0 +1,164 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fb7c4e64_c5dead77",
+        "filename": "playbooks/packet_gen/README.md",
+        "patchSetId": 8
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1010167
+      },
+      "writtenOn": "2020-08-19T05:23:15Z",
+      "side": 1,
+      "message": "It does not loook simple on executing this scenario, it requires more documentation. Something about usage f  dut_group[0], dut_group[1] and dut_group[2] in this scenario - why and how to use it.",
+      "revId": "a2d0e6d2b4db9c46432f610b49c4586ce051899e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "144f5465_68b8d28c",
+        "filename": "playbooks/packet_gen/iperf/performance_scenario.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1010167
+      },
+      "writtenOn": "2020-08-19T05:23:15Z",
+      "side": 1,
+      "message": "Why is pre_tasks need to be used? Why not \"tasks\"?",
+      "range": {
+        "startLine": 4,
+        "startChar": 2,
+        "endLine": 4,
+        "endChar": 11
+      },
+      "revId": "a2d0e6d2b4db9c46432f610b49c4586ce051899e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ac1a2739_d885fca6",
+        "filename": "playbooks/packet_gen/iperf/performance_scenario.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1010167
+      },
+      "writtenOn": "2020-08-19T05:23:15Z",
+      "side": 1,
+      "message": "Haven\u0027t see this. Nice! Allowing yml or yaml for the ansible to resolve it.",
+      "range": {
+        "startLine": 21,
+        "startChar": 24,
+        "endLine": 21,
+        "endChar": 43
+      },
+      "revId": "a2d0e6d2b4db9c46432f610b49c4586ce051899e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bfcc8de6_2dd3ae55",
+        "filename": "playbooks/packet_gen/iperf/performance_scenario.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1010167
+      },
+      "writtenOn": "2020-08-19T05:23:15Z",
+      "side": 1,
+      "message": "lets use only dut_group and not use dut_compute. This has been disucssed with Vadim and Maxim. If you have any specific cases to use dut_Compute, lets discuss. If OK, them merge this and below play in to one with hosts as dut_group and prferable to use tasks with include/import_role  (to align with newer syntax).",
+      "range": {
+        "startLine": 29,
+        "startChar": 13,
+        "endLine": 29,
+        "endChar": 24
+      },
+      "revId": "a2d0e6d2b4db9c46432f610b49c4586ce051899e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "18d68b2d_4bda3c9e",
+        "filename": "playbooks/packet_gen/iperf/performance_scenario.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1010167
+      },
+      "writtenOn": "2020-08-19T05:23:15Z",
+      "side": 1,
+      "message": "Why is this play here and why not before tuning the dut_group (or dut_compute) nodes? As we are collecting only the server facts, it should be avilable in the first play itself, it can be added in the first play itself (unless i miss something).",
+      "revId": "a2d0e6d2b4db9c46432f610b49c4586ce051899e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1a70d064_10efde01",
+        "filename": "playbooks/packet_gen/iperf/performance_scenario.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1010167
+      },
+      "writtenOn": "2020-08-19T05:23:15Z",
+      "side": 1,
+      "message": "is it possible to use a slice (groups[dut_group][1:])? I haven\u0027t tried it, but i would expect the tests to be succesfull if there 2 or 3 or 4 dut added.",
+      "revId": "a2d0e6d2b4db9c46432f610b49c4586ce051899e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7d904256_5478869c",
+        "filename": "playbooks/packet_gen/iperf/performance_scenario.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1010167
+      },
+      "writtenOn": "2020-08-19T05:23:15Z",
+      "side": 1,
+      "message": "How is the test result pouplated? Do we collect logs? What about teardown?",
+      "revId": "a2d0e6d2b4db9c46432f610b49c4586ce051899e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1cc1faea_9a034f0c",
+        "filename": "roles/images/performance/tasks/main.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1010167
+      },
+      "writtenOn": "2020-08-19T05:23:15Z",
+      "side": 1,
+      "message": "Why default is true? These tests are not run by default, it will be done only when enabled.",
+      "range": {
+        "startLine": 34,
+        "startChar": 32,
+        "endLine": 34,
+        "endChar": 36
+      },
+      "revId": "a2d0e6d2b4db9c46432f610b49c4586ce051899e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
