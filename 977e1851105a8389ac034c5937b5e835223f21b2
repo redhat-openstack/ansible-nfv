@@ -73,6 +73,24 @@
     },
     {
       "key": {
+        "uuid": "c92a7cde_82a3f711",
+        "filename": "playbooks/packet_gen/trex/nfv_multiqueue_perf_scenarios.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1010167
+      },
+      "writtenOn": "2020-08-19T05:13:18Z",
+      "side": 1,
+      "message": "Thanks Jagan for clarity. Without rewriting all the roles, we cannot achieve such a behavior with delegate_to and it is not an effective approach. I agree. In that case, instead of having test1, test2., can we similfy the vars and directly provide the vars itself in this file. That way, when a new test cases need to be added, it has to be added in this file only? And some comments about the test case will be helpful too.",
+      "parentUuid": "d42325d1_b9b1259d",
+      "revId": "977e1851105a8389ac034c5937b5e835223f21b2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4540b445_fcbd2c11",
         "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
         "patchSetId": 13
