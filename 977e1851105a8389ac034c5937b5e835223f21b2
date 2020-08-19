@@ -91,6 +91,24 @@
     },
     {
       "key": {
+        "uuid": "c4f7a909_08d3927d",
+        "filename": "playbooks/packet_gen/trex/nfv_multiqueue_perf_scenarios.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1015848
+      },
+      "writtenOn": "2020-08-19T05:31:30Z",
+      "side": 1,
+      "message": "Agree Saravanan, but we need to import nfv multiqueue performance playbook multiple times like this when using single var for the test cases also. here we may need to use array index hard coded.\nSince looping is not supported for importing playbook.\n\nother option also using jinja2 to generate this main playbook tried. please check patchset:8 https://review.gerrithub.io/c/redhat-openstack/ansible-nfv/+/496830/8/playbooks/packet_gen/trex/nfv_multiqueue_prerun.yml",
+      "parentUuid": "c92a7cde_82a3f711",
+      "revId": "977e1851105a8389ac034c5937b5e835223f21b2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4540b445_fcbd2c11",
         "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
         "patchSetId": 13
