@@ -1,0 +1,37 @@
+#jinja2:lstrip_blocks: True
+parameter_defaults:
+{% for opt in deploy_config %}
+{% if 'dpdk_opts' in opt %}
+  {{ opt.role_name }}Parameters:
+    {% if 'kernel_args' in opt.dpdk_opts %}
+    KernelArgs: "{{ opt.dpdk_opts.kernel_args }}"
+    {% endif %}
+    {% if 'tuned_profile' in opt.dpdk_opts %}
+    TunedProfileName: "{{ opt.dpdk_opts.tuned_profile }}"
+    {% endif %}
+    {% if 'isol_cpu_list' in opt.dpdk_opts %}
+    IsolCpusList: "{{ opt.dpdk_opts.isol_cpu_list }}"
+    {% endif %}
+    {% if 'nova_vcpu_pin_set' in opt.dpdk_opts %}
+    NovaVcpuPinSet: ['{{ opt.dpdk_opts.nova_vcpu_pin_set }}']
+    {% endif %}
+    {% if 'nova_reserved_host_memory' in opt.dpdk_opts %}
+    NovaReservedHostMemory: {{ opt.dpdk_opts.nova_reserved_host_memory }}
+    {% endif %}
+    {% if 'ovs_dpdk_socket_memory' in opt.dpdk_opts %}
+    OvsDpdkSocketMemory: "{{ opt.dpdk_opts.ovs_dpdk_socket_memory }}"
+    {% endif %}
+    {% if 'ovs_dpdk_memory_channels' in opt.dpdk_opts %}
+    OvsDpdkMemoryChannels: "{{ opt.dpdk_opts.ovs_dpdk_memory_channels }}"
+    {% endif %}
+    {% if 'ovs_dpdk_core_list' in opt.dpdk_opts %}
+    OvsDpdkCoreList: "{{ opt.dpdk_opts.ovs_dpdk_core_list }}"
+    {% endif %}
+    {% if 'nova_compute_cpu_shared_set' in opt.dpdk_opts %}
+    NovaComputeCpuSharedSet: [{{ opt.dpdk_opts.nova_compute_cpu_shared_set }}]
+    {% endif %}
+    {% if 'ovs_pmd_core_list' in opt.dpdk_opts %}
+    OvsPmdCoreList: "{{ opt.dpdk_opts.ovs_pmd_core_list }}"
+    {% endif %}
+{% endif %}
+{% endfor %}

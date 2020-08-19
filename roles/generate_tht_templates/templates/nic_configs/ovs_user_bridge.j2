@@ -1,0 +1,44 @@
+              - type: {{ nic.type }}
+                name: {{ nic.name }}
+                use_dhcp: false
+                {% if 'api' in nic %}
+                ovs_extra:
+                  - str_replace:
+                      {% for api in nic.api %}
+                      template: set port {{ nic.name }} tag=_VLAN_TAG_
+                      params:
+                        _VLAN_TAG_:
+                          get_param: {{ api }}NetworkVlanID
+                      {% endfor %}
+                addresses:
+                {% for api in nic.api %}
+                  - ip_netmask:
+                      get_param: {{ api }}IpSubnet
+                {% endfor %}
+                {% endif %}
+                {% if 'nic' in nic or 'bonding_nics' in nic %}
+                members:
+                  - type: {% if 'nic' in nic %}ovs_dpdk_port{% elif 'bonding_nics' in nic %}ovs_dpdk_bond{% endif %}
+
+                    name: {% if 'nic' in nic %}{{ nic.name | replace('br-', '') }}_port{% elif 'bonding_nics' in nic %}{{ nic.name }}_bond{% endif %}
+
+                    {% if 'mtu' in nic %}
+                    mtu: {{ nic.mtu }}
+                    {% endif %}
+                    {% if 'rxq' in nic %}
+                    rx_queue: {{ nic.rxq }}
+                    {% endif %}
+                    members:
+                    {% if 'nic' in nic %}
+                      - type: interface
+                        name: {{ nic.nic }}
+                    {% elif 'bonding_nics' in nic %}
+                    {% for iface in nic.bonding_nics %}
+                      - type: ovs_dpdk_port
+                        name: {{ nic.name | replace('br-', '') }}_port{{ loop.index }}
+                        members:
+                          - type: interface
+                            name: {{ iface }}
+                    {% endfor %}
+                  {% endif %}
+                {% endif %}

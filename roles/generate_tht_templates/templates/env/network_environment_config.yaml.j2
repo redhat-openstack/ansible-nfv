@@ -1,0 +1,76 @@
+#jinja2:lstrip_blocks: True
+resource_registry:
+  # Specify the relative/absolute path to the config files you want to use for override the default.
+  {% for node in deploy_config %}
+  OS::TripleO::{{ node.role_name }}::Net::SoftwareConfig: nic-configs/{{ node.role_name | lower() }}.yaml
+  {% endfor %}
+
+parameter_defaults:
+  # Gateway router for the provisioning network (or Undercloud IP)
+  ControlPlaneDefaultRoute: {{ undercloud_config.ip_range | ipaddr('1') | ipaddr('address') }}
+  # Generally the IP of the Undercloud
+  EC2MetadataIp: {{ undercloud_config.ip_range | ipaddr('1') | ipaddr('address') }}
+  # Define the DNS servers (maximum 2) for the overcloud nodes
+  DnsServers:
+  {% for srv in network_config.dns_servers %}
+    - {{ srv }}
+  {% endfor %}
+  # May set to br-ex if using floating IPs only on native VLAN on bridge br-ex
+  NeutronExternalNetworkBridge: "''"
+  # The tenant network type for Neutron (vlan or vxlan).
+  NeutronNetworkType: '{{ network_config.network_type }}'
+  # The tunnel type for the tenant network (vxlan or gre). Set to '' to disable tunneling.
+  NeutronTunnelTypes: '{{ network_config.tunnel_type }}'
+  # The OVS logical->physical bridge mappings to use.
+  NeutronBridgeMappings: {% for map in network_config.bridge_mapping -%}
+  {{ map }}{% if not loop.last %},{% endif %}
+  {% endfor %}
+
+  # The Neutron ML2 and OpenVSwitch vlan mapping range to support.
+  NeutronNetworkVLANRanges: {% for vlan in network_config.network_vlan_ranges -%}
+  {{ vlan }}{% if not loop.last %},{% endif %}
+  {% endfor %}
+
+  {% if network_config.numa_aware_vswitch is defined %}
+  # NUMA aware vswitch
+  NeutronPhysnetNUMANodesMapping:
+    {{ network_config.numa_aware_vswitch }}
+  {% endif %}
+  # NTP server configuration.
+  NtpServer: {{ network_config.ntp_server }}
+  {% if network_config.global_mtu is defined %}
+  # MTU global configuration
+  NeutronGlobalPhysnetMtu: {{ network_config.global_mtu }}
+  {% endif %}
+  {% if network_config.neutron_ovs_firewall_driver is defined %}
+  # Configure the classname of the firewall driver to use for implementing security groups.
+  NeutronOVSFirewallDriver: {{ network_config.neutron_ovs_firewall_driver }}
+  {% endif %}
+
+  # https://bugs.launchpad.net/nova/+bug/1289064
+  NovaEnableNUMALiveMigration: true
+  # Disable SSH query on the overcloud nodes to avoid connection latency
+  SshServerOptions:
+    UseDns: 'no'
+  # Enable log level DEBUG for supported components
+  Debug: True
+
+
+  ############################
+  #  Scheduler configuration #
+  ############################
+  NovaSchedulerAvailableFilters:
+    - "nova.scheduler.filters.all_filters"
+    - "nova.scheduler.filters.pci_passthrough_filter.PciPassthroughFilter"
+  NovaSchedulerDefaultFilters:
+    - "RetryFilter"
+    - "AvailabilityZoneFilter"
+    - "RamFilter"
+    - "ComputeFilter"
+    - "ComputeCapabilitiesFilter"
+    - "ImagePropertiesFilter"
+    - "ServerGroupAntiAffinityFilter"
+    - "ServerGroupAffinityFilter"
+    - "PciPassthroughFilter"
+    - "NUMATopologyFilter"
+    - "AggregateInstanceExtraSpecsFilter"

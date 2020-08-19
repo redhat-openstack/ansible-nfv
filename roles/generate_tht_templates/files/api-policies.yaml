@@ -1,0 +1,21 @@
+# Policies override used for downstream testing.
+# - Binding profile for Trusted VF capabilities
+# - Provider network type definition by tenant
+# - Provider physical network definition by tenant
+# - Provider network segmentation id definition by tenant
+# A cloud administrator should decide whether they need these permissions
+parameter_defaults:
+  NeutronApiPolicies: {
+    operator_create_binding_profile: { key: 'create_port:binding:profile', value: 'rule:admin_or_network_owner' },
+    operator_get_binding_profile: { key: 'get_port:binding:profile', value: 'rule:admin_or_network_owner' },
+    operator_update_binding_profile: { key: 'update_port:binding:profile', value: 'rule:admin_or_network_owner' },
+    operator_create_network_provider_network_type: { key: 'create_network:provider:network_type', value: 'rule:regular_user' },
+    operator_get_network_provider_network_type: { key: 'get_network:provider:network_type', value: 'rule:regular_user' },
+    operator_update_network_provider_network_type: { key: 'update_network:provider:network_type', value: 'rule:regular_user' },
+    operator_create_network_provider_physical_network: { key: 'create_network:provider:physical_network', value: 'rule:regular_user' },
+    operator_get_network_provider_physical_network: { key: 'get_network:provider:physical_network', value: 'rule:regular_user' },
+    operator_update_network_provider_physical_network: { key: 'update_network:provider:physical_network', value: 'rule:regular_user' },
+    operator_create_network_provider_segmentation_id: { key: 'create_network:provider:segmentation_id', value: 'rule:regular_user' },
+    operator_get_network_provider_segmentation_id: { key: 'get_network:provider:segmentation_id', value: 'rule:regular_user' },
+    operator_update_network_provider_segmentation_id: { key: 'update_network:provider:segmentation_id', value: 'rule:regular_user' }
+  }

@@ -1,0 +1,27 @@
+              - type: {{ nic.type }}
+                name: {{ nic.name }}
+                bonding_options: "mode=active-backup"
+                use_dhcp: false
+                dns_servers:
+                  get_param: DnsServers
+                members:
+                {% for iface in nic.bonding_nics %}
+                - type: interface
+                  name: {{ iface }}
+                  {% if loop.first %}
+                  primary: true
+                  {% endif %}
+                {% endfor %}
+
+              {% if 'api' in nic %}
+              {% for api in nic.api %}
+              - type: vlan
+                device: {{ nic.name }}
+                vlan_id:
+                  get_param: {{ api }}NetworkVlanID
+                addresses:
+                  - ip_netmask:
+                      get_param: {{ api }}IpSubnet
+
+              {% endfor %}
+              {% endif %}

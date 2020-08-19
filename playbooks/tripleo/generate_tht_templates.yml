@@ -1,0 +1,7 @@
+---
+- name: Generate THT templates
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  roles:
+    - generate_tht_templates

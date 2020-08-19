@@ -1,0 +1,10 @@
+              - type: {{ nic.type }}
+                name: {{ nic.nic }}
+                {% if 'mtu' in nic %}
+                mtu: {{ nic.mtu }}
+                {% endif %}
+                numvfs: {{ nic.numvfs }}
+                use_dhcp: false
+                {% if not nic.route %}
+                defroute: false
+                {% endif %}
