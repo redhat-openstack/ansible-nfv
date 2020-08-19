@@ -124,6 +124,7 @@
   template:
     src: accounts.yaml.j2
     dest: "{{ accounts_file_path }}"
+    mode: '0664'
   when: generate_accounts
 
 - name: Check if extra tempest.conf variables supplied
@@ -250,6 +251,7 @@
     path: "{{ tempest_dir }}/tempest.xml"
     regexp: '^(<testsuite.*name=")'
     replace: '\1nfv'
+    mode: '0664'
 
 - name: Generate statistics of executed tests
   tags: run_tempest_test
@@ -274,6 +276,7 @@
     remote_src: yes
     src: "{{ tempest_dir }}/{{ tempest_main }}/tempest.log"
     dest: "{{ tempest_dir }}/tempest.log"
+    mode: '0664'
   when: tempest_log.stat.exists
 
 - name: Print the output results of the tempest tests

@@ -4,6 +4,7 @@
   template:
     src: resources_output.j2
     dest: "{{ resources_output_file }}"
+    mode: '0664'
   when: resources_output and resource_state == 'present'
 
 - name: Delete resources output file
