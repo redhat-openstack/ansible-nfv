@@ -127,6 +127,24 @@
     },
     {
       "key": {
+        "uuid": "47023647_553b1044",
+        "filename": "playbooks/packet_gen/trex/nfv_multiqueue_perf_scenarios.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1015848
+      },
+      "writtenOn": "2020-08-19T06:39:40Z",
+      "side": 1,
+      "message": "Agree, Thanks Saravanan.\n\nWill use variables instead of environment file.",
+      "parentUuid": "8a242a4d_976a04a4",
+      "revId": "977e1851105a8389ac034c5937b5e835223f21b2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4540b445_fcbd2c11",
         "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
         "patchSetId": 13
