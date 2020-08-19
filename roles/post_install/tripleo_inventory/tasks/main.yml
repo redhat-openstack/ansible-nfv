@@ -30,6 +30,7 @@
     path: "{{ environment_dir }}"
     recurse: yes
     state: directory
+    mode: '0775'
 
 - name: Add baremetal Undercloud to host list
   add_host:
@@ -49,6 +50,7 @@
   template:
     src: 'inventory.j2'
     dest: "{{ environment_dir }}/inventory_{{ host }}"
+    mode: '0664'
 
 - name: Generate and set an SSH key if password is used
   include_tasks: "{{ setup_type }}_pass.yml"
@@ -105,20 +107,24 @@
   template:
     src: 'ansible.ssh.config.j2'
     dest: "{{ environment_dir }}/ansible.ssh.config.{{ host }}"
+    mode: '0664'
 
 - name: Link the current environment SSH file
   file:
     src: "{{ environment_dir }}/ansible.ssh.config.{{ host }}"
     dest: "{{ inventory_path }}/ansible.ssh.config"
     state: link
+    mode: '0664'
 
 - name: Generate Inventory file
   template:
     src: 'inventory.j2'
     dest: "{{ environment_dir }}/inventory_{{ host }}"
+    mode: '0664'
 
 - name: Link the current environment inventory file
   file:
     src: "{{ environment_dir }}/inventory_{{ host }}"
     dest: "{{ inventory_path }}/inventory"
     state: link
+    mode: '0664'

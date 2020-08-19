@@ -28,6 +28,7 @@
     path: "{{ tripleo_overcloud_file | dirname }}/{{ item.1.name }}_rc"
     regexp: (.*{{ item.0.os_key }})=.*
     replace: \1={{ item.1[item.0.users_key] }}
+    mode: '0600'
   loop: "{{ keys | product(users) | list }}"
   when: item.1.name != 'admin'
 

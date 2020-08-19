@@ -2,6 +2,7 @@
   file:
     path: "{{ repo_dir }}"
     state: directory
+    mode: '0775'
 
 - name: Add repos
   yum_repository:

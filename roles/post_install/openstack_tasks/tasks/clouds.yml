@@ -38,6 +38,7 @@
   file:
     state: directory
     path: "{{ clouds_yaml_file_path | dirname }}"
+    mode: '0775'
 
 - name: Create clouds.yaml if doesn't exist
   blockinfile:
