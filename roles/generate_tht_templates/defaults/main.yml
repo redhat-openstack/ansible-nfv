@@ -1,0 +1,254 @@
+# Triggers
+undercloud_conf: true
+instackenv: true
+dpdk: true
+sriov: true
+iface_mapping: true
+api_policies: true  # Used by qe testing
+
+# Custom path of tht templates
+#tht_path:
+templates_dir: tht_templates
+
+# The version of the tht templates based on the osp version
+osp_version: 13
+
+undercloud_config:
+  interface: eth0
+  ip_range: 192.168.24.0/24
+
+instackenv_nodes:
+  - name: compute-0
+    mac: "00:00:00:00:00:00"
+    pm_user: root
+    pm_pass: calvin
+    pm_addr: "10.10.10.10"
+    root_device: "0x55cd2e414e372c40"  # optional
+  - name: compute-1
+    mac: "00:00:00:00:00:00"
+    pm_user: root
+    pm_pass: calvin
+    pm_addr: "10.10.10.11"
+
+network_api:
+  - name: internal_api
+    vlan: 10
+    ip_subnet: 10.0.10.0/24
+  - name: tenant
+    vlan: 11
+    ip_subnet: 10.0.11.0/24
+  - name: storage
+    vlan: 12
+    ip_subnet: 10.0.12.0/24
+  - name: storage_mgmt
+    vlan: 13
+    ip_subnet: 10.0.13.0/24
+  - name: external
+    vlan: 14
+    ip_subnet: 10.0.14.0/24
+    gateway_ip: 10.0.14.1              # optional
+    allocation_pool_start: 10.0.14.12  # optional
+    allocation_pool_end: 10.0.14.22    # optional
+
+network_config:
+  bridge_mapping:
+    - 'access:br-access'
+    - 'dpdk-mgmt:br-link0'
+    - 'dpdk-1:br-dpdk1'
+    - 'dpdk-2:br-dpdk2'
+    - 'sriov-1:br-sriov1'
+    - 'sriov-2:br-sriov2'
+  network_vlan_ranges:
+    - 'access:423:423'
+    - 'dpdk-mgmt:134:139'
+    - 'dpdk-1:134:139'
+    - 'dpdk-2:134:139'
+    - 'sriov-1:134:139'
+    - 'sriov-2:134:139'
+    - 'sriov-3:134:139'
+  network_type: vxlan
+  tunnel_type: vxlan
+  ntp_server: clock.redhat.com
+  numa_aware_vswitch: "dpdk-2: [1]"                               # optional
+  global_mtu: 9000                                                # optional
+  neutron_ovs_firewall_driver: openvswitch                        # optional
+  dns_servers:
+    - 10.46.0.31
+    - 10.46.0.32
+
+deploy_config:
+  # The name of the role is case sensitive
+  - role_name: Controller
+    count: 3
+    flavor: controller  # The name of the flavor, by default, should be based on the name of the node from instackenv file.
+  - role_name: ComputeOvsDpdkSriov
+    count: 2
+    flavor: compute
+    dpdk_opts:  # all the suboptions are optional
+      kernel_args: "default_hugepagesz=1GB hugepagesz=1G hugepages=64 iommu=pt intel_iommu=on isolcpus=2-19,22-39"
+      tuned_profile: "cpu-partitioning"
+      isol_cpu_list: "2-19,22-39"
+      nova_vcpu_pin_set: "4-19,24-39"
+      nova_reserved_host_memory: 2048
+      ovs_dpdk_socket_memory: "4096,1024"
+      ovs_dpdk_memory_channels: 4
+      ovs_dpdk_core_list: "0,20,1,21"
+      nova_compute_cpu_shared_set: "0,20,1,21"
+      ovs_pmd_core_list: "2,22,3,23"
+    sriov_opts:  # all the suboptions are optional
+      neutron_mechanism_drivers: "'openvswitch','sriovnicswitch'"
+      neutron_plugin_extensions: router,qos,segments,trunk,placement
+      neutron_service_plugin: router,trunk,qos
+      neutron_sriov_agent_extensions: qos
+      sriov_mapping:
+      # Those params are used to build two sriov params:
+      # NovaPCIPassthrough and NeutronPhysicalDevMappings
+        - iface: "p7p3"
+          physnet: "sriov-1"
+          trusted: "true"
+        - iface: "p7p4"
+          physnet: "sriov-2"
+          trusted: "true"
+        - iface: "p6p1"
+          physnet: "sriov-3"
+          trusted: "true"
+        - iface: "p6p2"
+          physnet: "sriov-4"
+          trusted: "true"
+
+node_config:
+    # The name of the role is case sensitive
+  - role_name: Controller
+    nic_configs:
+      - type: interface
+        nic: nic1
+        route: provision
+      - type: linux_bond
+        name: bond_api
+        bonding_nics:
+          - nic2
+        # The name of the api is case sensitive
+        api:
+          - InternalApi
+          - Storage
+          - StorageMgmt
+      - type: ovs_bridge
+        name: br-link0
+        nic: nic3
+        mtu: 9000
+        api:
+          - Tenant
+      - type: ovs_bridge
+        name: br-dpdk1
+        nic: nic4
+        mtu: 9000
+      - type: ovs_bridge
+        name: br-dpdk2
+        nic: nic5
+        mtu: 9000
+      - type: ovs_bridge
+        name: br-sriov1
+        nic: nic6
+        mtu: 9000
+      - type: ovs_bridge
+        name: br-sriov2
+        nic: nic7
+        mtu: 9000
+      - type: interface
+        nic: nic8
+        route: false
+      - type: interface
+        nic: nic9
+        route: false
+      - type: ovs_bridge
+        name: br-access
+        nic: nic10
+        mtu: 9000
+        api:
+          - External
+        route: External
+        defroute: true
+  - role_name: ComputeOvsDpdkSriov
+    dmi_string: system-product-name  # optional
+    id: "PowerEdge R730"             # optional
+    nics:                            # os-net-config-mappings
+      - nic: 1
+        name: em1
+      - nic: 2
+        name: em2
+      - nic: 3
+        name: p4p1
+      - nic: 4
+        name: p4p2
+      - nic: 5
+        name: p4p3
+      - nic: 6
+        name: p4p4
+      - nic: 7
+        name: p7p1
+      - nic: 8
+        name: p7p2
+      - nic: 9
+        name: p7p3
+      - nic: 10
+        name: p7p4
+      - nic: 11
+        name: p6p1
+      - nic: 12
+        name: p6p2
+    nic_configs:
+      - type: interface
+        nic: nic1
+        route: false
+      - type: interface
+        nic: nic2
+        route: provision
+        defroute: true
+      - type: linux_bond
+        name: bond_api
+        bonding_nics:
+          - nic3
+          - nic4
+        # The name of the api is case sensitive
+        api:
+          - InternalApi
+          - Storage
+      - type: ovs_user_bridge
+        name: br-dpdk1
+        nic: nic5
+        mtu: 9000
+        rxq: 1
+      - type: ovs_user_bridge
+        name: br-dpdk2
+        nic: nic6
+        mtu: 9000
+        rxq: 1
+      - type: ovs_user_bridge
+        name: br-link0
+        mtu: 9000
+        rxq: 2
+        bonding_nics:
+          - nic7
+          - nic8
+        api:
+          - Tenant
+      - type: sriov_pf
+        nic: nic9
+        mtu: 9000
+        numvfs: 10
+        route: false
+      - type: sriov_pf
+        nic: nic10
+        mtu: 9000
+        numvfs: 10
+        route: false
+      - type: sriov_pf
+        nic: nic11
+        mtu: 9000
+        numvfs: 10
+        route: false
+      - type: sriov_pf
+        nic: nic12
+        mtu: 9000
+        numvfs: 10
+        route: false

@@ -1,0 +1,25 @@
+#jinja2:lstrip_blocks: True
+{
+    "nodes":[
+        {% for node in instackenv_nodes %}
+        {
+            "name": {{ node.name }},
+            "mac": [{{ node.mac }}],
+            "cpu": "10",
+            "memory": "20148",
+            "disk": "10",
+            "arch": "x86_64",
+            {% if 'root_device' in node %}
+            "root_device": {
+                "wwn": {{ node.root_device }}
+            },
+            {% endif %}
+            "pm_type": "pxe_ipmitool",
+            "pm_user": {{ node.pm_user }},
+            "pm_password": {{ node.pm_pass }},
+            "pm_addr": {{ node.pm_addr }}
+        }{% if not loop.last %},{% endif %}
+
+        {% endfor %}
+    ]
+}
