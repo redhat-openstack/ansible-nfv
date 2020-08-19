@@ -109,6 +109,24 @@
     },
     {
       "key": {
+        "uuid": "8a242a4d_976a04a4",
+        "filename": "playbooks/packet_gen/trex/nfv_multiqueue_perf_scenarios.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1010167
+      },
+      "writtenOn": "2020-08-19T06:24:07Z",
+      "side": 1,
+      "message": "Yes, we need to use import_playbook multiple times, there is no better option for our usecase. But we can write it better so that that it is easy to maintain, like:\n\n# Testing with only one queue\n- import_playbook: nfv_multiqueue_performance.yml\n  vars:\n    trex_cpus: 2\n    testpmd_cpus: 4\n    ...\n\n# Testing with only 2 queue per port\n- import_playbook: nfv_multiqueue_performance.yml\n  vars:\n    trex_cpus: 4\n    testpmd_cpus: 6\n    ...\n\nThis can be done, if we simplify the variable parameter input for the playbook. I have just given some random examples for explanation, dont treat it as real values.",
+      "parentUuid": "c4f7a909_08d3927d",
+      "revId": "977e1851105a8389ac034c5937b5e835223f21b2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4540b445_fcbd2c11",
         "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
         "patchSetId": 13
