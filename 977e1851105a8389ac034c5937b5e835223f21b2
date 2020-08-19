@@ -145,6 +145,24 @@
     },
     {
       "key": {
+        "uuid": "99596512_90b3e24b",
+        "filename": "playbooks/packet_gen/trex/nfv_multiqueue_perf_scenarios.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-08-19T11:41:50Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "47023647_553b1044",
+      "revId": "977e1851105a8389ac034c5937b5e835223f21b2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4540b445_fcbd2c11",
         "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
         "patchSetId": 13
@@ -210,6 +228,24 @@
       "side": 1,
       "message": "Ack",
       "parentUuid": "307f2cf6_4668b882",
+      "revId": "977e1851105a8389ac034c5937b5e835223f21b2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "a6b827ee_69e6e46a",
+        "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-08-19T11:41:50Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "23623697_2b509ca7",
       "revId": "977e1851105a8389ac034c5937b5e835223f21b2",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": false
@@ -311,6 +347,53 @@
     },
     {
       "key": {
+        "uuid": "e653c78e_d5fac1bd",
+        "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-08-19T11:41:50Z",
+      "side": 1,
+      "message": "The \"include_role\" is not a replacement to the \"role\" definition.\nIf we have just a role that needs to be called, using a \"role\" is preferred.\nBut if the playbook contains tasks before/after the role, the \"include_role\" is a convenient solution.",
+      "parentUuid": "d8f73789_7749028f",
+      "range": {
+        "startLine": 4,
+        "startChar": 2,
+        "endLine": 4,
+        "endChar": 11
+      },
+      "revId": "977e1851105a8389ac034c5937b5e835223f21b2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "20719cbd_0118d15b",
+        "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-08-19T11:41:50Z",
+      "side": 1,
+      "message": "As discussed before, this task and below ovs tasks should move into a role.",
+      "range": {
+        "startLine": 31,
+        "startChar": 6,
+        "endLine": 31,
+        "endChar": 20
+      },
+      "revId": "977e1851105a8389ac034c5937b5e835223f21b2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4f91fca8_a35c16a8",
         "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
         "patchSetId": 13
@@ -382,6 +465,116 @@
     },
     {
       "key": {
+        "uuid": "51bc0c09_cf209955",
+        "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-08-19T11:41:50Z",
+      "side": 1,
+      "message": "Using new flavors will simplify the later read of the playbook.\nFrom the other side, reusing the flavors with the minimal updates, also a nice solution.\n\nUp to your decision, Jagan.",
+      "parentUuid": "38686c62_72a0bb05",
+      "revId": "977e1851105a8389ac034c5937b5e835223f21b2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e0d39c65_a1d71883",
+        "filename": "roles/post_install/collect_ncd_configs/tasks/main.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-08-19T11:41:50Z",
+      "side": 1,
+      "message": "All the variables within the role, needs to have a defaults.\n\nAlso, please, add a README to each new role.",
+      "range": {
+        "startLine": 1,
+        "startChar": 1,
+        "endLine": 1,
+        "endChar": 3
+      },
+      "revId": "977e1851105a8389ac034c5937b5e835223f21b2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "39eaa569_2229fb9b",
+        "filename": "roles/post_install/collect_ovs_configs/tasks/main.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-08-19T11:41:50Z",
+      "side": 1,
+      "message": "All the variables within the role, needs to have a defaults.\n\nAlso, please, add a README to each new role.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 3
+      },
+      "revId": "977e1851105a8389ac034c5937b5e835223f21b2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "619974d9_30acfc9c",
+        "filename": "roles/post_install/multiqueue_cleanup/tasks/main.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-08-19T11:41:50Z",
+      "side": 1,
+      "message": "All the variables within the role, needs to have a defaults.\n\nAlso, please, add a README to each new role.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 3
+      },
+      "revId": "977e1851105a8389ac034c5937b5e835223f21b2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "142373b0_be164e39",
+        "filename": "roles/post_install/multiqueue_cleanup/tasks/main.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-08-19T11:41:50Z",
+      "side": 1,
+      "message": "These two tasks relates to the ncd role as well, so maybe call the discover_osp_version from the playbook?",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 93
+      },
+      "revId": "977e1851105a8389ac034c5937b5e835223f21b2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "eccaf36f_c8d411a5",
         "filename": "samples/multiqueue_test_cases.yaml",
         "patchSetId": 13
@@ -416,6 +609,24 @@
       "writtenOn": "2020-08-18T08:35:03Z",
       "side": 1,
       "message": "Why not just take the count and generate the required output as we need? Lets use ansible to be maximum extent and reduce user inputs. Understand what are the possible variable factors in the multi-queue test and get it as input (instead of the whole trex cfg template).",
+      "revId": "977e1851105a8389ac034c5937b5e835223f21b2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e1b20827_2da08da8",
+        "filename": "samples/multiqueue_test_cases.yaml",
+        "patchSetId": 13
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-08-19T11:41:50Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "cfd9abd4_a106a541",
       "revId": "977e1851105a8389ac034c5937b5e835223f21b2",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
