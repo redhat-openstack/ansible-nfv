@@ -1,0 +1,81 @@
+- name: Set working path
+  set_fact:
+    current_path: "{{ tht_path | default(lookup('env', 'PWD')) }}"
+
+- name: Set templates path
+  set_fact:
+    templates_path: "{{ current_path }}/{{ tht_dir_name }}"
+
+- name: Create templates structure
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: '0755'
+  loop: "{{ [templates_path, templates_path + '/nic-configs']
+            | union((dpdk or sriov)
+            | ternary([templates_path + '/functions'], [] )) }}"
+
+- name: Generate undercloud.conf file
+  template:
+    src: undercloud/undercloud.conf.j2
+    dest: "{{ templates_path }}/undercloud.conf"
+    mode: '0664'
+  when: undercloud_conf
+
+- name: Generate instackenv.json file
+  template:
+    src: nodes/instackenv.json.j2
+    dest: "{{ templates_path }}/instackenv.json"
+    mode: '0664'
+  when: instackenv
+
+- name: Copy api policies file
+  copy:
+    src: api-policies.yaml
+    dest: "{{ templates_path }}/api-policies.yaml"
+    mode: '0664'
+  when: api_policies
+
+- name: Generate network-data file
+  template:
+    src: network/network_data.yaml.j2
+    dest: "{{ templates_path }}/network_data.yaml"
+    mode: '0664'
+
+- name: Generate nodes config file
+  template:
+    src: nodes/nodes_data.yaml.j2
+    dest: "{{ templates_path }}/nodes_data.yaml"
+    mode: '0664'
+  when: nodes
+
+- name: Generate neutron config
+  template:
+    src: env/network_environment_config.yaml.j2
+    dest: "{{ templates_path }}/network_environment_config.yaml"
+    mode: '0664'
+
+- name: Generate os-net-mapping file
+  template:
+    src: nodes/os-net-config-mappings.yaml.j2
+    dest: "{{ templates_path }}/os-net-config-mappings.yaml"
+    mode: '0664'
+  when: iface_mapping
+
+- name: Generate functions options
+  include_tasks: functions.yml
+
+- name: Generate overcloud_deploy script
+  template:
+    src: env/overcloud_deploy.sh.j2
+    dest: "{{ templates_path }}/overcloud_deploy.sh"
+    mode: '0755'
+
+- name: Generate nic-configs files
+  template:
+    src: "nic_configs/nic_configs.j2"
+    dest: "{{ templates_path }}/nic-configs/{{ conf.role_name | lower() }}.yaml"
+    mode: '0664'
+  loop: "{{ node_config }}"
+  loop_control:
+    loop_var: conf
