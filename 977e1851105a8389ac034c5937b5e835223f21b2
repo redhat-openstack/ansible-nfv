@@ -163,6 +163,24 @@
     },
     {
       "key": {
+        "uuid": "3759edbb_cc2c817b",
+        "filename": "playbooks/packet_gen/trex/nfv_multiqueue_perf_scenarios.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1010167
+      },
+      "writtenOn": "2020-08-19T12:45:13Z",
+      "side": 1,
+      "message": "On your jinja2 approach, definitely we cannot avoid multiple import_playbooks, but we can avoid duplicate generation by pasing the test inputs as array and using \"template\" with \"delegate_to: localhost\" to generate the file with multiple import_playbooks. I will leave it to you to choose the simpler one for you.",
+      "parentUuid": "99596512_90b3e24b",
+      "revId": "977e1851105a8389ac034c5937b5e835223f21b2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "4540b445_fcbd2c11",
         "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
         "patchSetId": 13
@@ -359,6 +377,30 @@
       "side": 1,
       "message": "The \"include_role\" is not a replacement to the \"role\" definition.\nIf we have just a role that needs to be called, using a \"role\" is preferred.\nBut if the playbook contains tasks before/after the role, the \"include_role\" is a convenient solution.",
       "parentUuid": "d8f73789_7749028f",
+      "range": {
+        "startLine": 4,
+        "startChar": 2,
+        "endLine": 4,
+        "endChar": 11
+      },
+      "revId": "977e1851105a8389ac034c5937b5e835223f21b2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "15ce0942_f6014d21",
+        "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1010167
+      },
+      "writtenOn": "2020-08-19T12:45:13Z",
+      "side": 1,
+      "message": "There is no need of pre_tasks when there is no role. just \"tasks\" is enough. By seeing pre_tasks, I would look if there is role inclusion related to it, which can be avoided and it simplifies reviews.",
+      "parentUuid": "e653c78e_d5fac1bd",
       "range": {
         "startLine": 4,
         "startChar": 2,
