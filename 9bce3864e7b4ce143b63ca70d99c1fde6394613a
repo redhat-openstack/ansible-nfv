@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "b03fdb61_864a2e0d",
+        "filename": "roles/generate_tht_templates/defaults/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2020-08-23T08:35:44Z",
+      "side": 1,
+      "message": "Specifically for this dict, maybe we can make it dynamic some how because with improvements in ironic releases, there might be several keys that would be beneficial for us and instead of maintaining the manually, we could do them in a dict.",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 26
+      },
+      "revId": "9bce3864e7b4ce143b63ca70d99c1fde6394613a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
