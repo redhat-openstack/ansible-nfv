@@ -88,6 +88,30 @@
     },
     {
       "key": {
+        "uuid": "744e0bca_06b04e0d",
+        "filename": "playbooks/packet_gen/iperf/performance_scenario.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2020-08-23T08:11:57Z",
+      "side": 1,
+      "message": "As Saravanan has mentioned, we discussed it and since for the time being we are only using a single DuT, we can refer to the Ansible group instead of the host directly.",
+      "parentUuid": "bfcc8de6_2dd3ae55",
+      "range": {
+        "startLine": 29,
+        "startChar": 13,
+        "endLine": 29,
+        "endChar": 24
+      },
+      "revId": "a2d0e6d2b4db9c46432f610b49c4586ce051899e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "18d68b2d_4bda3c9e",
         "filename": "playbooks/packet_gen/iperf/performance_scenario.yml",
         "patchSetId": 8
@@ -99,6 +123,24 @@
       "writtenOn": "2020-08-19T05:23:15Z",
       "side": 1,
       "message": "Why is this play here and why not before tuning the dut_group (or dut_compute) nodes? As we are collecting only the server facts, it should be avilable in the first play itself, it can be added in the first play itself (unless i miss something).",
+      "revId": "a2d0e6d2b4db9c46432f610b49c4586ce051899e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ccd8a007_f231b89a",
+        "filename": "playbooks/packet_gen/iperf/performance_scenario.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2020-08-23T08:11:57Z",
+      "side": 1,
+      "message": "Yes, agreed this can be done during the first batch of undercloud tasks, unless  there is some logical conditional that needs to be applied to this play.",
+      "parentUuid": "18d68b2d_4bda3c9e",
       "revId": "a2d0e6d2b4db9c46432f610b49c4586ce051899e",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
@@ -139,6 +181,24 @@
     },
     {
       "key": {
+        "uuid": "49816bba_54eabd2c",
+        "filename": "playbooks/packet_gen/iperf/performance_scenario.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2020-08-23T08:11:57Z",
+      "side": 1,
+      "message": "Can\u0027t speak for Gowri, but in our perf scenarios we do not perform any teardown.\nIf needed to clean up the env, we use resource creator.",
+      "parentUuid": "7d904256_5478869c",
+      "revId": "a2d0e6d2b4db9c46432f610b49c4586ce051899e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1cc1faea_9a034f0c",
         "filename": "roles/images/performance/tasks/main.yml",
         "patchSetId": 8
@@ -155,6 +215,53 @@
         "startChar": 32,
         "endLine": 34,
         "endChar": 36
+      },
+      "revId": "a2d0e6d2b4db9c46432f610b49c4586ce051899e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1004a6d8_dad009a9",
+        "filename": "roles/images/performance/tasks/main.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2020-08-23T08:11:57Z",
+      "side": 1,
+      "message": "I think this is due to the rest of the scenarios, which are opt-out as of now.",
+      "parentUuid": "1cc1faea_9a034f0c",
+      "range": {
+        "startLine": 34,
+        "startChar": 32,
+        "endLine": 34,
+        "endChar": 36
+      },
+      "revId": "a2d0e6d2b4db9c46432f610b49c4586ce051899e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c8ca6a8c_0b4746c3",
+        "filename": "roles/packet_gen/iperf/README.md",
+        "patchSetId": 8
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2020-08-23T08:11:57Z",
+      "side": 1,
+      "message": "Could you please add some examples on how to use this playbook and such?",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 1
       },
       "revId": "a2d0e6d2b4db9c46432f610b49c4586ce051899e",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
