@@ -22,6 +22,30 @@
       "revId": "9bce3864e7b4ce143b63ca70d99c1fde6394613a",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5ff96284_bf00fe0f",
+        "filename": "roles/generate_tht_templates/defaults/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-08-23T09:58:26Z",
+      "side": 1,
+      "message": "Here, I used values that differs between hosts.\nNot all values should be defined by the user.\nSome of them could be set depend on the env and deployment type.",
+      "parentUuid": "b03fdb61_864a2e0d",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 26
+      },
+      "revId": "9bce3864e7b4ce143b63ca70d99c1fde6394613a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
