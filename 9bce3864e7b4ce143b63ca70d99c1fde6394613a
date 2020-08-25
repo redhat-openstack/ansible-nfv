@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "68924b10_b82033ad",
+        "filename": "roles/generate_tht_templates/README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2020-08-25T14:47:51Z",
+      "side": 1,
+      "message": "Can you add my_vars.sample.yml?\n\nShould it contain the following params?\n\nroles/generate_tht_templates/defaults/main.yml",
+      "range": {
+        "startLine": 25,
+        "startChar": 65,
+        "endLine": 25,
+        "endChar": 77
+      },
+      "revId": "9bce3864e7b4ce143b63ca70d99c1fde6394613a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b03fdb61_864a2e0d",
         "filename": "roles/generate_tht_templates/defaults/main.yml",
         "patchSetId": 2
