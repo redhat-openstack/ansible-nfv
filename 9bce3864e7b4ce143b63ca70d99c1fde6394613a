@@ -253,6 +253,23 @@
       "revId": "9bce3864e7b4ce143b63ca70d99c1fde6394613a",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6a5131e6_0d773b7f",
+        "filename": "roles/generate_tht_templates/defaults/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1010167
+      },
+      "writtenOn": "2020-08-27T11:24:17Z",
+      "side": 1,
+      "message": "does this create a vlan interface on top of linux_bond? The name \"api\" is not intutive.",
+      "revId": "9bce3864e7b4ce143b63ca70d99c1fde6394613a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
