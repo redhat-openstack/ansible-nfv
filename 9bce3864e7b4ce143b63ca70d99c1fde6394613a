@@ -49,6 +49,69 @@
     },
     {
       "key": {
+        "uuid": "96e94e01_0cba2cdb",
+        "filename": "roles/generate_tht_templates/defaults/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1010167
+      },
+      "writtenOn": "2020-08-27T10:28:51Z",
+      "side": 1,
+      "message": "Is it possible to create 2 sets of file, one with the default parameters which we dont expect to change and others with overriding expected from user. For example, network_type, tunnel_type, ntp, dns parameters are fixed for the all the deployments. We can have such values under \"default/main.yaml\" and the values that user must  provide to \"vars/main.yaml\"? It provides flexibility to override all but separates what is the bare minimum requirement.",
+      "revId": "9bce3864e7b4ce143b63ca70d99c1fde6394613a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80bf2125_60976d2d",
+        "filename": "roles/generate_tht_templates/defaults/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1010167
+      },
+      "writtenOn": "2020-08-27T10:28:51Z",
+      "side": 1,
+      "message": "tht_path and templates_dir is confusing names, can you rename if can find better ones or explain what they are used for in additional comments?",
+      "range": {
+        "startLine": 10,
+        "startChar": 1,
+        "endLine": 11,
+        "endChar": 13
+      },
+      "revId": "9bce3864e7b4ce143b63ca70d99c1fde6394613a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "9108335d_65edb3bd",
+        "filename": "roles/generate_tht_templates/defaults/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1010167
+      },
+      "writtenOn": "2020-08-27T10:28:51Z",
+      "side": 1,
+      "message": "\u0027cidr\u0027 could be better name",
+      "range": {
+        "startLine": 18,
+        "startChar": 2,
+        "endLine": 18,
+        "endChar": 10
+      },
+      "revId": "9bce3864e7b4ce143b63ca70d99c1fde6394613a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "b03fdb61_864a2e0d",
         "filename": "roles/generate_tht_templates/defaults/main.yml",
         "patchSetId": 2
@@ -89,6 +152,103 @@
         "startChar": 0,
         "endLine": 31,
         "endChar": 26
+      },
+      "revId": "9bce3864e7b4ce143b63ca70d99c1fde6394613a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ce09d030_511befba",
+        "filename": "roles/generate_tht_templates/defaults/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1010167
+      },
+      "writtenOn": "2020-08-27T10:28:51Z",
+      "side": 1,
+      "message": "Is this poissble to have a list of vlans and generate this whole output? like vlan_api: [10, 11, 12, 13, 14]. What vlan is used for which API is not a concern that we should worry about.",
+      "revId": "9bce3864e7b4ce143b63ca70d99c1fde6394613a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6dbda42a_67d01265",
+        "filename": "roles/generate_tht_templates/defaults/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1010167
+      },
+      "writtenOn": "2020-08-27T10:28:51Z",
+      "side": 1,
+      "message": "Why a group like this is created? Why not directly creating bridge_mapping and network_vlan_ranges as direct variables?",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 14
+      },
+      "revId": "9bce3864e7b4ce143b63ca70d99c1fde6394613a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e4a8f16e_198c4c7a",
+        "filename": "roles/generate_tht_templates/defaults/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1010167
+      },
+      "writtenOn": "2020-08-27T10:28:51Z",
+      "side": 1,
+      "message": "remove this, it should be from role default value.",
+      "revId": "9bce3864e7b4ce143b63ca70d99c1fde6394613a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "06fa4b37_324f80f5",
+        "filename": "roles/generate_tht_templates/defaults/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1010167
+      },
+      "writtenOn": "2020-08-27T10:28:51Z",
+      "side": 1,
+      "message": "no kernel args for siorv?",
+      "revId": "9bce3864e7b4ce143b63ca70d99c1fde6394613a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "63d7b387_388912f0",
+        "filename": "roles/generate_tht_templates/defaults/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1010167
+      },
+      "writtenOn": "2020-08-27T10:28:51Z",
+      "side": 1,
+      "message": "Why do we need to override these? Does the tripleo environment files are not sufficient?",
+      "range": {
+        "startLine": 99,
+        "startChar": 6,
+        "endLine": 102,
+        "endChar": 41
       },
       "revId": "9bce3864e7b4ce143b63ca70d99c1fde6394613a",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
