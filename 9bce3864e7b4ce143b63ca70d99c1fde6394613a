@@ -66,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "d723a0e7_6d4edac3",
+        "filename": "roles/generate_tht_templates/defaults/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-08-30T12:19:20Z",
+      "side": 1,
+      "message": "It could be done.\nWe definitely have more and less used params. They could be separated.",
+      "parentUuid": "96e94e01_0cba2cdb",
+      "revId": "9bce3864e7b4ce143b63ca70d99c1fde6394613a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "80bf2125_60976d2d",
         "filename": "roles/generate_tht_templates/defaults/main.yml",
         "patchSetId": 2
@@ -89,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "ef1547e6_19e9bc9b",
+        "filename": "roles/generate_tht_templates/defaults/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-08-30T12:19:20Z",
+      "side": 1,
+      "message": "Good point.\nI will change \"templates_dir\" to templates_name\".",
+      "parentUuid": "80bf2125_60976d2d",
+      "range": {
+        "startLine": 10,
+        "startChar": 1,
+        "endLine": 11,
+        "endChar": 13
+      },
+      "revId": "9bce3864e7b4ce143b63ca70d99c1fde6394613a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9108335d_65edb3bd",
         "filename": "roles/generate_tht_templates/defaults/main.yml",
         "patchSetId": 2
@@ -100,6 +142,30 @@
       "writtenOn": "2020-08-27T10:28:51Z",
       "side": 1,
       "message": "\u0027cidr\u0027 could be better name",
+      "range": {
+        "startLine": 18,
+        "startChar": 2,
+        "endLine": 18,
+        "endChar": 10
+      },
+      "revId": "9bce3864e7b4ce143b63ca70d99c1fde6394613a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1d522ce8_ba6f77b9",
+        "filename": "roles/generate_tht_templates/defaults/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-08-30T12:19:20Z",
+      "side": 1,
+      "message": "ack. Will change.",
+      "parentUuid": "9108335d_65edb3bd",
       "range": {
         "startLine": 18,
         "startChar": 2,
@@ -176,6 +242,24 @@
     },
     {
       "key": {
+        "uuid": "2f57df34_f02a43d3",
+        "filename": "roles/generate_tht_templates/defaults/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-08-30T12:19:20Z",
+      "side": 1,
+      "message": "That is not exactly true.\nWe do care which vlan will use which ip range and where.\nThat is because in the hybrid setup, we are working with real switches and do have per port configuration.\n\nFor example - \"external\" api. In our deployments, we are using redhat \"routable\" network that is used as external_api and FIP to get access to the instance, so it is important for us to be able to specify the ip range.",
+      "parentUuid": "ce09d030_511befba",
+      "revId": "9bce3864e7b4ce143b63ca70d99c1fde6394613a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6dbda42a_67d01265",
         "filename": "roles/generate_tht_templates/defaults/main.yml",
         "patchSetId": 2
@@ -187,6 +271,30 @@
       "writtenOn": "2020-08-27T10:28:51Z",
       "side": 1,
       "message": "Why a group like this is created? Why not directly creating bridge_mapping and network_vlan_ranges as direct variables?",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 14
+      },
+      "revId": "9bce3864e7b4ce143b63ca70d99c1fde6394613a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2051d128_c38bc655",
+        "filename": "roles/generate_tht_templates/defaults/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-08-30T12:19:20Z",
+      "side": 1,
+      "message": "I have created it just out of the convenience, so all network related config will be grouped under a single group.\n\nIt could be changed.\nLet\u0027s hear other reviewers opinion.",
+      "parentUuid": "6dbda42a_67d01265",
       "range": {
         "startLine": 53,
         "startChar": 0,
@@ -216,6 +324,24 @@
     },
     {
       "key": {
+        "uuid": "6b35f6a3_b2a5f770",
+        "filename": "roles/generate_tht_templates/defaults/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-08-30T12:19:20Z",
+      "side": 1,
+      "message": "Ack.\nWe still have this definition in our osp 13 templates.\nWill remove.",
+      "parentUuid": "e4a8f16e_198c4c7a",
+      "revId": "9bce3864e7b4ce143b63ca70d99c1fde6394613a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "06fa4b37_324f80f5",
         "filename": "roles/generate_tht_templates/defaults/main.yml",
         "patchSetId": 2
@@ -227,6 +353,24 @@
       "writtenOn": "2020-08-27T10:28:51Z",
       "side": 1,
       "message": "no kernel args for siorv?",
+      "revId": "9bce3864e7b4ce143b63ca70d99c1fde6394613a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f4115e7c_2f834f4e",
+        "filename": "roles/generate_tht_templates/defaults/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-08-30T12:19:20Z",
+      "side": 1,
+      "message": "Missed that.\nWill add.",
+      "parentUuid": "06fa4b37_324f80f5",
       "revId": "9bce3864e7b4ce143b63ca70d99c1fde6394613a",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
@@ -256,6 +400,30 @@
     },
     {
       "key": {
+        "uuid": "b3ebd6d6_069f36bd",
+        "filename": "roles/generate_tht_templates/defaults/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-08-30T12:19:20Z",
+      "side": 1,
+      "message": "Actually, not exactly.\n\nFor \"NeutronMechanismDrivers\", the order of the values is vise versa. I don\u0027t remember the exact reason, but I remember there was something.\n\nFor \"NeutronPluginExtensions\", \"trunk\" value has been added. Not a default value.\n\nFor \"NeutronSriovAgentExtensions\", by default, it comes empty.",
+      "parentUuid": "63d7b387_388912f0",
+      "range": {
+        "startLine": 99,
+        "startChar": 6,
+        "endLine": 102,
+        "endChar": 41
+      },
+      "revId": "9bce3864e7b4ce143b63ca70d99c1fde6394613a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "6a5131e6_0d773b7f",
         "filename": "roles/generate_tht_templates/defaults/main.yml",
         "patchSetId": 2
@@ -267,6 +435,24 @@
       "writtenOn": "2020-08-27T11:24:17Z",
       "side": 1,
       "message": "does this create a vlan interface on top of linux_bond? The name \"api\" is not intutive.",
+      "revId": "9bce3864e7b4ce143b63ca70d99c1fde6394613a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a2728d10_1a8521b6",
+        "filename": "roles/generate_tht_templates/defaults/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-08-30T12:19:20Z",
+      "side": 1,
+      "message": "Yes, the vlan is created on top of the linux bond.\nI called it \"api\" to specify which apis should reside on the bond.",
+      "parentUuid": "6a5131e6_0d773b7f",
       "revId": "9bce3864e7b4ce143b63ca70d99c1fde6394613a",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
