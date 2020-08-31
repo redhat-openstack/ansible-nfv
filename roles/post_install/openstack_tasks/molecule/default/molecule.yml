@@ -1,8 +1,6 @@
 ---
-dependency:
-  name: galaxy
 driver:
-  name: openstack
+  name: delegated
 lint:
   name: yamllint
   options:
