@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ff716008_87c20a69",
+        "filename": "roles/post_install/openstack_tasks/README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-09-03T06:10:04Z",
+      "side": 0,
+      "message": "Please, put it back.\nIt could be used in 16.1",
+      "range": {
+        "startLine": 304,
+        "startChar": 8,
+        "endLine": 305,
+        "endChar": 33
+      },
+      "revId": "bfa72c77aa8e596d0dec95549966015d4c7655a6",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}

@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "2fdbb4e3_1a4e6f03",
+        "filename": "roles/post_install/openstack_tasks/README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-09-03T06:10:04Z",
+      "side": 1,
+      "message": "That is not exactly true.\nIf cloud_name is not specified, default \"overcloud\" name, which is admin, will be used.\n\nWe may add a definition regarding the default and override cloud_name.",
+      "range": {
+        "startLine": 19,
+        "startChar": 20,
+        "endLine": 19,
+        "endChar": 35
+      },
+      "revId": "b9ce6c5cd9b0406da3313443415f4fa7f323eb74",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2a507350_5e807fc4",
+        "filename": "roles/post_install/openstack_tasks/README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-09-03T06:10:04Z",
+      "side": 1,
+      "message": "See above.",
+      "range": {
+        "startLine": 30,
+        "startChar": 6,
+        "endLine": 30,
+        "endChar": 18
+      },
+      "revId": "b9ce6c5cd9b0406da3313443415f4fa7f323eb74",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0228e624_d48ce535",
+        "filename": "roles/post_install/openstack_tasks/README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-09-03T06:10:04Z",
+      "side": 1,
+      "message": "See above.",
+      "range": {
+        "startLine": 33,
+        "startChar": 6,
+        "endLine": 33,
+        "endChar": 12
+      },
+      "revId": "b9ce6c5cd9b0406da3313443415f4fa7f323eb74",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5924e483_f138dc2b",
+        "filename": "roles/post_install/openstack_tasks/README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-09-03T06:10:04Z",
+      "side": 1,
+      "message": "See above.",
+      "range": {
+        "startLine": 36,
+        "startChar": 6,
+        "endLine": 36,
+        "endChar": 14
+      },
+      "revId": "b9ce6c5cd9b0406da3313443415f4fa7f323eb74",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "fa3e90ad_549bf0ed",
+        "filename": "roles/post_install/openstack_tasks/config_example.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-09-03T06:10:04Z",
+      "side": 1,
+      "message": "Please, remove that.\nAs we saw, it is working in 16.1.\nNot sure what happened in 13. It worked until recently.",
+      "range": {
+        "startLine": 164,
+        "startChar": 4,
+        "endLine": 165,
+        "endChar": 28
+      },
+      "revId": "b9ce6c5cd9b0406da3313443415f4fa7f323eb74",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
