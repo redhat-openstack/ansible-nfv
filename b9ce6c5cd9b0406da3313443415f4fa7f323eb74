@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7735643f_eca86810",
+        "filename": "roles/post_install/openstack_tasks/README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2020-09-09T05:58:25Z",
+      "side": 1,
+      "message": "OK, i can explain that also",
+      "parentUuid": "2fdbb4e3_1a4e6f03",
+      "range": {
+        "startLine": 19,
+        "startChar": 20,
+        "endLine": 19,
+        "endChar": 35
+      },
+      "revId": "b9ce6c5cd9b0406da3313443415f4fa7f323eb74",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "2a507350_5e807fc4",
         "filename": "roles/post_install/openstack_tasks/README.md",
         "patchSetId": 2
@@ -45,6 +69,30 @@
       "revId": "b9ce6c5cd9b0406da3313443415f4fa7f323eb74",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "45c3a93e_4bf34b46",
+        "filename": "roles/post_install/openstack_tasks/README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2020-09-09T05:58:25Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2a507350_5e807fc4",
+      "range": {
+        "startLine": 30,
+        "startChar": 6,
+        "endLine": 30,
+        "endChar": 18
+      },
+      "revId": "b9ce6c5cd9b0406da3313443415f4fa7f323eb74",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "f5013424_e32ee4c3",
+        "filename": "roles/post_install/openstack_tasks/README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2020-09-09T05:58:25Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0228e624_d48ce535",
+      "range": {
+        "startLine": 33,
+        "startChar": 6,
+        "endLine": 33,
+        "endChar": 12
+      },
+      "revId": "b9ce6c5cd9b0406da3313443415f4fa7f323eb74",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5924e483_f138dc2b",
         "filename": "roles/post_install/openstack_tasks/README.md",
         "patchSetId": 2
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "302be940_b0bf72b8",
+        "filename": "roles/post_install/openstack_tasks/README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2020-09-09T05:58:25Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5924e483_f138dc2b",
+      "range": {
+        "startLine": 36,
+        "startChar": 6,
+        "endLine": 36,
+        "endChar": 14
+      },
+      "revId": "b9ce6c5cd9b0406da3313443415f4fa7f323eb74",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa3e90ad_549bf0ed",
         "filename": "roles/post_install/openstack_tasks/config_example.yml",
         "patchSetId": 2
@@ -114,6 +210,30 @@
       "revId": "b9ce6c5cd9b0406da3313443415f4fa7f323eb74",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f73e4058_034efe2b",
+        "filename": "roles/post_install/openstack_tasks/config_example.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2020-09-09T05:58:25Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "fa3e90ad_549bf0ed",
+      "range": {
+        "startLine": 164,
+        "startChar": 4,
+        "endLine": 165,
+        "endChar": 28
+      },
+      "revId": "b9ce6c5cd9b0406da3313443415f4fa7f323eb74",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
