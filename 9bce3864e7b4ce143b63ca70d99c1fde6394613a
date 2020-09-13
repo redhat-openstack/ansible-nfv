@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "3c2c6cdf_911d5755",
+        "filename": "roles/generate_tht_templates/README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2020-09-13T09:50:18Z",
+      "side": 1,
+      "message": "Correct, you can at least refer to defaults/main.yml",
+      "parentUuid": "85b7cb38_4a2d557d",
+      "range": {
+        "startLine": 25,
+        "startChar": 65,
+        "endLine": 25,
+        "endChar": 77
+      },
+      "revId": "9bce3864e7b4ce143b63ca70d99c1fde6394613a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "96e94e01_0cba2cdb",
         "filename": "roles/generate_tht_templates/defaults/main.yml",
         "patchSetId": 2
