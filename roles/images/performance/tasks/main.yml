@@ -1,9 +1,15 @@
 ---
 - name: Install libguest RPM prerequisites
+  vars:
+    libguestfs_rpm: "{%- if ansible_python['version']['major'] == 3 -%}
+                    python3-libguestfs
+                    {%- elif ansible_python['version']['major'] == 2 -%}
+                    python-libguestfs
+                    {%- endif -%}"
   package:
     name:
       - libguestfs
-      - python-libguestfs
+      - "{{ libguestfs_rpm }}"
     state: present
   become: True
 
@@ -22,9 +28,10 @@
   include_tasks: prepare_trex.yml
   when: prepare_trex | default(True) | bool
 
-- name: Customize Guest Image - Generic Flow
-  include_tasks: generic_customizations.yml
-
 - name: Customize Guest Image - HCI IO's
   include_tasks: prepare_guest_hci.yml
   when: prepare_guest_hci | default(True) | bool
+
+- name: Customize Guest Image - Generic Flow
+  include_tasks: generic_customizations.yml
+

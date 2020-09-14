@@ -1,18 +1,19 @@
-- name: Customize guest image with necessery RPMs
-  virt_customize_packages:
-    name:
-      - tmux
+- name: Customize guest image with user-defined packages
+  virt_customize_package:
+    name: "{{ user_packages }}"
     state: present
     image: "{{ fetched_image }}"
     selinux_relabel: True
+  when: user_packages is defined
 
 - name: Customize users inside guest image
-  virt_customize_users:
+  virt_customize_user:
     name: "{{ item['user'] }}"
     password: "{{ item['password'] }}"
     state: present
     image: "{{ fetched_image }}"
   loop: "{{ custom_users }}"
+  when: custom_users is defined
 
 - name: Perform user-defined shell commands
   virt_customize_command:
@@ -21,10 +22,3 @@
     selinux_relabel: True
   when: user_commands is defined
 
-- name: Customize guest image with user-defined packages
-  virt_customize_packages:
-    name: "{{ user_packages }}"
-    state: present
-    image: "{{ fetched_image }}"
-    selinux_relabel: True
-  when: user_packages is defined

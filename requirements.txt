@@ -2,3 +2,4 @@ ansible>=2.7.13,<2.8.0
 Jinja2>=2.8.0 # avoid exception due to use of 'equalto', like openstack_servers
 selinux==0.1.6
 ncclient>=0.5.3
+git+https://github.com/vkhitrin/virt-customize-ansible-modules

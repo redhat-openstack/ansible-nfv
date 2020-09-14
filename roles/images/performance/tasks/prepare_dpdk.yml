@@ -1,5 +1,5 @@
 - name: Install packages inside guest image
-  virt_customize_packages:
+  virt_customize_package:
     name:
       - git
       - gcc
@@ -14,7 +14,7 @@
       - tmux
     state: present
     image: "{{ fetched_image }}"
-    debug: "{{ guest_debug }}"
+    selinux_relabel: True
 
 # Compile DPDK without: rt-kni, igbuio
 - name: Prepare DPDK binaries inside guest image
@@ -29,4 +29,4 @@
       - 'cd {{ dpdk_dir }}; /usr/bin/make config T=x86_64-native-linuxapp-gcc; /usr/bin/make'
       - "echo 'DPDK Version: {{ dpdk_branch }}' | tee {{ dpdk_customization_log }}"
     image: "{{ fetched_image }}"
-    debug: "{{ guest_debug }}"
+    selinux_relabel: True
