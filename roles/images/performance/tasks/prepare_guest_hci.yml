@@ -1,5 +1,5 @@
 - name: Install packages inside guest image
-  virt_customize_packages:
+  virt_customize_package:
     name:
       - git
       - gcc
@@ -13,7 +13,7 @@
       - vim
     state: present
     image: "{{ fetched_image }}"
-    debug: "{{ guest_debug }}"
+    selinux_relabel: True
 
 # Compile fio package
 - name: Prepare fio binaries inside guest image
@@ -23,4 +23,4 @@
       - 'cd {{ fio_dir }}; ./configure;/usr/bin/make;/usr/bin/make install;'
       - "echo 'fio Version: {{ fio_branch }}' | tee {{ fio_customization_log }}"
     image: "{{ fetched_image }}"
-    debug: "{{ guest_debug }}"
+    selinux_relabel: True

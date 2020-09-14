@@ -1,6 +1,5 @@
 ---
 - name: Performance Image Generation Flow
   hosts: "{{ customization_host | default('undercloud') }}"
-  gather_facts: False
   roles:
     - images/performance

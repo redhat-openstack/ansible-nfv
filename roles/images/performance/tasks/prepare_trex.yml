@@ -6,4 +6,4 @@
       - 'tar zxf /tmp/{{ trex_version }}.tar.gz -C {{ trex_dir }}'
       - 'ln -sf {{ trex_dir }}/{{ trex_version }} {{ trex_dir }}/current'
     image: "{{ fetched_image }}"
-    debug: "{{ guest_debug }}"
+    selinux_relabel: True
