@@ -97,6 +97,30 @@
     },
     {
       "key": {
+        "uuid": "eea5e0b3_c94b16e3",
+        "filename": "roles/generate_tht_templates/README.md",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-09-16T10:56:04Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "70260417_712408ee",
+      "range": {
+        "startLine": 25,
+        "startChar": 65,
+        "endLine": 25,
+        "endChar": 77
+      },
+      "revId": "9bce3864e7b4ce143b63ca70d99c1fde6394613a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "96e94e01_0cba2cdb",
         "filename": "roles/generate_tht_templates/defaults/main.yml",
         "patchSetId": 2
@@ -179,6 +203,30 @@
     },
     {
       "key": {
+        "uuid": "86032764_ab2dcadd",
+        "filename": "roles/generate_tht_templates/defaults/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-09-16T10:56:04Z",
+      "side": 1,
+      "message": "Changed the variable name.",
+      "parentUuid": "ef1547e6_19e9bc9b",
+      "range": {
+        "startLine": 10,
+        "startChar": 1,
+        "endLine": 11,
+        "endChar": 13
+      },
+      "revId": "9bce3864e7b4ce143b63ca70d99c1fde6394613a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "9108335d_65edb3bd",
         "filename": "roles/generate_tht_templates/defaults/main.yml",
         "patchSetId": 2
@@ -214,6 +262,30 @@
       "side": 1,
       "message": "ack. Will change.",
       "parentUuid": "9108335d_65edb3bd",
+      "range": {
+        "startLine": 18,
+        "startChar": 2,
+        "endLine": 18,
+        "endChar": 10
+      },
+      "revId": "9bce3864e7b4ce143b63ca70d99c1fde6394613a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "64c7585b_062d3d63",
+        "filename": "roles/generate_tht_templates/defaults/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-09-16T10:56:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1d522ce8_ba6f77b9",
       "range": {
         "startLine": 18,
         "startChar": 2,
@@ -355,6 +427,30 @@
     },
     {
       "key": {
+        "uuid": "c19c32a6_e3323074",
+        "filename": "roles/generate_tht_templates/defaults/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-09-16T10:56:04Z",
+      "side": 1,
+      "message": "Removed the group.\nParameters are separated now.",
+      "parentUuid": "2051d128_c38bc655",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 14
+      },
+      "revId": "9bce3864e7b4ce143b63ca70d99c1fde6394613a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "e4a8f16e_198c4c7a",
         "filename": "roles/generate_tht_templates/defaults/main.yml",
         "patchSetId": 2
@@ -384,6 +480,24 @@
       "side": 1,
       "message": "Ack.\nWe still have this definition in our osp 13 templates.\nWill remove.",
       "parentUuid": "e4a8f16e_198c4c7a",
+      "revId": "9bce3864e7b4ce143b63ca70d99c1fde6394613a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "cc295810_c769025e",
+        "filename": "roles/generate_tht_templates/defaults/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-09-16T10:56:04Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "6b35f6a3_b2a5f770",
       "revId": "9bce3864e7b4ce143b63ca70d99c1fde6394613a",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
@@ -425,6 +539,24 @@
     },
     {
       "key": {
+        "uuid": "e64f92f5_7cde838a",
+        "filename": "roles/generate_tht_templates/defaults/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-09-16T10:56:04Z",
+      "side": 1,
+      "message": "Done.",
+      "parentUuid": "f4115e7c_2f834f4e",
+      "revId": "9bce3864e7b4ce143b63ca70d99c1fde6394613a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "29871f15_3d371a9c",
         "filename": "roles/generate_tht_templates/defaults/main.yml",
         "patchSetId": 2
@@ -454,6 +586,24 @@
       "side": 1,
       "message": "Will add.\nBut at the end, this is just a default value that could be overridden by a user while generating templates.",
       "parentUuid": "29871f15_3d371a9c",
+      "revId": "9bce3864e7b4ce143b63ca70d99c1fde6394613a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8d68db3f_03bbf61c",
+        "filename": "roles/generate_tht_templates/defaults/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-09-16T10:56:04Z",
+      "side": 1,
+      "message": "Chris, is the \"uplink_status_propagation\" param a part of osp 13.\nCurrent poc of templates generation is done on 13.\n\nLater, other version diffs will be added.",
+      "parentUuid": "d59a223e_abe4c9f5",
       "revId": "9bce3864e7b4ce143b63ca70d99c1fde6394613a",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
@@ -553,6 +703,24 @@
       "writtenOn": "2020-08-31T02:09:27Z",
       "side": 1,
       "message": "why not we have the network data (network_api) as it was here, directly, and use this as a anchor values?",
+      "revId": "9bce3864e7b4ce143b63ca70d99c1fde6394613a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "a8d176ac_47957edd",
+        "filename": "roles/generate_tht_templates/templates/network/network_data.yaml.j2",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-09-16T10:56:04Z",
+      "side": 1,
+      "message": "What do you mean?\nThe generated network_data file will be similar to what we have right now.\n\nIf you mean why to not keep the network_data file separate, I think it will be much easier to maintain one single file instead of two.\nIf we will prepare those input files for each setup, we will need to maintain just one single input file for each environment.",
+      "parentUuid": "996e6b43_7faa3a97",
       "revId": "9bce3864e7b4ce143b63ca70d99c1fde6394613a",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
