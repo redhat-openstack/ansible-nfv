@@ -5,16 +5,14 @@ The prepare_performance_images role performs the following tasks:
 - Prepares repos for RHEL/CentOS 7 images
 - Clones Trex from upstream repo to guest image
 - Clones DPDK from upstream repo and compiles it
+- Clones fio from upstream repo and compiles it
+- Performs custom user operations
 
-**Note!** - virt_customize moduless are planned to be shipped in this repo until they're available in PyPI
 **Note!** - Inventory file is required if attempting to run on default undercloud node
-**Note!** - DPDK is being compiled without:
-* [rt-kni](https://doc.dpdk.org/guides/prog_guide/kernel_nic_interface.html) - This feature allows DPDK to leverage it's user space capabilites for NICs bound to kernel, disabling it due to:
-    * Requiring kernel modules during compilation, which will require additional logic for virt-customize
-    * Not relevent to NFV-QE usecases
-* [UIO](https://doc.dpdk.org/guides/linux_gsg/linux_drivers.html#uio) - Basic kernel module which configures the device, maps device mermory to user space and handles interrupts, disabling it due to:
-    * Requiring kernel modules during compilation, which will require additional logic for virt-customize
-    * Not relevent to NFV-QE usecases, we use vfio instead
+
+**Note!** - This playbook was designed and supporting customization of CentOS 7.6/RHEL 7.6, other images are not tested
+
+**Note!** - Mellanox drivers are aligned according to Trex's recommendation.
 
 * Repos
     * Uses CentOS public repos to customize RHEL/CentOS images
@@ -23,11 +21,19 @@ The prepare_performance_images role performs the following tasks:
 * Prepare DPDK
     * Clones DPDK binaries from repo
     * Compiles DPDK binaries
+* Prepare fio
+    * Clones fio binaries from repo
+    * Compiles fio binaries
+* User operations
+    * Install custom packages
+    * Populate users
+    * Perform commands
 
 ## Run triggers
-* prepare_repo - Executed if 'true'. True by default.
-* prepare_trex - Executed if 'true'. True by default.
-* prepare_dpdk - Executed if 'true'. True by default.
+* prepare_repo - Executed if 'True'. `True` by default.
+* prepare_trex - Executed if 'True'. `True` by default.
+* prepare_dpdk - Executed if 'True'. `True` by default.
+* prepare_fio - Executed if `True`. `True`  by default.
 
 ## Role variables
 #### Image details
@@ -39,28 +45,12 @@ customization_host: ''
 
 URL of guest image to be downloaded
 ```
-guest_image: 'https://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud.qcow2'
+guest_image: 'https://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud-1811.qcow2'
 ```
 
 Output directory/file of fetched image:
 ```
 guest_image_output: '/tmp/'
-```
-
-Enable debug output of virt-customize action:
-```
-guest_debug: False
-```
-
-#### Customization variables
-DPDK version to be cloned
-```
-dpdk_branch: v17.05
-```
-
-Trex version to be cloned
-```
-trex_branch: v2.43
 ```
 
 ### Repo variables
@@ -84,6 +74,11 @@ guest_repos:
 
 ### DPDK Variables
 
+DPDK version to be cloned
+```
+dpdk_branch: v20.05
+```
+
 Directory on guest image to clone DPDK repo to:
 ```
 dpdk_dir: '/root/dpdk'
@@ -101,6 +96,11 @@ dpdk_git: 'git://dpdk.org/dpdk'
 
 ### Trex Variables
 
+Trex version to be cloned
+```
+trex_branch: v2.82
+```
+
 Trex binaries URL:
 ```
 trex_url: 'http://trex-tgn.cisco.com/trex/release'
@@ -112,6 +112,7 @@ trex_dir: '/opt/trex/'
 ```
 
 ### Trafficen Variables
+
 Trafficgen git URI:
 ```
 trafficgen_git: 'https://github.com/atheurer/trafficgen'
@@ -127,6 +128,50 @@ Trafficgen scripts version to clone:
 trafficgen_branch: master
 ```
 
+### fio variables
+
+fio git URI:
+```
+fio_git: 'git://git.kernel.dk/fio.git'
+```
+
+Directory on guest to contain fio binaries:
+```
+fio_dir: '/root/fio'
+```
+
+fio branch to be cloned:
+```
+fio_branch: 'fio-3.20'
+```
+
+Log file for fio:
+```
+fio_customization_log: "{{ fio_dir }}/customization.log"
+```
+
+### Mellanox variables
+
+Compile Mellanox drivers in the guest:
+```
+compile_mlx_driver: False
+```
+
+Mellanox OFED drivers URL:
+```
+mellanox_drivers_url: 'http://content.mellanox.com/ofed/MLNX_OFED-4.6-1.0.1.1/MLNX_OFED_LINUX-4.6-1.0.1.1-rhel7.6-x86_64.iso'
+```
+
+Mellanox drivers directory location to be downloaded:
+```
+mellanox_drivers: "/tmp/{{ mellanox_drivers_url | basename }}"
+```
+
+Mellanox OFED CLI installation arguments:
+```
+mlex_ofed_install_args: "--force --without-fw-update --with-mft --with-mstflint --dpdk --upstream-libs -k {{ image_default_kernel }}"
+```
+
 ### User customization Variables
 Dictoniary containg users to be created:
 ```
@@ -139,7 +184,7 @@ custom_users:
 
 A list of additional user supplied commands to run (None by default):
 ```
-user_commands: 
+user_commands:
   - cat /etc/resolv.conf
   - echo '1' > /dev/null
 ```
@@ -177,4 +222,9 @@ ansible-playbook playbooks/images/prepare_performance_images.yml -e guest_image=
 Opt out of DPDK/Trex customization:
 ```
 ansible-playbook playbooks/images/prepare_performance_images.yml -e prepare_dpdk/trex=False
+```
+
+Generate image with compiled mlx driver:
+```
+ansible-playbook playbooks/images/prepare_performance_images.yml -e compile_mlx_driver=True
 ```
