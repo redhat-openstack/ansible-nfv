@@ -1,5 +1,5 @@
 # Image Variables
-guest_image: 'https://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud.qcow2'
+guest_image: 'https://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud-1811.qcow2'
 guest_image_output: '/tmp/'
 guest_debug: False
 
@@ -14,10 +14,10 @@ guest_repos:
 dpdk_dir: '/root/dpdk'
 dpdk_customization_log: "{{ dpdk_dir }}/customization.log"
 dpdk_git: 'git://dpdk.org/dpdk'
-dpdk_branch: 'v17.05'
+dpdk_branch: 'v20.05'
 
 # Trex Variables
-trex_version: 'v2.43'
+trex_version: 'v2.82'
 trex_url: 'https://trex-tgn.cisco.com/trex/release'
 trex_dir: '/opt/trex/'
 
@@ -39,3 +39,9 @@ fio_git: 'git://git.kernel.dk/fio.git'
 fio_dir: '/root/fio'
 fio_branch: 'fio-3.20'
 fio_customization_log: "{{ fio_dir }}/customization.log"
+
+# Mellanox variables
+compile_mlx_driver: False
+mellanox_drivers_url: 'http://content.mellanox.com/ofed/MLNX_OFED-4.6-1.0.1.1/MLNX_OFED_LINUX-4.6-1.0.1.1-rhel7.6-x86_64.iso'
+mellanox_drivers: "/tmp/{{ mellanox_drivers_url | basename }}"
+mlex_ofed_install_args: "--force --without-fw-update --with-mft --with-mstflint --dpdk --upstream-libs -k {{ image_default_kernel }}"

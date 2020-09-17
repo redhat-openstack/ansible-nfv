@@ -1,3 +1,18 @@
+- name: Get installed kernel version
+  virt_customize_command:
+    shell: "grubby --default-kernel | sed -s 's/.*vmlinuz-//g'"
+    image: "{{ fetched_image }}"
+  register: image_fetched_default_kernel
+
+- name: Set kernel helper variable
+  set_fact:
+    image_default_kernel: "{{ image_fetched_default_kernel['shell'][\"grubby --default-kernel | sed -s 's/.*vmlinuz-//g'\"]['stdout_lines'][0] }}"
+
+- name: Workaround to fetch kernel-devel for 3.10.0-957.1.3.el7
+  set_fact:
+    kernel_devel_rpm: "http://ftp.scientificlinux.org/linux/scientific/7.0/x86_64/updates/security/kernel-devel-3.10.0-957.1.3.el7.x86_64.rpm"
+  when: image_default_kernel == '3.10.0-957.1.3.el7.x86_64'
+
 - name: Install packages inside guest image
   virt_customize_package:
     name:
@@ -16,15 +31,56 @@
     image: "{{ fetched_image }}"
     selinux_relabel: True
 
-# Compile DPDK without: rt-kni, igbuio
+- name: Prepare Mellanox drivers
+  block:
+    - name: Download Mellanox driver to host
+      get_url:
+        url: "{{ mellanox_drivers_url }}"
+        dest: "{{ mellanox_drivers }}"
+    - name: Download Mellanox driver
+      virt_customize_upload:
+        src: "{{ mellanox_drivers }}"
+        dest: "{{ mellanox_drivers }}"
+        image: "{{ fetched_image }}"
+    - name: Install required packages for Mellanox OFED drivers
+      virt_customize_package:
+        name:
+          - "{{ kernel_devel_rpm | default('kernel-devel-' + image_default_kernel) }}"
+          - gtk2
+          - atk
+          - cairo
+          - gcc-gfortran
+          - tcsh
+          - lsof
+          - tcl
+          - tk
+          - python-devel
+          - redhat-rpm-config
+          - rpm-build
+          - wget
+          - bsdtar
+          - libusbx
+          - fuse-libs
+        state: present
+        image: "{{ fetched_image }}"
+        selinux_relabel: True
+    - name: Install Mellanox driver
+      virt_customize_command:
+        shell:
+          - "mkdir /tmp/mlnx_ofed_driver/;cd {{ mellanox_drivers | dirname }}; bsdtar xfp {{ mellanox_drivers }} -C /tmp/mlnx_ofed_driver/"
+          - "cd /tmp/mlnx_ofed_driver/; ./mlnxofedinstall {{ mlex_ofed_install_args }}"
+        image: "{{ fetched_image }}"
+        selinux_relabel: True
+  when: compile_mlx_driver
+
+# Compile DPDK without
 - name: Prepare DPDK binaries inside guest image
   virt_customize_command:
     shell:
       - "if [ ! -d {{ dpdk_dir }} ];then git clone {{ dpdk_git }} {{ dpdk_dir }};cd {{ dpdk_dir }};git checkout {{ dpdk_branch }};fi"
       - "if [ ! -d {{ trafficgen_dir }} ];then git clone {{ trafficgen_git }} {{ trafficgen_dir }};cd {{ trafficgen_dir }};git checkout {{ trafficgen_branch }};fi"
-      - "sed -i 's/CONFIG_RTE_KNI_KMOD=.*/CONFIG_RTE_KNI_KMOD=n/g' {{ dpdk_dir }}/config/common_linuxapp"
-      - "sed -i 's/CONFIG_RTE_LIBRTE_KNI=.*/CONFIG_RTE_LIBRTE_KNI=n/g' {{ dpdk_dir }}/config/common_linuxapp"
-      - "sed -i 's/CONFIG_RTE_EAL_IGB_UIO=.*/CONFIG_RTE_LIBRTE_KNI=n/g' {{ dpdk_dir }}/config/common_linuxapp"
+      - "sed -i 's/CONFIG_RTE_LIBRTE_KNI=.*/CONFIG_RTE_LIBRTE_KNI=n/g' /root/dpdk/config/common_linux"
+      - "if {{ compile_mlx_driver | string | lower }}; then sed -i 's/CONFIG_RTE_LIBRTE_MLX5_PMD=.*/CONFIG_RTE_LIBRTE_MLX5_PMD=y/g' {{ dpdk_dir }}/config/common_base;fi"
       - "sed -i 's/enforcing/{{ selinux_config }}/g' /etc/selinux/config /etc/selinux/config"
       - 'cd {{ dpdk_dir }}; /usr/bin/make config T=x86_64-native-linuxapp-gcc; /usr/bin/make'
       - "echo 'DPDK Version: {{ dpdk_branch }}' | tee {{ dpdk_customization_log }}"
