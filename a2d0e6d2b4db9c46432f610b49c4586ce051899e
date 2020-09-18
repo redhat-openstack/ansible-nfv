@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "401e15c7_da4ca1bc",
+        "filename": "playbooks/packet_gen/README.md",
+        "patchSetId": 8
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1017708
+      },
+      "writtenOn": "2020-09-18T07:28:28Z",
+      "side": 1,
+      "message": "Please check roles/packet_gen/iperf/README.md in following patch.",
+      "parentUuid": "c027e1f1_6bb60d6b",
+      "revId": "a2d0e6d2b4db9c46432f610b49c4586ce051899e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "144f5465_68b8d28c",
         "filename": "playbooks/packet_gen/iperf/performance_scenario.yml",
         "patchSetId": 8
@@ -319,6 +337,24 @@
     },
     {
       "key": {
+        "uuid": "761ebc5a_eca56857",
+        "filename": "playbooks/packet_gen/iperf/performance_scenario.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1017708
+      },
+      "writtenOn": "2020-09-18T07:28:28Z",
+      "side": 1,
+      "message": "I second Vadim, there is no tear-down planned for now.",
+      "parentUuid": "4702f441_b944a201",
+      "revId": "a2d0e6d2b4db9c46432f610b49c4586ce051899e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "1cc1faea_9a034f0c",
         "filename": "roles/images/performance/tasks/main.yml",
         "patchSetId": 8
@@ -387,6 +423,30 @@
       "revId": "a2d0e6d2b4db9c46432f610b49c4586ce051899e",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "4831de98_2929942f",
+        "filename": "roles/images/performance/tasks/main.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1017708
+      },
+      "writtenOn": "2020-09-18T07:28:28Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a68654c1_4c30be0b",
+      "range": {
+        "startLine": 34,
+        "startChar": 32,
+        "endLine": 34,
+        "endChar": 36
+      },
+      "revId": "a2d0e6d2b4db9c46432f610b49c4586ce051899e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     },
     {
       "key": {
