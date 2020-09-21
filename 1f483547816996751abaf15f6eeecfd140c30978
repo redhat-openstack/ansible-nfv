@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "743a6e08_cda840bd",
+        "filename": "roles/packet_gen/trex/bind_dpdk_nics/tasks/main.yml",
+        "patchSetId": 12
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2020-09-21T08:38:09Z",
+      "side": 1,
+      "message": "Perhaps we can define the binding driver as a variable and we will not have to have an extra task?",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 32
+      },
+      "revId": "1f483547816996751abaf15f6eeecfd140c30978",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ff77301e_02067a8c",
+        "filename": "roles/post_install/openstack_tasks/tasks/networks_and_routers.yml",
+        "patchSetId": 12
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2020-09-21T08:38:09Z",
+      "side": 1,
+      "message": "I assume that there is no native Ansible approach to handling binding profiles 😞",
+      "range": {
+        "startLine": 112,
+        "startChar": 0,
+        "endLine": 119,
+        "endChar": 58
+      },
+      "revId": "1f483547816996751abaf15f6eeecfd140c30978",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
