@@ -102,6 +102,30 @@
     },
     {
       "key": {
+        "uuid": "eab997a1_a2ddfec3",
+        "filename": "playbooks/packet_gen/iperf/performance_scenario.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1010167
+      },
+      "writtenOn": "2020-09-22T12:26:07Z",
+      "side": 1,
+      "message": "pre_tasks are used when \"role: \u003crole_name\u003e\" is used (instead of import_role). Other than that there is no other valid case of having pre_tasks. The usual ways is to use \"tasks\", since this play group does not have \"role: \u003crole name\u003e\", it is apt to use the usual way that using pre_tasks. It does not harm in having tasks or pre_tasks, but as a reviewer when i see pre_tasks, i will look for the reason to use it (wthther any roles added). Based on the latest patch version i have grouped things like - http://paste.openstack.org/show/798202/",
+      "parentUuid": "da9eb68a_1bdb4a16",
+      "range": {
+        "startLine": 4,
+        "startChar": 2,
+        "endLine": 4,
+        "endChar": 11
+      },
+      "revId": "a2d0e6d2b4db9c46432f610b49c4586ce051899e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ac1a2739_d885fca6",
         "filename": "playbooks/packet_gen/iperf/performance_scenario.yml",
         "patchSetId": 8
@@ -196,6 +220,30 @@
     },
     {
       "key": {
+        "uuid": "77f4b9f6_34b01d51",
+        "filename": "playbooks/packet_gen/iperf/performance_scenario.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1010167
+      },
+      "writtenOn": "2020-09-22T12:26:07Z",
+      "side": 1,
+      "message": "Yes, dut_group will also have only compute nodes. It will not have VMs, for us the DUT is always the compute node, so you can just replace dut_compute with dut_group. It should not harm as the code path has been checked and confirmed.",
+      "parentUuid": "db8d40a2_536a1e26",
+      "range": {
+        "startLine": 29,
+        "startChar": 13,
+        "endLine": 29,
+        "endChar": 24
+      },
+      "revId": "a2d0e6d2b4db9c46432f610b49c4586ce051899e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "18d68b2d_4bda3c9e",
         "filename": "playbooks/packet_gen/iperf/performance_scenario.yml",
         "patchSetId": 8
@@ -243,6 +291,24 @@
       "side": 1,
       "message": "There is no specific reason on keeping in this order, would it break something ?. I can anyway try moving it following first play.",
       "parentUuid": "ccd8a007_f231b89a",
+      "revId": "a2d0e6d2b4db9c46432f610b49c4586ce051899e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0dcdd4e_1ca4be16",
+        "filename": "playbooks/packet_gen/iperf/performance_scenario.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1010167
+      },
+      "writtenOn": "2020-09-22T12:26:07Z",
+      "side": 1,
+      "message": "http://paste.openstack.org/show/798202/ - modified version.",
+      "parentUuid": "37cf58e7_aa01549c",
       "revId": "a2d0e6d2b4db9c46432f610b49c4586ce051899e",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
@@ -352,6 +418,24 @@
       "revId": "a2d0e6d2b4db9c46432f610b49c4586ce051899e",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f13d5f0_9d92f7d0",
+        "filename": "playbooks/packet_gen/iperf/performance_scenario.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1010167
+      },
+      "writtenOn": "2020-09-22T12:26:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "761ebc5a_eca56857",
+      "revId": "a2d0e6d2b4db9c46432f610b49c4586ce051899e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     },
     {
       "key": {

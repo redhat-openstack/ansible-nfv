@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3875160b_c203ff9b",
+        "filename": "playbooks/packet_gen/iperf/performance_scenario.yml",
+        "patchSetId": 11
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1010167
+      },
+      "writtenOn": "2020-09-22T12:26:07Z",
+      "side": 1,
+      "message": "http://paste.openstack.org/show/798202/ - Simpler format.",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 0
+      },
+      "revId": "06ed8489032a54923a2b04eb086740105eaf4f0e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
