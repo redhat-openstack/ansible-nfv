@@ -16,14 +16,27 @@
 
     - name: Configure interfaces - description, mode (access/trunk), vlans
       vars:
-        iface_vlans: "{%- if item.iface_mode == 'trunk' and '-' in item.vlan -%}
-                      {{ item.vlan.split('-') }}
-                      {%- endif -%}"
-        iface_vlan_range: "{%- if iface_vlans -%}
-                           {{ range(iface_vlans.0 | int, iface_vlans.1 | int + 1) | list }}
-                           {%- endif -%}"
-        vlans_string: "{%- if iface_vlan_range -%}
-                       {% for item in iface_vlan_range %}vlan{{ item }} {% endfor %}
+        iface_vlans: "{%- set iface_vlans = [] -%}
+                      {%- set helper_var = [] -%}
+                      {%- if item.iface_mode == 'trunk'-%}
+                      {%- if ',' in item.vlan -%}
+                      {%- for vlan in item.vlan.replace(' ', '').split(',') -%} {{ helper_var.append(vlan) }} {%- endfor -%}
+                      {%- else -%}
+                      {{ helper_var.append(item.vlan) }}
+                      {%- endif -%}
+                      {%- for vlan in helper_var -%}
+                      {%- if '-' in vlan -%}
+                      {%- for v in range(vlan.split('-')[0] | int, vlan.split('-')[1] | int + 1) -%}
+                      {{ iface_vlans.append(v) }}
+                      {%- endfor -%}
+                      {%- else -%}
+                      {{ iface_vlans.append(vlan | int) }}
+                      {%- endif -%}
+                      {%- endfor -%}
+                      {%- endif -%}
+                      {{ iface_vlans | unique }}"
+        vlans_string: "{%- if iface_vlans -%}
+                       {% for item in iface_vlans %}vlan{{ item }} {% endfor %}
                        {%- elif item.vlan == 'all' -%}{{ item.vlan }}
                        {%- else -%}vlan{{ item.vlan }}{% endif %}"
         trunk_vlans_list: "{%- if vlans_string[0] is defined -%}
