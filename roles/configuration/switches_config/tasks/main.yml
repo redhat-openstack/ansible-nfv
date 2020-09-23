@@ -1,5 +1,5 @@
 ---
-- name: Load {{ inventory_hostname }} switch configuration
+- name: Load switch configuration
   set_fact:
     switch_vars: "{{ (lookup('vars', inventory_hostname, default='')) }}"
 
