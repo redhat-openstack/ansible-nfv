@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a99bad7_77a95fee",
+        "filename": "roles/post_install/openstack_tasks/README.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-09-23T08:27:45Z",
+      "side": 0,
+      "message": "Why have you removed the \"sec_groups\" definition?",
+      "range": {
+        "startLine": 305,
+        "startChar": 8,
+        "endLine": 305,
+        "endChar": 33
+      },
+      "revId": "ac6ea22fd7c76ae7f2dfa44fc597269e9473c101",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
