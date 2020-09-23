@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "f8037534_8c3fea6c",
+        "filename": "roles/packet_gen/trex/bind_dpdk_nics/defaults/main.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-09-23T08:39:11Z",
+      "side": 1,
+      "message": "Maybe worth to specify the available drivers?\nI see you are checking for the \"mlx5_core\" driver in the \"Load Mellanox Kernel Modules when configured\" task.",
+      "range": {
+        "startLine": 9,
+        "startChar": 2,
+        "endLine": 9,
+        "endChar": 22
+      },
+      "revId": "6d854a6f0d8644341232fe494b9ebfbc2cb0b38a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e7f9f2bf_cebcf400",
+        "filename": "roles/packet_gen/trex/bind_dpdk_nics/defaults/main.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-09-23T08:39:11Z",
+      "side": 1,
+      "message": "Please add to the documentation within the roles/packet_gen/trex/README.md.",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 19
+      },
+      "revId": "6d854a6f0d8644341232fe494b9ebfbc2cb0b38a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "ffde3b0c_ce2c525f",
+        "filename": "roles/packet_gen/trex/launch_testpmd/defaults/main.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-09-23T08:39:11Z",
+      "side": 1,
+      "message": "Please add to the documentation within the roles/packet_gen/trex/README.md.",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 11
+      },
+      "revId": "6d854a6f0d8644341232fe494b9ebfbc2cb0b38a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b4336d6_e2e404d3",
+        "filename": "roles/post_install/openstack_tasks/tasks/networks_and_routers.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-09-23T08:39:11Z",
+      "side": 1,
+      "message": "Why not to use the \"{{ venv_path }}/bin/python\" ?",
+      "range": {
+        "startLine": 114,
+        "startChar": 36,
+        "endLine": 114,
+        "endChar": 64
+      },
+      "revId": "6d854a6f0d8644341232fe494b9ebfbc2cb0b38a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94140c7d_764ecd0b",
+        "filename": "roles/post_install/openstack_tasks/tasks/networks_and_routers.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-09-23T08:39:11Z",
+      "side": 1,
+      "message": "Instead of the \"source\", use the \"--os_cloud\" as used in line 140.",
+      "range": {
+        "startLine": 116,
+        "startChar": 8,
+        "endLine": 116,
+        "endChar": 14
+      },
+      "revId": "6d854a6f0d8644341232fe494b9ebfbc2cb0b38a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7b0b52e5_9693c098",
+        "filename": "roles/post_install/openstack_tasks/tasks/networks_and_routers.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-09-23T08:39:11Z",
+      "side": 1,
+      "message": "Please, add the \"binding_profile\" param to the documentation and example config file.",
+      "range": {
+        "startLine": 119,
+        "startChar": 32,
+        "endLine": 119,
+        "endChar": 47
+      },
+      "revId": "6d854a6f0d8644341232fe494b9ebfbc2cb0b38a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}

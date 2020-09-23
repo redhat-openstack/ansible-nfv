@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "d6ac01e1_be0cce93",
+        "filename": "roles/packet_gen/trex/bind_dpdk_nics/tasks/main.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-09-23T08:39:11Z",
+      "side": 0,
+      "message": "Why this task has been removed?",
+      "range": {
+        "startLine": 70,
+        "startChar": 16,
+        "endLine": 70,
+        "endChar": 27
+      },
+      "revId": "ac6ea22fd7c76ae7f2dfa44fc597269e9473c101",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
