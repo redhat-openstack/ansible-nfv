@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f286ed79_e2039c0e",
+        "filename": "roles/packet_gen/trex/bind_dpdk_nics/defaults/main.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1016373
+      },
+      "writtenOn": "2020-09-23T12:42:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f8037534_8c3fea6c",
+      "range": {
+        "startLine": 9,
+        "startChar": 2,
+        "endLine": 9,
+        "endChar": 22
+      },
+      "revId": "6d854a6f0d8644341232fe494b9ebfbc2cb0b38a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "e7f9f2bf_cebcf400",
         "filename": "roles/packet_gen/trex/bind_dpdk_nics/defaults/main.yml",
         "patchSetId": 13
@@ -45,6 +69,30 @@
       "revId": "6d854a6f0d8644341232fe494b9ebfbc2cb0b38a",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c5981dbe_4e938808",
+        "filename": "roles/packet_gen/trex/bind_dpdk_nics/defaults/main.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1016373
+      },
+      "writtenOn": "2020-09-23T12:42:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "e7f9f2bf_cebcf400",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 19
+      },
+      "revId": "6d854a6f0d8644341232fe494b9ebfbc2cb0b38a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "26c44627_04f0a2e3",
+        "filename": "roles/packet_gen/trex/launch_testpmd/defaults/main.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1016373
+      },
+      "writtenOn": "2020-09-23T12:42:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ffde3b0c_ce2c525f",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 11
+      },
+      "revId": "6d854a6f0d8644341232fe494b9ebfbc2cb0b38a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3b4336d6_e2e404d3",
         "filename": "roles/post_install/openstack_tasks/tasks/networks_and_routers.yml",
         "patchSetId": 13
@@ -91,6 +163,30 @@
       "revId": "6d854a6f0d8644341232fe494b9ebfbc2cb0b38a",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "e5434565_b5d32977",
+        "filename": "roles/post_install/openstack_tasks/tasks/networks_and_routers.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 1016373
+      },
+      "writtenOn": "2020-09-23T12:42:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "3b4336d6_e2e404d3",
+      "range": {
+        "startLine": 114,
+        "startChar": 36,
+        "endLine": 114,
+        "endChar": 64
+      },
+      "revId": "6d854a6f0d8644341232fe494b9ebfbc2cb0b38a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "d6f92537_9061ffc0",
+        "filename": "roles/post_install/openstack_tasks/tasks/networks_and_routers.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 1016373
+      },
+      "writtenOn": "2020-09-23T12:42:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "94140c7d_764ecd0b",
+      "range": {
+        "startLine": 116,
+        "startChar": 8,
+        "endLine": 116,
+        "endChar": 14
+      },
+      "revId": "6d854a6f0d8644341232fe494b9ebfbc2cb0b38a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7b0b52e5_9693c098",
         "filename": "roles/post_install/openstack_tasks/tasks/networks_and_routers.yml",
         "patchSetId": 13
@@ -137,6 +257,30 @@
       "revId": "6d854a6f0d8644341232fe494b9ebfbc2cb0b38a",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "b884d548_5f8e1790",
+        "filename": "roles/post_install/openstack_tasks/tasks/networks_and_routers.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1016373
+      },
+      "writtenOn": "2020-09-23T12:42:07Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7b0b52e5_9693c098",
+      "range": {
+        "startLine": 119,
+        "startChar": 32,
+        "endLine": 119,
+        "endChar": 47
+      },
+      "revId": "6d854a6f0d8644341232fe494b9ebfbc2cb0b38a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }

@@ -22,6 +22,30 @@
       "revId": "ac6ea22fd7c76ae7f2dfa44fc597269e9473c101",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "715ebf0f_7d30345e",
+        "filename": "roles/packet_gen/trex/bind_dpdk_nics/tasks/main.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 1016373
+      },
+      "writtenOn": "2020-09-23T12:42:07Z",
+      "side": 0,
+      "message": "kernel_nics was used by the task I have modified below (Parse DuT Destination Macs). I refactor that task and now kernel_nics is not needed, so, I removed this task",
+      "parentUuid": "d6ac01e1_be0cce93",
+      "range": {
+        "startLine": 70,
+        "startChar": 16,
+        "endLine": 70,
+        "endChar": 27
+      },
+      "revId": "ac6ea22fd7c76ae7f2dfa44fc597269e9473c101",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
