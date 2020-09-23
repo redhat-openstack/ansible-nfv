@@ -10,6 +10,7 @@ The switches config role performs the following tasks:
 Supported switch platforms:
 - Cisco
 - Juniper
+- Mellanox MLNX-OS (ONYX with JSON API is not supported due to not having access to a compatible switch)
 
 ## Inventory
 The play requires an inventory file that will describe switches that the playbook should run on.  
@@ -25,9 +26,13 @@ cisco_switch01 ansible_host=10.10.10.120
 juniper_switch01 ansible_host=10.10.10.100
 juniper_switch02 ansible_host=10.10.10.101
 
+[onyx]
+mlx_switch01 ansible_host=10.10.10.131
+
 [switches:children]
 ios
 junos
+onyx
 
 [switches:vars]
 ansible_user=root
@@ -41,6 +46,15 @@ ansible_become_method=enable
 [junos:vars]
 ansible_network_os=junos
 ansible_connection=netconf
+
+[onyx:vars]
+ansible_user=admin
+ansible_password=admin
+ansible_become_password=admin
+ansible_connection=network_cli
+ansible_network_os=onyx
+ansible_become=yes
+ansible_become_method=enable
 ```
 
 ## Variables
@@ -82,4 +96,20 @@ cisco_switch01:
      - { description: 'tigon16', iface: 'GigabitEthernet5/0/7', iface_mode: 'access', vlan: '20' }
      - { description: 'tigon17', iface: 'GigabitEthernet5/0/8', iface_mode: 'access', vlan: '90' }
      - { description: 'uplink_port', iface: 'GigabitEthernet5/0/9', iface_mode: 'trunk', vlan: '', encapsulation: true }
+
+mlx_switch01:
+  vlans:
+    - start: 110
+      end: 119
+  interfaces:
+    - description: "{'host': 'tigon15', 'nic_biosdevname': 'p6p1', 'nic_kernel_predictable_name': 'enp7s0f0', 'description': 'Mellanox NIC1 port0'}"
+      iface: 'ethernet 1/1'
+      iface_mode: 'trunk'
+      vlan: '110-115'
+      mtu: '9192'
+    - description: "{'host': 'tigon16', 'nic_biosdevname': 'p6p2', 'nic_kernel_predictable_name': 'enp7s0f1', 'description': 'Mellanox NIC1 port1'}"
+      iface: 'ethernet 1/2'
+      iface_mode: 'trunk'
+      vlan: '110-114, 116'
+      mtu: '9192'
 ```
