@@ -126,6 +126,30 @@
     },
     {
       "key": {
+        "uuid": "ea0915e6_704cadee",
+        "filename": "playbooks/packet_gen/iperf/performance_scenario.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1017708
+      },
+      "writtenOn": "2020-09-23T05:28:23Z",
+      "side": 1,
+      "message": "Thanks clarifying it.",
+      "parentUuid": "eab997a1_a2ddfec3",
+      "range": {
+        "startLine": 4,
+        "startChar": 2,
+        "endLine": 4,
+        "endChar": 11
+      },
+      "revId": "a2d0e6d2b4db9c46432f610b49c4586ce051899e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "ac1a2739_d885fca6",
         "filename": "playbooks/packet_gen/iperf/performance_scenario.yml",
         "patchSetId": 8
@@ -146,6 +170,30 @@
       "revId": "a2d0e6d2b4db9c46432f610b49c4586ce051899e",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "5839f344_99ca2294",
+        "filename": "playbooks/packet_gen/iperf/performance_scenario.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1017708
+      },
+      "writtenOn": "2020-09-23T05:28:23Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ac1a2739_d885fca6",
+      "range": {
+        "startLine": 21,
+        "startChar": 24,
+        "endLine": 21,
+        "endChar": 43
+      },
+      "revId": "a2d0e6d2b4db9c46432f610b49c4586ce051899e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     },
     {
       "key": {
@@ -244,6 +292,30 @@
     },
     {
       "key": {
+        "uuid": "82aef7c3_664bd3d6",
+        "filename": "playbooks/packet_gen/iperf/performance_scenario.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1017708
+      },
+      "writtenOn": "2020-09-23T05:28:23Z",
+      "side": 1,
+      "message": "IIRC dut_group is dpdk_dut in my usage as in https://github.com/gmuthukr/ansible-nfv/blob/gs/iperf/user-config.yaml and that means, all VMs belonging to group dpdk_dut are grouped under dut_group and thus they are referred specifically for iperf server and clients. I\u0027ll leave it as it is for now and later it can be corrected if needed.",
+      "parentUuid": "77f4b9f6_34b01d51",
+      "range": {
+        "startLine": 29,
+        "startChar": 13,
+        "endLine": 29,
+        "endChar": 24
+      },
+      "revId": "a2d0e6d2b4db9c46432f610b49c4586ce051899e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "18d68b2d_4bda3c9e",
         "filename": "playbooks/packet_gen/iperf/performance_scenario.yml",
         "patchSetId": 8
@@ -312,6 +384,24 @@
       "revId": "a2d0e6d2b4db9c46432f610b49c4586ce051899e",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "917e67e7_deb698f9",
+        "filename": "playbooks/packet_gen/iperf/performance_scenario.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1017708
+      },
+      "writtenOn": "2020-09-23T05:28:23Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f0dcdd4e_1ca4be16",
+      "revId": "a2d0e6d2b4db9c46432f610b49c4586ce051899e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     },
     {
       "key": {
