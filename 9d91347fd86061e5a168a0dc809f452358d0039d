@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ec5d4f4a_e417b967",
+        "filename": "roles/configuration/switches_config/tasks/onyx_config.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-09-29T07:33:07Z",
+      "side": 1,
+      "message": "Is it possible to add a spaces and maybe comments between the sections of configuration?\n\nFor example, \"description\" section, \"mtu\" section and so on.\n\nIt will ease the future maintenance.",
+      "range": {
+        "startLine": 46,
+        "startChar": 12,
+        "endLine": 46,
+        "endChar": 14
+      },
+      "revId": "9d91347fd86061e5a168a0dc809f452358d0039d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
