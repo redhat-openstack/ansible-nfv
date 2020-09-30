@@ -46,6 +46,30 @@
       "revId": "9d91347fd86061e5a168a0dc809f452358d0039d",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3b53527f_0b289d98",
+        "filename": "roles/configuration/switches_config/tasks/onyx_config.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2020-09-30T19:45:31Z",
+      "side": 1,
+      "message": "@Maxim\n\nI was unable to implement comments in this Jinaj2 template...\nIt messed up the output, I\u0027ve tried the following:\n\n          {# Initialize commands list #}\n          {%- set commands \u003d [] -%}\n          {# Iterate over switch interfaces #}\n          {%- for interface in switch_vars[\u0027interfaces\u0027] -%}\n            {# If description key is present in interface dict #}\n            {%- if interface[\u0027description\u0027] -%}\n              {{ commands.append(\u0027interface \u0027 + interface[\u0027iface\u0027] + \u0027 description \u0027 + interface[\u0027description\u0027]) }}\n            {%- endif -%}\n            {# If mtu key is present in interface dict #}\n            {%- if interface[\u0027mtu\u0027] -%}\n              {# Construct commands necessary to define MTU (shutdown interface, set mtu and no shutdown interface) #}\n              {%- set mtu_commands \u003d [\u0027interface \u0027 + interface[\u0027iface\u0027] + \u0027 shutdown\u0027, \u0027interface \u0027 + interface[\u0027iface\u0027] + \u0027 mtu \u0027 + interface[\u0027mtu\u0027] | string ,\u0027interface \u0027 + interface[\u0027iface\u0027] + \u0027 no shutdown\u0027] -%}\n              {%- for command in mtu_commands -%}\n                {{ commands.append(command) }}\n              {%- endfor -%}\n            {%- endif -%}\n            {# Check if iface_mode and vlan keys present in interface dict #}\n            {%- if interface[\u0027iface_mode\u0027] and interface[\u0027vlan\u0027] -%}\n              {{ commands.append(\u0027interface \u0027 + interface[\u0027iface\u0027] + \u0027 switchport mode \u0027 + interface[\u0027iface_mode\u0027]) }}\n              {# Check if iface_mode is equal to trunk #}\n              {%- if interface[\u0027iface_mode\u0027] \u003d\u003d \u0027trunk\u0027 -%}\n                {# Remove all previous allowed vlans from trunk interface #}\n                {{ commands.append(\u0027interface \u0027 + interface[\u0027iface\u0027] + \u0027 switchport trunk allowed-vlan none\u0027) }}\n                {# Initialize vlan list and helper variable #}\n                {%- set helper_vlans \u003d [] -%}\n                {%- set vlans \u003d [] -%}\n                {# If vlan\u0027s value contain a comma, separate it into a list #}\n                {%- if \u0027,\u0027 in interface[\u0027vlan\u0027] -%}\n                  {%- for vlan in interface[\u0027vlan\u0027].replace(\u0027 \u0027, \u0027\u0027).split(\u0027,\u0027) -%}\n                    {{ helper_vlans.append(vlan) }}\n                  {%- endfor -%}\n                {%- else -%}\n                  {{ helper_vlans.append(interface[\u0027vlan\u0027]) }}\n                {%- endif -%}\n                {# Iterate over unique values of helper variable list #}\n                {%- for entry in helper_vlans | unique -%}\n                  {# If hyphen is present in value, assume it is a range and append values from range to vlan variable #}\n                  {%- if \u0027-\u0027 in entry -%}\n                    {%- for v in range(entry.split(\u0027-\u0027)[0] | int, entry.split(\u0027-\u0027)[1] | int + 1) -%}\n                      {{ vlans.append(v) }}\n                    {%- endfor -%}\n                  {%- else -%}\n                    {{ vlans.append(entry) }}\n                  {%- endif -%}\n                {%- endfor -%}\n                {# Iterate over vlans and add them to trunk interface #}\n                {%- for vlan in vlans | unique -%}\n                  {{ commands.append(\u0027interface \u0027 + interface[\u0027iface\u0027] + \u0027 switchport trunk allowed-vlan add \u0027 + vlan | string) }}\n                {%- endfor -%}\n                {# By default, vlan 1 added to trunk interface, remove it #}\n                {{ commands.append(\u0027interface \u0027 + interface[\u0027iface\u0027] + \u0027 switchport trunk allowed-vlan remove 1\u0027) }}\n              {# Check if iface_mode is equal to access #}\n              {%- elif interface[\u0027iface_mode\u0027] \u003d\u003d \u0027access\u0027 -%}\n                {# Check if vlan value is int #}\n                {%- if interface[\u0027vlan\u0027] | int -%}\n                  {{ commands.append(\u0027interface \u0027 + interface[\u0027iface\u0027] + \u0027 switchport access vlan \u0027 + interface[\u0027vlan\u0027] | string) }}\n                {%- endif -%}\n              {%- endif -%}\n            {%- endif -%}\n          {%- endfor -%}\n          {{ commands }}",
+      "parentUuid": "80c0d393_8b4c00cd",
+      "range": {
+        "startLine": 46,
+        "startChar": 12,
+        "endLine": 46,
+        "endChar": 14
+      },
+      "revId": "9d91347fd86061e5a168a0dc809f452358d0039d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
