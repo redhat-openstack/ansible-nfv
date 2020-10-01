@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "631e188f_fa624e41",
+        "filename": "roles/post_install/openstack_tasks/config_example.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1016373
+      },
+      "writtenOn": "2020-10-01T10:14:43Z",
+      "side": 1,
+      "message": "I think this sentence is not easy to understand if you read it by first time. Maybe we should add an example like this one:\nnetworks:                                                                       \n  - name: \u0027access\u0027                                                              \n    cloud_name: overcloud                                                       \n    physical_network: \u0027access\u0027                                                  \n    ...........                                             \n                                                                                \n  - name: \u0027access\u0027                                                              \n    cloud_name: nfv_tempest                                                     \n    physical_network: \u0027access\u0027                                                                                                 \n    router_name: router1                                                        \n    ..............\n\n  - name: \u0027dpdk-mgmt\u0027                                                           \n    cloud_name: nfv_tempest                                                                                                 \n    router_name: router1                                                        \n    ..............",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 73
+      },
+      "revId": "69e2160708e5dc13ed3e09602beed82f2ac2697a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
