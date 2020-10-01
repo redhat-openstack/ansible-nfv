@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "f115fe29_09ea841d",
+        "filename": "roles/post_install/openstack_tasks/README.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2020-10-01T09:37:32Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8c16bfeb_01d80eff",
+      "range": {
+        "startLine": 19,
+        "startChar": 56,
+        "endLine": 19,
+        "endChar": 62
+      },
+      "revId": "83a673e1de324366855d9d775fca428c97114edc",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "06cc3252_35dd7c2d",
         "filename": "roles/post_install/openstack_tasks/README.md",
         "patchSetId": 6
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "16f13e9d_31063367",
+        "filename": "roles/post_install/openstack_tasks/README.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2020-10-01T09:37:32Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "06cc3252_35dd7c2d",
+      "range": {
+        "startLine": 31,
+        "startChar": 55,
+        "endLine": 31,
+        "endChar": 61
+      },
+      "revId": "83a673e1de324366855d9d775fca428c97114edc",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f93d96c8_cad4e4c0",
         "filename": "roles/post_install/openstack_tasks/README.md",
         "patchSetId": 6
@@ -68,6 +116,30 @@
       "revId": "83a673e1de324366855d9d775fca428c97114edc",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "7fc71edc_5caa5fa4",
+        "filename": "roles/post_install/openstack_tasks/README.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2020-10-01T09:37:32Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f93d96c8_cad4e4c0",
+      "range": {
+        "startLine": 170,
+        "startChar": 24,
+        "endLine": 170,
+        "endChar": 25
+      },
+      "revId": "83a673e1de324366855d9d775fca428c97114edc",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }

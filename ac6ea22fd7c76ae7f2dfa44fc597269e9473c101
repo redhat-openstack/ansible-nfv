@@ -22,6 +22,30 @@
       "revId": "ac6ea22fd7c76ae7f2dfa44fc597269e9473c101",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "1245fdb5_047f82e6",
+        "filename": "roles/post_install/openstack_tasks/README.md",
+        "patchSetId": 6
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2020-10-01T09:37:32Z",
+      "side": 0,
+      "message": "Ack",
+      "parentUuid": "9a99bad7_77a95fee",
+      "range": {
+        "startLine": 305,
+        "startChar": 8,
+        "endLine": 305,
+        "endChar": 33
+      },
+      "revId": "ac6ea22fd7c76ae7f2dfa44fc597269e9473c101",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
