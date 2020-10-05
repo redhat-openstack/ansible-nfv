@@ -1,6 +1,6 @@
 ---
 driver:
-  name: openstack
+  name: delegated
 lint:
   name: yamllint
   options:
