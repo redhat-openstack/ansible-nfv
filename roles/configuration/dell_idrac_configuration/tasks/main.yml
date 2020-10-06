@@ -7,19 +7,19 @@
   debug:
     var: dell_idrac_bios_attribute | mandatory
 
-- name: "Attempt to Power On iDRAC Host '{{ inventory_hostname }}'"
+- name: "Attempt to Power On iDRAC host"
   redfish_command:
     category: Systems
     command: PowerOn
     baseuri: "{{ inventory_hostname }}"
-    user: "{{ ansible_user }}"
+    username: "{{ ansible_user }}"
     password: "{{ ansible_password }}"
   register: idrac_power_state
   ignore_errors: True
   retries: "{{ task_retries }}"
   until: "'URL' not in idrac_power_state['msg']"
 
-- name: "Failed to Power On iDRAC Host '{{ inventory_hostname }}'"
+- name: "Failed to Power On iDRAC host"
   fail:
     msg: "Reason: {{ idrac_power_state['msg'] }}"
   # Override errors handling due to 'HTTP ERROR: 409' meaning host is powered on
@@ -29,42 +29,56 @@
       'Action was successful'
       ]
 
-- name: "Set BIOS Attribute For Host '{{ inventory_hostname }}'"
+- name: "Set BIOS Attribute for host"
   redfish_config:
     category: Systems
     command: SetBiosAttributes
-    bios_attr_name: "{{ bios_attribute.split(':')[0] }}"
-    bios_attr_value: "{{ bios_attribute.split(':')[1] }}"
+    bios_attribute_name: "{{ bios_attribute.split(':')[0] }}"
+    bios_attribute_value: "{{ bios_attribute.split(':')[1] }}"
     baseuri: "{{ inventory_hostname }}"
-    user: "{{ ansible_user }}"
+    username: "{{ ansible_user }}"
     password: "{{ ansible_password }}"
   loop: "{{ dell_idrac_bios_attribute }}"
   loop_control:
     loop_var: bios_attribute
+  ignore_errors: True
   register: bios_attribute_change
   retries: "{{ task_retries }}"
   until: "'URL' not in bios_attribute_change['msg']"
 
-- name: "Create BIOS Configuration Job (Schedule BIOS Setting Update) For '{{ inventory_hostname }}'"
-  redfish_command:
+- name: "Failed to set attribute on iDRAC host"
+  fail:
+    msg: "{{ bios_attribute_change['results'] | map(attribute='msg') | list }}"
+  when:
+    - bios_attribute_change['results']
+        | map(attribute='msg') | list
+        | map('regex_search', 'Pending configuration values are already committed')
+        | select('string') | list | length == 0
+    - bios_attribute_change is failed
+
+- name: "Create BIOS Configuration Job (Schedule BIOS Setting Update)"
+  idrac_redfish_command:
     category: Systems
     command: CreateBiosConfigJob
     baseuri: "{{ inventory_hostname }}"
-    user: "{{ ansible_user }}"
+    username: "{{ ansible_user }}"
     password: "{{ ansible_password }}"
-  when: bios_attribute_change['changed']
   register: bios_config_job
   retries: "{{ task_retries }}"
   until: "'URL' not in bios_config_job['msg']"
+  when: bios_attribute_change is changed
 
-- name: "Reboot iDRAC '{{ inventory_hostname }}' To Apply New BIOS Settings"
+- name: "Reboot iDRAC host To Apply New BIOS Settings"
   redfish_command:
     category: Systems
     command: "{{ dell_idrac_power_mode }}"
     baseuri: "{{ inventory_hostname }}"
-    user: "{{ ansible_user }}"
+    username: "{{ ansible_user }}"
     password: "{{ ansible_password }}"
-  when: bios_attribute_change['changed']
   register: bios_idrac_reboot
   retries: "{{ task_retries }}"
   until: "'URL' not in bios_idrac_reboot['msg']"
+  when: (bios_attribute_change is changed) or (bios_attribute_change['results']
+          | map(attribute='msg') | list
+          | map('regex_search', 'Pending configuration values are already committed')
+          | select('string') | list | length == 1)
