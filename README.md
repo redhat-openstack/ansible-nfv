@@ -4,7 +4,7 @@ Ansible NFV repository holds various playbooks for installation, configuration, 
 ## Documentation
 Each role holds it's own documentation. Refer to the README.md file within the role.
 
-**The minimum required version of Ansible for the playbooks >=2.7.5,<2.8.0**  
+**The minimum required version of Ansible for the playbooks >=2.9.X**  
 **Note** - In order to work properly with the selinux, make sure the **libselinux-python** package is installed on your host.
 
 ## How to contribue
