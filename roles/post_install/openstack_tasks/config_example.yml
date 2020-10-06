@@ -13,6 +13,9 @@ instance: true
 overcloud_delete: false
 resources_output: true
 
+# Whether or not SSL API requests should be verified.
+validate_certs: true
+
 # Set the state of the resource.
 # The state could be 'present' or 'absent'.
 resource_state: present
