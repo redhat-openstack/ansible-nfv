@@ -12,6 +12,7 @@
     disk: "{{ item.disk }}"
     vcpus: "{{ item.vcpus }}"
     extra_specs: "{{ item.extra_specs | default({}) }}"
+    validate_certs: "{{ validate_certs | default(True) }}"
     state: "{{ resource_state }}"
   loop: "{{ flavors }}"
   register: reg_flavors

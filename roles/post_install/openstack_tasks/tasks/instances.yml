@@ -18,6 +18,7 @@
     nics: "{{ item.nics }}"
     auto_ip: 'no'
     delete_fip: 'yes'
+    validate_certs: "{{ validate_certs | default(True) }}"
   loop: "{{ all_instances | flatten(levels=1) }}"
   register: reg_instance
 
@@ -33,6 +34,7 @@
     nat_destination: "{{ item.floating_ip.int_net }}"
     reuse: 'yes'
     wait: 'yes'
+    validate_certs: "{{ validate_certs | default(True) }}"
   loop: "{{ all_instances | flatten(levels=1) }}"
   when:
     - item.floating_ip is defined

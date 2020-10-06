@@ -9,4 +9,5 @@
     name: "{{ item.0.name }}"
     hosts: "{{ item.0.hosts }}"
     metadata: "{{ item.1 }}"
+    validate_certs: "{{ validate_certs | default(True) }}"
   loop: "{{ aggregate_groups | subelements('metadata', 'skip_missing=True') }}"
