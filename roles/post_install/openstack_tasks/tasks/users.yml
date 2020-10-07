@@ -10,6 +10,7 @@
     name: "{{ item.project }}"
     domain_id: "{{ item.domain }}"
     state: "{{ resource_state }}"
+    validate_certs: "{{ validate_certs | default(omit) }}"
   loop: "{{ users | flatten(levels=1) }}"
   when: item.name != 'admin'
 
@@ -23,6 +24,7 @@
     default_project: "{{ item.project }}"
     domain: "{{ item.domain }}"
     state: "{{ resource_state }}"
+    validate_certs: "{{ validate_certs | default(omit) }}"
   loop: "{{ users | flatten(levels=1) }}"
   register: reg_users
   when: item.name != 'admin'
@@ -36,6 +38,7 @@
     project: "{{ item.project }}"
     role: "{{ item.role }}"
     state: "{{ resource_state }}"
+    validate_certs: "{{ validate_certs | default(omit) }}"
   loop: "{{ users | flatten(levels=1) }}"
   when:
     - reg_users.changed

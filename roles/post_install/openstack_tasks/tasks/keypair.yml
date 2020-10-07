@@ -7,6 +7,7 @@
     cloud: "{{ item.cloud_name | default(cloud_name) }}"
     state: "{{ resource_state }}"
     name: "{{ item.name }}"
+    validate_certs: "{{ validate_certs | default(omit) }}"
   loop: "{{ keypairs }}"
   register: reg_keypair
 

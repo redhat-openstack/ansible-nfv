@@ -18,6 +18,7 @@
         provider_segmentation_id: "{{ item.segmentation_id | default(omit) }}"
         external: "{{ item.external | default('false') }}"
         shared: "{{ item.shared | default(omit) }}"
+        validate_certs: "{{ validate_certs | default (omit) }}"
         state: present
       loop: "{{ networks }}"
 
@@ -36,6 +37,7 @@
         gateway_ip: "{{ item.gateway_ip | default(omit) }}"
         no_gateway_ip: "{{ item.no_gateway_ip  | default(omit) }}"
         ip_version: "{{ item.ip_version | default('4') }}"
+        validate_certs: "{{ validate_certs | default (omit) }}"
         state: present
       loop: "{{ networks }}"
 
@@ -46,6 +48,7 @@
         cloud: "{{ item.cloud_name | default(cloud_name) }}"
         name: "{{ item.router_name }}"
         network: "{{ item.name }}"
+        validate_certs: "{{ validate_certs | default (omit) }}"
         state: present
       when:
         - item.external is defined
@@ -92,6 +95,7 @@
         name: "{{ item.0.0 }}"
         interfaces: "{{ item.1 }}"
         state: present
+        validate_certs: "{{ validate_certs | default (omit) }}"
       loop: "{{ routers_lists | zip(subnets_for_routers_interfaces) | list }}"
       when: routers_lists is defined
 
@@ -105,6 +109,7 @@
         vnic_type: "{{ item.1.type }}"
         security_groups: "{{ item.1.sec_groups | default(omit) }}"
         port_security_enabled: "{{ item.1.port_security | default(omit) }}"
+        validate_certs: "{{ validate_certs | default (omit) }}"
         state: present
       loop: "{{ instances | subelements('net_ports', 'skip_missing=True') }}"
       when: net_port
@@ -120,6 +125,7 @@
         name: "{{ item.1.name }}"
         network: "{{ item.1.network }}"
         vnic_type: "{{ item.1.type }}"
+        validate_certs: "{{ validate_certs | default (omit) }}"
         state: absent
       loop: "{{ instances | subelements('net_ports', 'skip_missing=True') }}"
       when: net_port
@@ -142,6 +148,7 @@
       os_router:
         cloud: "{{ item.cloud_name | default(cloud_name) }}"
         name: "{{ item.router_name }}"
+        validate_certs: "{{ validate_certs | default (omit) }}"
         state: absent
       loop: "{{ networks }}"
       when:
@@ -154,6 +161,7 @@
       os_network:
         cloud: "{{ item.cloud_name | default(cloud_name) }}"
         name: "{{ item.name }}"
+        validate_certs: "{{ validate_certs | default (omit) }}"
         state: absent
       loop: "{{ networks }}"
       register: delete_networks

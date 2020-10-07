@@ -8,6 +8,7 @@
     availability_zone: "{{ item.availability_zone }}"
     size: "{{ item.size }}"
     display_name: "{{ item.name }}"
+    validate_certs: "{{ validate_certs | default(omit) }}"
     scheduler_hints:
       same_host: "{{ item.name | replace('dynamicvolume', 'dynamicinstance') }}"
       when: ephemeral | default(False)
