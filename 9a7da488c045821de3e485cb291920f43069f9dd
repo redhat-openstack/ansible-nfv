@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "038ca575_ff7c2aad",
+        "filename": "roles/packet_gen/trex/README.md",
+        "patchSetId": 14
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2020-10-08T15:52:17Z",
+      "side": 1,
+      "message": "dpdk application?",
+      "range": {
+        "startLine": 224,
+        "startChar": 24,
+        "endLine": 224,
+        "endChar": 28
+      },
+      "revId": "9a7da488c045821de3e485cb291920f43069f9dd",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
         "uuid": "800188f3_c31f46e3",
         "filename": "roles/packet_gen/trex/bind_dpdk_nics/tasks/main.yml",
         "patchSetId": 14
@@ -13,6 +36,30 @@
       "writtenOn": "2020-10-07T09:19:57Z",
       "side": 1,
       "message": "Miguel as discussed, perhaps we should create 2 separate variables per host type.\nSo that trex and DuT nodes will be able to support different drivers at the same time.",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 129
+      },
+      "revId": "9a7da488c045821de3e485cb291920f43069f9dd",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "795ab98f_de0e2249",
+        "filename": "roles/packet_gen/trex/bind_dpdk_nics/tasks/main.yml",
+        "patchSetId": 14
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2020-10-08T15:52:17Z",
+      "side": 1,
+      "message": "+2",
+      "parentUuid": "800188f3_c31f46e3",
       "range": {
         "startLine": 66,
         "startChar": 0,
