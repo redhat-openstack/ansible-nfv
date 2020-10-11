@@ -23,7 +23,7 @@
 
         - name: Restore dump inventory
           copy:
-            content: 'localhost'
+            content: 'localhost ansible_connection=local'
             dest: inventory
           delegate_to: localhost
       when: not inventory_generated

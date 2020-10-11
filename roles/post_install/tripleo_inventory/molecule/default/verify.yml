@@ -33,6 +33,7 @@
       copy:
         content: "{{ hostvars[inventory_hostname]['ansible_facts']['hostname'] }}"
         dest: /tmp/test_file
+        mode: 0664
 
     - name: Fetch generated file
       slurp:
