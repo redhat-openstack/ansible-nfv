@@ -5,22 +5,35 @@ ignore: |
   .tox/
 
 rules:
-  braces: {max-spaces-inside: 1, level: error}
-  brackets: {max-spaces-inside: 1, level: error}
-  colons: {max-spaces-after: -1, level: error}
-  commas: {max-spaces-after: -1, level: error}
+  braces:
+    max-spaces-inside: 1
+    level: error
+  brackets:
+    max-spaces-inside: 1
+    level: error
+  colons:
+    max-spaces-after: -1
+    level: error
+  commas:
+    max-spaces-after: -1
+    level: error
   comments: disable
   comments-indentation: disable
   document-start: disable
-  empty-lines: {max: 1, level: error}
-  hyphens: {level: error}
-  indentation: {spaces: consistent}
+  empty-lines:
+    max: 1
+    level: error
+  hyphens:
+    level: error
+  indentation:
+    spaces: consistent
   key-duplicates: enable
   line-length:
     max: 240
     allow-non-breakable-words: true
     allow-non-breakable-inline-mappings: true
   new-line-at-end-of-file: disable
-  new-lines: {type: unix}
+  new-lines:
+    type: unix
   trailing-spaces: enable
   truthy: disable

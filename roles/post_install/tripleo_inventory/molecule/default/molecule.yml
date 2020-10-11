@@ -1,10 +1,10 @@
 ---
 driver:
   name: delegated
-lint:
-  name: yamllint
-  options:
-    config-file: ../../../.yamllint
+lint: |
+  set -e
+  yamllint -c ../../../.yamllint .
+  ansible-lint -c ../../../.ansible-lint
 platforms:
   - name: hypervisor
 provisioner:
@@ -12,20 +12,9 @@ provisioner:
   inventory:
     links:
       hosts: ${MOLECULE_INVENTORY_PATH:-inventory}
-  lint:
-    name: ansible-lint
-    options:
-      x: ["204,301,306,403,405,503"]
-      force-color: true
 verifier:
   name: ansible
-  lint:
-    name: ansible-lint
-    options:
-      x: ["204,301,306,403,405,503"]
-      force-color: true
 scenario:
-  name: default
   converge_sequence:
     - converge
   destroy_sequence:

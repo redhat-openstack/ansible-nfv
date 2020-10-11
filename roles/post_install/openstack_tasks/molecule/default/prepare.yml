@@ -1,7 +1,6 @@
 ---
 - name: Prepare
   hosts: localhost
-  connection: local
   gather_facts: false
   vars:
     env_host: "{{ lookup('env', 'TEST_HOST') }}"

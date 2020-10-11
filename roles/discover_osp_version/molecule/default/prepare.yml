@@ -7,3 +7,4 @@
       copy:
         content: 'Red Hat OpenStack Platform release 16.1.0 Beta (Train)'
         dest: /etc/rhosp-release
+        mode: 0664
