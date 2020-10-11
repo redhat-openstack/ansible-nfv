@@ -1,19 +1,7 @@
 ---
-- name: Overcloud nodes cleanup
-  hosts: undercloud:overcloud_nodes
+- name: Cleanup
+  hosts: "{{ osp_tasks_host | default('undercloud') }}"
   gather_facts: false
-  no_log: "{{ molecule_no_log }}"
-  tasks:
-    - name: Clean test files
-      file:
-        path: /tmp/test_file
-        state: absent
-
-- name: Inventory cleanup
-  hosts: localhost
-  connection: local
-  gather_facts: false
-  no_log: "{{ molecule_no_log }}"
   vars:
     inventory_generated: "{{ lookup('env', 'TEST_INV_GENERATED') }}"
   tasks:
