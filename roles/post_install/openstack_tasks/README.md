@@ -16,6 +16,8 @@ The `openstack tasks` role performs the following tasks on the existing Openstac
     * Creates networks, subnets, routers and ports by using the variables list provided to the play.  
       Public networks sets as a gateway on the router and private networks sets as a router interface by using the 'external' flag within the variables provided.  
       The interfaces for the instance could be specified as a network name or as a created port name.
+      In case networks should be created under specific tenant add cloud_name for resource.
+      Please refer config_example.yml 
 * Upload images and set image properties
     * Upload provided images to the glance store of the overcloud. Properties can set if required.
 * Aggregate groups
@@ -26,10 +28,16 @@ The `openstack tasks` role performs the following tasks on the existing Openstac
     * Creates flavors for the instances. Extra_specs could be created for the flavors if required.
 * Creates keypair
     * Creates keypair and fetch the file to the client.
+      In case keypair should be created under specific tenant add cloud_name for resource.
+      Please refer config_example.yml 
 * Creates security groups
     * Creates security groups with defined protocols.
+      In case security group should be created under specific tenent add cloud_name for resource.
+      Please refer config_example.yml 
 * Boot an instance(s)
     * Boot the defined instances on the overcloud.
+      In case instance should be created under specific tenent add cloud_name for resource.
+      Please refer config_example.yml 
 * Overcloud delete
     * Deletes the required stack.  
       Default stack is - 'overcloud'.
@@ -135,6 +143,7 @@ Define the networks that should be created on the overcloud.
 ```
 networks:
   - name: public
+    cloud_name: overcloud
     physical_network: public
     segmentation_id: 25
     network_type: vlan
@@ -153,10 +162,12 @@ networks:
     external: false   # The "external: false" with the "router_name" sets the network as an interface for the router.
     router_name: router1
   - name: private2
+    cloud_name: nfv_user
     physical_network: tenant2
     cidr: 173.30.0.0/24
     external: false
     router_name: router1
+    cloud_name: nfv_user
   - name: private3
     physical_network: tenant3
     cidr: 174.40.0.0/24
@@ -233,6 +244,7 @@ The private key fetched to the client local.
 ```
 keypairs:
   - name: test_keypair
+    cloud_name: overcloud
 ```
 
 #### Security groups
@@ -240,6 +252,7 @@ Specify the security groups and rules that should be created.
 ```
 security_groups:
   - name: test_secgroup
+    cloud_name: overcloud
     rules:
       - protocol: icmp
         port_range_min: -1
@@ -268,6 +281,7 @@ Specify the instance and arguments that the instance should be created with.
 ```
 instances:
   - name: vm1
+    cloud_name: overcloud
     groups:        # Instance could be attached to multiple groups. The groups will be created as inventory groups.
       - vm_group1
       - vm_group2
