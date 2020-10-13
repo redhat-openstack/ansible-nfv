@@ -1,0 +1,8 @@
+- name: Install packages inside guest image
+  virt_customize_package:
+    name:
+      - iperf3
+      - tmux
+    state: present
+    image: "{{ fetched_image }}"
+    debug: "{{ guest_debug }}"

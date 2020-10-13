@@ -1,0 +1,11 @@
+# iperf binary
+iperf_bin: "iperf3"
+
+# iperf log
+iperf_log: "/tmp/iperf_server.log"
+
+# Map list of cores to physical cpu set
+iperf_lcores: '1,2,3'
+
+# IP address of iperf server
+iperf_server_ip: '127.0.0.1'
