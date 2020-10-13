@@ -1,0 +1,9 @@
+Verified+1: Yariv Rachmani <yrachman@redhat.com>
+Verified+1: rhosqeauto <vgriner+rhosqeauto@redhat.com>
+Code-Review+2: Maxim Babushkin <mbabushk@redhat.com>
+Code-Review+2: Sanjay Upadhyay <supadhya@redhat.com>
+Submitted-by: Sanjay Upadhyay <supadhya@redhat.com>
+Submitted-at: Tue, 13 Oct 2020 05:16:34 +0000
+Reviewed-on: https://review.gerrithub.io/c/redhat-openstack/ansible-nfv/+/501239
+Project: redhat-openstack/ansible-nfv
+Branch: refs/heads/devel
