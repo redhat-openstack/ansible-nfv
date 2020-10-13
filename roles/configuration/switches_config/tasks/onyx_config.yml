@@ -1,0 +1,93 @@
+---
+- name: Collect switch facts
+  onyx_facts:
+  register: onyx_facts
+  failed_when: False
+
+- name: Check if JSON API is supported in switch
+  set_fact:
+    json_api_support: |-
+      {%- if onyx_facts['rc'] == 1 and 'command \"json-print\"' in onyx_facts['module_stderr'] -%}
+        {{ False | bool }}
+      {%- else -%}
+        {{ True | bool }}
+      {%- endif -%}
+
+- name: Print JSON API support
+  debug:
+    var: json_api_support
+
+- name: Quit if JSON API is supported
+  fail:
+    msg: "This playbook was tested on non JSON API enabled switch and not using native onyx modules to perform actions"
+  when: json_api_support
+
+- name: MLNX-OS non JSON API enabled configuration block
+  become: True
+  block:
+    # Generate all required commands using jinja2 template instead of looping
+    # If we loop, unnecessary SSH connections will run which will increase execution time significantly
+    - name: Create vlans
+      onyx_config:
+        lines: |
+          {%- set commands = [] -%}
+          {%- for vlan_id in vlan_list -%}
+            {{ commands.append('vlan ' + vlan_id | string + ' name vlan' + vlan_id | string) }}
+          {%- endfor -%}
+          {{ commands }}
+
+    # Generate all required commands using jinja2 template instead of looping
+    # If we loop, unnecessary SSH connections will run which will increase execution time significantly
+    - name: Configure interfaces - description, mode (access/trunk), vlans
+      onyx_config:
+        lines: |
+          {%- set commands = [] -%}
+          {%- for interface in switch_vars['interfaces'] -%}
+            {%- if interface['description'] -%}
+              {{ commands.append('interface ' + interface['iface'] + ' description ' + interface['description']) }}
+            {%- endif -%}
+            {%- if interface['mtu'] -%}
+            {%- set mtu_commands = ['interface ' + interface['iface'] + ' shutdown', 'interface ' + interface['iface'] + ' mtu ' + interface['mtu'] | string ,'interface ' + interface['iface'] + ' no shutdown'] -%}
+            {%- for command in mtu_commands -%}
+              {{ commands.append(command) }}
+            {%- endfor -%}
+            {%- endif -%}
+            {%- if interface['iface_mode'] and interface['vlan'] -%}
+              {{ commands.append('interface ' + interface['iface'] + ' switchport mode ' + interface['iface_mode']) }}
+              {%- if interface['iface_mode'] == 'trunk' -%}
+                {{ commands.append('interface ' + interface['iface'] + ' switchport trunk allowed-vlan none') }}
+                {%- set helper_vlans = [] -%}
+                {%- set vlans = [] -%}
+                {%- if ',' in interface['vlan'] -%}
+                  {%- for vlan in interface['vlan'].replace(' ', '').split(',') -%}
+                    {{ helper_vlans.append(vlan) }}
+                  {%- endfor -%}
+                {%- else -%}
+                  {{ helper_vlans.append(interface['vlan']) }}
+                {%- endif -%}
+                {%- for entry in helper_vlans | unique -%}
+                  {%- if '-' in entry -%}
+                    {%- for v in range(entry.split('-')[0] | int, entry.split('-')[1] | int + 1) -%}
+                      {{ vlans.append(v) }}
+                    {%- endfor -%}
+                  {%- else -%}
+                    {{ vlans.append(entry) }}
+                  {%- endif -%}
+                {%- endfor -%}
+                {%- for vlan in vlans | unique -%}
+                  {{ commands.append('interface ' + interface['iface'] + ' switchport trunk allowed-vlan add ' + vlan | string) }}
+                {%- endfor -%}
+                {{ commands.append('interface ' + interface['iface'] + ' switchport trunk allowed-vlan remove 1') }}
+              {%- elif interface['iface_mode'] == 'access' -%}
+                {%- if interface['vlan'] | int -%}
+                  {{ commands.append('interface ' + interface['iface'] + ' switchport access vlan ' + interface['vlan'] | string) }}
+                {%- endif -%}
+              {%- endif -%}
+            {%- endif -%}
+          {%- endfor -%}
+          {{ commands }}
+
+    - name: Save configuration
+      onyx_config:
+        save: True
+  when: not json_api_support
