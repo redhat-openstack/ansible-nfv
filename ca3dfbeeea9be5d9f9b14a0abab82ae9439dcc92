@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bb5623c7_a8dcf036",
+        "filename": "playbooks/packet_gen/trex/nfv_multiqueue_perf_scenarios.yml",
+        "patchSetId": 17
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-10-13T11:31:25Z",
+      "side": 1,
+      "message": "No need to add a variable here.\nIt should be look like:\n\n```\n- name: Remove multiqueue performance log directories\n  file:\n    path: \"{{ item }}\"\n    state: absent\n  loop:\n    - /tmp/mq_perf_results\n    - /tmp/mq_tests_log\n```",
+      "range": {
+        "startLine": 9,
+        "startChar": 12,
+        "endLine": 9,
+        "endChar": 66
+      },
+      "revId": "ca3dfbeeea9be5d9f9b14a0abab82ae9439dcc92",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "0f87c92d_7520edcb",
+        "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
+        "patchSetId": 17
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-10-13T11:31:25Z",
+      "side": 1,
+      "message": "Look for the proper way to define the loop in the previous file.",
+      "range": {
+        "startLine": 16,
+        "startChar": 12,
+        "endLine": 16,
+        "endChar": 39
+      },
+      "revId": "ca3dfbeeea9be5d9f9b14a0abab82ae9439dcc92",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "8baa2348_6163f0f1",
+        "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
+        "patchSetId": 17
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-10-13T11:31:25Z",
+      "side": 1,
+      "message": "The \"pre_tasks\" definition is not needed here.\nYou can move the \"include_role\" to the above section as it runs on the same host, or call the role with the role format.\n\n```\nroles:\n  - roles/post_install/multiqueue_cleanup\n```",
+      "range": {
+        "startLine": 21,
+        "startChar": 2,
+        "endLine": 21,
+        "endChar": 12
+      },
+      "revId": "ca3dfbeeea9be5d9f9b14a0abab82ae9439dcc92",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "f0012294_5cc0552b",
+        "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
+        "patchSetId": 17
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-10-13T11:31:25Z",
+      "side": 1,
+      "message": "Use \"tasks\" instead of \"pre_tasks\".",
+      "range": {
+        "startLine": 28,
+        "startChar": 2,
+        "endLine": 28,
+        "endChar": 11
+      },
+      "revId": "ca3dfbeeea9be5d9f9b14a0abab82ae9439dcc92",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "80b9ad28_9f7a0044",
+        "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
+        "patchSetId": 17
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-10-13T11:31:25Z",
+      "side": 1,
+      "message": "You can combine then into single play by the following.\n\n```\n- name: Collect and update configs\n  hosts: \"{{ dut_compute }}\"\n  become: true\n  roles:\n    - name: Collect ovs configs\n      role: roles/post_install/collect_ovs_configs\n      when:\n        - multiqueue_test.pmd_lb is defined\n        - multiqueue_test.pmd_lb in [\u0027ovs\u0027]\n\n    - name: Collect netcontrold configs\n      role: roles/post_install/collect_ncd_configs\n      when:\n        - multiqueue_test.pmd_lb is defined\n        - multiqueue_test.pmd_lb in [\u0027user\u0027]\n\n    - name: Update multiqueue configs\n      role: roles/post_install/multiqueue_configs\n```\n\nAlso, you will save time by making the facts gathering once instead to three times.",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 99,
+        "endChar": 51
+      },
+      "revId": "ca3dfbeeea9be5d9f9b14a0abab82ae9439dcc92",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2af3a670_785766df",
+        "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
+        "patchSetId": 17
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-10-13T11:31:25Z",
+      "side": 1,
+      "message": "This task could be moved to the \"Update trex and dut flavors and instances\" play.",
+      "range": {
+        "startLine": 104,
+        "startChar": 6,
+        "endLine": 104,
+        "endChar": 16
+      },
+      "revId": "ca3dfbeeea9be5d9f9b14a0abab82ae9439dcc92",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "16811738_8138fb76",
+        "filename": "roles/post_install/collect_ncd_configs/tasks/main.yml",
+        "patchSetId": 17
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-10-13T11:31:25Z",
+      "side": 1,
+      "message": "The variables in this role need a default value placed in defaults/main.yml\n\nYou even may add a discovery of current container type if you would like.\nBut the defaults is a must because if I\u0027m taking this role to be used in another play it will fail with \"undefined variables\" error.",
+      "range": {
+        "startLine": 4,
+        "startChar": 7,
+        "endLine": 4,
+        "endChar": 21
+      },
+      "revId": "ca3dfbeeea9be5d9f9b14a0abab82ae9439dcc92",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "3aaf973b_7283e32e",
+        "filename": "roles/post_install/collect_ovs_configs/tasks/main.yml",
+        "patchSetId": 17
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-10-13T11:31:25Z",
+      "side": 1,
+      "message": "The variables in this role need a default value placed in defaults/main.yml\n\nBecause if I\u0027m taking this role to be used in another play it will fail with \"undefined variables\" error.",
+      "range": {
+        "startLine": 4,
+        "startChar": 36,
+        "endLine": 4,
+        "endChar": 40
+      },
+      "revId": "ca3dfbeeea9be5d9f9b14a0abab82ae9439dcc92",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "29a94cd4_bb83bc85",
+        "filename": "roles/post_install/multiqueue_cleanup/tasks/main.yml",
+        "patchSetId": 17
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-10-13T11:31:25Z",
+      "side": 1,
+      "message": "The variables in this role need a default value placed in defaults/main.yml\n\nBecause if I\u0027m taking this role to be used in another play it will fail with \"undefined variables\" error.",
+      "range": {
+        "startLine": 16,
+        "startChar": 34,
+        "endLine": 16,
+        "endChar": 42
+      },
+      "revId": "ca3dfbeeea9be5d9f9b14a0abab82ae9439dcc92",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "dea2c49e_bfcd242e",
+        "filename": "roles/post_install/multiqueue_configs/tasks/main.yml",
+        "patchSetId": 17
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-10-13T11:31:25Z",
+      "side": 1,
+      "message": "The variables in this role need a default value placed in defaults/main.yml\nBecause if I\u0027m taking this role to be used in another play it will fail with \"undefined variables\" error.",
+      "range": {
+        "startLine": 12,
+        "startChar": 34,
+        "endLine": 12,
+        "endChar": 42
+      },
+      "revId": "ca3dfbeeea9be5d9f9b14a0abab82ae9439dcc92",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
