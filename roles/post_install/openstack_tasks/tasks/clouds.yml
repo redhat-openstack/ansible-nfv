@@ -46,6 +46,7 @@
     dest: "{{ clouds_yaml_file_path }}"
     marker: "#{mark} HEADER"
     create: yes
+    mode: 0644
 
 - name: Insert cloud parameters
   blockinfile:
