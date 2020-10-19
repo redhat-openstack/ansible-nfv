@@ -1,0 +1,21 @@
+#jinja2:lstrip_blocks: True
+{% for net in network_api %}
+{% set netname = net.name | replace('_', ' ') | title | replace(' ', '') %}
+- name: {{ netname }}
+  name_lower: {{ net.name }}
+  {% if net.name == 'tenant' %}
+  vip: false  # Tenant netowrk does not use VIPs
+  {% else %}
+  vip: true
+  {% endif %}
+  vlan: {{ net.vlan }}
+  ip_subnet: {{ net.ip_subnet }}
+  {% if net.gateway_ip is defined and net.gateway_ip | length %}
+  gateway_ip: {{ net.gateway_ip }}
+  {% endif %}
+  {% if net.allocation_pool_start is defined and net.allocation_pool_end is defined %}
+  allocation_pools: [{'start': {{ net.allocation_pool_start }}, 'end': {{ net.allocation_pool_end }}}]
+  {% else %}
+  allocation_pools: [{'start': {{ net.ip_subnet | ipaddr('10') | ipaddr('address') }}, 'end': {{ net.ip_subnet | ipaddr('110') | ipaddr('address') }}}]
+  {% endif %}  
+{% endfor %}

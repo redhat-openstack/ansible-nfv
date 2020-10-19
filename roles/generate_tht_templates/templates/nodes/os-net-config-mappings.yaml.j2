@@ -1,0 +1,21 @@
+#jinja2:lstrip_blocks: True
+# The os-net-config-mapping is used for downstream testing.
+resource_registry:
+{% for mapping in node_config %}
+{% if 'dmi_string' in mapping and 'id' in mapping %}
+  OS::TripleO::{{ mapping.role_name }}::NodeUserData: /usr/share/openstack-tripleo-heat-templates/firstboot/os-net-config-mappings.yaml
+{% endif %}
+{% endfor %}
+
+parameter_defaults:
+  NetConfigDataLookup:
+  {% for mapping in node_config %}
+  {% if 'dmi_string' in mapping and 'id' in mapping %}
+    {{ mapping.role_name | lower }}group:
+      dmiString: "{{ mapping.dmi_string }}"
+      id: "{{ mapping.id }}"
+    {% for iface in mapping.nics %}
+      nic{{ iface.nic }}: {{ iface.name }}
+    {% endfor %}
+  {% endif %}
+  {% endfor %}
