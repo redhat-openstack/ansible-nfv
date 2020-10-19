@@ -1,0 +1,13 @@
+- name: Generate DPDK config
+  template:
+    src: functions/dpdk_config.yaml.j2
+    dest: "{{ templates_path }}/functions/dpdk_config.yaml"
+    mode: '0664'
+  when: dpdk
+
+- name: Generate SRIOV config
+  template:
+    src: functions/sriov_config.yaml.j2
+    dest: "{{ templates_path }}/functions/sriov_config.yaml"
+    mode: '0664'
+  when: sriov

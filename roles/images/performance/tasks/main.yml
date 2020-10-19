@@ -32,5 +32,9 @@
   include_tasks: prepare_guest_hci.yml
   when: prepare_guest_hci | default(True) | bool
 
+- name: Customize Guest Image - iperf
+  include_tasks: prepare_iperf.yml
+  when: prepare_iperf | default(False) | bool
+
 - name: Customize Guest Image - Generic Flow
   include_tasks: generic_customizations.yml

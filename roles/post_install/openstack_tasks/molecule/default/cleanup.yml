@@ -1,0 +1,25 @@
+---
+- name: Cleanup
+  hosts: "{{ osp_tasks_host | default('undercloud') }}"
+  gather_facts: false
+  vars:
+    inventory_generated: "{{ lookup('env', 'TEST_INV_GENERATED') }}"
+  tasks:
+    - block:
+        - name: Delete created inventory
+          file:
+            path: "{{ item }}"
+            state: absent
+          loop:
+            - inventory
+            - ansible.ssh.config
+            - environments
+          delegate_to: localhost
+
+        - name: Restore dump inventory
+          copy:
+            content: 'localhost ansible_connection=local'
+            dest: inventory
+            mode: 0664
+          delegate_to: localhost
+      when: not inventory_generated

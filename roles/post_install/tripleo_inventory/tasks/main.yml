@@ -13,13 +13,14 @@
     overcloud_private_key: "{{ environment_dir }}/id_rsa_overcloud_{{ host }}"
     hypervisor_private_key: "{{ environment_dir }}/id_rsa_hypervisor_{{ host }}"
 
-- name: Unlink old inventory file
+- name: Unlink old inventory file and remove old environment directory
   file:
     path: "{{ item }}"
     state: absent
   loop:
     - "{{ inventory_path }}/inventory"
     - "{{ inventory_path }}/ansible.ssh.config"
+    - "{{ environment_dir }}"
 
   # Flash in-memory inventory in order to recreate
   # the inventory file with the new parameters

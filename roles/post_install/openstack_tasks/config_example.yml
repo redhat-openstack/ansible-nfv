@@ -13,6 +13,9 @@ instance: true
 overcloud_delete: false
 resources_output: true
 
+# Whether or not SSL API requests should be verified.
+validate_certs: true
+
 # Set the state of the resource.
 # The state could be 'present' or 'absent'.
 resource_state: present
@@ -44,14 +47,19 @@ users:
 # Networks
 # Define the networks that should be created on the overcloud.
 # 'External: true' value could be defined just for the external network.
+# 'External: false' is a must for tenant mgmt network to be connected with External: true net.
 # Allocation pools could be defined as an option in case specific pool range should be defined.
 # Otherwise, pool will be calculated by 'cidr' value.
 # 'network_type' and 'ip_version' arguments could be defined as an option.
 # By default, 'network_type' uses 'vlan', 'ip_version' uses 'ipv4'
 # 'gateway_ip' could be defined in case there is a need to specify gateway ip address.
 # 'shared', define whether this network is shared or not.
+# 'cloud_name' define which cloud user create the resources.
+# In case of resources_output exist, access network should be duplicated.
+# for public overcloud, admin, and router of tenant cloud, ex. nfv_user1
 networks:
   - name: 'access'
+    cloud_name: nfv_user1
     physical_network: 'access'
     segmentation_id: '25'
     allocation_pool_start: '10.35.141.113'
@@ -63,8 +71,9 @@ networks:
     external: true
     shared: true
     router_name: router1
-
+# This tenant network connected through router to access network
   - name: 'dpdk-mgmt'
+    cloud_name: nfv_user1
     allocation_pool_start: '10.10.110.100'
     allocation_pool_end: '10.10.110.200'
     cidr: '10.10.110.0/24'
@@ -125,9 +134,11 @@ images:
 # The keypair that will be used by the instances.
 keypairs:
   - name: test_keypair
+    cloud_name: nfv_user1
 
 security_groups:
   - name: test_secgroup
+    cloud_name: nfv_user1
     rules:
       - protocol: icmp
         port_range_min: -1
@@ -140,6 +151,7 @@ security_groups:
 
 instances:
   - name: vm1
+    cloud_name: nfv_user1
     groups:
       - vm_groups
       - group1
@@ -165,6 +177,7 @@ instances:
         type: direct
         port_security: false
   - name: vm2
+    cloud_name: nfv_user1
     groups:
       - vm_groups
       - group2

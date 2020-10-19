@@ -20,4 +20,5 @@
     filename: "/tmp/{{ item.url | basename }}"
     is_public: yes
     properties:  "{{ item.properties|default({}) }}"
+    validate_certs: "{{ validate_certs | default(omit) }}"
   loop: "{{ images }}"

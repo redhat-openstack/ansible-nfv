@@ -13,5 +13,6 @@
     floating_ips: "{{ item.1.floating_ips | default(omit) }}"
     fixed_ips: "{{ item.1.fixed_ips | default(omit) }}"
     state: "{{ resource_state }}"
+    validate_certs: "{{ validate_certs | default(omit) }}"
   loop: "{{ users | subelements('quota', 'skip_missing=True') }}"
   when: resource_state == 'present'

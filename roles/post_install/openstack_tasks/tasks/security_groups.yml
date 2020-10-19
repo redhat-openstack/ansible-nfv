@@ -6,6 +6,7 @@
   os_security_group:
     cloud: "{{ item.cloud_name | default(cloud_name) }}"
     name: "{{ item.name }}"
+    validate_certs: "{{ validate_certs | default (omit) }}"
     state: "{{ resource_state }}"
   loop: "{{ security_groups }}"
   register: reg_secgroup
@@ -20,5 +21,6 @@
     port_range_min: "{{ item.1.port_range_min }}"
     port_range_max: "{{ item.1.port_range_max }}"
     remote_ip_prefix: "{{ item.1.remote_ip_prefix }}"
+    validate_certs: "{{ validate_certs | default (omit) }}"
   loop: "{{ security_groups | subelements('rules', 'skip_missing=True') }}"
   when: reg_secgroup.results.0.id is defined

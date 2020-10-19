@@ -1,0 +1,34 @@
+#jinja2:lstrip_blocks: True
+parameter_defaults:
+{% for opt in deploy_config %}
+{% if 'common_opts' in opt or 'sriov_opts' in opt %}
+  {{ opt.role_name }}Parameters:
+    {% if 'KernelArgs' in opt.common_opts %}
+    KernelArgs: "{{ opt.common_opts.KernelArgs }}"
+     {% endif %}
+    {% if 'NeutronMechanismDrivers' in opt.sriov_opts %}
+    NeutronMechanismDrivers: [{{ opt.sriov_opts.NeutronMechanismDrivers }}]
+    {% endif %}
+    {% if 'NeutronPluginExtensions' in opt.sriov_opts %}
+    NeutronPluginExtensions: "{{ opt.sriov_opts.NeutronPluginExtensions }}"
+    {% endif %}
+    {% if 'NeutronServicePlugins' in opt.sriov_opts %}
+    NeutronServicePlugins: "{{ opt.sriov_opts.NeutronServicePlugins }}"
+    {% endif %}
+    {% if 'NeutronSriovAgentExtensions' in opt.sriov_opts %}
+    NeutronSriovAgentExtensions: "{{ opt.sriov_opts.NeutronSriovAgentExtensions }}"
+    {% endif %}
+    {% if 'sriov_mapping' in opt.sriov_opts %}
+    NovaPCIPassthrough:
+      {% for sriov_opt in opt.sriov_opts.sriov_mapping %}
+      - devname: "{{ sriov_opt.devname }}"
+        trusted: "{{ sriov_opt.trusted }}"
+        physical_network: "{{ sriov_opt.physical_network }}"
+      {% endfor %}
+    NeutronPhysicalDevMappings:
+      {% for sriov_opt in opt.sriov_opts.sriov_mapping %}
+      - "{{ sriov_opt.physical_network }}:{{ sriov_opt.devname }}"
+      {% endfor %}
+    {% endif %}
+{% endif %}
+{% endfor %}
