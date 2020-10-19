@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "d6a25134_2aae7ac2",
+        "filename": "playbooks/packet_gen/trex/nfv_multiqueue_perf_scenarios.yml",
+        "patchSetId": 17
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1015848
+      },
+      "writtenOn": "2020-10-19T06:18:24Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "bb5623c7_a8dcf036",
+      "range": {
+        "startLine": 9,
+        "startChar": 12,
+        "endLine": 9,
+        "endChar": 66
+      },
+      "revId": "ca3dfbeeea9be5d9f9b14a0abab82ae9439dcc92",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "0f87c92d_7520edcb",
         "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
         "patchSetId": 17
@@ -45,6 +69,30 @@
       "revId": "ca3dfbeeea9be5d9f9b14a0abab82ae9439dcc92",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "2bcce398_259353e4",
+        "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
+        "patchSetId": 17
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1015848
+      },
+      "writtenOn": "2020-10-19T06:18:24Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0f87c92d_7520edcb",
+      "range": {
+        "startLine": 16,
+        "startChar": 12,
+        "endLine": 16,
+        "endChar": 39
+      },
+      "revId": "ca3dfbeeea9be5d9f9b14a0abab82ae9439dcc92",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     },
     {
       "key": {
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "845adccf_72945f67",
+        "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
+        "patchSetId": 17
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1015848
+      },
+      "writtenOn": "2020-10-19T06:18:24Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8baa2348_6163f0f1",
+      "range": {
+        "startLine": 21,
+        "startChar": 2,
+        "endLine": 21,
+        "endChar": 12
+      },
+      "revId": "ca3dfbeeea9be5d9f9b14a0abab82ae9439dcc92",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "f0012294_5cc0552b",
         "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
         "patchSetId": 17
@@ -91,6 +163,30 @@
       "revId": "ca3dfbeeea9be5d9f9b14a0abab82ae9439dcc92",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "434eecb4_6307e56f",
+        "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
+        "patchSetId": 17
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1015848
+      },
+      "writtenOn": "2020-10-19T06:18:24Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f0012294_5cc0552b",
+      "range": {
+        "startLine": 28,
+        "startChar": 2,
+        "endLine": 28,
+        "endChar": 11
+      },
+      "revId": "ca3dfbeeea9be5d9f9b14a0abab82ae9439dcc92",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     },
     {
       "key": {
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "8536996b_a456da27",
+        "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
+        "patchSetId": 17
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1015848
+      },
+      "writtenOn": "2020-10-19T06:18:24Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "80b9ad28_9f7a0044",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 99,
+        "endChar": 51
+      },
+      "revId": "ca3dfbeeea9be5d9f9b14a0abab82ae9439dcc92",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "2af3a670_785766df",
         "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
         "patchSetId": 17
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "680a1778_0bd5cd02",
+        "filename": "playbooks/packet_gen/trex/nfv_multiqueue_performance.yml",
+        "patchSetId": 17
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 1015848
+      },
+      "writtenOn": "2020-10-19T06:18:24Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2af3a670_785766df",
+      "range": {
+        "startLine": 104,
+        "startChar": 6,
+        "endLine": 104,
+        "endChar": 16
+      },
+      "revId": "ca3dfbeeea9be5d9f9b14a0abab82ae9439dcc92",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "16811738_8138fb76",
         "filename": "roles/post_install/collect_ncd_configs/tasks/main.yml",
         "patchSetId": 17
@@ -160,6 +304,30 @@
       "revId": "ca3dfbeeea9be5d9f9b14a0abab82ae9439dcc92",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "53c031ed_2fad450a",
+        "filename": "roles/post_install/collect_ncd_configs/tasks/main.yml",
+        "patchSetId": 17
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1015848
+      },
+      "writtenOn": "2020-10-19T06:18:24Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "16811738_8138fb76",
+      "range": {
+        "startLine": 4,
+        "startChar": 7,
+        "endLine": 4,
+        "endChar": 21
+      },
+      "revId": "ca3dfbeeea9be5d9f9b14a0abab82ae9439dcc92",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     },
     {
       "key": {
@@ -209,6 +377,30 @@
     },
     {
       "key": {
+        "uuid": "a488a153_dab284d0",
+        "filename": "roles/post_install/multiqueue_cleanup/tasks/main.yml",
+        "patchSetId": 17
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1015848
+      },
+      "writtenOn": "2020-10-19T06:18:24Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "29a94cd4_bb83bc85",
+      "range": {
+        "startLine": 16,
+        "startChar": 34,
+        "endLine": 16,
+        "endChar": 42
+      },
+      "revId": "ca3dfbeeea9be5d9f9b14a0abab82ae9439dcc92",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dea2c49e_bfcd242e",
         "filename": "roles/post_install/multiqueue_configs/tasks/main.yml",
         "patchSetId": 17
@@ -229,6 +421,30 @@
       "revId": "ca3dfbeeea9be5d9f9b14a0abab82ae9439dcc92",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "94fed21e_f766f2ce",
+        "filename": "roles/post_install/multiqueue_configs/tasks/main.yml",
+        "patchSetId": 17
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1015848
+      },
+      "writtenOn": "2020-10-19T06:18:24Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "dea2c49e_bfcd242e",
+      "range": {
+        "startLine": 12,
+        "startChar": 34,
+        "endLine": 12,
+        "endChar": 42
+      },
+      "revId": "ca3dfbeeea9be5d9f9b14a0abab82ae9439dcc92",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
     }
   ]
 }
