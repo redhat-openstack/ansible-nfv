@@ -13,8 +13,7 @@
     state: absent
     wait: yes
     cacert: "{{ client_ca_cert | default(omit) }}"
-  ignore_errors: true
-
-- name: Pause the play, wait until stack deleted completely
-  pause:
-    minutes: 3
+  register: stack_absent
+  until: stack_absent is success
+  retries: 2
+  delay: 10
