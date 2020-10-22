@@ -354,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "a7b9f172_82f55c00",
+        "filename": "roles/post_install/collect_ovs_configs/tasks/main.yml",
+        "patchSetId": 17
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1015848
+      },
+      "writtenOn": "2020-10-22T09:17:14Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "3aaf973b_7283e32e",
+      "range": {
+        "startLine": 4,
+        "startChar": 36,
+        "endLine": 4,
+        "endChar": 40
+      },
+      "revId": "ca3dfbeeea9be5d9f9b14a0abab82ae9439dcc92",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "29a94cd4_bb83bc85",
         "filename": "roles/post_install/multiqueue_cleanup/tasks/main.yml",
         "patchSetId": 17
