@@ -16,7 +16,7 @@
 - name: Parse Instance Server NICs' MAC Addresses
   set_fact:
     instance_helper_nic_mac_addresses: "{{ instance_helper_nic_mac_addresses }} + [ '{{ openstack_servers[0]['addresses'][item][0]['OS-EXT-IPS-MAC:mac_addr'] }}' ]"
-  loop: "{{ openstack_servers[0]['addresses'] | flatten(levels=1) }}"
+  loop: "{{ openstack_servers[0]['addresses'] | flatten(levels=1) | sort }}"
 
 - name: Gather Instance Server Ports
   vars:

@@ -362,6 +362,10 @@ binary_search_bin: "/opt/trafficgen/binary-search.py"
 DuT MAC Addresses that trex will send traffic to:
 
  **Not** defined by default, can be discovered automatically or supplied by user.
+
+When discovered automatically, macs are obtained from ports attached to providing
+network that should have names alphabetically ordered for both trex and testpmd vms
+
 ```
 dut_macs: '00:00:00:03:00:00,00:00:00:04:00:00'
 ```
