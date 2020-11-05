@@ -22,14 +22,14 @@ parameter_defaults:
   # The tunnel type for the tenant network (vxlan or gre). Set to '' to disable tunneling.
   NeutronTunnelTypes: '{{ NeutronTunnelTypes }}'
   # The OVS logical->physical bridge mappings to use.
-  NeutronBridgeMappings: {% for map in NeutronBridgeMappings -%}
+  NeutronBridgeMappings: '{% for map in NeutronBridgeMappings -%}
   {{ map }}{% if not loop.last %},{% endif %}
-  {% endfor %}
+  {% endfor %}'
 
   # The Neutron ML2 and OpenVSwitch vlan mapping range to support.
-  NeutronNetworkVLANRanges: {% for vlan in NeutronNetworkVLANRanges -%}
+  NeutronNetworkVLANRanges: '{% for vlan in NeutronNetworkVLANRanges -%}
   {{ vlan }}{% if not loop.last %},{% endif %}
-  {% endfor %}
+  {% endfor %}'
 
   {% if NeutronPhysnetNUMANodesMapping is defined %}
   # NUMA aware vswitch
@@ -65,7 +65,6 @@ parameter_defaults:
   NovaSchedulerDefaultFilters:
     - "RetryFilter"
     - "AvailabilityZoneFilter"
-    - "RamFilter"
     - "ComputeFilter"
     - "ComputeCapabilitiesFilter"
     - "ImagePropertiesFilter"

@@ -56,22 +56,22 @@ network_api:
 NeutronBridgeMappings:
   - 'access:br-access'
   - 'dpdk-mgmt:br-link0'
-  - 'dpdk-1:br-dpdk1'
-  - 'dpdk-2:br-dpdk2'
+  - 'dpdk-data0:br-dpdk0'
+  - 'dpdk-data1:br-dpdk1'
   - 'sriov-1:br-sriov1'
   - 'sriov-2:br-sriov2'
 NeutronNetworkVLANRanges:
   - 'access:423:423'
   - 'dpdk-mgmt:134:139'
-  - 'dpdk-1:134:139'
-  - 'dpdk-2:134:139'
+  - 'dpdk-data0:134:139'
+  - 'dpdk-data1:134:139'
   - 'sriov-1:134:139'
   - 'sriov-2:134:139'
   - 'sriov-3:134:139'
 NeutronNetworkType: vxlan
 NeutronTunnelTypes: vxlan
 NtpServer: clock.redhat.com
-NeutronPhysnetNUMANodesMapping: "dpdk-2: [1]"  # optional
+NeutronPhysnetNUMANodesMapping: "dpdk-data1: [1]"  # optional
 NeutronGlobalPhysnetMtu: 9000                  # optional
 NeutronOVSFirewallDriver: openvswitch          # optional
 DnsServers:
@@ -90,13 +90,13 @@ deploy_config:
       KernelArgs: "default_hugepagesz=1GB hugepagesz=1G hugepages=64 iommu=pt intel_iommu=on isolcpus=2-19,22-39"
     dpdk_opts:  # all the suboptions are optional
       IsolCpusList: "2-19,22-39"
-      NovaVcpuPinSet: "4-19,24-39"
+      NovaVcpuPinSet: "4,6-19,24,26-39"
       NovaReservedHostMemory: 2048
       OvsDpdkSocketMemory: "4096,1024"
       OvsDpdkMemoryChannels: 4
       OvsDpdkCoreList: "0,20,1,21"
       NovaComputeCpuSharedSet: "0,20,1,21"
-      OvsPmdCoreList: "2,22,3,23"
+      OvsPmdCoreList: "2,3"
     sriov_opts:  # all the suboptions are optional
       NeutronMechanismDrivers: "'openvswitch','sriovnicswitch'"
       NeutronPluginExtensions: router,qos,segments,trunk,placement
@@ -143,10 +143,10 @@ node_config:
         api:
           - Tenant
       - type: ovs_bridge
-        name: br-dpdk1
+        name: br-dpdk0
         nic: nic4
       - type: ovs_bridge
-        name: br-dpdk2
+        name: br-dpdk1
         nic: nic5
       - type: ovs_bridge
         name: br-sriov1
@@ -213,19 +213,19 @@ node_config:
           - InternalApi
           - Storage
       - type: ovs_user_bridge
-        name: br-dpdk1
+        name: br-dpdk0
         nic: nic5
         mtu: 9000
         rxq: 1
       - type: ovs_user_bridge
-        name: br-dpdk2
+        name: br-dpdk1
         nic: nic6
         mtu: 9000
         rxq: 1
       - type: ovs_user_bridge
         name: br-link0
         mtu: 9000
-        rxq: 2
+        rxq: 1
         bonding_nics:
           - nic7
           - nic8
