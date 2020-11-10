@@ -1,3 +1,6 @@
+##################################################
+# NOT FOR DOCUMENTATION                          #
+##################################################
 # Policies override used for downstream testing.
 # - Binding profile for Trusted VF capabilities
 # - Provider network type definition by tenant

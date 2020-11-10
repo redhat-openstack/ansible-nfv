@@ -13,7 +13,8 @@ api_policies: true  # Used by qe testing
 tht_dir_name: tht_templates
 
 # The version of the tht templates based on the osp version
-osp_version: 13
+# Supported versions: 13, 16.1
+osp_version: 16.1
 
 undercloud_config:
   interface: eth0
@@ -74,6 +75,10 @@ NtpServer: clock.redhat.com
 NeutronPhysnetNUMANodesMapping: "dpdk-data1: [1]"  # optional
 NeutronGlobalPhysnetMtu: 9000                  # optional
 NeutronOVSFirewallDriver: openvswitch          # optional
+NeutronMechanismDrivers: "'openvswitch','sriovnicswitch'"
+NeutronPluginExtensions: port_security,router,qos,segments,trunk,placement
+NeutronServicePlugins: router,trunk,qos
+NeutronSriovAgentExtensions: qos
 DnsServers:
   - 10.46.0.31
   - 10.46.0.32
@@ -90,7 +95,10 @@ deploy_config:
       KernelArgs: "default_hugepagesz=1GB hugepagesz=1G hugepages=64 iommu=pt intel_iommu=on isolcpus=2-19,22-39"
     dpdk_opts:  # all the suboptions are optional
       IsolCpusList: "2-19,22-39"
-      NovaVcpuPinSet: "4,6-19,24,26-39"
+      # The "NovaComputeCpuDedicatedSet" param used in osp 16 and above. In osp 13, the "NovaVcpuPinSet" is used.
+      # Use the "NovaComputeCpuDedicatedSet" parameter for all the versions in order to prevent confusion.
+      # Proper parameter per version will be placed.
+      NovaComputeCpuDedicatedSet: "4,6-19,24,26-39"
       NovaReservedHostMemory: 2048
       OvsDpdkSocketMemory: "4096,1024"
       OvsDpdkMemoryChannels: 4
@@ -98,10 +106,6 @@ deploy_config:
       NovaComputeCpuSharedSet: "0,20,1,21"
       OvsPmdCoreList: "2,3"
     sriov_opts:  # all the suboptions are optional
-      NeutronMechanismDrivers: "'openvswitch','sriovnicswitch'"
-      NeutronPluginExtensions: router,qos,segments,trunk,placement
-      NeutronServicePlugins: router,trunk,qos
-      NeutronSriovAgentExtensions: qos
       sriov_mapping:
       # Those params are used to build two sriov params:
       # NovaPCIPassthrough and NeutronPhysicalDevMappings

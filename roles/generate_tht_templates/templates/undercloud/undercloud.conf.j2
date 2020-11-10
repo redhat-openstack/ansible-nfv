@@ -4,6 +4,10 @@
 # From instack-undercloud
 #
 
+# Network interface on the Undercloud that will be handling the PXE
+# boots and DHCP for Overcloud instances. (string value)
+local_interface = {{ undercloud_config.interface }}
+
 # IP information for the interface on the Undercloud that will be
 # handling the PXE boots and DHCP for Overcloud instances.  The IP
 # portion of the value will be assigned to the network interface
@@ -11,39 +15,43 @@
 # portion of the value. (string value)
 local_ip = {{ undercloud_config.cidr | ipaddr('1') }}
 
-# Network gateway for the Neutron-managed network for Overcloud
-# instances. This should match the local_ip above when using
-# masquerading. (string value)
-network_gateway = {{ undercloud_config.cidr | ipaddr('1') | ipaddr('address') }}
-
 # Virtual IP address to use for the public endpoints of Undercloud
 # services. Only used with SSL. (string value)
-undercloud_public_vip = {{ undercloud_config.cidr | ipaddr('2') | ipaddr('address') }}
+{{ 'undercloud_public_host' if osp_version is version('16.1', '>=') else 'undercloud_public_vip' }} = {{ undercloud_config.cidr | ipaddr('2') | ipaddr('address') }}
 
 # Virtual IP address to use for the admin endpoints of Undercloud
 # services. Only used with SSL. (string value)
-undercloud_admin_vip = {{ undercloud_config.cidr | ipaddr('3') | ipaddr('address') }}
+{{ 'undercloud_admin_host' if osp_version is version('16.1', '>=') else 'undercloud_admin_vip' }} = {{ undercloud_config.cidr | ipaddr('3') | ipaddr('address') }}
 
-# Network interface on the Undercloud that will be handling the PXE
-# boots and DHCP for Overcloud instances. (string value)
-local_interface = {{ undercloud_config.interface }}
+{% if osp_version is version('16.1', '>=') %}
+# Heat environment file with parameters for all required container
+# images. Or alternatively, parameter "ContainerImagePrepare" to drive
+# the required image preparation. (string value)
+container_images_file = /home/stack/containers-prepare-parameter.yaml
 
-# Network CIDR for the Neutron-managed network for Overcloud
-# instances. This should be the subnet used for PXE booting. The
-# current default for this value is 192.0.90.0/24, but this is
-# deprecated due to it being a non-routable CIDR under RFC 5737. The
-# default value for this option will be changed in the Ocata release.
-# A different, valid CIDR should be selected to avoid problems. If an
-# overcloud has already been deployed with the 192.0.90.0/24 CIDR and
-# therefore the CIDR cannot be changed, you must set this option to
-# 192.0.90.0/24 explicitly to avoid it changing in future releases, and
-# all other network options related to the CIDR (e.g. local_ip) must
-# also be set to maintain a valid configuration. (string value)
-network_cidr = {{ undercloud_config.cidr | ipaddr('net') }}
+# Used to add custom insecure registries for containers. (list value)
+container_insecure_registries = registry-proxy.engineering.redhat.com,docker-registry.upshift.redhat.com
 
-# Network that will be masqueraded for external access, if required.
-# This should be the subnet used for PXE booting. (string value)
-masquerade_network = {{ undercloud_config.cidr | ipaddr('net') }}
+# Certificate file to use for OpenStack service SSL connections.
+# Setting this enables SSL for the OpenStack API endpoints, leaving it
+# unset disables SSL. (string value)
+# Deatils - https://docs.openstack.org/tripleo-docs/latest/install/advanced_deployment/ssl.html
+undercloud_service_certificate = /etc/pki/instack-certs/undercloud.pem
+{% endif %}
+
+# Perform ironic baremetal node cleanup before nodes reach 'available' state
+clean_nodes = True
+
+{% if osp_version is version('16.1', '>=') %}
+[ctlplane-subnet]
+
+#
+# From undercloud_config
+#
+{% endif %}
+
+# Network CIDR for the Neutron-managed subnet for Overcloud instances.
+{{ 'cidr' if osp_version is version('16.1', '>=') else 'network_cidr' }} = {{ undercloud_config.cidr | ipaddr('net') }}
 
 # Start of DHCP allocation range for PXE and DHCP of Overcloud
 # instances. (string value)
@@ -53,11 +61,20 @@ dhcp_start = {{ undercloud_config.cidr | ipaddr('10') | ipaddr('address') }}
 # instances. (string value)
 dhcp_end = {{ undercloud_config.cidr | ipaddr('30') | ipaddr('address') }}
 
+# Network gateway for the Neutron-managed network for Overcloud
+# instances on this network. (string value)
+{{ 'gateway' if osp_version is version('16.1', '>=') else 'network_gateway' }} = {{ undercloud_config.cidr | ipaddr('1') | ipaddr('address') }}
+
 # Temporary IP range that will be given to nodes during the inspection
 # process.  Should not overlap with the range defined by dhcp_start
 # and dhcp_end, but should be in the same network. (string value)
-# Deprecated group/name - [DEFAULT]/discovery_iprange
 inspection_iprange = {{ undercloud_config.cidr | ipaddr('50') | ipaddr('address') }},{{ undercloud_config.cidr | ipaddr('70') | ipaddr('address') }}
 
-# Perform ironic baremetal node cleanup before nodes reach 'available' state
-clean_nodes = True
+{% if osp_version is version('16.1', '>=') %}
+# The network will be masqueraded for external access. (boolean value)
+masquerade = true
+{% else %}
+# Network that will be masqueraded for external access, if required.
+# This should be the subnet used for PXE booting. (string value)
+masquerade_network = {{ undercloud_config.cidr | ipaddr('net') }}
+{% endif %}
