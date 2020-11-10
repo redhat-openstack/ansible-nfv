@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ffcfb60c_c20a4128",
+        "filename": "roles/generate_tht_templates/defaults/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2020-11-10T14:43:29Z",
+      "side": 1,
+      "message": "Shouldn\u0027t it be 16.1 as default since 16 is deprecated.\nAlthough I\u0027m not sure how the double vs int parsing will work.",
+      "range": {
+        "startLine": 17,
+        "startChar": 13,
+        "endLine": 17,
+        "endChar": 15
+      },
+      "revId": "e7feedf93168b2341d848827ae5aeb8a42e9ad15",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
