@@ -22,6 +22,30 @@
       "revId": "e7feedf93168b2341d848827ae5aeb8a42e9ad15",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "6513f3b5_069ea43b",
+        "filename": "roles/generate_tht_templates/defaults/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-11-10T14:46:38Z",
+      "side": 1,
+      "message": "Do you think we should define the minor version as well?\nThe 16 and 16.1 have the same templates definition.\nI wonder if in the next releases of 16 there will be a template changes that will break the backward set.",
+      "parentUuid": "ffcfb60c_c20a4128",
+      "range": {
+        "startLine": 17,
+        "startChar": 13,
+        "endLine": 17,
+        "endChar": 15
+      },
+      "revId": "e7feedf93168b2341d848827ae5aeb8a42e9ad15",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
