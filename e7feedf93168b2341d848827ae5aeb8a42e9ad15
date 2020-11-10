@@ -46,6 +46,30 @@
       "revId": "e7feedf93168b2341d848827ae5aeb8a42e9ad15",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "c47c1abc_eee98042",
+        "filename": "roles/generate_tht_templates/defaults/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2020-11-10T14:52:52Z",
+      "side": 1,
+      "message": "We can\u0027t really know if there will be any major breaking changes in the upcoming releases unless we will follow all upstream blueprints, but maybe there should be a coherent list of approved releases for ease of use sake.\n\nMaybe other folks will have more input.",
+      "parentUuid": "6513f3b5_069ea43b",
+      "range": {
+        "startLine": 17,
+        "startChar": 13,
+        "endLine": 17,
+        "endChar": 15
+      },
+      "revId": "e7feedf93168b2341d848827ae5aeb8a42e9ad15",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
