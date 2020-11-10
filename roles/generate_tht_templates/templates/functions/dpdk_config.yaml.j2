@@ -9,8 +9,12 @@ parameter_defaults:
     {% if 'IsolCpusList' in opt.dpdk_opts %}
     IsolCpusList: "{{ opt.dpdk_opts.IsolCpusList }}"
     {% endif %}
-    {% if 'NovaVcpuPinSet' in opt.dpdk_opts %}
-    NovaVcpuPinSet: ['{{ opt.dpdk_opts.NovaVcpuPinSet }}']
+    {% if 'NovaComputeCpuDedicatedSet' in opt.dpdk_opts %}
+    {% if osp_version | int >= 16 %}
+    NovaComputeCpuDedicatedSet: ['{{ opt.dpdk_opts.NovaComputeCpuDedicatedSet }}']
+    {% else %}
+    NovaVcpuPinSet: ['{{ opt.dpdk_opts.NovaComputeCpuDedicatedSet }}']
+    {% endif %}
     {% endif %}
     {% if 'NovaReservedHostMemory' in opt.dpdk_opts %}
     NovaReservedHostMemory: {{ opt.dpdk_opts.NovaReservedHostMemory }}

@@ -6,18 +6,6 @@ parameter_defaults:
     {% if 'KernelArgs' in opt.common_opts %}
     KernelArgs: "{{ opt.common_opts.KernelArgs }}"
      {% endif %}
-    {% if 'NeutronMechanismDrivers' in opt.sriov_opts %}
-    NeutronMechanismDrivers: [{{ opt.sriov_opts.NeutronMechanismDrivers }}]
-    {% endif %}
-    {% if 'NeutronPluginExtensions' in opt.sriov_opts %}
-    NeutronPluginExtensions: "{{ opt.sriov_opts.NeutronPluginExtensions }}"
-    {% endif %}
-    {% if 'NeutronServicePlugins' in opt.sriov_opts %}
-    NeutronServicePlugins: "{{ opt.sriov_opts.NeutronServicePlugins }}"
-    {% endif %}
-    {% if 'NeutronSriovAgentExtensions' in opt.sriov_opts %}
-    NeutronSriovAgentExtensions: "{{ opt.sriov_opts.NeutronSriovAgentExtensions }}"
-    {% endif %}
     {% if 'sriov_mapping' in opt.sriov_opts %}
     NovaPCIPassthrough:
       {% for sriov_opt in opt.sriov_opts.sriov_mapping %}

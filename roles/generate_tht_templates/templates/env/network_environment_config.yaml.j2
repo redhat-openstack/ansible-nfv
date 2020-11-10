@@ -6,17 +6,19 @@ resource_registry:
   {% endfor %}
 
 parameter_defaults:
+  {% if osp_version | int < 16 %}
   # Gateway router for the provisioning network (or Undercloud IP)
   ControlPlaneDefaultRoute: {{ undercloud_config.cidr | ipaddr('1') | ipaddr('address') }}
   # Generally the IP of the Undercloud
   EC2MetadataIp: {{ undercloud_config.cidr | ipaddr('1') | ipaddr('address') }}
+  # May set to br-ex if using floating IPs only on native VLAN on bridge br-ex
+  NeutronExternalNetworkBridge: "''"
+  {% endif %}
   # Define the DNS servers (maximum 2) for the overcloud nodes
   DnsServers:
   {% for dns_srv in DnsServers %}
     - {{ dns_srv }}
   {% endfor %}
-  # May set to br-ex if using floating IPs only on native VLAN on bridge br-ex
-  NeutronExternalNetworkBridge: "''"
   # The tenant network type for Neutron (vlan or vxlan).
   NeutronNetworkType: '{{ NeutronNetworkType }}'
   # The tunnel type for the tenant network (vxlan or gre). Set to '' to disable tunneling.
@@ -45,6 +47,18 @@ parameter_defaults:
   {% if NeutronOVSFirewallDriver is defined %}
   # Configure the classname of the firewall driver to use for implementing security groups.
   NeutronOVSFirewallDriver: {{ NeutronOVSFirewallDriver }}
+  {% endif %}
+  {% if NeutronMechanismDrivers is defined %}
+  NeutronMechanismDrivers: [{{ NeutronMechanismDrivers }}]
+  {% endif %}
+  {% if NeutronPluginExtensions is defined %}
+  NeutronPluginExtensions: "{{ NeutronPluginExtensions }}"
+  {% endif %}
+  {% if NeutronServicePlugins is defined %}
+  NeutronServicePlugins: "{{ NeutronServicePlugins }}"
+  {% endif %}
+  {% if NeutronSriovAgentExtensions is defined %}
+  NeutronSriovAgentExtensions: "{{ NeutronSriovAgentExtensions }}"
   {% endif %}
 
   # https://bugs.launchpad.net/nova/+bug/1289064

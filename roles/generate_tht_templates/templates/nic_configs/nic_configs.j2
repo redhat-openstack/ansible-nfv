@@ -1,5 +1,5 @@
 #jinja2:lstrip_blocks: True
-heat_template_version: queens
+heat_template_version: {{ 'rocky' if osp_version | int >= 16 else 'queens' }}
 
 description: >
   Software Config to drive os-net-config to configure VLANs for the
@@ -74,8 +74,110 @@ parameters:
     description: A list of DNS servers (2 max for some implementations) that will be added to resolv.conf.
     type: comma_delimited_list
   EC2MetadataIp: # Override this via parameter_defaults
+    default: ''
     description: The IP address of the EC2 metadata server.
     type: string
+  {% if osp_version | int >= 16 %}
+  ExternalInterfaceRoutes:
+    default: []
+    description: >
+      Routes for the external network traffic.
+      JSON route e.g. [{'destination':'10.0.0.0/16', 'nexthop
+      Unless the default is changed, the parameter is automat
+      from the subnet host_routes attribute.
+    type: json
+  InternalApiInterfaceRoutes:
+    default: []
+    description: >
+      Routes for the internal_api network traffic.
+      JSON route e.g. [{'destination':'10.0.0.0/16', 'nexthop':'10.0.0.1'}]
+      Unless the default is changed, the parameter is automatically resolved
+      from the subnet host_routes attribute.
+    type: json
+  StorageInterfaceRoutes:
+    default: []
+    description: >
+      Routes for the storage network traffic.
+      JSON route e.g. [{'destination':'10.0.0.0/16', 'nexthop':'10.0.0.1'}]
+      Unless the default is changed, the parameter is automatically resolved
+      from the subnet host_routes attribute.
+    type: json
+  StorageMgmtInterfaceRoutes:
+    default: []
+    description: >
+      Routes for the storage_mgmt network traffic.
+      JSON route e.g. [{'destination':'10.0.0.0/16', 'nexthop':'10.0.0.1'}]
+      Unless the default is changed, the parameter is automatically resolved
+      from the subnet host_routes attribute.
+    type: json
+  TenantInterfaceRoutes:
+    default: []
+    description: >
+      Routes for the tenant network traffic.
+      JSON route e.g. [{'destination':'10.0.0.0/16', 'nexthop':'10.0.0.1'}]
+      Unless the default is changed, the parameter is automatically resolved
+      from the subnet host_routes attribute.
+    type: json
+  ManagementInterfaceRoutes:
+    default: []
+    description: >
+      Routes for the management network traffic.
+      JSON route e.g. [{'destination':'10.0.0.0/16', 'nexthop':'10.0.0.1'}]
+      Unless the default is changed, the parameter is automatically resolved
+      from the subnet host_routes attribute.
+    type: json
+  BondInterfaceOvsOptions:
+    default: 'bond_mode=active-backup'
+    description: The ovs_options string for the bond interface. Set things like
+                 lacp=active and/or bond_mode=balance-slb using this option.
+    type: string
+  ExternalNetworkVlanID:
+    default: 10
+    description: Vlan ID for the external network traffic.
+    type: number
+  ControlPlaneStaticRoutes:
+    default: []
+    description: >
+      Routes for the ctlplane network traffic. JSON route e.g. [{'destination':'10.0.0.0/16', 'nexthop':'10.0.0.1'}] Unless
+      the default is changed, the parameter is automatically resolved from the subnet host_routes attribute.
+    type: json
+  ControlPlaneMtu:
+    default: 1500
+    description: >-
+      The maximum transmission unit (MTU) size(in bytes) that is guaranteed to pass through the data path of the segments
+      in the network. (The parameter is automatically resolved from the ctlplane network's mtu attribute.)
+    type: number
+  StorageMtu:
+    default: 1500
+    description: >-
+      The maximum transmission unit (MTU) size(in bytes) that is guaranteed to pass through the data path of the segments
+      in the Storage network.
+    type: number
+  InternalApiMtu:
+    default: 1500
+    description: >-
+      The maximum transmission unit (MTU) size(in bytes) that is guaranteed to pass through the data path of the segments
+      in the InternalApi network.
+    type: number
+  TenantMtu:
+    default: 1500
+    description: >-
+      The maximum transmission unit (MTU) size(in bytes) that is guaranteed to pass through the data path of the segments
+      in the Tenant network.
+    type: number
+  StorageMgmtMtu:
+    default: 1500
+    description: >-
+      The maximum transmission unit (MTU) size(in bytes) that is guaranteed to pass through the data path of the segments
+      in the StorageMgmt network.
+    type: number
+  ExternalMtu:
+    default: 1500
+    description: >-
+      The maximum transmission unit (MTU) size(in bytes) that is guaranteed to pass through the data path of the segments
+      in the External network.
+    type: number
+  {% endif %}
 
 resources:
   OsNetConfigImpl:
