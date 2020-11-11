@@ -70,6 +70,30 @@
       "revId": "e7feedf93168b2341d848827ae5aeb8a42e9ad15",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
       "unresolved": true
+    },
+    {
+      "key": {
+        "uuid": "bfe009b9_efd56811",
+        "filename": "roles/generate_tht_templates/defaults/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2020-11-11T09:08:58Z",
+      "side": 1,
+      "message": "Updated to 16.1 and changed the version check to use the \"version\" filter.",
+      "parentUuid": "c47c1abc_eee98042",
+      "range": {
+        "startLine": 17,
+        "startChar": 13,
+        "endLine": 17,
+        "endChar": 15
+      },
+      "revId": "e7feedf93168b2341d848827ae5aeb8a42e9ad15",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
     }
   ]
 }
