@@ -1,0 +1,7 @@
+---
+- name: Converge
+  hosts: undercloud
+  gather_facts: false
+  roles:
+    - role: collect_ovs_configs
+      get_pmd_rxq: false

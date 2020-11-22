@@ -1,0 +1,33 @@
+---
+driver:
+  name: delegated
+lint: |
+  set -e
+  yamllint -c ../../../.yamllint .
+  ansible-lint -c ../../../.ansible-lint
+platforms:
+  - name: hypervisor
+provisioner:
+  name: ansible
+  env:
+    ANSIBLE_ROLES_PATH: ../../../../../roles
+  inventory:
+    links:
+      hosts: ${MOLECULE_INVENTORY_PATH:-inventory}
+verifier:
+  name: ansible
+scenario:
+  create_sequence:
+    - prepare
+  converge_sequence:
+    - prepare
+    - converge
+  test_sequence:
+    - lint
+    - syntax
+    - prepare
+    - destroy
+    - converge
+    - verify
+    - destroy
+    - cleanup
