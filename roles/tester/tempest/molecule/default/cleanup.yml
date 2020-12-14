@@ -25,5 +25,6 @@
           copy:
             content: 'localhost ansible_connection=local'
             dest: inventory
+            mode: 0664
           delegate_to: localhost
       when: not inventory_generated

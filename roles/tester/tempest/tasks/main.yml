@@ -218,12 +218,12 @@
   shell: >
     source {{ tempest_dir }}/venv/bin/activate;
     stestr run --subunit
-    --no-discover {{ item }}
+    {% if tests_regex %}"{{ tests_regex }}"{% endif %}
+    {% if tests_include_list %}--include-list {{ tests_include_list }}{% endif %}
     >> .stestr/tempest_results.subunit
   args:
     executable: /bin/bash
     chdir: "{{ tempest_dir }}/{{ tempest_main }}"
-  loop: "{{ tempest_tests }}"
 
 - name: Ensure '{{ tempest_dir }}/tempest.xml' is absent before logging results
   file:
