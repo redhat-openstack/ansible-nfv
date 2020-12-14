@@ -96,4 +96,4 @@
 
     - name: Verify nfv test existence
       assert:
-        that: '"nfv_tempest_plugin.tests.scenario.test_nfv_basic.TestNfvBasic.test_numa0_provider_network" in nfv_tests_state.stdout'
+        that: '"nfv_tempest_plugin.tests.scenario.test_nfv_basic.TestNfvBasic" in nfv_tests_state.stdout'
