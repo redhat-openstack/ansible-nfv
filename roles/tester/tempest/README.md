@@ -112,18 +112,16 @@ By default the variable is not defined.
 deployer_input_config
 ```
 
-List of tempest tests that should be executed.
+Tempest test execution regex.  
+The regex can include/exclude required tests for execution.
 ```
-tempest_tests:
-  - tempest_nfv_plugin.tests.scenario.test_nfv_epa.TestBasicEpa.test_numa0_provider_network
-  - tempest_nfv_plugin.tests.scenario.test_nfv_epa.TestBasicEpa.test_numa1_provider_network
-  - tempest_nfv_plugin.tests.scenario.test_nfv_epa.TestBasicEpa.test_numamix_provider_network
-  - tempest_nfv_plugin.tests.scenario.test_nfv_epa.TestBasicEpa.test_packages_compute
-  - tempest_nfv_plugin.tests.scenario.test_nfv_dpdk_usecases.TestDpdkScenarios.test_min_queues_functionality
-  - tempest_nfv_plugin.tests.scenario.test_nfv_dpdk_usecases.TestDpdkScenarios.test_equal_queues_functionality
-  - tempest_nfv_plugin.tests.scenario.test_nfv_dpdk_usecases.TestDpdkScenarios.test_max_queues_functionality
-  - tempest_nfv_plugin.tests.scenario.test_nfv_dpdk_usecases.TestDpdkScenarios.test_odd_queues_functionality
-  - neutron_tempest_plugin.scenario.test_trunk.TrunkTest.test_trunk_subport_lifecycle
+tests_regex: '^tempest_nfv_plugin'
+```
+
+Path to the Tempest include file list.  
+The list may include regexes on the tests that needs to be executed.
+```
+tests_include_list: <path_to_the_file_list>
 ```
 
 #### User defined variables
@@ -144,4 +142,4 @@ enable_test_all_provider_networks: False
 #### Tests configuration
 **Note!** - For the tests configuration, refer to the tempest-nfv-plugin [documentation](https://github.com/redhat-openstack/tempest-nfv-plugin/tree/master/docs).
 
-**Note!** - In case neutron tests should be run, add them exactly as nfv tests to the 'tempest_tests' list.
+**Note!** - In case neutron tests should be run, add a regex to include the required tests.
