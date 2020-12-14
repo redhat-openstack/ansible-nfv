@@ -120,6 +120,15 @@
   when: deployer_input_config is defined
   register: copy_output
 
+- name: Copying tests include list file
+  copy:
+    src: "{{ tests_include_list }}"
+    dest: "{{ tempest_dir }}"
+    owner: "{{ tempest_user }}"
+    group: "{{ tempest_user }}"
+    mode: 0755
+  when: tests_include_list | bool
+
 - name: Generate accounts.yaml file
   template:
     src: accounts.yaml.j2
@@ -218,12 +227,12 @@
   shell: >
     source {{ tempest_dir }}/venv/bin/activate;
     stestr run --subunit
-    --no-discover {{ item }}
+    {% if tests_regex | bool %}"{{ tests_regex }}"{% endif %}
+    {% if tests_include_list | bool %}--include-list {{ tempest_dir }}/{{ tests_include_list | basename }}{% endif %}
     >> .stestr/tempest_results.subunit
   args:
     executable: /bin/bash
     chdir: "{{ tempest_dir }}/{{ tempest_main }}"
-  loop: "{{ tempest_tests }}"
 
 - name: Ensure '{{ tempest_dir }}/tempest.xml' is absent before logging results
   file:
