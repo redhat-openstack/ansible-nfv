@@ -5,9 +5,13 @@
     query_instance: "{{ ansible_hostname }}"
   delegate_to: "{{ groups['undercloud'] | first }}"
 
+- name: Init SR-IOV NICS
+  set_fact:
+    trex_instance_sriov_nics: []
+
 - name: Parse Trex Server SR-IOV NICs
   set_fact:
-    trex_instance_sriov_nics: "{{ trex_instance_sriov_nics | default([]) }} + [ {{ item }} ]"
+    trex_instance_sriov_nics: "{{ trex_instance_sriov_nics }} + [ {{ item }} ]"
   loop: "{{ instance_nics | flatten(levels=1) }}"
   when: item['binding:vnic_type'] == "direct-physical" or
         item['binding:vnic_type'] == "direct"

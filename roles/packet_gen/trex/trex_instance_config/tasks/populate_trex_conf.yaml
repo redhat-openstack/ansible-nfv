@@ -1,7 +1,11 @@
+- name: Init trex_instance_nics_info
+  set_fact:
+    trex_instance_nics_info: []
+
 - name: Populate Trex NICs info variable
   set_fact:
     trex_instance_nics_info: >-
-      {{ trex_instance_nics_info | default([]) }} + [{
+      {{ trex_instance_nics_info }} + [{
       'mac_address': '{{ item['mac_address'] }}',
       'ip': '{{ item['fixed_ips'][0]['ip_address'] }}',
       'vlan': '{{ item['binding:vif_details']['vlan'] | default(omit) }}'
