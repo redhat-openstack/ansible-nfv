@@ -1,0 +1,43 @@
+---
+- name: Prepare
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Install centos-release-nfv-openvswitch repo
+      package:
+        name:
+          - centos-release-nfv-openvswitch
+        state: present
+
+    - name: Check openvswitch available packages
+      dnf:
+        list: openvswitch*
+      register: ovs_pkgs
+
+    - name: Locate openvswitch last available version
+      set_fact:
+        ovs_pkg_ver: "{{ ovs_pkgs.results
+          | selectattr('yumstate','equalto','available')
+          | map(attribute='version') | list | last
+          | regex_replace('^(.*)(\\.[0-9]*)$', '\\1') }}"
+
+    - name: Install openvswitch
+      package:
+        name:
+          - "openvswitch{{ ovs_pkg_ver }}"
+        state: present
+
+    - name: Add the openvswitch module
+      modprobe:
+        name: openvswitch
+        state: present
+
+    # Move back to use the systemd module,
+    # once using ansible 2.9.16
+    # https://github.com/ansible/ansible/issues/71528
+    # - name: Start openvswitch
+    #   systemd:
+    #     name: openvswitch
+    #     state: started
+    - name: Start openvswitch  # noqa 303
+      command: systemctl start openvswitch

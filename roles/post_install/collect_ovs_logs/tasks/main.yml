@@ -1,0 +1,34 @@
+---
+- name: Create directories path
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: 0755
+    recurse: True
+  loop:
+    - "{{ logd }}"
+
+- block:
+    - name: Collect ovs multiqueue details
+      shell: >
+        ovs-appctl dpif-netdev/pmd-rxq-show >{{ logd }}/ovs-appctl_pmd-rxq-show
+      when: get_pmd_rxq | bool
+
+    - name: Collect ovs multiqueue statistics
+      shell: >
+        ovs-appctl dpif-netdev/pmd-stats-show >{{ logd }}/ovs-appctl_pmd-stats-show
+      when: get_pmd_rxq | bool
+
+    - name: Collect dpdk statistics
+      shell: >
+        ovs-appctl dpctl/show -s >{{ logd }}/ovs-appctl_dpctl_show_-s
+
+    - name: Collect interfaces statistics
+      shell: >
+        ovs-vsctl list Interface >{{ logd }}/ovs-vsctl_list_interface
+
+    - name: Collect perf statistics
+      shell: >
+        ovs-appctl dpif-netdev/pmd-perf-show >{{ logd }}/ovs-vsctl_pmd_perf_show
+      when: pmd_perf_metrics | bool
+  become: true
