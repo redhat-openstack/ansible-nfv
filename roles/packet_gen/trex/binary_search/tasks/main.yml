@@ -133,16 +133,6 @@
         name: pmd_load_balance
         tasks_from: status.yml
 
-    - name: Remove any existing status log
-      file:
-        path: "{{ pmd_lb_status_log }}"
-        state: absent
-
-    - name: Save PMD load balance status
-      copy:
-        content: "{{ pmd_lb_status_output['stdout'] }}"
-        dest: "{{ pmd_lb_status_log }}"
-
     - name: Stop PMD load balance
       include_role:
         name: pmd_load_balance

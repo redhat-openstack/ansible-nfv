@@ -1,4 +1,4 @@
-# Molecule for **collect_ovs_configs** role
+# Molecule for **collect_ovs_configs_logs** role
 
 ## Requirements
 * Docker Engine

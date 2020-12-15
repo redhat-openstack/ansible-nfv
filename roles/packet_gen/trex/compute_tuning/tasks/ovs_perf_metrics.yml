@@ -1,0 +1,12 @@
+- name: Set PMD stats
+  openvswitch_db:
+    state: present
+    table: open_vswitch
+    record: .
+    col: other_config
+    key: pmd-perf-metrics
+    value: "{{ pmd_perf_metrics }}"
+
+- name: Clean perf statistics
+  shell: >
+    ovs-appctl dpif-netdev/pmd-stats-clear
