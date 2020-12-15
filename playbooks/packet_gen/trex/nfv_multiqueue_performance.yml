@@ -9,7 +9,7 @@
         yamld: "/tmp/mq_tests_log/{{ test_name }}/ansible"
         cfgd: "/tmp/mq_tests_log/{{ test_name }}/config"
 
-    - name: Create required irectories on compute node
+    - name: Create required directories on compute node
       file:
         path: "{{ item }}"
         state: directory
@@ -31,7 +31,8 @@
       set_fact:
         updated_flavors: "{{ [flavor | combine({'extra_specs': trex_extra_specs}, recursive=true) | combine(trex_vcpus, recursive=true)] }}"
       vars:
-        trex_extra_specs: "{{ flavor.extra_specs | combine({ 'hw:numa_cpus.0': trex.get('hw_numa_cpus','') }) }}"
+        numa_cpu_key: "{{ flavor.extra_specs.keys() | select('match', '^hw:numa_cpus.') | first }}"
+        trex_extra_specs: "{{ flavor.extra_specs | combine({ numa_cpu_key : trex.get('hw_numa_cpus','') }) }}"
         trex_vcpus: "{'vcpus': {{ trex.get('vcpus', 6) }} }"
       when:
         - flavor.name == 'trex'
@@ -43,7 +44,8 @@
       set_fact:
         updated_flavors: "{{ updated_flavors | default([]) }} + {{ [flavor | combine({'extra_specs': testpmd_extra_specs}, recursive=true) | combine(testpmd_vcpus, recursive=true)] }}"
       vars:
-        testpmd_extra_specs: "{{ flavor.extra_specs | combine({ 'hw:numa_cpus.0': testpmd.get('hw_numa_cpus','') }) }}"
+        numa_cpu_key: "{{ flavor.extra_specs.keys() | select('match', '^hw:numa_cpus.') | first }}"
+        testpmd_extra_specs: "{{ flavor.extra_specs | combine({ numa_cpu_key : testpmd.get('hw_numa_cpus','') }) }}"
         testpmd_vcpus: "{'vcpus': {{ testpmd.get('vcpus', 4) }} }"
       when:
         - flavor.name != 'trex'
@@ -69,25 +71,29 @@
       loop_control:
         loop_var: instance
 
+    - name: Set directories path
+      set_fact:
+        resultd: "/tmp/mq_perf_results/{{ test_name }}"
+
     - name: Create test result log directory on undercloud
       file:
-        path: "/tmp/mq_perf_results/{{ test_name }}"
+        path: "{{ resultd }}"
         state: directory
         mode: 0755
         recurse: True
 
-- name: Collect and update configs
+- name: Update and collect configs
   hosts: "{{ dut_compute }}"
   become: true
   roles:
+    - name: Update multiqueue configs
+      role: roles/post_install/multiqueue_configs
+
     - name: Collect ovs configs
       role: roles/post_install/collect_ovs_configs
       when:
         - pmd_lb is defined
         - pmd_lb in ['ovs']
-
-    - name: Update multiqueue configs
-      role: roles/post_install/multiqueue_configs
 
 - name: Run multiqueue performance
   import_playbook: performance_scenario.yml
@@ -103,7 +109,19 @@
     trex_rate: "{{ trex.get('rate', 2) }}"
     trex_process_threads: "{{ trex.get('process_threads', 2) }}"
     trex_platform:  "{{ trex.get('platform', {}) }}"
-    binary_perf_log: "/tmp/mq_perf_results/{{ test_name }}/dpdk_performance.log"
+    binary_perf_log: "{{ resultd }}/dpdk_performance.log"
+    trex_flows: "{{ trex.get('trex_flows', 1) }}"
+    pmd_lb_status_log: "{{ logd }}/pmd_lb_status.log"
+
+- name: Collect logs
+  hosts: "{{ dut_compute }}"
+  become: true
+  roles:
+    - name: Collect ovs logs
+      role: roles/post_install/collect_ovs_logs
+      when:
+        - pmd_lb is defined
+        - pmd_lb in ['ovs']
 
 - name: Openstack resources clean up
   hosts: "{{ osp_tasks_host | default('undercloud') }}"
