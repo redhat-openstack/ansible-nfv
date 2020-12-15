@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da6947e6_dc5d484f",
+        "filename": "roles/tester/tempest/molecule/default/verify.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2020-12-15T15:20:21Z",
+      "side": 1,
+      "message": "Consider moving it to parameter",
+      "range": {
+        "startLine": 99,
+        "startChar": 16,
+        "endLine": 99,
+        "endChar": 77
+      },
+      "revId": "b77d870fa6db9edf6a15c40200a212b078b6ddbe",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735",
+      "unresolved": true
+    }
+  ]
+}
