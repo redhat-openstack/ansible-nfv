@@ -32,6 +32,7 @@
           - ovs_config is defined
           - ovs_status is defined
           - ovs_version is defined
+          - ovs_vsctl_list_interface is defined
 
     - name: Verify ovs_config file content
       assert:
@@ -55,3 +56,10 @@
           - "'ovs-vswitchd (Open vSwitch)' in item.content | b64decode"
       loop: "{{ ovs_output_files.results }}"
       when: item.item.path == ovs_version
+
+    - name: Verify ovs_vsctl_list_interface file content
+      assert:
+        that:
+          - "'statistics' in item.content | b64decode"
+      loop: "{{ ovs_output_files.results }}"
+      when: item.item.path == ovs_vsctl_list_interface

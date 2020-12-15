@@ -10,6 +10,17 @@
         - /tmp/mq_perf_results
         - /tmp/mq_tests_log
 
+- name: Remove performance log directory in compute
+  hosts: "{{ dut_compute }}"
+  pre_tasks:
+    - name: Remove multiqueue performance log directories
+      become: true
+      file:
+        path: "{{ item }}"
+        state: absent
+      loop:
+        - /tmp/mq_tests_log
+
 - import_playbook: nfv_multiqueue_performance.yml
   vars:
     test_name: pmd2_no_multiqueue_ovs_lb
@@ -43,7 +54,7 @@
 
 - import_playbook: nfv_multiqueue_performance.yml
   vars:
-    test_name: pmd4_multiqueue2_ovs
+    test_name: pmd8_multiqueue4_ovs_lb
     pmd_mask: "{{ pmd_cpu_mask_8pmd }}"
     pmd_lb: ovs
     testpmd_image: image_mq
@@ -54,9 +65,11 @@
 
 - name: Copy computes log directories to undercloud
   hosts: "{{ dut_compute }}"
-  pre_tasks:
+  tasks:
     - name: Copy multiqueue configuration log directories
       synchronize:
-        mode: pull
         src: /tmp/mq_tests_log
-        dest: /tmp/
+        dest: /tmp
+        mode: pull
+        set_remote_user: no
+      delegate_to: "{{ groups['undercloud'][0] }}"

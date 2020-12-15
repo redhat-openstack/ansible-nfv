@@ -1,0 +1,48 @@
+---
+- name: Create directories path
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: 0755
+    recurse: True
+  loop:
+    - "{{ cfgd }}"
+    - "{{ logd }}"
+
+- block:
+    - name: Collect ovs configs
+      shell: >
+        ovs-vsctl list Open_vSwitch >{{ cfgd }}/ovs_config
+
+    - name: Collect ovs status
+      shell: >
+        ovs-vsctl show >{{ cfgd }}/ovs_status
+
+    - name: Collect ovs version
+      shell: >
+        ovs-vswitchd -V >{{ cfgd }}/ovs_version
+
+    - name: Collect ovs multiqueue details
+      shell: >
+        ovs-appctl dpif-netdev/pmd-rxq-show >{{ logd }}/ovs_appctl_pmd_rxq_show
+      when: get_pmd_rxq | bool
+
+    - name: Collect ovs multiqueue statistics
+      shell: >
+        ovs-appctl dpif-netdev/pmd-stats-show >{{ logd }}/ovs_appctl_pmd_stats_show
+      when: get_pmd_rxq | bool
+
+    - name: Collect dpdk statistics
+      shell: >
+        ovs-appctl dpctl/show -s >{{ logd }}/ovs_appctl_dpctl_show__s
+      when: get_pmd_rxq | bool
+
+    - name: Collect interfaces statistics
+      shell: >
+        ovs-vsctl list Interface >{{ logd }}/ovs_vsctl_list_interface
+ 
+    - name: Collect perf statistics
+      shell: >
+        ovs-appctl dpif-netdev/pmd-perf-show >{{ logd }}/ovs_vsctl_pmd_perf_show
+      when: pmd_perf_metrics | bool
+  become: true
