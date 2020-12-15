@@ -1,0 +1,48 @@
+---
+- name: Verify
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Look for the ovs output files
+      find:
+        path: "/tmp/mq_tests_log"
+        recurse: yes
+      register: ovs_output_files_list
+
+    - name: Fetch ovs output files
+      slurp:
+        src: "{{ item.path }}"
+      loop: "{{ ovs_output_files_list.files }}"
+      register: ovs_output_files
+
+    - name: Set a variable for each existing file
+      set_fact:
+        "{{ item.path | basename }}": "{{ item.path }}"
+      loop: "{{ ovs_output_files_list.files }}"
+      register: existing_files
+
+    - name: Place existing files in a list
+      set_fact:
+        files_list: "{{ files_list | default([]) }} + [ {{ item.ansible_facts }} ]"
+      loop: "{{ existing_files.results }}"
+
+    - name: Verify existing files
+      assert:
+        that:
+          - ovs-appctl_dpctl_show_-s
+          - ovs-vsctl_list_interface
+
+    - name: Verify ovs-appctl_dpctl_show_-s content
+      assert:
+        that:
+          - "'statistics' in item.content | b64decode"
+      loop: "{{ ovs_output_files.results }}"
+      when: item.item.path == ovs-appctl_dpctl_show_-s
+
+    - name: Verify ovs-vsctl_list_interface content
+      assert:
+        that:
+          - "'RX packets' in item.content | b64decode"
+          - "'TX packets' in item.content | b64decode"
+      loop: "{{ ovs_output_files.results }}"
+      when: item.item.path == ovs-vsctl_list_interface

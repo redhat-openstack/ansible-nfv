@@ -1,0 +1,8 @@
+---
+- name: Converge
+  hosts: all
+  gather_facts: false
+  roles:
+    - role: collect_ovs_logs
+      get_pmd_rxq: false
+      pmd_perf_metrics: false

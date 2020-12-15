@@ -1,0 +1,9 @@
+---
+
+logd: '/tmp/mq_tests_log/pmd2_no_multiqueue_ovs_lb/log'
+
+# Fetch PMD rxq. Use in dpdk based environment.
+get_pmd_rxq: true
+
+# Get ovs perf metrics
+pmd_perf_metrics: false
