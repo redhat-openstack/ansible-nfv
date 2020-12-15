@@ -43,7 +43,7 @@
 
 - import_playbook: nfv_multiqueue_performance.yml
   vars:
-    test_name: pmd4_multiqueue2_ovs
+    test_name: pmd8_multiqueue4_ovs_lb
     pmd_mask: "{{ pmd_cpu_mask_8pmd }}"
     pmd_lb: ovs
     testpmd_image: image_mq
@@ -56,6 +56,7 @@
   hosts: "{{ dut_compute }}"
   pre_tasks:
     - name: Copy multiqueue configuration log directories
+      delegate_to: "{{ groups['undercloud'][0] }}"
       synchronize:
         mode: pull
         src: /tmp/mq_tests_log
