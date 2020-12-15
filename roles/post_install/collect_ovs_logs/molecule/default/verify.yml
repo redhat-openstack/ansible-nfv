@@ -1,0 +1,57 @@
+---
+- name: Verify
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Look for the ovs output files
+      find:
+        path: "/tmp/mq_tests_log"
+        recurse: yes
+      register: ovs_output_files_list
+
+    - name: Fetch ovs output files
+      slurp:
+        src: "{{ item.path }}"
+      loop: "{{ ovs_output_files_list.files }}"
+      register: ovs_output_files
+
+    - name: Set a variable for each existing file
+      set_fact:
+        "{{ item.path | basename }}": "{{ item.path }}"
+      loop: "{{ ovs_output_files_list.files }}"
+      register: existing_files
+
+    - name: Place existing files in a list
+      set_fact:
+        files_list: "{{ files_list | default([]) }} + [ {{ item.ansible_facts }} ]"
+      loop: "{{ existing_files.results }}"
+
+    - name: Verify existing files
+      assert:
+        that:
+          - ovs_config is defined
+          - ovs_status is defined
+          - ovs_version is defined
+
+    - name: Verify ovs_config file content
+      assert:
+        that:
+          - "'dpdk_initialized' in item.content | b64decode"
+          - "'ovs_version' in item.content | b64decode"
+          - "'datapath_types' in item.content | b64decode"
+      loop: "{{ ovs_output_files.results }}"
+      when: item.item.path == ovs_config
+
+    - name: Verify ovs_status file content
+      assert:
+        that:
+          - "'ovs_version' in item.content | b64decode"
+      loop: "{{ ovs_output_files.results }}"
+      when: item.item.path == ovs_status
+
+    - name: Verify ovs_version file content
+      assert:
+        that:
+          - "'ovs-vswitchd (Open vSwitch)' in item.content | b64decode"
+      loop: "{{ ovs_output_files.results }}"
+      when: item.item.path == ovs_version
