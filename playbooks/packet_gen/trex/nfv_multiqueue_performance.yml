@@ -9,7 +9,7 @@
         yamld: "/tmp/mq_tests_log/{{ test_name }}/ansible"
         cfgd: "/tmp/mq_tests_log/{{ test_name }}/config"
 
-    - name: Create required irectories on compute node
+    - name: Create required directories on compute node
       file:
         path: "{{ item }}"
         state: directory
@@ -31,7 +31,8 @@
       set_fact:
         updated_flavors: "{{ [flavor | combine({'extra_specs': trex_extra_specs}, recursive=true) | combine(trex_vcpus, recursive=true)] }}"
       vars:
-        trex_extra_specs: "{{ flavor.extra_specs | combine({ 'hw:numa_cpus.0': trex.get('hw_numa_cpus','') }) }}"
+        numa_cpu_key: "{{ flavor.extra_specs.keys() | select('match', '^hw:numa_cpus.') | first }}"
+        trex_extra_specs: "{{ flavor.extra_specs | combine({ numa_cpu_key : trex.get('hw_numa_cpus','') }) }}"
         trex_vcpus: "{'vcpus': {{ trex.get('vcpus', 6) }} }"
       when:
         - flavor.name == 'trex'
@@ -43,7 +44,8 @@
       set_fact:
         updated_flavors: "{{ updated_flavors | default([]) }} + {{ [flavor | combine({'extra_specs': testpmd_extra_specs}, recursive=true) | combine(testpmd_vcpus, recursive=true)] }}"
       vars:
-        testpmd_extra_specs: "{{ flavor.extra_specs | combine({ 'hw:numa_cpus.0': testpmd.get('hw_numa_cpus','') }) }}"
+        numa_cpu_key: "{{ flavor.extra_specs.keys() | select('match', '^hw:numa_cpus.') | first }}"
+        testpmd_extra_specs: "{{ flavor.extra_specs | combine({ numa_cpu_key : testpmd.get('hw_numa_cpus','') }) }}"
         testpmd_vcpus: "{'vcpus': {{ testpmd.get('vcpus', 4) }} }"
       when:
         - flavor.name != 'trex'
