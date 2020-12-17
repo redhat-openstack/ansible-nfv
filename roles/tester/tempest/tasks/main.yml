@@ -126,8 +126,8 @@
     dest: "{{ tempest_dir }}"
     owner: "{{ tempest_user }}"
     group: "{{ tempest_user }}"
-    mode: 0755
-  when: tests_include_list | bool
+    mode: 0644
+  when: tests_include_list | default('')
 
 - name: Generate accounts.yaml file
   template:
@@ -227,8 +227,8 @@
   shell: >
     source {{ tempest_dir }}/venv/bin/activate;
     stestr run --subunit
-    {% if tests_regex | bool %}"{{ tests_regex }}"{% endif %}
-    {% if tests_include_list | bool %}--include-list {{ tempest_dir }}/{{ tests_include_list | basename }}{% endif %}
+    {% if tests_regex %}"{{ tests_regex }}"{% endif %}
+    {% if tests_include_list %}--include-list {{ tempest_dir }}/{{ tests_include_list | basename }}{% endif %}
     >> .stestr/tempest_results.subunit
   args:
     executable: /bin/bash
