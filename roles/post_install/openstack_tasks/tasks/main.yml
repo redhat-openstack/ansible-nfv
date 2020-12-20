@@ -3,7 +3,7 @@
 - name: Setup Openstack environment
   tags: setup_os_env
   import_tasks: setup_openstack_env.yml
-  when: setup_os_env
+  when: setup_os_env|bool
 
 - name: Instances
   tags: instance
@@ -18,12 +18,12 @@
 - name: Quota
   tags: quota
   import_tasks: quota.yml
-  when: quota
+  when: quota|bool
 
 - name: Volumes
   tags: volume
   import_tasks: volumes.yml
-  when: volume
+  when: volume|bool
 
 - name: Security groups creation
   tags: security_group
@@ -33,17 +33,17 @@
 - name: Networks
   tags: network
   import_tasks: networks_and_routers.yml
-  when: network
+  when: network|bool
 
 - name: Aggregate groups
   tags: aggregate
   import_tasks: aggregate.yml
-  when: aggregate
+  when: aggregate|bool
 
 - name: Flavors
   tags: flavor
   import_tasks: flavors.yml
-  when: flavor
+  when: flavor|bool
 
 - name: Images
   tags: image
@@ -53,7 +53,7 @@
 - name: Keypair
   tags: keypair
   import_tasks: keypair.yml
-  when: keypair
+  when: keypair|bool
 
 - name: Security groups delete
   tags: security_group
@@ -77,7 +77,7 @@
 - name: Overcloud delete
   tags: overcloud_delete
   import_tasks: overcloud_delete.yml
-  when: overcloud_delete
+  when: overcloud_delete|bool
 
 - name: Print created files
   vars:
