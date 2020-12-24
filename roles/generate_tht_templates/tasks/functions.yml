@@ -3,11 +3,11 @@
     src: functions/dpdk_config.yaml.j2
     dest: "{{ templates_path }}/functions/dpdk_config.yaml"
     mode: '0664'
-  when: dpdk
+  when: dpdk | bool
 
 - name: Generate SRIOV config
   template:
     src: functions/sriov_config.yaml.j2
     dest: "{{ templates_path }}/functions/sriov_config.yaml"
     mode: '0664'
-  when: sriov
+  when: sriov | bool
