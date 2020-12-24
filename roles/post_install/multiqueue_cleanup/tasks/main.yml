@@ -1,0 +1,34 @@
+---
+- name: Check OSP version
+  include_role:
+    name: discover_osp_version
+
+- name: Set container type
+  set_fact:
+    container_type: "{% if overcloud_version | int <= 14 %}docker{% else %}podman{% endif %}"
+
+- name: Clean up existing pmd stats
+  command: >
+    ovs-appctl dpif-netdev/pmd-stats-clear
+
+- name: Disable multiqueue
+  command: >
+    ovs-vsctl remove Interface {{ dpdk_nic }} options n_rxq
+  loop: "{{ dpdk_nics }}"
+  loop_control:
+    loop_var: dpdk_nic
+
+- name: Disable OvS PMD load balance
+  openvswitch_db:
+    table: open_vswitch
+    record: .
+    col: other_config
+    key: pmd-auto-lb
+    value: 'false'
+
+- name: Removes the pmd rxq affinity config
+  command: >
+    ovs-vsctl remove Interface {{ dpdk_nic }} other_config pmd-rxq-affinity
+  loop: "{{ dpdk_nics }}"
+  loop_control:
+    loop_var: dpdk_nic

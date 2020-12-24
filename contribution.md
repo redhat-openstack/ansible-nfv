@@ -21,8 +21,8 @@ Please, follow the instructions below to meet the project contribution guide lin
     - Submit the patch.  
       **Tip** - Use the "git review" (somethimes needs to be installed separatelly) command instead of "git push".  
       It will ease the work with the gerrit system.
-- **Note** - Currently, ansible-nfv project has only linting gate.  
-  It means that the owner of the patch has the responsibility to test and verify its own patch.
+- **Note** - Ansible-nfv project is using `molecule` for testing purposes. See section below.  
+  Please, make sure to cover new functionality with testing.
 - Once the patch is ready, submit it for the review.  
 - The linting gate will run and if passed will set the "Verified" label to "+1".  
   In case the linting gate fails, you can check the gate for the errors.  
@@ -38,6 +38,12 @@ Please, follow the instructions below to meet the project contribution guide lin
 - **Note** - In cases, patch owner could not test/verify its changes, due to the specific environment requirements,  
   his responsibility to reach our core reviewers and explain the needs.  
   Core reviewers will find the the resource and time to verify the patch.
+
+## Testing
+Testing phase of the repository is done by use of the ["molecule"](https://molecule.readthedocs.io/) project.  
+Some of the repository roles are tested using `docker` driver and others require live Openstack environment.  
+**Note** - Implementation of `molecule` in ansible-nfv is still ongoing process.  
+During submission of the patch, the gate will run and test all available roles for linting and molecule testing.
 
 For any question or problem, you are welcome to open an issue.
 

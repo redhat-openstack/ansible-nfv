@@ -45,12 +45,10 @@ users:
     domain: default
     role: member
 
-tempest_tests:
-  - tempest_nfv_plugin.tests.scenario.test_nfv_epa.TestBasicEpa.test_numa0_provider_network
-  - tempest_nfv_plugin.tests.scenario.test_nfv_epa.TestBasicEpa.test_numa1_provider_network
-  - tempest_nfv_plugin.tests.scenario.test_nfv_epa.TestBasicEpa.test_numamix_provider_network
-  - tempest_nfv_plugin.tests.scenario.test_nfv_epa.TestBasicEpa.test_packages_compute
-  - tempest_nfv_plugin.tests.scenario.test_nfv_dpdk_usecases.TestDpdkScenarios.test_min_queues_functionality
-  - tempest_nfv_plugin.tests.scenario.test_nfv_dpdk_usecases.TestDpdkScenarios.test_equal_queues_functionality
-  - tempest_nfv_plugin.tests.scenario.test_nfv_dpdk_usecases.TestDpdkScenarios.test_max_queues_functionality
-  - tempest_nfv_plugin.tests.scenario.test_nfv_dpdk_usecases.TestDpdkScenarios.test_odd_queues_functionality
+# Use one of the following variables or combine them together
+# Tests include/exclude regex
+# tests_regex: '^tempest_nfv_plugin'
+tests_regex: ''
+# Path to the file with tests regexes
+# The regexes should be defined in a list
+tests_include_list: ''
