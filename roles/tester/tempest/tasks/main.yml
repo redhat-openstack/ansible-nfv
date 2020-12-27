@@ -226,7 +226,7 @@
   tags: run_tempest_test
   shell: >
     source {{ tempest_dir }}/venv/bin/activate;
-    stestr run --subunit
+    stestr run --serial --subunit
     {% if tests_regex %}"{{ tests_regex }}"{% endif %}
     {% if tests_include_list %}--include-list {{ tempest_dir }}/{{ tests_include_list | basename }}{% endif %}
     >> .stestr/tempest_results.subunit
