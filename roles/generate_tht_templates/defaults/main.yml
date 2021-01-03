@@ -6,6 +6,7 @@ dpdk: true
 sriov: true
 iface_mapping: true
 api_policies: true  # Used by qe testing
+perf_configs: true
 
 # Custom path to tht templates.
 # If not defined, current playbook path will be used.
