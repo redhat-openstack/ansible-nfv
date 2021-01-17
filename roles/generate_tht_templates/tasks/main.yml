@@ -13,28 +13,30 @@
     mode: '0755'
   loop: "{{ [templates_path, templates_path + '/nic-configs']
             | union((dpdk or sriov)
-            | ternary([templates_path + '/functions'], [] )) }}"
+            | ternary([templates_path + '/functions'], [] ))
+            | union(perf_configs
+            | ternary([templates_path + '/performance-files'], [] )) }}"
 
 - name: Generate undercloud.conf file
   template:
     src: undercloud/undercloud.conf.j2
     dest: "{{ templates_path }}/undercloud.conf"
     mode: '0664'
-  when: undercloud_conf
+  when: undercloud_conf | bool
 
 - name: Generate instackenv.json file
   template:
     src: nodes/instackenv.json.j2
     dest: "{{ templates_path }}/instackenv.json"
     mode: '0664'
-  when: instackenv
+  when: instackenv | bool
 
 - name: Copy api policies file
   copy:
     src: api-policies.yaml
     dest: "{{ templates_path }}/api-policies.yaml"
     mode: '0664'
-  when: api_policies
+  when: api_policies | bool
 
 - name: Generate network-data file
   template:
@@ -47,7 +49,7 @@
     src: nodes/nodes_data.yaml.j2
     dest: "{{ templates_path }}/nodes_data.yaml"
     mode: '0664'
-  when: nodes
+  when: nodes | bool
 
 - name: Generate neutron config
   template:
@@ -60,7 +62,7 @@
     src: nodes/os-net-config-mappings.yaml.j2
     dest: "{{ templates_path }}/os-net-config-mappings.yaml"
     mode: '0664'
-  when: iface_mapping
+  when: iface_mapping | bool
 
 - name: Generate functions options
   include_tasks: functions.yml
@@ -79,3 +81,13 @@
   loop: "{{ node_config }}"
   loop_control:
     loop_var: conf
+
+- name: Copy performance configuration files
+  copy:
+    src: "performance/{{ item }}"
+    dest: "{{ templates_path }}/performance-files/{{ item }}"
+    mode: '0664'
+  loop:
+    - perf_instances.yml
+    - perf_resources_config.yml
+  when: perf_configs | bool

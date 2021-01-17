@@ -1,0 +1,16 @@
+---
+
+discover_instance_external_ip: True
+dynamic_instances:
+  - name: trex
+    group: trex
+    user: cloud-user
+    ssh_key: /tmp/test_keypair.key
+  - name: testpmd-dpdk-dut
+    group: dpdk_dut
+    user: cloud-user
+    ssh_key: /tmp/test_keypair.key
+  - name: testpmd-sriov-vf-dut
+    group: sriov_dut
+    user: cloud-user
+    ssh_key: /tmp/test_keypair.key
