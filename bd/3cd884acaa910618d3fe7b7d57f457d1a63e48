@@ -1,0 +1,8 @@
+Verified+1: Maxim Babushkin <mbabushk@redhat.com>
+Code-Review+2: Ella Shulman <eshulman@redhat.com>
+Code-Review+2: Yariv Rachmani <yrachman@redhat.com>
+Submitted-by: Ella Shulman <eshulman@redhat.com>
+Submitted-at: Sun, 17 Jan 2021 11:05:44 +0000
+Reviewed-on: https://review.gerrithub.io/c/redhat-openstack/ansible-nfv/+/509049
+Project: redhat-openstack/ansible-nfv
+Branch: refs/heads/devel
