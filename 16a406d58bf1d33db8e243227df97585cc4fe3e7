@@ -45,6 +45,54 @@
       },
       "revId": "16a406d58bf1d33db8e243227df97585cc4fe3e7",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "efa8765c_da6b4537",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2021-01-17T09:50:11Z",
+      "side": 1,
+      "message": "this option will be deprecated in later version and was replaced with --include-list",
+      "parentUuid": "402822cf_18fd6f72",
+      "range": {
+        "startLine": 231,
+        "startChar": 31,
+        "endLine": 231,
+        "endChar": 47
+      },
+      "revId": "16a406d58bf1d33db8e243227df97585cc4fe3e7",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "653f2d3a_24c9f990",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2021-01-17T09:50:11Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2a17a9aa_af1a289f",
+      "range": {
+        "startLine": 231,
+        "startChar": 33,
+        "endLine": 231,
+        "endChar": 47
+      },
+      "revId": "16a406d58bf1d33db8e243227df97585cc4fe3e7",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
