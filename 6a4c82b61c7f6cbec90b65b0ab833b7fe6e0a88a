@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5f4e363a_fd7e097c",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-01-17T18:50:53Z",
+      "side": 1,
+      "message": "You shout pip install again, inorder change to be cached in site\u003dpackages",
+      "range": {
+        "startLine": 62,
+        "startChar": 2,
+        "endLine": 62,
+        "endChar": 39
+      },
+      "revId": "6a4c82b61c7f6cbec90b65b0ab833b7fe6e0a88a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10c74869_56302f07",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-01-17T18:50:53Z",
+      "side": 1,
+      "message": "{{ tempest_dir }}/{{ neutron_tempest_plugin }}",
+      "range": {
+        "startLine": 64,
+        "startChar": 29,
+        "endLine": 64,
+        "endChar": 52
+      },
+      "revId": "6a4c82b61c7f6cbec90b65b0ab833b7fe6e0a88a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
