@@ -59,6 +59,13 @@
     state: present
     editable: true
 
+- name: neutron tempest utf-8 issue w\a
+  lineinfile:
+    path: "{{ tempest_dir }}/neutron-tempest-plugin/neutron_tempest_plugin/scenario/test_qos.py"
+    insertbefore: BOF
+    line: '# -*- encoding: utf-8 -*-'
+  when: overcloud_version | int == 10
+  
 - name: Get the external network id
   vars:
     ansible_python_interpreter: "{{ venv_path }}/bin/python"
