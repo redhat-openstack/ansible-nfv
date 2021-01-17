@@ -22,6 +22,29 @@
       },
       "revId": "16a406d58bf1d33db8e243227df97585cc4fe3e7",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2a17a9aa_af1a289f",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-01-17T09:45:36Z",
+      "side": 1,
+      "message": "The \"whitelist-file\" parameter is deprecated and will be removed soon.\nIn order to not hit the issue of missing parameter a few month later, please, use the \"overcloud_version\" parameter similar to in line 246.\n\nSo for \"overcloud_version | int \u003e\u003d 13\", use include-list and else, whitelist-file.",
+      "range": {
+        "startLine": 231,
+        "startChar": 33,
+        "endLine": 231,
+        "endChar": 47
+      },
+      "revId": "16a406d58bf1d33db8e243227df97585cc4fe3e7",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
