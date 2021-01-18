@@ -97,6 +97,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "76231be8_d783aead",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-01-18T08:53:33Z",
+      "side": 1,
+      "message": "\u003e When we used the \"--no-discover\" flag, all possible error from the neutron plugin were skipped because we are specified the exac tests that needs to be executed.\n\u003e As per now, the discovery needs to be performed in order to build a list of tests from the regex.\n\u003e Currently, we are in a state, where the dependency on neutron plugin may harm us in the future.\n\nMy two cents here,\n\nWe could always move to python3, it will eliminate the issues.\nbut related to MVP of RHOS10, it is too big if i may for a release that is EOL\n\n\u003e This could be not the only error that we may face from the neutron plugin and unfortunately we don\u0027t have a permissions to quickly push a fix over there.\n\u003e \n\u003e So, this kind of fix may start to grow and similar fixes may need to be added.\n\u003e I don\u0027t see it an a positive value.",
+      "parentUuid": "877ea56e_41b22279",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 2
+      },
+      "revId": "6a4c82b61c7f6cbec90b65b0ab833b7fe6e0a88a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "10c74869_56302f07",
         "filename": "roles/tester/tempest/tasks/main.yml",
         "patchSetId": 1
