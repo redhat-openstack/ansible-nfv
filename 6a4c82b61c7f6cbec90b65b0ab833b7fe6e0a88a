@@ -26,6 +26,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cfdff4df_8aa2d2b5",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-01-18T07:44:50Z",
+      "side": 1,
+      "message": "I\u0027m sorry, but I can\u0027t accept this change.\nI suggest the following:\nWe can try to not install the neutron plugin for the osp10 jobs (by modifying the vars of the ansible playbook).\nAnd execute only the necessary tests, without the qos or a test that depends on the neutron plugin.",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 2
+      },
+      "revId": "6a4c82b61c7f6cbec90b65b0ab833b7fe6e0a88a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "10c74869_56302f07",
         "filename": "roles/tester/tempest/tasks/main.yml",
         "patchSetId": 1
