@@ -145,6 +145,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "94d8812f_f26dd4d5",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1016373
+      },
+      "writtenOn": "2021-01-18T13:52:04Z",
+      "side": 1,
+      "message": "I dont like this solution either. Maybe the easier solution is to skip qos testcases in osp10",
+      "range": {
+        "startLine": 62,
+        "startChar": 30,
+        "endLine": 62,
+        "endChar": 35
+      },
+      "revId": "6a4c82b61c7f6cbec90b65b0ab833b7fe6e0a88a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "10c74869_56302f07",
         "filename": "roles/tester/tempest/tasks/main.yml",
         "patchSetId": 1
