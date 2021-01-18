@@ -121,6 +121,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e26c1c43_f9753368",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-01-18T09:03:18Z",
+      "side": 1,
+      "message": "Actually, the idea of moving to python3 is very good.\nBecause not just osp10 but osp13 is still using python2 as a base python, so the final value here is much bigger.",
+      "parentUuid": "76231be8_d783aead",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 2
+      },
+      "revId": "6a4c82b61c7f6cbec90b65b0ab833b7fe6e0a88a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "10c74869_56302f07",
         "filename": "roles/tester/tempest/tasks/main.yml",
         "patchSetId": 1
