@@ -1,3 +1,6 @@
+# TODO(vkhitrin): Refactor this role due to changes in volume creation
+---
+
 - name: Gets dynamic instances limit per compute
   set_fact:
     dynamic_instances_limit: "{{ hostvars[dut_compute]['guest_limit'] | int }}"

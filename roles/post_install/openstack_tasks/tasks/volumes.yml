@@ -1,15 +1,40 @@
 ---
-- name: "Volumes {{ resource_state }}"
+
+- name: (WORKAROUND) Fetch Hypervisor ID If Required
+  block:
+    - name: Translate Hypervisor Hostname To ID
+      set_fact:
+        volume_hypervisor: >-
+            "{{ cloud_hypervisors_shell_output['stdout'] |
+                from_json |
+                selectattr('Hypervisor Hostname', 'match', item['scheduler_hints']['same_host']) |
+                map(attribute='ID') |
+                list |
+                first | default('') }}"
+
+    - name: Parse Hypervisor ID
+      set_fact:
+        volume_hypervisor: "{{ volume_hypervisor | replace('\"', '') }}"
+
+    - name: Failed To Discover Hypervisor ID
+      fail:
+        msg: "Failed to discover ID for hypervisor: {{ item['scheduler_hints']['same_host'] }}"
+      when: not volume_hypervisor
+  when:
+    - resource_state == 'present'
+    - item['scheduler_hints'] is defined
+    - item['scheduler_hints']['same_host'] is defined
+    - cloud_hypervisors_shell_output is not skipped
+
+- name: "Volume {{ resource_state }}"
   vars:
     ansible_python_interpreter: "{{ venv_path }}/bin/python"
   os_volume:
     state: "{{ resource_state }}"
-    cloud: "{{ item.cloud_name | default(cloud_name) }}"
-    availability_zone: "{{ item.availability_zone }}"
-    size: "{{ item.size }}"
-    display_name: "{{ item.name }}"
+    cloud: "{{ item['cloud_name'] | default(cloud_name) }}"
+    availability_zone: "{{ item['availability_zone'] }}"
+    size: "{{ item['size'] }}"
+    display_name: "{{ item['name'] }}"
     validate_certs: "{{ validate_certs | default(omit) }}"
     scheduler_hints:
-      same_host: "{{ item.name | replace('dynamicvolume', 'dynamicinstance') }}"
-      when: ephemeral | default(False)
-  loop: "{{ generated_dynamic_volumes | flatten(levels=1) }}"
+      same_host: "{{ volume_hypervisor | default(omit) }}"

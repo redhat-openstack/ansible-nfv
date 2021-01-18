@@ -2,8 +2,6 @@
 
 * trex/performance_scenario - Execute performance scenario using trex server.  
   Roles that are used in the playbook:  
-  * post_install/dynamic_instances_count
-  * post_install/prepare_dynamic_instances
   * post_install/openstack_tasks
   * post_install/dynamic_host_inventory
   * packet_gen/trex/compute_tuning

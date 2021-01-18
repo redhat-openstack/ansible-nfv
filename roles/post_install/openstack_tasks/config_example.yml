@@ -2,6 +2,7 @@
 setup_os_env: true
 user: true
 quota: true
+volume: true
 network: true
 net_port: true
 aggregate: true
@@ -43,6 +44,26 @@ users:
     project: nfv_user2
     domain: default
     role: member
+
+# Volumes
+# Populate OpenStack Cinder volumes
+# Scheduler hints may be used in order to assist scheduler, available hints:
+#   - 'same_host': Create volume on the same host where the instance is located at.
+#                  It is required to provide an hypervisor ID but this is not intuitive
+#                  since the ID is unique and generated during deployment.
+#                  We expect the user to provide the FQDN of the hypervisor, and the play
+#                  will attempt to discover the correct ID.
+volumes:
+  - name: 'os_volume_1'
+    cloud_name: 'overcloud'
+    availability_zone: 'nova'
+    size: 1
+  - name: 'os_volume_2'
+    cloud: 'overcloud'
+    availability_zone: 'nova'
+    size: 1
+    scheduler_hints:
+      same_host: 'computeovsdpdksriov-0.localdomain'
 
 # Networks
 # Define the networks that should be created on the overcloud.
@@ -218,6 +239,20 @@ instances:
         network: sriov-1
         type: direct
         port_security: false
+  - name: vm4
+    groups: hci
+    flavor: m1.medium.huge_pages
+    image: centos7
+    key_name: test_keypair
+    sec_groups: test_secgroup
+    config_drive: true
+    volumes:
+      - 'os_volume_1'
+      - 'os_volume_2'
+    nics: net-name=management_net_numa1_114
+    floating_ip:
+      ext_net: external_net_numa1_419
+      int_net: management_net_numa1_114
 
 # The path to the file output of the created resources.
 resources_output_file: /home/stack/resources_output_file.yml
