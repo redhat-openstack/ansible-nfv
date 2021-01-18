@@ -49,6 +49,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "da15950d_ba98d1ab",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-01-18T08:35:22Z",
+      "side": 1,
+      "message": "Hi is see it as LGTMT\n\nI will explain, CI stestr moved from single run command to regexp the option to run --no-discover should get a parameter of test class or id\n\nstestr run --help\n  --no-discover TEST_ID, -n TEST_ID\n                        Takes in a single test to bypasses test discover and\n                        just execute the test specified. A file may be used in\n                        place of a test name.\n\nSo, the move to regex, does not permit the status we had before, no discovery\n\nI would like to hear other reviewers here, added to review\n\n@vkhitrin, @mnietoji, @supadhya",
+      "parentUuid": "cfdff4df_8aa2d2b5",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 2
+      },
+      "revId": "6a4c82b61c7f6cbec90b65b0ab833b7fe6e0a88a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "10c74869_56302f07",
         "filename": "roles/tester/tempest/tasks/main.yml",
         "patchSetId": 1
