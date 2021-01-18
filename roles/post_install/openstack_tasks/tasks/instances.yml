@@ -10,7 +10,7 @@
     name: "{{ item.name }}"
     image: "{{ item.image | default(images[0].name) }}"
     flavor: "{{ item.flavor | default(flavors[0].name) }}"
-    volumes: "{% if 'dynamicinstance' in item.name %}['{{ item.name | replace('dynamicinstance', 'dynamicvolume') }}']{% else %}{{ [] }} {% endif %}"
+    volumes: "{{ item['volumes'] | default(omit) }}"
     key_name: "{{ item.key_name | default(omit) }}"
     security_groups: "{{ item.sec_groups | default(omit) }}"
     userdata: "{% if item.userdata is defined %}{{ item.userdata }}{% else %}{{ global_userdata | default(omit) }}{% endif %}"
