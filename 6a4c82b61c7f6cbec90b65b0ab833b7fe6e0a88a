@@ -168,6 +168,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "211f0d05_6f90f322",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-01-18T18:30:58Z",
+      "side": 1,
+      "message": "Please refer correspondence above, if working with regexp, it could be intermediate solution till we will move tempest to work only with python3",
+      "parentUuid": "94d8812f_f26dd4d5",
+      "range": {
+        "startLine": 62,
+        "startChar": 30,
+        "endLine": 62,
+        "endChar": 35
+      },
+      "revId": "6a4c82b61c7f6cbec90b65b0ab833b7fe6e0a88a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "10c74869_56302f07",
         "filename": "roles/tester/tempest/tasks/main.yml",
         "patchSetId": 1
