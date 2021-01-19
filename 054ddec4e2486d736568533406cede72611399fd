@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c7e762c8_7775994f",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-01-19T13:11:50Z",
+      "side": 1,
+      "message": "I don\u0027t like that workaround at all.\nBut I had a discussion with Sanjay, which convinced me that no resources will be allocated to work on osp 10, so this workaround will allow us to complete a task with a minimum required resources.\n\nElla, please, add a comment above the task:\n\n# (TODO): Remove the workaround once OSP10 support is over.",
+      "range": {
+        "startLine": 225,
+        "startChar": 0,
+        "endLine": 225,
+        "endChar": 2
+      },
+      "revId": "054ddec4e2486d736568533406cede72611399fd",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
