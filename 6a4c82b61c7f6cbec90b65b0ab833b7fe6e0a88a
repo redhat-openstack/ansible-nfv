@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "32361aeb_6a88f3fd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1007976
+      },
+      "writtenOn": "2021-01-19T08:17:06Z",
+      "side": 1,
+      "message": "Please resubmit with the minor changes and lets get this approved.",
+      "revId": "6a4c82b61c7f6cbec90b65b0ab833b7fe6e0a88a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5f4e363a_fd7e097c",
@@ -185,6 +202,30 @@
         "startChar": 30,
         "endLine": 62,
         "endChar": 35
+      },
+      "revId": "6a4c82b61c7f6cbec90b65b0ab833b7fe6e0a88a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b64227bc_da09429c",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1007976
+      },
+      "writtenOn": "2021-01-19T08:17:06Z",
+      "side": 1,
+      "message": "I am ok with the w/a since this is OSP10 and may not be required to be maintained. My suggestion is to go ahead with this w/a for the moment. We will remove this once OSP10 is out of our CI. I would strongly suggest to get the OSP10 CI working in whatever crude w/a required.",
+      "parentUuid": "e26c1c43_f9753368",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 2
       },
       "revId": "6a4c82b61c7f6cbec90b65b0ab833b7fe6e0a88a",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
