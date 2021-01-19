@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "61efbc8d_a2e94ed4",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-01-19T08:55:17Z",
+      "side": 1,
+      "message": "Since it is running after pip install, neutron\nIs there is ansible retry after that, i suspect it the fix will not be cached",
+      "range": {
+        "startLine": 62,
+        "startChar": 2,
+        "endLine": 62,
+        "endChar": 39
+      },
+      "revId": "26e175ccc9eba6f6fd8ba49a36e8d5f0db30373d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
