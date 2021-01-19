@@ -22,6 +22,30 @@
       },
       "revId": "26e175ccc9eba6f6fd8ba49a36e8d5f0db30373d",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "804b441e_59bd8593",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2021-01-19T13:06:21Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "61efbc8d_a2e94ed4",
+      "range": {
+        "startLine": 62,
+        "startChar": 2,
+        "endLine": 62,
+        "endChar": 39
+      },
+      "revId": "26e175ccc9eba6f6fd8ba49a36e8d5f0db30373d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
