@@ -228,7 +228,7 @@
     path: "{{ tempest_dir }}/neutron-tempest-plugin/neutron_tempest_plugin/scenario/test_qos.py"
     insertbefore: BOF
     line: '# -*- encoding: utf-8 -*-'
-  when: overcloud_version | int == 10
+  when: overcloud_version | int < 16
 
 - name: Execute the tempest tests and save the results
   tags: run_tempest_test
