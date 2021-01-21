@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c300252e_349d996f",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-01-21T14:24:43Z",
+      "side": 1,
+      "message": "Should be \u003e\u003d\nAs the \"include-list\" should be used in version 16 and above.",
+      "range": {
+        "startLine": 239,
+        "startChar": 34,
+        "endLine": 239,
+        "endChar": 35
+      },
+      "revId": "b8cf45c8f442fbc872ff1395956d04f2ee454ee7",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
