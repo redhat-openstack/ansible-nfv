@@ -236,7 +236,7 @@
     source {{ tempest_dir }}/venv/bin/activate;
     stestr run --serial --subunit
     {% if tests_regex %}"{{ tests_regex }}"{% endif %}
-    {% if overcloud_version | int >= 13 and tests_include_list %}--include-list {{ tempest_dir }}/{{ tests_include_list | basename }}
+    {% if overcloud_version | int < 16 and tests_include_list %}--include-list {{ tempest_dir }}/{{ tests_include_list | basename }}
     {% elif tests_include_list %}--whitelist-file {{ tempest_dir }}/{{ tests_include_list | basename }}{% endif %}
     >> .stestr/tempest_results.subunit
   args:
