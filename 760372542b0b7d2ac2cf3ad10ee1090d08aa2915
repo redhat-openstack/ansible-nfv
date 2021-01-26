@@ -16,6 +16,52 @@
       "message": "recheck",
       "revId": "760372542b0b7d2ac2cf3ad10ee1090d08aa2915",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "511b83f9_b0e2e571",
+        "filename": "roles/post_install/openstack_tasks/config_example.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-01-26T12:00:59Z",
+      "side": 1,
+      "message": "I think we can omit that.",
+      "range": {
+        "startLine": 66,
+        "startChar": 39,
+        "endLine": 66,
+        "endChar": 51
+      },
+      "revId": "760372542b0b7d2ac2cf3ad10ee1090d08aa2915",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8de0f66f_b46de8e0",
+        "filename": "roles/post_install/openstack_tasks/config_example.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-01-26T12:00:59Z",
+      "side": 1,
+      "message": "Please, change to the list definition as in line 234-235.\nThat way is more easy to read it.",
+      "range": {
+        "startLine": 252,
+        "startChar": 10,
+        "endLine": 252,
+        "endChar": 43
+      },
+      "revId": "760372542b0b7d2ac2cf3ad10ee1090d08aa2915",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
