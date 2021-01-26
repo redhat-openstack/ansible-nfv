@@ -57,7 +57,7 @@
       - pip>=10.0.1
       - setuptools>=39.0.0
       - openstacksdk>=0.39,<0.40.0 ; python_version < '3'
-      - openstacksdk>=0.39 ; python_version >= '3'
+      - openstacksdk<=0.52 ; python_version >= '3'
     virtualenv: "{{ venv_path }}"
 
 - name: Generate clouds.yaml file
