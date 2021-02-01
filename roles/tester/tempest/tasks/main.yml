@@ -177,6 +177,9 @@
         {% if tempest_config is defined %}
         nfv_plugin_options.external_config_file {{ tempest_dir }}/{{ tempest_config | basename }} \
         {% endif %}
+        {% if overcloud_version | int >= 13 %}
+        nfv_plugin_options.use_neutron_api_v2 "true" \
+        {% endif %}
         {% if generate_accounts %}
         auth.test_accounts_file {{ accounts_file_path }} \
         auth.use_dynamic_credentials false \
