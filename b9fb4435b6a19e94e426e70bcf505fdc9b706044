@@ -16,6 +16,24 @@
       "message": "No need to add it\nPlease start using deployer-input tempest-conf in THTS",
       "revId": "b9fb4435b6a19e94e426e70bcf505fdc9b706044",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e13a83d0_5c9426c1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-02-02T14:55:35Z",
+      "side": 1,
+      "message": "I think start using deployer-input for the tempest is a big, separate task.\nIt means we need to move all the parameters we providing here to the deployer input file and remove them from here.\n\nOtherwise, we are creating a split configuration situation.\nI suggest to merge this patch and in the dedicated task for moving the parameters for the nfv tempest plugin into the deployer-input file, perform all the changes at once.",
+      "parentUuid": "62e0c3e6_c99a779d",
+      "revId": "b9fb4435b6a19e94e426e70bcf505fdc9b706044",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
