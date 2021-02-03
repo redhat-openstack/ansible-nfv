@@ -34,6 +34,24 @@
       "parentUuid": "62e0c3e6_c99a779d",
       "revId": "b9fb4435b6a19e94e426e70bcf505fdc9b706044",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0e5f7a56_012c5f35",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2021-02-03T09:29:12Z",
+      "side": 1,
+      "message": "In my opinion the way of doing that is to add the deployer_input.conf without removing the command generation in the ansible and the slowly moving parameters to the deployer input conf for each deployment\nit should be pretty simple to validate cause all you actually need to validate is the output tempest.conf\n\nalso IMO we should call it tempest-deployer-input.ini for ide\u0027s to recognize the file type...",
+      "parentUuid": "e13a83d0_5c9426c1",
+      "revId": "b9fb4435b6a19e94e426e70bcf505fdc9b706044",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
