@@ -188,6 +188,19 @@
   register: compute_ovs_version
   delegate_to: "{{ dut_compute }}"
 
+- name: Check If OVN Is Configured
+  command: 'hiera -c /etc/puppet/hiera.yaml enabled_services'
+  become: True
+  register: deployment_hiera_enabled_services
+  delegate_to: "{{ dut_compute }}"
+
+- name: Retrieve OVN Version
+  shell: "podman exec -it ovn_controller ovn-sbctl --version | head -n1 | sed 's/.* \\(.*\\)/\\1/g'"
+  become: True
+  when: "'ovn' in deployment_hiera_enabled_services['stdout']"
+  register: ovn_version
+  delegate_to: "{{ dut_compute }}"
+
 - name: Fetch puddle/compose from undercloud
   slurp:
     src: /home/stack/core_puddle_version
@@ -201,6 +214,7 @@
   loop:
     - "OVS_Version: {{ compute_ovs_version['stdout'] }}"
     - "Puddle: {{ deployment_core_puddle['content'] | b64decode }}"
+    - "OVN_Version: {{ ovn_version['stdout'] }}"
   delegate_to: "{{ groups['undercloud'] | first }}"
 
 - name: Print Perfomance Result JSON
