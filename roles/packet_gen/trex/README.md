@@ -396,12 +396,19 @@ Number of unique flows.
 `1` by default.
 trex_flows: 1
 
-Minimum rate for of packets to generate, sized in mpps(milion packets per second).
+Minimum rate of packets to generate, sized in mpps(milion packets per second).
 
 `2` by default.
 ```
 trex_rate: 2
 ```
+
+Minimum rate of packets per device to generate, sized in mpps(milion packets per second).
+
+Not configured by default
+trex_min_rate: 1
+```
+
 Tiral period in seconds during final validation
 
 `30` by default.
