@@ -69,6 +69,24 @@
       "message": "Hi gus please replay your opinion as discussed in the team meeting ",
       "revId": "b9fb4435b6a19e94e426e70bcf505fdc9b706044",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a21461c_56ea5a30",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2021-02-07T16:36:25Z",
+      "side": 1,
+      "message": "Hey Ella,\n\nI don\u0027t mind having this patch merged currently and moving to deployer_input option.\nHaving those tests running now and being reported is great, the next initiative could be streamline the configuration.",
+      "parentUuid": "9967eb16_70c9dc61",
+      "revId": "b9fb4435b6a19e94e426e70bcf505fdc9b706044",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
