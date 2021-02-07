@@ -24,34 +24,26 @@
       loop: "{{ pkg_ver_list | flatten(levels=1) }}"
   become: true
 
-- name: Ensure virtualenv is present for python2 deployments
-  block:
-    - name: Install pip package
-      easy_install:
-        name: pip
-
-    - name: Check if virtualenv is provided via RPM
-      yum:
-        list: python-virtualenv
-      register: check_virtualenv_rpm_package
-
-# The version of virtualenv hard coded because python 2 has issues installing latest version of dependencies for the virtualenv.
-    - name: Install virtualenv from pypi if RPM is not installed
-      pip:
-        name: virtualenv
-        version: '16.7.9'
-      when: "'installed' not in check_virtualenv_rpm_package | json_query('results[*].yumstate')"
-  become: True
-  when: hostvars[groups['undercloud'][0]]['ansible_python']['version']['major'] == 2
-
-# A pip bug prevents us to use the pip module for the python3 venv creation.
-# Remove when fixed.
-# Reference: https://github.com/ansible/ansible/issues/52275
-- name: Install venv if python3 present
-  command: "{{ ansible_python_interpreter }} -m venv {{ venv_path }}"
+- name: Install virtualenv module
   vars:
     ansible_python_interpreter: /usr/libexec/platform-python
-  when: hostvars[groups['undercloud'][0]]['ansible_python']['version']['major'] == 3
+  command: "{{  ansible_python_interpreter }} -m pip install virtualenv"
+  become: true
+- name: Create virtualenv
+  vars:
+    ansible_python_interpreter: /usr/libexec/platform-python
+  command: "{{ ansible_python_interpreter }} -m virtualenv {{ venv_path }}"
+
+- name: Update virtualenv packages
+  vars:
+    venv: "{%- if hostvars[groups['undercloud'][0]].ansible_facts['python']['version']['major'] == 2 -%}
+           virtualenv==16.7.9
+           {%- elif hostvars[groups['undercloud'][0]].ansible_facts['python']['version']['major'] == 3 -%}
+           virtualenv
+           {%- endif -%}"
+  pip:
+    name: "{{ venv }}"
+    virtualenv: "{{ venv_path }}"
 
 # The update process of pip and setuptools packages should be in a separated task.
 # Otherwise, the order of the install may be flipped over and required
