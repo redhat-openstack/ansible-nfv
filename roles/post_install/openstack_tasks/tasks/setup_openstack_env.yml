@@ -46,8 +46,13 @@
 # A pip bug prevents us to use the pip module for the python3 venv creation.
 # Remove when fixed.
 # Reference: https://github.com/ansible/ansible/issues/52275
-- name: Install venv if python3 present
-  command: "{{ ansible_python.executable }} -m venv {{ venv_path }}"
+- name: Setup venv if python3 present
+  block:
+    - name: Install virtualenv module
+      command: "{{ ansible_python.executable }} -m pip install virtualenv"
+      become: true
+    - name: Create virtualenv
+      command: "{{ ansible_python.executable }} -m virtualenv {{ venv_path }}"
   when: ansible_python.version.major == 3
 
 # The update process of pip and setuptools packages should be in a separated task.
