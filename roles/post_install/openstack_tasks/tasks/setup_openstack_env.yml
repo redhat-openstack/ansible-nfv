@@ -23,51 +23,59 @@
   loop: "{{ pkg_ver_list | flatten(levels=1) }}"
   become: true
 
-- name: Ensure virtualenv is present for python2 deployments
-  block:
-    - name: Install pip package
-      easy_install:
-        name: pip
-
-    - name: Check if virtualenv is provided via RPM
-      yum:
-        list: python-virtualenv
-      register: check_virtualenv_rpm_package
-
-# The version of virtualenv hard coded because python 2 has issues installing latest version of dependencies for the virtualenv.
-    - name: Install virtualenv from pypi if RPM is not installed
-      pip:
-        name: virtualenv
-        version: '16.7.9'
-      when: "'installed' not in check_virtualenv_rpm_package | json_query('results[*].yumstate')"
-  become: True
-  when: hostvars[groups['undercloud'][0]]['ansible_python']['version']['major'] == 2
-
-# A pip bug prevents us to use the pip module for the python3 venv creation.
-# Remove when fixed.
-# Reference: https://github.com/ansible/ansible/issues/52275
-- name: Install venv if python3 present
-  command: "{{ ansible_python.executable }} -m venv {{ venv_path }}"
-  when: ansible_python.version.major == 3
-
-# The update process of pip and setuptools packages should be in a separated task.
-# Otherwise, the order of the install may be flipped over and required
-# packages will be installed before updating the pip and setuptools and as a result, fail.
-- name: Update pip and setuptools packages
+# Check if pip installed
+- name: Check if pip package installed
   vars:
-    ansible_python_interpreter: /usr/libexec/platform-python
-  pip:
-    name:
-      - pip>=10.0.1
-      - setuptools>=39.0.0
-    virtualenv: "{{ venv_path }}"
+    pyth_pip: "{%- if ansible_python.version.major == 2 -%}
+                  python-pip
+               {%- elif ansible_python.version.major == 3 -%}
+                  python3-pip
+               {%- endif -%}"
+  package:
+    name: "{{ pyth_pip }}"
+    state: present
+  become: true
+  register: pip_exist
+  ignore_errors: yes
 
-- name: Install virtualenv packages
+- block:
+    - name: download pip from pypi
+      vars:
+        pip_pypi: "{%- if ansible_python.version.major == 2 -%}
+                      https://bootstrap.pypa.io/pip/2.7/get-pip.py
+                   {%- elif ansible_python.version.major == 3 -%}
+                      https://bootstrap.pypa.io/pip/get-pip.py
+                   {%- endif -%}"
+      get_url:
+        dest: "/tmp/get-pip.py"
+        url: "{{ pip_pypi }}"
+        timeout: 100
+
+    - name: Install pip
+      vars:
+        ansible_python_interpreter: /usr/libexec/platform-python
+      command: "{{ ansible_python_interpreter }} /tmp/get-pip.py"
+      become: true
+  when: pip_exist.rc > 0 or ansible_python.version.major == 2
+
+- name: Install virtualenv module
+  vars:
+    packages: "{%- if ansible_python.version.major == 2 -%}
+                 virtualenv==16.7.9
+               {%- elif ansible_python.version.major == 3 -%}
+                 setuptools, virtualenv
+               {%- endif -%}"
+  pip:
+    name: "{{ packages }}"
+  when: pip_exist.rc == 0
+
+- name: Install create virtualenv and openstacksdk packages
   pip:
     name:
       - openstacksdk>=0.39,<0.40.0 ; python_version < '3'
       - openstacksdk<=0.52 ; python_version >= '3'
     virtualenv: "{{ venv_path }}"
+    virtualenv_command: "/usr/libexec/platform-python -m virtualenv"
 
 - name: Generate clouds.yaml file
   import_tasks: clouds.yml
