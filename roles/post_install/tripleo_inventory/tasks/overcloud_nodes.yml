@@ -47,8 +47,13 @@
 # A pip bug prevents us to use the pip module for the python3 venv creation.
 # Remove when fixed.
 # Reference: https://github.com/ansible/ansible/issues/52275
-- name: Install venv if python3 present
-  command: "{{ ansible_python_interpreter }} -m venv {{ venv_path }}"
+- name: Setup virtualenv if python3 present
+  block:
+    - name: Install virtualenv module
+      command: "{{ ansible_python_interpreter }} -m pip install virtualenv"
+      become: true
+    - name: Create virtualenv
+      command: "{{  ansible_python_interpreter }} -m virtualenv {{ venv_path }}"
   vars:
     ansible_python_interpreter: /usr/libexec/platform-python
   when: hostvars[groups['undercloud'][0]]['ansible_python']['version']['major'] == 3
