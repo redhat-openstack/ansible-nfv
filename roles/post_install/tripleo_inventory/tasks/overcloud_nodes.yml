@@ -53,13 +53,23 @@
     ansible_python_interpreter: /usr/libexec/platform-python
   when: hostvars[groups['undercloud'][0]]['ansible_python']['version']['major'] == 3
 
-- name: Install venv packages
+# The update process of pip and setuptools packages should be in a separated task.
+# Otherwise, the order of the install may be flipped over and required
+# packages will be installed before updating the pip and setuptools and as a result, fail.
+- name: Update pip and setuptools packages
   vars:
     ansible_python_interpreter: /usr/libexec/platform-python
   pip:
     name:
       - pip>=10.0.1
       - setuptools>=39.0.0
+    virtualenv: "{{ venv_path }}"
+
+- name: Install venv packages
+  vars:
+    ansible_python_interpreter: /usr/libexec/platform-python
+  pip:
+    name:
       - openstacksdk>=0.39,<0.40.0 ; python_version < '3'
       - openstacksdk>=0.39 ; python_version >= '3'
     virtualenv: "{{ venv_path }}"

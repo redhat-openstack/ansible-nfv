@@ -20,9 +20,29 @@
   import_tasks: quota.yml
   when: quota|bool
 
-- name: Volumes
+# In some OSP releases it is required to provide hypervisor ID to the scheduler hint
+# Since the ID is generated during deployment, we can't expect a user to provide it every
+# single time.
+# We will attempt to fetch the hypervisor ID based on the provided hypervisor name.
+# Also, in order to receive the full ID of hypervisor nodes, we require to use Nova API
+# microversion 2.53 or higher
+- name: Volumes block
   tags: volume
-  import_tasks: volumes.yml
+  block:
+    - name: Retrieve Hypervisors If Required
+      environment:
+        OS_COMPUTE_API_VERSION: 2.53
+      command: >
+        openstack --os-cloud "{{ item['cloud_name'] | default(cloud_name) }}"
+        hypervisor list -f json
+      register: cloud_hypervisors_shell_output
+      when:
+        - resource_state == 'present'
+        - volumes | flatten(levels=1) | selectattr('scheduler_hints', 'defined') | map(attribute='scheduler_hints') | selectattr('same_host', 'defined') | list
+
+    - name: Volumes
+      include_tasks: volumes.yml
+      loop: "{{ volumes | flatten(levels=1) }}"
   when: volume|bool
 
 - name: Security groups creation
