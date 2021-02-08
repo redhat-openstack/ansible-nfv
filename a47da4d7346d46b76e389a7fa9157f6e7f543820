@@ -18,6 +18,24 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "be4a6469_fc50e667",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-02-08T09:44:24Z",
+      "side": 1,
+      "message": "Completely agree with Sanjay.\nUsing a builtin way of creating the virtualenv \"python -m venv \u003cvenv_path\u003e\" is a proffered and recommended way of creating the virtual environment.\n\nI would say as well that the reason for the failure is something else.\n\nLet\u0027s me know, if you need any help in debugging.",
+      "parentUuid": "5258aadd_1a8ad9c1",
+      "revId": "a47da4d7346d46b76e389a7fa9157f6e7f543820",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "6d08537c_16390149",
