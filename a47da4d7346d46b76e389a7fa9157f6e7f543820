@@ -54,6 +54,24 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "5044f780_5db2011a",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-02-08T22:03:04Z",
+      "side": 1,
+      "message": "I not sure I understand the reason to continue this patch.\nThe issue with the pip packages install failure bas been sorted in the patch - https://review.gerrithub.io/c/redhat-openstack/ansible-nfv/+/510452\n\nI have tested it on both osp 16.1 and osp 13 so we are covered for both python3 and python2 versions.",
+      "parentUuid": "ada7e749_f4a97b1b",
+      "revId": "a47da4d7346d46b76e389a7fa9157f6e7f543820",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "6d08537c_16390149",
