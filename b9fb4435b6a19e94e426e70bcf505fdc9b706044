@@ -87,6 +87,23 @@
       "parentUuid": "9967eb16_70c9dc61",
       "revId": "b9fb4435b6a19e94e426e70bcf505fdc9b706044",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9e0d7e5b_6bcf04ef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1007976
+      },
+      "writtenOn": "2021-02-08T06:59:25Z",
+      "side": 1,
+      "message": "We can add deployer_input in next iteration.",
+      "revId": "b9fb4435b6a19e94e426e70bcf505fdc9b706044",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
