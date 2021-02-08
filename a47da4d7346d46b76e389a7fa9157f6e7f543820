@@ -53,6 +53,23 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "45a56b10_856ad47a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-02-08T10:39:06Z",
+      "side": 1,
+      "message": "Please refer this\nhttps://virtualenv.pypa.io/en/stable/\n\nvenv is subset with of virtualenv, it could be installed through pip\nand could be extendable\n\nI do not know how to move on, sorry comrades \n",
+      "revId": "a47da4d7346d46b76e389a7fa9157f6e7f543820",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "9360a296_46f33d71",
