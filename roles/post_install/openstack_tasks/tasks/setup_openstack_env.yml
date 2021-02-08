@@ -50,12 +50,21 @@
   command: "{{ ansible_python.executable }} -m venv {{ venv_path }}"
   when: ansible_python.version.major == 3
 
-# Install pip and setuptools should happen before other rpackages
-- name: Install virtualenv packages
+# The update process of pip and setuptools packages should be in a separated task.
+# Otherwise, the order of the install may be flipped over and required
+# packages will be installed before updating the pip and setuptools and as a result, fail.
+- name: Update pip and setuptools packages
+  vars:
+    ansible_python_interpreter: /usr/libexec/platform-python
   pip:
     name:
       - pip>=10.0.1
       - setuptools>=39.0.0
+    virtualenv: "{{ venv_path }}"
+
+- name: Install virtualenv packages
+  pip:
+    name:
       - openstacksdk>=0.39,<0.40.0 ; python_version < '3'
       - openstacksdk<=0.52 ; python_version >= '3'
     virtualenv: "{{ venv_path }}"
