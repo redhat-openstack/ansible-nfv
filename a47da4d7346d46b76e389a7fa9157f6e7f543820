@@ -36,6 +36,24 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "ada7e749_f4a97b1b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-02-08T21:03:30Z",
+      "side": 1,
+      "message": "This patch has backwards compatibility with old openstacksdk\u003d\u003d0.39 either",
+      "parentUuid": "be4a6469_fc50e667",
+      "revId": "a47da4d7346d46b76e389a7fa9157f6e7f543820",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "6d08537c_16390149",
@@ -101,6 +119,30 @@
       "writtenOn": "2021-02-08T07:17:19Z",
       "side": 1,
       "message": "should be virtualenv",
+      "range": {
+        "startLine": 49,
+        "startChar": 14,
+        "endLine": 49,
+        "endChar": 18
+      },
+      "revId": "a47da4d7346d46b76e389a7fa9157f6e7f543820",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c48e4cfb_0dc93d53",
+        "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-02-08T21:03:30Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "9360a296_46f33d71",
       "range": {
         "startLine": 49,
         "startChar": 14,
