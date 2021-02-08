@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "5258aadd_1a8ad9c1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1007976
+      },
+      "writtenOn": "2021-02-08T07:17:19Z",
+      "side": 1,
+      "message": "I would suggest to debug more on the error, it is most likely the error is for a different reason. The preferred way for virtualenv in python3 is via venv and its inbuilt, not requiring additional packages. so lets see how we can keep on using the preferred way",
+      "revId": "a47da4d7346d46b76e389a7fa9157f6e7f543820",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "6d08537c_16390149",
@@ -14,6 +31,29 @@
       "writtenOn": "2021-02-07T21:27:39Z",
       "side": 1,
       "message": "Received -1, since this fix, tends to fix gate -1\nFYI",
+      "revId": "a47da4d7346d46b76e389a7fa9157f6e7f543820",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9360a296_46f33d71",
+        "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 1007976
+      },
+      "writtenOn": "2021-02-08T07:17:19Z",
+      "side": 1,
+      "message": "should be virtualenv",
+      "range": {
+        "startLine": 49,
+        "startChar": 14,
+        "endLine": 49,
+        "endChar": 18
+      },
       "revId": "a47da4d7346d46b76e389a7fa9157f6e7f543820",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
