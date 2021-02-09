@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b3acedb0_0d2bab09",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-02-09T15:08:54Z",
+      "side": 1,
+      "message": "Thanks @saneax\nfrom here \n\nI missed that https://docs.python.org/3/library/venv.html#:~:text\u003dDeprecated%20since%20version%203.6%3A%20pyvenv,recommended%20for%20creating%20virtual%20environments.\n\n",
+      "revId": "27c390bf0ba084751588090c53087671cf2291be",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
