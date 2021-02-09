@@ -90,6 +90,24 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "257420f2_c2e657c4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-02-09T08:20:36Z",
+      "side": 1,
+      "message": "Yariv, it has nothing with stability.\nThe virtualenv package is not more stable than the venv, just because the fact that venv package integrated into the python and should not be installed separately.\nAlso, that is the preferred way of creating virtualenv in python 3.\n\nNow, if you will read once again the fix patch, you will see that the issue happened because the openstacksdk package tried to be install on the old pip package, because the order of the install in pip ansible module flipped over.\n\nThe issue started because the cryptography package has been updated and required an updated pip.\nThe cryptography is a dependency of the openstacksdk package, so the installation failed.\n\nWith all mentioned above, it has nothing to the venv package and the root cause of the issue was in a different place.",
+      "parentUuid": "dbd982ee_49c321ee",
+      "revId": "a47da4d7346d46b76e389a7fa9157f6e7f543820",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "6d08537c_16390149",
