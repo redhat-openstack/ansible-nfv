@@ -72,6 +72,24 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "dbd982ee_49c321ee",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-02-09T07:40:58Z",
+      "side": 1,
+      "message": "Main goal is stability\nSince virtualenv is more robust package then venv,\nThose errors occurred, should not pop up, unless new parameters introduced in packages or remote APIs and environment it is more stable\n\nAdditional enhancements could be: \n\nEven python2/3 environment could be created like this.\n python -m virtualenv --python\u003dpython3.6 /tmp/.ir-ci-env-py3\n python -m virtualenv --python\u003dpython2.7 /tmp/.ir-ci-env-py2\n\n\nAny way, virtualenv is supported from python3.3 why not align with standard.\n\nI wonder what others think?",
+      "parentUuid": "5044f780_5db2011a",
+      "revId": "a47da4d7346d46b76e389a7fa9157f6e7f543820",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "6d08537c_16390149",
