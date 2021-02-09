@@ -48,7 +48,7 @@
       {% if dut_type == 'dpdk' or dut_type == 'hwoffload'%}
         --rate {{ trex_rate }}
       {%- endif %}
-      {% if trex_min_rate %}
+      {% if trex_min_rate is defined %}
         --min-rate {{ trex_min_rate }}
       {%- endif %}
       {% if binary_search_use_device_stats %}
