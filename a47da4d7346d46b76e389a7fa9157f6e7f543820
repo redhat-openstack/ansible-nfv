@@ -144,6 +144,24 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "723c0618_29e2daa8",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-02-09T16:18:02Z",
+      "side": 1,
+      "message": "What do you mean by the backward compatibility for openstacksdk?\nAnd how is it relates to the non native way of installing virtualenv in python3?",
+      "parentUuid": "b8d5196a_3bbe9e36",
+      "revId": "a47da4d7346d46b76e389a7fa9157f6e7f543820",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "6d08537c_16390149",
