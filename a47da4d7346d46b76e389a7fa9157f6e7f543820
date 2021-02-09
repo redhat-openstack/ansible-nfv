@@ -108,6 +108,24 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "4559c080_36bd5504",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2021-02-09T12:55:02Z",
+      "side": 1,
+      "message": "As mentioned above, in python3 the recommended way to bootstrap lightweight virtual environments is to use the inbuilt \u0027venv\u0027 module https://docs.python.org/3/library/venv.html.\n\nAlso, as discussed \u0027virtualenv\u0027 module is more robust compared to \u0027venv\u0027 https://virtualenv.pypa.io/en/latest/.\n\nI am trying to understand what is the benefit of using \u0027virtualenv\u0027 compared to \u0027venv\u0027 at the moment, did I miss something?",
+      "parentUuid": "257420f2_c2e657c4",
+      "revId": "a47da4d7346d46b76e389a7fa9157f6e7f543820",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "6d08537c_16390149",
