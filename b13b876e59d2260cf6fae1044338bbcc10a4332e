@@ -33,6 +33,23 @@
       "message": "Maybe should also refer to this BZ and add description above to task explaining about os_port limitations?",
       "revId": "b13b876e59d2260cf6fae1044338bbcc10a4332e",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b41c57c_75e818bc",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-02-11T11:44:17Z",
+      "side": 1,
+      "message": "I think it can be added to the os_port module.\nAt least openstacksdk library already supports the binding profile arguments.\nWill check that.",
+      "revId": "b13b876e59d2260cf6fae1044338bbcc10a4332e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
