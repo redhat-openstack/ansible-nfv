@@ -16,6 +16,23 @@
       "message": "recheck",
       "revId": "b13b876e59d2260cf6fae1044338bbcc10a4332e",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "e757ff1c_bbb55d13",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2021-02-11T11:41:43Z",
+      "side": 1,
+      "message": "Maybe should also refer to this BZ and add description above to task explaining about os_port limitations?",
+      "revId": "b13b876e59d2260cf6fae1044338bbcc10a4332e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
