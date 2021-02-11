@@ -46,6 +46,30 @@
       },
       "revId": "11c8521b6b2038abf1fb5bf9afcb13768421c2c4",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0bcbbbb_d15795a9",
+        "filename": "roles/post_install/openstack_tasks/tasks/networks_and_routers.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-02-11T09:33:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "0c72b575_379bcb02",
+      "range": {
+        "startLine": 123,
+        "startChar": 12,
+        "endLine": 123,
+        "endChar": 39
+      },
+      "revId": "11c8521b6b2038abf1fb5bf9afcb13768421c2c4",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
