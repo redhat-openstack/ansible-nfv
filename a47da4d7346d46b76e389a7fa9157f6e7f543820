@@ -180,6 +180,24 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "882f7268_7072fee0",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-02-11T06:43:25Z",
+      "side": 1,
+      "message": "Your patch worked without my fix.\nIt did the following:\n1) Installed virtualenv package\n2) During the install of virtualenv package, updated the pip package.\n\nAnd number 2 here is the step that fixed the issue.\n\n\nMy patch just updated the pip.\nWithout any additional install requirement.\nThe problem that we faced, is that ansible loop module does not providing the item of the list by order it has. If it were get it by order we were never see that issue.\n\nAs by the link posted above, current method (using venv python module), it the preferred method in python3.\nI don\u0027t see any reason to replace it and add additional dependency of virtualenv package.\n\nAnd regarding the stability, using an integrated package into python is more stable that installing external package.",
+      "parentUuid": "14dd4d0d_6e3a270a",
+      "revId": "a47da4d7346d46b76e389a7fa9157f6e7f543820",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "6d08537c_16390149",
