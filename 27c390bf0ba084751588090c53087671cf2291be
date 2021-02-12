@@ -16,6 +16,23 @@
       "message": "Thanks @saneax\nfrom here \n\nI missed that https://docs.python.org/3/library/venv.html#:~:text\u003dDeprecated%20since%20version%203.6%3A%20pyvenv,recommended%20for%20creating%20virtual%20environments.\n\n",
       "revId": "27c390bf0ba084751588090c53087671cf2291be",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "28ad75e1_06db7b3b",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1016373
+      },
+      "writtenOn": "2021-02-12T09:12:58Z",
+      "side": 1,
+      "message": "I think that the fix reported in the subject of this patch was already fixed with other patch. About the possibility of integrating virtualenv with python3 instead of integrated venv I do not have an opinion. I do not know if this patch will help us to solve other issues in the future or not.",
+      "revId": "27c390bf0ba084751588090c53087671cf2291be",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
