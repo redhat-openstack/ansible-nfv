@@ -252,6 +252,24 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "71aae283_f65b29e9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2021-02-15T06:01:19Z",
+      "side": 1,
+      "message": "1) We could use version locking like we do in the tempest plugin, if the python interpreter is python3 we use a certain version and same with python2 interpreter.\n\n2) I think that OSP13 will be completely EOL in 2023, according to [0], so I think we will have to support it for a while.\n\nRegardless, this is just my opinion on this topic.\n\n[0] https://access.redhat.com/support/policy/updates/openstack/platform",
+      "parentUuid": "2b6b816e_86e4ebe2",
+      "revId": "a47da4d7346d46b76e389a7fa9157f6e7f543820",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "6d08537c_16390149",
