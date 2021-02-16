@@ -210,14 +210,20 @@
   register: deployment_core_puddle
   delegate_to: "{{ groups['undercloud'] | first }}"
 
-- name: Append extra info to performance log
+- name: Append extra info to performance log for OVS
   lineinfile:
     path: "{{ binary_perf_log }}"
     line: "{{ item }}"
   loop:
     - "OVS_Version: {{ compute_ovs_version['stdout'] }}"
     - "Puddle: {{ deployment_core_puddle['content'] | b64decode }}"
-    - "OVN_Version: {{ ovn_version['stdout'] }}"
+  delegate_to: "{{ groups['undercloud'] | first }}"
+
+- name: Append extra OVN version to log
+  lineinfile:
+    path: "{{ binary_perf_log }}"
+    line: "OVN_Version: {{ ovn_version['stdout'] }}"
+  when: ovn_version.stdout != ""
   delegate_to: "{{ groups['undercloud'] | first }}"
 
 - name: Print Perfomance Result JSON
