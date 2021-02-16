@@ -3,6 +3,29 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c07acd17_5cda7d7b",
+        "filename": "roles/post_install/igmp_querier/README.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-02-16T19:12:14Z",
+      "side": 1,
+      "message": "Does this configuration needs to be removed later, or it is a part of igmp scenario configuration.",
+      "range": {
+        "startLine": 3,
+        "startChar": 3,
+        "endLine": 3,
+        "endChar": 8
+      },
+      "revId": "080206cd7e137e25baf4e6118fe0b19b2611b9cf",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a193ac44_c1ec708f",
         "filename": "roles/post_install/igmp_querier/tasks/main.yml",
         "patchSetId": 7
@@ -19,6 +42,53 @@
         "startChar": 32,
         "endLine": 4,
         "endChar": 54
+      },
+      "revId": "080206cd7e137e25baf4e6118fe0b19b2611b9cf",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "006a78a1_75a2dd19",
+        "filename": "roles/post_install/igmp_querier/tasks/main.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-02-16T19:12:14Z",
+      "side": 1,
+      "message": "I agree with Yariv.\nThis is a standalone role.\nIt means that it needs defaults defined.\nAs per now, it get the variables from the play, but if some small part will be changed, it may fail on undefined variable.\n\nPlease, add a defaults for all variable used here.\nIncluding \"cloud_name\".",
+      "parentUuid": "a193ac44_c1ec708f",
+      "range": {
+        "startLine": 4,
+        "startChar": 32,
+        "endLine": 4,
+        "endChar": 54
+      },
+      "revId": "080206cd7e137e25baf4e6118fe0b19b2611b9cf",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d3eccb87_c19b54ba",
+        "filename": "roles/post_install/igmp_querier/tasks/main.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-02-16T19:12:14Z",
+      "side": 1,
+      "message": "You mentioned that this config is for ovn only.\nJust throwing an idea.\nMaybe add a check for ovn/osv deployment?",
+      "range": {
+        "startLine": 8,
+        "startChar": 11,
+        "endLine": 8,
+        "endChar": 23
       },
       "revId": "080206cd7e137e25baf4e6118fe0b19b2611b9cf",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
