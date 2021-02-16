@@ -123,6 +123,55 @@
       loop: "{{ instances | subelements('net_ports', 'skip_missing=True') }}"
       when: net_port and item.1.binding_profile is defined
 
+    - name: Get network ports
+      vars:
+        ansible_python_interpreter: "{{ venv_path }}/bin/python"
+      os_port_info:
+        cloud: "{{ cloud_name }}"
+      register: network_ports
+ 
+    - name: filter networks with igmp querier
+      set_fact:
+         igmp_snooping_networks: "{{ igmp_snooping_networks | default([]) + [[ item ]] }}"
+      loop: "{{ networks }}"
+      when:
+        - item.igmp_querier is defined
+        - item.igmp_querier
+ 
+    - name: get igmp queriers parameters
+      set_fact:
+        igmp_queriers: "{{ igmp_snooping_ports | default([]) +
+        [ {'ip_address':item[1].gateway_ip
+        ,'logical_switch':'neutron-'+item[0].network_id
+        ,'mac_address':item[0].mac_address}] }}"
+      with_nested:
+        - "{{ network_ports.openstack_ports }}"
+        - "{{ igmp_snooping_networks }}"
+      when:
+        - item[1].gateway_ip in (item[0].fixed_ips | map(attribute='ip_address') | list)
+
+    - name: generate igmp querier ovn configuration commands
+      set_fact:
+        igmp_queriers_cmds: "{{ igmp_queriers_cmds | default([]) +
+        [ 'ovn-nbctl set Logical_Switch ' + item.logical_switch
+          + ' other_config:mcast_ip4_src=' + item.ip_address
+        , 'ovn-nbctl set Logical_Switch ' + item.logical_switch
+          + ' other_config:mcast_eth_src=' + item.mac_address ] }}"
+      loop: "{{ igmp_queriers }}"
+
+    - name: generate podman commands
+      set_fact:
+        igmp_queriers_podman_cmds: "{{ igmp_queriers_podman_cmds | default([]) +
+        [ 'podman exec -it ovn_controller ' + item ] }}"
+      loop: "{{ igmp_queriers_cmds }}"
+ 
+    - name: configure igmp_queriers
+      delegate_to: "{{ groups['controller'] | first }}"
+      become: true
+      command:
+         cmd: "{{ item }}"
+      loop: "{{ igmp_queriers_podman_cmds }}"
+
   when: resource_state == 'present'
 
 - name: Delete networks and routers
