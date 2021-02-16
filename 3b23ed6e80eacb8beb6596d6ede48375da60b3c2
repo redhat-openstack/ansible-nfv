@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "2770c082_a31050c5",
+        "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-02-16T09:42:53Z",
+      "side": 1,
+      "message": "\u003e That is why in the next task the requirement for the pip version is pip\u003e\u003d10.0.1.\n\u003e Python 2 will install the required version for its need and python 3 will take it own need.\n\nIn that case for python2 \nThere is a need to limit pip \u003c 21.0, otherwise pip2 is not functional\nIt is causing the following:\n\n\"\nTraceback (most recent call last):\n  File \"get-pip.py\", line 24226, in \u003cmodule\u003e\n    main()\n  File \"get-pip.py\", line 199, in main\n    bootstrap(tmpdir\u003dtmpdir)\n  File \"get-pip.py\", line 82, in bootstrap\n    from pip._internal.cli.main import main as pip_entry_point\n  File \"/tmp/tmpUgc5ng/pip.zip/pip/_internal/cli/main.py\", line 60\n    sys.stderr.write(f\"ERROR: {exc}\")\n\"\n\n\n\u003e \n\u003e I have verified my previous fix on both osp 16.1 with python 3 and osp 13 with python 2.\n\n\nMe also, and it was not functional on 13, see below\n\u003e \n\u003e In any case, this is not relevant as the next task will override the pip version.\n\u003e And, I do not want to prevent python 3 environment to get latest updates and fixes from the latest versions of pip.\n\nI think next section is redundant and next section could be move in to here.",
+      "parentUuid": "6d4d521d_b60e46f5",
+      "range": {
+        "startLine": 39,
+        "startChar": 14,
+        "endLine": 39,
+        "endChar": 25
+      },
+      "revId": "3b23ed6e80eacb8beb6596d6ede48375da60b3c2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7f888f1c_0a4cafde",
         "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
         "patchSetId": 4
