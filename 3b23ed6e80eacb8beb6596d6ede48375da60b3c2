@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6e327b0b_644fc5e4",
+        "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-02-16T06:05:22Z",
+      "side": 1,
+      "message": "THe pip package is not needed here.\nPip and setuptools packages updated in the next task and pip package version in the next task set especially to pip\u003e\u003d10.0.1, to give each python version the ability to pull and install the version that meets python version requirement.",
+      "range": {
+        "startLine": 39,
+        "startChar": 14,
+        "endLine": 39,
+        "endChar": 25
+      },
+      "revId": "3b23ed6e80eacb8beb6596d6ede48375da60b3c2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7f888f1c_0a4cafde",
+        "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-02-16T06:05:22Z",
+      "side": 1,
+      "message": "No need",
+      "range": {
+        "startLine": 46,
+        "startChar": 2,
+        "endLine": 46,
+        "endChar": 30
+      },
+      "revId": "3b23ed6e80eacb8beb6596d6ede48375da60b3c2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
