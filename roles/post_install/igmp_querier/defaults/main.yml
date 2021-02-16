@@ -1,0 +1,11 @@
+---
+
+# cloud name
+cloud_name: "nfv_tempest"
+
+# networks list
+networks: []
+
+# Virtual environment path
+venv_path: "/tmp/ansible_venv"
+
