@@ -10,6 +10,8 @@
     - role: post_install/openstack_tasks
       resource_state: present
 
+    - role: post_install/igmp_querier
+
     - role: tester/tempest
 
     - role: post_install/openstack_tasks
