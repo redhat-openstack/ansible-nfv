@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f0c16a67_db582de8",
+        "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-02-16T06:57:46Z",
+      "side": 1,
+      "message": "Correct, But there is an issue with latest pip greater the 20.\nPlease refer https://pip.pypa.io/en/stable/news/#id1",
+      "parentUuid": "6e327b0b_644fc5e4",
+      "range": {
+        "startLine": 39,
+        "startChar": 14,
+        "endLine": 39,
+        "endChar": 25
+      },
+      "revId": "3b23ed6e80eacb8beb6596d6ede48375da60b3c2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7f888f1c_0a4cafde",
         "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
         "patchSetId": 4
