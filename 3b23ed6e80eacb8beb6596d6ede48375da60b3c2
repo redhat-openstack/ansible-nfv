@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6d4d521d_b60e46f5",
+        "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-02-16T07:20:51Z",
+      "side": 1,
+      "message": "That is why in the next task the requirement for the pip version is pip\u003e\u003d10.0.1.\nPython 2 will install the required version for its need and python 3 will take it own need.\n\nI have verified my previous fix on both osp 16.1 with python 3 and osp 13 with python 2.\n\nIn any case, this is not relevant as the next task will override the pip version.\nAnd, I do not want to prevent python 3 environment to get latest updates and fixes from the latest versions of pip.",
+      "parentUuid": "f0c16a67_db582de8",
+      "range": {
+        "startLine": 39,
+        "startChar": 14,
+        "endLine": 39,
+        "endChar": 25
+      },
+      "revId": "3b23ed6e80eacb8beb6596d6ede48375da60b3c2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7f888f1c_0a4cafde",
         "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
         "patchSetId": 4
