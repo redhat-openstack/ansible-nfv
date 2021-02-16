@@ -16,6 +16,23 @@
       "message": "Verified 13 and 16.1",
       "revId": "16c395ada6dd4bb17f5dca42d89399d9f1f26407",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "58fe083d_920f8bec",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-02-16T13:36:54Z",
+      "side": 1,
+      "message": "@Maxim,\nFollowed your guide, it seems that pip version is needed?\nAny other comments before i return pip limitation?",
+      "revId": "16c395ada6dd4bb17f5dca42d89399d9f1f26407",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
