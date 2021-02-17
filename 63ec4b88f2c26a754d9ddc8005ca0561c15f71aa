@@ -74,6 +74,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "79b9ec2f_47341cb6",
+        "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-02-17T08:04:35Z",
+      "side": 1,
+      "message": "\u003e But why here we are not defining the version for the virtualenv package and below we do?\n\nOnly python is enough, on rhel7.9 only python2 exist\nOnce venv created, there is pip2, accordingly for rhel8 and python3 venv pip3\n\n\u003e\u003e If there is python2 installed, it is using this python version, same for 3,\n\u003e\u003e If both it is using that one which is defined in the alternative, in case no -\u003e\u003e python set",
+      "parentUuid": "da620c6b_a17c61ed",
+      "range": {
+        "startLine": 29,
+        "startChar": 55,
+        "endLine": 29,
+        "endChar": 71
+      },
+      "revId": "63ec4b88f2c26a754d9ddc8005ca0561c15f71aa",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "518b7ad9_90f6c017",
         "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
         "patchSetId": 7
