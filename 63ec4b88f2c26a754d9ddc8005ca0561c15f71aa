@@ -218,6 +218,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "53948980_ededb3bb",
+        "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-02-17T19:35:33Z",
+      "side": 1,
+      "message": "\u003e But this is not stopping you from using the pip module.\n\u003e Look at the current code [1]. The pip ansible module is used to install pip.\n\u003e Same should be used for the python3 environment, as the issue [2] has been resolved.\n\u003e \n\u003e Ansible modules could and should be used. It prevents many issues.\n\u003e \n\u003e Let\u0027s hear other team members opinion.\n\u003e \n\u003e [1] - https://github.com/redhat-openstack/ansible-nfv/blob/master/roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml#L38-L44\n\u003e [2] - https://github.com/ansible/ansible/issues/52275\n\nCorrect, but you are installing pip through easy_install\nWhich is in the compute and not virtualenv, \nWe would like to use pip module inside python, no pip dependency in the machine",
+      "parentUuid": "21bb696b_ed126af7",
+      "range": {
+        "startLine": 29,
+        "startChar": 55,
+        "endLine": 29,
+        "endChar": 71
+      },
+      "revId": "63ec4b88f2c26a754d9ddc8005ca0561c15f71aa",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "518b7ad9_90f6c017",
         "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
         "patchSetId": 7
