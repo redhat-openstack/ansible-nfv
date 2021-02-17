@@ -217,6 +217,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "ce0fa34a_73385dee",
+        "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-02-17T11:50:49Z",
+      "side": 1,
+      "message": "+2 Ella\n\n\u003e Why are you using \"command\" module instead of \"pip\" here and in the above task?\n\u003e The issue mentioned in line 48 (in old file) already fixed and should be preset in ansible 2.9.\n\n@Maxim? are you refering using pip with virtualenv set?",
+      "parentUuid": "bdca3926_3cb5c86d",
+      "range": {
+        "startLine": 34,
+        "startChar": 37,
+        "endLine": 34,
+        "endChar": 66
+      },
+      "revId": "63ec4b88f2c26a754d9ddc8005ca0561c15f71aa",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "34b4976e_3214957a",
         "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
         "patchSetId": 7
