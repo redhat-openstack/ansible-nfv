@@ -71,6 +71,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "98740b29_1e4decf8",
+        "filename": "roles/post_install/igmp_querier/tasks/main.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1016373
+      },
+      "writtenOn": "2021-02-17T00:28:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "006a78a1_75a2dd19",
+      "range": {
+        "startLine": 4,
+        "startChar": 32,
+        "endLine": 4,
+        "endChar": 54
+      },
+      "revId": "080206cd7e137e25baf4e6118fe0b19b2611b9cf",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d3eccb87_c19b54ba",
@@ -94,6 +118,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "231b11cc_ba1d1ab2",
+        "filename": "roles/post_install/igmp_querier/tasks/main.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1016373
+      },
+      "writtenOn": "2021-02-17T00:28:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "d3eccb87_c19b54ba",
+      "range": {
+        "startLine": 8,
+        "startChar": 11,
+        "endLine": 8,
+        "endChar": 23
+      },
+      "revId": "080206cd7e137e25baf4e6118fe0b19b2611b9cf",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "8e1bc6d4_a967749c",
@@ -107,6 +155,30 @@
       "writtenOn": "2021-02-16T18:02:37Z",
       "side": 1,
       "message": "Is there any default var files?\nIf not i think the README should include example",
+      "range": {
+        "startLine": 33,
+        "startChar": 31,
+        "endLine": 33,
+        "endChar": 51
+      },
+      "revId": "080206cd7e137e25baf4e6118fe0b19b2611b9cf",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "23c6b41a_53a4f3f8",
+        "filename": "roles/post_install/igmp_querier/tasks/main.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1016373
+      },
+      "writtenOn": "2021-02-17T00:28:42Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "8e1bc6d4_a967749c",
       "range": {
         "startLine": 33,
         "startChar": 31,
