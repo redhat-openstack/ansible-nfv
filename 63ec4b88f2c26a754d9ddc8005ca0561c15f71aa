@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "85c4b920_95715880",
+        "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-02-17T07:47:06Z",
+      "side": 1,
+      "message": "If there is python2 installed, it is using this python version, same for 3,\nIf both it is using that one which is defined in the alternative, in case no --python set",
+      "parentUuid": "c65b7608_ba9a658d",
+      "range": {
+        "startLine": 29,
+        "startChar": 55,
+        "endLine": 29,
+        "endChar": 71
+      },
+      "revId": "63ec4b88f2c26a754d9ddc8005ca0561c15f71aa",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "518b7ad9_90f6c017",
         "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
         "patchSetId": 7
@@ -37,6 +61,30 @@
       "writtenOn": "2021-02-16T18:39:16Z",
       "side": 1,
       "message": "Why are you using \"command\" module instead of \"pip\" here and in the above task?\nThe issue mentioned in line 48 (in old file) already fixed and should be preset in ansible 2.9.",
+      "range": {
+        "startLine": 34,
+        "startChar": 37,
+        "endLine": 34,
+        "endChar": 66
+      },
+      "revId": "63ec4b88f2c26a754d9ddc8005ca0561c15f71aa",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a51f36b8_e1716ebe",
+        "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-02-17T07:47:06Z",
+      "side": 1,
+      "message": "Since we are using only python.\nThis way pip is running only in the virtualenv, this is the whole idea,\nno dependency in rpm or others only python",
+      "parentUuid": "518b7ad9_90f6c017",
       "range": {
         "startLine": 34,
         "startChar": 37,
@@ -72,6 +120,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3b9d4d2a_db8bc4dc",
+        "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-02-17T07:47:06Z",
+      "side": 1,
+      "message": "It did not work for me, I will try it again,\nI think it is minor, Any way it is running with ansible only on undercloud,\nto have direct connection to hypervisors, and undercloud",
+      "parentUuid": "34b4976e_3214957a",
+      "range": {
+        "startLine": 38,
+        "startChar": 22,
+        "endLine": 38,
+        "endChar": 104
+      },
+      "revId": "63ec4b88f2c26a754d9ddc8005ca0561c15f71aa",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "887d5370_782862e4",
         "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
         "patchSetId": 7
@@ -95,6 +167,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "bdf58307_5aeb4828",
+        "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-02-17T07:47:06Z",
+      "side": 1,
+      "message": "ACK",
+      "parentUuid": "887d5370_782862e4",
+      "range": {
+        "startLine": 46,
+        "startChar": 2,
+        "endLine": 46,
+        "endChar": 12
+      },
+      "revId": "63ec4b88f2c26a754d9ddc8005ca0561c15f71aa",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e2206700_4f82093f",
         "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
         "patchSetId": 7
@@ -106,6 +202,30 @@
       "writtenOn": "2021-02-16T18:39:16Z",
       "side": 1,
       "message": "This task could be merged with the above task.\nJust take the note of this task to the new one to keep the reason of separation..",
+      "range": {
+        "startLine": 51,
+        "startChar": 3,
+        "endLine": 51,
+        "endChar": 42
+      },
+      "revId": "63ec4b88f2c26a754d9ddc8005ca0561c15f71aa",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f637a88c_9878b5e6",
+        "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-02-17T07:47:06Z",
+      "side": 1,
+      "message": "Do you mean, note in patch comments?",
+      "parentUuid": "e2206700_4f82093f",
       "range": {
         "startLine": 51,
         "startChar": 3,
