@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ddb729f7_63c09943",
+        "filename": "roles/post_install/igmp_querier/defaults/main.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-02-17T07:56:08Z",
+      "side": 1,
+      "message": "Please refer tox gate, try to run tox_check.sh before git-review\n\n02:27:34 roles/post_install/igmp_querier/defaults/main.yml\n02:27:36   11:1      error    too many blank lines (1 \u003e 0)  (empty-lines)\n02:27:36 \n02:27:36 ERROR: InvocationError for command /usr/bin/bash -c \u0027git ls-tree --full-tree --name-only -r HEAD . | grep -E \u0027\"\u0027\"\u0027\\.ya?ml$\u0027\"\u0027\"\u0027 | xargs python -m yamllint\u0027 (exited with code 123)\n02:27:36 ___________________________________ summary ____________________________________",
+      "revId": "c32e87d768d1b7958cec9dc610494eb9defcce32",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
