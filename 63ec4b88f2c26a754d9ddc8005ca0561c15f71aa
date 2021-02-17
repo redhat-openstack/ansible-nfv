@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "da620c6b_a17c61ed",
+        "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-02-17T07:56:11Z",
+      "side": 1,
+      "message": "But why here we are not defining the version for the virtualenv package and below we do?",
+      "parentUuid": "85c4b920_95715880",
+      "range": {
+        "startLine": 29,
+        "startChar": 55,
+        "endLine": 29,
+        "endChar": 71
+      },
+      "revId": "63ec4b88f2c26a754d9ddc8005ca0561c15f71aa",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "518b7ad9_90f6c017",
         "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
         "patchSetId": 7
@@ -97,6 +121,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "83e59c33_b1cba9cc",
+        "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-02-17T07:56:11Z",
+      "side": 1,
+      "message": "Using pip module is an ansible way.\nThat is not related to rpm.\nIt\u0027s a pure python.\n\nIt\u0027s always preferred to use ansible module instead of command/shell module because of error handling and such...",
+      "parentUuid": "a51f36b8_e1716ebe",
+      "range": {
+        "startLine": 34,
+        "startChar": 37,
+        "endLine": 34,
+        "endChar": 66
+      },
+      "revId": "63ec4b88f2c26a754d9ddc8005ca0561c15f71aa",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "34b4976e_3214957a",
         "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
         "patchSetId": 7
@@ -132,6 +180,30 @@
       "side": 1,
       "message": "It did not work for me, I will try it again,\nI think it is minor, Any way it is running with ansible only on undercloud,\nto have direct connection to hypervisors, and undercloud",
       "parentUuid": "34b4976e_3214957a",
+      "range": {
+        "startLine": 38,
+        "startChar": 22,
+        "endLine": 38,
+        "endChar": 104
+      },
+      "revId": "63ec4b88f2c26a754d9ddc8005ca0561c15f71aa",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3544d2a3_8c1fd8f9",
+        "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-02-17T07:56:11Z",
+      "side": 1,
+      "message": "That is right.\nBut I can run the openstack_tasks resource creation from my laptop as well.\nJust don\u0027t want to create a dependency and tie it to undercloud host.",
+      "parentUuid": "3b9d4d2a_db8bc4dc",
       "range": {
         "startLine": 38,
         "startChar": 22,
@@ -226,6 +298,30 @@
       "side": 1,
       "message": "Do you mean, note in patch comments?",
       "parentUuid": "e2206700_4f82093f",
+      "range": {
+        "startLine": 51,
+        "startChar": 3,
+        "endLine": 51,
+        "endChar": 42
+      },
+      "revId": "63ec4b88f2c26a754d9ddc8005ca0561c15f71aa",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "72406734_aa63fb48",
+        "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-02-17T07:56:11Z",
+      "side": 1,
+      "message": "I mean to add a note which starts in line 48-50.\nIt is needed to explain why the pip, virtualenv, setuptools install separated from the openstackadk package install. Task in line 60.",
+      "parentUuid": "f637a88c_9878b5e6",
       "range": {
         "startLine": 51,
         "startChar": 3,
