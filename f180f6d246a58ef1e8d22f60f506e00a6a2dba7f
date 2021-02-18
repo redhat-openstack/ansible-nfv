@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "116cf67c_1ec5c89b",
+        "filename": "playbooks/tripleo/tester/tempest.yml",
+        "patchSetId": 10
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-02-18T08:18:22Z",
+      "side": 1,
+      "message": "Just a suggestion.\n\nIf you will add a \"when\" condition to the role:\n\n  when:\n    - item.igmp_querier is defined\n\nDuring playbook execution that is not an ovn based, it will not enter into the role and print all the tasks with \"skipped\" message.",
+      "range": {
+        "startLine": 13,
+        "startChar": 6,
+        "endLine": 13,
+        "endChar": 10
+      },
+      "revId": "f180f6d246a58ef1e8d22f60f506e00a6a2dba7f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
