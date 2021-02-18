@@ -403,6 +403,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "3f0d473f_8ed36a1d",
+        "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-02-18T15:03:57Z",
+      "side": 1,
+      "message": "see you are installing in RHEL 7.9 pip with easy_install\n[stack@undercloud-0 ~]$ which pip\n/usr/bin/pip\n\nAnd you have it deployed in RHEL 8 you have no pip\n[stack@undercloud-0 ~]$ which pip\n/usr/bin/which: no pip in (/home/stack/.local/bin:/home/stack/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin)\n[stack@undercloud-0 ~]$\n\nMy question, why to use easy_install for python2?\nand for python3 you have seams ansible pip is called as python module.\n\nMHO, prefer shell command than easy_install?\n\nDo you recommend the following?\nas per this?\nhttps://github.com/ansible/ansible/issues/52275\n\n- pip:\n        name: wheel\n        virtualenv: /tmp/venv\n        virtualenv_command: {{ ansible_python_interpreter }} -m venv",
+      "parentUuid": "c2042776_056ef9fb",
+      "range": {
+        "startLine": 29,
+        "startChar": 55,
+        "endLine": 29,
+        "endChar": 71
+      },
+      "revId": "63ec4b88f2c26a754d9ddc8005ca0561c15f71aa",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "518b7ad9_90f6c017",
         "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
         "patchSetId": 7
