@@ -22,6 +22,30 @@
       },
       "revId": "f180f6d246a58ef1e8d22f60f506e00a6a2dba7f",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9a9f382e_b2e40b2a",
+        "filename": "playbooks/tripleo/tester/tempest.yml",
+        "patchSetId": 10
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1016373
+      },
+      "writtenOn": "2021-02-18T16:59:56Z",
+      "side": 1,
+      "message": "submitting as it is currently. I will check for this improvement later on and generate a new patch if it is necessary.",
+      "parentUuid": "116cf67c_1ec5c89b",
+      "range": {
+        "startLine": 13,
+        "startChar": 6,
+        "endLine": 13,
+        "endChar": 10
+      },
+      "revId": "f180f6d246a58ef1e8d22f60f506e00a6a2dba7f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
