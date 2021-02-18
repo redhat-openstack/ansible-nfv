@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fbcbfe66_5c000954",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 7
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2021-02-18T03:28:10Z",
+      "side": 1,
+      "message": "I believe the code could still be iterated to be cleaner, I like the progress.",
+      "revId": "63ec4b88f2c26a754d9ddc8005ca0561c15f71aa",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c65b7608_ba9a658d",
@@ -254,6 +271,30 @@
       "side": 1,
       "message": "You are not looking at the right place.\nThe easy_install task just ensures that pip itself installed in the system.\n\nThis [1] is the task that installs virtualenv package (by using pip module)\nAnd as the issue [2] for the pip install of virtualenv with python3 has been fixed, same way of pip omdule install could be used easily for pyton3.\n\n[1] - https://github.com/redhat-openstack/ansible-nfv/blob/master/roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml#L37-L44\n[2] - https://github.com/ansible/ansible/issues/52275",
       "parentUuid": "53948980_ededb3bb",
+      "range": {
+        "startLine": 29,
+        "startChar": 55,
+        "endLine": 29,
+        "endChar": 71
+      },
+      "revId": "63ec4b88f2c26a754d9ddc8005ca0561c15f71aa",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "608c9759_96d5dfaf",
+        "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2021-02-18T03:28:10Z",
+      "side": 1,
+      "message": "I like the progress of this patch honestly, as I mentioned I rather install virtualenv in both environments due to having a granular control on package versioning.\n\nLike Maxim, I would also prefer to use the pip module, it should be possible.",
+      "parentUuid": "2979e895_24e462b7",
       "range": {
         "startLine": 29,
         "startChar": 55,
