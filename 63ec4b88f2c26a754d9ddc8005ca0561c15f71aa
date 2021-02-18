@@ -451,6 +451,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "60f6ae37_b377ef43",
+        "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-02-18T19:35:37Z",
+      "side": 1,
+      "message": "Yariv,\n\nI did a deep check of how the change will affect the our environments.\nI took two qcow images - rhel-7.9 and rhe-8.2 and deployed them as a vm in libvirt. I took the rhel repositories from the undercloud (13 for rhel7.9 and 16.1 for rhel8.2).\nI did it to simulate a clean environment.\n\nAs per my results, the patch will not work on osp 13 with python 2.\nThat\u0027s it because:\n* By default, rhel 7.9 and osp 13 do not have the pip installed and since python 2 does not have a venv built in module, the following command will not work:\n\ncommand: \"{{  ansible_python_interpreter }} -m pip install virtualenv\"\n\nIt will fail with a \"pip\" not installed error.\nNote: It may work on osp13 environment you tested, probably because during the tripleo_inventory playbook execution, the python-vitualenv package has been installed via yum.\n\nSo it means that pip needs to be installed.\nBut the pip for python 2 as you already mentioned, need to be installed with specific version. And that could be done with easy_install.\n\nI took your patch and with little modification, it works for both python 2 and python 3.\n\nhttp://pastebin.test.redhat.com/941132\n\nPlease, do all the tests you would like to and let me know what do you think.",
+      "parentUuid": "d36d08a4_c97aad25",
+      "range": {
+        "startLine": 29,
+        "startChar": 55,
+        "endLine": 29,
+        "endChar": 71
+      },
+      "revId": "63ec4b88f2c26a754d9ddc8005ca0561c15f71aa",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "518b7ad9_90f6c017",
         "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
         "patchSetId": 7
