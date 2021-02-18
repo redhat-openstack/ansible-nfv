@@ -331,6 +331,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "5d2bc9ea_0451f275",
+        "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-02-18T08:22:53Z",
+      "side": 1,
+      "message": "Why \"both pips\"?\nIt should be handled by one task woth pip module for both python2 and python 3.",
+      "parentUuid": "ca9be276_f8a70b51",
+      "range": {
+        "startLine": 29,
+        "startChar": 55,
+        "endLine": 29,
+        "endChar": 71
+      },
+      "revId": "63ec4b88f2c26a754d9ddc8005ca0561c15f71aa",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "518b7ad9_90f6c017",
         "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
         "patchSetId": 7
