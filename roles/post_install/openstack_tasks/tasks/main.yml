@@ -5,6 +5,10 @@
   import_tasks: setup_openstack_env.yml
   when: setup_os_env|bool
 
+- name: test
+  debug:
+    msg: test
+
 - name: Instances
   tags: instance
   import_tasks: instances.yml
