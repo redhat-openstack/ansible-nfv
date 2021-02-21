@@ -1,10 +1,22 @@
+# tripleo_inventory role output
 /environments/*_env
 /inventory
 /ansible.ssh.config*
 ssh/ansible.ssh.config*
 ssh/id_rsa*
+
+# molecule logs dir
+molecule_logs/
+
+# ansible retry files
 *.retry
-.idea/
+
+# tox output files
 .tox/
 .tox_*
+
+# venv dir
 .venv
+
+# ide output
+.idea/
