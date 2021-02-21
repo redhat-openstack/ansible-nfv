@@ -523,6 +523,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cd6dc197_9e724eb0",
+        "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-02-21T09:16:47Z",
+      "side": 1,
+      "message": "Please remember that until osp 10 is not removed from our jenkins jobs, we may need to run the job.\nI mean it still needs to be supported on osp 10.",
+      "parentUuid": "4376375b_5dd816ce",
+      "range": {
+        "startLine": 29,
+        "startChar": 55,
+        "endLine": 29,
+        "endChar": 71
+      },
+      "revId": "63ec4b88f2c26a754d9ddc8005ca0561c15f71aa",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "518b7ad9_90f6c017",
         "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
         "patchSetId": 7
