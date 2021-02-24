@@ -108,29 +108,13 @@
         name: "{{ item.1.name }}"
         network: "{{ item.1.network }}"
         vnic_type: "{{ item.1.type }}"
+        binding_profile: "{{ item.1.binding_profile | default(omit) }}"
         security_groups: "{{ item.1.sec_groups | default(omit) }}"
         port_security_enabled: "{{ item.1.port_security | default(omit) }}"
         validate_certs: "{{ validate_certs | default (omit) }}"
         state: present
       loop: "{{ instances | subelements('net_ports', 'skip_missing=True') }}"
-      when: net_port and item.1.binding_profile is not defined
-
-    # Note - Due to this BZ#1927348 and no support yes in os_port
-    # in binding_profile using shell module
-    - name: Create ports with binding_profile
-      vars:
-        ansible_python_interpreter: "{{ venv_path }}/bin/python"
-      command: >
-         openstack --os-cloud "{{ item.cloud_name | default(cloud_name) }}"
-         port create  --network "{{ item.1.network  }}" --vnic-type "{{ item.1.type | default('normal') }}"
-         {% if not item.1.port_security | bool  %}
-              --disable-port-security \
-         {% else %}
-             --security-group "{{ item.1.sec_groups | default(omit) }}" \
-         {% endif %}
-         --binding-profile "{{ item.1.binding_profile }}" "{{ item.1.name }}"
-      loop: "{{ instances | subelements('net_ports', 'skip_missing=True') }}"
-      when: net_port and item.1.binding_profile is defined
+      when: net_port
 
   when: resource_state == 'present'
 

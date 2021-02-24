@@ -184,3 +184,12 @@ instances:
     nics:
       - net-name: data
         tag: external
+    # The network port will test port implementation and will not be used by the instance
+    net_ports:
+      - name: test_port
+        network: data
+        port_security: true
+        type: direct
+        sec_groups: test_secgroup
+        binding_profile:
+          "pci_slot": "0000:03:11.1"
