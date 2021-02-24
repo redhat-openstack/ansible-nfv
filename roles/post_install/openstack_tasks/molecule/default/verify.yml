@@ -196,6 +196,7 @@
           - "int_net.cidr == conf_int_net.cidr"
           - "int_net.gateway_ip == conf_int_net.gateway_ip"
           - "int_net.enable_dhcp == conf_int_net.enable_dhcp"
+          - "int_net.port_security_enabled == conf_int_net.port_security"
           - "int_net.allocation_pools[0].start == conf_int_net.allocation_pool_start"
           - "int_net.allocation_pools[0].end == conf_int_net.allocation_pool_end"
 
