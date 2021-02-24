@@ -60,6 +60,7 @@ networks:
     allocation_pool_end: '10.10.10.200'
     cidr: '10.10.10.0/24'
     enable_dhcp: true
+    port_security: false
     gateway_ip: '10.10.10.254'
     network_type: vlan
     external: false
