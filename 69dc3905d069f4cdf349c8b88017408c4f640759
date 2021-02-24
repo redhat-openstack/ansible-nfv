@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "ce850732_0f21d3c9",
+        "filename": "roles/post_install/openstack_tasks/tasks/networks_and_routers.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-02-24T20:26:22Z",
+      "side": 1,
+      "message": "Please, set it as - (omit).\nThat way we will always stick to the system defaults ratcher than setting our own defaults.",
+      "range": {
+        "startLine": 19,
+        "startChar": 64,
+        "endLine": 19,
+        "endChar": 70
+      },
+      "revId": "69dc3905d069f4cdf349c8b88017408c4f640759",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c19a925_14496d30",
+        "filename": "roles/post_install/openstack_tasks/tasks/networks_and_routers.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-02-24T20:26:22Z",
+      "side": 1,
+      "message": "Could you, please, add this parameter to one of the networks in README and config_example.yml files?\n\n\nAnd it would be nice to add this parameter to the molecule test.\nFor example, on of the network with port_security_enabled true and one with false and then to verify that value in each network.\n\nBut the molecule stuff is up to you.\nIf you don\u0027t want to spend a time on this, leave it.\nWe will add it later.",
+      "range": {
+        "startLine": 19,
+        "startChar": 8,
+        "endLine": 19,
+        "endChar": 29
+      },
+      "revId": "69dc3905d069f4cdf349c8b88017408c4f640759",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
