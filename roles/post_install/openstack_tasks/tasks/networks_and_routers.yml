@@ -16,6 +16,7 @@
         provider_network_type: "{{ item.network_type | default(omit) }}"
         provider_physical_network: "{{ item.physical_network | default(omit) }}"
         provider_segmentation_id: "{{ item.segmentation_id | default(omit) }}"
+        port_security_enabled: "{{ item.port_security | default(omit) }}"
         external: "{{ item.external | default('false') }}"
         shared: "{{ item.shared | default(omit) }}"
         validate_certs: "{{ validate_certs | default (omit) }}"
