@@ -239,6 +239,11 @@ instances:
         network: sriov-1
         type: direct
         port_security: false
+    net_ports:
+      - name: sriov-1_port3
+        network: sriov-1
+        type: direct
+        binding_profile: "capabilities=[switchdev]"
   - name: vm4
     groups: hci
     flavor: m1.medium.huge_pages

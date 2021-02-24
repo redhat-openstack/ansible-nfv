@@ -294,7 +294,8 @@ def _compose_port_args(module, cloud):
                            'device_owner',
                            'device_id',
                            'binding:vnic_type',
-                           'port_security_enabled']
+                           'port_security_enabled',
+                           'binding:profile']
     for optional_param in optional_parameters:
         if module.params[optional_param] is not None:
             port_kwargs[optional_param] = module.params[optional_param]
@@ -330,7 +331,8 @@ def main():
         vnic_type=dict(default='normal',
                        choices=['normal', 'direct', 'direct-physical',
                                 'macvtap', 'baremetal', 'virtio-forwarder']),
-        port_security_enabled=dict(default=None, type='bool')
+        port_security_enabled=dict(default=None, type='bool'),
+        binding_profile=dict(default=None, type='dict')
     )
 
     module_kwargs = openstack_module_kwargs(
@@ -360,6 +362,8 @@ def main():
             # for the port type.
             module.params['binding:vnic_type'] = module.params['vnic_type']
             module.params.pop('vnic_type', None)
+
+        module.params['binding:profile'] = module.params.pop('binding_profile')
 
         port = None
         network_id = None
