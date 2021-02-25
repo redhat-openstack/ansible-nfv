@@ -45,6 +45,54 @@
       },
       "revId": "69dc3905d069f4cdf349c8b88017408c4f640759",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c8bfa7e8_6fb850b9",
+        "filename": "roles/post_install/openstack_tasks/tasks/networks_and_routers.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-02-25T07:43:48Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "ce850732_0f21d3c9",
+      "range": {
+        "startLine": 19,
+        "startChar": 64,
+        "endLine": 19,
+        "endChar": 70
+      },
+      "revId": "69dc3905d069f4cdf349c8b88017408c4f640759",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c0808662_59e7672c",
+        "filename": "roles/post_install/openstack_tasks/tasks/networks_and_routers.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-02-25T07:43:48Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "6c19a925_14496d30",
+      "range": {
+        "startLine": 19,
+        "startChar": 8,
+        "endLine": 19,
+        "endChar": 29
+      },
+      "revId": "69dc3905d069f4cdf349c8b88017408c4f640759",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
