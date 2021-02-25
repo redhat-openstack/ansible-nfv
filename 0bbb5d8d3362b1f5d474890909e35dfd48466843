@@ -39,6 +39,30 @@
       },
       "revId": "0bbb5d8d3362b1f5d474890909e35dfd48466843",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b47a5c55_ab4130d7",
+        "filename": "roles/post_install/openstack_tasks/config_example.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-02-25T18:08:44Z",
+      "side": 1,
+      "message": "Great!\nThanks for verifying it.\n\nI will update the patch.",
+      "parentUuid": "e8a3ae59_75c170f8",
+      "range": {
+        "startLine": 246,
+        "startChar": 25,
+        "endLine": 246,
+        "endChar": 51
+      },
+      "revId": "0bbb5d8d3362b1f5d474890909e35dfd48466843",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
