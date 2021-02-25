@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a3fff2f_49f7d5e5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-02-25T18:00:47Z",
+      "side": 1,
+      "message": "Please refer my comment in readme file",
+      "revId": "0bbb5d8d3362b1f5d474890909e35dfd48466843",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e8a3ae59_75c170f8",
+        "filename": "roles/post_install/openstack_tasks/config_example.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 246,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-02-25T18:00:47Z",
+      "side": 1,
+      "message": "I used this dictionary\nbinding_profile: \u0027{\"capabilities\": [\"switchdev\"]}\u0027\nIt gives the following output \n\ncapabilities\u003d\u0027[\u0027switchdev\u0027]\u0027\n\nsimilar to manual port creation\n\nopenstack port create --vnic-type direct  --binding-profile \u0027{\"capabilities\": [\"switchdev\"]}\u0027 --network  \u003cnetworl\u003e test-port\n\ncapabilities\u003d\u0027[\u0027switchdev\u0027]\u0027",
+      "range": {
+        "startLine": 246,
+        "startChar": 25,
+        "endLine": 246,
+        "endChar": 51
+      },
+      "revId": "0bbb5d8d3362b1f5d474890909e35dfd48466843",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
