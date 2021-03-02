@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "95cab1f4_ac8fe4be",
+        "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-03-02T16:34:14Z",
+      "side": 1,
+      "message": "The issue here\nIs the pip in private for stack user. \nAssume installed python3 with rhel 7.9 you are free from all the other rpms dependency,\nwhich pip\n~/.local/bin/pip",
+      "parentUuid": "500ca0cb_7f0e121e",
+      "range": {
+        "startLine": 30,
+        "startChar": 46,
+        "endLine": 30,
+        "endChar": 57
+      },
+      "revId": "c3e540ca60d3f8b0d5f8de0d191aa94b4a4c4c77",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "4bd06049_ce97ef4d",
         "filename": "roles/post_install/tripleo_inventory/tasks/overcloud_nodes.yml",
         "patchSetId": 8
@@ -37,6 +61,30 @@
       "writtenOn": "2021-02-24T10:27:35Z",
       "side": 1,
       "message": "The condition within the tripleo_inventory role needs to be:\n\nhostvars[groups[\u0027undercloud\u0027][0]][\u0027ansible_python\u0027][\u0027version\u0027][\u0027major\u0027] \u003d\u003d 2\n\nThat is because the role of tripleo_inventory works with undercloud specifically and gathering facts for the undercloud done in main.yml file, line 60 and passed via delegation in line 70.\n\nSo no need the \"setup\" module at the top of the file.",
+      "range": {
+        "startLine": 31,
+        "startChar": 22,
+        "endLine": 31,
+        "endChar": 50
+      },
+      "revId": "c3e540ca60d3f8b0d5f8de0d191aa94b4a4c4c77",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "dde5d2a2_be33b045",
+        "filename": "roles/post_install/tripleo_inventory/tasks/overcloud_nodes.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-03-02T16:34:14Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "4bd06049_ce97ef4d",
       "range": {
         "startLine": 31,
         "startChar": 22,
