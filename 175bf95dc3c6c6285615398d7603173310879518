@@ -16,6 +16,63 @@
       "message": "recheck",
       "revId": "175bf95dc3c6c6285615398d7603173310879518",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "12871bf5_8c3d3f3a",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-03-03T07:29:17Z",
+      "side": 1,
+      "message": "recheck",
+      "revId": "175bf95dc3c6c6285615398d7603173310879518",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11a9fbd5_ee1ffdee",
+        "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
+        "patchSetId": 9
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-03-03T07:29:17Z",
+      "side": 1,
+      "message": "If we decided to use that task and the following with both python 2 and 3, I would consider adding a check if pip exist on the host.\nIf it does, not the execute the block of downloading and executing the script.\nWill save us time.",
+      "revId": "175bf95dc3c6c6285615398d7603173310879518",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b45ab36b_08ef52a4",
+        "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
+        "patchSetId": 9
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-03-03T07:29:17Z",
+      "side": 1,
+      "message": "A \"script\" module could be used here.\nCheck the last example with specifying the executable.\nhttps://docs.ansible.com/ansible/2.9_ja/modules/script_module.html",
+      "range": {
+        "startLine": 41,
+        "startChar": 2,
+        "endLine": 41,
+        "endChar": 9
+      },
+      "revId": "175bf95dc3c6c6285615398d7603173310879518",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
