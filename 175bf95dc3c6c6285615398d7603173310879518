@@ -52,6 +52,23 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4c7a4ae3_ee356d81",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 9
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2021-03-03T08:02:04Z",
+      "side": 1,
+      "message": "other then that +2",
+      "revId": "175bf95dc3c6c6285615398d7603173310879518",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "11a9fbd5_ee1ffdee",
@@ -65,6 +82,23 @@
       "writtenOn": "2021-03-03T07:29:17Z",
       "side": 1,
       "message": "If we decided to use that task and the following with both python 2 and 3, I would consider adding a check if pip exist on the host.\nIf it does, not the execute the block of downloading and executing the script.\nWill save us time.",
+      "revId": "175bf95dc3c6c6285615398d7603173310879518",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "73caa886_1ba662d2",
+        "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
+        "patchSetId": 9
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2021-03-03T08:02:04Z",
+      "side": 1,
+      "message": "please move the url to be a variable 😊",
       "revId": "175bf95dc3c6c6285615398d7603173310879518",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
