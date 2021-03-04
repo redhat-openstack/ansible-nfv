@@ -118,3 +118,10 @@ mlx_switch01:
       vlan: 118
       mtu: 9192
 ```
+
+## Example
+Example on applying switch configuration
+
+```
+ ansible-playbook -i  /path/to/inventory        playbooks/configuration/switches_config.yml     -e @vars_file_config.yml
+```
