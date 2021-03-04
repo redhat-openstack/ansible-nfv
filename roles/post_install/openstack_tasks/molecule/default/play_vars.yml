@@ -60,20 +60,8 @@ networks:
     allocation_pool_end: '10.10.10.200'
     cidr: '10.10.10.0/24'
     enable_dhcp: true
+    port_security: true
     gateway_ip: '10.10.10.254'
-    network_type: vlan
-    external: false
-    router_name: router1
-
-# Test network for veriying security groups
-  - name: 'data-1'
-    physical_network: 'tenant'
-    allocation_pool_start: '10.10.20.100'
-    allocation_pool_end: '10.10.20.200'
-    cidr: '10.10.20.0/24'
-    enable_dhcp: true
-    port_security: false
-    gateway_ip: '10.10.20.254'
     network_type: vlan
     external: false
     router_name: router1
