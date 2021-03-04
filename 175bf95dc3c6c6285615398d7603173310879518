@@ -88,6 +88,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cd965992_2b450a4f",
+        "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
+        "patchSetId": 9
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-03-04T07:58:50Z",
+      "side": 1,
+      "message": "Ack for the block",
+      "parentUuid": "11a9fbd5_ee1ffdee",
+      "revId": "175bf95dc3c6c6285615398d7603173310879518",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "73caa886_1ba662d2",
         "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
         "patchSetId": 9
@@ -105,6 +123,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e6ff53db_81a2b0fa",
+        "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
+        "patchSetId": 9
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-03-04T07:58:50Z",
+      "side": 1,
+      "message": "Can you explain the logic? \nit is only for 2.7? if you have an idea to reduce the lines, please add snippet.\nThanks",
+      "parentUuid": "73caa886_1ba662d2",
+      "revId": "175bf95dc3c6c6285615398d7603173310879518",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "b45ab36b_08ef52a4",
         "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
         "patchSetId": 9
@@ -116,6 +152,30 @@
       "writtenOn": "2021-03-03T07:29:17Z",
       "side": 1,
       "message": "A \"script\" module could be used here.\nCheck the last example with specifying the executable.\nhttps://docs.ansible.com/ansible/2.9_ja/modules/script_module.html",
+      "range": {
+        "startLine": 41,
+        "startChar": 2,
+        "endLine": 41,
+        "endChar": 9
+      },
+      "revId": "175bf95dc3c6c6285615398d7603173310879518",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4dbfebbe_ab1ca4f9",
+        "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
+        "patchSetId": 9
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-03-04T07:58:50Z",
+      "side": 1,
+      "message": "I am not sure script module will use\n/usr/libexec/platform-python\n\nFrom doc \n- name: Run a script using an executable in a system path\n  script: /some/local/script.py\n  args:\n    executable: python3\n\nSo you should be aware to py2/py3 it is adding extra logic,\nI would consider moving it to another patch later on",
+      "parentUuid": "b45ab36b_08ef52a4",
       "range": {
         "startLine": 41,
         "startChar": 2,
