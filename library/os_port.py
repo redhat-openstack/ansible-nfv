@@ -91,6 +91,10 @@ options:
        - Whether to enable or disable the port security on the network.
      type: bool
      version_added: "2.8"
+   binding_profile:
+     description:
+       - Binding profile dict that the port should be created with.
+     type: dict
 '''
 
 EXAMPLES = '''
@@ -164,6 +168,20 @@ EXAMPLES = '''
       project_name: admin
     name: port1
     vnic_type: direct
+
+# Create a port with binding profile
+- openstack.cloud.port:
+    state: present
+    auth:
+      auth_url: https://identity.example.com
+      username: admin
+      password: admin
+      project_name: admin
+    name: port1
+    network: foo
+    binding_profile:
+      "pci_slot": "0000:03:11.1"
+      "physical_network": "provider"
 '''
 
 RETURN = '''
@@ -211,6 +229,10 @@ port_security_enabled:
     description: Port security state on the network.
     returned: success
     type: bool
+binding:profile:
+    description: Port binded profile
+    returned: success
+    type: dict
 '''
 
 from ansible.module_utils.basic import AnsibleModule
@@ -227,7 +249,8 @@ def _needs_update(module, port, cloud):
                       'device_owner',
                       'device_id',
                       'binding:vnic_type',
-                      'port_security_enabled']
+                      'port_security_enabled',
+                      'binding:profile']
     compare_dict = ['allowed_address_pairs',
                     'extra_dhcp_opts']
     compare_list = ['security_groups']
@@ -294,7 +317,8 @@ def _compose_port_args(module, cloud):
                            'device_owner',
                            'device_id',
                            'binding:vnic_type',
-                           'port_security_enabled']
+                           'port_security_enabled',
+                           'binding:profile']
     for optional_param in optional_parameters:
         if module.params[optional_param] is not None:
             port_kwargs[optional_param] = module.params[optional_param]
@@ -330,7 +354,8 @@ def main():
         vnic_type=dict(default='normal',
                        choices=['normal', 'direct', 'direct-physical',
                                 'macvtap', 'baremetal', 'virtio-forwarder']),
-        port_security_enabled=dict(default=None, type='bool')
+        port_security_enabled=dict(default=None, type='bool'),
+        binding_profile=dict(default=None, type='dict')
     )
 
     module_kwargs = openstack_module_kwargs(
@@ -360,6 +385,9 @@ def main():
             # for the port type.
             module.params['binding:vnic_type'] = module.params['vnic_type']
             module.params.pop('vnic_type', None)
+        # Neutron API accept 'binding:profile' as an argument
+        # for the port binding profile type.
+        module.params['binding:profile'] = module.params.pop('binding_profile')
 
         port = None
         network_id = None
