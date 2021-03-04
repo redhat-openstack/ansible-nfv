@@ -1,0 +1,20 @@
+other:
+  custom:
+    undercloud:
+      user: stack
+  host: panther07.qa.lab.tlv.redhat.com
+  hypervisor:
+    groups: hypervisor,shade
+  overcloud:
+    user: heat-admin
+  setup:
+    type: virt
+  ssh:
+    key: /home/eshulman/.ssh/id_rsa
+    pass: ''
+  undercloud:
+    groups: undercloud,tester
+    only: false
+  user: root
+  venv:
+    path: /var/tmp/venv_shade
