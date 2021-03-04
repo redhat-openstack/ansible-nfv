@@ -163,30 +163,15 @@
         {% endif %}
         identity.uri {{ rc_vars.osp_auth }} \
         identity.admin_password {{ rc_vars.osp_password }} \
-        identity.region regionOne DEFAULT.debug false \
-        compute.min_microversion {{ compute_min_microversion }} \
-        compute.max_microversion {{ compute_max_microversion }} \
-        placement.min_microversion {{ placement_microversion }} \
-        placement.max_microversion {{ placement_microversion }} \
         {% if tempest_flavor_name is defined %}
         compute.flavor_ref {{ openstack_flavors[0].id }} \
         {% endif %}
-        compute.image_ssh_user {{ image_ssh_user }} \
-        compute-feature-enabled.live_migration true \
-        validation.image_ssh_user {{ image_ssh_user }} \
         {% if tempest_config is defined %}
-        nfv_plugin_options.external_config_file {{ tempest_dir }}/{{ tempest_config | basename }} \
-        {% endif %}
-        {% if overcloud_version | int >= 13 %}
-        nfv_plugin_options.use_neutron_api_v2 "true" \
-        {% endif %}
         {% if generate_accounts %}
         auth.test_accounts_file {{ accounts_file_path }} \
         auth.use_dynamic_credentials false \
         nfv_plugin_options.external_resources_output_file {{ external_resources_output_file }} \
         {% endif %}
-        neutron_plugin_options.default_image_is_advanced true \
-        neutron_plugin_options.max_networks_per_project 1 \
         {% if enable_test_all_provider_networks %}
           nfv_plugin_options.test_all_provider_networks true \
         {% endif %}
