@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "261a37bd_14c8b193",
+        "filename": "roles/configuration/switches_config/README.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-03-04T17:28:48Z",
+      "side": 1,
+      "message": "It is not critical for sure, but could you remove the spaces?\nIt will look much cleaner without extra spaces.",
+      "range": {
+        "startLine": 126,
+        "startChar": 18,
+        "endLine": 126,
+        "endChar": 25
+      },
+      "revId": "3c3d649393c836cac5d6be1693ceac618a3dde57",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
