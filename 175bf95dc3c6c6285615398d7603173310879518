@@ -184,6 +184,30 @@
       },
       "revId": "175bf95dc3c6c6285615398d7603173310879518",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f30f0e58_dbef08c1",
+        "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
+        "patchSetId": 9
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-03-04T09:38:58Z",
+      "side": 1,
+      "message": "Or you can do the following:\n\n- name: Run a script using an executable in a system path\n  script: /some/local/script.py\n  args:\n    executable: \"{{ ansible_python_interpreter }}\"",
+      "parentUuid": "4dbfebbe_ab1ca4f9",
+      "range": {
+        "startLine": 41,
+        "startChar": 2,
+        "endLine": 41,
+        "endChar": 9
+      },
+      "revId": "175bf95dc3c6c6285615398d7603173310879518",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
