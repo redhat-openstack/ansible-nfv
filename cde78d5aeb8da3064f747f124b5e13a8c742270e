@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65a7352f_5bff475d",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-03-07T15:41:58Z",
+      "side": 1,
+      "message": "Lines 170 and 173 options has been added to the deployer-input file as well.\nNo need of them here, since they will be overriden by the provided deployer-input file in line 189.",
+      "range": {
+        "startLine": 169,
+        "startChar": 11,
+        "endLine": 169,
+        "endChar": 16
+      },
+      "revId": "cde78d5aeb8da3064f747f124b5e13a8c742270e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
