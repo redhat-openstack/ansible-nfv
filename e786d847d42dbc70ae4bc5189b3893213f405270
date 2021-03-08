@@ -1,6 +1,23 @@
 {
   "comments": [
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "e6f5872c_431c6e7c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-03-08T14:47:40Z",
+      "side": 1,
+      "message": "Forgot to mention it in the previous review.\n\nPlease, add a full explanation of the patch change.\nThis is very important for the later history review.\nWithin 2 month I will not remember anything regarding the path of nfv-qe and rhos-qe-jenkins.\n\nI expect to see what the patch is doing and why.",
+      "revId": "e786d847d42dbc70ae4bc5189b3893213f405270",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "1f7b3ab4_681b189b",
