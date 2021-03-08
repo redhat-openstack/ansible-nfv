@@ -223,7 +223,7 @@
   lineinfile:
     path: "{{ binary_perf_log }}"
     line: "OVN_Version: {{ ovn_version['stdout'] }}"
-  when: ovn_version.stdout != ""
+  when: ovn_version is defined and ovn_version.stdout != ""
   delegate_to: "{{ groups['undercloud'] | first }}"
 
 - name: Print Perfomance Result JSON
