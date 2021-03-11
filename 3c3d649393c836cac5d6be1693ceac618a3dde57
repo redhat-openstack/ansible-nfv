@@ -22,6 +22,30 @@
       },
       "revId": "3c3d649393c836cac5d6be1693ceac618a3dde57",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "0a4e5ae6_89111cae",
+        "filename": "roles/configuration/switches_config/README.md",
+        "patchSetId": 3
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-03-11T15:49:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "261a37bd_14c8b193",
+      "range": {
+        "startLine": 126,
+        "startChar": 18,
+        "endLine": 126,
+        "endChar": 25
+      },
+      "revId": "3c3d649393c836cac5d6be1693ceac618a3dde57",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
