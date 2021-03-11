@@ -62,20 +62,22 @@
 - name: Get the external network id
   vars:
     ansible_python_interpreter: "{{ venv_path }}/bin/python"
-  os_networks_facts:
+  os_networks_info:
     cloud: overcloud
+    validate_certs: "{{ tls_server_verify | default (omit) }}"
     filters:
       router:external: true
   register: tempest_net_id
   when: external_net_id
 
 - name: Download the test os image
+  debugger: on_failed
   get_url:
     url: "{{ images[0].url }}"
     dest: "/tmp/{{ images[0].url | basename }}"
     timeout: 100
     validate_certs: "{{ os_image_cert_validation }}"
-  when: image_for_tempest
+  when: image_for_tempest| bool
 
 - name: Check if tempestconf tool installed
   stat:
@@ -87,11 +89,25 @@
     config_command: "{{ tempest_venv }}/bin/discover-tempest-config"
   when: tempest_conf_tool.stat.exists
 
+# check for 13 and tls parameter false
+# discover-tempest-conf is failing on
+- name: Check if discover-tempest-config installed
+  stat:
+    path: /usr/bin/discover-tempest-config
+  register: python_discover
+  when: ansible_python.version.major == 2 and not "{{ tls_server_verify }}"
+
+- name:  tempestconf tool if exists
+  set_fact:
+    config_command: "/usr/bin/discover-tempest-config"
+  when: python_discover
+
 - name: Check for the spesific flavor id if it's required
   vars:
     ansible_python_interpreter: "{{ venv_path }}/bin/python"
-  os_flavor_facts:
+  os_flavor_info:
     cloud: overcloud
+    validate_certs: "{{ tls_server_verify | default (omit) }}"
     name: "{{ tempest_flavor_name }}"
   when: tempest_flavor_name is defined
 
@@ -149,22 +165,23 @@
   when: tempest_extra_vars is defined
 
 - name: tempest.conf file creation
+  debugger: on_failed
   shell: |
     source "{{ rc_file | default('/home/stack/overcloudrc') }}"
     source {{ tempest_venv }}/bin/activate
     {{ config_command | default('python config_tempest/config_tempest.py') }} \
         --create \
         --debug \
-        {% if image_for_tempest %}
+        {% if image_for_tempest| bool %}
         --image "/tmp/{{ images[0].url | basename }}" \
         {% endif %}
         {% if external_net_id %}
-        --network-id {{ tempest_net_id.ansible_facts.openstack_networks.0.id }} \
+        --network-id {{ tempest_net_id.openstack_networks.0.id }} \
         {% endif %}
         identity.uri {{ rc_vars.osp_auth }} \
         identity.admin_password {{ rc_vars.osp_password }} \
         {% if tempest_flavor_name is defined %}
-        compute.flavor_ref {{ openstack_flavors[0].id }} \
+        compute.flavor_ref {{ reg_flavors.results.0.id }} \
         {% endif %}
         {% if generate_accounts %}
         auth.test_accounts_file {{ accounts_file_path }} \
