@@ -6,6 +6,7 @@
   os_quota:
     cloud: "{{ item.0.cloud_name | default(cloud_name) }}"
     name: "{{ item.0.project }}"
+    verify: "{{ tls_server_verify | default (omit) }}"
     cores: "{{ item.1.cores | default(omit) }}"
     ram: "{{ item.1.ram | default(omit) }}"
     instances: "{{ item.1.instances | default(omit) }}"
