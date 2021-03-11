@@ -112,6 +112,13 @@ By default the variable is not defined.
 deployer_input_config
 ```
 
+If openstack deployed with unsigned service certificate
+Use -e validate_certs=false, this will eliminate the check server certificate
+error
+```
+validate__certs
+```
+
 Tempest test execution regex.  
 The regex can include/exclude required tests for execution.
 ```
