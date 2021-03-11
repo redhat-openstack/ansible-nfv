@@ -8,6 +8,7 @@
   os_nova_flavor:
     cloud: "{{ item.cloud_name | default(cloud_name) }}"
     name: "{{ item.name }}"
+    verify: "{{ tls_server_verify | default (omit) }}"
     ram: "{{ item.ram }}"
     disk: "{{ item.disk }}"
     vcpus: "{{ item.vcpus }}"
