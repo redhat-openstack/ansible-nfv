@@ -13,6 +13,7 @@
       os_network:
         cloud: "{{ item.cloud_name | default(cloud_name) }}"
         name: "{{ item.name }}"
+        verify: "{{ tls_server_verify | default (omit) }}"
         provider_network_type: "{{ item.network_type | default(omit) }}"
         provider_physical_network: "{{ item.physical_network | default(omit) }}"
         provider_segmentation_id: "{{ item.segmentation_id | default(omit) }}"
@@ -29,6 +30,7 @@
       os_subnet:
         cloud: "{{ item.cloud_name | default(cloud_name) }}"
         name: "{{ item.name }}_subnet"
+        verify: "{{ tls_server_verify | default (omit) }}"
         allocation_pool_start: "{{ item.allocation_pool_start | default(omit) }}"
         allocation_pool_end: "{{ item.allocation_pool_end | default(omit) }}"
         cidr: "{{ item.cidr }}"
@@ -48,6 +50,7 @@
       os_router:
         cloud: "{{ item.cloud_name | default(cloud_name) }}"
         name: "{{ item.router_name }}"
+        verify: "{{ tls_server_verify | default (omit) }}"
         network: "{{ item.name }}"
         validate_certs: "{{ validate_certs | default (omit) }}"
         state: present
@@ -94,6 +97,7 @@
       os_router:
         cloud: "{{ cloud_name }}"
         name: "{{ item.0.0 }}"
+        verify: "{{ tls_server_verify | default (omit) }}"
         interfaces: "{{ item.1 }}"
         state: present
         validate_certs: "{{ validate_certs | default (omit) }}"
@@ -106,6 +110,7 @@
       os_port:
         cloud: "{{ item.0.cloud_name | default(cloud_name) }}"
         name: "{{ item.1.name }}"
+        verify: "{{ tls_server_verify | default (omit) }}"
         network: "{{ item.1.network }}"
         vnic_type: "{{ item.1.type }}"
         binding_profile: "{{ item.1.binding_profile | default(omit) }}"
@@ -126,6 +131,7 @@
       os_port:
         cloud: "{{ item.0.cloud_name | default(cloud_name) }}"
         name: "{{ item.1.name }}"
+        verify: "{{ tls_server_verify | default (omit) }}"
         network: "{{ item.1.network }}"
         vnic_type: "{{ item.1.type }}"
         validate_certs: "{{ validate_certs | default (omit) }}"
@@ -151,6 +157,7 @@
       os_router:
         cloud: "{{ item.cloud_name | default(cloud_name) }}"
         name: "{{ item.router_name }}"
+        verify: "{{ tls_server_verify | default (omit) }}"
         validate_certs: "{{ validate_certs | default (omit) }}"
         state: absent
       loop: "{{ networks }}"
@@ -164,6 +171,7 @@
       os_network:
         cloud: "{{ item.cloud_name | default(cloud_name) }}"
         name: "{{ item.name }}"
+        verify: "{{ tls_server_verify | default (omit) }}"
         validate_certs: "{{ validate_certs | default (omit) }}"
         state: absent
       loop: "{{ networks }}"

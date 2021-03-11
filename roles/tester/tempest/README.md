@@ -143,3 +143,5 @@ enable_test_all_provider_networks: False
 **Note!** - For the tests configuration, refer to the tempest-nfv-plugin [documentation](https://github.com/redhat-openstack/tempest-nfv-plugin/tree/master/docs).
 
 **Note!** - In case neutron tests should be run, add a regex to include the required tests.
+
+**Note!** - In case tls_server_verify is use w/py2 please set python-tempestconf=1.1.4
