@@ -60,8 +60,15 @@
         [ 'podman exec -it ovn_controller ' + item ] }}"
       loop: "{{ igmp_queriers_cmds }}"
 
-    - name: execute podman commands
+    - name: get master controller
       delegate_to: "{{ groups['controller'] | first }}"
+      become: true                          
+      shell:
+        cmd: "pcs status | grep ovn-dbs-bundle | grep Master | sed 's/.* //g'"
+      register: master_controller_output
+
+    - name: execute podman commands
+      delegate_to: "{{ master_controller_output.stdout }}"              
       become: true
       command:
         cmd: "{{ item }}"
