@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "715119e9_99e7d28f",
+        "filename": "roles/post_install/openstack_tasks/tasks/flavors.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-03-31T17:56:47Z",
+      "side": 1,
+      "message": "All the modules within the \"openstack_tasks\" role already have the support for the certificate validation parameter.\nIt\u0027s the \"validate_certs\", line 16.\nThe \"verify\" is an alias of the \"validate_certs\" and as you can see it already exists, so not needed here.",
+      "range": {
+        "startLine": 11,
+        "startChar": 4,
+        "endLine": 11,
+        "endChar": 10
+      },
+      "revId": "b15f80eb9802c96adfde90b137760e66c56728dc",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "364873ab_2deb43a9",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-03-31T17:56:47Z",
+      "side": 1,
+      "message": "All the modules that gather facts from the resources changed extension \"*_facts\" to \"*_info\" starting from ansible version 2.9.\nWe still need to use the \"*_facts\" extension and that is because in the environments where python version is 2 (like osp10 and osp13) ansible will be installed with version 2.7, where extension \"*_info\" does not exists.",
+      "range": {
+        "startLine": 65,
+        "startChar": 13,
+        "endLine": 65,
+        "endChar": 18
+      },
+      "revId": "b15f80eb9802c96adfde90b137760e66c56728dc",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "374f1d0a_7f5c72ce",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-03-31T17:56:47Z",
+      "side": 1,
+      "message": "Please, align the variable name with the name within \"openstack_tasks\" role, which is \"validate_certs\".",
+      "range": {
+        "startLine": 67,
+        "startChar": 24,
+        "endLine": 67,
+        "endChar": 41
+      },
+      "revId": "b15f80eb9802c96adfde90b137760e66c56728dc",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "beaf5e1c_752fb7d1",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-03-31T17:56:47Z",
+      "side": 1,
+      "message": "Remove.",
+      "range": {
+        "startLine": 74,
+        "startChar": 2,
+        "endLine": 74,
+        "endChar": 10
+      },
+      "revId": "b15f80eb9802c96adfde90b137760e66c56728dc",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5894234a_a8b4edb9",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-03-31T17:56:47Z",
+      "side": 1,
+      "message": "You have exactly the same tasks right above.\nWhat is the purpose of the duplication?",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 8
+      },
+      "revId": "b15f80eb9802c96adfde90b137760e66c56728dc",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2d309822_d3324407",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-03-31T17:56:47Z",
+      "side": 1,
+      "message": "See above",
+      "range": {
+        "startLine": 111,
+        "startChar": 11,
+        "endLine": 111,
+        "endChar": 16
+      },
+      "revId": "b15f80eb9802c96adfde90b137760e66c56728dc",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "43a3de62_fd3175cb",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-03-31T17:56:47Z",
+      "side": 1,
+      "message": "See above",
+      "range": {
+        "startLine": 113,
+        "startChar": 25,
+        "endLine": 113,
+        "endChar": 41
+      },
+      "revId": "b15f80eb9802c96adfde90b137760e66c56728dc",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
