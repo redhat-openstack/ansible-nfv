@@ -97,6 +97,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "21688152_ccf578a7",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-04-01T08:53:17Z",
+      "side": 1,
+      "message": "Verified, i would not changed it due to warning i received in python3\nIf it is working with rhel 7,9 and python2, why not be ready?",
+      "parentUuid": "57ef0190_e2fc9349",
+      "range": {
+        "startLine": 65,
+        "startChar": 13,
+        "endLine": 65,
+        "endChar": 18
+      },
+      "revId": "b15f80eb9802c96adfde90b137760e66c56728dc",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "374f1d0a_7f5c72ce",
         "filename": "roles/tester/tempest/tasks/main.yml",
         "patchSetId": 7
@@ -250,6 +274,30 @@
       "side": 1,
       "message": "We are using tempest virtualenv to install all the tempest, plugin and other into that venv. Including the \"discover-tempest-config\" tool.\nWhat is the reason to look for and use the /usr/bin/discover...?",
       "parentUuid": "aecfa462_14f8470c",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 8
+      },
+      "revId": "b15f80eb9802c96adfde90b137760e66c56728dc",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a59ba08c_65097503",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-04-01T08:53:17Z",
+      "side": 1,
+      "message": "as mentioned in the comment the pip discover of venf is failing on server cert error, while building the config file, while the rpm version, /usr/bin, not\nAll tempest of other projects SSL for 13 working with the rpm,",
+      "parentUuid": "11de253d_295ddcc2",
       "range": {
         "startLine": 94,
         "startChar": 0,
