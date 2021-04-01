@@ -73,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "57ef0190_e2fc9349",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-04-01T08:48:39Z",
+      "side": 1,
+      "message": "Hm, that\u0027s strange.\nIntroduction to the change from *_facts to *_info happen from 2.9\n\nhttps://docs.ansible.com/ansible/devel/porting_guides/porting_guide_2.9.html#renaming-from-facts-to-info",
+      "parentUuid": "437a5e03_bab24069",
+      "range": {
+        "startLine": 65,
+        "startChar": 13,
+        "endLine": 65,
+        "endChar": 18
+      },
+      "revId": "b15f80eb9802c96adfde90b137760e66c56728dc",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "374f1d0a_7f5c72ce",
         "filename": "roles/tester/tempest/tasks/main.yml",
         "patchSetId": 7
@@ -202,6 +226,30 @@
       "side": 1,
       "message": "It is not duplication, the /usr/bin/discover-tempest-config\nInstalled by tripleo on 13 is working without failing on 13\n{{ tempest_venv }}/bin/discover-tempest-config is failing, so script is checking if it is exist\nIn case it is it use the/bin one",
       "parentUuid": "5894234a_a8b4edb9",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 8
+      },
+      "revId": "b15f80eb9802c96adfde90b137760e66c56728dc",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "11de253d_295ddcc2",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-04-01T08:48:39Z",
+      "side": 1,
+      "message": "We are using tempest virtualenv to install all the tempest, plugin and other into that venv. Including the \"discover-tempest-config\" tool.\nWhat is the reason to look for and use the /usr/bin/discover...?",
+      "parentUuid": "aecfa462_14f8470c",
       "range": {
         "startLine": 94,
         "startChar": 0,
