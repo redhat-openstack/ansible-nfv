@@ -49,6 +49,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "437a5e03_bab24069",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-04-01T08:30:51Z",
+      "side": 1,
+      "message": "Interesting, It is working with 13 and python 2.7, i tested it on 13",
+      "parentUuid": "364873ab_2deb43a9",
+      "range": {
+        "startLine": 65,
+        "startChar": 13,
+        "endLine": 65,
+        "endChar": 18
+      },
+      "revId": "b15f80eb9802c96adfde90b137760e66c56728dc",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "374f1d0a_7f5c72ce",
         "filename": "roles/tester/tempest/tasks/main.yml",
         "patchSetId": 7
@@ -60,6 +84,30 @@
       "writtenOn": "2021-03-31T17:56:47Z",
       "side": 1,
       "message": "Please, align the variable name with the name within \"openstack_tasks\" role, which is \"validate_certs\".",
+      "range": {
+        "startLine": 67,
+        "startChar": 24,
+        "endLine": 67,
+        "endChar": 41
+      },
+      "revId": "b15f80eb9802c96adfde90b137760e66c56728dc",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "21da08b1_ec9b6954",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-04-01T08:30:51Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "374f1d0a_7f5c72ce",
       "range": {
         "startLine": 67,
         "startChar": 24,
@@ -93,6 +141,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "50cf0bd8_a1350f58",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-04-01T08:30:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "beaf5e1c_752fb7d1",
+      "range": {
+        "startLine": 74,
+        "startChar": 2,
+        "endLine": 74,
+        "endChar": 10
+      },
+      "revId": "b15f80eb9802c96adfde90b137760e66c56728dc",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "5894234a_a8b4edb9",
@@ -106,6 +178,30 @@
       "writtenOn": "2021-03-31T17:56:47Z",
       "side": 1,
       "message": "You have exactly the same tasks right above.\nWhat is the purpose of the duplication?",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 8
+      },
+      "revId": "b15f80eb9802c96adfde90b137760e66c56728dc",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aecfa462_14f8470c",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-04-01T08:30:51Z",
+      "side": 1,
+      "message": "It is not duplication, the /usr/bin/discover-tempest-config\nInstalled by tripleo on 13 is working without failing on 13\n{{ tempest_venv }}/bin/discover-tempest-config is failing, so script is checking if it is exist\nIn case it is it use the/bin one",
+      "parentUuid": "5894234a_a8b4edb9",
       "range": {
         "startLine": 94,
         "startChar": 0,
