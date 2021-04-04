@@ -169,6 +169,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "43323291_4c477291",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-04-04T09:14:23Z",
+      "side": 1,
+      "message": "Yes, I forgot that all jenkins slaves have been upgraded to rhel8X",
+      "parentUuid": "f20bfe98_6ef81ebf",
+      "range": {
+        "startLine": 65,
+        "startChar": 13,
+        "endLine": 65,
+        "endChar": 18
+      },
+      "revId": "b15f80eb9802c96adfde90b137760e66c56728dc",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "374f1d0a_7f5c72ce",
         "filename": "roles/tester/tempest/tasks/main.yml",
         "patchSetId": 7
@@ -394,6 +418,30 @@
       "side": 1,
       "message": "\u003e What do you mean \"pip discover of venv is failing on server cert error\"?\nThe deployment is SSL one\nOnce working with unsigned certificates, all openstack commands from non undercloud are failing.\n\n\u003e What is the difference between \"discover-tempest-config\" that we installing in venv to the one that may exist under /usr/bin?\nIt looks the same, only difference, one is installed by rpm, the 2nd one by pip.\nI tried earlier tags, and i failed all the tests.\n\n\u003e How is it relates to the certs?\nSince the client tries to validate the server certificate, we are not parsing signed certificate, in the clients.\nWe are using the --ignore in clients",
       "parentUuid": "85cd5dea_6bcba9c8",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 8
+      },
+      "revId": "b15f80eb9802c96adfde90b137760e66c56728dc",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3c37b4f3_7bcd91f8",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-04-04T09:14:23Z",
+      "side": 1,
+      "message": "\u003e \u003e What do you mean \"pip discover of venv is failing on server cert error\"?\n\u003e The deployment is SSL one\n\u003e Once working with unsigned certificates, all openstack commands from non undercloud are failing.\n\u003e \nThat is where you added the \"validate_certs\" flag.\n\n\n\u003e \u003e What is the difference between \"discover-tempest-config\" that we installing in venv to the one that may exist under /usr/bin?\n\u003e It looks the same, only difference, one is installed by rpm, the 2nd one by pip.\n\u003e I tried earlier tags, and i failed all the tests.\n\u003e\nSo if it is the same, why to duplicate it?\nSo you want to say that the \"discover-tempest-config\" installed from git fails with ssl error and installed from rpm does not?",
+      "parentUuid": "508744f6_1a161b3c",
       "range": {
         "startLine": 94,
         "startChar": 0,
