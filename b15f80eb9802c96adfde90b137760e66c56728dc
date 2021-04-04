@@ -502,6 +502,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "504f493e_599683d4",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-04-04T12:08:41Z",
+      "side": 1,
+      "message": "I\u0027m trying to understand why a duplicate is required and why older version works compared to the new one.\nIf you are saying you have tried and tested and nothing works, ok, let\u0027s go with it.\n\nAnd it\u0027s not about an MVP, but about building our tooling in the right way and not create long term issues that could not be easily fixed in the future.",
+      "parentUuid": "81896e7c_aa1d7df2",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 8
+      },
+      "revId": "b15f80eb9802c96adfde90b137760e66c56728dc",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "2d309822_d3324407",
         "filename": "roles/tester/tempest/tasks/main.yml",
         "patchSetId": 7
