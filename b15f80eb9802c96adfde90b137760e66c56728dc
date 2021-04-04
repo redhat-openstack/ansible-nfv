@@ -191,6 +191,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "07f75135_55ca15e3",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-04-04T12:02:05Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "43323291_4c477291",
+      "range": {
+        "startLine": 65,
+        "startChar": 13,
+        "endLine": 65,
+        "endChar": 18
+      },
+      "revId": "b15f80eb9802c96adfde90b137760e66c56728dc",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "374f1d0a_7f5c72ce",
@@ -442,6 +466,30 @@
       "side": 1,
       "message": "\u003e \u003e What do you mean \"pip discover of venv is failing on server cert error\"?\n\u003e The deployment is SSL one\n\u003e Once working with unsigned certificates, all openstack commands from non undercloud are failing.\n\u003e \nThat is where you added the \"validate_certs\" flag.\n\n\n\u003e \u003e What is the difference between \"discover-tempest-config\" that we installing in venv to the one that may exist under /usr/bin?\n\u003e It looks the same, only difference, one is installed by rpm, the 2nd one by pip.\n\u003e I tried earlier tags, and i failed all the tests.\n\u003e\nSo if it is the same, why to duplicate it?\nSo you want to say that the \"discover-tempest-config\" installed from git fails with ssl error and installed from rpm does not?",
       "parentUuid": "508744f6_1a161b3c",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 8
+      },
+      "revId": "b15f80eb9802c96adfde90b137760e66c56728dc",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81896e7c_aa1d7df2",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-04-04T12:02:05Z",
+      "side": 1,
+      "message": "Maxim, one is binary compiled, the other is pip installed,\nI have added validate_certs to the config file, some it is not related to the python-discover script, and the --ignore parameter is not working on the nfv virtual-env,\n\nMHO, the MVP is low, here, wasted much time to understand the differences, \nI have no tags to compare, the pip2 under bin is broken, \n\nIt seems that python_tempestconf in the rpm is very old.. \n/usr/lib/python2.7/site-packages/python_tempestconf-0.0.0-py2.7.egg-info\n\nCompare it to \ntempest/venv/lib/python2.7/site-packages/python_tempestconf-2.1.0.dist-info\n\nWhat are you suggesting here?",
+      "parentUuid": "3c37b4f3_7bcd91f8",
       "range": {
         "startLine": 94,
         "startChar": 0,
