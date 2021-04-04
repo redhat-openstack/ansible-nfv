@@ -145,6 +145,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f20bfe98_6ef81ebf",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-04-04T07:06:19Z",
+      "side": 1,
+      "message": "as per requirements.txt \nansible\u003e\u003d2.7.13,\u003c2.8.0 ; python_version \u003c \u00273\u0027\nansible\u003e\u003d2.9.0,\u003c2.10.0 ; python_version \u003e\u003d \u00273\u0027\n\nrunning setup is py3 and the jenkins agents, AKA slaves are python3",
+      "parentUuid": "45a3abd1_a36190db",
+      "range": {
+        "startLine": 65,
+        "startChar": 13,
+        "endLine": 65,
+        "endChar": 18
+      },
+      "revId": "b15f80eb9802c96adfde90b137760e66c56728dc",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "374f1d0a_7f5c72ce",
         "filename": "roles/tester/tempest/tasks/main.yml",
         "patchSetId": 7
@@ -346,6 +370,30 @@
       "side": 1,
       "message": "What do you mean \"pip discover of venv is failing on server cert error\"?\nWhat is the difference between \"discover-tempest-config\" that we installing in venv to the one that may exist under /usr/bin?\nHow is it relates to the certs?",
       "parentUuid": "a59ba08c_65097503",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 8
+      },
+      "revId": "b15f80eb9802c96adfde90b137760e66c56728dc",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "508744f6_1a161b3c",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-04-04T07:06:19Z",
+      "side": 1,
+      "message": "\u003e What do you mean \"pip discover of venv is failing on server cert error\"?\nThe deployment is SSL one\nOnce working with unsigned certificates, all openstack commands from non undercloud are failing.\n\n\u003e What is the difference between \"discover-tempest-config\" that we installing in venv to the one that may exist under /usr/bin?\nIt looks the same, only difference, one is installed by rpm, the 2nd one by pip.\nI tried earlier tags, and i failed all the tests.\n\n\u003e How is it relates to the certs?\nSince the client tries to validate the server certificate, we are not parsing signed certificate, in the clients.\nWe are using the --ignore in clients",
+      "parentUuid": "85cd5dea_6bcba9c8",
       "range": {
         "startLine": 94,
         "startChar": 0,
