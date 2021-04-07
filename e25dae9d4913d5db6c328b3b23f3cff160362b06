@@ -22,6 +22,30 @@
       },
       "revId": "e25dae9d4913d5db6c328b3b23f3cff160362b06",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0a8f6c0f_257977b2",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 10
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-04-07T08:12:06Z",
+      "side": 1,
+      "message": "No. Yariv, please remove it.",
+      "parentUuid": "9368f602_4af622de",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 4
+      },
+      "revId": "e25dae9d4913d5db6c328b3b23f3cff160362b06",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
