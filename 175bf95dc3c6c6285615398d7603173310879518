@@ -104,6 +104,24 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "9b0f5388_d78c3f47",
+        "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
+        "patchSetId": 9
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-04-08T17:27:26Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "cd965992_2b450a4f",
+      "revId": "175bf95dc3c6c6285615398d7603173310879518",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "73caa886_1ba662d2",
@@ -242,6 +260,30 @@
       "side": 1,
       "message": "Will have to check it",
       "parentUuid": "f30f0e58_dbef08c1",
+      "range": {
+        "startLine": 41,
+        "startChar": 2,
+        "endLine": 41,
+        "endChar": 9
+      },
+      "revId": "175bf95dc3c6c6285615398d7603173310879518",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "9d89cadf_f741e998",
+        "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
+        "patchSetId": 9
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-04-08T17:27:26Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "97524dd3_ea5b3398",
       "range": {
         "startLine": 41,
         "startChar": 2,
