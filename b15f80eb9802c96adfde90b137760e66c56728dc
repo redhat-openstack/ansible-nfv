@@ -24,6 +24,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "de19af23_3b201d1d",
+        "filename": "roles/post_install/openstack_tasks/tasks/flavors.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-04-08T09:25:29Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "715119e9_99e7d28f",
+      "range": {
+        "startLine": 11,
+        "startChar": 4,
+        "endLine": 11,
+        "endChar": 10
+      },
+      "revId": "b15f80eb9802c96adfde90b137760e66c56728dc",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "364873ab_2deb43a9",
@@ -252,6 +276,30 @@
       "side": 1,
       "message": "Ack",
       "parentUuid": "374f1d0a_7f5c72ce",
+      "range": {
+        "startLine": 67,
+        "startChar": 24,
+        "endLine": 67,
+        "endChar": 41
+      },
+      "revId": "b15f80eb9802c96adfde90b137760e66c56728dc",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "47aac295_97ed2456",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-04-08T09:25:29Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "21da08b1_ec9b6954",
       "range": {
         "startLine": 67,
         "startChar": 24,
@@ -572,6 +620,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4e0675e0_7fc15921",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-04-08T09:25:29Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "9dd7c91f_01754de1",
+      "range": {
+        "startLine": 94,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 8
+      },
+      "revId": "b15f80eb9802c96adfde90b137760e66c56728dc",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2d309822_d3324407",
@@ -595,6 +667,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "2973b046_1fa34c75",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-04-08T09:25:29Z",
+      "side": 1,
+      "message": "so i understand it is ok",
+      "parentUuid": "2d309822_d3324407",
+      "range": {
+        "startLine": 111,
+        "startChar": 11,
+        "endLine": 111,
+        "endChar": 16
+      },
+      "revId": "b15f80eb9802c96adfde90b137760e66c56728dc",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "43a3de62_fd3175cb",
@@ -608,6 +704,30 @@
       "writtenOn": "2021-03-31T17:56:47Z",
       "side": 1,
       "message": "See above",
+      "range": {
+        "startLine": 113,
+        "startChar": 25,
+        "endLine": 113,
+        "endChar": 41
+      },
+      "revId": "b15f80eb9802c96adfde90b137760e66c56728dc",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "abfa4fec_8da9b742",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-04-08T09:25:29Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "43a3de62_fd3175cb",
       "range": {
         "startLine": 113,
         "startChar": 25,
