@@ -1,0 +1,284 @@
+# Example config file for ospd-16.1-geneve-ovn-dpdk-sriov-ctlplane-dataplane-bonding-hybrid
+# nic-partitioning deployment topology
+
+# Triggers
+undercloud_conf: true
+instackenv: true
+nodes: true
+dpdk: true
+sriov: true
+iface_mapping: true
+api_policies: true  # Used by qe testing
+
+osp_version: 16.1
+
+undercloud_config:
+  interface: eth0
+  cidr: 192.168.24.0/24
+
+instackenv_nodes:
+  - name: compute-0
+    mac: "00:00:00:00:00:00"
+    pm_user: root
+    pm_pass: calvin
+    pm_addr: "hostname1.example.com"
+  - name: compute-1
+    mac: "00:00:00:00:00:00"
+    pm_user: root
+    pm_pass: calvin
+    pm_addr: "hostname2.example.com"
+
+network_api:
+  - name: internal_api
+    vlan: 10
+    ip_subnet: 10.0.10.0/24
+  - name: tenant
+    vlan: 11
+    ip_subnet: 10.0.11.0/24
+  - name: storage
+    vlan: 12
+    ip_subnet: 10.0.12.0/24
+  - name: storage_mgmt
+    vlan: 13
+    ip_subnet: 10.0.13.0/24
+  - name: external
+    vlan: 14
+    ip_subnet: 10.0.14.0/22
+    gateway_ip: 10.0.14.1              # optional
+    allocation_pool_start: 10.0.14.12  # optional
+    allocation_pool_end: 10.0.14.22    # optional
+
+NeutronBridgeMappings:
+  - 'access:br-access'
+  - 'dpdk-mgmt:br-link0'
+  - 'dpdk-data0:br-dpdk0'
+  - 'dpdk-data1:br-dpdk1'
+  - 'sriov-1:br-sriov1'
+  - 'sriov-2:br-sriov2'
+NeutronNetworkVLANRanges:
+  - 'access:403:403'
+  - 'dpdk-mgmt:104:109'
+  - 'dpdk-data0:104:109'
+  - 'dpdk-data1:104:109'
+  - 'sriov-1:104:109'
+  - 'sriov-2:104:109'
+  - 'sriov-part-1:104:107'
+  - 'sriov-part-2:104:109'
+NeutronFlatNetworks:
+  - 'access'
+  - 'dpdk-mgmt'
+  - 'dpdk-data0'
+  - 'dpdk-data1'
+  - 'sriov-1'
+  - 'sriov-2'
+  - 'sriov-part-1'
+  - 'sriov-part-2'
+NeutronNetworkType: geneve,vlan
+NeutronTunnelTypes: geneve
+NeutronExternalNetworkBridge: br-access
+NeutronEnableDVR: False
+NtpServer: clock.redhat.com
+NeutronPhysnetNUMANodesMapping: "dpdk-data1: [1]"  # optional
+NeutronGlobalPhysnetMtu: 9000                      # optional
+NeutronPluginExtensions: port_security,qos,segments,trunk,placement
+NeutronServicePlugins: ovn-router,trunk,qos
+NeutronSriovAgentExtensions: qos
+DnsServers:
+  - 10.46.0.31
+  - 10.46.0.32
+
+deploy_config:
+  # The name of the role is case sensitive
+  - role_name: ControllerSriov
+    count: 3
+    flavor: controller  # The name of the flavor, by default, should be based on the name of the node from instackenv file.
+  - role_name: ComputeOvsDpdkSriov
+    count: 2
+    flavor: compute
+    common_opts:  # all the suboptions are optional
+      KernelArgs: "default_hugepagesz=1GB hugepagesz=1G hugepages=64 iommu=pt intel_iommu=on isolcpus=2-19,22-39"
+    dpdk_opts:  # all the suboptions are optional
+      IsolCpusList: "2-19,22-39"
+      # The "NovaComputeCpuDedicatedSet" param used in osp 16 and above. In osp 13, the "NovaVcpuPinSet" is used.
+      # In the configuration, use the "NovaComputeCpuDedicatedSet" and during the generation of tht,
+      # proper parameter will be placed.
+      NovaComputeCpuDedicatedSet: "4,6-19,24,26-39"
+      NovaReservedHostMemory: 2048
+      OvsDpdkSocketMemory: "4096,1024"
+      OvsDpdkMemoryChannels: 4
+      OvsDpdkCoreList: "0,20,1,21"
+      NovaComputeCpuSharedSet: "0,20,1,21"
+      OvsPmdCoreList: "2,3"
+    sriov_opts:  # all the suboptions are optional
+      sriov_mapping:
+      # Those params are used to build two sriov params:
+      # NovaPCIPassthrough and NeutronPhysicalDevMappings
+        - devname: "enp5s0f0"
+          physical_network: "sriov-1"
+          trusted: "true"
+        - devname: "enp5s0f1"
+          physical_network: "sriov-2"
+          trusted: "true"
+        - devname: "enp5s0f2"
+          physical_network: "sriov-part-1"
+          trusted: "true"
+        - devname: "enp5s0f3"
+          physical_network: "sriov-part-2"
+          trusted: "true"
+
+node_config:
+    # The name of the role is case sensitive
+  - role_name: ControllerSriov
+    nic_configs:
+      - type: interface
+        nic: nic1
+        route: provision
+      - type: linux_bond
+        name: bond_api
+        bonding_nics:
+          - nic: nic2
+        # The name of the api is case sensitive
+        api:
+          - InternalApi
+          - Storage
+          - StorageMgmt
+      - type: ovs_bridge
+        name: br-link0
+        nic: nic3
+        mtu: 9000
+        api:
+          - Tenant
+      - type: ovs_bridge
+        name: br-dpdk0
+        nic: nic4
+        mtu: 9000
+      - type: ovs_bridge
+        name: br-dpdk1
+        nic: nic5
+        mtu: 9000
+      - type: ovs_bridge
+        name: br-sriov1
+        nic: nic6
+        mtu: 9000
+      - type: ovs_bridge
+        name: br-sriov2
+        nic: nic7
+        mtu: 9000
+      - type: interface
+        nic: nic8
+        route: false
+      - type: interface
+        nic: nic9
+        route: false
+      - type: ovs_bridge
+        name: br-access
+        nic: nic10
+        mtu: 9000
+        api:
+          - External
+        route: External
+        defroute: true
+  - role_name: ComputeOvsDpdkSriov
+    dmi_string: system-product-name  # optional
+    id: "PowerEdge R730"             # optional
+    nics:
+      - nic: 1
+        name: eno1
+      - nic: 2
+        name: eno2
+      - nic: 3
+        name: enp130s0f0
+      - nic: 4
+        name: enp130s0f1
+      - nic: 5
+        name: enp130s0f2
+      - nic: 6
+        name: enp130s0f3
+      - nic: 7
+        name: enp5s0f0
+      - nic: 8
+        name: enp5s0f1
+      - nic: 9
+        name: enp5s0f2
+      - nic: 10
+        name: enp5s0f3
+    nic_configs:
+      - type: interface
+        nic: nic1
+        route: false
+      - type: interface
+        nic: nic2
+        route: provision
+        defroute: true
+      - type: sriov_pf
+        nic: nic3
+        mtu: 9000
+        numvfs: 10
+        route: false
+      - type: sriov_pf
+        nic: nic4
+        mtu: 9000
+        numvfs: 10
+        route: false
+      - type: linux_bond
+        name: bond_api
+        bonding_nics:
+          - nic: nic3
+            vfid: 0
+          - nic: nic4
+            vfid: 0
+        # The name of the api is case sensitive
+        api:
+          - InternalApi
+      - type: linux_bond
+        name: storage_bond
+        bonding_nics:
+          - nic: nic3
+            vfid: 1
+          - nic: nic4
+            vfid: 1
+        api:
+          - Storage
+      - type: sriov_pf
+        nic: nic5
+        mtu: 9000
+        numvfs: 10
+        route: false
+      - type: sriov_pf
+        nic: nic6
+        mtu: 9000
+        numvfs: 10
+        route: false
+      - type: ovs_user_bridge
+        name: br-dpdk0
+        nic: nic5
+        vfid: 0                 # Nic-partitioning definition
+        mtu: 9000
+        rxq: 1
+      - type: ovs_user_bridge
+        name: br-dpdk1
+        nic: nic6
+        vfid: 0
+        mtu: 9000
+        rxq: 1
+      - type: ovs_user_bridge
+        name: br-link0
+        mtu: 9000
+        rxq: 2
+        bonding_nics:
+          - nic: nic3
+            vfid: 2
+          - nic: nic4
+            vfid: 2
+        api:
+          - Tenant
+      - type: sriov_pf
+        nic: nic9
+        mtu: 9000
+        numvfs: 10
+        route: false
+      - type: sriov_pf
+        nic: nic10
+        mtu: 9000
+        numvfs: 10
+        route: false

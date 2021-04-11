@@ -1,19 +1,55 @@
               - type: {{ nic.type }}
                 name: {{ nic.name }}
-                bonding_options: mode=active-backup
+                bonding_options: "mode=active-backup"
                 use_dhcp: false
                 dns_servers:
                   get_param: DnsServers
                 members:
+                {% set ns = namespace() %}
+                {% set ns.topology = '' %}
                 {% for iface in nic.bonding_nics %}
-                - type: interface
-                  name: {{ iface }}
-                  {% if loop.first %}
-                  primary: true
-                  {% endif %}
+                {% if 'vfid' in iface %}
+                {# Nic-partitioning deployment topology #}
+                {% set ns.topology = 'partitioning' %}
+                  - type: sriov_vf
+                    device: {{ iface.nic }}
+                    vfid: {{ iface.vfid }}
+                    spoofcheck: false
+                    promisc: false
+                    {% if 'api' in nic %}
+                    {% for api in nic.api %}
+                    vlan_id:
+                      get_param: {{ api }}NetworkVlanID
+                    {% endfor %}
+                    {% endif %}
+                {% else %}
+                {# Standard deployment topology #}
+                {% set ns.topology = 'standard' %}
+                  - type: interface
+                    name: {{ iface.nic }}
+                    {% if loop.first %}
+                    primary: true
+                    {% endif %}
+                {% endif %}
                 {% endfor %}
+                {% if 'api' in nic and ns.topology == 'partitioning' %}
+                {# Nic-partitioning deployment topology #}
+                {# places the api as part of the bond #}
+                addresses:
+                {% for api in nic.api %}
+                  - ip_netmask:
+                      get_param: {{ api }}IpSubnet
+                {% endfor %}
+                routes:
+                  list_concat_unique:
+                {% for api in nic.api %}
+                    - get_param: {{ api }}InterfaceRoutes
+                {% endfor %}
+                {% endif %}
 
-              {% if 'api' in nic %}
+              {# Standard deployment topology places #}
+              {# the api separated from the bond #}
+              {% if 'api' in nic and ns.topology == 'standard' %}
               {% for api in nic.api %}
               - type: vlan
                 device: {{ nic.name }}
