@@ -2,14 +2,6 @@
                 name: {{ nic.name }}
                 use_dhcp: false
                 {% if 'api' in nic %}
-                ovs_extra:
-                  - str_replace:
-                      {% for api in nic.api %}
-                      template: set port {{ nic.name }} tag=_VLAN_TAG_
-                      params:
-                        _VLAN_TAG_:
-                          get_param: {{ api }}NetworkVlanID
-                      {% endfor %}
                 addresses:
                 {% for api in nic.api %}
                   - ip_netmask:
@@ -30,15 +22,37 @@
                     {% endif %}
                     members:
                     {% if 'nic' in nic %}
+                    {% if 'vfid' in nic %}
+                    {# Nic-partitioning deployment topology #}
+                      - type: sriov_vf
+                        device: {{ nic.nic }}
+                        vfid: {{ nic.vfid }}
+                    {% else %}
+                    {# Standard deployment topology #}
                       - type: interface
                         name: {{ nic.nic }}
+                    {% endif %}
                     {% elif 'bonding_nics' in nic %}
                     {% for iface in nic.bonding_nics %}
                       - type: ovs_dpdk_port
                         name: {{ nic.name | replace('br-', '') }}_port{{ loop.index }}
                         members:
+                        {% if 'vfid' in iface %}
+                        {# Nic-partitioning deployment topology #}
+                          - type: sriov_vf
+                            device: {{ iface.nic }}
+                            vfid: {{ iface.vfid }}
+                        {% else %}
+                        {# Standard deployment topology #}
                           - type: interface
-                            name: {{ iface }}
+                            name: {{ iface.nic }}
+                        {% endif %}
+                          {% if 'api' in nic %}
+                          {% for api in nic.api %}
+                            vlan_id:
+                              get_param: {{ api }}NetworkVlanID
+                          {% endfor %}
+                          {% endif %}
                     {% endfor %}
                   {% endif %}
                 {% endif %}
