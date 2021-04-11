@@ -292,6 +292,30 @@
       },
       "revId": "175bf95dc3c6c6285615398d7603173310879518",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1266bd20_3bc61306",
+        "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
+        "patchSetId": 9
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-04-11T08:48:54Z",
+      "side": 1,
+      "message": "@maxim\nLooking at ansible module\u003dscript,\n\"Runs a local script on a remote node after transferring it\"\n\nIt is failing while running, since files are downloaded to remote",
+      "parentUuid": "9d89cadf_f741e998",
+      "range": {
+        "startLine": 41,
+        "startChar": 2,
+        "endLine": 41,
+        "endChar": 9
+      },
+      "revId": "175bf95dc3c6c6285615398d7603173310879518",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
