@@ -26,7 +26,8 @@ parameter_defaults:
     OvsDpdkMemoryChannels: "{{ opt.dpdk_opts.OvsDpdkMemoryChannels }}"
     {% endif %}
     {% if 'OvsDpdkCoreList' in opt.dpdk_opts %}
-    OvsDpdkCoreList: "{{ opt.dpdk_opts.OvsDpdkCoreList }}"
+    # Param Obsolete https://bugzilla.redhat.com/show_bug.cgi?id=1809930
+    # OvsDpdkCoreList: "{{ opt.dpdk_opts.OvsDpdkCoreList }}"
     {% endif %}
     {% if 'NovaComputeCpuSharedSet' in opt.dpdk_opts %}
     NovaComputeCpuSharedSet: [{{ opt.dpdk_opts.NovaComputeCpuSharedSet }}]

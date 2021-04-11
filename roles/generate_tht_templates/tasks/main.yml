@@ -81,13 +81,3 @@
   loop: "{{ node_config }}"
   loop_control:
     loop_var: conf
-
-- name: Copy performance configuration files
-  copy:
-    src: "performance/{{ item }}"
-    dest: "{{ templates_path }}/performance-files/{{ item }}"
-    mode: '0664'
-  loop:
-    - perf_instances.yml
-    - perf_resources_config.yml
-  when: perf_configs | bool
