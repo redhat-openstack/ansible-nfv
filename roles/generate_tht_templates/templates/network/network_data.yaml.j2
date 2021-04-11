@@ -9,13 +9,13 @@
   vip: true
   {% endif %}
   vlan: {{ net.vlan }}
-  ip_subnet: {{ net.ip_subnet }}
+  ip_subnet: '{{ net.ip_subnet }}'
   {% if net.gateway_ip is defined and net.gateway_ip | length %}
-  gateway_ip: {{ net.gateway_ip }}
+  gateway_ip: '{{ net.gateway_ip }}'
   {% endif %}
   {% if net.allocation_pool_start is defined and net.allocation_pool_end is defined %}
-  allocation_pools: [{'start': {{ net.allocation_pool_start }}, 'end': {{ net.allocation_pool_end }}}]
+  allocation_pools: [{'start': '{{ net.allocation_pool_start }}', 'end': '{{ net.allocation_pool_end }}'}]
   {% else %}
-  allocation_pools: [{'start': {{ net.ip_subnet | ipaddr('10') | ipaddr('address') }}, 'end': {{ net.ip_subnet | ipaddr('110') | ipaddr('address') }}}]
+  allocation_pools: [{'start': '{{ net.ip_subnet | ipaddr("10") | ipaddr("address") }}', 'end': '{{ net.ip_subnet | ipaddr("110") | ipaddr("address") }}'}]
   {% endif %}  
 {% endfor %}
