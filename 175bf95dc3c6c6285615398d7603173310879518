@@ -316,6 +316,30 @@
       },
       "revId": "175bf95dc3c6c6285615398d7603173310879518",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "754ba693_c3206139",
+        "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
+        "patchSetId": 9
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-04-11T10:26:31Z",
+      "side": 1,
+      "message": "Yes, you are right.\nMy bad.",
+      "parentUuid": "1266bd20_3bc61306",
+      "range": {
+        "startLine": 41,
+        "startChar": 2,
+        "endLine": 41,
+        "endChar": 9
+      },
+      "revId": "175bf95dc3c6c6285615398d7603173310879518",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
