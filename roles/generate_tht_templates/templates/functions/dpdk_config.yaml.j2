@@ -25,7 +25,7 @@ parameter_defaults:
     {% if 'OvsDpdkMemoryChannels' in opt.dpdk_opts %}
     OvsDpdkMemoryChannels: "{{ opt.dpdk_opts.OvsDpdkMemoryChannels }}"
     {% endif %}
-    {% if 'OvsDpdkCoreList' in opt.dpdk_opts %}
+    {% if 'OvsDpdkCoreList' in opt.dpdk_opts and osp_version is version('16', '<') %}
     OvsDpdkCoreList: "{{ opt.dpdk_opts.OvsDpdkCoreList }}"
     {% endif %}
     {% if 'NovaComputeCpuSharedSet' in opt.dpdk_opts %}
