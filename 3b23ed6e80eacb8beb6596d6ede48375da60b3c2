@@ -141,6 +141,30 @@
       },
       "revId": "3b23ed6e80eacb8beb6596d6ede48375da60b3c2",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "14f83435_fed1eba9",
+        "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-04-12T12:13:00Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "7f888f1c_0a4cafde",
+      "range": {
+        "startLine": 46,
+        "startChar": 2,
+        "endLine": 46,
+        "endChar": 30
+      },
+      "revId": "3b23ed6e80eacb8beb6596d6ede48375da60b3c2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }

@@ -545,6 +545,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "7afe0ce6_00224eb4",
+        "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-04-12T12:13:00Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "cd6dc197_9e724eb0",
+      "range": {
+        "startLine": 29,
+        "startChar": 55,
+        "endLine": 29,
+        "endChar": 71
+      },
+      "revId": "63ec4b88f2c26a754d9ddc8005ca0561c15f71aa",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "518b7ad9_90f6c017",
@@ -688,6 +712,54 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "fe2bc55d_55913baa",
+        "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-04-12T12:13:00Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "edcf13ba_df38aef7",
+      "range": {
+        "startLine": 34,
+        "startChar": 37,
+        "endLine": 34,
+        "endChar": 66
+      },
+      "revId": "63ec4b88f2c26a754d9ddc8005ca0561c15f71aa",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "687c3741_2924fc6c",
+        "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-04-12T12:13:00Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "edcf13ba_df38aef7",
+      "range": {
+        "startLine": 34,
+        "startChar": 37,
+        "endLine": 34,
+        "endChar": 66
+      },
+      "revId": "63ec4b88f2c26a754d9ddc8005ca0561c15f71aa",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "34b4976e_3214957a",
@@ -759,6 +831,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bbfa7247_4bf238a1",
+        "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-04-12T12:13:00Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "3544d2a3_8c1fd8f9",
+      "range": {
+        "startLine": 38,
+        "startChar": 22,
+        "endLine": 38,
+        "endChar": 104
+      },
+      "revId": "63ec4b88f2c26a754d9ddc8005ca0561c15f71aa",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "887d5370_782862e4",
@@ -796,6 +892,30 @@
       "side": 1,
       "message": "ACK",
       "parentUuid": "887d5370_782862e4",
+      "range": {
+        "startLine": 46,
+        "startChar": 2,
+        "endLine": 46,
+        "endChar": 12
+      },
+      "revId": "63ec4b88f2c26a754d9ddc8005ca0561c15f71aa",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "2c083c1f_b53d41a0",
+        "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-04-12T12:13:00Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "bdf58307_5aeb4828",
       "range": {
         "startLine": 46,
         "startChar": 2,
@@ -867,6 +987,30 @@
       "side": 1,
       "message": "I mean to add a note which starts in line 48-50.\nIt is needed to explain why the pip, virtualenv, setuptools install separated from the openstackadk package install. Task in line 60.",
       "parentUuid": "f637a88c_9878b5e6",
+      "range": {
+        "startLine": 51,
+        "startChar": 3,
+        "endLine": 51,
+        "endChar": 42
+      },
+      "revId": "63ec4b88f2c26a754d9ddc8005ca0561c15f71aa",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "336df487_186f23d6",
+        "filename": "roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-04-12T12:13:00Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "72406734_aa63fb48",
       "range": {
         "startLine": 51,
         "startChar": 3,
