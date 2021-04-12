@@ -11,5 +11,3 @@ packages:
     - libffi-devel
     - python-devel
     - python-setuptools
-
-ansible_python_interpreter: /usr/libexec/platform-python
