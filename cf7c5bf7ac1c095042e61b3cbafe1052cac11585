@@ -33,6 +33,40 @@
       "message": "I would suggest using combine() filter before using the value to allow overriding only bits of the dictionary and won\u0027t have to copy the entire dictionary just to change one nic name.\nand you will also be able to just put it all as a defult 😊",
       "revId": "cf7c5bf7ac1c095042e61b3cbafe1052cac11585",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b07110e_6295f0d9",
+        "filename": "roles/generate_tht_templates/templates/env/network_environment_config.yaml.j2",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2021-04-12T14:30:01Z",
+      "side": 1,
+      "message": "this var is confusing and also doesn\u0027t allow you to enable dvr, why not just have it like\nNeutronEnableDVR: {{ NeutronEnableDVR | default(false) | boolean }}",
+      "revId": "cf7c5bf7ac1c095042e61b3cbafe1052cac11585",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f1e4ab85_4cc955b5",
+        "filename": "roles/generate_tht_templates/templates/functions/dpdk_config.yaml.j2",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2021-04-12T14:30:01Z",
+      "side": 1,
+      "message": "please remove, no need to have this if it is commented either way",
+      "revId": "cf7c5bf7ac1c095042e61b3cbafe1052cac11585",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
