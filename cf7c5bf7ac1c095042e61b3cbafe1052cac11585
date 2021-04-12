@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "86eb5a0e_6824e3ab",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2021-04-12T13:31:44Z",
+      "side": 1,
+      "message": "I think it would be better allo",
+      "revId": "cf7c5bf7ac1c095042e61b3cbafe1052cac11585",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cea2946c_30753441",
+        "filename": "roles/generate_tht_templates/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2021-04-12T13:31:44Z",
+      "side": 1,
+      "message": "I would suggest using combine() filter before using the value to allow overriding only bits of the dictionary and won\u0027t have to copy the entire dictionary just to change one nic name.\nand you will also be able to just put it all as a defult 😊",
+      "revId": "cf7c5bf7ac1c095042e61b3cbafe1052cac11585",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
