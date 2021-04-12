@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f861e351_6cb4a208",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-04-12T22:13:51Z",
+      "side": 1,
+      "message": "Tested in osp13/16.1",
+      "revId": "edb8fbb953d5d7e4b401eb2c5e25e6d98534b1d3",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
