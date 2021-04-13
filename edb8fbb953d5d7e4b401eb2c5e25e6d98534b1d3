@@ -16,6 +16,23 @@
       "message": "Tested in osp13/16.1",
       "revId": "edb8fbb953d5d7e4b401eb2c5e25e6d98534b1d3",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "32712a20_4a6255c6",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2021-04-13T06:52:02Z",
+      "side": 1,
+      "message": "In the future we should avoid code duplication,maybe we should have a dedicated role for setting the python env required. but its an important fix so +2",
+      "revId": "edb8fbb953d5d7e4b401eb2c5e25e6d98534b1d3",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
