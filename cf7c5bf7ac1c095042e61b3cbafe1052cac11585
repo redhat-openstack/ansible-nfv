@@ -37,6 +37,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "d984ad95_0575d5a4",
+        "filename": "roles/generate_tht_templates/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-04-13T08:26:55Z",
+      "side": 1,
+      "message": "I will probably add the combine() filter.\nBut I don\u0027t think I will ad it to the defaults.\nI think it could lead to a situation where a small mistake will generate not expected templates.\n\nBut with the combine filter we will be able to use a sort of base config over scenarios for the same setup.",
+      "parentUuid": "cea2946c_30753441",
+      "revId": "cf7c5bf7ac1c095042e61b3cbafe1052cac11585",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "1b07110e_6295f0d9",
         "filename": "roles/generate_tht_templates/templates/env/network_environment_config.yaml.j2",
         "patchSetId": 1
@@ -54,6 +72,24 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "a40df0b9_f067994e",
+        "filename": "roles/generate_tht_templates/templates/env/network_environment_config.yaml.j2",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-04-13T08:26:55Z",
+      "side": 1,
+      "message": "I don\u0027t want to include that variable in every our template as we are not using dvr at all.\n\nBut I will definitely change the hardcoded value of the DVR param.",
+      "parentUuid": "1b07110e_6295f0d9",
+      "revId": "cf7c5bf7ac1c095042e61b3cbafe1052cac11585",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f1e4ab85_4cc955b5",
         "filename": "roles/generate_tht_templates/templates/functions/dpdk_config.yaml.j2",
         "patchSetId": 1
@@ -65,6 +101,24 @@
       "writtenOn": "2021-04-12T14:30:01Z",
       "side": 1,
       "message": "please remove, no need to have this if it is commented either way",
+      "revId": "cf7c5bf7ac1c095042e61b3cbafe1052cac11585",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "497568fc_a554b3c0",
+        "filename": "roles/generate_tht_templates/templates/functions/dpdk_config.yaml.j2",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-04-13T08:26:55Z",
+      "side": 1,
+      "message": "Yeah, probably we don\u0027t need it anymore.",
+      "parentUuid": "f1e4ab85_4cc955b5",
       "revId": "cf7c5bf7ac1c095042e61b3cbafe1052cac11585",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
