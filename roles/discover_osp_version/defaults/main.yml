@@ -1,1 +1,7 @@
-osp_version_file: '/etc/rhosp-release'
+osp_version_files:
+ - '/etc/rhosp-release'
+ - '/var/lib/rhos-release/latest-installed'
+
+overcloud_version_regexp:
+ - '^Red Hat OpenStack Platform release ([0-9]{2}).*'
+ - '^([0-9]{2}).*'
