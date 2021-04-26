@@ -3,6 +3,18 @@
     path: '{{ osp_version_file }}'
   register: rhosp_release_file
 
+- block:
+    - name: "set osp_version_file"
+      set_fact:
+        osp_version_file: '/var/lib/rhos-release/latest-installed'
+
+    - name: Check for /etc/rhosp-release file
+      stat:
+        path: '{{ osp_version_file }}'
+      register: rhosp_release_file
+
+  when: not rhosp_release_file.stat.exists|bool
+
 - name: Read the /etc/rhosp-release file
   slurp:
     src: '{{ osp_version_file }}'
@@ -13,3 +25,8 @@
   set_fact:
     overcloud_version: "{{ rhosp_release_content.content | b64decode | regex_replace('^Red Hat OpenStack Platform release ([0-9]{2}).*', '\\1') | int }}"
   when: rhosp_release_file.stat.exists
+
+- name: set Overcloud version if overcloud_version==0
+  set_fact:
+    overcloud_version: "{{ rhosp_release_content.content | b64decode | regex_replace('^([0-9]{2}).*', '\\1') | int }}"
+  when: overcloud_version|int == 0
