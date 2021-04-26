@@ -1,11 +1,11 @@
 - name: Check for /etc/rhosp-release file
   stat:
-    path: '{{ osp_version_file }}'
+    path: '{{ osp_version_files[0] }}'
   register: rhosp_release_file
 
 - name: Read the /etc/rhosp-release file
   slurp:
-    src: '{{ osp_version_file }}'
+    src: '{{ osp_version_files[0] }}'
   register: rhosp_release_content
   when: rhosp_release_file.stat.exists
 
