@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "edffc14a_43640dfd",
+        "filename": "roles/discover_osp_version/tasks/overcloud.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-04-27T10:53:22Z",
+      "side": 1,
+      "message": "You can check for both files here with first found.\n\nAdd a list to the defaults/main.yml\n\nversion_files:\n  - /etc/rhosp-release\n  - /var/lib/rhos-release/latest-installed\n\nThen, use the loop with \"first_found\" filter:\nhttps://docs.ansible.com/ansible/2.5/plugins/lookup/first_found.html",
+      "range": {
+        "startLine": 1,
+        "startChar": 8,
+        "endLine": 1,
+        "endChar": 18
+      },
+      "revId": "738346e551f877e079f9d6dd1c5c019d643ee386",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "36e31d56_93ed02f2",
+        "filename": "roles/discover_osp_version/tasks/overcloud.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-04-27T10:53:22Z",
+      "side": 1,
+      "message": "In this task, take a regex expression into the task var and used in based on the found file.\nSo same task will use a different regex based on the file that will be found.",
+      "range": {
+        "startLine": 12,
+        "startChar": 8,
+        "endLine": 12,
+        "endChar": 24
+      },
+      "revId": "738346e551f877e079f9d6dd1c5c019d643ee386",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
