@@ -104,6 +104,24 @@
       "parentUuid": "512bd5be_e38ce74f",
       "revId": "738346e551f877e079f9d6dd1c5c019d643ee386",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c282fda0_1e5b04f4",
+        "filename": "roles/discover_osp_version/tasks/overcloud.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2021-04-27T13:37:01Z",
+      "side": 1,
+      "message": "please ignore it sent it before finishing without noticing",
+      "parentUuid": "512bd5be_e38ce74f",
+      "revId": "738346e551f877e079f9d6dd1c5c019d643ee386",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
