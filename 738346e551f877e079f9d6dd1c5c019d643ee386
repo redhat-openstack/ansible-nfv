@@ -45,6 +45,23 @@
       },
       "revId": "738346e551f877e079f9d6dd1c5c019d643ee386",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "512bd5be_e38ce74f",
+        "filename": "roles/discover_osp_version/tasks/overcloud.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2021-04-27T13:31:27Z",
+      "side": 1,
+      "message": "why not have something like:\n\n\\- name: Find out what the remote machine\u0027s mounts are\n  slurp:\n    src: /etc/rhosp-release\n  register: some_content\n  ignore_errors: true\n\n\\- name: Run only if the task that registered the \"result\" variable fails\n  slurp:\n    src: /etc/rhosp-release\n  register: some_content\n  when: some_content is failed\n\n\\- name: set Overcloud version when not defined\n  set_fact:\n    overcloud_version: \"{{ some_content.content | b64decode | regex_replace(\u0027^([0-9]{2}).*\u0027, \u0027\\\\1\u0027) | int }}\"",
+      "revId": "738346e551f877e079f9d6dd1c5c019d643ee386",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
