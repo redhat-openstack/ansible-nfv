@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f9ba3a9f_d332a117",
+        "filename": "roles/discover_osp_version/tasks/overcloud.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-04-27T13:36:05Z",
+      "side": 1,
+      "message": "Following the slack conversation.\nYou are right. The \"first_found\" filter can\u0027t be used on the remote machine.\n\nInstead you can do the following:\n\n- hosts: undercloud\n  gather_facts: false\n  vars:\n    version_files:\n      - /tmp/file1\n      - /tmp/file2\n  tasks:\n    - name: Check files\n      stat:\n        path: \"{{ item }}\"\n      loop: \"{{ version_files }}\"\n      register: file_bla\n\n    - set_fact:\n        ver_file: \"{{ item.item }}\"\n      loop: \"{{ file_bla.results }}\"\n      when: item.stat.exists\n\n    - debug:\n        msg: \"{{ ver_file }}\"\n\n\n\nIn that way, you will always get the existing file in your \"ver_file\" variable.",
+      "parentUuid": "edffc14a_43640dfd",
+      "range": {
+        "startLine": 1,
+        "startChar": 8,
+        "endLine": 1,
+        "endChar": 18
+      },
+      "revId": "738346e551f877e079f9d6dd1c5c019d643ee386",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "36e31d56_93ed02f2",
         "filename": "roles/discover_osp_version/tasks/overcloud.yml",
         "patchSetId": 2
@@ -60,6 +84,24 @@
       "writtenOn": "2021-04-27T13:31:27Z",
       "side": 1,
       "message": "why not have something like:\n\n\\- name: Find out what the remote machine\u0027s mounts are\n  slurp:\n    src: /etc/rhosp-release\n  register: some_content\n  ignore_errors: true\n\n\\- name: Run only if the task that registered the \"result\" variable fails\n  slurp:\n    src: /etc/rhosp-release\n  register: some_content\n  when: some_content is failed\n\n\\- name: set Overcloud version when not defined\n  set_fact:\n    overcloud_version: \"{{ some_content.content | b64decode | regex_replace(\u0027^([0-9]{2}).*\u0027, \u0027\\\\1\u0027) | int }}\"",
+      "revId": "738346e551f877e079f9d6dd1c5c019d643ee386",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "65502a3a_364249f2",
+        "filename": "roles/discover_osp_version/tasks/overcloud.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-04-27T13:36:05Z",
+      "side": 1,
+      "message": "First of all, \"ignore_errors\" flag should be avoid to be used.\nWe do want to know the state of the module.\nThere are were minimal situation where this flag should be used.\n\nSecond, we would like to minimize the play and avoid any duplication.",
+      "parentUuid": "512bd5be_e38ce74f",
       "revId": "738346e551f877e079f9d6dd1c5c019d643ee386",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
