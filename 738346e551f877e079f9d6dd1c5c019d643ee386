@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7ce5df99_d6e2915b",
+        "filename": "roles/discover_osp_version/tasks/overcloud.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2021-04-27T14:30:44Z",
+      "side": 1,
+      "message": "I think this is the cleanest option to remove all of those lines...\n\nvars:\n-----\nversions_file:\n  - {\u0027path\u0027: \u0027/etc/rhosp-release\u0027, \u0027regex\u0027: \u0027^Red Hat OpenStack Platform release \u0027, \u0027\\\\1\u0027, \u0027return\u0027: \u0027\u0027}\n  - {\u0027path\u0027: \u0027/another_path_to_file\u0027, \u0027regex\u0027: \u0027another_regex\u0027, \u0027return\u0027: \u0027\u0027}\n\n\ntasks:\n-----\n\\- name: some step\n      slurp:\n        src: \"{{ item.path }}\"\n      with_items: \"{{ versions_file }}\"\n      register: results\n      ignore_errors: true\n\\- name: set Overcloud version when not defined\n     set_fact:\n       overcloud_version: \"{{ item.content | b64decode | regex_replace(item.item.regex) }}\" #| int }}\"\n     with_items: \"{{ results.results }}\"\n     when: item is succeeded",
+      "parentUuid": "f9ba3a9f_d332a117",
+      "range": {
+        "startLine": 1,
+        "startChar": 8,
+        "endLine": 1,
+        "endChar": 18
+      },
+      "revId": "738346e551f877e079f9d6dd1c5c019d643ee386",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "36e31d56_93ed02f2",
         "filename": "roles/discover_osp_version/tasks/overcloud.yml",
         "patchSetId": 2
