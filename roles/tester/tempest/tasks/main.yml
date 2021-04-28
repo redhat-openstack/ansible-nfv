@@ -51,13 +51,13 @@
 - name: Install repos in a virtual environment
   pip:
     virtualenv: "{{ tempest_venv }}"
-    name:
-      - "{{ tempest_dir }}/{{ neutron_tempest_plugin }}"
-      - "{{ tempest_dir }}/{{ nfv_tempest_plugin }}"
-      - "{{ tempest_dir }}/{{ tempest_main }}"
-      - "{{ tempest_dir }}/{{ tempest_conf }}"
-    state: present
-    editable: true
+    requirements: "{{ item }}/requirements.txt"
+    chdir: "{{ tempest_dir }}"
+  loop:
+    - "{{ neutron_tempest_plugin }}"
+    - "{{ nfv_tempest_plugin }}"
+    - "{{ tempest_main }}"
+    - "{{ tempest_conf }}"
 
 - name: Get the external network id
   vars:
