@@ -71,6 +71,24 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4a63eb62_45ae66d5",
+        "filename": "roles/generate_tht_templates/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2021-04-28T07:05:01Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b0aec024_fcb0948a",
+      "revId": "cf7c5bf7ac1c095042e61b3cbafe1052cac11585",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "1b07110e_6295f0d9",
@@ -173,6 +191,24 @@
       "side": 1,
       "message": "Removed it from the 16 and above.\nThe parameter need to exists only in 13 and below.",
       "parentUuid": "497568fc_a554b3c0",
+      "revId": "cf7c5bf7ac1c095042e61b3cbafe1052cac11585",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5eb7940d_79839813",
+        "filename": "roles/generate_tht_templates/templates/functions/dpdk_config.yaml.j2",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2021-04-28T07:05:01Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "89c20baa_912971f3",
       "revId": "cf7c5bf7ac1c095042e61b3cbafe1052cac11585",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
