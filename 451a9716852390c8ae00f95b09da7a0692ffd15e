@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "630c3ce5_93cc1a84",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-04-28T19:12:28Z",
+      "side": 1,
+      "message": "I would check this line,\n/home/stack/tempest/venv/bin/activate\\npython config_tempest/config_tempest.py is not needed \nyou have https://docs.openstack.org/python-tempestconf/latest/cli/cli_options.html\n\ndiscover-tempest-config in your virtualenv",
+      "range": {
+        "startLine": 172,
+        "startChar": 1,
+        "endLine": 172,
+        "endChar": 42
+      },
+      "revId": "451a9716852390c8ae00f95b09da7a0692ffd15e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
