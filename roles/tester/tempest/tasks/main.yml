@@ -52,12 +52,27 @@
   pip:
     virtualenv: "{{ tempest_venv }}"
     name:
-      - "{{ tempest_dir }}/{{ neutron_tempest_plugin }}"
       - "{{ tempest_dir }}/{{ nfv_tempest_plugin }}"
       - "{{ tempest_dir }}/{{ tempest_main }}"
       - "{{ tempest_dir }}/{{ tempest_conf }}"
     state: present
     editable: true
+
+# neutron_tempest_plugin requires python 3.6. In osp13
+# it is used python 2.7. Using this workaround
+- name: Install requirements for neutron_tempest_plugin
+  pip:
+    virtualenv: "{{ tempest_venv }}"
+    requirements: "{{ tempest_dir }}/{{ neutron_tempest_plugin }}/requirements.txt"
+
+- name: Install neutron_tempest_plugin in a virtual environment 
+  pip:
+    virtualenv: "{{ tempest_venv }}"
+    name:
+      - "{{ tempest_dir }}/{{ neutron_tempest_plugin }}"
+    state: present
+    editable: true
+    extra_args: --ignore-requires-python
 
 - name: Get the external network id
   vars:
