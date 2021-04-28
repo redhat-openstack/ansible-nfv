@@ -96,6 +96,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "b5c6f970_be3bc417",
+        "filename": "roles/discover_osp_version/tasks/overcloud.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-04-28T08:29:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "414e6d28_144736fc",
+      "range": {
+        "startLine": 1,
+        "startChar": 8,
+        "endLine": 1,
+        "endChar": 18
+      },
+      "revId": "738346e551f877e079f9d6dd1c5c019d643ee386",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "36e31d56_93ed02f2",
@@ -133,6 +157,30 @@
       "side": 1,
       "message": "Ack",
       "parentUuid": "36e31d56_93ed02f2",
+      "range": {
+        "startLine": 12,
+        "startChar": 8,
+        "endLine": 12,
+        "endChar": 24
+      },
+      "revId": "738346e551f877e079f9d6dd1c5c019d643ee386",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c94d3a5e_81093c01",
+        "filename": "roles/discover_osp_version/tasks/overcloud.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-04-28T08:29:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c6b0a914_7ddb335c",
       "range": {
         "startLine": 12,
         "startChar": 8,
@@ -210,6 +258,24 @@
       "side": 1,
       "message": "Thanks, i think the st comment gave me short ideas",
       "parentUuid": "c282fda0_1e5b04f4",
+      "revId": "738346e551f877e079f9d6dd1c5c019d643ee386",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "32d6a013_56812a2d",
+        "filename": "roles/discover_osp_version/tasks/overcloud.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-04-28T08:29:20Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "64acbb94_1a48a453",
       "revId": "738346e551f877e079f9d6dd1c5c019d643ee386",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
