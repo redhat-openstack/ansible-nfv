@@ -16,6 +16,24 @@
       "message": "setting the \"when\" this way might cause a situation where \"rhosp_release_file\" was never defined and will only fail on a much later stage please consider adding a fail step for traceability of the flow (not a must but might be a nice addition in case of failure)\n```\n- name: fail if no rhosp file was found\n  fail:\n    msg: no release file was found what the hack is goig on!?.\n  when: rhosp_release_file is empty\n```",
       "revId": "bfdec535c77ce10f54853eec25012c5486e636f2",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "55891501_fd4601e4",
+        "filename": "roles/discover_osp_version/tasks/overcloud.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-04-28T06:40:28Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "a753d75c_6c270483",
+      "revId": "bfdec535c77ce10f54853eec25012c5486e636f2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
