@@ -39,9 +39,9 @@ tempest_repos:
     url: https://github.com/openstack/neutron-tempest-plugin
     version:
       10:
-        branch: '1.0.0'
+        branch: '0.9.0'
       13:
-        branch: '1.0.0'
+        branch: '0.9.0'
       defaults:
         branch: 'master'
 
