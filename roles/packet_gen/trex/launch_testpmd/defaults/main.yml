@@ -1,5 +1,5 @@
 # testpmd binary
-testpmd_bin: "{{ dpdk_compiled_dir }}/testpmd"
+testpmd_bin: "{{ dpdk_compiled_dir }}/dpdk-testpmd"
 
 # Map list of cores to physical cpu set
 testpmd_lcores: '3,4,7'

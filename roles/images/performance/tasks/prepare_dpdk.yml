@@ -1,3 +1,10 @@
+#- name: Update packages to latest
+#  virt_customize_command:
+#    shell:
+#      - "sudo yum update -y"
+#    image: "{{ fetched_image }}"
+#    selinux_relabel: True
+
 - name: Install packages inside guest image
   virt_customize_package:
     name:
@@ -12,21 +19,24 @@
       - numactl-devel
       - vim
       - tmux
+      - python3-pip
+      - elfutils-libelf-devel
+      - kernel-devel
+      - kernel-headers
     state: present
     image: "{{ fetched_image }}"
     selinux_relabel: True
 
 # Compile DPDK without: rt-kni, igbuio
-- name: Prepare DPDK binaries inside guest image
-  virt_customize_command:
-    shell:
-      - "if [ ! -d {{ dpdk_dir }} ];then git clone {{ dpdk_git }} {{ dpdk_dir }};cd {{ dpdk_dir }};git checkout {{ dpdk_branch }};fi"
-      - "if [ ! -d {{ trafficgen_dir }} ];then git clone {{ trafficgen_git }} {{ trafficgen_dir }};cd {{ trafficgen_dir }};git checkout {{ trafficgen_branch }};fi"
-      - "sed -i 's/CONFIG_RTE_KNI_KMOD=.*/CONFIG_RTE_KNI_KMOD=n/g' {{ dpdk_dir }}/config/common_linuxapp"
-      - "sed -i 's/CONFIG_RTE_LIBRTE_KNI=.*/CONFIG_RTE_LIBRTE_KNI=n/g' {{ dpdk_dir }}/config/common_linuxapp"
-      - "sed -i 's/CONFIG_RTE_EAL_IGB_UIO=.*/CONFIG_RTE_LIBRTE_KNI=n/g' {{ dpdk_dir }}/config/common_linuxapp"
-      - "sed -i 's/enforcing/{{ selinux_config }}/g' /etc/selinux/config /etc/selinux/config"
-      - 'cd {{ dpdk_dir }}; /usr/bin/make config T=x86_64-native-linuxapp-gcc; /usr/bin/make'
-      - "echo 'DPDK Version: {{ dpdk_branch }}' | tee {{ dpdk_customization_log }}"
-    image: "{{ fetched_image }}"
-    selinux_relabel: True
+#- name: Prepare DPDK binaries inside guest image
+#  virt_customize_command:
+#    shell:
+#      - "sudo alternatives --remove-all python;sudo alternatives --install /usr/bin/python python /usr/bin/python3.6 2"
+#      - "sudo pip3 install meson pyelftools ninja"
+#      - "cd /root; curl  http://file.mad.redhat.com/~mnietoji/iavf-4.1.1.tar.gz | tar -xz; cd /root/iavf-4.1.1/src; make install"
+#      - "if [ ! -d {{ dpdk_dir }} ];then git clone {{ dpdk_git }} {{ dpdk_dir }};cd {{ dpdk_dir }};git checkout {{ dpdk_branch }};fi"
+#      - "if [ ! -d {{ trafficgen_dir }} ];then git clone {{ trafficgen_git }} {{ trafficgen_dir }};cd {{ trafficgen_dir }};git checkout {{ trafficgen_branch }};fi"
+#      - "sed -i 's/enforcing/{{ selinux_config }}/g' /etc/selinux/config /etc/selinux/config"
+#      - "export PATH=$PATH:/usr/local/bin;cd {{ dpdk_dir }}; meson -Dexamples=all build;ninja -C build"
+#    image: "{{ fetched_image }}"
+#    selinux_relabel: True
