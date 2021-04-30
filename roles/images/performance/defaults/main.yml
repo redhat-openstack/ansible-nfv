@@ -1,23 +1,23 @@
 # Image Variables
-guest_image: 'https://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud.qcow2'
+guest_image: 'https://cloud.centos.org/centos/8/x86_64/images/CentOS-8-GenericCloud-8.3.2011-20201204.2.x86_64.qcow2'
 guest_image_output: '/tmp/'
 guest_debug: False
 
 # Repo Variables
 repo_dir: '/tmp/guest_repos'
-guest_repos:
-  - name: 'base'
-    state: 'present'
-    baseurl: 'http://mirror.centos.org/centos/7/os/$basearch/'
+guest_repos: []
+#  - name: 'base'
+#    state: 'present'
+#    baseurl: 'http://mirror.centos.org/centos/8/BaseOS/$basearch/os'
 
 # DPDK Variables
-dpdk_dir: '/root/dpdk'
+dpdk_dir: 'root/dpdk'
 dpdk_customization_log: "{{ dpdk_dir }}/customization.log"
 dpdk_git: 'git://dpdk.org/dpdk'
-dpdk_branch: 'v17.05'
+dpdk_branch: 'v21.02'
 
 # Trex Variables
-trex_version: 'v2.43'
+trex_version: 'v2.89'
 trex_url: 'https://trex-tgn.cisco.com/trex/release'
 trex_dir: '/opt/trex/'
 
