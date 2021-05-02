@@ -10,4 +10,5 @@
       copy:
         content: "{{ item.0 }}"
         dest: "{{ item.1 }}"
+        mode: '0755'
       loop: "{{ [undercloud_version, overcloud_version] | zip(['/tmp/undercloud_ver', '/tmp/overcloud_ver']) | list }}"

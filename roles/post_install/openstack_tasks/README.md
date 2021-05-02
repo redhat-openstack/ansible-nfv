@@ -317,7 +317,9 @@ instances:
         type: direct
         port_security: false
         sec_groups: test_secgroup
-        binding_profile: '"capabilities"= ["switchdev"]'
+        binding_profile:
+          "pci_slot": "0000:03:11.1"
+          "physical_network": "provider"
   - name: vm2
     connection_user: user     # The variable could be omitted
     flavor: nfv_flavor

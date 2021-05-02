@@ -1,15 +1,28 @@
 - name: Check for /etc/rhosp-release file
   stat:
-    path: '{{ osp_version_file }}'
-  register: rhosp_release_file
+    path: "{{ item }}"
+  register: rhosp_release_files
+  loop: "{{ osp_version_files }}"
+
+- name: Set rhosp release and regexp
+  set_fact:
+    rhosp_release_file: "{{ item.0.item }}"
+    rhosp_version_regexp: "{{ item.1 }}"
+  loop: "{{ rhosp_release_files.results|zip(overcloud_version_regexp)|list }}"
+  when: item.0.stat.exists
+
+- name: rhosp release file is missing
+  fail:
+    msg: rhosp-release file is missing, please check osp_version_files
+  when: rhosp_release_file|length == 0
 
 - name: Read the /etc/rhosp-release file
   slurp:
-    src: '{{ osp_version_file }}'
+    src: '{{ rhosp_release_file }}'
   register: rhosp_release_content
-  when: rhosp_release_file.stat.exists
+  when: rhosp_release_file is defined
 
 - name: Set the Overcloud version from /etc/rhosp-release output
   set_fact:
-    overcloud_version: "{{ rhosp_release_content.content | b64decode | regex_replace('^Red Hat OpenStack Platform release ([0-9]{2}).*', '\\1') | int }}"
-  when: rhosp_release_file.stat.exists
+    overcloud_version: "{{ rhosp_release_content.content | b64decode | regex_replace( rhosp_version_regexp, '\\1') | int }}"
+  when: rhosp_release_file is defined

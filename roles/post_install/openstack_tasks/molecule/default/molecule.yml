@@ -9,6 +9,8 @@ platforms:
   - name: hypervisor
 provisioner:
   name: ansible
+  env:
+    ANSIBLE_LIBRARY: ../../../../../library
   inventory:
     links:
       hosts: ${MOLECULE_INVENTORY_PATH:-inventory}

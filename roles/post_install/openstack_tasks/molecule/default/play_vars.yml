@@ -60,6 +60,7 @@ networks:
     allocation_pool_end: '10.10.10.200'
     cidr: '10.10.10.0/24'
     enable_dhcp: true
+    port_security: true
     gateway_ip: '10.10.10.254'
     network_type: vlan
     external: false
@@ -171,3 +172,12 @@ instances:
     nics:
       - net-name: data
         tag: external
+    # The network port will test port implementation and will not be used by the instance
+    net_ports:
+      - name: test_port
+        network: data
+        port_security: true
+        type: direct
+        sec_groups: test_secgroup
+        binding_profile:
+          "pci_slot": "0000:03:11.1"

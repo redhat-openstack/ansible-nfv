@@ -8,13 +8,6 @@ tempest_conf: python-tempestconf
 nfv_tempest_plugin: nfv-tempest-plugin
 neutron_tempest_plugin: neutron-tempest-plugin
 
-### Tempest Compute group variables
-compute_min_microversion: 2.32
-compute_max_microversion: 2.32
-
-### Tempest placement api
-placement_microversion: 1.12
-
 #### Git branches variables
 nfv_tempest_branch: 'master'
 
@@ -46,9 +39,9 @@ tempest_repos:
     url: https://github.com/openstack/neutron-tempest-plugin
     version:
       10:
-        branch: '1.0.0'
+        branch: '0.9.0'
       13:
-        branch: '1.0.0'
+        branch: '0.9.0'
       defaults:
         branch: 'master'
 

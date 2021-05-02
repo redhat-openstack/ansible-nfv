@@ -196,8 +196,24 @@
           - "int_net.cidr == conf_int_net.cidr"
           - "int_net.gateway_ip == conf_int_net.gateway_ip"
           - "int_net.enable_dhcp == conf_int_net.enable_dhcp"
+          - "int_net.port_security_enabled == conf_int_net.port_security"
           - "int_net.allocation_pools[0].start == conf_int_net.allocation_pool_start"
           - "int_net.allocation_pools[0].end == conf_int_net.allocation_pool_end"
+
+    # Network port test
+    - name: Fetch test port
+      os_port_info:
+        cloud: "{{ cloud_name }}"
+        port: "{{ instances[0].net_ports[0].name }}"
+      register: os_net_port
+
+    - name: Verify port state
+      assert:
+        that:
+          - os_net_port.openstack_ports[0].name == instances[0].net_ports[0].name
+          - os_net_port.openstack_ports[0]['binding:vnic_type'] == instances[0].net_ports[0].type
+          - os_net_port.openstack_ports[0]['binding:profile'] == instances[0].net_ports[0].binding_profile
+          - os_net_port.openstack_ports[0].port_security_enabled == instances[0].net_ports[0].port_security
 
     # Instance test
     - name: Fetch server state

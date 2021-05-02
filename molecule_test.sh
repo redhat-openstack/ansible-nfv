@@ -16,6 +16,10 @@ failed_runs=0
 declare -a tested_roles
 declare -a failed_roles
 
+logs_dir=$(pwd)/molecule_logs
+rm -rf $logs_dir
+mkdir $logs_dir
+
 # Many of the ansible-nfv roles tests require access to the working Openstack environment.
 # As the gate that is used is fully virtual and not accessible from outside, we are
 # using tripleo_inventory role to provide that access.
@@ -31,6 +35,7 @@ export TEST_INV_GENERATED=true
 molecules="$(find roles/ -name molecule -type d)"
 for molecule in $molecules; do
     pushd $(dirname $molecule)
+    export ANSIBLE_LOG_PATH=$logs_dir/$(basename $(dirname $molecule)).log
 
     if ! molecule test; then
         failed_runs=$((failed_runs + 1))
