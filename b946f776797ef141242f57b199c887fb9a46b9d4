@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e15f8afd_42c02c19",
+        "filename": "roles/generate_tht_templates/samples/ospd-16.1-geneve-ovn-dpdk-sriov-nic-part-topology.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-05-03T08:31:39Z",
+      "side": 1,
+      "message": "This should move to Role name below.\nDifferent bridges to different roles",
+      "range": {
+        "startLine": 51,
+        "startChar": 1,
+        "endLine": 51,
+        "endChar": 22
+      },
+      "revId": "b946f776797ef141242f57b199c887fb9a46b9d4",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
