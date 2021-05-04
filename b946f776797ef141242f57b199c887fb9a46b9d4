@@ -46,6 +46,30 @@
       },
       "revId": "b946f776797ef141242f57b199c887fb9a46b9d4",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b23647e3_a5a627f4",
+        "filename": "roles/generate_tht_templates/samples/ospd-16.1-geneve-ovn-dpdk-sriov-nic-part-topology.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-05-04T11:48:45Z",
+      "side": 1,
+      "message": "Ack, I will propose a change",
+      "parentUuid": "5de764d2_5277869d",
+      "range": {
+        "startLine": 51,
+        "startChar": 1,
+        "endLine": 51,
+        "endChar": 22
+      },
+      "revId": "b946f776797ef141242f57b199c887fb9a46b9d4",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
