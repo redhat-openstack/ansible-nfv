@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8463f7b2_39e6fd14",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1007976
+      },
+      "writtenOn": "2021-05-05T03:16:56Z",
+      "side": 1,
+      "message": "I strongly feel, we should maintain only one way of doing a recurring thing. So, why are we not using infrared tripleo-inventory plugin?",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 60
+      },
+      "revId": "2a67e0ba7659c203f1f135d4ee0b8bfc0eea2de6",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
