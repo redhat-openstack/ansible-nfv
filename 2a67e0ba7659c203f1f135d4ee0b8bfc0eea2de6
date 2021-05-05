@@ -94,6 +94,23 @@
       },
       "revId": "2a67e0ba7659c203f1f135d4ee0b8bfc0eea2de6",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fa6f94f6_3ea703e0",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2021-05-05T07:58:42Z",
+      "side": 1,
+      "message": "Patch generally looks good but I still not sure what is the difference and how(/why) will it fix the issue. what is the difference in the inventory file being created?",
+      "revId": "2a67e0ba7659c203f1f135d4ee0b8bfc0eea2de6",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
