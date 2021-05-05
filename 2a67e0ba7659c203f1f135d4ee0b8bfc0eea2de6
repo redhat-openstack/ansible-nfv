@@ -46,6 +46,30 @@
       },
       "revId": "2a67e0ba7659c203f1f135d4ee0b8bfc0eea2de6",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7cbed97f_fe8afa3c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1007976
+      },
+      "writtenOn": "2021-05-05T07:12:01Z",
+      "side": 1,
+      "message": "\u003eOnce I\u0027m making changes to our tripleo_inventory role and it\u0027s merged, I\u0027m replicating the changes to the tripleo_inventory plugin.\n\nWhy do we want to do this work, why not consolidate only the tripleo_inventory plugin only, and delete this part from ansible-nfv. I see gain only.",
+      "parentUuid": "c873cbe2_d0e3ecf6",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 60
+      },
+      "revId": "2a67e0ba7659c203f1f135d4ee0b8bfc0eea2de6",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
