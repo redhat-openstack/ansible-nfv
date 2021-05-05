@@ -13,6 +13,7 @@ parameter_defaults:
         trusted: "{{ sriov_opt.trusted }}"
         physical_network: "{{ sriov_opt.physical_network }}"
       {% endfor %}
+
     NeutronPhysicalDevMappings:
       {% for sriov_opt in opt.sriov_opts.sriov_mapping %}
       - "{{ sriov_opt.physical_network }}:{{ sriov_opt.devname }}"

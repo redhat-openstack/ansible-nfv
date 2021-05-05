@@ -13,9 +13,7 @@
     mode: '0755'
   loop: "{{ [templates_path, templates_path + '/nic-configs']
             | union((dpdk or sriov)
-            | ternary([templates_path + '/functions'], [] ))
-            | union(perf_configs
-            | ternary([templates_path + '/performance-files'], [] )) }}"
+            | ternary([templates_path + '/functions'], [] )) }}"
 
 - name: Generate undercloud.conf file
   template:
@@ -82,12 +80,18 @@
   loop_control:
     loop_var: conf
 
-- name: Copy performance configuration files
-  copy:
-    src: "performance/{{ item }}"
-    dest: "{{ templates_path }}/performance-files/{{ item }}"
-    mode: '0664'
-  loop:
-    - perf_instances.yml
-    - perf_resources_config.yml
-  when: perf_configs | bool
+- name: Copy additional files if provided
+  block:
+    - name: Create a list of provided files
+      set_fact:
+        files_list: "{{ files_list | default([]) }} + [ '{{ item }}' ]"
+      loop: "{{ copy_files.split(',') }}"
+
+    - name: Copy additional provided files
+      synchronize:
+        src: "{{ item }}"
+        dest: "{{ templates_path }}"
+        recursive: yes
+        perms: yes
+      loop: "{{ files_list }}"
+  when: copy_files | length

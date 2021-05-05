@@ -1,6 +1,7 @@
 #!/bin/bash
 
 THT_PATH="/home/stack/{{ tht_dir_name }}"
+DOCKER_IMAGES_ENV=''
 
 if [[ ! -f "$THT_PATH/roles_data.yaml" ]]; then
   openstack overcloud roles generate -o $THT_PATH/roles_data.yaml {% for role in deploy_config -%}
@@ -8,16 +9,24 @@ if [[ ! -f "$THT_PATH/roles_data.yaml" ]]; then
 
 fi
 
-time openstack overcloud deploy \
+# This file is generated when container images are updated
+# This happen when infrared overcloud command include options: -container-extra-repos and --update_repo
+# docker-images.yaml file contains the patched version of the container images
+# Without this parameter, the official container images will be used
+if [[ -f "$THT_PATH/docker-images.yaml" ]]; then
+  DOCKER_IMAGES_ENV="-e $THT_PATH/docker-images.yaml"
+fi
+
+openstack -vvv overcloud deploy \
 --templates \
 -r $THT_PATH/roles_data.yaml \
 -e /usr/share/openstack-tripleo-heat-templates/environments/network-environment.yaml \
 -e /usr/share/openstack-tripleo-heat-templates/environments/network-isolation.yaml \
--e /usr/share/openstack-tripleo-heat-templates/environments/host-config-and-reboot.yaml \
 {% if osp_version is version('16.1', '>=') %}
 -e /home/stack/containers-prepare-parameter.yaml \
 {% else %}
 -e $THT_PATH/docker-images.yaml \
+-e /usr/share/openstack-tripleo-heat-templates/environments/host-config-and-reboot.yaml \
 {% endif %}
 {% if api_policies %}
 -e $THT_PATH/api-policies.yaml \
@@ -26,19 +35,32 @@ time openstack overcloud deploy \
 -e $THT_PATH/os-net-config-mappings.yaml \
 {% endif %}
 {% if sriov %}
+{% for node in deploy_config %}
+{% if node.role_name == 'ControllerSriov' %}
+-e /usr/share/openstack-tripleo-heat-templates/environments/services/neutron-ovn-sriov.yaml \
+{% elif node.role_name == 'Controller' %}
 -e /usr/share/openstack-tripleo-heat-templates/environments/services/neutron-sriov.yaml \
+{% endif %}
+{% endfor %}
 -e $THT_PATH/functions/sriov_config.yaml \
 {% endif %}
 {% if dpdk %}
+{% for node in deploy_config %}
+{% if node.role_name == 'ControllerSriov' %}
+-e /usr/share/openstack-tripleo-heat-templates/environments/services/neutron-ovn-dpdk.yaml \
+{% elif node.role_name == 'Controller' %}
 {% if osp_version is version('16.1', '>=') %}
 -e /usr/share/openstack-tripleo-heat-templates/environments/services/neutron-ovs.yaml \
 -e /usr/share/openstack-tripleo-heat-templates/environments/services/neutron-ovs-dpdk.yaml \
 {% else %}
 -e /usr/share/openstack-tripleo-heat-templates/environments/neutron-ovs-dpdk.yaml \
 {% endif %}
+{% endif %}
+{% endfor %}
 -e $THT_PATH/functions/dpdk_config.yaml \
 {% endif %}
 -e $THT_PATH/nodes_data.yaml \
 -e $THT_PATH/network_environment_config.yaml \
 -n $THT_PATH/network_data.yaml \
+$DOCKER_IMAGES_ENV \
 --log-file overcloud_install.log &> overcloud_install.log
