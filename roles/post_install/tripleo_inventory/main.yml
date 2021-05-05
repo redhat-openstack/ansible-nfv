@@ -1,0 +1,55 @@
+################################################
+# The file is being used by infrared as plugin #
+################################################
+---
+
+- name: TripleO inventory creation
+  hosts: localhost
+  gather_facts: no
+  pre_tasks:
+    - name: Set host
+      set_fact:
+        host: "{{ other.host }}"
+
+    - name: Set ssh key
+      set_fact:
+        ssh_key: "{{ other.ssh.key }}"
+      when: other.ssh.key
+
+    - name: Set ssh pass
+      set_fact:
+        ssh_pass: "{{ other.ssh.pass }}"
+      when: other.ssh.pass
+
+    - name: Set user
+      set_fact:
+        user: "{{ other.user }}"
+
+    - name: Set setup type
+      set_fact:
+        setup_type: "{{ other.setup.type }}"
+
+    - name: Set overcloud user
+      set_fact:
+        overcloud_user: "{{ other.overcloud.user }}"
+
+    - name: Set venv path
+      set_fact:
+        venv_path: "{{ other.venv.path }}"
+
+    - name: Set undercloud groups
+      set_fact:
+        undercloud_groups: "{{ other.undercloud.groups }}"
+
+    - name: Set undercloud only
+      set_fact:
+        undercloud_only: "{{ other.undercloud.only }}"
+
+    - name: Set hypervisor groups
+      set_fact:
+        hypervisor_groups: "{{ other.hypervisor.groups }}"
+
+  roles:
+    - role: ../tripleo_inventory
+    - role: inventory-update
+      inventory_file_name: 'tripleo-inventory'
