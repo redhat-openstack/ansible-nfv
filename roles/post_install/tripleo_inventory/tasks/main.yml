@@ -86,7 +86,9 @@
         ansible_python_interpreter: /usr/libexec/platform-python
       add_host:
         name: "{{ item.name }}"
-        ansible_ssh_common_args: "-o ProxyCommand=\"ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
+        ansible_ssh_common_args: "-o ForwardAgent=yes -o ServerAliveInterval=30 -o ControlMaster=auto -o ControlPersist=30 \
+                                  -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o BatchMode=yes \
+                                  -o ProxyCommand=\"ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
                                   -W %h:%p -i {{ hostvars[groups['undercloud'][0]].ansible_ssh_private_key_file }} \
                                   {{ hostvars[groups['undercloud'][0]].ansible_user }}@{{ hostvars[groups['undercloud'][0]].ansible_host }}\""
       loop: "{{ openstack_servers }}"
@@ -97,7 +99,9 @@
         ansible_python_interpreter: /usr/libexec/platform-python
       add_host:
         name: "{{ item.name }}"
-        ansible_ssh_common_args: "-o ProxyCommand=\"ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
+        ansible_ssh_common_args: "-o ForwardAgent=yes -o ServerAliveInterval=30 -o ControlMaster=auto -o ControlPersist=30 \
+                                  -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -o BatchMode=yes \
+                                  -o ProxyCommand=\"ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
                                   -F {{ environment_dir }}/ansible.ssh.config.{{ host }} \
                                   {{ undercloud_vm }} -W {{ item.addresses.ctlplane.0.addr }}:22\""
       loop: "{{ openstack_servers }}"
