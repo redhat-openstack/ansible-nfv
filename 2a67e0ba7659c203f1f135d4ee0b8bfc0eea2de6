@@ -111,6 +111,24 @@
       "message": "Patch generally looks good but I still not sure what is the difference and how(/why) will it fix the issue. what is the difference in the inventory file being created?",
       "revId": "2a67e0ba7659c203f1f135d4ee0b8bfc0eea2de6",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a11ce8b_ba4c17f5",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-05-05T08:06:06Z",
+      "side": 1,
+      "message": "The main difference is the use of \"-o StrictHostKeyChecking\u003dno -o UserKnownHostsFile\u003d/dev/null\" arguments for the ssh command.\n\nThe error that jump hits is the following:\n\nFailed to connect to the host via ssh: @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n@    WARNING: REMOTE HOST IDENTIFICATION HAS CHANGED!     @\n@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\nIT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!\nSomeone could be eavesdropping on you right now (man-in-the-middle attack)!\nIt is also possible that a host key has just been changed.\nThe fingerprint for the ECDSA key sent by the remote host is\nSHA256:i9qvKJhcyQDWfuUBfTR+mSq8l5yQJ3ZzLGlbBKijsy4.\nPlease contact your system administrator.\nAdd correct host key in /home/rhos-ci/.ssh/known_hosts to get rid of this message.\nOffending ECDSA key in /home/rhos-ci/.ssh/known_hosts:84\nECDSA host key for 172.16.0.47 has changed and you have requested strict checking.\nHost key verification failed.\u0027\n\nIt got when jump tried to connect to undercloud.\nSeems like fingerprint changed and the arguments above should ignore that change.\n\nNow, honestly, I don\u0027t know if that is the real reason.\nThe tempest and performance playbook are working and connecting to the undercloud host, but I noted that this happes only when we are using the tripleo inventory plugin.\n\nI would say, let\u0027s add it and then if the issue still persist, will dive deeper.",
+      "parentUuid": "fa6f94f6_3ea703e0",
+      "revId": "2a67e0ba7659c203f1f135d4ee0b8bfc0eea2de6",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
