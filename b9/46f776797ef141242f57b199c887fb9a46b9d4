@@ -1,0 +1,9 @@
+Verified+1: Maxim Babushkin <mbabushk@redhat.com>
+Verified+1: rhosqeauto <aopincar+rhosqeauto@redhat.com>
+Code-Review+2: Ella Shulman <eshulman@redhat.com>
+Code-Review+2: Yariv Rachmani <yrachman@redhat.com>
+Submitted-by: Maxim Babushkin <mbabushk@redhat.com>
+Submitted-at: Wed, 05 May 2021 07:22:23 +0000
+Reviewed-on: https://review.gerrithub.io/c/redhat-openstack/ansible-nfv/+/514366
+Project: redhat-openstack/ansible-nfv
+Branch: refs/heads/devel
