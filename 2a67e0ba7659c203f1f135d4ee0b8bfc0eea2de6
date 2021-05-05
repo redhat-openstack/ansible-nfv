@@ -70,6 +70,30 @@
       },
       "revId": "2a67e0ba7659c203f1f135d4ee0b8bfc0eea2de6",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1ef2f533_2d7ff16d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-05-05T07:34:38Z",
+      "side": 1,
+      "message": "When I work on some task that require multiple redeployments (try and error), I usually do it directly from the undercloud.\nThen, when I need to run the tempest/performance, I\u0027m executing the tripleo_inventory play from the ansible-nfv and then I\u0027m running the tempest/perf without the need to point to some other inventory located in a different place.\n\nFor me it is conveniently to work in a such way.\nI do not see any issue of holding the tripleo_inventory role in our repo and an infrared plugin.\nAll the times that the role needed to be update, I update both places.\n\nMoreover, when I wrote the tripleo_inventory role, one of the guys from infra team (not working here anymore) asked me to convert it to infrared plugin so it could be used by multiple teams.\n\nI did it and sent a wide email to present the plugin to the qe dept.\nAt the end, only two teams are using it. We and shiftonstack.\nSo I\u0027m not sure if there is a benefit to hold an infrared plugin.",
+      "parentUuid": "7cbed97f_fe8afa3c",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 60
+      },
+      "revId": "2a67e0ba7659c203f1f135d4ee0b8bfc0eea2de6",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
