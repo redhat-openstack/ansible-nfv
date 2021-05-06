@@ -16,6 +16,24 @@
       "message": "Will it consume default master branch",
       "revId": "98b71d070c45944b57d262943c7e2f08b1e586f5",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "db39311c_46918d8e",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-05-06T20:06:46Z",
+      "side": 1,
+      "message": "Yes",
+      "parentUuid": "0d8ee670_2454db44",
+      "revId": "98b71d070c45944b57d262943c7e2f08b1e586f5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
