@@ -1,2 +1,3 @@
 # Refer to docs/tripleo/post_install/dynamic_host_inventory.md to see the full list of capabilities
 discover_instance_external_ip: True # Whether to attempt to discover external IP
+private_key_fetch_location: /tmp

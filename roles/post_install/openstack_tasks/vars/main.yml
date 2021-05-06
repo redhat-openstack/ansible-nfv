@@ -4,6 +4,7 @@ tripleo_overcloud_file: /home/stack/overcloudrc
 tripleo_undercloud_file: /home/stack/stackrc
 
 clouds_yaml_file_path: ~/.config/openstack/clouds.yaml
+private_key_fetch_location: /tmp
 
 packages:
   rhel8:

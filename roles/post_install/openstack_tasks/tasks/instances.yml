@@ -76,7 +76,7 @@
     ansible_host: "{% if item.1.floating_ip is defined %}{{ item.0 }}{% else%}{{ item.0.openstack.private_v4 }}{% endif %}"
     ansible_user: "{{ item.1.connection_user | default(connection_user) }}"
     ansible_ssh_port: 22
-    ansible_ssh_private_key_file: "/tmp/{{ item.1.key_name }}.key"
+    ansible_ssh_private_key_file: "{{ private_key_fetch_location }}/{{ item.1.key_name }}.key"
   loop: "{% if reg_floating_ip.changed %}{{ floating_ip_var | zip(all_instances) | list }}{% else %}{{ reg_instance.results | zip(all_instances) | list }}{% endif %}"
   when:
     - resource_state == 'present'
