@@ -29,5 +29,5 @@
     groups: "{{ item['group'] }}"
     ansible_user: "{{ item['user'] | default('root') }}"
     ansible_password: "{{ item['password'] | default(omit) }}"
-    ansible_ssh_private_key_file: "{{ item['ssh_key'] | default(omit) }}"
+    ansible_ssh_private_key_file: "{{ private_key_fetch_location }}/{{ ssh_key }}"
     ansible_ssh_pass: "{{ item['ssh_pass'] | default(omit) }}"
