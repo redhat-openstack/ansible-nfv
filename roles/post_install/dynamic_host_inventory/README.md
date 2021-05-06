@@ -4,13 +4,13 @@
 
 The following role adds an instance to dynamic(in-memory) inventory.
 
-This role can leverage `roles/post_install/discover_instance_ports` and attempt to dicover management IP(Floatin IP) from OpenStack APIs.
+This role can leverage `roles/post_install/discover_instance_ports` and attempt to discover management IP(Floatin IP) from OpenStack APIs.
 
 This role requires to have [clouds.yaml](https://docs.openstack.org/python-openstackclient/rocky/configuration/index.html) which can be generated using task `setup_openstack_env` in role `roles/post_install/openstack_task`.
 
 ## Invocation
 
-This role recieves a list of dictionaries and performs accordingly, here is a sample playbook which attemps to dicover management IP addresses:
+This role receives a list of dictionaries and performs accordingly, here is a sample playbook which attempts to discover management IP addresses:
 ```
 ---
 - hosts: undercloud
@@ -37,18 +37,20 @@ This role recieves a list of dictionaries and performs accordingly, here is a sa
     - shell: 'ls'
 ```
 
-With the following extra variables passed to playbook:
+With the following extra variables passed to playbook:  
+**Note** - For the performance scenario, use the same keypair over all the instances.
 ```
 discover_instance_external_ip: True
+# The path of the key defined by the "private_key_fetch_location" variable.
+# By default - '/tmp'.
+ssh_key: test_keypair.key
 dynamic_instances:
   - name: trex
     group: trex
     user: cloud-user
-    ssh_key: /tmp/test_keypair.key
   - name: testpmd_dpdk_dut
     group: dut
     user: cloud-user
-    ssh_key: /tmp/test_keypair.key
 ```
 
 ## Role Variables
@@ -70,7 +72,7 @@ dynamic_instances:
                    # Requires clouds.yaml to be present on Ansible host, refer to:
                    # https://docs.openstack.org/os-client-config/latest/user/configuration.html#site-specific-file-locations
     cert_validate: False # Whether to validate SSL certificates when querying cloud, False by default
- - name: vm2
+  - name: vm2
     group: vm_group
     user: root
     password: password
@@ -84,4 +86,9 @@ dynamic_instances:
 Whether to attempt to discover management IP address using OpenStack APIs:
 ```
 discover_instance_external_ip: True
+```
+
+Define the path to the ssh key that should be used by the instances:
+```
+private_key_fetch_location: /tmp
 ```
