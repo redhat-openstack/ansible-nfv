@@ -247,6 +247,12 @@ keypairs:
     cloud_name: overcloud
 ```
 
+#### Private key fetch path
+A path for the private key (keypair) to be fetched to.
+```
+private_key_fetch_location: /tmp
+```
+
 #### Security groups
 Specify the security groups and rules that should be created.
 ```

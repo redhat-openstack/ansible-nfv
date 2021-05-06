@@ -22,7 +22,7 @@
               {{ generated_instances | default([]) }} + [{'name': '{{ item['name'] }}',
               'group': '{{ item['groups'] }}',
               'user': '{{ connection_user }}',
-              'ssh_key': '/tmp/{{ item['key_name'] }}.key' }]
+              'ssh_key': '{{ private_key_fetch_location |default('/tmp') }}/{{ item['key_name'] }}.key' }]
           loop: "{{ instances }}"
 
         - name: Workaround - Add Generated Instances To Dynamic Inventory
