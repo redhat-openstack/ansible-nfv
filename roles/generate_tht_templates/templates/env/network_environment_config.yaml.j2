@@ -27,11 +27,24 @@ parameter_defaults:
   NeutronBridgeMappings: '{% for map in NeutronBridgeMappings -%}
   {{ map }}{% if not loop.last %},{% endif %}
   {% endfor %}'
-
   # The Neutron ML2 and OpenVSwitch vlan mapping range to support.
   NeutronNetworkVLANRanges: '{% for vlan in NeutronNetworkVLANRanges -%}
   {{ vlan }}{% if not loop.last %},{% endif %}
   {% endfor %}'
+  {% if NeutronFlatNetworks is defined %}
+  # Defines the flat networks to configure in neutron plugins.
+  NeutronFlatNetworks: '{% for vlan in NeutronFlatNetworks -%}
+  {{ vlan }}{% if not loop.last %},{% endif %}
+  {% endfor %}'
+  {% endif %}
+  {% if NeutronExternalNetworkBridge is defined %}
+  # Set to "br-access" when using floating IPs on the native VLAN.
+  NeutronExternalNetworkBridge: "'{{ NeutronExternalNetworkBridge }}'"
+  {% endif %}
+  {% if NeutronEnableDVR is defined %}
+  # Disable DVR for deployment
+  NeutronEnableDVR: '{{ NeutronEnableDVR | default(false) | bool }}'
+  {% endif %}
 
   {% if NeutronPhysnetNUMANodesMapping is defined %}
   # NUMA aware vswitch
@@ -61,6 +74,14 @@ parameter_defaults:
   NeutronSriovAgentExtensions: "{{ NeutronSriovAgentExtensions }}"
   {% endif %}
 
+  {% for node in deploy_config %}
+  {% if node.role_name == 'ControllerSriov' %}
+  ControllerSriovParameters:
+    # Set OVN gateway router, required for external connectivity (SR-IOV)
+    OVNCMSOptions: "enable-chassis-as-gw"
+  {% endif %}
+  {% endfor %}
+
   # https://bugs.launchpad.net/nova/+bug/1289064
   NovaEnableNUMALiveMigration: true
   # Disable SSH query on the overcloud nodes to avoid connection latency
@@ -73,9 +94,11 @@ parameter_defaults:
   ############################
   #  Scheduler configuration #
   ############################
+  {% if osp_version is version('16.1', '<') %}
   NovaSchedulerAvailableFilters:
     - "nova.scheduler.filters.all_filters"
     - "nova.scheduler.filters.pci_passthrough_filter.PciPassthroughFilter"
+  {% endif %}
   NovaSchedulerDefaultFilters:
     - "RetryFilter"
     - "AvailabilityZoneFilter"
