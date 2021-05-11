@@ -1,0 +1,5 @@
+---
+
+- name: Install Rally
+  import_tasks: rally_install.yml
+  when: install_rally | default(True)

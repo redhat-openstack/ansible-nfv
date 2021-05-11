@@ -1,0 +1,80 @@
+---
+
+- name: Gather Facts
+  setup:
+
+- name: Register Variables
+  import_role:
+    name: roles/tester/tempest
+    tasks_from: register_variables.yml
+
+- name: Create Rally Directory
+  file:
+    path: "{{ rally_dir }}"
+    mode: 0755
+    state: directory
+
+- name: Clone Repository
+  git:
+    repo: "{{ rally_repo_url }}"
+    dest: "{{ rally_dir }}/rally"
+    version: "{{ rally_repo_branch }}"
+    clone: yes
+    update: yes
+    force: yes
+
+- name: Set Rally Virtualenvironment path
+  set_fact:
+    rally_venv: "{{ rally_dir }}/venv"
+
+# A pip bug prevents us to use the pip module for the python3 venv creation.
+# Remove when fixed.
+# Reference: https://github.com/ansible/ansible/issues/52275
+- name: Create Virtualenvironment If Python3 Is Present
+  command: "{{ ansible_python.executable }} -m venv {{ rally_venv }}"
+  when: ansible_python.version.major == 3
+
+
+- name: Upgrade pip And Additional Modules
+  pip:
+    name:
+      - 'pip'
+      - 'setuptools'
+    virtualenv: "{{ rally_venv }}"
+    state: latest
+
+- name: Install Rally Repo In Virtualenvironment
+  pip:
+    virtualenv: "{{ rally_venv }}"
+    name:
+      - "{{ rally_dir }}/rally"
+    state: present
+
+- name: Install Rally OpenStack Plugin Via pip
+  pip:
+    name:
+      - 'rally-openstack'
+    virtualenv: "{{ rally_venv }}"
+    state: latest
+
+# NOTE(vkhitrin): By default the created database is sqlite, we are not exposing an override option right now
+- name: Ensure Rally DB Is Present
+  shell: |
+    source {{ rally_venv }}/bin/activate
+    rally db ensure
+
+# NOTE(vkhitrin): By default we wish to add overcloud deployment
+#                 This task will fail if an environment with the same name already exists
+- name: Add OpenStack Environment To Rally
+  shell: |
+    source {{ rc_file | default('/home/stack/overcloudrc') }}
+    source {{ rally_venv }}/bin/activate
+    rally env create --from-sysenv --name {{ rally_env | default('overcloud') }}
+
+- name: Check If OpenStack Environment Is Available To Rally
+  shell: |
+    source {{ rally_venv }}/bin/activate
+    rally env check --json
+  register: rally_env_check
+  failed_when: not (rally_env_check['stdout'] | from_json)['existing@openstack']['available']
+

@@ -1,0 +1,6 @@
+---
+
+# Rally repository variables
+rally_repo_url: 'https://opendev.org/openstack/rally.git'
+rally_repo_branch: 'master'
+rally_dir: '/home/stack/rally_tester'
