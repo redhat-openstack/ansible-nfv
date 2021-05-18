@@ -22,6 +22,14 @@
   loop: "{{ all_instances | flatten(levels=1) }}"
   register: reg_instance
 
+- name: Check floating ips
+  set_fact:
+    floating_ip_set: true
+  when:
+    - 'openstack' in item
+    - item['openstack']['addresses'][item['item']['floating_ip']['int_net']]|selectattr('OS-EXT-IPS:type','equalto','floating')|list
+  loop: "{{ reg_instance.results }}"
+
 - name: Add floating IP to an instance
   vars:
     ansible_python_interpreter: "{{ venv_path }}/bin/python"
@@ -39,6 +47,7 @@
   when:
     - item.floating_ip is defined
     - resource_state == 'present'
+    - floating_ip_set is undefined
 
 # The following workaround created because the os_floating_ip module is
 # incosistent when an instance contains multiple NICs.
