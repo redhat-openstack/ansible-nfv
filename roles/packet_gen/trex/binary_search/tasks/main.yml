@@ -3,8 +3,8 @@
   set_fact:
     dut_macs: "{{ hostvars[groups[dut_group][0]]['dut_macs'] }}"
   when:
-    - hostvars[groups[dut_group][0]]['dut_macs'] is defined
     - dut_macs is not defined
+    - hostvars[groups[dut_group][0]]['dut_macs'] is defined
 
 - name: Parse TRex VLANs
   set_fact:
@@ -15,13 +15,14 @@
     - trex_set_vlan
 
 - name: Start PMD load balance in DuT
-  delegate_to: "{{ dut_compute }}"
+  delegate_to: "{{ dut_compute if dut_compute else 'none' }}"
   become: True
   block:
     - include_role:
         name: pmd_load_balance
         tasks_from: start.yml
   when:
+    - dut_compute|length > 0
     - pmd_lb is defined
     - pmd_lb in ['ovs', 'user']
 
@@ -102,13 +103,14 @@
     var: pmd_lb_pretest_output
 
 - name: Pause PMD load balance in DuT
-  delegate_to: "{{ dut_compute }}"
+  delegate_to: "{{ dut_compute if dut_compute else 'none' }}"
   become: True
   block:
     - include_role:
         name: pmd_load_balance
         tasks_from: pause.yml
   when:
+    - dut_compute|length > 0
     - pmd_lb is defined
     - pmd_lb in ['ovs', 'user']
     - pmd_lb_pretest == True
@@ -128,7 +130,7 @@
     var: perf_output
 
 - name: Report PMD load balance status and stop it in DuT
-  delegate_to: "{{ dut_compute }}"
+  delegate_to: "{{ dut_compute if dut_compute else 'none' }}"
   become: True
   block:
     - name: Query PMD load balance status
@@ -151,6 +153,7 @@
         name: pmd_load_balance
         tasks_from: stop.yml
   when:
+    - dut_compute|length > 0
     - pmd_lb is defined
     - pmd_lb in ['ovs', 'user']
 
@@ -172,7 +175,8 @@
 - name: Stop TestPMD On DuT
   shell: "tmux list-sessions -F '#S' | xargs -n1 tmux kill-session -t"
   become: True
-  delegate_to: "{{ groups[dut_group] | first }}"
+  delegate_to: "{{ groups[dut_group]|first }}"
+  when: dut_group|length > 0
 
 - name: Parse JSON Result From Output File
   block:
@@ -186,23 +190,24 @@
         perf_json: "{{ perf_result['content'] | b64decode | replace('RESULT', '') }}"
   delegate_to: "{{ groups['undercloud'] | first }}"
 
-- name: Fetch OVS version from compute node
-  shell: "ovs-vsctl --version | grep 'Open vSwitch' | sed 's/ovs-vsctl \\(.*\\) //'"
-  register: compute_ovs_version
-  delegate_to: "{{ dut_compute }}"
+- name: dut_compute tasks
+  delegate_to: "{{ dut_compute if dut_compute else 'none' }}"
+  when: dut_compute|length > 0
+  block:
+    - name: Fetch OVS version from compute node
+      shell: "ovs-vsctl --version | grep 'Open vSwitch' | sed 's/ovs-vsctl \\(.*\\) //'"
+      register: compute_ovs_version
 
-- name: Check If OVN Is Configured
-  command: 'hiera -c /etc/puppet/hiera.yaml enabled_services'
-  become: True
-  register: deployment_hiera_enabled_services
-  delegate_to: "{{ dut_compute }}"
+    - name: Check If OVN Is Configured
+      command: 'hiera -c /etc/puppet/hiera.yaml enabled_services'
+      become: True
+      register: deployment_hiera_enabled_services
 
-- name: Retrieve OVN Version
-  shell: "podman exec -it ovn_controller ovn-sbctl --version | head -n1 | sed 's/.* \\(.*\\)/\\1/g'"
-  become: True
-  when: "'ovn' in deployment_hiera_enabled_services['stdout']"
-  register: ovn_version
-  delegate_to: "{{ dut_compute }}"
+    - name: Retrieve OVN Version
+      shell: "podman exec -it ovn_controller ovn-sbctl --version | head -n1 | sed 's/.* \\(.*\\)/\\1/g'"
+      become: True
+      when: "'ovn' in deployment_hiera_enabled_services['stdout']"
+      register: ovn_version
 
 - name: Fetch puddle/compose from undercloud
   slurp:
