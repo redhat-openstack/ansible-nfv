@@ -16,6 +16,23 @@
       "message": "using dut_group and dut_compute to selectively deploy trex or testpmd makes this approach simple and not intrusive.",
       "revId": "ea7f7aa59538a47d0ffc007f6b133ce0331a1e69",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ab4508ca_b5f49ca8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-05-18T08:56:33Z",
+      "side": 1,
+      "message": "Please update readme files also",
+      "revId": "ea7f7aa59538a47d0ffc007f6b133ce0331a1e69",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
