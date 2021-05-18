@@ -39,7 +39,7 @@ flavors:
 
 images:
   - name: rhel7.6
-    url: https://url.corp.redhat.com/rhel-guest-image-7-6-210-x86-64-qcow2
+    url: http://download.devel.redhat.com/rhel-7/rel-eng/RHEL-7/latest-RHEL-7.6/compose/Server/x86_64/images/rhel-guest-image-7.6-210.x86_64.qcow2
 
 networks:
   - name: 'access'

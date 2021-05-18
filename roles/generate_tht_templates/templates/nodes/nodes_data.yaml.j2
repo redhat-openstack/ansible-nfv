@@ -3,7 +3,7 @@ parameter_defaults:
 {% for node in deploy_config %}
     Overcloud{{ node.role_name }}Flavor: {{ node.flavor }}
     {{ node.role_name }}Count: {{ node.count }}
-    {{ node.role_name }}HostnameFormat: '{{ node.role_name | lower }}-%index%'
+    {{ node.role_name }}HostnameFormat: '{{ node.hostname_format | default(node.role_name) | lower }}-%index%'
     {{ node.role_name }}SchedulerHints:
       'capabilities:node': '{{ node.flavor }}-%index%'
 
