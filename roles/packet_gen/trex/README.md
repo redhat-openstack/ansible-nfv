@@ -14,6 +14,7 @@ Prepares environment for NFV performance scenario using Trex:
 * Launch Trex Server
 * Launch TestPMD
 * Execute binary_search script to generate traffic
+* Supports TRex VM only deployment without DUT nodes (to support shift-on-stack based Example CNF deploy)
 
 ## Automatic Discovery
 Automatic discovery is limited to two direct-physical ports attached to trex instance, more than two ports will require the user to pass configuration manually.
@@ -316,7 +317,7 @@ TestPMD RX queues per port
 testpmd_rxq: 1024
 ```
 
-TestPMD TX queues per port 
+TestPMD TX queues per port
 
 `1` by default.
 ```
@@ -441,7 +442,7 @@ trex_vlans: '406,407'
 ### Tuning
 
 #### Default emulatorpin
-Provides the ability to change the target hosts that the playbook should run on. This variable is required.  
+Provides the ability to change the target hosts that the playbook should run on. This variable is required.
 ```
 dut_compute: compute-1
 ```
@@ -453,7 +454,7 @@ cpu_list: '0,20,1,21'
 
 
 #### EMC insertion probability
-Provides the ability to change the target hosts that the playbook should run on. This variable is required.  
+Provides the ability to change the target hosts that the playbook should run on. This variable is required.
 ```
 dut_compute: compute-1
 ```
