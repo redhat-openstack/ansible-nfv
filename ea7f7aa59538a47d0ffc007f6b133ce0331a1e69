@@ -33,6 +33,52 @@
       "message": "Please update readme files also",
       "revId": "ea7f7aa59538a47d0ffc007f6b133ce0331a1e69",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e534a0bd_c6e03af0",
+        "filename": "playbooks/packet_gen/trex/performance_scenario.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-05-18T12:39:17Z",
+      "side": 1,
+      "message": "Better to use the default filter like:\n\n\"{{ dut_group | default([]) }}\"\n\nor even:\n\n\"{{ dut_group | default(\u0027none\u0027) }}\"",
+      "range": {
+        "startLine": 64,
+        "startChar": 9,
+        "endLine": 64,
+        "endChar": 47
+      },
+      "revId": "ea7f7aa59538a47d0ffc007f6b133ce0331a1e69",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5a6b4bec_af5ad0c7",
+        "filename": "roles/packet_gen/trex/binary_search/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-05-18T12:39:17Z",
+      "side": 1,
+      "message": "Same here, it could be a default to \"none\".",
+      "range": {
+        "startLine": 175,
+        "startChar": 43,
+        "endLine": 175,
+        "endChar": 63
+      },
+      "revId": "ea7f7aa59538a47d0ffc007f6b133ce0331a1e69",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
