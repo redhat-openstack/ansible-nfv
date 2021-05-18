@@ -90,9 +90,11 @@ DnsServers:
 deploy_config:
   # The name of the role is case sensitive
   - role_name: ControllerSriov
+    hostname_format: controller
     count: 3
     flavor: controller  # The name of the flavor, by default, should be based on the name of the node from instackenv file.
   - role_name: ComputeOvsDpdkSriov
+    hostname_format: computeovndpdksriov  # Override overcloud nodehostname format. By default will take the name of the role.
     count: 2
     flavor: compute
     common_opts:  # all the suboptions are optional
