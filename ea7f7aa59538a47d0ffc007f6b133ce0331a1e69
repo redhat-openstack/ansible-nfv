@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6e14cf37_9f24be17",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1016264
+      },
+      "writtenOn": "2021-05-18T07:00:02Z",
+      "side": 1,
+      "message": "using dut_group and dut_compute to selectively deploy trex or testpmd makes this approach simple and not intrusive.",
+      "revId": "ea7f7aa59538a47d0ffc007f6b133ce0331a1e69",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
