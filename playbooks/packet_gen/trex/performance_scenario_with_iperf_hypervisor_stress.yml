@@ -1,0 +1,191 @@
+---
+
+- hosts: undercloud
+  gather_facts: False
+  pre_tasks:
+    - name: Require Resource Method
+      fail:
+        msg: "cloud_resources is not set to correct values: 'create' or 'external', please refer to documentation"
+      when: cloud_resources is not defined or cloud_resources not in ['create', 'external']
+
+    - block:
+        - name: Generate Resources
+          import_role:
+            name: roles/post_install/openstack_tasks
+
+        # Workaround for adding generated instances to dynamic inventory
+        - meta: refresh_inventory
+
+        - name: Map Instances To Helper Variable
+          set_fact:
+            generated_instances: >-
+              {{ generated_instances | default([]) }} + [{'name': '{{ item['name'] }}',
+              'group': '{{ item['groups'] }}',
+              'user': '{{ connection_user }}',
+              'ssh_key': '/tmp/{{ item['key_name'] }}.key' }]
+          loop: "{{ instances }}"
+
+        - name: Workaround - Add Generated Instances To Dynamic Inventory
+          include_role:
+            name: roles/post_install/dynamic_host_inventory
+          vars:
+            discover_instance_external_ip: True
+          loop: "{{ generated_instances }}"
+      when: cloud_resources == 'create'
+
+    - name: Use Pre-exisisting Resources
+      block:
+        - name: Prepare Virtual Environment
+          include_role:
+            name: roles/post_install/openstack_tasks
+            tasks_from: setup_openstack_env
+
+        - name: Add Pre-existing Instances To Dynamic Inventory
+          include_role:
+            name: roles/post_install/dynamic_host_inventory
+          loop: "{{ dynamic_instances }}"
+      when: cloud_resources == 'external'
+
+- hosts: "{{ dut_compute }}"
+  become: true
+  roles:
+    - role: roles/packet_gen/trex/compute_tuning
+
+- hosts: "{{ hci_group | default(omit) }}"
+  roles:
+    - role: roles/packet_gen/trex/launch_fio
+      when: launch_hci_stress | default(False)
+
+- hosts: trex
+  roles:
+    - role: roles/packet_gen/trex/trex_instance_config
+      when: trex_instance_config | default(True)
+
+- hosts: "{{ dut_group }}"
+  become: true
+  roles:
+    - role: tuning/cpu_pinning_huge_pages
+      vars:
+        cpu_pinning_cores: "{{ testpmd_lcores }}"
+
+# TODO (vkhitrin): Make it skippable
+- hosts: "{{ dut_group }}"
+  roles:
+    - role: roles/packet_gen/trex/bind_dpdk_nics
+      vars:
+        discover_dut_macs: True
+        dpdk_binding_driver: "{{ dut_dpdk_binding_driver | default('vfio-pci') }}"
+      when: bind_dpdk_nics | default(True)
+
+    - role: roles/packet_gen/trex/launch_testpmd
+      when: launch_testpmd | default(True)
+
+- hosts: trex
+  become: true
+  roles:
+    - role: tuning/cpu_pinning_huge_pages
+      vars:
+        cpu_pinning_cores: "{{ trex_lcores }}"
+
+- hosts: "{{ hypervisor_group }}"
+  become: true
+  vars:
+    rhos_release_rpm: 'http://download.eng.bos.redhat.com/rcm-guest/puddles/OpenStack/rhos-release/rhos-release-latest.noarch.rpm'
+    iperf_port: '5201'
+    iperf_server_cmd: "iperf3 -s -B {{ iperf_server_ip_addr }} -p {{ iperf_port }}"
+    iperf_client_time: '3600'
+    iperf_client_cmd: "iperf3 -c {{ iperf_server_ip_addr }} -p {{ iperf_port }} -t {{ iperf_client_time }}"
+  tasks:
+    - name: Install RHOS Release RPM
+      ansible.builtin.yum:
+        name: "{{ rhos_release_rpm }}"
+        state: present
+        disable_gpg_check: True
+
+    - name: Populate YUM repo files using rhos-release
+      ansible.builtin.command: "rhos-release rhel-{{ ansible_facts['distribution_version'] }}"
+
+    - name: Install Tmux And iperf
+      ansible.builtin.yum:
+        name:
+          - iperf3
+          - tmux
+        state: present
+
+    - name: Allow Port {{ iperf_port }} In Iptables
+      ansible.builtin.iptables:
+        chain: INPUT
+        protocol: "{{ item }}"
+        destination_port: "{{ iperf_port }}"
+        jump: ACCEPT
+        action: insert
+        comment: "Allow port {{ iperf_port }} protocol {{ item }} for iperf"
+      loop:
+        - 'tcp'
+        - 'udp'
+      register: iptables_iperf_output
+
+    # NOTE(vkhitrin): Ideally this should be replaced by community.general.iptables_state when we will support collections
+    - name: Save iptables configuration to file
+      shell: 'iptables-save > /etc/sysconfig/iptables'
+      when: iptables_iperf_output['changed']
+
+    - name: Retrieve IP Address From Interface {{ iperf_hypervisor_interface }} From {{ iperf_server_hypervisor }}
+      ansible.builtin.set_fact:
+        iperf_server_ip_addr: "{{ hostvars[iperf_server_hypervisor]['ansible_facts'][iperf_hypervisor_interface]['ipv4']['address'] }}"
+      run_once: True
+      failed_when:
+        - iperf_server_hypervisor not in hostvars
+        - iperf_hypervisor_interface not in hostvars[inventory_hostname]['ansible_facts'][
+
+    - name: Check If Tmux Sessions Are Running
+      command: "tmux list-sessions -F '#S'"
+      register: tmux_sessions
+      failed_when: False
+
+    - name: Kill Tmux Sessions
+      shell: "tmux list-sessions -F '#S' | xargs -n1 tmux kill-session -t"
+      when: tmux_sessions['stdout_lines'] != []
+
+    - name: Run iperf Server In Dettached Tmux Session
+      ansible.builtin.command: "{{ item }}"
+      loop:
+        - tmux new -A -d -s iperf_server
+        - tmux send-keys -t iperf_server "{{ iperf_server_cmd }}" ENTER
+      delegate_to: "{{ iperf_server_hypervisor }}"
+      run_once: True
+
+    - name: Check if iperf Server Has Started Correctly
+      ansible.builtin.command: 'tmux capture-pane -pt iperf_server'
+      register: tmux_iperf_server_capture
+      failed_when: "'listening' not in tmux_iperf_server_capture['stdout']"
+      delegate_to: "{{ iperf_server_hypervisor }}"
+      run_once: True
+
+    - name: Run iperf Client In Dettached Tmux Session
+      ansible.builtin.command: "{{ item }}"
+      loop:
+        - tmux new -A -d -s iperf_client
+        - tmux send-keys -t iperf_client "{{ iperf_client_cmd }}" ENTER
+      delegate_to: "{{ iperf_client_hypervisor }}"
+      run_once: True
+
+    - name: Check if iperf Client Has Connected To Server
+      ansible.builtin.command: 'tmux capture-pane -pt iperf_client'
+      register: tmux_iperf_client_capture
+      failed_when: "'connected' not in tmux_iperf_client_capture['stdout']"
+      delegate_to: "{{ iperf_client_hypervisor }}"
+      run_once: True
+
+- hosts: trex
+  roles:
+    - role: roles/packet_gen/trex/bind_dpdk_nics
+      vars:
+        dpdk_binding_driver: "{{ trex_dpdk_binding_driver | default('vfio-pci') }}"
+      when: bind_dpdk_nics | default(True)
+
+    - role: roles/packet_gen/trex/launch_trex
+      when: launch_trex | default(True)
+
+    - role: roles/packet_gen/trex/binary_search
+      when: binary_search | default(True)
