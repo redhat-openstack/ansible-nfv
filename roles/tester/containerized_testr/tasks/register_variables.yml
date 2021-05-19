@@ -1,0 +1,27 @@
+---
+
+- name: Check for the v3 overcloudrc file
+  stat:
+    path: "{{ rc_file }}.v3"
+  register: rc_file_path
+
+- name: Set rc files vars
+  set_fact:
+    rc_v3: "{{ rc_file }}.v3"
+    rc_v2: "{{ rc_file }}"
+
+- name: Set rc file path and initialize rc_vars variable
+  set_fact:
+    rc_version_file_path: "{{ rc_file_path.stat.exists | ternary(rc_v3, rc_v2) }}"
+    rc_vars: {}
+
+- name: Get rc params
+  shell: "grep {{ item.value }}=  {{ rc_version_file_path }} | cut -d '=' -f 2"
+  loop:  "{{ rc_params }}"
+  register: rc_results
+  changed_when: False
+
+- name: Register rc_vars variables
+  set_fact:
+    rc_vars: "{{ rc_vars| combine( {item.0.name: item.1.0} ) }}"
+  loop: "{{ rc_params|zip(rc_results.results|map(attribute='stdout_lines'))|list }}"
