@@ -60,6 +60,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "f537a878_93249413",
+        "filename": "playbooks/packet_gen/trex/performance_scenario.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 1010167
+      },
+      "writtenOn": "2021-05-20T06:35:33Z",
+      "side": 1,
+      "message": "| filter is not working with \"hosts\" it is throwing below error. It could be issue with ansible, but for now, i will stick with if condition, later will investigate if it can be fixed in ansible.\n\n------------\n```\nERROR! the field \u0027hosts\u0027 is required, and cannot have empty values\n\nThe error appears to have been in \u0027/root/post-deployment-validate/ansible-nfv/playbooks/packet_gen/trex/performance_scenario.yml\u0027: line 8, column 3, but may\nbe elsewhere in the file depending on the exact syntax problem.\n\nThe offending line appears to be:\n\n    - debug: var\u003ddut_group\n- hosts: \"{{ dut_group }}\"\n  ^ here\nWe could be wrong, but this one looks like it might be an issue with\nmissing quotes.  Always quote template expression brackets when they\nstart a value. For instance:\n\n    with_items:\n      - {{ foo }}\n\nShould be written as:\n\n    with_items:\n      - \"{{ foo }}\"\n```",
+      "parentUuid": "e534a0bd_c6e03af0",
+      "range": {
+        "startLine": 64,
+        "startChar": 9,
+        "endLine": 64,
+        "endChar": 47
+      },
+      "revId": "ea7f7aa59538a47d0ffc007f6b133ce0331a1e69",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "5a6b4bec_af5ad0c7",
         "filename": "roles/packet_gen/trex/binary_search/tasks/main.yml",
         "patchSetId": 3
@@ -71,6 +95,30 @@
       "writtenOn": "2021-05-18T12:39:17Z",
       "side": 1,
       "message": "Same here, it could be a default to \"none\".",
+      "range": {
+        "startLine": 175,
+        "startChar": 43,
+        "endLine": 175,
+        "endChar": 63
+      },
+      "revId": "ea7f7aa59538a47d0ffc007f6b133ce0331a1e69",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a14da5d2_f382b054",
+        "filename": "roles/packet_gen/trex/binary_search/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 1010167
+      },
+      "writtenOn": "2021-05-20T06:35:33Z",
+      "side": 1,
+      "message": "In case of delegate_to, when we give \u0027none\u0027 it will try to access the \u0027none\u0027 host. In order to avoid it, a \u0027when\u0027 condition is added to skip this step when dut_group is not of valid length. \n\nThe format \"dut_group|default(\u0027none\u0027)\" does not resolve it \u0027none\u0027, it always takes \u0027\u0027 value, which is set to dut_group. I have update the conditions, which solves most of the problems.\n\nBut still dut_compute creates issues, when it is provided as default [], if \u0027\u0027 is provided then all the places where \"hosts: \u0027{{ dut_compute }}\u0027\" is used will need \"if\" condition. I will update the patch as per the above results, if there is still questions, lets discsus and sort it out.",
+      "parentUuid": "5a6b4bec_af5ad0c7",
       "range": {
         "startLine": 175,
         "startChar": 43,
