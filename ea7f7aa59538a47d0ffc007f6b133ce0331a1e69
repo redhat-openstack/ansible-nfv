@@ -35,6 +35,24 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "02e43c31_a37b77ba",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1010167
+      },
+      "writtenOn": "2021-05-20T06:36:34Z",
+      "side": 1,
+      "message": "There is no interface level changes added.  Can you be more specific on which case need to be updated on readme?",
+      "parentUuid": "ab4508ca_b5f49ca8",
+      "revId": "ea7f7aa59538a47d0ffc007f6b133ce0331a1e69",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e534a0bd_c6e03af0",
