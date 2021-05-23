@@ -3,18 +3,27 @@
 ## Description
 Tempest role is dedicated to perform testing execution on TripleO OpenStack environments.
 
-Tempest role will perform the following steps:
+Tempest (not containerized) role will perform the following steps:
   - Install upstream Tempest
   - Install NFV Tempest plugin
   - Install Neutron Tempest plugin
   - Configure Tempest using the python-tempestconf repository
   - Run defined tests
 
+Tempest (containerized) role will perform the following steps:
+  - install podman
+  - get nfv-container
+  - generate tempest configuration
+  - run tempest tests
+  - saves and parses the results
+
 ## Role tags
 * run_tempest_test - Executes only the tempest tests.
 
 ## Role variables
 #### Default variables
+containerized rether to use container or plain tempest.
+default: false
 nfv-tempest-plugin branch to clone.  
 Default: master
 ```
@@ -146,6 +155,13 @@ For more details refer to [nfv-tempest-plugin patch implementing this feature](h
 enable_test_all_provider_networks: False
 ```
 
+## Debugging with container tempest
+After running the test the tempest container runtime will be removed but image will be saved on the host. to debug just run the container using podman command.
+`podman run --network=host --privileged --rm -it --name tempest_nfv --volume /home/stack/tempest:/opt/app-root/src/tempest/container_tempest:Z --volume /home/stack/etc:/opt/app-root/src/tempest/etc:Z -v /etc/pki/:/etc/pki/ -v /etc/hosts:/etc/hosts quay.io/rhos-dfg-nfv/tempest-nfv-plugin:latest /bin/bash`
+
+after running the command you will enter the container there are 2 importent Directoris inside the container: ./etc/ and ./container_tempest which will contain all configuration files etc.
+
+**note!** - make sure paths container name and versions are correct
 #### Tests configuration
 **Note!** - For the tests configuration, refer to the tempest-nfv-plugin [documentation](https://github.com/redhat-openstack/tempest-nfv-plugin/tree/master/docs).
 
