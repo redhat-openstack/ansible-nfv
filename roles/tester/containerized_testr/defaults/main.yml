@@ -1,0 +1,79 @@
+---
+# Provide required image that will be used for the tempest tests.
+images:
+  - name: centos7
+    url: http://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud.qcow2
+
+# Validate certificates when fetching image
+os_image_cert_validation: False
+
+## When external resource creator is used, the path to the resource file should be defined
+external_resources_output_file: /home/stack/resources_output_file.yml
+
+## Trigger to generate accounts.yaml file
+## The file is used in the Tempest "Pre-Provisioned Credentials" mode
+generate_accounts: false
+
+# Enable a nfv-tempest-plugin feature to test all provider networks attached to guests
+enable_test_all_provider_networks: False
+
+users:
+  - name: test_user1
+    pass: 12345678
+    project: test_project1
+    domain: default
+    role: member
+  - name: test_user2
+    pass: 12345678
+    project: test_project2
+    domain: default
+    role: member
+
+# Use one of the following variables or combine them together
+# Tests include/exclude regex
+# tests_regex: '^tempest_nfv_plugin'
+tests_regex: ''
+# Path to the file with tests regexes
+# The regexes should be defined in a list
+tests_include_list: ''
+
+## Tempest variables
+tempest_user: stack
+tempest_dir: /home/stack/tempest
+etc_dir: /home/stack/etc
+container_tempest: /opt/app-root/src/tempest/container_tempest
+container_etc: /opt/app-root/src/tempest/etc
+tempest_main: openstack-tempest
+tempest_conf: python-tempestconf
+nfv_tempest_plugin: nfv-tempest-plugin
+neutron_tempest_plugin: neutron-tempest-plugin
+
+## The path to the accounts.yaml file
+## Used by tempest in pre-provision mode.
+accounts_file_path: "{{ tempest_dir }}/accounts.yaml"
+
+rc_file: /home/stack/overcloudrc
+rc_params:
+  - name: osp_auth
+    value: OS_AUTH_URL
+  - name: osp_username
+    value: OS_USERNAME
+  - name: osp_password
+    value: OS_PASSWORD
+  - name: osp_project_name
+    value: OS_PROJECT_NAME
+  - name: osp_domain_name
+    value: OS_USER_DOMAIN_NAME
+
+# Query the OSP env for the external network
+external_net_id: true
+# Download image for tempest
+image_for_tempest: true
+
+container_image: quay.io/rhos-dfg-nfv/tempest-nfv-plugin
+container_version: latest
+podman_command: "subunit2junitxml {{ container_tempest }}/tempest_results.subunit"
+oc_rc: /home/stack/overcloudrc
+ssh_key: id_rsa
+min_microversion: 2.79
+max_microversion: 2.79
