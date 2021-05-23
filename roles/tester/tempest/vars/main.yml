@@ -3,6 +3,9 @@
 ## Tempest variables
 tempest_user: stack
 tempest_dir: /home/stack/tempest
+etc_dir: /home/stack/etc
+container_tempest: /opt/app-root/src/tempest/container_tempest
+container_etc: /opt/app-root/src/tempest/etc
 tempest_main: openstack-tempest
 tempest_conf: python-tempestconf
 nfv_tempest_plugin: nfv-tempest-plugin
@@ -50,6 +53,7 @@ tempest_repos:
 accounts_file_path: "{{ tempest_dir }}/accounts.yaml"
 
 rc_file: /home/stack/overcloudrc
+stack_rc: /home/stack/stackrc
 rc_params:
   - name: osp_auth
     value: OS_AUTH_URL
@@ -70,3 +74,10 @@ image_for_tempest: true
 # Virtual environment path
 # Recommended to be equal to venv_path from post_install/openstack_tasks role
 venv_path: "/tmp/ansible_venv"
+
+# Container image to use
+container_image: quay.io/rhos-dfg-nfv/tempest-nfv-plugin
+container_version: latest
+ssh_key: id_rsa
+min_microversion: 2.32
+max_microversion: 2.32

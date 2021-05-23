@@ -1,0 +1,4 @@
+---
+collections:
+  - containers.podman
+  - ansible.posix
