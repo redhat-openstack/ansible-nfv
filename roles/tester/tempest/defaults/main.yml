@@ -52,3 +52,5 @@ tests_regex: ''
 # Path to the file with tests regexes
 # The regexes should be defined in a list
 tests_include_list: ''
+
+containerized: false
