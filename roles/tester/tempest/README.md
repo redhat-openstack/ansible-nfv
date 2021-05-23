@@ -3,18 +3,27 @@
 ## Description
 Tempest role is dedicated to perform testing execution on TripleO OpenStack environments.
 
-Tempest role will perform the following steps:
+Tempest (not containerized) role will perform the following steps:
   - Install upstream Tempest
   - Install NFV Tempest plugin
   - Install Neutron Tempest plugin
   - Configure Tempest using the python-tempestconf repository
   - Run defined tests
 
+Tempest (containerized) role will perform the following steps:
+  - install podman
+  - get nfv-container
+  - generate tempest configuration
+  - run tempest tests
+  - saves and parses the results
+
 ## Role tags
 * run_tempest_test - Executes only the tempest tests.
 
 ## Role variables
 #### Default variables
+containerized rether to use container or plain tempest.
+default: false
 nfv-tempest-plugin branch to clone.  
 Default: master
 ```
