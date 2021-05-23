@@ -5,15 +5,52 @@
 - name: Register variables
   include_tasks: register_variables.yml
 
-- name: Check OSP version
-  include_role:
-    name: discover_osp_version
-
 - name: Create the tempest directory
   file:
     path: "{{ tempest_dir }}"
     mode: 0755
     state: directory
+
+- name: containerized preperation
+  block:
+    - name: install required yum packages
+      yum:
+        name:
+          - podman
+          - subunit-filters
+        state: installed
+      become: true
+
+    - name: get NFV podman container from registry
+      containers.podman.podman_container:
+        image: "{{ container_image }}:{{ container_version | default('latest') }}"
+        name: nfv-tempest
+        state: present
+
+    - name: Create the container tempest etc directory
+      file:
+        path: "{{ etc_dir }}"
+        mode: 0777
+        state: directory
+
+    - name: copy ssh_key
+      copy:
+        src: "/home/stack/.ssh/id_rsa"
+        dest: "{{ container_tempest}}/{{ ssh_key }}"
+        remote_src: yes
+        mode: '0777'
+
+    - name: copy overcloudrc to container tempest path
+      copy:
+        src: "{{ oc_rc }}"
+        dest: "{{ tempest_dir }}"
+        remote_src: yes
+        mode: 0664
+  when: containerized
+
+- name: Check OSP version
+  include_role:
+    name: discover_osp_version
 
 - name: Git clone tempest and plugin repositories
   git:
@@ -24,17 +61,19 @@
     update: yes
     force: yes
   loop: "{{ tempest_repos }}"
+  when: not containerized
 
 - name: Set tempest venv path
   set_fact:
     tempest_venv: "{{ tempest_dir }}/venv"
+  when: not containerized
 
 # A pip bug prevents us to use the pip module for the python3 venv creation.
 # Remove when fixed.
 # Reference: https://github.com/ansible/ansible/issues/52275
 - name: Install venv if python3 present
   command: "{{ ansible_python.executable }} -m venv {{ tempest_venv }}"
-  when: ansible_python.version.major == 3
+  when: ansible_python.version.major == 3 and not containerized
 
 - name: Create a virtual environment and upgrade it to the latest version
   pip:
@@ -47,6 +86,7 @@
       - 'junitxml'
     virtualenv: "{{ tempest_venv }}"
     state: latest
+  when: not containerized
 
 - name: Install repos in a virtual environment
   pip:
@@ -58,6 +98,7 @@
       - "{{ tempest_dir }}/{{ tempest_conf }}"
     state: present
     editable: true
+  when: not containerized
 
 - name: Get the external network id
   vars:
@@ -73,7 +114,7 @@
 - name: Download the test os image
   get_url:
     url: "{{ images[0].url }}"
-    dest: "/tmp/{{ images[0].url | basename }}"
+    dest: "{{ tempest_dir }}/{{ images[0].url | basename }}"
     timeout: 100
     validate_certs: "{{ os_image_cert_validation }}"
   when: image_for_tempest| bool
@@ -82,11 +123,12 @@
   stat:
     path: "{{ tempest_venv }}/bin/discover-tempest-config"
   register: tempest_conf_tool
+  when: not containerized
 
 - name: Define tempestconf tool if exists
   set_fact:
     config_command: "{{ tempest_venv }}/bin/discover-tempest-config"
-  when: tempest_conf_tool.stat.exists
+  when: tempest_conf_tool.stat.exists and not containerized
 
 # check for 13 and validate_certs parameter false
 # discover-tempest-conf is failing on
@@ -97,12 +139,13 @@
   when: >
       ansible_python.version.major == 2 and
       validate_certs is defined and
-      not validate_certs|bool
+      not validate_certs|bool and
+      not containerized
 
 - name:  discover-tempest-config pass SSL if exists
   set_fact:
     config_command: "/usr/bin/discover-tempest-config"
-  when: python_discover.stat.exists is defined
+  when: python_discover.stat.exists is defined and not conainerized
 
 - name: Check for the spesific flavor id if it's required
   vars:
@@ -174,7 +217,7 @@
         --create \
         --debug \
         {% if image_for_tempest| bool %}
-        --image "/tmp/{{ images[0].url | basename }}" \
+        --image "{{ tempest_dir }}/{{ images[0].url | basename }}" \
         {% endif %}
         {% if external_net_id %}
         --network-id {{ tempest_net_id.openstack_networks.0.id }} \
@@ -204,19 +247,81 @@
   args:
     executable: /bin/bash
     chdir: "{{ tempest_dir }}/{{ tempest_conf }}"
+  when: not containerized
+
+- name:
+  block:
+    - name: tempest.conf file creation
+      vars:
+        additional_params: |
+            {% if tempest_options is defined %}
+              {% for option in tempest_options %}
+                {{ option }}
+              {% endfor %}
+            {% endif %}
+            {% if generate_accounts %}
+              auth.test_accounts_file {{ accounts_file_path }}
+              auth.use_dynamic_credentials false
+              nfv_plugin_options.external_resources_output_file {{ external_resources_output_file }}
+            {% endif %}
+            {% if enable_test_all_provider_networks %}
+              nfv_plugin_options.test_all_provider_networks true
+            {% endif %}
+            identity.uri {{ rc_vars.osp_auth }}
+            identity.admin_password {{ rc_vars.osp_password }}
+            nfv_plugin_options.overcloud_node_pkey_file {{ container_tempest }}/{{ ssh_key }}
+            nfv_plugin_options.undercloud_rc_file {{ container_tempest }}/stackrc
+            nfv_plugin_options.external_config_file {{ container_etc }}/{{ tempest_config | basename }}
+            compute.min_microversion {{ min_microversion }}
+            compute.max_microversion {{ max_microversion }}
+      containers.podman.podman_container:
+        name: tempest_nfv
+        image: "{{ container_image }}:{{ container_version | default('latest') }}"
+        command: /bin/bash -c './config_generate.sh'
+        volume:
+          - "{{ tempest_dir }}:{{ container_tempest }}:Z"
+          - "{{ etc_dir }}:{{ container_etc }}:Z"
+        env:
+          image_name: "{{ images[0].url | basename }}"
+          deployer_input: deployer_inpt.ini
+          additional_params: "{{ additional_params | default('') }}"
+        detach: false
+        rm: true
+        privileged: true
+
+    - name: Execute the tempest tests and save the results
+      containers.podman.podman_container:
+        name: tempest_nfv
+        image: "{{ container_image }}:{{ container_version | default('latest') }}"
+        volume:
+          - "{{ tempest_dir }}:{{ container_tempest }}:Z"
+          - "{{ etc_dir }}:{{ container_etc }}:Z"
+        detach: false
+        rm: true
+        privileged: true
+        command: "stestr run --serial --subunit --include-list {{ container_tempest }}/{{ tests_include_list | basename }}"
+      register: test_run
+
+    - name: write results to file
+      copy:
+        dest: "{{ tempest_dir }}/tempest_results.subunit"
+        content: "{{ test_run.stdout }}"
+        mode: 0777
+  when: containerized
 
 - name: Check if the tempest tests repository exists
   tags: run_tempest_test
   stat:
     path: "{{ tempest_dir }}/{{ tempest_main }}/.stestr"
   register: testrepository
+  when: not containerized
 
 - name: Delete the tempest tests repository to drop previous results
   tags: run_tempest_test
   file:
     path: "{{ tempest_dir }}/{{ tempest_main }}/.stestr"
     state: absent
-  when: testrepository.stat.exists
+  when: testrepository.stat.exists not containerized
 
 - name: Create tempest tests repository for the clean state tests run
   tags: run_tempest_test
@@ -226,6 +331,7 @@
   args:
     executable: /bin/bash
     chdir: "{{ tempest_dir }}/{{ tempest_main }}"
+  when: not containerized
 
 # (TODO): Remove the workaround once OSP10 support is over.
 - name: neutron tempest utf-8 issue w\a
@@ -233,7 +339,7 @@
     path: "{{ tempest_dir }}/neutron-tempest-plugin/neutron_tempest_plugin/scenario/test_qos.py"
     insertbefore: BOF
     line: '# -*- encoding: utf-8 -*-'
-  when: overcloud_version | int < 16
+  when: overcloud_version | int < 16 and not containerized
 
 - name: Execute the tempest tests and save the results
   tags: run_tempest_test
@@ -247,6 +353,7 @@
   args:
     executable: /bin/bash
     chdir: "{{ tempest_dir }}/{{ tempest_main }}"
+  when: not containerized
 
 - name: Ensure '{{ tempest_dir }}/tempest.xml' is absent before logging results
   file:
@@ -256,13 +363,23 @@
 - name: Generate results report in a JunitXML format
   tags: run_tempest_test
   shell: |
-    source {{ tempest_dir }}/venv/bin/activate
-    {% if overcloud_version | int >= 15 %}
-    subunit2junitxml < .stestr/tempest_results.subunit \
-    >> {{ tempest_dir }}/tempest.xml | subunit2pyunit
-    {% else %}
-    subunit2junitxml --output-to={{ tempest_dir }}/tempest.xml \
-    < .stestr/tempest_results.subunit | subunit2pyunit
+    {% if not containerized %}
+      source {{ tempest_dir }}/venv/bin/activate
+      {% if overcloud_version | int >= 15 %}
+      subunit2junitxml < .stestr/tempest_results.subunit \
+      >> {{ tempest_dir }}/tempest.xml | subunit2pyunit
+      {% else %}
+      subunit2junitxml --output-to={{ tempest_dir }}/tempest.xml \
+      < .stestr/tempest_results.subunit | subunit2pyunit
+      {% endif %}
+    {% elif containerized %}
+      {% if overcloud_version | int >= 15 %}
+      subunit2junitxml < {{ tempest_dir }}/tempest_results.subunit \
+      >> {{ tempest_dir }}/tempest.xml | subunit2pyunit
+      {% else %}
+      subunit2junitxml --output-to={{ tempest_dir }}/tempest.xml \
+      < {{ tempest_dir }}/tempest_results.subunit | subunit2pyunit
+    {% endif %}
     {% endif %}
   args:
     executable: /bin/bash
@@ -290,7 +407,11 @@
 - name: Check existence of tempest log
   tags: run_tempest_test
   stat:
-    path: "{{ tempest_dir }}/{{ tempest_main }}/tempest.log"
+    path: "{%- if containerized-%}
+            {{ tempest_dir }}/{{ tempest_main }}/tempest.log
+           {%- elif not containerized -%}
+            {{ tempest_dir }}/tempest.log
+           {%- endif -%}"
   register: tempest_log
 
 - name: Copy tempest log file to the main tempest directory
@@ -300,7 +421,7 @@
     src: "{{ tempest_dir }}/{{ tempest_main }}/tempest.log"
     dest: "{{ tempest_dir }}/tempest.log"
     mode: '0664'
-  when: tempest_log.stat.exists
+  when: tempest_log.stat.exists and not containerized
 
 - name: Print the output results of the tempest tests
   tags: run_tempest_test
