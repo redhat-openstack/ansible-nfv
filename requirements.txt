@@ -6,3 +6,4 @@ selinux==0.1.6
 ncclient>=0.5.3
 netaddr>=0.8.0
 git+https://github.com/vkhitrin/virt-customize-ansible-modules
+git+https://github.com/containers/ansible-podman-collections
