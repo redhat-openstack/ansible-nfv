@@ -31,6 +31,13 @@ export MOLECULE_INVENTORY_PATH=$(pwd)/inventory
 ansible-playbook playbooks/tripleo/post_install/tripleo_inventory.yml \
 -e host="${TEST_HOST}" -e ssh_key="${TEST_SSH_KEY}" -e setup_type=virt
 export TEST_INV_GENERATED=true
+# Adding this to allow using external collection for newer ansible versions
+# this variable set the path to the collection directory
+export ANSIBLE_COLLECTIONS_PATH=/tmp/.collectinos
+
+# Installing required collections
+echo installing requirements
+ansible-galaxy collection install -r requirements.yaml -p $ANSIBLE_COLLECTIONS_PATH
 
 molecules="$(find roles/ -name molecule -type d)"
 for molecule in $molecules; do
@@ -66,4 +73,7 @@ echo -e "\nTested roles:"
 for role in "${tested_roles[@]}"; do
     echo "- $role"
 done
+# Cleaning worker from installed collections
+echo removing requirements installed for test
+rm -rf $ANSIBLE_COLLECTIONS_PATH
 echo -e "################\n"
