@@ -1,0 +1,237 @@
+---
+
+- name: Gather facts
+  setup:
+
+- name: install required yum packages
+  yum:
+    name:
+      - podman
+      - subunit-filters
+    state: installed
+  become: true
+
+- name: get NFV podman container from registry
+  containers.podman.podman_container:
+    image: "{{ container_image }}:{{ container_version | default('latest') }}"
+    name: nfv-tempest
+    state: present
+
+- name: Get the external network id
+  vars:
+    ansible_python_interpreter: "{{ venv_path }}/bin/python"
+  os_networks_info:
+    cloud: overcloud
+    validate_certs: "{{ validate_certs| default (omit) }}"
+    filters:
+      router:external: true
+  register: tempest_net_id
+  when: external_net_id
+
+- name: Register variables
+  include_tasks: register_variables.yml
+
+- name: Check OSP version
+  include_role:
+    name: discover_osp_version
+
+- name: Create the tempest directory
+  file:
+    path: "{{ tempest_dir }}"
+    mode: 0755
+    state: directory
+
+- name: Create the container tempest etc directory
+  file:
+    path: "{{ etc_dir }}"
+    mode: 0777
+    state: directory
+
+- name: Check for the spesific flavor id if it's required
+  vars:
+    ansible_python_interpreter: "{{ venv_path }}/bin/python"
+  os_flavor_info:
+    cloud: overcloud
+    validate_certs: "{{ validate_certs | default (omit) }}"
+    name: "{{ tempest_flavor_name }}"
+  when: tempest_flavor_name is defined
+
+- name: Copying generic config file to the "{{ tempest_dir }}" directory
+  copy:
+    src: "{{ tempest_config }}"
+    dest: "{{ etc_dir }}"
+    owner: "stack"
+    group: "stack"
+    mode: 0755
+  when: tempest_config is defined
+
+- name: Copying deployer input file to "{{ tempest_dir }}" directory
+  vars:
+    remote_source: "{{ (deployer_input_config != 'default') | ternary('no','yes') }}"
+    copy_file: "{{ deployer_input_config }}"
+  copy:
+    remote_src: "{{ remote_source }}"
+    src: "{{ copy_file }}"
+    dest: "{{ tempest_dir }}"
+    owner: "{{ tempest_user }}"
+    group: "{{ tempest_user }}"
+    mode: 0755
+  when: deployer_input_config is defined
+  register: copy_output
+
+- name: Copying tests include list file
+  copy:
+    src: "{{ tests_include_list }}"
+    dest: "{{ tempest_dir }}"
+    owner: "{{ tempest_user }}"
+    group: "{{ tempest_user }}"
+    mode: 0644
+  when: tests_include_list | default('')
+
+- name: Generate accounts.yaml file
+  template:
+    src: accounts.yaml.j2
+    dest: "{{ accounts_file_path }}"
+    mode: '0664'
+  when: generate_accounts
+
+- name: Check existence of ssh key w/a
+  stat:
+    path: "{{ tempest_dir }}/{{ ssh_key }}"
+  register: key
+
+- name: generate ssh_key
+  openssh_keypair:
+    path: "{{ tempest_dir }}/{{ ssh_key }}"
+    mode: '0777'
+  when: not key.stat.exists
+
+- name: Download the test os image
+  get_url:
+    url: "{{ images[0].url }}"
+    dest: "{{ tempest_dir }}/{{ images[0].url | basename }}"
+    timeout: 100
+    validate_certs: "{{ os_image_cert_validation }}"
+    mode: '0777'
+  when: image_for_tempest| bool
+
+- name: copy overcloudrc to container tempest path
+  copy:
+    src: "{{ oc_rc }}"
+    dest: "{{ tempest_dir }}"
+    remote_src: yes
+    mode: 0664
+
+- name: tempest.conf file creation
+  vars:
+    additional_params: |
+        {% if tempest_options is defined %}
+          {% for option in tempest_options %}
+            {{ option }}
+          {% endfor %}
+        {% endif %}
+        {% if generate_accounts %}
+          auth.test_accounts_file {{ accounts_file_path }}
+          auth.use_dynamic_credentials false
+          nfv_plugin_options.external_resources_output_file {{ external_resources_output_file }}
+        {% endif %}
+        {% if enable_test_all_provider_networks %}
+          nfv_plugin_options.test_all_provider_networks true
+        {% endif %}
+        identity.uri {{ rc_vars.osp_auth }}
+        identity.admin_password {{ rc_vars.osp_password }}
+        nfv_plugin_options.overcloud_node_pkey_file {{ container_tempest }}/{{ ssh_key }}
+        nfv_plugin_options.undercloud_rc_file {{ container_tempest }}/stackrc
+        nfv_plugin_options.external_config_file {{ container_etc }}/{{ tempest_config | basename }}
+        compute.min_microversion {{ min_microversion }}
+        compute.max_microversion {{ max_microversion }}
+  containers.podman.podman_container:
+    name: tempest_nfv
+    image: "{{ container_image }}:{{ container_version | default('latest') }}"
+    command: /bin/bash -c './config_generate.sh'
+    volume:
+      - "{{ tempest_dir }}:{{ container_tempest }}:Z"
+      - "{{ etc_dir }}:{{ container_etc }}:Z"
+    env:
+      image_name: "{{ images[0].url | basename }}"
+      deployer_input: deployer_inpt.ini
+      additional_params: "{{ additional_params | default('') }}"
+    detach: false
+    rm: true
+    privileged: true
+
+- name: Execute the tempest tests and save the results
+  containers.podman.podman_container:
+    name: tempest_nfv
+    image: "{{ container_image }}:{{ container_version | default('latest') }}"
+    volume:
+      - "{{ tempest_dir }}:{{ container_tempest }}:Z"
+      - "{{ etc_dir }}:{{ container_etc }}:Z"
+    detach: false
+    rm: true
+    privileged: true
+    command: "stestr run --serial --subunit --include-list {{ container_tempest }}/{{ tests_include_list | basename }}"
+  register: test_run
+
+- name: write results to file
+  copy:
+    dest: "{{ tempest_dir }}/tempest_results.subunit"
+    content: "{{ test_run.stdout }}"
+    mode: 0777
+
+- name: Ensure '{{ tempest_dir }}/tempest.xml' is absent before logging results
+  file:
+    path: "{{ tempest_dir }}/tempest.xml"
+    state: absent
+
+- name: Generate results report in a JunitXML format
+  tags: run_tempest_test
+  shell: |
+    {% if overcloud_version | int >= 15 %}
+    subunit2junitxml < {{ tempest_dir }}/tempest_results.subunit \
+    >> {{ tempest_dir }}/tempest.xml | subunit2pyunit
+    {% else %}
+    subunit2junitxml --output-to={{ tempest_dir }}/tempest.xml \
+    < {{ tempest_dir }}/tempest_results.subunit | subunit2pyunit
+    {% endif %}
+  args:
+    executable: /bin/bash
+    chdir: "{{ tempest_dir }}/"
+
+- name: Set the name for the testsuite
+  tags: run_tempest_test
+  replace:
+    path: "{{ tempest_dir }}/tempest.xml"
+    regexp: '^(<testsuite.*name=")'
+    replace: '\1nfv'
+    mode: '0664'
+
+- name: Generate statistics of executed tests
+  tags: run_tempest_test
+  shell: |
+    subunit-stats --no-passthrough "{{ tempest_dir }}/tempest_results.subunit"
+  args:
+    executable: /bin/bash
+    chdir: "{{ tempest_dir }}/"
+  register: tests_stats
+  failed_when: "tests_stats.rc == 2"
+
+- name: Check existence of tempest log
+  tags: run_tempest_test
+  stat:
+    path: "{{ tempest_dir }}/tempest.log"
+  register: tempest_log
+
+- name: Print the output results of the tempest tests
+  tags: run_tempest_test
+  vars:
+    msg: |
+      Tests statistics:
+
+      {{ tests_stats.stdout }}
+
+      For the details, look at the:
+      {{ tempest_dir }}/tempest.xml
+      {{ tempest_dir }}/tempest.log
+  debug:
+    msg: "{{ msg.split('\n') }}"
