@@ -95,6 +95,75 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b964a3fc_1a544cae",
+        "filename": "molecule_test.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-05-23T17:40:57Z",
+      "side": 1,
+      "message": "Please, add an explanation for why are we using the environment variable and collection install command for the future understanding.",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 27
+      },
+      "revId": "ee5f865fe25e0fdc91643ebddb25bfedcac9bca5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "17c5c5cb_f9816478",
+        "filename": "roles/tester/containerized_testr/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-05-23T17:40:57Z",
+      "side": 1,
+      "message": "This role, beside a few commands, is a complete duplicate of the tempest role.\nWhy to not extend the tempest role with the containerized solution?\n\nComplete move to the containerized tempest use might take some time and it means that any change/fix will be required to be done twice.",
+      "range": {
+        "startLine": 3,
+        "startChar": 3,
+        "endLine": 3,
+        "endChar": 20
+      },
+      "revId": "ee5f865fe25e0fdc91643ebddb25bfedcac9bca5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "44b8f172_53a4cf04",
+        "filename": "roles/tester/containerized_testr/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-05-23T17:40:57Z",
+      "side": 1,
+      "message": "What ssh key is used for?\nIs it what used later during the tempest.conf file generation?\n\nIf yes, why to not copy the stack ssh key?",
+      "range": {
+        "startLine": 103,
+        "startChar": 8,
+        "endLine": 103,
+        "endChar": 24
+      },
+      "revId": "ee5f865fe25e0fdc91643ebddb25bfedcac9bca5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "22a6ab33_a93e116c",
         "filename": "roles/tester/containerized_testr/tasks/main.yml",
         "patchSetId": 2
