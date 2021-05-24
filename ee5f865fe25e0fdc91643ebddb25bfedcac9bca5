@@ -273,6 +273,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b1985fe3_a7094c04",
+        "filename": "roles/tester/containerized_testr/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-05-24T10:49:04Z",
+      "side": 1,
+      "message": "MHO, the container is a must to support all version in python3.\nonce it is merged, we could start to plan tests for all other deployments.\n\nWe could be more agile here, sine ce have a goal",
+      "parentUuid": "1d32de14_a7699b38",
+      "range": {
+        "startLine": 3,
+        "startChar": 3,
+        "endLine": 3,
+        "endChar": 20
+      },
+      "revId": "ee5f865fe25e0fdc91643ebddb25bfedcac9bca5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "44b8f172_53a4cf04",
         "filename": "roles/tester/containerized_testr/tasks/main.yml",
         "patchSetId": 2
