@@ -22,28 +22,6 @@ openstack -vvv overcloud deploy \
 -r $THT_PATH/roles_data.yaml \
 -e /usr/share/openstack-tripleo-heat-templates/environments/network-environment.yaml \
 -e /usr/share/openstack-tripleo-heat-templates/environments/network-isolation.yaml \
-{% if osp_version is version('16.1', '>=') %}
--e /home/stack/containers-prepare-parameter.yaml \
-{% else %}
--e $THT_PATH/docker-images.yaml \
--e /usr/share/openstack-tripleo-heat-templates/environments/host-config-and-reboot.yaml \
-{% endif %}
-{% if api_policies %}
--e $THT_PATH/api-policies.yaml \
-{% endif %}
-{% if iface_mapping %}
--e $THT_PATH/os-net-config-mappings.yaml \
-{% endif %}
-{% if sriov %}
-{% for node in deploy_config %}
-{% if node.role_name == 'ControllerSriov' %}
--e /usr/share/openstack-tripleo-heat-templates/environments/services/neutron-ovn-sriov.yaml \
-{% elif node.role_name == 'Controller' %}
--e /usr/share/openstack-tripleo-heat-templates/environments/services/neutron-sriov.yaml \
-{% endif %}
-{% endfor %}
--e $THT_PATH/functions/sriov_config.yaml \
-{% endif %}
 {% if dpdk %}
 {% for node in deploy_config %}
 {% if node.role_name == 'ControllerSriov' %}
@@ -57,7 +35,33 @@ openstack -vvv overcloud deploy \
 {% endif %}
 {% endif %}
 {% endfor %}
+{% endif %}
+{% if sriov %}
+{% for node in deploy_config %}
+{% if node.role_name == 'ControllerSriov' %}
+-e /usr/share/openstack-tripleo-heat-templates/environments/services/neutron-ovn-sriov.yaml \
+{% elif node.role_name == 'Controller' %}
+-e /usr/share/openstack-tripleo-heat-templates/environments/services/neutron-sriov.yaml \
+{% endif %}
+{% endfor %}
+{% endif %}
+{% if osp_version is version('16.1', '>=') %}
+-e /home/stack/containers-prepare-parameter.yaml \
+{% else %}
+-e $THT_PATH/docker-images.yaml \
+-e /usr/share/openstack-tripleo-heat-templates/environments/host-config-and-reboot.yaml \
+{% endif %}
+{% if api_policies %}
+-e $THT_PATH/api-policies.yaml \
+{% endif %}
+{% if iface_mapping %}
+-e $THT_PATH/os-net-config-mappings.yaml \
+{% endif %}
+{% if dpdk %}
 -e $THT_PATH/functions/dpdk_config.yaml \
+{% endif %}
+{% if sriov %}
+-e $THT_PATH/functions/sriov_config.yaml \
 {% endif %}
 -e $THT_PATH/nodes_data.yaml \
 -e $THT_PATH/network_environment_config.yaml \
