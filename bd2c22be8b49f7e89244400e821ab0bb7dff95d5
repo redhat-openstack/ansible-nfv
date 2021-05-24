@@ -84,6 +84,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "b27eb3c0_4622a2b8",
+        "filename": "playbooks/packet_gen/trex/performance_scenario_with_iperf_hypervisor_stress.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-05-24T07:58:32Z",
+      "side": 1,
+      "message": "Yes, I think so.\nIn our repo, playbooks for most of the time, are just a pointers to the roles, and include the tasks in them is not a best option in my point of view.\n\nIt could be done later.",
+      "parentUuid": "7de6f555_aac191c1",
+      "range": {
+        "startLine": 119,
+        "startChar": 8,
+        "endLine": 119,
+        "endChar": 33
+      },
+      "revId": "bd2c22be8b49f7e89244400e821ab0bb7dff95d5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0cb485c2_f76801b3",
         "filename": "playbooks/packet_gen/trex/performance_scenario_with_iperf_hypervisor_stress.yml",
         "patchSetId": 2
