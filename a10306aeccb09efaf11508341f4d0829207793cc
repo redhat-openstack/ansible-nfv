@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "270474f2_686956d7",
+        "filename": "roles/tester/tempest/README.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-05-24T15:01:42Z",
+      "side": 1,
+      "message": "What are the step to run the container in the debug mode, for example?\nIs the container keeps running after the tempest execution?",
+      "range": {
+        "startLine": 13,
+        "startChar": 10,
+        "endLine": 13,
+        "endChar": 22
+      },
+      "revId": "a10306aeccb09efaf11508341f4d0829207793cc",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96e7dc49_65b7d028",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-05-24T15:01:42Z",
+      "side": 1,
+      "message": "Consider using \"package\" module as it\u0027s unified across \"yum\" and \"dnf\".",
+      "range": {
+        "startLine": 17,
+        "startChar": 6,
+        "endLine": 17,
+        "endChar": 9
+      },
+      "revId": "a10306aeccb09efaf11508341f4d0829207793cc",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f79fb553_608a125c",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-05-24T15:01:42Z",
+      "side": 1,
+      "message": "You can improve this task by getting the results from the same place.\nThe only difference between the containerized and non containerized way, is the place, from which the subunit file is taken.\n\nChange the redirection of both containerized and non containerized tempest execution command, so the subunit file will be generated into the same path.\n\nThat, way you will not need to do all these conditions.",
+      "range": {
+        "startLine": 359,
+        "startChar": 8,
+        "endLine": 359,
+        "endChar": 52
+      },
+      "revId": "a10306aeccb09efaf11508341f4d0829207793cc",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "050614b6_11df4cc9",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-05-24T15:01:42Z",
+      "side": 1,
+      "message": "How the tempest.log file copied into the tempest directory in the containerized way?",
+      "range": {
+        "startLine": 406,
+        "startChar": 15,
+        "endLine": 406,
+        "endChar": 31
+      },
+      "revId": "a10306aeccb09efaf11508341f4d0829207793cc",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
