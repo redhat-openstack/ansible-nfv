@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "086b1721_0df75bdd",
+        "filename": "roles/generate_tht_templates/templates/env/overcloud_deploy.sh.j2",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1016373
+      },
+      "writtenOn": "2021-05-24T08:02:23Z",
+      "side": 1,
+      "message": "We need docker-images even with 16.1 if we need to use patched containers, for example, for fdp jobs",
+      "range": {
+        "startLine": 51,
+        "startChar": 20,
+        "endLine": 51,
+        "endChar": 26
+      },
+      "revId": "50d0aced7807d0d1473aefb6dc3e1b18f905e2a1",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
