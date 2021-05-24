@@ -387,6 +387,30 @@
       },
       "revId": "ee5f865fe25e0fdc91643ebddb25bfedcac9bca5",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bcaee1a7_30c1527c",
+        "filename": "roles/tester/containerized_testr/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-05-24T07:48:59Z",
+      "side": 1,
+      "message": "I think it is about time to release this part,",
+      "parentUuid": "ca349fe6_ca6b2234",
+      "range": {
+        "startLine": 125,
+        "startChar": 2,
+        "endLine": 125,
+        "endChar": 34
+      },
+      "revId": "ee5f865fe25e0fdc91643ebddb25bfedcac9bca5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
