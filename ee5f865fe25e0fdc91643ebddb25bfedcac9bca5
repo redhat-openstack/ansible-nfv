@@ -249,6 +249,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1d32de14_a7699b38",
+        "filename": "roles/tester/containerized_testr/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-05-24T07:20:22Z",
+      "side": 1,
+      "message": "If there are barely new features in this role, that\u0027s a more reason to implement it within the existing tempest role.\n\nIt could be pretty easily combined into one role with a default var set to some way of execution.\n\nAs you know, everything temporary stays for a long time. 😊 \nAs it\u0027s a poc, probably, implementation of this way and removal of the previous way will take some time and I don\u0027t want in that time to maintain two identical roles.",
+      "parentUuid": "27029447_62948013",
+      "range": {
+        "startLine": 3,
+        "startChar": 3,
+        "endLine": 3,
+        "endChar": 20
+      },
+      "revId": "ee5f865fe25e0fdc91643ebddb25bfedcac9bca5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "44b8f172_53a4cf04",
         "filename": "roles/tester/containerized_testr/tasks/main.yml",
         "patchSetId": 2
@@ -284,6 +308,30 @@
       "side": 1,
       "message": "the ssh key is used for the tests (when creating a vm etc). I don\u0027t copy the key from ~/.ssh for security reasons (note I\u0027m giving the file rwx for all users).",
       "parentUuid": "44b8f172_53a4cf04",
+      "range": {
+        "startLine": 103,
+        "startChar": 8,
+        "endLine": 103,
+        "endChar": 24
+      },
+      "revId": "ee5f865fe25e0fdc91643ebddb25bfedcac9bca5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5aefafe3_247f5d79",
+        "filename": "roles/tester/containerized_testr/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-05-24T07:20:22Z",
+      "side": 1,
+      "message": "Wait a sec.\nWhen the instances are created during the test, keypair with the key, created during the test.\n\nThe \"nfv_plugin_options.overcloud_node_pkey_file\" parameter in the tempest.conf is used to connect to the overcloud nodes (controller/computes).\nI don\u0027t see you are pushing the keys to the overcloud nodes and not sure we should do it.\n\nUsing the existing key to connect to the overcloud nodes is a better way I think.\nYou can just map it into the container without copy.",
+      "parentUuid": "4580b630_e5e94162",
       "range": {
         "startLine": 103,
         "startChar": 8,
