@@ -70,6 +70,30 @@
       },
       "revId": "50d0aced7807d0d1473aefb6dc3e1b18f905e2a1",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8640229d_5652e40b",
+        "filename": "roles/generate_tht_templates/templates/env/overcloud_deploy.sh.j2",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1016373
+      },
+      "writtenOn": "2021-05-24T08:10:29Z",
+      "side": 1,
+      "message": "yes, you are right. could it be possible that for osp13 we are adding this line 2 times?",
+      "parentUuid": "643d15aa_40a05e7b",
+      "range": {
+        "startLine": 51,
+        "startChar": 20,
+        "endLine": 51,
+        "endChar": 26
+      },
+      "revId": "50d0aced7807d0d1473aefb6dc3e1b18f905e2a1",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
