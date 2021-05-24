@@ -118,6 +118,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "6dc7a5e9_66d69fbd",
+        "filename": "molecule_test.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2021-05-24T06:29:00Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b964a3fc_1a544cae",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 27
+      },
+      "revId": "ee5f865fe25e0fdc91643ebddb25bfedcac9bca5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "17c5c5cb_f9816478",
         "filename": "roles/tester/containerized_testr/tasks/main.yml",
         "patchSetId": 2
@@ -141,6 +165,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "27029447_62948013",
+        "filename": "roles/tester/containerized_testr/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2021-05-24T06:29:00Z",
+      "side": 1,
+      "message": "as I said in slack having that it is a poc I don\u0027t think we should but it is possible. please note that not all fixes will have to be added here most fixes are version related work arounds there barely any new features for this playbook other then that.",
+      "parentUuid": "17c5c5cb_f9816478",
+      "range": {
+        "startLine": 3,
+        "startChar": 3,
+        "endLine": 3,
+        "endChar": 20
+      },
+      "revId": "ee5f865fe25e0fdc91643ebddb25bfedcac9bca5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "44b8f172_53a4cf04",
         "filename": "roles/tester/containerized_testr/tasks/main.yml",
         "patchSetId": 2
@@ -152,6 +200,30 @@
       "writtenOn": "2021-05-23T17:40:57Z",
       "side": 1,
       "message": "What ssh key is used for?\nIs it what used later during the tempest.conf file generation?\n\nIf yes, why to not copy the stack ssh key?",
+      "range": {
+        "startLine": 103,
+        "startChar": 8,
+        "endLine": 103,
+        "endChar": 24
+      },
+      "revId": "ee5f865fe25e0fdc91643ebddb25bfedcac9bca5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4580b630_e5e94162",
+        "filename": "roles/tester/containerized_testr/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2021-05-24T06:29:00Z",
+      "side": 1,
+      "message": "the ssh key is used for the tests (when creating a vm etc). I don\u0027t copy the key from ~/.ssh for security reasons (note I\u0027m giving the file rwx for all users).",
+      "parentUuid": "44b8f172_53a4cf04",
       "range": {
         "startLine": 103,
         "startChar": 8,
