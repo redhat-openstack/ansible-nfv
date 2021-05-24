@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b8dec929_6c540df7",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-05-24T11:44:20Z",
+      "side": 1,
+      "message": "Thank for the work to implement it in the existing tempest role.\n\n\nNumber of suggestions:\nGroup the next containerized tasks:\n- line 9\n- line 17\n- line 34\n- line 109\n- line 117\n(To group the tasks of lines 109 and 117, move the task of line 28 above the \"Install required yum packages\" task.)\n\nThen, you can place it under the \"block\" statement and use one single \"when\" condition.\n\nOr even take it into a separate file and include that file using a when condition.\n\nUp to you.",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 8
+      },
+      "revId": "d267dc7eabe8da4c57c4348a4d9a5e6505ef468f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c49794aa_6e8e3b37",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-05-24T11:44:20Z",
+      "side": 1,
+      "message": "Similar to the mentioned above, group the following tasks under the \"block\" with the single \"when\" condition for the \"non contanerized\" tasks.\nOr, similar to the mentioned above, place it within the separate file and include just one single file with the relevant task when needed.\n\nTasks:\n- line 41\n- line 52\n- line 57\n- line 65\n- line 78\n- line 125\n- line 131\n- line 136\n- line 148",
+      "range": {
+        "startLine": 41,
+        "startChar": 2,
+        "endLine": 41,
+        "endChar": 16
+      },
+      "revId": "d267dc7eabe8da4c57c4348a4d9a5e6505ef468f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1e10327e_46ce7da7",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-05-24T11:44:20Z",
+      "side": 1,
+      "message": "Duplicate \"when\".\nThat\u0027s why the gate failed.",
+      "range": {
+        "startLine": 62,
+        "startChar": 2,
+        "endLine": 63,
+        "endChar": 7
+      },
+      "revId": "d267dc7eabe8da4c57c4348a4d9a5e6505ef468f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f4fa3401_82958dd0",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-05-24T11:44:20Z",
+      "side": 1,
+      "message": "Same here.\nFollowing 5 tasks could be placed under the \"block\" statement with a single \"when\" condition.",
+      "range": {
+        "startLine": 294,
+        "startChar": 4,
+        "endLine": 294,
+        "endChar": 11
+      },
+      "revId": "d267dc7eabe8da4c57c4348a4d9a5e6505ef468f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "09cc22f4_de4aebe1",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-05-24T11:44:20Z",
+      "side": 1,
+      "message": "This is the second reason for the gate failure.\nYou can\u0027t state the jinja in such manner.\n\nInstead, place it under the \"vars\" of the tasks.\n\nSee example here - https://github.com/redhat-openstack/ansible-nfv/blob/master/roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml#L12-L24",
+      "range": {
+        "startLine": 405,
+        "startChar": 4,
+        "endLine": 410,
+        "endChar": 15
+      },
+      "revId": "d267dc7eabe8da4c57c4348a4d9a5e6505ef468f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
