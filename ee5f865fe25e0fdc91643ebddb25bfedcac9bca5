@@ -50,6 +50,30 @@
     {
       "unresolved": false,
       "key": {
+        "uuid": "ba3c84fb_a60c58cb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2021-05-24T10:59:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "941b17b4_f9c89772",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 25
+      },
+      "revId": "ee5f865fe25e0fdc91643ebddb25bfedcac9bca5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
         "uuid": "a587c201_3a65982d",
         "filename": "/PATCHSET_LEVEL",
         "patchSetId": 2
@@ -153,6 +177,42 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f2ea68b2_0a6989f1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2021-05-24T10:59:57Z",
+      "side": 1,
+      "message": "please note they are pre-created by ansible and all files are shared",
+      "parentUuid": "65557e81_7584a5da",
+      "revId": "ee5f865fe25e0fdc91643ebddb25bfedcac9bca5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d71bd467_ff690824",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2021-05-24T10:59:57Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "18e55a25_41164d10",
+      "revId": "ee5f865fe25e0fdc91643ebddb25bfedcac9bca5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "b964a3fc_1a544cae",
@@ -190,6 +250,30 @@
       "side": 1,
       "message": "Ack",
       "parentUuid": "b964a3fc_1a544cae",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 27
+      },
+      "revId": "ee5f865fe25e0fdc91643ebddb25bfedcac9bca5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "35a2e838_d76142f5",
+        "filename": "molecule_test.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2021-05-24T10:59:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "6dc7a5e9_66d69fbd",
       "range": {
         "startLine": 34,
         "startChar": 0,
@@ -295,6 +379,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf9666f9_633922ef",
+        "filename": "roles/tester/containerized_testr/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2021-05-24T10:59:57Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "b1985fe3_a7094c04",
+      "range": {
+        "startLine": 3,
+        "startChar": 3,
+        "endLine": 3,
+        "endChar": 20
+      },
+      "revId": "ee5f865fe25e0fdc91643ebddb25bfedcac9bca5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "44b8f172_53a4cf04",
@@ -356,6 +464,30 @@
       "side": 1,
       "message": "Wait a sec.\nWhen the instances are created during the test, keypair with the key, created during the test.\n\nThe \"nfv_plugin_options.overcloud_node_pkey_file\" parameter in the tempest.conf is used to connect to the overcloud nodes (controller/computes).\nI don\u0027t see you are pushing the keys to the overcloud nodes and not sure we should do it.\n\nUsing the existing key to connect to the overcloud nodes is a better way I think.\nYou can just map it into the container without copy.",
       "parentUuid": "4580b630_e5e94162",
+      "range": {
+        "startLine": 103,
+        "startChar": 8,
+        "endLine": 103,
+        "endChar": 24
+      },
+      "revId": "ee5f865fe25e0fdc91643ebddb25bfedcac9bca5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "206864aa_e6368615",
+        "filename": "roles/tester/containerized_testr/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2021-05-24T10:59:57Z",
+      "side": 1,
+      "message": "ack",
+      "parentUuid": "5aefafe3_247f5d79",
       "range": {
         "startLine": 103,
         "startChar": 8,
