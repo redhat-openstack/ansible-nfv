@@ -50,6 +50,24 @@
       "message": "General idea, Consider using the remote venv directory\nIt is unique per each  \n\nHow is it going to solve the problem? \nOn each job, you will have different dir names names?",
       "revId": "3084e4775be72fd297f69524a71a01552c7cc436",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f60679b2_b52c354c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-05-25T17:28:50Z",
+      "side": 1,
+      "message": "This part you will see on a ptch to jenkins.\nThe key will be stored within the venv, which is uniq per each job.\nAs you mentioned above.",
+      "parentUuid": "d0ed8a1a_07f9c2c5",
+      "revId": "3084e4775be72fd297f69524a71a01552c7cc436",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
