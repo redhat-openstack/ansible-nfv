@@ -109,6 +109,30 @@
       },
       "revId": "3084e4775be72fd297f69524a71a01552c7cc436",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1eeded12_0e6ac6f9",
+        "filename": "roles/post_install/openstack_tasks/README.md",
+        "patchSetId": 5
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-05-25T21:27:38Z",
+      "side": 1,
+      "message": "No.\nAn opposite.\n\nIn markdown, since lines 242 and 243 doesn\u0027t have any special marks, without two spaces at the end of line 242, markdown will continue this line as one single line.",
+      "parentUuid": "f6a48106_3162668e",
+      "range": {
+        "startLine": 242,
+        "startChar": 23,
+        "endLine": 242,
+        "endChar": 25
+      },
+      "revId": "3084e4775be72fd297f69524a71a01552c7cc436",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
