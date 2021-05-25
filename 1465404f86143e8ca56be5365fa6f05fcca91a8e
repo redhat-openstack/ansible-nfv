@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c77fca71_c1c2c7dd",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 8
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-05-25T07:39:00Z",
+      "side": 1,
+      "message": "Consider changing these three separate tasks into one by using loop for \"src\" and \"mode\".\nIt will save a bunch of lines.",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 18
+      },
+      "revId": "1465404f86143e8ca56be5365fa6f05fcca91a8e",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
