@@ -567,6 +567,30 @@
       },
       "revId": "ee5f865fe25e0fdc91643ebddb25bfedcac9bca5",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c68b3f10_6b89b981",
+        "filename": "roles/tester/containerized_testr/tasks/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-05-25T08:15:38Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "bcaee1a7_30c1527c",
+      "range": {
+        "startLine": 125,
+        "startChar": 2,
+        "endLine": 125,
+        "endChar": 34
+      },
+      "revId": "ee5f865fe25e0fdc91643ebddb25bfedcac9bca5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
