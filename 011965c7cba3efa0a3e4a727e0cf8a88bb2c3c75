@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf5a45aa_3a0f671b",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 9
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-05-25T15:26:12Z",
+      "side": 1,
+      "message": "Should be converted to loop,\nIsnt it ?\nhttps://docs.ansible.com/ansible/2.9/user_guide/playbooks_loops.html",
+      "range": {
+        "startLine": 42,
+        "startChar": 5,
+        "endLine": 42,
+        "endChar": 17
+      },
+      "revId": "011965c7cba3efa0a3e4a727e0cf8a88bb2c3c75",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}

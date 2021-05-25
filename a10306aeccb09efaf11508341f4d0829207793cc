@@ -49,6 +49,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "c3ab2590_dfbd6525",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-05-25T15:26:12Z",
+      "side": 1,
+      "message": "+2 here",
+      "parentUuid": "96e7dc49_65b7d028",
+      "range": {
+        "startLine": 17,
+        "startChar": 6,
+        "endLine": 17,
+        "endChar": 9
+      },
+      "revId": "a10306aeccb09efaf11508341f4d0829207793cc",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f79fb553_608a125c",
         "filename": "roles/tester/tempest/tasks/main.yml",
         "patchSetId": 7
@@ -83,6 +107,30 @@
       "writtenOn": "2021-05-24T15:01:42Z",
       "side": 1,
       "message": "How the tempest.log file copied into the tempest directory in the containerized way?",
+      "range": {
+        "startLine": 406,
+        "startChar": 15,
+        "endLine": 406,
+        "endChar": 31
+      },
+      "revId": "a10306aeccb09efaf11508341f4d0829207793cc",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a8772380_5876c939",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-05-25T15:26:12Z",
+      "side": 1,
+      "message": "Do you refer to l(421)\n\nI think it is better to move this part to\ntask Generate results report in a JunitXML format",
+      "parentUuid": "050614b6_11df4cc9",
       "range": {
         "startLine": 406,
         "startChar": 15,
