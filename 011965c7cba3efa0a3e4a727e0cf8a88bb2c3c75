@@ -22,6 +22,30 @@
       },
       "revId": "011965c7cba3efa0a3e4a727e0cf8a88bb2c3c75",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8b2c4afb_dc97f6c7",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 9
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-05-26T08:16:07Z",
+      "side": 1,
+      "message": "Yes, it need to be move to a \"loop\"",
+      "parentUuid": "bf5a45aa_3a0f671b",
+      "range": {
+        "startLine": 42,
+        "startChar": 5,
+        "endLine": 42,
+        "endChar": 17
+      },
+      "revId": "011965c7cba3efa0a3e4a727e0cf8a88bb2c3c75",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
