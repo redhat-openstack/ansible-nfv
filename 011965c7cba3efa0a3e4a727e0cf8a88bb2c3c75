@@ -46,6 +46,54 @@
       },
       "revId": "011965c7cba3efa0a3e4a727e0cf8a88bb2c3c75",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "a40b0f94_70227a5b",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 9
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2021-05-26T11:35:24Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8b2c4afb_dc97f6c7",
+      "range": {
+        "startLine": 42,
+        "startChar": 5,
+        "endLine": 42,
+        "endChar": 17
+      },
+      "revId": "011965c7cba3efa0a3e4a727e0cf8a88bb2c3c75",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "d7da5f4c_8b5ec3c7",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 9
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2021-05-26T11:35:24Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "8b2c4afb_dc97f6c7",
+      "range": {
+        "startLine": 42,
+        "startChar": 5,
+        "endLine": 42,
+        "endChar": 17
+      },
+      "revId": "011965c7cba3efa0a3e4a727e0cf8a88bb2c3c75",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }

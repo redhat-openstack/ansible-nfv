@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "258aade8_768c4226",
+        "filename": "roles/tester/tempest/README.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2021-05-26T11:35:24Z",
+      "side": 1,
+      "message": "the container will stop running but the image will still be on the host in case you would like to debug\nyou just have to use the command:\npodman run --rm -it --name tempest_nfv --volume /home/stack/tempest:/opt/app-root/src/tempest/container_tempest:Z --volume /home/stack/etc:/opt/app-root/src/tempest/etc:Z -v /etc/pki/:/etc/pki/ quay.io/rhos-dfg-nfv/tempest-nfv-plugin:latest /bin/bash\n\nwould you like me to add the command to the README file?",
+      "parentUuid": "8407cd0d_b599c87e",
+      "range": {
+        "startLine": 13,
+        "startChar": 10,
+        "endLine": 13,
+        "endChar": 22
+      },
+      "revId": "a10306aeccb09efaf11508341f4d0829207793cc",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "96e7dc49_65b7d028",
         "filename": "roles/tester/tempest/tasks/main.yml",
         "patchSetId": 7
@@ -85,6 +109,30 @@
       "side": 1,
       "message": "+2 here",
       "parentUuid": "96e7dc49_65b7d028",
+      "range": {
+        "startLine": 17,
+        "startChar": 6,
+        "endLine": 17,
+        "endChar": 9
+      },
+      "revId": "a10306aeccb09efaf11508341f4d0829207793cc",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c5d2f575_fe664ce6",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2021-05-26T11:35:24Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c3ab2590_dfbd6525",
       "range": {
         "startLine": 17,
         "startChar": 6,
