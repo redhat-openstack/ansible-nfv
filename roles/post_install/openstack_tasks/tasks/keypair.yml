@@ -23,7 +23,7 @@
 - name: Fetch private key from generated keypair
   fetch:
     src: "{{ resources_output_file | dirname }}/{{ item.item.name }}.key"
-    dest: "/tmp/{{ item.item.name }}.key"
+    dest: "{{ private_key_fetch_location }}/{{ item.item.name }}.key"
     flat: yes
   loop: "{{ reg_keypair.results }}"
   no_log: true
