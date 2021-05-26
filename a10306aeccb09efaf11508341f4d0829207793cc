@@ -96,6 +96,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "ea78c494_e791460c",
+        "filename": "roles/tester/tempest/README.md",
+        "patchSetId": 7
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2021-05-26T17:35:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "422868bd_53a90ff0",
+      "range": {
+        "startLine": 13,
+        "startChar": 10,
+        "endLine": 13,
+        "endChar": 22
+      },
+      "revId": "a10306aeccb09efaf11508341f4d0829207793cc",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "96e7dc49_65b7d028",
@@ -190,6 +214,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bd42f00b_9af46671",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2021-05-26T17:35:48Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f79fb553_608a125c",
+      "range": {
+        "startLine": 359,
+        "startChar": 8,
+        "endLine": 359,
+        "endChar": 52
+      },
+      "revId": "a10306aeccb09efaf11508341f4d0829207793cc",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "050614b6_11df4cc9",
@@ -251,6 +299,30 @@
       "side": 1,
       "message": "Yes.\nIt\u0027s important that both tempest.log and tempest.xml files will be place under the /home/stack/tempest path since the files gathered by jenkins to artifacts.",
       "parentUuid": "a8772380_5876c939",
+      "range": {
+        "startLine": 406,
+        "startChar": 15,
+        "endLine": 406,
+        "endChar": 31
+      },
+      "revId": "a10306aeccb09efaf11508341f4d0829207793cc",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "28851673_75a1126a",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2021-05-26T17:35:48Z",
+      "side": 1,
+      "message": "the tempest log isn\u0027t being it is being written from stderr to a file",
+      "parentUuid": "21ece798_50a6c06b",
       "range": {
         "startLine": 406,
         "startChar": 15,
