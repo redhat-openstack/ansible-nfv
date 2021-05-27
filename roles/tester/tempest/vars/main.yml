@@ -33,6 +33,10 @@ tempest_repos:
   - name: nfv-tempest-plugin
     url: https://github.com/redhat-openstack/nfv-tempest-plugin
     version:
+      10:
+        branch: 'v1.29.0'
+      13:
+        branch: 'v1.29.0'
       defaults:
         branch: "{{ nfv_tempest_branch }}"
   - name: neutron-tempest-plugin
