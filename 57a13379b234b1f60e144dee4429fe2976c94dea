@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c45a7568_b1a9e5ff",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-05-27T11:47:08Z",
+      "side": 1,
+      "message": "Good job!",
+      "revId": "57a13379b234b1f60e144dee4429fe2976c94dea",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "448f7a8d_ef9e6813",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 13
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-05-27T11:47:08Z",
+      "side": 1,
+      "message": "If not used, could be removed.",
+      "range": {
+        "startLine": 270,
+        "startChar": 9,
+        "endLine": 270,
+        "endChar": 37
+      },
+      "revId": "57a13379b234b1f60e144dee4429fe2976c94dea",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
