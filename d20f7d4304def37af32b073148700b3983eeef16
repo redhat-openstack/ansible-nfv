@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "592a1ae5_416af515",
+        "filename": "roles/tester/tempest/vars/main.yml",
+        "patchSetId": 14
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-05-31T14:56:05Z",
+      "side": 1,
+      "message": "Just noticed the version.\nWhy is the version mentioned here - 2.79?\nWe are using 2.23 in all our tempest versions.\nAnd there are specific requirement for this.\nThe higher/lower versions, had some api flags not yet implemented or already removed.",
+      "range": {
+        "startLine": 82,
+        "startChar": 17,
+        "endLine": 82,
+        "endChar": 22
+      },
+      "revId": "d20f7d4304def37af32b073148700b3983eeef16",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
