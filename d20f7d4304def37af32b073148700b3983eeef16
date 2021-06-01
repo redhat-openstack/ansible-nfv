@@ -46,6 +46,30 @@
       },
       "revId": "d20f7d4304def37af32b073148700b3983eeef16",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "92ccf3dc_d68f9cb6",
+        "filename": "roles/tester/tempest/vars/main.yml",
+        "patchSetId": 14
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-06-01T06:33:32Z",
+      "side": 1,
+      "message": "We are using compute microverion - 2.32 all over our templates.\nYou can check it by the deployer_input.ini file of the templates.",
+      "parentUuid": "d7b3401e_fe499383",
+      "range": {
+        "startLine": 82,
+        "startChar": 17,
+        "endLine": 82,
+        "endChar": 22
+      },
+      "revId": "d20f7d4304def37af32b073148700b3983eeef16",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
