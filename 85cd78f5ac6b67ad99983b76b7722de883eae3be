@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "006e24f1_58a48234",
+        "filename": "requirements.yaml",
+        "patchSetId": 15
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-06-02T06:17:39Z",
+      "side": 1,
+      "message": "Ella, a question.\n\nIf we will use the requirements.yaml file to specify the collections we need to install, we will not need to specify the collection in the requirements.txt file as you specified the podman collection in requirements.txt.\nAm I right?",
+      "range": {
+        "startLine": 2,
+        "startChar": 4,
+        "endLine": 2,
+        "endChar": 12
+      },
+      "revId": "85cd78f5ac6b67ad99983b76b7722de883eae3be",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
