@@ -151,6 +151,30 @@
       },
       "revId": "bd2c22be8b49f7e89244400e821ab0bb7dff95d5",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "996e82ab_e5231984",
+        "filename": "playbooks/packet_gen/trex/performance_scenario_with_iperf_hypervisor_stress.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2021-06-13T11:53:16Z",
+      "side": 1,
+      "message": "in one place you are using:\nansible.builtin.command\n\nand in another you are using:\ncommand:",
+      "parentUuid": "b40def50_5fab36e2",
+      "range": {
+        "startLine": 151,
+        "startChar": 6,
+        "endLine": 151,
+        "endChar": 29
+      },
+      "revId": "bd2c22be8b49f7e89244400e821ab0bb7dff95d5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
