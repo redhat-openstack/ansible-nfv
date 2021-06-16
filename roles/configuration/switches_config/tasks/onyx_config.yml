@@ -58,7 +58,9 @@
                 {{ commands.append('interface ' + interface['iface'] + ' switchport trunk allowed-vlan none') }}
                 {%- set helper_vlans = [] -%}
                 {%- set vlans = [] -%}
-                {%- if ',' in interface['vlan'] -%}
+                {%- if 'all' in interface['vlan'] -%}
+                  {{ commands.append('interface ' + interface['iface'] + ' switchport trunk allowed-vlan all') }}
+                {%- elif ',' in interface['vlan'] -%}
                   {%- for vlan in interface['vlan'].replace(' ', '').split(',') -%}
                     {{ helper_vlans.append(vlan) }}
                   {%- endfor -%}
