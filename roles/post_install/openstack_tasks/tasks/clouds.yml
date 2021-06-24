@@ -34,11 +34,17 @@
   register: cloud_details
   failed_when: overcloudrc_file.stat.exists == 'False'
 
+- name: Check existence of the clouds.yaml directory
+  stat:
+    path: "{{ clouds_yaml_file_path }}"
+  register: clouds_yaml_dir
+
 - name: "Create directory for writing clouds.yaml"
   file:
     state: directory
     path: "{{ clouds_yaml_file_path | dirname }}"
     mode: '0775'
+  when: not clouds_yaml_dir.stat.exists
 
 - name: Create clouds.yaml if doesn't exist
   blockinfile:
