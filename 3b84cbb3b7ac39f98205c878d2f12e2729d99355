@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7714214a_1f4301f4",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1007976
+      },
+      "writtenOn": "2021-06-25T06:22:36Z",
+      "side": 1,
+      "message": "~ \u003d /home/stack\n/home/stack/.config/openstack/clouds.yaml - complete path of clouds.yaml\n\nif openstack folder does not exist, create it. I did not understand how creating a directory inside /home/stack/.config/openstack would change the permissions on /home/stack or /home/stack.ssh",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 19
+      },
+      "revId": "3b84cbb3b7ac39f98205c878d2f12e2729d99355",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
