@@ -431,7 +431,9 @@
     src: "{{ tempest_dir }}/{{ tempest_main }}/tempest.log"
     dest: "{{ tempest_dir }}/tempest.log"
     mode: '0664'
-  when: tempest_log.stat.exists and not containerized
+  when:
+    - not tempest_log.stat.exists
+    - not containerized
 
 - name: Print the output results of the tempest tests
   tags: run_tempest_test
