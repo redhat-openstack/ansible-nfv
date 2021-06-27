@@ -22,6 +22,30 @@
       },
       "revId": "3b84cbb3b7ac39f98205c878d2f12e2729d99355",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7cb3e12a_18beda21",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-06-27T08:31:21Z",
+      "side": 1,
+      "message": "You misunderstood it.\nBy default (the way we are using), the path ,that is used for the clouds.yaml is \"/home/stack/.config/openstack/clouds.yaml\".\nThe \"openstack\" directory needs to be created.\nIt is created and \"755\" permissions are given to it.\nNo issues.\n\nBut shiftstack team is using \"/home/stack\" directory as the location for the \"clouds.yaml\" file - \"/home/stack/clouds.yaml\".\n\nCurrently, the playbook that is running, ensures that the parent directory for the clouds.yaml file exists and set the \"755\" permissions.\nWhile in the default path location \"/home/stack/.config/openstack/clouds.yaml\" it is all good, when the path is changed to the shiftstack scenario - \"/home/stack/clouds.yaml\", the playbook that is running checking the directory (it exists), but updates the permissions of that directory from \"700\" to \"755\" and it means that stack user home directory is no longer has the required \"700\" permissions which leads to the connection issues.\n\nSo, the change assumes that if the directory already exists, it has the correct permissions set so it will not going to be modified.\nOnly if directory does not exit, the directory will be created and permissions of \"755\" will be set.\n\nHope it\u0027s clear.",
+      "parentUuid": "7714214a_1f4301f4",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 19
+      },
+      "revId": "3b84cbb3b7ac39f98205c878d2f12e2729d99355",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
