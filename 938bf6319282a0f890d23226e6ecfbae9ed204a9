@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2c9607ae_8a334a92",
+        "filename": "roles/post_install/openstack_tasks/tasks/overcloud_delete.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-07-05T13:12:19Z",
+      "side": 1,
+      "message": "To me it looks like an issue in the infrared side.\nOthers could face this issue as well.\nSo why not to fix it on the infrared side?\n\nA fix could be one of two options:\n- Try to use the \u0027force\u0027 parameter of the file module.\n- Check for the symlink existence, delete it if exists and recreate it.",
+      "range": {
+        "startLine": 21,
+        "startChar": 8,
+        "endLine": 21,
+        "endChar": 50
+      },
+      "revId": "938bf6319282a0f890d23226e6ecfbae9ed204a9",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
