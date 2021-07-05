@@ -135,6 +135,30 @@
       },
       "revId": "938bf6319282a0f890d23226e6ecfbae9ed204a9",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1a419269_7f10eb30",
+        "filename": "roles/post_install/openstack_tasks/tasks/overcloud_delete.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-07-05T19:50:30Z",
+      "side": 1,
+      "message": "What is the reason to add here a duplicate fix to one that you proposed to infrared already?\nI\u0027m asking you not to add this task fix here.\nThere are number of reason for it.\n- As I said above, it\u0027s an infrared issue that should be handled in infrared only.\n  We are not duplicating any infared big fix in additional places.\n- The openstack_tasks (resource creator) role responsible for creation/removal of the openstack resources by using the api. It could be used for any kind of openstack environment and thus a fix of infrared related stuff does not belong here at all.\n- If you still think that this kind of fix should exists in our repository, althrough to me it looks like an overkill, add it to a separated role called workaround or fix, please.",
+      "parentUuid": "5a30bd77_f32cc871",
+      "range": {
+        "startLine": 21,
+        "startChar": 8,
+        "endLine": 21,
+        "endChar": 50
+      },
+      "revId": "938bf6319282a0f890d23226e6ecfbae9ed204a9",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
