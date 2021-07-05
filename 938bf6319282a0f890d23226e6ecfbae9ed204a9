@@ -111,6 +111,30 @@
       },
       "revId": "938bf6319282a0f890d23226e6ecfbae9ed204a9",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5a30bd77_f32cc871",
+        "filename": "roles/post_install/openstack_tasks/tasks/overcloud_delete.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-07-05T19:36:46Z",
+      "side": 1,
+      "message": "sure, proposed a patch in rhos-infrared, i tend to have it it here for extra verification",
+      "parentUuid": "a317a331_9ea060d1",
+      "range": {
+        "startLine": 21,
+        "startChar": 8,
+        "endLine": 21,
+        "endChar": 50
+      },
+      "revId": "938bf6319282a0f890d23226e6ecfbae9ed204a9",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
