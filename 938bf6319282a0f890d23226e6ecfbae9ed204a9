@@ -255,6 +255,30 @@
       },
       "revId": "938bf6319282a0f890d23226e6ecfbae9ed204a9",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3c36255c_d231b239",
+        "filename": "roles/post_install/openstack_tasks/tasks/overcloud_delete.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-07-06T15:45:48Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "020d5520_a644c0b3",
+      "range": {
+        "startLine": 21,
+        "startChar": 8,
+        "endLine": 21,
+        "endChar": 50
+      },
+      "revId": "938bf6319282a0f890d23226e6ecfbae9ed204a9",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
