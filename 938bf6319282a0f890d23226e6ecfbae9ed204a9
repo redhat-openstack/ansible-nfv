@@ -231,6 +231,30 @@
       },
       "revId": "938bf6319282a0f890d23226e6ecfbae9ed204a9",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "020d5520_a644c0b3",
+        "filename": "roles/post_install/openstack_tasks/tasks/overcloud_delete.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-07-06T15:43:53Z",
+      "side": 1,
+      "message": "Yariv already created a ticket to fix it.\nhttps://review.gerrithub.io/c/redhat-openstack/infrared/+/520247\n\nIt just needs to be promoted.",
+      "parentUuid": "5c608422_d90fe3b4",
+      "range": {
+        "startLine": 21,
+        "startChar": 8,
+        "endLine": 21,
+        "endChar": 50
+      },
+      "revId": "938bf6319282a0f890d23226e6ecfbae9ed204a9",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
