@@ -207,6 +207,30 @@
       },
       "revId": "938bf6319282a0f890d23226e6ecfbae9ed204a9",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c608422_d90fe3b4",
+        "filename": "roles/post_install/openstack_tasks/tasks/overcloud_delete.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1016373
+      },
+      "writtenOn": "2021-07-06T15:38:33Z",
+      "side": 1,
+      "message": "I think we should merge this fix, but we should create a ticket for infrared team and one it is solved the issue, we can revert this fix",
+      "parentUuid": "10f1b75b_c3d4a296",
+      "range": {
+        "startLine": 21,
+        "startChar": 8,
+        "endLine": 21,
+        "endChar": 50
+      },
+      "revId": "938bf6319282a0f890d23226e6ecfbae9ed204a9",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
