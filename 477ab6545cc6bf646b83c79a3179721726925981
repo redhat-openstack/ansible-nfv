@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "6558a65a_f20ad595",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1007976
+      },
+      "writtenOn": "2021-07-06T15:34:08Z",
+      "side": 1,
+      "message": "@maxim, we need to get the CI unblocked asap.",
+      "revId": "477ab6545cc6bf646b83c79a3179721726925981",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}

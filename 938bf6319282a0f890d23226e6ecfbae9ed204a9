@@ -183,6 +183,30 @@
       },
       "revId": "938bf6319282a0f890d23226e6ecfbae9ed204a9",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "10f1b75b_c3d4a296",
+        "filename": "roles/post_install/openstack_tasks/tasks/overcloud_delete.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1007976
+      },
+      "writtenOn": "2021-07-06T15:34:08Z",
+      "side": 1,
+      "message": "HI @maxim, \nSince we are blocked on CI with this error. I propose to put +2 and wait for infrared fix. we can have double check or remove this later.",
+      "parentUuid": "9a9c005b_5bdab5c0",
+      "range": {
+        "startLine": 21,
+        "startChar": 8,
+        "endLine": 21,
+        "endChar": 50
+      },
+      "revId": "938bf6319282a0f890d23226e6ecfbae9ed204a9",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
