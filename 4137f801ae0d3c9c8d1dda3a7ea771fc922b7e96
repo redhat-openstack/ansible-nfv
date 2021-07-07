@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c8a6265_04e72ae7",
+        "filename": "roles/tester/tempest/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-07-07T09:30:17Z",
+      "side": 1,
+      "message": "Could you move it after the task \"Delete the tempest tests repository to drop previous results\" in line 342, please?\nSo all cleaning parts will be in the same place.",
+      "range": {
+        "startLine": 212,
+        "startChar": 8,
+        "endLine": 212,
+        "endChar": 53
+      },
+      "revId": "4137f801ae0d3c9c8d1dda3a7ea771fc922b7e96",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
