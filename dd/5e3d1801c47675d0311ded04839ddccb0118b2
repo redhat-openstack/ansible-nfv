@@ -1,0 +1,7 @@
+Code-Review+2: Ella Shulman <eshulman@redhat.com>
+Verified+1: Ella Shulman <eshulman@redhat.com>
+Submitted-by: Ella Shulman <eshulman@redhat.com>
+Submitted-at: Wed, 07 Jul 2021 09:59:29 +0000
+Reviewed-on: https://review.gerrithub.io/c/redhat-openstack/ansible-nfv/+/520345
+Project: redhat-openstack/ansible-nfv
+Branch: refs/heads/master
