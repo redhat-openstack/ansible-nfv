@@ -209,6 +209,11 @@
       loop: "{{ tempest_options_parser }}"
   when: tempest_extra_vars is defined
 
+- name: verify tempest_results.subunit doesn't exists
+  file:
+    path: "{{ tempest_dir }}/tempest_results.subunit"
+    state: absent
+
 - name: run containerized tempest
   block:
     - name: tempest.conf file creation
