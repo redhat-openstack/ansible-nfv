@@ -375,7 +375,7 @@
       args:
         executable: /bin/bash
         chdir: "{{ tempest_dir }}/{{ tempest_main }}"
-  when: not containerized
+  when: not containerized | bool
 
 - name: Ensure '{{ tempest_dir }}/tempest.xml' is absent before logging results
   file:
