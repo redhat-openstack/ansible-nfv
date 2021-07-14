@@ -49,7 +49,7 @@
         - src: "{{ stack_rc }}"
           dest: "{{ tempest_dir }}"
           mode: '0664'
-  when: containerized
+  when: containerized|bool
 
 - name: Check OSP version
   include_role:
@@ -126,7 +126,7 @@
         config_command: "/usr/bin/discover-tempest-config"
       when: python_discover.stat.exists is defined
 
-  when: not containerized
+  when: not containerized|bool
 
 - name: Get the external network id
   vars:
@@ -290,7 +290,7 @@
         dest: "{{ tempest_dir }}/tempest.log"
         content: "{{ test_run.stderr }}"
         mode: 0777
-  when: containerized
+  when: containerized|bool
 
 - name: run non-containerized tempest
   block:
@@ -375,7 +375,7 @@
       args:
         executable: /bin/bash
         chdir: "{{ tempest_dir }}/{{ tempest_main }}"
-  when: not containerized
+  when: not containerized|bool
 
 - name: Ensure '{{ tempest_dir }}/tempest.xml' is absent before logging results
   file:
@@ -385,7 +385,7 @@
 - name: Generate results report in a JunitXML format
   tags: run_tempest_test
   shell: |
-    {% if not containerized %}
+    {% if not containerized|bool %}
       source {{ tempest_dir }}/venv/bin/activate
       {% endif %}
     {% if overcloud_version | int >= 15 %}
@@ -410,7 +410,7 @@
 - name: Generate statistics of executed tests
   tags: run_tempest_test
   shell: |
-    {% if not containerized %}
+    {% if not containerized|bool %}
       source {{ tempest_dir }}/venv/bin/activate
     {% endif %}
       subunit-stats --no-passthrough {{ tempest_dir }}/tempest_results.subunit
@@ -422,9 +422,9 @@
 - name: Check existence of tempest log
   tags: run_tempest_test
   stat:
-    path: "{%- if containerized-%}
+    path: "{%- if containerized|bool -%}
             {{ tempest_dir }}/{{ tempest_main }}/tempest.log
-           {%- elif not containerized -%}
+           {%- elif not containerized|bool -%}
             {{ tempest_dir }}/tempest.log
            {%- endif -%}"
   register: tempest_log
@@ -438,7 +438,7 @@
     mode: '0664'
   when:
     - not tempest_log.stat.exists
-    - not containerized
+    - not containerized|bool
 
 - name: Print the output results of the tempest tests
   tags: run_tempest_test
