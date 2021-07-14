@@ -2,7 +2,7 @@
 
 - hosts: undercloud
   gather_facts: False
-  pre_tasks:
+  tasks:
     - name: Require Resource Method
       fail:
         msg: "cloud_resources is not set to correct values: 'create' or 'external', please refer to documentation"
@@ -54,31 +54,30 @@
 - hosts: "{{ hci_group | default(omit) }}"
   roles:
     - role: roles/packet_gen/trex/launch_fio
-      when: launch_hci_stress | default(False)
+      when: launch_hci_stress | default(False)|bool
 
 - hosts: trex
   roles:
     - role: roles/packet_gen/trex/trex_instance_config
-      when: trex_instance_config | default(True)
+      when: trex_instance_config | default(True)|bool
 
-- hosts: "{{ dut_group }}"
+- hosts: "{{ dut_group if dut_group else 'none' }}"
   become: true
   roles:
     - role: tuning/cpu_pinning_huge_pages
       vars:
         cpu_pinning_cores: "{{ testpmd_lcores }}"
 
-# TODO (vkhitrin): Make it skippable
-- hosts: "{{ dut_group }}"
+- hosts: "{{ dut_group if dut_group else 'none' }}"
   roles:
     - role: roles/packet_gen/trex/bind_dpdk_nics
       vars:
         discover_dut_macs: True
         dpdk_binding_driver: "{{ dut_dpdk_binding_driver | default('vfio-pci') }}"
-      when: bind_dpdk_nics | default(True)
+      when: bind_dpdk_nics | default(True)|bool
 
     - role: roles/packet_gen/trex/launch_testpmd
-      when: launch_testpmd | default(True)
+      when: launch_testpmd | default(True)|bool
 
 - hosts: trex
   become: true
@@ -92,10 +91,10 @@
     - role: roles/packet_gen/trex/bind_dpdk_nics
       vars:
         dpdk_binding_driver: "{{ trex_dpdk_binding_driver | default('vfio-pci') }}"
-      when: bind_dpdk_nics | default(True)
+      when: bind_dpdk_nics | default(True)|bool
 
     - role: roles/packet_gen/trex/launch_trex
-      when: launch_trex | default(True)
+      when: launch_trex | default(True)|bool
 
     - role: roles/packet_gen/trex/binary_search
-      when: binary_search | default(True)
+      when: binary_search | default(True)|bool
