@@ -1,0 +1,7 @@
+Code-Review+2: Yariv Rachmani <yrachman@redhat.com>
+Verified+1: Yariv Rachmani <yrachman@redhat.com>
+Submitted-by: Yariv Rachmani <yrachman@redhat.com>
+Submitted-at: Thu, 15 Jul 2021 06:25:20 +0000
+Reviewed-on: https://review.gerrithub.io/c/redhat-openstack/ansible-nfv/+/520703
+Project: redhat-openstack/ansible-nfv
+Branch: refs/heads/master
