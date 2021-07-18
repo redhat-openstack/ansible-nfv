@@ -145,6 +145,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "646cd162_5c3e61ec",
+        "filename": "roles/generate_tht_templates/samples/ospd-16.1-geneve-ovn-dpdk-sriov-nic-part-topology.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2021-07-18T15:11:03Z",
+      "side": 1,
+      "message": "parameters shouldn\u0027t be memorized. as far as I see is there are bearly 3 parameters that are version specific. There shouldn\u0027t be any issue doing it this way having that we are copying the sample file every time we add new deployments and the default is to use the parameter for all versions. \nits much more grained then what we have now. I think we should ask more team members for their opinion and the way they are using the template gen. if they will think it is too complicated then we can use a loop like the one in the nodes file. please bare in mind we barely change those parameters so I don\u0027t think it makes anything more complicated it just makes it easier to add new parameters especially version specific ones \n\nalso specificly for this part I think its good to leave it this way having that WA are version specific for most of them and if they aren\u0027t then they probably should be part of the neutron config.",
+      "parentUuid": "8528244f_135e8a62",
+      "range": {
+        "startLine": 96,
+        "startChar": 4,
+        "endLine": 96,
+        "endChar": 26
+      },
+      "revId": "4cf450202ea2b8f4b2e10df96429f388710d1d2b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a8d62096_69c32e9d",
         "filename": "roles/generate_tht_templates/templates/nodes/nodes_data.yaml.j2",
         "patchSetId": 2
@@ -204,6 +228,30 @@
       "side": 1,
       "message": "ack.\nBut which options of extra config could be added to nodes_data file?",
       "parentUuid": "5365a252_d2aac896",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 13
+      },
+      "revId": "4cf450202ea2b8f4b2e10df96429f388710d1d2b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b68861b_871273de",
+        "filename": "roles/generate_tht_templates/templates/nodes/nodes_data.yaml.j2",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2021-07-18T15:11:03Z",
+      "side": 1,
+      "message": "will add an example :)",
+      "parentUuid": "723c246a_753bc5d2",
       "range": {
         "startLine": 10,
         "startChar": 0,
