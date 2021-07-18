@@ -24,6 +24,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "465921e0_4e777ef6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2021-07-18T14:37:52Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "006419d7_edf49024",
+      "range": {
+        "startLine": 9,
+        "startChar": 1,
+        "endLine": 10,
+        "endChar": 34
+      },
+      "revId": "4cf450202ea2b8f4b2e10df96429f388710d1d2b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6324eed2_d25def20",
@@ -49,6 +73,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "e05820a0_98d38e60",
+        "filename": "roles/generate_tht_templates/samples/ospd-16.1-geneve-ovn-dpdk-sriov-nic-part-topology.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2021-07-18T14:37:52Z",
+      "side": 1,
+      "message": "In my opinion if you need to copy the sample file every time you want to change something anyway I can\u0027t see a reason why not to. it also gives you a good machanisem for debugging when you want to disable a param but dont want to omit it from the file you can set versions to -1 for example.",
+      "parentUuid": "6324eed2_d25def20",
+      "range": {
+        "startLine": 96,
+        "startChar": 4,
+        "endLine": 96,
+        "endChar": 26
+      },
+      "revId": "4cf450202ea2b8f4b2e10df96429f388710d1d2b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a8d62096_69c32e9d",
         "filename": "roles/generate_tht_templates/templates/nodes/nodes_data.yaml.j2",
         "patchSetId": 2
@@ -60,6 +108,30 @@
       "writtenOn": "2021-07-18T14:04:00Z",
       "side": 1,
       "message": "I think that a very good way to define the templates parameters instead of the existing \"{% if NeutronGlobalPhysnetMtu is defined %}\" for each parameter.\n\nBut I think it should replace the existing mechanism and not to add additional way of generation.\nLet\u0027s start for example with the \"network_environment..\" template file.",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 13
+      },
+      "revId": "4cf450202ea2b8f4b2e10df96429f388710d1d2b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "5365a252_d2aac896",
+        "filename": "roles/generate_tht_templates/templates/nodes/nodes_data.yaml.j2",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2021-07-18T14:37:52Z",
+      "side": 1,
+      "message": "this is unrelated it is just the easiest way of adding this, I didn\u0027t change anything in this lines just added new options related to rt job",
+      "parentUuid": "a8d62096_69c32e9d",
       "range": {
         "startLine": 10,
         "startChar": 0,
