@@ -86,6 +86,14 @@ NeutronSriovAgentExtensions: qos
 DnsServers:
   - 10.46.0.31
   - 10.46.0.32
+extra_workarounds:
+# if specifying version the workaround will be used only for those version
+# if not specifying version the workaround will be used for all versions
+  NovaEnableNUMALiveMigration:
+    value: "true # https://bugs.launchpad.net/nova/+bug/1289064"
+  SomeExampleVar:
+    value: "helloWorld # https://bugs.launchpad.net/nova/+bug/some_random_bug"
+    versions: [16.1, 16.2]
 
 deploy_config:
   # The name of the role is case sensitive
@@ -97,6 +105,9 @@ deploy_config:
     hostname_format: computeovndpdksriov  # Override overcloud nodehostname format. By default will take the name of the role.
     count: 2
     flavor: compute
+    extra_config:
+      # To add parameters such as nova::compute::libvirt::libvirt_cpu_mode: host-passthrough (for rt deployments)
+      'some::openstak::tripleo::param': banana
     common_opts:  # all the suboptions are optional
       KernelArgs: "default_hugepagesz=1GB hugepagesz=1G hugepages=64 iommu=pt intel_iommu=on isolcpus=2-19,22-39"
     dpdk_opts:  # all the suboptions are optional
