@@ -284,6 +284,30 @@
       },
       "revId": "4cf450202ea2b8f4b2e10df96429f388710d1d2b",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8dbe2179_79f56a58",
+        "filename": "roles/generate_tht_templates/templates/nodes/nodes_data.yaml.j2",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-07-18T15:23:36Z",
+      "side": 1,
+      "message": "Just note that the templates separated into a chunks and a releven chunk should be added into a relevant section of the templates.",
+      "parentUuid": "2b68861b_871273de",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 13
+      },
+      "revId": "4cf450202ea2b8f4b2e10df96429f388710d1d2b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
