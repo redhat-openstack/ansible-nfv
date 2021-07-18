@@ -121,6 +121,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "8528244f_135e8a62",
+        "filename": "roles/generate_tht_templates/samples/ospd-16.1-geneve-ovn-dpdk-sriov-nic-part-topology.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-07-18T14:48:43Z",
+      "side": 1,
+      "message": "Sorry, but in my view it will create a mess.\nThe user that uses the templates can\u0027t memorize which parameters are used in which version.\nAs I said above, it is done by the verifier person of that specific version once and onward should be handled by the role.\n\nRegarding the debugging. Just comment out the parameter and it will not be used.",
+      "parentUuid": "e05820a0_98d38e60",
+      "range": {
+        "startLine": 96,
+        "startChar": 4,
+        "endLine": 96,
+        "endChar": 26
+      },
+      "revId": "4cf450202ea2b8f4b2e10df96429f388710d1d2b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a8d62096_69c32e9d",
         "filename": "roles/generate_tht_templates/templates/nodes/nodes_data.yaml.j2",
         "patchSetId": 2
@@ -156,6 +180,30 @@
       "side": 1,
       "message": "this is unrelated it is just the easiest way of adding this, I didn\u0027t change anything in this lines just added new options related to rt job",
       "parentUuid": "a8d62096_69c32e9d",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 13
+      },
+      "revId": "4cf450202ea2b8f4b2e10df96429f388710d1d2b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "723c246a_753bc5d2",
+        "filename": "roles/generate_tht_templates/templates/nodes/nodes_data.yaml.j2",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-07-18T14:48:43Z",
+      "side": 1,
+      "message": "ack.\nBut which options of extra config could be added to nodes_data file?",
+      "parentUuid": "5365a252_d2aac896",
       "range": {
         "startLine": 10,
         "startChar": 0,
