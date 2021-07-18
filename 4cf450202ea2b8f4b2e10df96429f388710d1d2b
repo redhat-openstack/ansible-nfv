@@ -97,6 +97,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7157217b_b5697711",
+        "filename": "roles/generate_tht_templates/samples/ospd-16.1-geneve-ovn-dpdk-sriov-nic-part-topology.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2021-07-18T14:47:38Z",
+      "side": 1,
+      "message": "also wanted to add that most of those parameters stayed untuoched for 99% of the time",
+      "parentUuid": "e05820a0_98d38e60",
+      "range": {
+        "startLine": 96,
+        "startChar": 4,
+        "endLine": 96,
+        "endChar": 26
+      },
+      "revId": "4cf450202ea2b8f4b2e10df96429f388710d1d2b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a8d62096_69c32e9d",
         "filename": "roles/generate_tht_templates/templates/nodes/nodes_data.yaml.j2",
         "patchSetId": 2
