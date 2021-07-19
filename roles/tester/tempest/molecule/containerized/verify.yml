@@ -1,0 +1,105 @@
+---
+- name: Verify
+  hosts: undercloud
+  gather_facts: false
+  vars_files:
+    - ../../defaults/main.yml
+    - ../../vars/main.yml
+  tasks:
+    - name: Verify tempest-nfv-plugin container image
+      containers.podman.podman_image_info:
+        name: tempest-nfv-plugin
+      register: nfv_image
+
+    - name: Verify tempest-nfv-plugin image
+      assert:
+        that:
+          - "'nfv-plugin' in nfv_image.images[0].Config.Labels.description"
+
+    - name: Test accounts.yaml file existence
+      stat:
+        path: "{{ accounts_file_path }}"
+      register: accounts_file_state
+
+    - name: Verify accounts.yaml file existence
+      assert:
+        that: accounts_file_state.stat.exists
+
+    - name: Read resource output file
+      slurp:
+        src: "{{ accounts_file_path }}"
+      register: accounts_output_file
+
+    - name: Import file content into variable
+      set_fact:
+        accounts_output_var: "{{ accounts_output_file.content | b64decode | from_yaml_all | list }}"
+
+    - name: Verify accounts.yaml file structure
+      assert:
+        that:
+          - "accounts_output_var[0][0].username"
+          - "accounts_output_var[0][0].password"
+          - "accounts_output_var[0][0].domain_name"
+          - "accounts_output_var[0][0].project_name"
+          - "accounts_output_var[0][0].types"
+
+    - name: Test required files (ssh, rc)
+      stat:
+        path: "{{ item }}"
+      loop:
+        - "{{ tempest_dir }}/{{ ssh_key }}"
+        - "{{ tempest_dir }}/{{ rc_file | basename }}"
+        - "{{ tempest_dir }}/{{ stack_rc | basename }}"
+      register: files_rc_and_ssh
+
+    - name: Verify existence of required files (ssh, rc)
+      assert:
+        that:
+          - "item.stat.exists"
+      loop: "{{ files_rc_and_ssh.results }}"
+
+    - name: Test tempest.conf file generation
+      stat:
+        path: "{{ etc_dir }}/tempest.conf"
+      register: tempest_conf_state
+
+    - name: Verify tempest.conf file generation
+      assert:
+        that: tempest_conf_state.stat.exists
+
+    - name: Check enabled unprivileged ping
+      command: sysctl net.ipv4.ping_group_range
+      register: unprivileged_ping
+      changed_when: false
+
+    - name: Verify enabled unprivileged ping
+      assert:
+        that: "'net.ipv4.ping_group_range = 0\t2000000' in unprivileged_ping.stdout_lines"
+
+    - name: Test generated tempest.xml file
+      stat:
+        path: "{{ tempest_dir }}/tempest.xml"
+      register: tempest_xml_state
+
+    - name: Verify generated tempest.xml file
+      assert:
+        that: tempest_conf_state.stat.exists
+
+    - name: Execute the tempest tests and save the results
+      containers.podman.podman_container:
+        name: tempest_nfv
+        image: "{{ container_image }}:{{ container_version | default('latest') }}"
+        volume:
+          - "{{ tempest_dir }}:{{ container_tempest }}:Z"
+          - "{{ etc_dir }}:{{ container_etc }}:Z"
+          - "/etc/pki/:/etc/pki/"
+        network: host
+        detach: false
+        rm: true
+        privileged: true
+        command: "stestr list nfv"
+      register: nfv_tests_state
+
+    - name: Verify nfv test existence
+      assert:
+        that: '"nfv_tempest_plugin.tests.scenario.test_nfv_basic.TestNfvBasic" in nfv_tests_state.stdout'

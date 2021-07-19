@@ -4,7 +4,7 @@
   gather_facts: false
   roles:
     - role: tempest
-      containerized: false
+      containerized: true
       external_net_id: false
       image_for_tempest: false
       generate_accounts: true

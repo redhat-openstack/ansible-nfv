@@ -44,7 +44,7 @@ for molecule in $molecules; do
     pushd $(dirname $molecule)
     export ANSIBLE_LOG_PATH=$logs_dir/$(basename $(dirname $molecule)).log
 
-    if ! molecule test; then
+    if ! molecule test --all; then
         failed_runs=$((failed_runs + 1))
         failed_roles+=($(dirname $molecule))
     fi
