@@ -217,6 +217,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "7eab8147_b3dc5376",
+        "filename": "roles/generate_tht_templates/samples/ospd-16.1-geneve-ovn-dpdk-sriov-nic-part-topology.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-07-20T09:50:09Z",
+      "side": 1,
+      "message": "Do you remember which parameter supports which version? I don\u0027t think so.\nIt\u0027s an entry point to a human failures which will happen.\n\nAnother issue.\nIn some of our templates, osp version 13 used older parameter, and osp version 16.1/2 uses newer parameter.\n\nCurrently, it is managed by the jinja condition depending on the role.\nHow would you solve that in this way of parameter definition?",
+      "parentUuid": "36c47543_30d16a6f",
+      "range": {
+        "startLine": 96,
+        "startChar": 4,
+        "endLine": 96,
+        "endChar": 26
+      },
+      "revId": "4cf450202ea2b8f4b2e10df96429f388710d1d2b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a8d62096_69c32e9d",
         "filename": "roles/generate_tht_templates/templates/nodes/nodes_data.yaml.j2",
         "patchSetId": 2
