@@ -193,6 +193,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "36c47543_30d16a6f",
+        "filename": "roles/generate_tht_templates/samples/ospd-16.1-geneve-ovn-dpdk-sriov-nic-part-topology.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-07-20T09:45:14Z",
+      "side": 1,
+      "message": "+2 for ella, if there is no version, default will take,\nI think it will give freedom and less code complexity with jinjas\n\nIt will be also added to the Generated templates",
+      "parentUuid": "4d78a703_c1102ef1",
+      "range": {
+        "startLine": 96,
+        "startChar": 4,
+        "endLine": 96,
+        "endChar": 26
+      },
+      "revId": "4cf450202ea2b8f4b2e10df96429f388710d1d2b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "a8d62096_69c32e9d",
         "filename": "roles/generate_tht_templates/templates/nodes/nodes_data.yaml.j2",
         "patchSetId": 2
