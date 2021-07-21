@@ -52,6 +52,24 @@
       "parentUuid": "96b7c524_236086e6",
       "revId": "00345df86a467fbc184fbfa6a95982f181a8e5e6",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b650cb9_e1140748",
+        "filename": "roles/generate_tht_templates/samples/ospd-16.1-geneve-ovn-dpdk-sriov-nic-part-topology.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2021-07-21T14:20:15Z",
+      "side": 1,
+      "message": "correct (we can solve it like ParamName:{value: someVAL} but I can\u0027t see any specific reason for doing that)",
+      "parentUuid": "19fbff0e_b76a81ff",
+      "revId": "00345df86a467fbc184fbfa6a95982f181a8e5e6",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
