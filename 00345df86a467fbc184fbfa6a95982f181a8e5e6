@@ -16,6 +16,24 @@
       "message": "i do not understand why we need to specify versions. We are using each yml file for generating templates for a specific osp version, shouldnt be enough specifying the needed parameters in the ymls files in which it is needed?",
       "revId": "00345df86a467fbc184fbfa6a95982f181a8e5e6",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "96b7c524_236086e6",
+        "filename": "roles/generate_tht_templates/samples/ospd-16.1-geneve-ovn-dpdk-sriov-nic-part-topology.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2021-07-21T13:52:26Z",
+      "side": 1,
+      "message": "its just as an example here if you won\u0027t specify a version then it will still work",
+      "parentUuid": "8ea90de2_0541e1ef",
+      "revId": "00345df86a467fbc184fbfa6a95982f181a8e5e6",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
