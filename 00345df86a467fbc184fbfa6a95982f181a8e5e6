@@ -70,6 +70,24 @@
       "parentUuid": "19fbff0e_b76a81ff",
       "revId": "00345df86a467fbc184fbfa6a95982f181a8e5e6",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "effe1e85_ea629a9b",
+        "filename": "roles/generate_tht_templates/samples/ospd-16.1-geneve-ovn-dpdk-sriov-nic-part-topology.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-07-21T14:22:37Z",
+      "side": 1,
+      "message": "That\u0027s a problem as it will create split configuration way.\nMost of the parameters will need to be provided as a yaml key value.\nAnd some of them as a yaml dictionary.\n\nThat might create a chaos.",
+      "parentUuid": "3b650cb9_e1140748",
+      "revId": "00345df86a467fbc184fbfa6a95982f181a8e5e6",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
