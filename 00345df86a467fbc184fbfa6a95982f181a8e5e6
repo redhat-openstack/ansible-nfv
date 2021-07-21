@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "8ea90de2_0541e1ef",
+        "filename": "roles/generate_tht_templates/samples/ospd-16.1-geneve-ovn-dpdk-sriov-nic-part-topology.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1016373
+      },
+      "writtenOn": "2021-07-21T07:48:33Z",
+      "side": 1,
+      "message": "i do not understand why we need to specify versions. We are using each yml file for generating templates for a specific osp version, shouldnt be enough specifying the needed parameters in the ymls files in which it is needed?",
+      "revId": "00345df86a467fbc184fbfa6a95982f181a8e5e6",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
