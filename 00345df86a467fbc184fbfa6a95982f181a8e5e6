@@ -34,6 +34,24 @@
       "parentUuid": "8ea90de2_0541e1ef",
       "revId": "00345df86a467fbc184fbfa6a95982f181a8e5e6",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "19fbff0e_b76a81ff",
+        "filename": "roles/generate_tht_templates/samples/ospd-16.1-geneve-ovn-dpdk-sriov-nic-part-topology.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-07-21T13:55:38Z",
+      "side": 1,
+      "message": "The parameters here are specified as a dictionary.\nSo, I\u0027ll not be able to specify them in the manner of one line?\n\nParamName: Value",
+      "parentUuid": "96b7c524_236086e6",
+      "revId": "00345df86a467fbc184fbfa6a95982f181a8e5e6",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
