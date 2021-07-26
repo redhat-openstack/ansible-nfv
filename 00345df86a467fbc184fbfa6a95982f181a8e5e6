@@ -88,6 +88,24 @@
       "parentUuid": "3b650cb9_e1140748",
       "revId": "00345df86a467fbc184fbfa6a95982f181a8e5e6",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c00f32eb_d7b634ac",
+        "filename": "roles/generate_tht_templates/samples/ospd-16.1-geneve-ovn-dpdk-sriov-nic-part-topology.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2021-07-26T06:56:07Z",
+      "side": 1,
+      "message": "I don\u0027t think its any different then the difference between flavor  and common_opts. we have several different variable structure that matches different usecases.",
+      "parentUuid": "effe1e85_ea629a9b",
+      "revId": "00345df86a467fbc184fbfa6a95982f181a8e5e6",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
