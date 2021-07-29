@@ -73,6 +73,11 @@ parameter_defaults:
   {% if NeutronSriovAgentExtensions is defined %}
   NeutronSriovAgentExtensions: "{{ NeutronSriovAgentExtensions }}"
   {% endif %}
+  {% if NovaLibvirtMemStatsPeriodSeconds is defined %}
+  NovaLibvirtMemStatsPeriodSeconds: "{{ NovaLibvirtMemStatsPeriodSeconds }}"
+  {% endif %}
+
+
 
   {% for node in deploy_config %}
   {% if node.role_name == 'ControllerSriov' %}
@@ -82,8 +87,6 @@ parameter_defaults:
   {% endif %}
   {% endfor %}
 
-  # https://bugs.launchpad.net/nova/+bug/1289064
-  NovaEnableNUMALiveMigration: true
   # Disable SSH query on the overcloud nodes to avoid connection latency
   SshServerOptions:
     UseDns: 'no'
@@ -110,3 +113,14 @@ parameter_defaults:
     - "PciPassthroughFilter"
     - "NUMATopologyFilter"
     - "AggregateInstanceExtraSpecsFilter"
+
+  {% if extra_workarounds is defined %}
+  # work arounds section
+    {% for key, value in extra_workarounds.items() %}
+      {% if value.versions is not defined%}
+  {{ key }}: {{ value.value }}
+      {% elif osp_version in value.versions %}
+  {{ key }}: {{ value.value }}
+      {% endif %}
+    {%endfor %}
+  {% endif %}
