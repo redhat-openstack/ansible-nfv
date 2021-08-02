@@ -7,7 +7,16 @@ Each role holds it's own documentation. Refer to the README.md file within the r
 **The minimum required version of Ansible for the playbooks >=2.9.0,<2.10.0**  
 **Note** - In order to work properly with the selinux, make sure the **libselinux-python** package is installed on your host.
 
-## How to contribue
+## Install
+The ansible-nfv repository has a number of requirements that need to be installed within virtualenv.  
+**For Production** - Install the packages by - `pip install -r requirements.txt`  
+**For Development** - Install the packages by - `pip install -r test-requirements.txt`  
+
+In addition to the above packages, ansible-nfv is using ansible collections.  
+Required collections defined within the **requirements.yaml** file.  
+Install the collections in addition to the above commands - `ansible-galaxy collection install -r requirements.yaml`
+
+## How to contribute
 Refer to the `contribution.md` guide.
 
 ## Note
