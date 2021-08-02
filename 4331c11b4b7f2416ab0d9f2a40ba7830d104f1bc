@@ -33,6 +33,29 @@
       "message": "recheck",
       "revId": "4331c11b4b7f2416ab0d9f2a40ba7830d104f1bc",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ca9dfdac_37a1e069",
+        "filename": "roles/tester/tempest/molecule/containerized/cleanup.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2021-08-02T12:35:56Z",
+      "side": 1,
+      "message": "I think cleanup would be a more suitble name",
+      "range": {
+        "startLine": 2,
+        "startChar": 8,
+        "endLine": 2,
+        "endChar": 15
+      },
+      "revId": "4331c11b4b7f2416ab0d9f2a40ba7830d104f1bc",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
