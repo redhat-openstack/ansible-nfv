@@ -11,7 +11,7 @@
     mode: 0755
     state: directory
 
-- name: containerized preperation
+- name: Containerized preparation
   block:
     - name: install required yum packages
       package:
@@ -33,7 +33,7 @@
         mode: 0777
         state: directory
 
-    - name: copy required container files
+    - name: Copy required container files
       copy:
         src: "{{ item.src }}"
         dest: "{{ item.dest }}"
@@ -55,7 +55,7 @@
   include_role:
     name: discover_osp_version
 
-- name: preperation for non-containerized tempest
+- name: Preparation for non-containerized tempest
   block:
     - name: Git clone tempest and plugin repositories
       git:
@@ -147,7 +147,7 @@
     validate_certs: "{{ os_image_cert_validation }}"
   when: image_for_tempest| bool
 
-- name: Check for the spesific flavor id if it's required
+- name: Check for the specific flavor id if it's required
   vars:
     ansible_python_interpreter: "{{ venv_path }}/bin/python"
   os_flavor_info:
@@ -214,7 +214,7 @@
     path: "{{ tempest_dir }}/tempest_results.subunit"
     state: absent
 
-- name: run containerized tempest
+- name: Run containerized tempest
   block:
     - name: tempest.conf file creation
       vars:
@@ -237,10 +237,21 @@
             nfv_plugin_options.overcloud_node_pkey_file {{ container_tempest }}/{{ ssh_key }}
             nfv_plugin_options.overcloud_node_pkey_file_rsa {{ container_tempest }}/{{ ssh_key }}
             nfv_plugin_options.undercloud_rc_file {{ container_tempest }}/stackrc
-            nfv_plugin_options.external_config_file {{ container_tempest }}/{{ tempest_config | basename }}
             compute.min_microversion {{ min_microversion }}
             compute.max_microversion {{ max_microversion }}
             DEFAULT.use_stderr true
+        image_name: |
+            {% if image_for_tempest| bool %}
+            "{{ tempest_dir }}/{{ images[0].url | basename }}"
+            {% endif %}
+        external_network: |
+            {% if external_net_id %}
+            {{ tempest_net_id.openstack_networks.0.id }}
+            {% endif %}
+        flavor_name: |
+            {% if tempest_flavor_name is defined %}
+            {{ reg_flavors.results.0.id }}
+            {% endif %}
       containers.podman.podman_container:
         name: tempest_nfv
         image: "{{ container_image }}:{{ container_version | default('latest') }}"
@@ -249,14 +260,16 @@
           - "{{ tempest_dir }}:{{ container_tempest }}:Z"
           - "{{ etc_dir }}:{{ container_etc }}:Z"
         env:
-          image_name: "{{ images[0].url | basename }}"
-          deployer_input: deployer_inpt.ini
+          deployer_input: deployer_input.ini
           additional_params: "{{ additional_params | default('') }}"
+          image_name: "{{ image_name | default('') }}"
+          external_network: "{{ external_network | default('') }}"
+          flavor_name: "{{ flavor_name | default('') }}"
         detach: false
         rm: true
         privileged: true
 
-    - name: unable unpriviledged ping
+    - name: Enable unprivileged ping
       ansible.posix.sysctl:
         name: net.ipv4.ping_group_range
         value: '0 2000000'
@@ -276,7 +289,11 @@
         detach: false
         rm: true
         privileged: true
-        command: "stestr run --serial --subunit --include-list {{ container_tempest }}/{{ tests_include_list | basename }}"
+        command: >
+          stestr run --serial --subunit
+          {% if tests_regex %}{{ tests_regex }}{% endif %}
+          {% if overcloud_version | int >= 16 and tests_include_list %}--include-list {{ container_tempest }}/{{ tests_include_list | basename }}
+          {% elif tests_include_list %}--whitelist-file {{ container_tempest }}/{{ tests_include_list | basename }}{% endif %}
       register: test_run
 
     - name: write results to file
