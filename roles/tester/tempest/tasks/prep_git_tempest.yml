@@ -1,0 +1,68 @@
+- name: Git clone tempest and plugin repositories
+  git:
+    repo: "{{ item.url }}"
+    dest: "{{ tempest_dir }}/{{ item.name }}"
+    version: "{{ item.version.get(overcloud_version | int, item.version['defaults']).branch }}"
+    clone: yes
+    update: yes
+    force: yes
+  loop: "{{ tempest_repos }}"
+
+- name: Set tempest venv path
+  set_fact:
+    tempest_venv: "{{ tempest_dir }}/venv"
+
+# A pip bug prevents us to use the pip module for the python3 venv creation.
+# Remove when fixed.
+# Reference: https://github.com/ansible/ansible/issues/52275
+- name: Install venv if python3 present
+  command: "{{ ansible_python.executable }} -m venv {{ tempest_venv }}"
+  when: ansible_python.version.major == 3
+
+- name: Create a virtual environment and upgrade it to the latest version
+  pip:
+    name:
+      - 'pip'
+      - 'setuptools'
+      - 'stestr'
+      - 'python-subunit'
+      - 'ipdb'
+      - 'junitxml'
+    virtualenv: "{{ tempest_venv }}"
+    state: latest
+
+- name: Install repos in a virtual environment
+  pip:
+    virtualenv: "{{ tempest_venv }}"
+    name:
+      - "{{ tempest_dir }}/{{ neutron_tempest_plugin }}"
+      - "{{ tempest_dir }}/{{ nfv_tempest_plugin }}"
+      - "{{ tempest_dir }}/{{ tempest_main }}"
+      - "{{ tempest_dir }}/{{ tempest_conf }}"
+    state: present
+    editable: true
+
+- name: Check if tempestconf tool installed
+  stat:
+    path: "{{ tempest_venv }}/bin/discover-tempest-config"
+  register: tempest_conf_tool
+
+- name: Define tempestconf tool if exists
+  set_fact:
+    config_command: "{{ tempest_venv }}/bin/discover-tempest-config"
+  when: tempest_conf_tool.stat.exists
+# check for 13 and validate_certs parameter false
+# discover-tempest-conf is failing on
+- name: Check if discover-tempest-config installed
+  stat:
+    path: /usr/bin/discover-tempest-config
+  register: python_discover
+  when: >
+      ansible_python.version.major == 2 and
+      validate_certs is defined and
+      not validate_certs|bool
+
+- name:  discover-tempest-config pass SSL if exists
+  set_fact:
+    config_command: "/usr/bin/discover-tempest-config"
+  when: python_discover.stat.exists is defined
