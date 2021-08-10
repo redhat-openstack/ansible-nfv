@@ -1,0 +1,81 @@
+- name: tempest.conf file creation
+  shell: |
+    source "{{ rc_file | default('/home/stack/overcloudrc') }}"
+    source {{ tempest_venv }}/bin/activate
+    {{ config_command | default('python config_tempest/config_tempest.py') }} \
+        --create \
+        --debug \
+        {% if image_for_tempest| bool %}
+        --image "{{ tempest_dir }}/{{ images[0].url | basename }}" \
+        {% endif %}
+        {% if external_net_id %}
+        --network-id {{ tempest_net_id.openstack_networks.0.id }} \
+        {% endif %}
+        identity.uri {{ rc_vars.osp_auth }} \
+        identity.admin_password {{ rc_vars.osp_password }} \
+        {% if tempest_flavor_name is defined %}
+        compute.flavor_ref {{ reg_flavors.results.0.id }} \
+        {% endif %}
+        {% if generate_accounts %}
+        auth.test_accounts_file {{ accounts_file_path }} \
+        auth.use_dynamic_credentials false \
+        nfv_plugin_options.external_resources_output_file {{ external_resources_output_file }} \
+        {% endif %}
+        {% if enable_test_all_provider_networks %}
+          nfv_plugin_options.test_all_provider_networks true \
+        {% endif %}
+        {% if tempest_options is defined %}
+          {% for option in tempest_options %}
+            {{ option }} \
+          {% endfor %}
+        {% endif %}
+        {% if deployer_input_config is defined %}
+          --deployer-input {{ tempest_dir }}/{{ copy_output['dest'] | basename }} \
+        {% endif %}
+        --out "{{ tempest_dir }}/{{ tempest_main }}/etc/tempest.conf"
+  args:
+    executable: /bin/bash
+    chdir: "{{ tempest_dir }}/{{ tempest_conf }}"
+
+- name: Check if the tempest tests repository exists
+  tags: run_tempest_test
+  stat:
+    path: "{{ tempest_dir }}/{{ tempest_main }}/.stestr"
+  register: testrepository
+
+- name: Delete the tempest tests repository to drop previous results
+  tags: run_tempest_test
+  file:
+    path: "{{ tempest_dir }}/{{ tempest_main }}/.stestr"
+    state: absent
+  when: testrepository.stat.exists
+
+- name: Create tempest tests repository for the clean state tests run
+  tags: run_tempest_test
+  shell: >
+    source {{ tempest_dir }}/venv/bin/activate;
+    {{ tempest_dir }}/venv/bin/stestr init;
+  args:
+    executable: /bin/bash
+    chdir: "{{ tempest_dir }}/{{ tempest_main }}"
+
+# (TODO): Remove the workaround once OSP10 support is over.
+- name: neutron tempest utf-8 issue w\a
+  lineinfile:
+    path: "{{ tempest_dir }}/neutron-tempest-plugin/neutron_tempest_plugin/scenario/test_qos.py"
+    insertbefore: BOF
+    line: '# -*- encoding: utf-8 -*-'
+  when: overcloud_version | int < 16
+
+- name: Execute the tempest tests and save the results
+  tags: run_tempest_test
+  shell: >
+    source {{ tempest_dir }}/venv/bin/activate;
+    stestr run --serial --subunit
+    {% if tests_regex %}"{{ tests_regex }}"{% endif %}
+    {% if overcloud_version | int >= 16 and tests_include_list %}--include-list {{ tempest_dir }}/{{ tests_include_list | basename }}
+    {% elif tests_include_list %}--whitelist-file {{ tempest_dir }}/{{ tests_include_list | basename }}{% endif %}
+    >> {{ tempest_dir }}/tempest_results.subunit
+  args:
+    executable: /bin/bash
+    chdir: "{{ tempest_dir }}/{{ tempest_main }}"

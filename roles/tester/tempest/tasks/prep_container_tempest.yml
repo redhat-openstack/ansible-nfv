@@ -1,0 +1,36 @@
+- name: install required yum packages
+  package:
+    name:
+      - podman
+      - subunit-filters
+    state: installed
+  become: true
+
+- name: get NFV podman container from registry
+  containers.podman.podman_container:
+    image: "{{ container_image }}:{{ container_version | default('latest') }}"
+    name: nfv-tempest
+    state: present
+
+- name: Create the container tempest etc directory
+  file:
+    path: "{{ tempest_dir }}/{{ tempest_etc_dir }}"
+    mode: 0777
+    state: directory
+
+- name: Copy required container files
+  copy:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    remote_src: yes
+    mode: "{{ item.mode }}"
+  loop:
+    - src: "/home/stack/.ssh/id_rsa"
+      dest: "{{ tempest_dir }}/{{ ssh_key }}"
+      mode: '0777'
+    - src: "{{ rc_file }}"
+      dest: "{{ tempest_dir }}"
+      mode: '0777'
+    - src: "{{ stack_rc }}"
+      dest: "{{ tempest_dir }}"
+      mode: '0664'

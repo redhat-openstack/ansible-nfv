@@ -60,7 +60,7 @@
 
     - name: Test tempest.conf file generation
       stat:
-        path: "{{ etc_dir }}/tempest.conf"
+        path: "{{ tempest_dir }}/{{ tempest_etc_dir }}/tempest.conf"
       register: tempest_conf_state
 
     - name: Verify tempest.conf file generation
@@ -91,7 +91,7 @@
         image: "{{ container_image }}:{{ container_version | default('latest') }}"
         volume:
           - "{{ tempest_dir }}:{{ container_tempest }}:Z"
-          - "{{ etc_dir }}:{{ container_etc }}:Z"
+          - "{{ tempest_dir }}/{{ tempest_etc_dir }}:{{ container_etc }}:Z"
           - "/etc/pki/:/etc/pki/"
         network: host
         detach: false
