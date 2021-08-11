@@ -1,5 +1,5 @@
 # Image Variables
-guest_image: 'https://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud.qcow2'
+guest_image: 'https://cloud.centos.org/centos/8/x86_64/images/CentOS-8-GenericCloud-8.4.2105-20210603.0.x86_64.qcow2'
 guest_image_output: '/tmp/'
 guest_debug: False
 
@@ -8,29 +8,34 @@ repo_dir: '/tmp/guest_repos'
 guest_repos:
   - name: 'base'
     state: 'present'
-    baseurl: 'http://mirror.centos.org/centos/7/os/$basearch/'
-
+    baseurl: 'http://mirror.centos.org/$contentdir/$releasever/BaseOS/$basearch/os/'
+    mirrorlist: 'http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=BaseOS&infra=$infra'
 # DPDK Variables
 dpdk_dir: '/root/dpdk'
 dpdk_customization_log: "{{ dpdk_dir }}/customization.log"
 dpdk_git: 'git://dpdk.org/dpdk'
-dpdk_branch: 'v17.05'
+dpdk_branch: 'tags/v20.11-rc3'
+dpdk_compile_packages: 
+  - meson
+  - pyelftools
+  - ninja
 
 # Trex Variables
-trex_version: 'v2.43'
+trex_version: 'v2.73'
 trex_url: 'https://trex-tgn.cisco.com/trex/release'
 trex_dir: '/opt/trex/'
 
 # Trafficgen Variables
-trafficgen_git: 'https://github.com/atheurer/trafficgen'
-trafficgen_dir: '/opt/trafficgen'
-trafficgen_branch: 'master'
+trafficgen_git: 'https://github.com/perftool-incubator/bench-trafficgen'
+trafficgen_dir: '/opt/bench-trafficgen'
+trafficgen_branch: 'main'
 
 # Customize users Variables
 custom_users:
   - user: root
-    password: 12345678
-
+    password: 123456
+  - user: cloud-user
+    password: 123456
 # selinux config
 selinux_config: disabled
 
@@ -39,3 +44,4 @@ fio_git: 'git://git.kernel.dk/fio.git'
 fio_dir: '/root/fio'
 fio_branch: 'fio-3.20'
 fio_customization_log: "{{ fio_dir }}/customization.log"
+
