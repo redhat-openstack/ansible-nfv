@@ -18,9 +18,9 @@
   loop: "{{ guest_repos }}"
   register: repo_files
 
+- debug:
+    msg: "{{ repo_files['results'] }}"
+
 - name: Upload custom repos to guest image
-  virt_customize_upload:
-    src: "{{ item['diff']['after_header'] }}"
-    dest: /etc/yum.repos.d/
-    image: "{{ fetched_image }}"
+  command: virt-copy-in -a {{ fetched_image }} "{{ item['diff']['after_header'] }}" /etc/yum.repos.d/
   loop: "{{ repo_files['results'] }}"

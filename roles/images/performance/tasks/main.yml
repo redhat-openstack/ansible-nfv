@@ -1,20 +1,10 @@
 ---
-- name: Install libguest RPM prerequisites
-  vars:
-    libguestfs_rpm: "{%- if ansible_python['version']['major'] == 3 -%}
-                    python3-libguestfs
-                    {%- elif ansible_python['version']['major'] == 2 -%}
-                    python-libguestfs
-                    {%- endif -%}"
-  package:
-    name:
-      - libguestfs
-      - "{{ libguestfs_rpm }}"
-    state: present
-  become: True
 
 - name: Fetch image
   include_tasks: fetch_image.yml
+
+- name: Customize Guest Image - Generic Flow
+  include_tasks: generic_customizations.yml
 
 - name: Prepare repos inside image
   include_tasks: prepare_repos.yml
@@ -35,6 +25,3 @@
 - name: Customize Guest Image - iperf
   include_tasks: prepare_iperf.yml
   when: prepare_iperf | default(False) | bool
-
-- name: Customize Guest Image - Generic Flow
-  include_tasks: generic_customizations.yml
