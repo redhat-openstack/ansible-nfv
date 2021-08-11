@@ -12,6 +12,7 @@
       - numactl-devel
       - vim
       - tmux
+      - python3
     state: present
     image: "{{ fetched_image }}"
     selinux_relabel: True
@@ -20,13 +21,12 @@
 - name: Prepare DPDK binaries inside guest image
   virt_customize_command:
     shell:
+      - "pip3 install {{ compile_packages }}"
       - "if [ ! -d {{ dpdk_dir }} ];then git clone {{ dpdk_git }} {{ dpdk_dir }};cd {{ dpdk_dir }};git checkout {{ dpdk_branch }};fi"
       - "if [ ! -d {{ trafficgen_dir }} ];then git clone {{ trafficgen_git }} {{ trafficgen_dir }};cd {{ trafficgen_dir }};git checkout {{ trafficgen_branch }};fi"
-      - "sed -i 's/CONFIG_RTE_KNI_KMOD=.*/CONFIG_RTE_KNI_KMOD=n/g' {{ dpdk_dir }}/config/common_linuxapp"
-      - "sed -i 's/CONFIG_RTE_LIBRTE_KNI=.*/CONFIG_RTE_LIBRTE_KNI=n/g' {{ dpdk_dir }}/config/common_linuxapp"
-      - "sed -i 's/CONFIG_RTE_EAL_IGB_UIO=.*/CONFIG_RTE_LIBRTE_KNI=n/g' {{ dpdk_dir }}/config/common_linuxapp"
       - "sed -i 's/enforcing/{{ selinux_config }}/g' /etc/selinux/config /etc/selinux/config"
-      - 'cd {{ dpdk_dir }}; /usr/bin/make config T=x86_64-native-linuxapp-gcc; /usr/bin/make'
+      - 'cd {{ dpdk_dir }}; meson build -Dplatform=native ; /usr/bin/make'
       - "echo 'DPDK Version: {{ dpdk_branch }}' | tee {{ dpdk_customization_log }}"
+      - "echo {{ root_password }} | passwd --stdin root"
     image: "{{ fetched_image }}"
     selinux_relabel: True
