@@ -1,8 +1,5 @@
 - name: Install packages inside guest image
-  virt_customize_package:
-    name:
+  command: virt-customize -a {{ fetched_image }} --run-command "yum install {{ item }} -y" -v
+  loop: 
       - iperf3
       - tmux
-    state: present
-    image: "{{ fetched_image }}"
-    debug: "{{ guest_debug }}"
