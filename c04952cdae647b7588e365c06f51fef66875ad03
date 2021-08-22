@@ -22,6 +22,30 @@
       },
       "revId": "c04952cdae647b7588e365c06f51fef66875ad03",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "fe6e556d_d6062202",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-08-22T11:59:02Z",
+      "side": 1,
+      "message": "Added support for it.",
+      "parentUuid": "3d3e880e_e2ae45bf",
+      "range": {
+        "startLine": 15,
+        "startChar": 6,
+        "endLine": 15,
+        "endChar": 91
+      },
+      "revId": "c04952cdae647b7588e365c06f51fef66875ad03",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
