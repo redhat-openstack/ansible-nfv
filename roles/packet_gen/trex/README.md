@@ -755,7 +755,6 @@ Sample variable file used `/path/to/existing_resources.yml`(refer to the documen
 ```
 discover_instance_external_ip: True
 dut_group: dpdk_dut
-dut_type: dpdk
 dynamic_instances:
   - name: trex
     group: trex
