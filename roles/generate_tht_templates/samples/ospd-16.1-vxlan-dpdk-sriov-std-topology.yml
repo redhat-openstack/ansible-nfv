@@ -226,6 +226,7 @@ node_config:
         name: br-link0
         mtu: 9000
         rxq: 1
+        bond_mode: balance-slb  # Bond mode is an optional param. Could be any of the supported.
         bonding_nics:
           - nic: nic7
           - nic: nic8
