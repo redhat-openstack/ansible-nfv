@@ -18,7 +18,7 @@
     nic_down: "{{ nic_lst | difference([nic_def]+['lo'])  }}"
 
 - name: Deactivate NICs to be bound to DPDK
-  shell: "ifconfig {{ item }} down"
+  shell: "ip link set dev {{ item }} down"
   loop: "{{nic_down}}"
   become: True
 
