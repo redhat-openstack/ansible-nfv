@@ -7,11 +7,8 @@
   tasks:
     - name: Delete tempest directory
       file:
-        path: "{{ item }}"
+        path: "/home/stack/tempest"
         state: absent
-      loop:
-        - /home/stack/etc
-        - /home/stack/tempest
 
     - name: Delete NFV container
       containers.podman.podman_container:
@@ -21,6 +18,14 @@
     - name: Delete NFV container image
       containers.podman.podman_image:
         name: quay.io/rhos-dfg-nfv/tempest-nfv-plugin
+        state: absent
+
+    - name: Delete heat_tempestconf_network
+      vars:
+        ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+      os_network:
+        cloud: overcloud
+        name: heat_tempestconf_network
         state: absent
 
     - block:
