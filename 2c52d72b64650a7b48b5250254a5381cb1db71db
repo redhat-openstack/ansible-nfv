@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8804a890_3b0fa6b9",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-09-05T08:20:05Z",
+      "side": 1,
+      "message": "I am not in favor of hardcoded parameters 😊",
+      "revId": "2c52d72b64650a7b48b5250254a5381cb1db71db",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
