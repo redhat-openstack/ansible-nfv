@@ -7,12 +7,21 @@
         text: "{{ switch_banner }}"
         state: present
 
-    - name: Set VLANs
+    - name: Set VLANs From VLANs List
       junos_vlan:
         name: "vlan{{ item }}"
         vlan_id: "{{ item }}"
         state: present
       loop: "{{ vlan_list }}"
+      when: vlan_list is defined
+
+    - name: Set VLANs From VLANs Map
+      junos_vlan:
+        name: "{{ item['name'] }}"
+        vlan_id: "{{ item['vlan_id'] }}"
+        state: present
+      loop: "{{ vlan_map }}"
+      when: vlan_map is defined
 
     - name: Configure interfaces - description, mode (access/trunk), vlans
       vars:
@@ -25,24 +34,41 @@
                       {{ helper_var.append(item.vlan) }}
                       {%- endif -%}
                       {%- for vlan in helper_var -%}
-                      {%- if '-' in vlan -%}
+                      {%- if (vlan | regex_search('^\\d+-\\d+$')) -%}
                       {%- for v in range(vlan.split('-')[0] | int, vlan.split('-')[1] | int + 1) -%}
                       {{ iface_vlans.append(v) }}
                       {%- endfor -%}
                       {%- else -%}
-                      {{ iface_vlans.append(vlan | int) }}
+                      {{ iface_vlans.append(vlan) }}
                       {%- endif -%}
                       {%- endfor -%}
                       {%- endif -%}
                       {{ iface_vlans | unique }}"
         vlans_string: "{%- if iface_vlans -%}
-                       {% for item in iface_vlans %}vlan{{ item }} {% endfor %}
-                       {%- elif item.vlan == 'all' -%}{{ item.vlan }}
-                       {%- else -%}vlan{{ item.vlan }}{% endif %}"
+                       {% for item in iface_vlans %}
+                       {%- if (item | regex_search('^\\d+$')) -%}
+                       {{ item |regex_replace('^(.*)$', 'vlan\\1 ') }}
+                       {%- else -%}
+                       {{ item |regex_replace('^(.*)$', '\\1 ') }}
+                       {%- endif -%}
+                       {% endfor %}
+                       {%- elif item.vlan == 'all' -%}
+                       {{ item.vlan |regex_replace('^(.*)$', 'all ') }}
+                       {%- else -%}
+                       {%- if (item.vlan | regex_search('^\\d+$')) -%}
+                       {{ item.vlan |regex_replace('^(.*)$', 'vlan\\1 ') }}
+                       {%- else -%}
+                       {{ item |regex_replace('^(.*)$', '\\1 ') }}
+                       {%- endif -%}
+                       {% endif %}"
         trunk_vlans_list: "{%- if vlans_string[0] is defined -%}
                            {{ vlans_string.split() }}{% else %}{{ item.vlan }}{% endif %}"
         access_vlan: "{%- if item.iface_mode == 'access' -%}
+                      {%- if (item.vlan | regex_search('^\\d+$')) -%}
                       {{ item.vlan |regex_replace('^(.*)$', 'vlan\\1') }}
+                      {%- else -%}
+                      {{ item.vlan }}
+                      {%- endif -%}
                       {%- endif -%}"
       junos_l2_interface:
         name: "{{ item.iface }}"
@@ -83,30 +109,35 @@
       loop: "{{ switch_vars.interfaces }}"
       when: item.aggr_members is defined
 
-    # For each vlan for which igmp snooping is configured, remove previous
-    # configuration if it exists to ensure that applied configuration is
-    # as specified in configuration file
     - name: Configure IGMP snooping
+      vars:
+        vlan_name: "{%- if (item.vlan | regex_search('^\\d+$')) -%}
+                    {{ item.vlan |regex_replace('^(.*)$', 'vlan\\1') }}
+                    {%- else -%}
+                    {{ item.vlan }}"
       block:
         - name: Reset IGMP snooping for each defined vlan
           junos_config:
             lines:
-              - delete protocols igmp-snooping vlan vlan{{ item.vlan }}
+              - delete protocols igmp-snooping vlan {{ vlan_name }}
           loop: "{{ switch_vars.igmp_snooping }}"
-          when: item.vlan is defined
+          when:
+            - vlan_name is defined
 
         - name: Create IGMP querier for each defined vlan
           junos_config:
             lines:
-              - "set protocols igmp-snooping vlan vlan{{ item.vlan }}
+              - "set protocols igmp-snooping vlan {{ vlan_name }}
                  l2-querier source-address {{ item.ip_address }}"
           loop: "{{ switch_vars.igmp_snooping }}"
-          when: item.vlan is defined and item.ip_address is defined
+          when:
+            - vlan_name is defined
+            - item.ip_address is defined
 
         - name: Configure interfaces in which IGMP queries are broadcasted
           junos_config:
             lines:
-              - "set protocols igmp-snooping vlan vlan{{ item.0.vlan }}
+              - "set protocols igmp-snooping vlan {{ vlan_name }}
                  interface {{ item.1 }}"
           loop: "{{ switch_vars.igmp_snooping | default([]) |
                  subelements('interfaces', 'skip_missing=True') }}"

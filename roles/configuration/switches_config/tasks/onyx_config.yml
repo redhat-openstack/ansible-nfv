@@ -31,8 +31,11 @@
       onyx_config:
         lines: |
           {%- set commands = [] -%}
-          {%- for vlan_id in vlan_list -%}
-            {{ commands.append('vlan ' + vlan_id | string + ' name vlan' + vlan_id | string) }}
+          {%- for vlan_string in vlan_list -%}
+          {%- if (item.vlan | regex_search('^\\d+$')) -%}
+          {{ commands.append('vlan ' + vlan_id | string + ' name vlan' + vlan_string | string) }}
+          {%- else -%}
+          {{ commands.append('vlan ' + vlan_id | string + ' name ' + vlan_string | string) }}
           {%- endfor -%}
           {{ commands }}
 
