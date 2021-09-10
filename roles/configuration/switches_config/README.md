@@ -91,6 +91,11 @@ cisco_switch01:
   vlans:
     - start: 100
       end: 105
+    - map:
+        - name: vlan110
+          vlan_id: 110
+        - name: vlan111:
+          vlan_id: 111
   interfaces:
      - { description: 'tigon15', iface: 'GigabitEthernet5/0/6', iface_mode: 'access', vlan: '20' }
      - { description: 'tigon16', iface: 'GigabitEthernet5/0/7', iface_mode: 'access', vlan: '20' }
