@@ -5,12 +5,21 @@
     text: "{{ switch_banner }}"
     state: present
 
-- name: Set VLANs
+- name: Set VLANs From VLANs List
   ios_vlan:
     name: "vlan{{ item }}"
     vlan_id: "{{ item }}"
     state: present
   loop: "{{ vlan_list }}"
+  when: vlan_list is defined
+
+- name: Set VLANs from VLANs Map
+  ios_vlan:
+    name: "{{ item['name'] }}"
+    vlan_id: "{{ item['vlan_id'] }}"
+    state: present
+  loop: "{{ vlan_map }}"
+  when: vlan_map is defined
 
 - name: Set interface description and MTU
   ios_interface:

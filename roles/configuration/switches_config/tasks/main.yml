@@ -3,11 +3,34 @@
   set_fact:
     switch_vars: "{{ (lookup('vars', inventory_hostname, default='')) }}"
 
-- name: Create VLANs list
+- name: Create VLANs list from 'start' and 'end' keys
   set_fact:
     vlan_list: "{{ vlan_list | default([]) + range(item.start, item.end + 1) | list }}"
   loop: "{{ switch_vars.vlans }}"
-  when: switch_vars
+  when:
+    - switch_vars is defined
+    - 'vlans' in switch_vars
+    - 'start' in switch_vars['vlans']
+    - 'end' in switch_vars['vlans']
+    - 'map' not in switch_vars['vlans']
+
+- name: Create VLANs List From VLANs Map
+  set_fact:
+    vlan_map: |
+      vlan_map | default([]) +
+      [
+      'name': item['name'],
+      'vlan_id:' iten['vlan_id']
+      ]
+  loop: "{{ switch_vars['vlans']['map'] }}"
+  when:
+    - switch_vars is defined
+    - 'vlan' in switch_vars
+    - 'start' is not in switch_vars['vlans']
+    - 'end' is not in switch_vars['vlans']
+    - 'map' is in switch_vars['vlans']
+    - 'name' in item
+    - 'vlan_id' in iten
 
 - name: "Include {{ ansible_network_os }} tasks"
   include_tasks: "{{ ansible_network_os }}_config.yml"
