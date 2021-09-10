@@ -7,6 +7,8 @@ The switches config role performs the following tasks:
 - LACP configuration on interface and members attach.
 - IGMP Snooping configuration
 
+*NOTE:* When providing a numerical entry to subkeys under 'vlans', VLAN will be parsed with suffix vlan (e.g 23 -> vlan23).
+
 Supported switch platforms:
 - Cisco
 - Juniper
@@ -91,10 +93,15 @@ cisco_switch01:
   vlans:
     - start: 100
       end: 105
+    - map:
+        - name: vlan110-provisioning
+          vlan_id: 110
+        - name: vlan111-internal
+          vlan_id: 111
   interfaces:
      - { description: 'tigon15', iface: 'GigabitEthernet5/0/6', iface_mode: 'access', vlan: '20' }
      - { description: 'tigon16', iface: 'GigabitEthernet5/0/7', iface_mode: 'access', vlan: '20' }
-     - { description: 'tigon17', iface: 'GigabitEthernet5/0/8', iface_mode: 'access', vlan: '90' }
+     - { description: 'tigon17', iface: 'GigabitEthernet5/0/8', iface_mode: 'trunk', vlan: '100, vlan110-provisioning' }
      - { description: 'uplink_port', iface: 'GigabitEthernet5/0/9', iface_mode: 'trunk', vlan: '', encapsulation: true }
 
 mlx_switch01:
