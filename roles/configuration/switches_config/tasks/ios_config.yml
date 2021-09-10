@@ -5,12 +5,21 @@
     text: "{{ switch_banner }}"
     state: present
 
-- name: Set VLANs
+- name: Set VLANs From VLANs List
   ios_vlan:
     name: "vlan{{ item }}"
     vlan_id: "{{ item }}"
     state: present
   loop: "{{ vlan_list }}"
+  when: vlan_list is defined
+
+- name: Set VLANs from VLANs Map
+  ios_vlan:
+    name: "{{ item['name'] }}"
+    vlan_id: "{{ item['vlan_id'] }}"
+    state: present
+  loop: "{{ vlan_map }}"
+  when: vlan_map is defined
 
 - name: Set interface description and MTU
   ios_interface:
@@ -22,15 +31,51 @@
 
 - name: Configure interfaces - mode (access/trunk), vlans
   vars:
-    iface_vlans: "{%- if item.iface_mode == 'trunk' and '-' in item.vlan -%}
-                  {{ item.vlan.split('-') }}
+    iface_vlans: "{%- set iface_vlans = [] -%}
+                  {%- set helper_var = [] -%}
+                  {%- if item.iface_mode == 'trunk'-%}
+                  {%- if ',' in item.vlan -%}
+                  {%- for vlan in item.vlan.replace(' ', '').split(',') -%} {{ helper_var.append(vlan) }} {%- endfor -%}
+                  {%- else -%}
+                  {{ helper_var.append(item.vlan) }}
+                  {%- endif -%}
+                  {%- for vlan in helper_var -%}
+                  {%- if (vlan | regex_search('^\\d+-\\d+$')) -%}
+                  {%- for v in range(vlan.split('-')[0] | int, vlan.split('-')[1] | int + 1) -%}
+                  {{ iface_vlans.append(v) }}
+                  {%- endfor -%}
+                  {%- else -%}
+                  {{ iface_vlans.append(vlan) }}
+                  {%- endif -%}
+                  {%- endfor -%}
+                  {%- endif -%}
+                  {{ iface_vlans | unique }}"
+    vlans_string: "{%- if iface_vlans -%}
+                   {% for item in iface_vlans %}
+                   {%- if (item | regex_search('^\\d+$')) -%}
+                   {{ item |regex_replace('^(.*)$', 'vlan\\1 ') }}
+                   {%- else -%}
+                   {{ item |regex_replace('^(.*)$', '\\1 ') }}
+                   {%- endif -%}
+                   {% endfor %}
+                   {%- elif item.vlan == 'all' -%}
+                   {{ item.vlan |regex_replace('^(.*)$', 'all ') }}
+                   {%- else -%}
+                   {%- if (item.vlan | regex_search('^\\d+$')) -%}
+                   {{ item.vlan |regex_replace('^(.*)$', 'vlan\\1 ') }}
+                   {%- else -%}
+                   {{ item |regex_replace('^(.*)$', '\\1 ') }}
+                   {%- endif -%}
+                   {% endif %}"
+    trunk_vlans_list: "{%- if vlans_string[0] is defined -%}
+                       {{ vlans_string.split() }}{% else %}{{ item.vlan }}{% endif %}"
+    access_vlan: "{%- if item.iface_mode == 'access' -%}
+                  {%- if (item.vlan | regex_search('^\\d+$')) -%}
+                  {{ item.vlan |regex_replace('^(.*)$', 'vlan\\1') }}
+                  {%- else -%}
+                  {{ item.vlan }}
+                  {%- endif -%}
                   {%- endif -%}"
-    iface_vlan_range: "{%- if iface_vlans -%}
-                       {{ range(iface_vlans.0 | int, iface_vlans.1 | int + 1) | list }}
-                       {%- endif -%}"
-    trunk_vlans_list: "{%- if iface_vlan_range[0] is defined -%}
-                       {{ iface_vlan_range.split() }}{% else %}{{ item.vlan }}{% endif %}"
-    access_vlan: "{% if item.iface_mode == 'access' %}{{ item.vlan }}{% endif %}"
   ios_l2_interface:
     name: "{{ item.iface }}"
     mode: "{{ item.iface_mode }}"
