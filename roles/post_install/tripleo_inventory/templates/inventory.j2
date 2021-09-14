@@ -29,5 +29,11 @@ localhost ansible_connection=local ansible_python_interpreter=python
 {% endif %}
 {% endfor %}
 
+{# Add an empty 'overcloud_nodes' group in case it does not exists #}
+{# It's required as part of the infrared deployment flow #}
+{% if 'overcloud_nodes' not in groups %}
+[overcloud_nodes]
+{% endif %}
+
 [local]
 localhost
