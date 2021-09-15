@@ -55,6 +55,9 @@
       {% if binary_search_use_device_stats %}
         --use-device-stats
       {%- endif %}
+      {% if binary_search_disable_upward_search %}
+        --disable-upward-search
+      {%- endif %}
   when: traffic_cmd is not defined
 
 - name: Load balance PMD before binary search starts (if requested)

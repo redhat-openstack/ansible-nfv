@@ -39,3 +39,6 @@ pmd_lb_status_log: '/tmp/pmd_lb_status.log'
 
 # Should device stats be used instead of stream stats
 binary_search_use_device_stats: False
+
+# Disable search rates higher than the specified
+binary_search_disable_upward_search: False
