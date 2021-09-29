@@ -85,6 +85,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "33e64ebf_1fa86d78",
+        "filename": "roles/images/performance/tasks/prepare_dpdk.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-09-29T12:48:22Z",
+      "side": 1,
+      "message": "You\u0027re right.\nIt\u0027s less for the platform, rather than an image that will be chosen by the user to be used.\nAn old image for any reason.\n\nIt\u0027s not a review blocker for me, in any case. Just a notice.",
+      "parentUuid": "765dbf4f_bdb4d076",
+      "range": {
+        "startLine": 24,
+        "startChar": 9,
+        "endLine": 24,
+        "endChar": 13
+      },
+      "revId": "ae445cdcabe56c2c1daec1e5128fa3aad7cc91f2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "e69c53dd_236bc494",
         "filename": "roles/images/performance/tasks/prepare_dpdk.yml",
         "patchSetId": 4
@@ -120,6 +144,30 @@
       "side": 1,
       "message": "this is the tool they recommend in their docs I\u0027m not sure what is the difference just changed to comply with their recommandation",
       "parentUuid": "e69c53dd_236bc494",
+      "range": {
+        "startLine": 28,
+        "startChar": 28,
+        "endLine": 28,
+        "endChar": 33
+      },
+      "revId": "ae445cdcabe56c2c1daec1e5128fa3aad7cc91f2",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b7f47990_af540417",
+        "filename": "roles/images/performance/tasks/prepare_dpdk.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-09-29T12:48:22Z",
+      "side": 1,
+      "message": "ack",
+      "parentUuid": "9fec9e4d_8279f3cd",
       "range": {
         "startLine": 28,
         "startChar": 28,
