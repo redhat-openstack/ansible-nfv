@@ -22,6 +22,30 @@
       },
       "revId": "2eade3fc6e67cea7b3cb069a3915581d37cd550a",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "aba7858f_f2b8de1b",
+        "filename": "roles/packet_gen/trex/binary_search/defaults/main.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1016373
+      },
+      "writtenOn": "2021-09-29T07:39:14Z",
+      "side": 1,
+      "message": "I keep the current behaviour as default, and I will enabled it when needed. I only have seen problem related with this running performance on e810 nics.",
+      "parentUuid": "8df7b101_ed31016c",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 44,
+        "endChar": 3
+      },
+      "revId": "2eade3fc6e67cea7b3cb069a3915581d37cd550a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
