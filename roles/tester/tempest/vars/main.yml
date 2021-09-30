@@ -13,6 +13,7 @@ neutron_tempest_plugin: neutron-tempest-plugin
 
 #### Git branches variables
 nfv_tempest_branch: 'master'
+neutron_tempest_branch: '1.6.0'
 
 tempest_repos:
   - name: openstack-tempest
@@ -50,7 +51,7 @@ tempest_repos:
       13:
         branch: '0.9.0'
       defaults:
-        branch: 'master'
+        branch: "{{ neutron_tempest_branch }}"
 
 ## The path to the accounts.yaml file
 ## Used by tempest in pre-provision mode.

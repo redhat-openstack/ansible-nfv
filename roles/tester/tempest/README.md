@@ -29,6 +29,11 @@ Default: master
 ```
 nfv_tempest_branch: 'master'
 ```
+neutron-tempest-plugin branch to clone.  
+Default: master
+```
+neutron_tempest_branch: '1.6.0'
+```
 SSH user for the testing image.  
 Default user: centos.
 ```
