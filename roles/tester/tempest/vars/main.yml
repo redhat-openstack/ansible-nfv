@@ -49,6 +49,8 @@ tempest_repos:
         branch: '0.9.0'
       13:
         branch: '0.9.0'
+      16:
+        branch: '1.6.0'
       defaults:
         branch: 'master'
 
