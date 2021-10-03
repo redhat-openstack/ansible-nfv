@@ -22,6 +22,30 @@
       },
       "revId": "e1c45509d44db5ee4b463e2b06974fe1569bbff8",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6c54594b_1f924c90",
+        "filename": "roles/tester/tempest/vars/main.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-10-03T10:03:45Z",
+      "side": 1,
+      "message": "Once we will be ready to use neutron master,\nWe will add this change, the QoS work is analyzed by me, right now,\nIt seems that Trunk tests are effected also. \nPrefer to stabilize CI and continue in the Ticket, working against master later on",
+      "parentUuid": "20339c40_b57bab2f",
+      "range": {
+        "startLine": 16,
+        "startChar": 25,
+        "endLine": 16,
+        "endChar": 30
+      },
+      "revId": "e1c45509d44db5ee4b463e2b06974fe1569bbff8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
