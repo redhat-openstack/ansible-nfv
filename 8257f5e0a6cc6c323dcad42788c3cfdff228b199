@@ -67,6 +67,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "446f9f82_aac9fead",
+        "filename": "roles/images/performance/tasks/generic_customizations.yml",
+        "patchSetId": 11
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-10-12T09:15:31Z",
+      "side": 1,
+      "message": "The module does not pops any errors/issues.\nNo it\u0027s not updated.\n\nHonestly, I see no reason to change a working flow.",
+      "parentUuid": "9d51f0a2_963dfac5",
+      "range": {
+        "startLine": 2,
+        "startChar": 2,
+        "endLine": 2,
+        "endChar": 9
+      },
+      "revId": "8257f5e0a6cc6c323dcad42788c3cfdff228b199",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0c890e87_33ad44aa",
         "filename": "roles/images/performance/tasks/main.yml",
         "patchSetId": 11
