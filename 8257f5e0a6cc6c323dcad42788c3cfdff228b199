@@ -43,6 +43,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "9d51f0a2_963dfac5",
+        "filename": "roles/images/performance/tasks/generic_customizations.yml",
+        "patchSetId": 11
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2021-10-12T09:10:19Z",
+      "side": 1,
+      "message": "the module is not maintained and does not show all errors in my opinion it will be a better idea just using command instead of chasing progress with module only Vadim maintains",
+      "parentUuid": "e076a035_2f5c4f84",
+      "range": {
+        "startLine": 2,
+        "startChar": 2,
+        "endLine": 2,
+        "endChar": 9
+      },
+      "revId": "8257f5e0a6cc6c323dcad42788c3cfdff228b199",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0c890e87_33ad44aa",
         "filename": "roles/images/performance/tasks/main.yml",
         "patchSetId": 11
@@ -54,6 +78,30 @@
       "writtenOn": "2021-10-11T11:41:53Z",
       "side": 1,
       "message": "If the task is not used, better for it to be removed.",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 7
+      },
+      "revId": "8257f5e0a6cc6c323dcad42788c3cfdff228b199",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8af530b6_0431aef6",
+        "filename": "roles/images/performance/tasks/main.yml",
+        "patchSetId": 11
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2021-10-12T09:10:19Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "0c890e87_33ad44aa",
       "range": {
         "startLine": 2,
         "startChar": 0,
