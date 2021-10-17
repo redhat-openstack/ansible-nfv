@@ -115,6 +115,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "81754619_ef524bbe",
+        "filename": "roles/images/performance/tasks/generic_customizations.yml",
+        "patchSetId": 11
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2021-10-17T14:39:41Z",
+      "side": 1,
+      "message": "Maxim, as Yariv mentioned the module fails to show some of the errors. Also when trying to use it me and Vadim encountered multiple issues so I thought it might be a better idea just putting the module aside for now\n\nYariv, not sure I think Vadim might know why this module was never submitted",
+      "parentUuid": "2ca62dd1_6ad16dbf",
+      "range": {
+        "startLine": 2,
+        "startChar": 2,
+        "endLine": 2,
+        "endChar": 9
+      },
+      "revId": "8257f5e0a6cc6c323dcad42788c3cfdff228b199",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "0c890e87_33ad44aa",
         "filename": "roles/images/performance/tasks/main.yml",
         "patchSetId": 11
