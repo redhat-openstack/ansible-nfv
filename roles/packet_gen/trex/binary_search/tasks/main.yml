@@ -245,6 +245,18 @@
   debug:
     var: perf_json
 
+- name: Get results from performance result file
+  shell: "grep tx_pps /tmp/{{ dut_type }}_performance.log | awk 'END{ print int(substr($4, 1, length($4)-1) *2) }'"
+  register: results
+
+- name: Template result xml
+  template:
+    src: performance_results.xml.j2
+    dest: "/tmp/{{ dut_type }}_result.xml"
+    owner: stack
+    group: stack
+    mode: '0644'
+
 # TODO: Add additional valuable information for both states
 - name: Print Performance Result
   debug:
@@ -261,4 +273,5 @@
       Performance Flow Failed
 
       {% endif %}
+      Results are: {{ results.stdout }}
   failed_when: perf_output['rc'] != 0
