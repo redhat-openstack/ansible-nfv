@@ -1,0 +1,9 @@
+<testsuite errors="0" failures="{% if results.stdout | int < {{ min_performance_result }}  %}1{% else %}0{% endif %}" name="nfv-performance" tests="1" time="0.0">
+{% if results.stdout | int < {{ min_performance_result }}  %}
+  <testcase classname="nfv_performance" name="{{ dut_type }}_performance" time="0.0"/>
+    <failure type="testtools.testresult.real._StringException">
+      performance result are too low!!! "{{ results.stdout }}"
+    </failure>
+  </testcase>
+{% endif %}
+
