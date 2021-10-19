@@ -35,6 +35,23 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f0e2de55_51ab190c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-10-19T08:26:14Z",
+      "side": 1,
+      "message": "If Vadim think that the modules should be replace, Ella, just remove the unused task and let\u0027s move it on.",
+      "revId": "8257f5e0a6cc6c323dcad42788c3cfdff228b199",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "e076a035_2f5c4f84",
