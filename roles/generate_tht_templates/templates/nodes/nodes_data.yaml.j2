@@ -7,4 +7,11 @@ parameter_defaults:
     {{ node.role_name }}SchedulerHints:
       'capabilities:node': '{{ node.flavor }}-%index%'
 
+  {% if node.extra_config is defined %}
+    {{ node.role_name }}ExtraConfig:
+  {% for key, value in node.extra_config.items() %}
+      {{ key }}: {{ value }}
+  {% endfor %}
+
+  {% endif %}
 {% endfor %}

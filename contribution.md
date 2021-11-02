@@ -24,12 +24,13 @@ Please, follow the instructions below to meet the project contribution guide lin
 - **Note** - Ansible-nfv project is using `molecule` for testing purposes. See section below.  
   Please, make sure to cover new functionality with testing.
 - Once the patch is ready, submit it for the review.  
-- The linting gate will run and if passed will set the "Verified" label to "+1".  
-  In case the linting gate fails, you can check the gate for the errors.  
+- The linting and molecule gates will run and if passed, will set the "Verified" label to "+1".  
+  In case any gate fails, you can check the gate for the errors.  
   There is another way of verify the linting gate.  
   Execute the "./tox_check.sh" script existing in the root of the repository on your local machine.  
   The script will initiate a tox environment and perform the same linting tests, that runs in the gate.  
-  The script could be executed before the patch is uploaded as well, indicates patch owner in case of linting errors/warnings.
+  The script could be executed before the patch is uploaded as well, indicates patch owner in case of linting errors/warnings.  
+  Molecule gate could be executed locally only partially because some of the roles require live OSP environment.
 - Patch owner, should set Verified "+1" label to indicate patch has been verified/tested by him
 - The reviewer, could choose verifying the patch.  
   Patch owner should not rely on the above, and test/verify the changes.  

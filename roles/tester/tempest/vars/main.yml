@@ -3,7 +3,7 @@
 ## Tempest variables
 tempest_user: stack
 tempest_dir: /home/stack/tempest
-etc_dir: /home/stack/etc
+tempest_etc_dir: etc
 container_tempest: /opt/app-root/src/tempest/container_tempest
 container_etc: /opt/app-root/src/tempest/etc
 tempest_main: openstack-tempest

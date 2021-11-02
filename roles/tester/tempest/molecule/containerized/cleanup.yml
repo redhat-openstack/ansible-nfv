@@ -1,0 +1,48 @@
+---
+- name: Destroy
+  hosts: undercloud
+  gather_facts: false
+  vars:
+    inventory_generated: "{{ lookup('env', 'TEST_INV_GENERATED') }}"
+  tasks:
+    - name: Delete tempest directory
+      file:
+        path: "/home/stack/tempest"
+        state: absent
+
+    - name: Delete NFV container
+      containers.podman.podman_container:
+        name: nfv-tempest
+        state: absent
+
+    - name: Delete NFV container image
+      containers.podman.podman_image:
+        name: quay.io/rhos-dfg-nfv/tempest-nfv-plugin
+        state: absent
+
+    - name: Delete heat_tempestconf_network
+      vars:
+        ansible_python_interpreter: "/tmp/ansible_venv/bin/python"
+      os_network:
+        cloud: overcloud
+        name: heat_tempestconf_network
+        state: absent
+
+    - block:
+        - name: Delete created inventory
+          file:
+            path: "{{ item }}"
+            state: absent
+          loop:
+            - inventory
+            - ansible.ssh.config
+            - environments
+          delegate_to: localhost
+
+        - name: Restore dump inventory
+          copy:
+            content: 'localhost ansible_connection=local'
+            dest: inventory
+            mode: 0664
+          delegate_to: localhost
+      when: not inventory_generated

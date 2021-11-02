@@ -66,6 +66,6 @@
   when: not trex_nics_topology_fact_file['stat']['exists']
 
 - name: Deactivate Non External Kernel NICs
-  shell: "ifconfig {{ item }} down"
+  shell: "ip link set dev {{ item }} down"
   loop: "{{ ansible_interfaces | difference(['lo', ansible_default_ipv4['alias']]) }}"
   become: True
