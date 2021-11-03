@@ -19,7 +19,7 @@ The `openstack tasks` role performs the following tasks on the existing Openstac
       In case networks should be created under specific tenant add cloud_name for resource.
       Please refer config_example.yml 
 * Upload images and set image properties
-    * Upload provided images to the glance store of the overcloud. Properties can set if required.
+    * Upload provided images to glance stores. Properties can set if required.
 * Aggregate groups
     * Creates aggregation groups with defined hosts and metadata.  
       **NOTE** - a must configuration is required: enable "AggregateInstanceExtraSpecsFilter"  
