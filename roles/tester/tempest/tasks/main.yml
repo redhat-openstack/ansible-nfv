@@ -27,7 +27,7 @@
   vars:
     ansible_python_interpreter: "{{ venv_path }}/bin/python"
   os_networks_info:
-    cloud: overcloud
+    cloud: "{{ cloud_name }}"
     validate_certs: "{{ validate_certs| default (omit) }}"
     filters:
       router:external: true
@@ -46,7 +46,7 @@
   vars:
     ansible_python_interpreter: "{{ venv_path }}/bin/python"
   os_flavor_info:
-    cloud: overcloud
+    cloud: "{{ cloud_name }}"
     validate_certs: "{{ validate_certs | default (omit) }}"
     name: "{{ tempest_flavor_name }}"
   when: tempest_flavor_name is defined
