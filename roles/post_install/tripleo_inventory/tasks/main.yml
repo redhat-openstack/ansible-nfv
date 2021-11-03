@@ -77,7 +77,12 @@
            ) }}"
         ansible_user: "{{ overcloud_user }}"
         ansible_ssh_pass: ""
-        ansible_host: "{{ item.accessIPv4 }}"
+        ansible_host: |
+          {%- if 'accessIPv4' in item and item ['accessIPv4'] -%}
+          {{ item['accessIPv4'] }}
+          {%- elif 'private_v4' in item and item['private_v4'] -%}
+          {{ item['private_v4'] }}
+          {%- endif -%}
         ansible_ssh_private_key_file: "{{ overcloud_private_key }}"
       loop: "{{ openstack_servers }}"
 
