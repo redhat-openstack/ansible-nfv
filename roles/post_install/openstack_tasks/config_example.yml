@@ -151,6 +151,15 @@ flavors:
 images:
   - name: centos7
     url: http://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud.qcow2
+    disk_format: qcow2
+
+  - name: centos7-raw
+    url: https://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud.raw.tar.gz
+    disk_format: raw
+    glance_stores:
+      - central
+      - site-a
+    cloud_name: central
 
 # The keypair that will be used by the instances.
 keypairs:
