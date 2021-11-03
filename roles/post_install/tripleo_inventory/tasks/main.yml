@@ -77,7 +77,7 @@
            ) }}"
         ansible_user: "{{ overcloud_user }}"
         ansible_ssh_pass: ""
-        ansible_host: "{{ item.accessIPv4 }}"
+        ansible_host: "{{ item.private_v4 }}"
         ansible_ssh_private_key_file: "{{ overcloud_private_key }}"
       loop: "{{ openstack_servers }}"
 
