@@ -8,6 +8,9 @@
         {% if image_for_tempest| bool %}
         --image "{{ tempest_dir }}/{{ images[0].url | basename }}" \
         {% endif %}
+        {% if 'disk_format' in images[0] %}
+        --image-disk-format "{{ images[0]['disk_format'] }}" \
+        {% endif %}
         {% if external_net_id %}
         --network-id {{ tempest_net_id.openstack_networks.0.id }} \
         {% endif %}
@@ -36,6 +39,23 @@
   args:
     executable: /bin/bash
     chdir: "{{ tempest_dir }}/{{ tempest_conf }}"
+
+# This is required in order to leverage the builtin lookup plugin 'ini'
+# which performs action on Ansible controller
+- name: Fetch Generated tempest.conf To Ansible Controller
+  fetch:
+    src: "{{ tempest_dir }}/{{ tempest_main }}/etc/tempest.conf"
+    dest: /tmp/fetched_tempest.conf
+    flat: yes
+
+- name: Upload Image To Glance Stores
+  vars:
+    image_id_or_name: "{{ lookup('ini', 'image_ref section=compute file=/tmp/fetched_tempest.conf') }}"
+    glance_stores: "{{ images[0]['glance_stores'] }}"
+    cloud: "{{ images[0]['cloud_name'] | default(cloud_name) }}"
+  import_role:
+    name: post_install/copy_image_to_glance_stores
+  when: "'glance_stores' in images[0]"
 
 - name: Check if the tempest tests repository exists
   tags: run_tempest_test
