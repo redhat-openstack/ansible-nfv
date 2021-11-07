@@ -22,6 +22,30 @@
       },
       "revId": "efec626f35882442d184ab7cd2dab3c83f1016ef",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e9ffb03e_259356e7",
+        "filename": "roles/post_install/copy_image_to_glance_stores/tasks/main.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2021-11-07T12:20:10Z",
+      "side": 1,
+      "message": "Haven\u0027t thought about it honestly, I will move it to there.",
+      "parentUuid": "5b7c5168_c6145c3c",
+      "range": {
+        "startLine": 3,
+        "startChar": 1,
+        "endLine": 3,
+        "endChar": 6
+      },
+      "revId": "efec626f35882442d184ab7cd2dab3c83f1016ef",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
