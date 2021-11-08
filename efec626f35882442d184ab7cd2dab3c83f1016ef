@@ -46,6 +46,30 @@
       },
       "revId": "efec626f35882442d184ab7cd2dab3c83f1016ef",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "aab149fd_0b348e38",
+        "filename": "roles/post_install/copy_image_to_glance_stores/tasks/main.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2021-11-08T15:37:48Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "e9ffb03e_259356e7",
+      "range": {
+        "startLine": 3,
+        "startChar": 1,
+        "endLine": 3,
+        "endChar": 6
+      },
+      "revId": "efec626f35882442d184ab7cd2dab3c83f1016ef",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
