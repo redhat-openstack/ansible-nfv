@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "13c49e92_a542215d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-11-08T17:13:10Z",
+      "side": 1,
+      "message": "could be any compute, not just hypervisor, \nMaybe give it a unique group name \nDefault could be hypervisor",
+      "range": {
+        "startLine": 10,
+        "startChar": 34,
+        "endLine": 10,
+        "endChar": 46
+      },
+      "revId": "fe4a3775a40b68963ee76f0318cd44d7d2bce7fc",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7061074c_aec1ccb3",
+        "filename": "roles/post_install/openstack_tasks/tasks/images.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-11-08T17:13:10Z",
+      "side": 1,
+      "message": "I would recommend host_name+image_dir\nOnce different compute is used",
+      "range": {
+        "startLine": 6,
+        "startChar": 15,
+        "endLine": 6,
+        "endChar": 36
+      },
+      "revId": "fe4a3775a40b68963ee76f0318cd44d7d2bce7fc",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "699d5025_8d22c33f",
+        "filename": "roles/post_install/openstack_tasks/tasks/main.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-11-08T17:13:10Z",
+      "side": 1,
+      "message": "Did you forget to remove commented parts?",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 35
+      },
+      "revId": "fe4a3775a40b68963ee76f0318cd44d7d2bce7fc",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}

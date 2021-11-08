@@ -118,6 +118,30 @@
       },
       "revId": "1f4f6b0a2a7969a515beb616525566d614c9cef9",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5d42f4d8_715f2cca",
+        "filename": "roles/post_install/openstack_tasks/tasks/images.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-11-08T17:13:10Z",
+      "side": 1,
+      "message": "Under cloud will be eliminated in 17\nI think it is good idea to move to baremetal anyway, as a start it could be in the hypervisor, it could be changed easily for closer compute",
+      "parentUuid": "1b15df7a_2935878a",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 1
+      },
+      "revId": "1f4f6b0a2a7969a515beb616525566d614c9cef9",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
