@@ -13,8 +13,10 @@ packages:
     - platform-python-devel
     - platform-python-setuptools
     - git
+    - rsync
   rhel7:
     - gcc
     - libffi-devel
     - python-devel
     - python-setuptools
+    - rsync
