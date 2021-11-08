@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7adbb302_3d6a854c",
+        "filename": "roles/post_install/openstack_tasks/tasks/images.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-11-08T16:34:50Z",
+      "side": 1,
+      "message": "No need to include the role itself.\nJust use the \"import_tasks:\" definition.",
+      "range": {
+        "startLine": 31,
+        "startChar": 2,
+        "endLine": 33,
+        "endChar": 43
+      },
+      "revId": "44be758e627bf884b0e444a3b916db1108700147",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
