@@ -46,6 +46,30 @@
       },
       "revId": "1f4f6b0a2a7969a515beb616525566d614c9cef9",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "60721c37_a9899941",
+        "filename": "roles/post_install/openstack_tasks/tasks/images.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-11-08T16:31:38Z",
+      "side": 1,
+      "message": "It is creating a dependency of the hypervisor.\nWhat will happen if I will run this role on a setup where the undercloud is baremetal?\nIt will fail.",
+      "parentUuid": "9e106ef3_9a16d430",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 1
+      },
+      "revId": "1f4f6b0a2a7969a515beb616525566d614c9cef9",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
