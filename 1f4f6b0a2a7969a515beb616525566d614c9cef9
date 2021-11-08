@@ -94,6 +94,30 @@
       },
       "revId": "1f4f6b0a2a7969a515beb616525566d614c9cef9",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1b15df7a_2935878a",
+        "filename": "roles/post_install/openstack_tasks/tasks/images.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-11-08T16:40:19Z",
+      "side": 1,
+      "message": "We were use the undercloud as baaremetal.\nCurrently, beside us, shiftonstack  team is using it in their scenarios.\n\nMy point, is that this role should be generic as much as possible to give the wide range of usability to every need.",
+      "parentUuid": "9b169588_f9c3ee0e",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 1
+      },
+      "revId": "1f4f6b0a2a7969a515beb616525566d614c9cef9",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
