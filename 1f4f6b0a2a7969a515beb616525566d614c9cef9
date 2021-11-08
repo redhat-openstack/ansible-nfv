@@ -22,6 +22,30 @@
       },
       "revId": "1f4f6b0a2a7969a515beb616525566d614c9cef9",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9e106ef3_9a16d430",
+        "filename": "roles/post_install/openstack_tasks/tasks/images.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2021-11-08T16:28:50Z",
+      "side": 1,
+      "message": "1) why not have both even if it will take 4min why not save them (I\u0027m on the issue now with the guys from IT anyway)\n\n2) no dependency is created if the image is missing it will download it and will copy it, you are not dependent on the hypervisor just taking advantage of its existence",
+      "parentUuid": "b326fae3_fedb9aaa",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 1
+      },
+      "revId": "1f4f6b0a2a7969a515beb616525566d614c9cef9",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
