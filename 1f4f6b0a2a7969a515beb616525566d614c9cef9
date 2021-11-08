@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b326fae3_fedb9aaa",
+        "filename": "roles/post_install/openstack_tasks/tasks/images.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-11-08T16:25:09Z",
+      "side": 1,
+      "message": "I don\u0027t like this change and I will explain why.\n\n1) We do have an issue with image downloads because of the slowness of the file server that started recently.\nBut we should not create a workarounds, but fix the root cause of the issue.\nWe could move the image to another place, where this kind of slowness does not exists or open an issue regarding the slowness we are experiencing.\n\n2) The \"openstack_tasks\" role in my opinion should be generic and not depend of the setup/environment it is running against.\nAnd here such dependency is created.",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 1
+      },
+      "revId": "1f4f6b0a2a7969a515beb616525566d614c9cef9",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
