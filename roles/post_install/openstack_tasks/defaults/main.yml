@@ -127,3 +127,5 @@ resources_output_file: /home/stack/resources_output_file.yml
 
 # Virtual environment path
 venv_path: "/tmp/ansible_venv"
+
+hypervisor_image_dir: /root/images
