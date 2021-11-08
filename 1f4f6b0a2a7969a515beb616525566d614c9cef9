@@ -70,6 +70,30 @@
       },
       "revId": "1f4f6b0a2a7969a515beb616525566d614c9cef9",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b169588_f9c3ee0e",
+        "filename": "roles/post_install/openstack_tasks/tasks/images.yml",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2021-11-08T16:35:34Z",
+      "side": 1,
+      "message": "it is solveble although we don\u0027t do it usually",
+      "parentUuid": "60721c37_a9899941",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 1
+      },
+      "revId": "1f4f6b0a2a7969a515beb616525566d614c9cef9",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
