@@ -1,117 +1,117 @@
 ---
 
-- name: Setup Openstack environment
-  tags: setup_os_env
-  import_tasks: setup_openstack_env.yml
-  when: setup_os_env|bool
+# - name: Setup Openstack environment
+#   tags: setup_os_env
+#   import_tasks: setup_openstack_env.yml
+#   when: setup_os_env|bool
 
-- name: Instances
-  tags: instance
-  import_tasks: instances.yml
-  when: instance and resource_state == 'absent'
+# - name: Instances
+#   tags: instance
+#   import_tasks: instances.yml
+#   when: instance and resource_state == 'absent'
 
-- name: Projects, users and roles creation
-  tags: user
-  import_tasks: users.yml
-  when: user and resource_state == 'present'
+# - name: Projects, users and roles creation
+#   tags: user
+#   import_tasks: users.yml
+#   when: user and resource_state == 'present'
 
-- name: Quota
-  tags: quota
-  import_tasks: quota.yml
-  when: quota|bool
+# - name: Quota
+#   tags: quota
+#   import_tasks: quota.yml
+#   when: quota|bool
 
-# In some OSP releases it is required to provide hypervisor ID to the scheduler hint
-# Since the ID is generated during deployment, we can't expect a user to provide it every
-# single time.
-# We will attempt to fetch the hypervisor ID based on the provided hypervisor name.
-# Also, in order to receive the full ID of hypervisor nodes, we require to use Nova API
-# microversion 2.53 or higher
-- name: Volumes block
-  tags: volume
-  block:
-    - name: Retrieve Hypervisors If Required
-      environment:
-        OS_COMPUTE_API_VERSION: 2.53
-      command: >
-        openstack --os-cloud "{{ item['cloud_name'] | default(cloud_name) }}"
-        hypervisor list -f json
-      register: cloud_hypervisors_shell_output
-      when:
-        - resource_state == 'present'
-        - volumes | flatten(levels=1) | selectattr('scheduler_hints', 'defined') | map(attribute='scheduler_hints') | selectattr('same_host', 'defined') | list
+# # In some OSP releases it is required to provide hypervisor ID to the scheduler hint
+# # Since the ID is generated during deployment, we can't expect a user to provide it every
+# # single time.
+# # We will attempt to fetch the hypervisor ID based on the provided hypervisor name.
+# # Also, in order to receive the full ID of hypervisor nodes, we require to use Nova API
+# # microversion 2.53 or higher
+# - name: Volumes block
+#   tags: volume
+#   block:
+#     - name: Retrieve Hypervisors If Required
+#       environment:
+#         OS_COMPUTE_API_VERSION: 2.53
+#       command: >
+#         openstack --os-cloud "{{ item['cloud_name'] | default(cloud_name) }}"
+#         hypervisor list -f json
+#       register: cloud_hypervisors_shell_output
+#       when:
+#         - resource_state == 'present'
+#         - volumes | flatten(levels=1) | selectattr('scheduler_hints', 'defined') | map(attribute='scheduler_hints') | selectattr('same_host', 'defined') | list
 
-    - name: Volumes
-      include_tasks: volumes.yml
-      loop: "{{ volumes | flatten(levels=1) }}"
-  when: volume|bool
+#     - name: Volumes
+#       include_tasks: volumes.yml
+#       loop: "{{ volumes | flatten(levels=1) }}"
+#   when: volume|bool
 
-- name: Security groups creation
-  tags: security_group
-  import_tasks: security_groups.yml
-  when: security_group and resource_state == 'present'
+# - name: Security groups creation
+#   tags: security_group
+#   import_tasks: security_groups.yml
+#   when: security_group and resource_state == 'present'
 
-- name: Networks
-  tags: network
-  import_tasks: networks_and_routers.yml
-  when: network|bool
+# - name: Networks
+#   tags: network
+#   import_tasks: networks_and_routers.yml
+#   when: network|bool
 
-- name: Aggregate groups
-  tags: aggregate
-  import_tasks: aggregate.yml
-  when: aggregate|bool
+# - name: Aggregate groups
+#   tags: aggregate
+#   import_tasks: aggregate.yml
+#   when: aggregate|bool
 
-- name: Flavors
-  tags: flavor
-  import_tasks: flavors.yml
-  when: flavor|bool
+# - name: Flavors
+#   tags: flavor
+#   import_tasks: flavors.yml
+#   when: flavor|bool
 
 - name: Images
   tags: image
   import_tasks: images.yml
   when: image and resource_state == 'present'
 
-- name: Keypair
-  tags: keypair
-  import_tasks: keypair.yml
-  when: keypair|bool
+# - name: Keypair
+#   tags: keypair
+#   import_tasks: keypair.yml
+#   when: keypair|bool
 
-- name: Security groups delete
-  tags: security_group
-  import_tasks: security_groups.yml
-  when: security_group and resource_state == 'absent'
+# - name: Security groups delete
+#   tags: security_group
+#   import_tasks: security_groups.yml
+#   when: security_group and resource_state == 'absent'
 
-- name: Projects, users and roles creation
-  tags: user
-  import_tasks: users.yml
-  when: user and resource_state == 'absent'
+# - name: Projects, users and roles creation
+#   tags: user
+#   import_tasks: users.yml
+#   when: user and resource_state == 'absent'
 
-- name: Instances
-  tags: instance
-  import_tasks: instances.yml
-  when: instance and resource_state == 'present'
+# - name: Instances
+#   tags: instance
+#   import_tasks: instances.yml
+#   when: instance and resource_state == 'present'
 
-- name: Generate resources output file
-  tags: resources_output
-  import_tasks: resources_output.yml
+# - name: Generate resources output file
+#   tags: resources_output
+#   import_tasks: resources_output.yml
 
-- name: Overcloud delete
-  tags: overcloud_delete
-  import_tasks: overcloud_delete.yml
-  when: overcloud_delete|bool
+# - name: Overcloud delete
+#   tags: overcloud_delete
+#   import_tasks: overcloud_delete.yml
+#   when: overcloud_delete|bool
 
-- name: Print created files
-  vars:
-    msg: |
-      The following files have been generated:
+# - name: Print created files
+#   vars:
+#     msg: |
+#       The following files have been generated:
 
-      Instances ssh private key:
-      {% for key in keypairs %}
-      {{ resources_output_file | dirname }}/{{ key.name }}.key
-      {% endfor %}
-      The key is also fetched to your local machine to /tmp directory.
+#       Instances ssh private key:
+#       {% for key in keypairs %}
+#       {{ resources_output_file | dirname }}/{{ key.name }}.key
+#       {% endfor %}
+#       The key is also fetched to your local machine to /tmp directory.
 
-      Resources output file:
-      {{ resources_output_file }}
-  debug:
-    msg: "{{ msg.split('\n') }}"
-  when: instance and resource_state == 'present'
+#       Resources output file:
+#       {{ resources_output_file }}
+#   debug:
+#     msg: "{{ msg.split('\n') }}"
+#   when: instance and resource_state == 'present'
