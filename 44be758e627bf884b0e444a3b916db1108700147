@@ -22,6 +22,29 @@
       },
       "revId": "44be758e627bf884b0e444a3b916db1108700147",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d4728b2_efeb2e3f",
+        "filename": "roles/tester/tempest/tasks/config_exec_git_tempest.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1008484
+      },
+      "writtenOn": "2021-11-08T17:04:52Z",
+      "side": 1,
+      "message": "I think this part should be parsed through deployer_input.conf\nMHO most of this part is not needed",
+      "range": {
+        "startLine": 12,
+        "startChar": 7,
+        "endLine": 12,
+        "endChar": 27
+      },
+      "revId": "44be758e627bf884b0e444a3b916db1108700147",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
