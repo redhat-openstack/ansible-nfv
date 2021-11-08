@@ -1,4 +1,36 @@
 ---
+- name: image Cache
+  block:
+  - name: Create images directory
+    file:
+      path: "{{ hypervisor_image_dir }}"
+      state: directory
+      mode: '0644'
+    delegate_to: hypervisor
+
+  - name: Creating a readme
+    copy:
+      dest: "{{ hypervisor_image_dir }}/REDME"
+      mode: '0644'
+      content: "please do not delete the content of this directory it is used as an image cache for the deployments on this hypervisor"
+
+  - name: Download images
+    get_url:
+      url: "{{ item.url }}"
+      dest: "{{ hypervisor_image_dir }}/{{ item.url | basename }}"
+      validate_certs: "{{ image_valid_certs | default(False) }}"
+      timeout: 100
+    delegate_to: hypervisor
+    retries: 3
+    loop: "{{ images }}"
+
+  - name:  copy image from hypervisor to undercloud
+    synchronize:
+      src: "{{ hypervisor_image_dir }}/{{ item.url | basename }}"
+      dest: "/tmp/{{ item.url | basename }}"
+    delegate_to: hypervisor
+    loop: "{{ images }}"
+  when: '"hypervisor" in groups["hypervisor"]'
 
 - name: Download images
   get_url:
@@ -6,7 +38,9 @@
     dest: "/tmp/{{ item.url | basename }}"
     validate_certs: "{{ image_valid_certs | default(False) }}"
     timeout: 100
+  retries: 3
   loop: "{{ images }}"
+  when: '"hypervisor" not in groups["hypervisor"]'
 
 - name: Upload images
   vars:
