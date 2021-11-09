@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "78ddfb23_6008d647",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2021-11-09T11:25:46Z",
+      "side": 1,
+      "message": "I can change it to a variable which can be overridden",
+      "parentUuid": "13c49e92_a542215d",
+      "range": {
+        "startLine": 10,
+        "startChar": 34,
+        "endLine": 10,
+        "endChar": 46
+      },
+      "revId": "fe4a3775a40b68963ee76f0318cd44d7d2bce7fc",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "7061074c_aec1ccb3",
         "filename": "roles/post_install/openstack_tasks/tasks/images.yml",
         "patchSetId": 7
@@ -60,6 +84,30 @@
       "writtenOn": "2021-11-08T17:13:10Z",
       "side": 1,
       "message": "Did you forget to remove commented parts?",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 35
+      },
+      "revId": "fe4a3775a40b68963ee76f0318cd44d7d2bce7fc",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6d47d83a_7f820874",
+        "filename": "roles/post_install/openstack_tasks/tasks/main.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2021-11-09T11:25:46Z",
+      "side": 1,
+      "message": "yes will remove them",
+      "parentUuid": "699d5025_8d22c33f",
       "range": {
         "startLine": 23,
         "startChar": 0,
