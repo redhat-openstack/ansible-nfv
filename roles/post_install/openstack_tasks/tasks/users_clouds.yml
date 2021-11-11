@@ -1,11 +1,11 @@
 ---
 
 # In order to prevent deletion of the OSP admin user and breaking
-# the environemnt by mistake, skip any manipulation with the "admin" user.
+# the environment by mistake, skip any manipulation with the "admin" user.
 - name: Copy overcloudrc file for users
   copy:
-    src: "{{ tripleo_overcloud_file }}"
-    dest: "{{ tripleo_overcloud_file | dirname }}/{{ item.name }}_rc"
+    src: "{{ stackrc_file }}"
+    dest: "{{ stackrc_file | dirname }}/{{ item.name }}_rc"
     remote_src: yes
     mode: preserve
   loop: "{{ users | flatten(levels=1) }}"
@@ -25,21 +25,15 @@
       - os_key: 'OS_CLOUDNAME'
         users_key: 'name'
   replace:
-    path: "{{ tripleo_overcloud_file | dirname }}/{{ item.1.name }}_rc"
+    path: "{{ stackrc_file | dirname }}/{{ item.1.name }}_rc"
     regexp: (.*{{ item.0.os_key }})=.*
     replace: \1={{ item.1[item.0.users_key] }}
     mode: '0600'
   loop: "{{ keys | product(users) | list }}"
   when: item.1.name != 'admin'
 
-- name: Append users rc files to list
+- name: Append New Entries To Clouds Dictionary
   set_fact:
-    rc_files: "{{ rc_files }} + [ '{{ tripleo_overcloud_file | dirname }}/{{ item.name }}_rc' ]"
-  loop: "{{ users }}"
-  when: item.name != 'admin'
-
-- name: Append users cloudnames to list
-  set_fact:
-    cloudname: "{{ cloudname }} + [ '{{ item.name }}' ]"
+    clouds_dict: "{{ clouds_dict | combine({item['name']: stackrc_file | dirname +'/'+ item['name'] + '_rc'}) }}"
   loop: "{{ users }}"
   when: item.name != 'admin'
