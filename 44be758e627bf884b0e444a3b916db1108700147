@@ -24,6 +24,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "5019da54_a8e8c31b",
+        "filename": "roles/post_install/openstack_tasks/tasks/images.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2021-11-11T18:55:33Z",
+      "side": 1,
+      "message": "Ack, will use include_tasks.",
+      "parentUuid": "7adbb302_3d6a854c",
+      "range": {
+        "startLine": 31,
+        "startChar": 2,
+        "endLine": 33,
+        "endChar": 43
+      },
+      "revId": "44be758e627bf884b0e444a3b916db1108700147",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "6d4728b2_efeb2e3f",
@@ -37,6 +61,30 @@
       "writtenOn": "2021-11-08T17:04:52Z",
       "side": 1,
       "message": "I think this part should be parsed through deployer_input.conf\nMHO most of this part is not needed",
+      "range": {
+        "startLine": 12,
+        "startChar": 7,
+        "endLine": 12,
+        "endChar": 27
+      },
+      "revId": "44be758e627bf884b0e444a3b916db1108700147",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "98da111a_04aa0c6b",
+        "filename": "roles/tester/tempest/tasks/config_exec_git_tempest.yml",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2021-11-11T18:55:33Z",
+      "side": 1,
+      "message": "This is not something that is related to ini configuration.\nPart of this command is uploading image to glance via tempest and I\u0027m adding support to allow user provided disk formats (for example in edge deployment we are using raw formatted images).",
+      "parentUuid": "6d4728b2_efeb2e3f",
       "range": {
         "startLine": 12,
         "startChar": 7,
