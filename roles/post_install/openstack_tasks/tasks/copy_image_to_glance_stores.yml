@@ -1,0 +1,46 @@
+---
+
+- name: Retrieve Image Facts
+  vars:
+    ansible_python_interpreter: "{{ venv_path }}/bin/python"
+  os_image_info:
+    cloud: "{{ item.cloud_name | default(cloud_name) }}"
+    image: "{{ image_id_or_name }}"
+    validate_certs: "{{ validate_certs | default(omit) }}"
+  register: image_facts
+
+- name: Parse Current Stores
+  set_fact:
+    image_id: "{{ image_facts['openstack_image']['id'] }}"
+    image_stores: "{{ image_facts['openstack_image']['properties']['stores'] }}"
+
+- name: Copy Images To Additional Stores
+  vars:
+    stores_to_copy: |
+      {%- set helper_list = [] -%}
+      {%- set deducted_list = [] -%}
+      {%- if ',' not in image_stores -%}
+        {{ helper_list.append(image_stores) }}
+      {%- else -%}
+        {%- set helper_list = image_stores.split(',') -%}
+      {%- endif -%}
+      {%- set deducted_list = glance_stores | difference(helper_list) -%}
+      {{ deducted_list }}
+    stores_to_copy_string: "{{ stores_to_copy | join(',') }}"
+  block:
+    # We have to use glance client for this operation
+    - name: Import Image To Stores
+      shell: |
+        source /home/stack/{{ cloud }}rc;
+        glance image-import {{ image_id }} --stores {{ stores_to_copy_string }} --import-method copy-image
+
+    # There is no task ID returned from previous actions
+    - name: Check If Import Completed
+      shell: |
+        source /home/stack/{{ cloud }}rc;
+        glance task-list
+      retries: 1000
+      delay: 5
+      register: glance_tasks
+      until: "'processing' not in glance_tasks['stdout']"
+  when: stores_to_copy | length > 0
