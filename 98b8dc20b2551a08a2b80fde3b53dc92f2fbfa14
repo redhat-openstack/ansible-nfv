@@ -16,6 +16,29 @@
       "message": "recheck",
       "revId": "98b8dc20b2551a08a2b80fde3b53dc92f2fbfa14",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4e0b682b_0d488a66",
+        "filename": "roles/configuration/switches_config/tasks/ios_config.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-11-17T11:22:54Z",
+      "side": 1,
+      "message": "My main question and concern here:\nWhen we are running these type of configuration and in the next job iteration, configuring another state, where this type of configuration is not needed.\nWill it work smoothly and not conflict with this existing config?",
+      "range": {
+        "startLine": 22,
+        "startChar": 9,
+        "endLine": 22,
+        "endChar": 45
+      },
+      "revId": "98b8dc20b2551a08a2b80fde3b53dc92f2fbfa14",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
