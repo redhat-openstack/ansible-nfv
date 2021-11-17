@@ -3,7 +3,7 @@
 - name: Add parameter to the grub
   lineinfile:
     dest: /etc/default/grub
-    regexp: '^GRUB_CMDLINE_LINUX="(?!.* {{ item.regex }})(.*)"'
+    regexp: '^GRUB_CMDLINE_LINUX="(?!.* {{ item.regex }} )(.*)"'
     line: 'GRUB_CMDLINE_LINUX="\1 {{ item.context }}"'
     mode: '0644'
     state: present
