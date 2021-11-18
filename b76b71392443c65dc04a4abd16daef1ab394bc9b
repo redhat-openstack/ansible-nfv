@@ -24,6 +24,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": true,
+      "key": {
+        "uuid": "b86ecaf3_fd1a5711",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2021-11-18T10:39:06Z",
+      "side": 1,
+      "message": "I will update the description of this commit.",
+      "parentUuid": "453a3b86_6341be03",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 6
+      },
+      "revId": "b76b71392443c65dc04a4abd16daef1ab394bc9b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": false,
       "key": {
         "uuid": "e92ac6a2_13f0f527",
@@ -71,6 +95,30 @@
       "writtenOn": "2021-11-17T09:46:44Z",
       "side": 1,
       "message": "Fix me if I\u0027m wrong.\n\nI understand the following flow.\nYou are taking the \"stackrc\" file, fetching the amount of existing stacks from undercloud and then taking the rc files as per the stacks, assuming that the rc file will be by the name of the stack name.\nThat\u0027s why you removed the path to overcloudrc file.\nAm I right?\n\nI would suggest you to talk to Ziv.\nHe is using the \"openstack_tasks\" role for his flow.\nI know, he needs to define a custom rc file for his \"shiftonstack\" user.\nAnd that change might break the flow he is working with.\n\nI will set the -1 not for the change, but for the awarness.\nLet\u0027s make sure we are breaking others flow.",
+      "range": {
+        "startLine": 30,
+        "startChar": 47,
+        "endLine": 30,
+        "endChar": 71
+      },
+      "revId": "b76b71392443c65dc04a4abd16daef1ab394bc9b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "77c8d6dc_f440ae57",
+        "filename": "roles/post_install/openstack_tasks/tasks/clouds.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2021-11-18T10:39:06Z",
+      "side": 1,
+      "message": "Yes, I am assuming that all undercloud deployments (as it is required by TripleO) is using the defualt \u0027/home/stack/stackrc\u0027 credentials file.\nIf I am not mistaken, shiftstack is a stack that is deployed as \u0027overcloud\u0027 on top of undercloud. With this patch all clouds will be populated in clouds.yaml and will have the name of the stack instead of the current hard-coded \u0027overcloud\u0027 cloud name.\nHe will be able to use openstack_tasks by providing \u0027cloud_name: shiftstackrc\u0027.\n\nI will also ask him how is the current flow done.",
+      "parentUuid": "cb8b63ba_960b6ad2",
       "range": {
         "startLine": 30,
         "startChar": 47,
