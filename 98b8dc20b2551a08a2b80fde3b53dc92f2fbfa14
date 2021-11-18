@@ -39,6 +39,30 @@
       },
       "revId": "98b8dc20b2551a08a2b80fde3b53dc92f2fbfa14",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9aee0ea5_a3e4f4c0",
+        "filename": "roles/configuration/switches_config/tasks/ios_config.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2021-11-18T10:46:05Z",
+      "side": 1,
+      "message": "This is a good point, In my templates it was working even when I reverted to regular way of deployment.\nIf it is a concern that we can make a task that resets all of the VLAN configuration if it doesn\u0027t required this additional configuration.",
+      "parentUuid": "4e0b682b_0d488a66",
+      "range": {
+        "startLine": 22,
+        "startChar": 9,
+        "endLine": 22,
+        "endChar": 45
+      },
+      "revId": "98b8dc20b2551a08a2b80fde3b53dc92f2fbfa14",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
