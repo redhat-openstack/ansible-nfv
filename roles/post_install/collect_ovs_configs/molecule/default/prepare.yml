@@ -9,6 +9,13 @@
           - centos-release-nfv-openvswitch
         state: present
 
+    - name: workaround EOL centos8
+      shell: |
+        sed -i 's/^mirrorlist/#mirrorlist/g' /etc/yum.repos.d/CentOS-NFV-OpenvSwitch.repo
+        sed -i 's|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g' /etc/yum.repos.d/CentOS-NFV-OpenvSwitch.repo
+        sed -i 's/nfvsigdist/releasever/g' /etc/yum.repos.d/CentOS-NFV-OpenvSwitch.repo
+      become: True
+
     - name: Check openvswitch available packages
       dnf:
         list: openvswitch*
