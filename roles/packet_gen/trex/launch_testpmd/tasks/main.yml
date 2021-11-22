@@ -14,6 +14,13 @@
     - hostvars[(groups['trex'] | first) ]['trex_instance_nics_info'] is defined
     - trex_macs is not defined
 
+- name: Set testpmd verbosity
+  copy:
+    dest: "/tmp/cmdline"
+    content: |
+        set verbose {{ testpmd_verbose }}
+  when:  testpmd_verbose > 0
+
 - name: Set TestPMD Command If Not Defined
   set_fact:
     testpmd_cmd: |
@@ -22,14 +29,17 @@
       --socket-mem {{ testpmd_socket_mem }} -- -i \
       --nb-cores={{ testpmd_forward_cores }} \
       --auto-start \
+      --forward-mode={{ forward_mode }} \
       {% if multiqueue_set is defined and multiqueue_set %}
         --rxq={{hostvars[dut_compute]['multiqueue']}} \
         --txq={{hostvars[dut_compute]['multiqueue']}} \
       {% endif %}
       {% if forward_mode == 'mac' %}
-        --forward-mode=mac \
         --eth-peer=0,{{ trex_macs.split(',')[0] }} \
         --eth-peer=1,{{ trex_macs.split(',')[1] }} \
+      {% endif %}
+      {% if testpmd_verbose > 0 %}
+        --cmdline-file=/tmp/cmdline \
       {% endif %}
       --rxd={{ testpmd_rxd }} \
       --txd={{ testpmd_txd }} \
