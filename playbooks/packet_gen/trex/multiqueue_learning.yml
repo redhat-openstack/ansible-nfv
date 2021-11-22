@@ -1,0 +1,142 @@
+---
+- import_playbook: prepare_resources.yml
+
+- hosts: trex
+  become: true
+  tasks:
+    - name: Reboot trex vm to start from a know state
+      reboot:
+        reboot_timeout: 120
+
+- hosts: "{{ dut_group if dut_group else 'none' }}"
+  become: true
+  tasks:
+    - name: Reboot testpmd vm to start from a know state
+      reboot:
+        reboot_timeout: 120
+
+- hosts: trex
+  roles:
+    - role: roles/packet_gen/trex/trex_instance_config
+      when: trex_instance_config | default(True)|bool
+
+- hosts: "{{ dut_compute }}"
+  become: true
+  tasks:
+    - name: set physical queues in different pmds
+      openvswitch_db:
+        state: present
+        table: Interface
+        record: "{{ item.interface }}"
+        col: options
+        key: pmd-rxq-affinity
+        value: "{{ item.pmd_rxq_affinity }}"
+      loop: "{{ learning_pmd_rxq_affinity }}"
+
+- hosts: "{{ dut_group if dut_group else 'none' }}"
+  roles:
+    - role: roles/packet_gen/trex/bind_dpdk_nics
+      vars:
+        discover_dut_macs: True
+        dpdk_binding_driver: "{{ dut_dpdk_binding_driver | default('vfio-pci') }}"
+      when: dut_bind_dpdk_nics | default(True)|bool
+
+    - role: roles/packet_gen/trex/launch_testpmd
+      vars:
+        forward_mode: rxonly
+        testpmd_verbose: 1
+      when: launch_testpmd | default(True)|bool
+
+- hosts: trex
+  become: true
+  roles:
+    - role: roles/packet_gen/trex/multiqueue_learning
+      vars:
+        action: "learning"
+
+- hosts:  "{{ dut_group if dut_group else 'none' }}"
+  tasks:
+    - name: Stop TestPMD On Dut
+      shell: "tmux list-sessions -F '#S' | xargs -n1 tmux kill-session -t"
+      become: True
+
+# bug: openvswitch_db fails to remove configuration
+- hosts: "{{ dut_compute }}"
+  become: true
+  tasks:
+    - name: set physical queues in different pmds
+      command:
+        cmd: "ovs-vsctl remove interface {{ item.interface }} options pmd-rxq-affinity"
+      loop: "{{ learning_pmd_rxq_affinity }}"
+
+- hosts:  "{{ dut_group if dut_group else 'none' }}"
+  tasks:
+    - name: Pull testpmd log file from testpmd vm
+      fetch:
+        src: "{{ item.src }}"
+        dest: "{{ item.dst }}"
+        flat: yes
+      with_items:
+       - {src: "{{ testpmd_log }}", dst: "/tmp/"}
+
+- hosts:  trex
+  tasks:
+    - name: Copy testpmd log file to trex vm
+      copy:
+        src: "{{ item.src }}"
+        dest: "{{ item.dst }}"
+      with_items:
+       - {src: "{{ testpmd_log }}", dst: "{{ testpmd_log }}" }
+
+- hosts: trex
+  become: true
+  roles:
+    - role: roles/packet_gen/trex/multiqueue_learning
+      vars:
+        action: "parse"
+
+- hosts: "{{ dut_group if dut_group else 'none' }}"
+  become: true
+  roles:
+    - role: tuning/cpu_pinning_huge_pages
+      vars:
+        cpu_pinning_cores: "{{ testpmd_lcores }}"
+
+- hosts: "{{ dut_group if dut_group else 'none' }}"
+  roles:
+    - role: roles/packet_gen/trex/bind_dpdk_nics
+      vars:
+        discover_dut_macs: True
+        dpdk_binding_driver: "{{ dut_dpdk_binding_driver | default('vfio-pci') }}"
+      when: bind_dpdk_nics | default(True)|bool
+
+    - role: roles/packet_gen/trex/launch_testpmd
+      vars:
+        forward_mode: io
+        testpmd_verbose: 0
+      when: launch_testpmd | default(True)|bool
+
+- hosts: trex
+  become: true
+  roles:
+    - role: tuning/cpu_pinning_huge_pages
+      vars:
+        cpu_pinning_cores: "{{ trex_lcores }}"
+
+- hosts: trex
+  roles:
+    - role: roles/packet_gen/trex/bind_dpdk_nics
+      vars:
+        dpdk_binding_driver: "{{ trex_dpdk_binding_driver | default('vfio-pci') }}"
+      when: bind_dpdk_nics | default(True)|bool
+
+    - role: roles/packet_gen/trex/launch_trex
+      when: launch_trex | default(True)|bool
+
+    # Disabled by default, could be useful for debugging
+    # Traffic will be injected by the testcase
+    - role: roles/packet_gen/trex/multiqueue_learning
+      vars:
+        action: "gen_traffic"
+        activate_nics: False
+      when: gen_trafffic | default(False)|bool
