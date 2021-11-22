@@ -8,6 +8,13 @@
     force: yes
   loop: "{{ tempest_repos }}"
 
+- name: Git download patch
+  shell:
+      chdir: "{{ tempest_dir }}/{{ item.name }}"
+      cmd: git fetch "{{ item.url }}" "{{ item.patchset }}" && git checkout FETCH_HEAD
+  loop: "{{ tempest_patchsets }}"
+  when: tempest_patchsets is defined
+
 - name: Set tempest venv path
   set_fact:
     tempest_venv: "{{ tempest_dir }}/venv"
