@@ -1,0 +1,87 @@
+---
+- import_playbook: prepare_resources.yml
+
+- hosts: trex
+  roles:
+    - role: roles/packet_gen/trex/trex_instance_config
+      when: trex_instance_config | default(True)|bool
+
+- hosts: "{{ dut_compute }}"
+  become: true
+  tasks:
+    - name: set physical queues in different pmds
+      openvswitch_db:
+        state: present
+        table: Interface
+        record: "{{ item. interface }}"
+        col: options
+        key: pmd-rxq-affinity
+        value: "{{ item.pmd_rxq_affinity }}"
+      loop:
+        - {'interface': 'dpdk2', 'pmd_rxq_affinity': '0:3,1:5,2:7'}
+        - {'interface': 'dpdk3', 'pmd_rxq_affinity': '0:3,1:5,2:7'}
+
+- hosts: "{{ dut_group if dut_group else 'none' }}"
+  vars:
+    forward_mode: rxonly
+    testpmd_rxq: 3
+    testpmd_txq: 3
+    testpmd_forward_cores: 6
+    testpmd_verbose: 1
+  roles:
+    - role: roles/packet_gen/trex/bind_dpdk_nics
+      vars:
+        discover_dut_macs: True
+        dpdk_binding_driver: "{{ dut_dpdk_binding_driver | default('vfio-pci') }}"
+      when: dut_bind_dpdk_nics | default(True)|bool
+
+    - role: roles/packet_gen/trex/launch_testpmd
+      when: launch_testpmd | default(True)|bool
+
+- hosts: trex
+  become: true
+  roles:
+    - role: roles/packet_gen/trex/multiqueue_learning
+
+- hosts:  "{{ dut_group if dut_group else 'none' }}"
+  tasks:
+    - name: Stop TestPMD On Dut
+      shell: "tmux list-sessions -F '#S' | xargs -n1 tmux kill-session -t"
+      become: True
+
+# bug: openvswitch_db fails to remove configuration
+- hosts: "{{ dut_compute }}"
+  become: true
+  tasks:
+    - name: set physical queues in different pmds
+      command:
+        cmd: "ovs-vsctl remove interface {{ item }} options pmd-rxq-affinity"
+      loop:
+        - 'dpdk2'
+        - 'dpdk3'
+
+- hosts:  "{{ dut_group if dut_group else 'none' }}"
+  tasks:
+    - name: Pull testpmd log file from testpmd vm
+      fetch:
+        src: "{{ item.src }}"
+        dest: "{{ item.dst }}"
+        flat: yes
+      with_items:
+       - {src: "/tmp/testpmd.log", dst: "/tmp/"}
+
+- hosts:  trex
+  tasks:
+    - name: Copy testpmd log file to trex vm
+      copy:
+        src: "{{ item.src }}"
+        dest: "{{ item.dst }}"
+      with_items:
+       - {src: "/tmp/testpmd.log", dst: "/tmp/testpmd.log"}
+
+- hosts: trex
+  become: true
+  roles:
+    - role: roles/packet_gen/trex/multiqueue_learning
+      vars:
+        parse: True

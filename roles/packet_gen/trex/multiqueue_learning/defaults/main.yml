@@ -1,0 +1,10 @@
+trafficgen_dir: '/opt/trex/current'
+mq_file: "multiqueue.py"
+mq_bin: "{{ trafficgen_dir }}/{{ mq_file }}"
+min_packet_index: 0
+max_packet_index: 40
+testpmd_log: "/tmp/testpmd.log"
+queues_json: "/tmp/queues.json"
+parse: False
+
+

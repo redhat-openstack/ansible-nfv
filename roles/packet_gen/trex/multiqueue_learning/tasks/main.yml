@@ -1,0 +1,43 @@
+- name: Copy multiqueue.py script to trex vm
+  become: true
+  copy:
+    src: "{{ mq_file }}"
+    dest: "{{ trafficgen_dir }}"
+
+- name: Set permissions to mq.py
+  become: true
+  file:
+    dest: "{{ mq_bin }}"
+    mode: a+x
+
+- name: Retrieve default NIC
+  set_fact:
+    nic_def: "{{hostvars[inventory_hostname]['ansible_default_ipv4']['alias']}}"
+
+- name: Retrieve all NICs
+  set_fact:
+    nic_lst: "{{hostvars[inventory_hostname]['ansible_interfaces']}}"
+
+- name: List of NICs to be bound to DPDK
+  set_fact:
+    trex_nics: "{{ nic_lst | difference([nic_def]+['lo'])|list }}"
+
+- name: Activate nics
+  shell: "ip link set dev {{ item }} up"
+  loop: "{{ trex_nics }}"
+  become: True
+
+- name: Set mq.py learning command
+  set_fact:
+    traffic_cmd: |
+      {{ mq_bin }} \
+      {% if parse %}
+        --log {{ testpmd_log }} \
+        --parse {{ queues_json }} \
+      {% endif %}
+      --packets {{ min_packet_index }} {{ max_packet_index }}
+
+- name: Run mq.py learning command
+  shell: "{{ traffic_cmd }}"
+  register: perf_output
+
