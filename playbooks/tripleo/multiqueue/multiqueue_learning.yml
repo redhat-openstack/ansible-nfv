@@ -1,0 +1,148 @@
+---
+
+- hosts: trex
+  roles:
+    - role: roles/packet_gen/trex/trex_instance_config
+      when: trex_instance_config | default(True)|bool
+
+# must be in the beginning (before learning) as it reboots vm
+# and queues ids could change after reboot
+- hosts: testpmd-dpdk-dut
+  become: true
+  roles:
+    - role: tuning/cpu_pinning_huge_pages
+      vars:
+        cpu_pinning_cores: "{{ testpmd_lcores }}"
+
+- hosts: trex
+  become: true
+  roles:
+    - role: tuning/cpu_pinning_huge_pages
+      vars:
+        cpu_pinning_cores: "{{ trex_lcores }}"
+
+- hosts: "{{ dut_compute }}"
+  become: true
+  tasks:
+    - name: set physical queues in different pmds
+      openvswitch_db:
+        state: present
+        table: Interface
+        record: "{{ item.interface }}"
+        col: other_config
+        key: pmd-rxq-affinity
+        value: "{{ item.pmd_rxq_affinity }}"
+      loop: "{{ pmd_rxq_affinity }}"
+
+- hosts: testpmd-dpdk-dut
+  roles:
+    - role: roles/packet_gen/trex/bind_dpdk_nics
+      vars:
+        discover_dut_macs: True
+        dpdk_binding_driver: "{{ dut_dpdk_binding_driver | default('vfio-pci') }}"
+      when: dut_bind_dpdk_nics | default(True)|bool
+
+    - role: roles/packet_gen/trex/launch_testpmd
+      vars:
+        forward_mode: rxonly
+        testpmd_verbose: 1
+      when: launch_testpmd | default(True)|bool
+
+- hosts: trex
+  become: true
+  roles:
+    - role: roles/packet_gen/trex/multiqueue
+      vars:
+        action: "learning"
+
+- hosts:  testpmd-dpdk-dut
+  tasks:
+    - name: Stop TestPMD On Dut
+      shell: "tmux list-sessions -F '#S' | xargs -n1 tmux kill-session -t"
+      become: True
+
+- hosts:  testpmd-dpdk-dut
+  tasks:
+    - name: Pull testpmd log file from testpmd vm
+      fetch:
+        src: "{{ item.src }}"
+        dest: "{{ item.dst }}"
+        flat: yes
+      with_items:
+        - {src: "{{ testpmd_log }}", dst: "/tmp/"}
+
+- hosts:  trex
+  tasks:
+    - name: Copy testpmd log file to trex vm
+      copy:
+        src: "{{ item.src }}"
+        dest: "{{ item.dst }}"
+        mode: 0644
+      with_items:
+        - {src: "{{ testpmd_log }}", dst: "{{ testpmd_log }}" }
+
+- hosts: trex
+  become: true
+  roles:
+    - role: roles/packet_gen/trex/multiqueue
+      vars:
+        action: "parse_testpmd"
+
+- hosts: testpmd-dpdk-dut
+  roles:
+    - role: roles/packet_gen/trex/launch_testpmd
+      vars:
+        forward_mode: io
+        testpmd_verbose: 0
+      when: launch_testpmd | default(True)|bool
+
+- hosts: trex
+  roles:
+    - role: roles/packet_gen/trex/bind_dpdk_nics
+      vars:
+        dpdk_binding_driver: "{{ trex_dpdk_binding_driver | default('vfio-pci') }}"
+      when: bind_dpdk_nics | default(True)|bool
+
+    - role: roles/packet_gen/trex/launch_trex
+      when: launch_trex | default(True)|bool
+
+    - role: roles/packet_gen/trex/multiqueue
+      vars:
+        action: "gen_traffic"
+        activate_nics: False
+        pps: pps
+        duration: 40
+
+- hosts: "{{ dut_compute }}"
+  become: true
+  tasks:
+    - name: get pmd-rxq-show output
+      shell: |
+        ovs-appctl dpif-netdev/pmd-rxq-show  | grep -v disabled
+      register: pmd_rxq_show_cmd_output
+
+    - name: save pmd-rxq-show output as a  Fact
+      set_fact:
+        pmd_rxq_show_cmd_output: "{{ pmd_rxq_show_cmd_output['stdout_lines']|join('\n') }}"
+
+      # bug: openvswitch_db fails to remove configuration
+    - name: set physical queues in different pmds
+      command:
+        cmd: "ovs-vsctl remove interface {{ item.interface }} other_config pmd-rxq-affinity"
+      loop: "{{ pmd_rxq_affinity }}"
+
+- hosts: trex
+  become: true
+  tasks:
+    - name: save pmd_rxq_show_output to file
+      copy:
+        content: "{{ hostvars[dut_compute]['pmd_rxq_show_cmd_output'] }}"
+        dest: "{{ pmd_rxq_show_output }}"
+        mode: 0644
+
+- hosts: trex
+  become: true
+  roles:
+    - role: roles/packet_gen/trex/multiqueue
+      vars:
+        action: "parse_pmd_stats"

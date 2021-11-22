@@ -16,6 +16,24 @@ trex_max_lost_pct: 0.00
 # Number of unique flows
 trex_flows: 1
 
+# Generate flows using source ip
+use_src_ip_flows: 1
+                                                      
+# Generate flows using destination ip
+use_dst_ip_flows: 1
+
+# Generate flows using source mac
+use_src_mac_flows: 0
+
+# Generate flows using destination mac
+use_dst_mac_flows: 0
+
+# Generate flows using source port
+use_src_port_flows: 1
+
+# Generate flows using destination port
+use_dst_port_flows: 1
+
 # Minimum rate for of packets to generate, sized in mpps(milion packets per second)
 trex_rate: 2
 
