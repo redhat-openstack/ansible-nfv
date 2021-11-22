@@ -1,17 +1,25 @@
 ---
 
-- name: Tempest deployment and execution
+- name: Tempest deployment
   hosts: "{{ tester | default('undercloud') }}"
   gather_facts: False
   vars:
     ansible_python_interpreter: /usr/libexec/platform-python
-    keep_resources: false
   roles:
     - role: post_install/openstack_tasks
       resource_state: present
 
     - role: post_install/igmp_querier
 
+- import_playbook: ../multiqueue/multiqueue_learning.yml
+
+- name: Tempest execution
+  hosts: "{{ tester | default('undercloud') }}"
+  gather_facts: False
+  vars:
+    ansible_python_interpreter: /usr/libexec/platform-python
+    keep_resources: false
+  roles:
     - role: tester/tempest
 
     - role: post_install/openstack_tasks
