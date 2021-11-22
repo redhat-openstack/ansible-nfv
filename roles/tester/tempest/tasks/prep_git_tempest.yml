@@ -8,6 +8,25 @@
     force: yes
   loop: "{{ tempest_repos }}"
 
+- name: Download patches for tempest repos
+  shell:                                                                    
+    chdir: "{{ tempest_dir }}/{{ item.0.name }}"                            
+    cmd: |                                                                  
+      git remote add gerrit "{{ item.0.url_gerrit }}"                       
+      if [[ "{{ item.1.patchsets }}" = *[[:space:]]* ]]; then               
+        git config --global user.email "ansible-nfv@noreply.local"          
+        git config --global user.name "ansible-nfv"                         
+        for a_patch in "{{ item.1.patchsets }}"; do                         
+          git review -x $a_patch                                            
+        done                                                                
+      else                                                                  
+        git review -d "{{ item.1.patchsets }}"                              
+      fi                                                                    
+  with_nested:                                                              
+    - "{{ tempest_repos }}"                                                 
+    - "{{tempest_patchsets}}"                                               
+  when:  item.0.name == item.1.name     
+
 - name: Set tempest venv path
   set_fact:
     tempest_venv: "{{ tempest_dir }}/venv"
