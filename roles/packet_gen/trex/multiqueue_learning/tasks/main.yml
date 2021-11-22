@@ -1,0 +1,55 @@
+- name: Copy multiqueue.py script to trex vm
+  become: true
+  copy:
+    src: "{{ item }}"
+    dest: "{{ trafficgen_dir }}"
+  loop:
+    - "{{ mq_file }}"
+
+- name: Set permissions to mq.py
+  become: true
+  file:
+    dest: "{{ mq_bin }}"
+    mode: a+x
+
+- name: Activate nics
+  block:
+    - name: Retrieve default NIC
+      set_fact:
+        nic_def: "{{hostvars[inventory_hostname]['ansible_default_ipv4']['alias']}}"
+
+    - name: Retrieve all NICs
+      set_fact:
+        nic_lst: "{{hostvars[inventory_hostname]['ansible_interfaces']}}"
+
+    - name: List of NICs to be bound to DPDK
+      set_fact:
+        trex_nics: "{{ nic_lst | difference([nic_def]+['lo'])|list }}"
+
+    - name: Activate nics
+      shell: "ip link set dev {{ item }} up"
+      loop: "{{ trex_nics }}"
+      become: True
+  when: activate_nics
+
+- name: Set mq.py learning command
+  set_fact:
+    traffic_cmd: |
+      {{ mq_bin }} \
+        --action {{ action }} \
+      {%- if "parse" in action -%}
+        --packets {{ min_packet_index }} {{ max_packet_index }} \
+        --log {{ testpmd_log }} \
+        --traffic_json {{ queues_json }}
+      {%- elif "learning" in action -%}
+        --packets {{ min_packet_index }} {{ max_packet_index }}
+      {%- elif "gen_traffic" in action -%}
+        --traffic_json {{ queues_json }} \
+        --duration {{ duration }} \
+        --multiplier {{ multiplier }}
+      {%- endif -%}
+
+- name: Run mq.py learning command
+  shell: "{{ traffic_cmd }}"
+  register: perf_output
+
