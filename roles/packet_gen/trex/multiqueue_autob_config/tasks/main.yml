@@ -1,0 +1,12 @@
+- name: Query pmd-auto-lb-improvement-threshold parameter
+  shell: ovs-vsctl get open_vswitch . other_config:pmd-auto-lb-improvement-threshold
+  become: True
+  register: prev_pmd_auto_lb_improvement_threshold_stdout
+
+- name: Store previous pmd-auto-lb-improvement-threshold
+  set_fact:
+    prev_pmd_auto_lb_improvement_threshold: "{{ prev_pmd_auto_lb_improvement_threshold_stdout.stdout }}"
+
+- name: Set pmd-auto-lb-improvement-threshold parameter
+  shell:  ovs-vsctl set open_vSwitch . other_config:pmd-auto-lb-improvement-threshold="{{ pmd_auto_lb_improvement_threshold }}"
+  become: True
