@@ -27,3 +27,10 @@ testpmd_txq: 1
 
 # TestPMD forwarding mode
 forward_mode: io
+
+# TestPMD verbose
+testpmd_verbose: 0
+
+# TestPMD log file
+testpmd_log: "/tmp/testpmd.log"
+
