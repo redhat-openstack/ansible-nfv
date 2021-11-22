@@ -38,12 +38,12 @@
       {% if trex_set_vlan %}
         --vlan-ids {{ trex_vlans }}
       {%- endif %}
-      --use-src-ip-flows 1
-      --use-dst-ip-flows 1
-      --use-src-mac-flows 0
-      --use-dst-mac-flows 0
-      --use-src-port-flows 1
-      --use-dst-port-flows 1
+      --use-src-ip-flows {{ use_src_ip_flows  }}
+      --use-dst-ip-flows {{ use_dst_ip_flows }}
+      --use-src-mac-flows {{ use_dst_ip_flows }}
+      --use-dst-mac-flows {{ use_dst_mac_flows }}
+      --use-src-port-flows {{ use_dst_mac_flows  }}
+      --use-dst-port-flows {{ use_dst_port_flows }}
       --validation-runtime {{ trex_validation }}
       --search-runtime {{ trex_search }}
       {% if trex_rate is defined %}
@@ -57,6 +57,9 @@
       {%- endif %}
       {% if binary_search_disable_upward_search %}
         --disable-upward-search
+      {%- endif %}
+      {% if binary_search_warmup_trial_runtime is defined %}
+        --warmup-trial --warmup-trial-runtime {{ binary_search_warmup_trial_runtime }}
       {%- endif %}
   when: traffic_cmd is not defined
 

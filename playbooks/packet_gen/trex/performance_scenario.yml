@@ -86,6 +86,12 @@
       vars:
         cpu_pinning_cores: "{{ trex_lcores }}"
 
+- hosts: "{{ dut_compute | default(omit) }}"
+  become: true
+  roles:
+    - role: roles/packet_gen/trex/multiqueue_autob_config
+      when: set_pmd_auto_lb_improvement_threshold | default(False)|bool
+
 - hosts: trex
   roles:
     - role: roles/packet_gen/trex/bind_dpdk_nics
@@ -98,3 +104,11 @@
 
     - role: roles/packet_gen/trex/binary_search
       when: binary_search | default(True)|bool
+
+- hosts: "{{ dut_compute | default(omit) }}"
+  become: true
+  roles:
+    - role: roles/packet_gen/trex/multiqueue_autob_config
+      vars:
+        set_pmd_auto_lb_improvement_threshold: "{{ prev_pmd_auto_lb_improvement_threshold }}"
+      when: set_pmd_auto_lb_improvement_threshold | default(False)|bool
