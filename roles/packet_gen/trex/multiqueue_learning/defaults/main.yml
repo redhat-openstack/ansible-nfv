@@ -1,0 +1,42 @@
+# Directory where mq_file will be copied
+trafficgen_dir: '/opt/trex/current'
+
+# Multiqueue packet generator
+mq_file: "multiqueue.py"
+
+# Multiqueue packet generator absolute path
+mq_bin: "{{ trafficgen_dir }}/{{ mq_file }}"
+
+# Packet generator will start using ips from
+# base_ip + min_packet_index
+min_packet_index: 0
+
+# Packet generator will start using ips until
+# base_ip + min_packet_index + max_packet_index
+max_packet_index: 40
+
+# testpmd log file
+testpmd_log: "/tmp/testpmd.log"
+
+# file generated with the mapping of queues
+# and ips
+queues_json: "/tmp/queues.json"
+
+# mode used in multiqueue traffic generator:
+# available: parse, learning, gen_traffic
+action: "learning"
+
+# duration of injection when using gen_traffic mode
+duration: 180
+
+# increase traffic rate when using gen_traffic mode
+multiplier: 1
+
+# activate nics, for learning mode in which dpdk
+# is not used
+activate_nics: True
+
+# rates for testing ports
+test_ports: []
+
+

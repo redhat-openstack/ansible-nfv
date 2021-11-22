@@ -1,0 +1,186 @@
+---
+- import_playbook: prepare_resources.yml
+
+- hosts: trex
+  become: true
+  tasks:
+    - name: Reboot trex vm to start from a know state
+      reboot:
+        reboot_timeout: 120
+
+- hosts: "{{ dut_group if dut_group else 'none' }}"
+  become: true
+  tasks:
+    - name: Reboot testpmd vm to start from a know state
+      reboot:
+        reboot_timeout: 120
+
+- hosts: trex
+  roles:
+    - role: roles/packet_gen/trex/trex_instance_config
+      when: trex_instance_config | default(True)|bool
+
+- hosts: "{{ dut_compute }}"
+  become: true
+  tasks:
+    - name: set physical queues in different pmds
+      openvswitch_db:
+        state: present
+        table: Interface
+        record: "{{ item.interface }}"
+        col: other_config
+        key: pmd-rxq-affinity
+        value: "{{ item.pmd_rxq_affinity }}"
+      loop: "{{ learning_pmd_rxq_affinity }}"
+
+- hosts: "{{ dut_group if dut_group else 'none' }}"
+  roles:
+    - role: roles/packet_gen/trex/bind_dpdk_nics
+      vars:
+        discover_dut_macs: True
+        dpdk_binding_driver: "{{ dut_dpdk_binding_driver | default('vfio-pci') }}"
+      when: dut_bind_dpdk_nics | default(True)|bool
+
+    - role: roles/packet_gen/trex/launch_testpmd
+      vars:
+        forward_mode: rxonly
+        testpmd_verbose: 1
+      when: launch_testpmd | default(True)|bool
+
+- hosts: trex
+  become: true
+  roles:
+    - role: roles/packet_gen/trex/multiqueue_learning
+      vars:
+        action: "learning"
+
+- hosts:  "{{ dut_group if dut_group else 'none' }}"
+  tasks:
+    - name: Stop TestPMD On Dut
+      shell: "tmux list-sessions -F '#S' | xargs -n1 tmux kill-session -t"
+      become: True
+
+- hosts:  "{{ dut_group if dut_group else 'none' }}"
+  tasks:
+    - name: Pull testpmd log file from testpmd vm
+      fetch:
+        src: "{{ item.src }}"
+        dest: "{{ item.dst }}"
+        flat: yes
+      with_items:
+       - {src: "{{ testpmd_log }}", dst: "/tmp/"}
+
+- hosts:  trex
+  tasks:
+    - name: Copy testpmd log file to trex vm
+      copy:
+        src: "{{ item.src }}"
+        dest: "{{ item.dst }}"
+        mode: 0644
+      with_items:
+       - {src: "{{ testpmd_log }}", dst: "{{ testpmd_log }}" }
+
+- hosts: trex
+  become: true
+  roles:
+    - role: roles/packet_gen/trex/multiqueue_learning
+      vars:
+        action: "parse"
+
+- hosts: "{{ dut_group if dut_group else 'none' }}"
+  become: true
+  roles:
+    - role: tuning/cpu_pinning_huge_pages
+      vars:
+        cpu_pinning_cores: "{{ testpmd_lcores }}"
+
+- hosts: "{{ dut_group if dut_group else 'none' }}"
+  roles:
+    - role: roles/packet_gen/trex/bind_dpdk_nics
+      vars:
+        discover_dut_macs: True
+        dpdk_binding_driver: "{{ dut_dpdk_binding_driver | default('vfio-pci') }}"
+      when: bind_dpdk_nics | default(True)|bool
+
+    - role: roles/packet_gen/trex/launch_testpmd
+      vars:
+        forward_mode: io
+        testpmd_verbose: 0
+      when: launch_testpmd | default(True)|bool
+
+- hosts: trex
+  become: true
+  roles:
+    - role: tuning/cpu_pinning_huge_pages
+      vars:
+        cpu_pinning_cores: "{{ trex_lcores }}"
+
+- hosts: trex
+  roles:
+    - role: roles/packet_gen/trex/bind_dpdk_nics
+      vars:
+        dpdk_binding_driver: "{{ trex_dpdk_binding_driver | default('vfio-pci') }}"
+      when: bind_dpdk_nics | default(True)|bool
+
+    - role: roles/packet_gen/trex/launch_trex
+      when: launch_trex | default(True)|bool
+
+    - role: roles/packet_gen/trex/multiqueue_learning
+      vars:
+        action: "gen_traffic"
+        activate_nics: False
+        test_ports: ["{{ port0_rate }}" , "{{ port1_rate }}"]
+        duration: 40
+
+- hosts: "{{ dut_compute }}"
+  become: true
+  tasks:
+    - name: get ports used in compute
+      shell: |
+        lines=$(ovs-appctl dpif-netdev/pmd-rxq-show | grep -v " 0 %" | grep port |awk '{print $2,$8}' | sort -n -k 2 -r)
+        echo $lines | awk '{print "[{\"hypervisor_ports\": [\""$1"\", \""$3"\"], \"pmd_cpu\": "$2"},"}'
+        echo $lines | awk '{print "{\"hypervisor_ports\": [\""$5"\", \""$7"\"], \"pmd_cpu\": "$6"}]"}'
+      register: compute_ports_output
+    - name: save the Json data to a Variable as a Fact
+      set_fact:
+        compute_ports_json: "{{ compute_ports_output.stdout | from_json }}"
+    - name: create rate json
+      set_fact:
+        rate_json: [{"rate": "{{ port0_rate }}"} , {"rate": "{{ port1_rate }}"}]
+    - name: add rates to compute json, step 1
+      set_fact:
+        combined_compute_ports_json_temp: "{{ compute_ports_json | zip(rate_json) | list  }}"
+    - name: add rates to compute json, step 2
+      set_fact:
+        combined_compute_ports_json: "{{ combined_compute_ports_json | default([]) + [item[0] | combine(item[1])]  }}"
+      loop: "{{ combined_compute_ports_json_temp }}"
+      # bug: openvswitch_db fails to remove configuration
+    - name: set physical queues in different pmds
+      command:
+        cmd: "ovs-vsctl remove interface {{ item.interface }} other_config pmd-rxq-affinity"
+      loop: "{{ learning_pmd_rxq_affinity }}"
+
+- hosts: trex
+  become: true
+  tasks:
+    - name: Load queues json file
+      command: cat "{{ queues_json }}"
+      register: queues_json_output
+    - name: save the Json data to a Variable as a Fact
+      set_fact:
+        queues_json_data: "{{ queues_json_output.stdout | from_json }}"
+    - name: get hypervisor json from compute
+      set_fact:
+        compute_ports_json: "{{ hostvars[dut_compute]['combined_compute_ports_json'] }}"
+    - name: combine queues and rates json, step1
+      set_fact:
+        combined_queues_json_temp: "{{ queues_json_data | zip(compute_ports_json) | list  }}"
+    - name: combine queues and rates json, step2
+      set_fact:
+        combined_queues_json: "{{ combined_queues_json | default([]) + [item[0] | combine(item[1])]  }}"
+      loop: "{{ combined_queues_json_temp }}"
+    - name: save json to file
+      copy:
+        content: "{{ combined_queues_json }}"
+        dest: "{{ queues_json }}"
+        mode: 0644
