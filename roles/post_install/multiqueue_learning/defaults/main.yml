@@ -1,0 +1,33 @@
+---
+
+# pmd affinity for learning
+learning_pmd_rxq_affinity: [ {'interface': 'dpdk2', 'pmd_rxq_affinity': '0:3,1:5,2:7'},
+                             {'interface': 'dpdk3', 'pmd_rxq_affinity': '0:3,1:5,2:7'} ]
+
+# testpmd log file
+testpmd_log: "/tmp/testpmd.log"
+
+# testpmd cpu pinning
+testpmd_lcores: '1-7'
+
+# testpmd forwarding cores
+testpmd_forward_cores: 6
+
+# testpmd rx queues
+testpmd_rxq: 3
+
+# testpmd tx queues
+testpmd_txq: 3
+
+# trex cpu pinning
+trex_lcores: '2-11'
+
+# rates used for learning hypervisor ports (mpps)
+port0_rate: 0.8
+port1_rate: 0.4
+
+# injection time in seconds
+duration: 40
+
+# file with the queues learned
+queues_json: "/tmp/queues.json"

@@ -4,6 +4,10 @@
     instance_nics: []
     instance_helper_nic_mac_addresses: []
 
+- name: debug vars
+  debug:
+    var: "{{ query_cloud }}"
+
 - name: Gather Instance Facts From OpenStack API
   vars:
     ansible_python_interpreter: "{{ venv_path }}/bin/python"
