@@ -86,8 +86,28 @@ juniper_switch02:
     - { description: 'host2_port3', iface: 'xe-0/0/1', iface_mode: 'access', vlan: '29', mtu: '9000' }
     - { description: 'host3_port1', iface: 'xe-0/0/4', iface_mode: 'trunk', vlan: '70-75' }
     - { description: 'host3_port1', iface: 'xe-0/0/5', iface_mode: 'trunk', vlan: '70' }
+  # The play assumes that all layer3 interfaces are of type 'irb'
+  # 'vlan_interface' name is <vlan><vlan_id>
+  layer3_interfaces:
+    - unit: '110'
+      ipv4_address: '192.168.110.254/24'
+      vlan_interface: 'vlan110'
+    - unit: '199'
+      ipv4_address: '192.168.199.254/24'
+      vlan_interface: 'vlan999'
 
 cisco_switch01:
+  # Generates the following commands:
+  # route-map Test-RouteMap permit 10
+  #   match ip address Test-RouteMap-ACL
+  #   set ip next-hop 192.168.20.1
+  # interface vlan 21
+  #   ip policy route-map Test-RouteMap
+  route_maps:
+    - route_map_name: Test-RouteMap
+      match_ip_address: Test-RouteMap-ACL
+      ip_next_hop: 192.168.20.1
+      interface: vlan21
   vlans:
     - start: 100
       end: 105
@@ -96,6 +116,16 @@ cisco_switch01:
      - { description: 'tigon16', iface: 'GigabitEthernet5/0/7', iface_mode: 'access', vlan: '20' }
      - { description: 'tigon17', iface: 'GigabitEthernet5/0/8', iface_mode: 'access', vlan: '90' }
      - { description: 'uplink_port', iface: 'GigabitEthernet5/0/9', iface_mode: 'trunk', vlan: '', encapsulation: true }
+  vlan_interfaces:
+    - iface: vlan20
+      ip_address: 192.168.20.200
+      netmask: 255.255.255.0
+    - iface: vlan21
+      ip_address: 192.168.21.254
+      netmask: 255.255.255.0
+      ip_helper_address:
+        - 192.168.20.1
+        - 192.168.20.5
 
 mlx_switch01:
   vlans:

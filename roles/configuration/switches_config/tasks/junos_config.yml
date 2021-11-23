@@ -55,6 +55,7 @@
         unit: 0
         state: present
       loop: "{{ switch_vars.interfaces }}"
+      when: "'interfaces' in switch_vars"
 
     - name: Set MTU value on the interface
       junos_interface:
@@ -112,6 +113,21 @@
                  subelements('interfaces', 'skip_missing=True') }}"
           when: item.0.vlan is defined and item.0.interfaces is defined
       when: switch_vars.igmp_snooping is defined
+
+    - name: Configure Layer3(irb) Interfaces
+      block:
+        - name: Ensure irb Interfae is configured
+          junos_l3_interface:
+            name: irb
+            unit: "{{ item['unit'] }}"
+            ipv4: "{{ item['ipv4_address'] }}"
+          loop: "{{ switch_vars['layer3_interfaces'] }}"
+        - name: Assign irb Interface To VLAN Interface
+          junos_vlan:
+            name: "{{ item['vlan_interface'] }}"
+            l3_interface: "irb.{{ item['unit'] }}"
+          loop: "{{ switch_vars['layer3_interfaces'] }}"
+      when: "'layer3_interfaces' in switch_vars"
 
     - name: Save configuration
       junos_config:

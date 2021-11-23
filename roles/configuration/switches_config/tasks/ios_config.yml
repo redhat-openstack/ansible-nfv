@@ -5,12 +5,66 @@
     text: "{{ switch_banner }}"
     state: present
 
+- name: Configure DHCP Relay
+  ios_config:
+    lines:
+      - ip dhcp relay information option
+      - ip dhcp relay information {{ switch_vars['dhcp_relay'] }}
+  when: "'dhcp_relay' in switch_vars"
+
 - name: Set VLANs
   ios_vlan:
     name: "vlan{{ item }}"
     vlan_id: "{{ item }}"
     state: present
   loop: "{{ vlan_list }}"
+
+- name: Advanced VLAN Interface Configuration
+  block:
+    - name: Configure IP Address For Vlan Interface
+      ios_config:
+        lines: ip address {{ item['ip_address'] }} {{ item['netmask'] }}
+        parents: "interface {{ item['iface'] }}"
+      loop: "{{ switch_vars['vlan_interfaces'] }}"
+      when:
+        - "'ip_address' in item"
+        - "'netmask' in item"
+    - name: Configure IP Helper Address For Vlan Interface
+      ios_config:
+        lines: |
+          {%- set commands = [] -%}
+          {%- if item['ip_helper_address'] | type_debug == 'string' -%}
+          {{ commands.append('ip helper-address ' + item['ip_helper_address']) }}
+          {%- elif item['ip_helper_address'] | type_debug == 'list' -%}
+          {%- for helper in item['ip_helper_address'] -%}
+          {{ commands.append('ip helper-address ' + helper) }}
+          {%- endfor -%}
+          {%- endif -%}
+          {{ commands }}
+        parents: "interface {{ item['iface'] }}"
+      loop: "{{ switch_vars['vlan_interfaces'] }}"
+      when: "'ip_helper_address' in item"
+  when: "'vlan_interfaces' in switch_vars"
+
+- name: Configure route-maps
+  block:
+    # Native Ansible module 'ios_route_maps' shipped with collection
+    # 'cisco.ios' did not appear to work on tested Cisco switch
+    # (Catalyst 3750)
+    # We support a specific scenario for route-map
+    - name: Assign route-map To Interface
+      ios_config:
+        lines:
+          - match ip address {{ item['match_ip_address'] }}
+          - set ip next-hop {{ item['ip_next_hop'] }}
+        parents: "route-map {{ item['route_map_name'] }} permit 10"
+      loop: "{{ switch_vars['route_maps'] }}"
+    - name: Assign route-map To Interface
+      ios_config:
+        lines: ip policy route-map {{ item['route_map_name'] }}
+        parents: "interface {{ item['interface'] }}"
+      loop: "{{ switch_vars['route_maps'] }}"
+  when: "'route_maps' in switch_vars"
 
 - name: Set interface description and MTU
   ios_interface:
