@@ -1,0 +1,25 @@
+---
+
+- name: Tempest deployment and execution
+  hosts: "{{ tester | default('undercloud') }}"
+  gather_facts: False
+  tasks:
+
+  - name: Read old vms locations
+    command: cat /tmp/vms_locations
+    delegate_to: hypervisor
+    register: locations
+
+  - name: Migrate instances back to place
+    shell: |
+      source /home/stack/overcloudrc ;
+      openstack server migrate --live-migration \
+      --host "{{ item.split(':')[1] }}" --block-migration \
+      "{{ item.split(':')[0] }}" --wait
+    loop: "{{ locations.stdout_lines }}"
+
+  - name: Remove vms locations file
+    file:
+      state: absent
+      path: /tmp/vms_locations
+    delegate_to: hypervisor

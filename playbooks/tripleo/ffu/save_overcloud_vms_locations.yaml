@@ -1,0 +1,45 @@
+---
+- name: Tempest deployment and execution
+  hosts: "{{ tester | default('undercloud') }}"
+  gather_facts: False
+  tasks:
+
+  - name: Grab auth data from stackrc file and publish it as YAML
+    shell: |
+        source "{{ rc_file_path | default('/home/stack/overcloudrc') }}"
+        echo "
+        auth_url: $OS_AUTH_URL
+        username: $OS_USERNAME
+        password: $OS_PASSWORD
+        project_name: ${OS_PROJECT_NAME:-$OS_TENANT_NAME}
+        user_domain_name: ${OS_USER_DOMAIN_NAME:-''}
+        project_domain_name: ${OS_PROJECT_DOMAIN_NAME:-''}
+        "
+    register: creds
+
+  - name: Collect info about deployed instances
+    os_server_info:
+      auth: "{{ creds.stdout | from_yaml }}"
+      cloud: overcloud
+      server: instance*
+      filters:
+        vm_state: active
+      all_projects: yes
+    register: result
+
+  - name: Touch file for vm locations
+    file:
+      state: touch
+      path: /tmp/vms_locations
+      mode: '0664'
+    delegate_to: hypervisor
+
+  - name: save vm locations data to file
+    lineinfile:
+      path: /tmp/vms_locations
+      line: "{{ item.id }}:{{ item.properties['OS-EXT-SRV-ATTR:host'] }}"
+      owner: stack
+      group: stack
+      mode: '0644'
+    loop: "{{ result.openstack_servers }}"
+    delegate_to: hypervisor
