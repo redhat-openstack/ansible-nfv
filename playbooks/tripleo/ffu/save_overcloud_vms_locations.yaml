@@ -1,0 +1,31 @@
+---
+- name: Tempest deployment and execution
+  hosts: "{{ tester | default('undercloud') }}"
+  gather_facts: False
+  tasks:
+
+  - name: Collect info about deployed instances
+    os_server_info:
+      cloud: overcloud
+      server: instance*
+      filters:
+        vm_state: active
+      all_projects: yes
+    register: result
+
+  - name: Touch file for vm locations
+    file:
+      state: touch
+      path: /tmp/vms_locations
+      mode: '0664'
+    delegate_to: hypervisor
+
+  - name: save vm locations data to file
+    lineinfile:
+      path: /tmp/vms_locations
+      line: "{{ item.id }}:{{ item.properties['OS-EXT-SRV-ATTR:host'] }}"
+      owner: stack
+      group: stack
+      mode: '0644'
+    loop: "{{ result.openstack_servers }}"
+    delegate_to: hypervisor
