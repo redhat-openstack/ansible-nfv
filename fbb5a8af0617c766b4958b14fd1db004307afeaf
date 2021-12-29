@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "de729de1_573106ad",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2021-12-29T15:04:35Z",
+      "side": 1,
+      "message": "§§",
+      "revId": "fbb5a8af0617c766b4958b14fd1db004307afeaf",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9191f032_2fa13565",
+        "filename": "playbooks/tripleo/ffu/migrate_back.yaml",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2021-12-29T15:04:35Z",
+      "side": 1,
+      "message": "I am not sure what pirates mean in this context.\nAm I missing something?",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 11
+      },
+      "revId": "fbb5a8af0617c766b4958b14fd1db004307afeaf",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
