@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "93b5e7c4_bd9662e8",
+        "filename": "playbooks/tripleo/ffu/migrate_back.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2021-12-30T10:29:22Z",
+      "side": 1,
+      "message": "slurp returns it as base64 which requires decoding it back, it just seemed easier to read the file, also this allows to use it as lines",
+      "parentUuid": "47719371_8e7769e4",
+      "range": {
+        "startLine": 9,
+        "startChar": 4,
+        "endLine": 9,
+        "endChar": 11
+      },
+      "revId": "e5bf3e2973ccbe56dfa37a5aa10d3bf65efa2c22",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "f6c97a23_bb3c08e4",
         "filename": "playbooks/tripleo/ffu/migrate_back.yaml",
         "patchSetId": 3
@@ -37,6 +61,30 @@
       "writtenOn": "2021-12-30T09:58:26Z",
       "side": 1,
       "message": "Consider using --os-cloud within the \"openstack...\" command.\n\nhttps://github.com/redhat-openstack/ansible-nfv/blob/master/roles/post_install/openstack_tasks/tasks/main.yml#L36",
+      "range": {
+        "startLine": 15,
+        "startChar": 6,
+        "endLine": 15,
+        "endChar": 16
+      },
+      "revId": "e5bf3e2973ccbe56dfa37a5aa10d3bf65efa2c22",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "903ed6a7_07f8221b",
+        "filename": "playbooks/tripleo/ffu/migrate_back.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2021-12-30T10:29:22Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "f6c97a23_bb3c08e4",
       "range": {
         "startLine": 15,
         "startChar": 6,
@@ -83,6 +131,30 @@
       "writtenOn": "2021-12-30T09:58:26Z",
       "side": 1,
       "message": "You can combine both these tasks by using the \"copy\" module with the \"context\" parameter.\n\nhttps://github.com/redhat-openstack/ansible-nfv/blob/master/playbooks/tripleo/post_install/overcloud_repo_install.yml#L23-L30",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 9
+      },
+      "revId": "e5bf3e2973ccbe56dfa37a5aa10d3bf65efa2c22",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c18f5736_b1e22a94",
+        "filename": "playbooks/tripleo/ffu/save_overcloud_vms_locations.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2021-12-30T10:29:22Z",
+      "side": 1,
+      "message": "correct but I think this way the loop will be problematic because it will run over the content each itteration instead of having lines",
+      "parentUuid": "3724b4d9_554bd6d3",
       "range": {
         "startLine": 30,
         "startChar": 0,
