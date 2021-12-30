@@ -118,6 +118,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "0af9f7cb_efe3a1cb",
+        "filename": "playbooks/tripleo/ffu/save_overcloud_vms_locations.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2021-12-30T14:31:27Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "bf913fe0_b1e9a370",
+      "range": {
+        "startLine": 22,
+        "startChar": 6,
+        "endLine": 23,
+        "endChar": 22
+      },
+      "revId": "e5bf3e2973ccbe56dfa37a5aa10d3bf65efa2c22",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "3724b4d9_554bd6d3",
