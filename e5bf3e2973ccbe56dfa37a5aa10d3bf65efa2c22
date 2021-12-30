@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "47719371_8e7769e4",
+        "filename": "playbooks/tripleo/ffu/migrate_back.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-12-30T09:58:26Z",
+      "side": 1,
+      "message": "I would recommend to use the \"slurp\" module to read the file.\nSee example below:\nhttps://github.com/redhat-openstack/ansible-nfv/blob/master/playbooks/tripleo/post_install/overcloud_repo_install.yml#L12",
+      "range": {
+        "startLine": 9,
+        "startChar": 4,
+        "endLine": 9,
+        "endChar": 11
+      },
+      "revId": "e5bf3e2973ccbe56dfa37a5aa10d3bf65efa2c22",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "f6c97a23_bb3c08e4",
+        "filename": "playbooks/tripleo/ffu/migrate_back.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-12-30T09:58:26Z",
+      "side": 1,
+      "message": "Consider using --os-cloud within the \"openstack...\" command.\n\nhttps://github.com/redhat-openstack/ansible-nfv/blob/master/roles/post_install/openstack_tasks/tasks/main.yml#L36",
+      "range": {
+        "startLine": 15,
+        "startChar": 6,
+        "endLine": 15,
+        "endChar": 16
+      },
+      "revId": "e5bf3e2973ccbe56dfa37a5aa10d3bf65efa2c22",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "bf913fe0_b1e9a370",
+        "filename": "playbooks/tripleo/ffu/save_overcloud_vms_locations.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-12-30T09:58:26Z",
+      "side": 1,
+      "message": "Why are you using the \"auth\" parameter, when \"cloud\" parameter is used?\nUse the \"cloud\" and you will not need the above task - \"Grab...\".",
+      "range": {
+        "startLine": 22,
+        "startChar": 6,
+        "endLine": 23,
+        "endChar": 22
+      },
+      "revId": "e5bf3e2973ccbe56dfa37a5aa10d3bf65efa2c22",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3724b4d9_554bd6d3",
+        "filename": "playbooks/tripleo/ffu/save_overcloud_vms_locations.yaml",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1008672
+      },
+      "writtenOn": "2021-12-30T09:58:26Z",
+      "side": 1,
+      "message": "You can combine both these tasks by using the \"copy\" module with the \"context\" parameter.\n\nhttps://github.com/redhat-openstack/ansible-nfv/blob/master/playbooks/tripleo/post_install/overcloud_repo_install.yml#L23-L30",
+      "range": {
+        "startLine": 30,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 9
+      },
+      "revId": "e5bf3e2973ccbe56dfa37a5aa10d3bf65efa2c22",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
