@@ -2,10 +2,14 @@ use_default_rules: true
 parseable: true
 quiet: true
 skip_list:
-  - '204'
-  - '301'
-  - '306'
-  - '403'
-  - '405'
-  - '503'
+  - 'unnamed-task' # We don't mind having tasks that are unnamed
+  - 'no-changed-when' # We don't mind that there will be tasks that will always return ok
+  - 'no-handler' # We don't mind that we're running tasks based if a previous task returned changed
+  - 'package-latest' # We don't mind installing latest packages
 verbosity: 1
+exclude_paths:
+  # TODO(vkhitrin): Resolve syntax-check error that is occuring because we're
+  # accessing an entry in a list under hosts key.
+  # hosts: group[0] <-- This is not encouraged but there is no alternative.
+  - playbooks/packet_gen/iperf/performance_scenario.yml
+   
