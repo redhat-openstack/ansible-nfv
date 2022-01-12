@@ -2,8 +2,12 @@
 - name: Destroy
   hosts: "{{ osp_tasks_host | default('undercloud') }}"
   gather_facts: false
-  vars_files:
-    - play_vars.yml
-  roles:
-    - role: openstack_tasks
-      resource_state: absent
+  tasks:
+    - name: Include Play Variables
+      include_vars:
+        dir: vars
+    - name: Import openstack_tasks Role
+      vars:
+        resource_state: absent
+      import_role:
+        name: roles/post_install/openstack_tasks

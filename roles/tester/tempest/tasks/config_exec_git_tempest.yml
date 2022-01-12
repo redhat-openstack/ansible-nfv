@@ -54,7 +54,7 @@
     glance_stores: "{{ images[0]['glance_stores'] }}"
     cloud: "{{ images[0]['cloud_name'] | default(cloud_name) }}"
   import_role:
-    name: post_install/openstack_tasks
+    name: roles/post_install/openstack_tasks
     tasks_from: copy_image_to_glance_stores
   when: "'glance_stores' in images[0]"
 
