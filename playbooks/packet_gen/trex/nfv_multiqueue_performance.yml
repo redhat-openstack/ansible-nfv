@@ -1,6 +1,6 @@
 ---
 - name: Common preparation
-  hosts: "{{ dut_compute }}"
+  hosts: "{{ dut_compute | default(omit) }}"
   become: true
   tasks:
     - name: Set directories path
@@ -77,7 +77,7 @@
         recurse: True
 
 - name: Collect and update configs
-  hosts: "{{ dut_compute }}"
+  hosts: "{{ dut_compute | default(omit) }}"
   become: true
   roles:
     - name: Collect ovs configs

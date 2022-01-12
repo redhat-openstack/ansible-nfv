@@ -2,9 +2,10 @@
 - name: Verify
   hosts: undercloud
   gather_facts: false
-  vars_files:
-    - play_vars.yml
   tasks:
+    - name: Include Play Variables
+      include_vars:
+        dir: vars
     # User test
     - name: Fetch user state
       os_user_facts:
@@ -47,17 +48,15 @@
           - "openstack_image.name == images[0].name"
 
     # Security group test
-    - name: Fetch security group state
-      shell: >
-        openstack --os-cloud "{{ cloud_name }}" security group list
-        -c Name -f value | grep "{{ security_groups[0].name }}"
+    - name: Fetch security group state # noqa risky-shell-pipe
+      shell: "openstack --os-cloud {{ cloud_name }} security group list -c Name -f value | grep {{ security_groups[0].name }}"
       register: os_secgroup
       changed_when: false
 
     - name: Fetch security group rules
       command: >
-        openstack --os-cloud "{{ cloud_name }}" security group show
-        "{{ security_groups[0].name }}" -f json --noindent
+        openstack --os-cloud {{ cloud_name }} security group show
+        {{ security_groups[0].name }} -f json --noindent
       register: os_secgroup_rules
       changed_when: false
 
@@ -97,10 +96,8 @@
           - "secgroup_icmp is defined"
 
     # Keypair test
-    - name: Fetch keypair state
-      shell: >
-        openstack --os-cloud "{{ cloud_name }}" keypair list
-        -c Name -f value | grep "{{ keypairs[0].name }}"
+    - name: Fetch keypair state # noqa risky-shell-pipe
+      shell: "openstack --os-cloud {{ cloud_name }} keypair list -c Name -f value | grep {{ keypairs[0].name }}"
       register: os_keypair
       changed_when: false
 
