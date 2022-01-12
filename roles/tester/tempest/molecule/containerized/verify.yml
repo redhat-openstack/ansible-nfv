@@ -72,7 +72,7 @@
       register: unprivileged_ping
       changed_when: false
 
-    - name: Verify enabled unprivileged ping
+    - name: Verify enabled unprivileged ping # noqa no-tabs
       assert:
         that: "'net.ipv4.ping_group_range = 0\t2000000' in unprivileged_ping.stdout_lines"
 
