@@ -2,9 +2,10 @@
 - name: Verify
   hosts: undercloud
   gather_facts: false
-  vars_files:
-    - play_vars.yml
   tasks:
+    - name: Include Play Variables
+      include_vars:
+        dir: vars
     # User test
     - name: Fetch user state
       os_user_facts:
@@ -49,6 +50,7 @@
     # Security group test
     - name: Fetch security group state
       shell: >
+        set -e -o pipefail
         openstack --os-cloud "{{ cloud_name }}" security group list
         -c Name -f value | grep "{{ security_groups[0].name }}"
       register: os_secgroup
@@ -99,6 +101,7 @@
     # Keypair test
     - name: Fetch keypair state
       shell: >
+        set -e -o pipefail
         openstack --os-cloud "{{ cloud_name }}" keypair list
         -c Name -f value | grep "{{ keypairs[0].name }}"
       register: os_keypair
