@@ -1,6 +1,6 @@
 ---
 - name: Guest instances limit
-  hosts: "{{ dut_compute }}"
+  hosts: "{{ dut_compute | default(omit) }}"
   gather_facts: False
   roles:
     - roles/post_install/dynamic_instances_count
