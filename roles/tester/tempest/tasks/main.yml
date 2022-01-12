@@ -13,7 +13,7 @@
 
 - name: Check OSP version
   include_role:
-    name: discover_osp_version
+    name: roles/discover_osp_version
 
 - name: Prepare containerized tempest
   include_tasks: prep_container_tempest.yml
@@ -122,7 +122,9 @@
     path: "{{ tempest_dir }}/tempest.xml"
     state: absent
 
-- name: Generate results report in a JunitXML format
+  # This task returns STDERR but we're still proceeding with it...
+  # We should consider refactoring this logic.
+- name: Generate results report in a JunitXML format # noqa risky-shell-pipe
   tags: run_tempest_test
   shell: |
     {% if not containerized|bool %}

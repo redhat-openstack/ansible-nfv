@@ -3,7 +3,7 @@
   hosts: undercloud
   gather_facts: false
   roles:
-    - role: tempest
+    - role: roles/tester/tempest
       containerized: false
       external_net_id: false
       image_for_tempest: false
