@@ -36,12 +36,12 @@
       set_fact:
         iperf_server_ip: "{{ openstack_servers[0]['addresses'][iperf_network][0]['addr'] }}"
 
-- hosts: "{{ dut_compute }}"
+- hosts: "{{ dut_compute | default(omit) }}"
   become: true
   roles:
     - role: roles/packet_gen/trex/compute_tuning
 
-- hosts: "{{ dut_group }}"
+- hosts: "{{ dut_group | default(omit) }}"
   become: true
   roles:
     - role: tuning/cpu_pinning_huge_pages

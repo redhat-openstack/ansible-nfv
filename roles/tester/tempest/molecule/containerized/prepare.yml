@@ -10,8 +10,9 @@
     inventory_generated: "{{ lookup('env', 'TEST_INV_GENERATED') }}"
   roles:
     - role: post_install/tripleo_inventory
-      host: "{{ env_host }}"
-      ssh_key: "{{ env_ssh_key }}"
-      setup_type: "{{ env_type }}"
-      inv_path: "{{ lookup('env', 'PWD') }}/molecule/containerized"
-      when: not inventory_generated
+      vars:
+        host: "{{ env_host }}"
+        ssh_key: "{{ env_ssh_key }}"
+        setup_type: "{{ env_type }}"
+        inv_path: "{{ lookup('env', 'PWD') }}/molecule/containerized"
+        when: not inventory_generated
