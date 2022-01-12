@@ -2,10 +2,10 @@
 - name: Converge
   hosts: all
   gather_facts: false
-  roles:
-    - role: discover_osp_version
-
   tasks:
+    - name: Discover OSP Version
+      import_role:
+        name: discover_osp_version
     - name: Store versions vars within file
       copy:
         content: "{{ item.0 }}"
