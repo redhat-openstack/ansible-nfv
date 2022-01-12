@@ -13,7 +13,7 @@
 
 - name: Check OSP version
   include_role:
-    name: discover_osp_version
+    name: roles/discover_osp_version
 
 - name: Prepare containerized tempest
   include_tasks: prep_container_tempest.yml
@@ -125,6 +125,7 @@
 - name: Generate results report in a JunitXML format
   tags: run_tempest_test
   shell: |
+    set -e -o pipefail
     {% if not containerized|bool %}
       source {{ tempest_dir }}/venv/bin/activate
       {% endif %}
