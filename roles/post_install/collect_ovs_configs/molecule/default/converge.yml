@@ -3,5 +3,5 @@
   hosts: all
   gather_facts: false
   roles:
-    - role: collect_ovs_configs
+    - role: roles/post_install/collect_ovs_configs
       get_pmd_rxq: false

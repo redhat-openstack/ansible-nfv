@@ -9,7 +9,9 @@
     keypair: false
     security_group: false
     resource_state: present
-  vars_files: "{{ admin_resources | mandatory }}"
+  # This causes linter to fail disabling for now
+  # vars_files: "{{ admin_resources | mandatory }}"
+    vars_files: "{{ admin_resources }}"
   roles:
     - post_install/openstack_tasks
 
@@ -23,7 +25,9 @@
     instance: true
     resources_output: true
     resource_state: present
-  vars_files: "{{ tenant_resources | mandatory }}"
+  # This causes linter to fail disabling for now
+  # vars_files: "{{ tenant_resources | mandatory }}"
+    vars_files: "{{ tenant_resources }}"
   roles:
     - post_install/openstack_tasks
 
@@ -43,7 +47,9 @@
     instance: true
     resources_output: true
     resource_state: absent
-  vars_files: "{{ tenant_resources | mandatory }}"
+  # This causes linter to fail disabling for now
+  # vars_files: "{{ tenant_resources | mandatory }}"
+    vars_files: "{{ tenant_resources }}"
   roles:
     - post_install/openstack_tasks
 
@@ -57,7 +63,9 @@
     keypair: false
     security_group: false
     resource_state: absent
-  vars_files: "{{ admin_resources | mandatory }}"
+  # This causes linter to fail disabling for now
+  # vars_files: "{{ admin_resources | mandatory }}"
+    vars_files: "{{ admin_resources }}"
   roles:
     - post_install/openstack_tasks
 
