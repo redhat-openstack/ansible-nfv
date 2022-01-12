@@ -4,13 +4,13 @@ driver:
 lint: |
   set -e
   yamllint -c ../../../.yamllint .
-  ansible-lint -c ../../../.ansible-lint
 platforms:
   - name: hypervisor
 provisioner:
   name: ansible
   env:
     ANSIBLE_LIBRARY: ../../../../../library
+    ANSIBLE_ROLES_PATH: ../../../../
   inventory:
     links:
       hosts: ${MOLECULE_INVENTORY_PATH:-inventory}
