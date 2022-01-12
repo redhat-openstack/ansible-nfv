@@ -58,6 +58,7 @@
 
 - name: Get Cloud variables
   shell: |
+    set -e -o pipefail
     for key in $(set | awk '{FS="="} /^OS_/ {print $1}'); do unset $key; done
     source {{ item['value'] }}
     echo -n "{{ item['key'] }}: \

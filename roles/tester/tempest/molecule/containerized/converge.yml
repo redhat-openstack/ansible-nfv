@@ -2,10 +2,13 @@
 - name: Converge
   hosts: undercloud
   gather_facts: false
-  roles:
-    - role: tempest
-      containerized: true
-      external_net_id: false
-      image_for_tempest: false
-      generate_accounts: true
-      tests_regex: '^nfv_tempest_plugin(.*basic)'
+  tasks:
+    - name: Import tempest Role
+      vars:
+        containerized: true
+        external_net_id: false
+        image_for_tempest: false
+        generate_accounts: true
+        tests_regex: '^nfv_tempest_plugin(.*basic)'
+      import_role:
+        name: sroles/tester/tempest
