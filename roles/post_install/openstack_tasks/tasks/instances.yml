@@ -9,6 +9,7 @@
     cloud: "{{ item.cloud_name | default(cloud_name) }}"
     name: "{{ item.name }}"
     image: "{{ item.image | default(images[0].name) }}"
+    availability_zone: "{{ item.availability_zone | default(omit) }}"
     flavor: "{{ item.flavor | default(flavors[0].name) }}"
     volumes: "{{ item['volumes'] | default(omit) }}"
     key_name: "{{ item.key_name | default(omit) }}"
