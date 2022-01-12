@@ -4,7 +4,6 @@ driver:
 lint: |
   set -e
   yamllint -c ../../../.yamllint .
-  ansible-lint -c ../../../.ansible-lint
 platforms:
   - name: instance
     image: "geerlingguy/docker-${MOLECULE_DISTRO:-centos8}-ansible:latest"
@@ -17,6 +16,8 @@ platforms:
     privileged: true
 provisioner:
   name: ansible
+  env:
+    ANSIBLE_ROLES_PATH: ../../../../../
 verifier:
   name: ansible
 scenario:
