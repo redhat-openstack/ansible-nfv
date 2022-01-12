@@ -125,6 +125,7 @@
 - name: Generate results report in a JunitXML format
   tags: run_tempest_test
   shell: |
+    set -e -o pipefail
     {% if not containerized|bool %}
       source {{ tempest_dir }}/venv/bin/activate
       {% endif %}
