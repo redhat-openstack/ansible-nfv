@@ -53,7 +53,7 @@
     testpmd: "{{ multiqueue4.testpmd }}"
 
 - name: Copy computes log directories to undercloud
-  hosts: "{{ dut_compute }}"
+  hosts: "{{ dut_compute | default(omit) }}"
   pre_tasks:
     - name: Copy multiqueue configuration log directories
       synchronize:
