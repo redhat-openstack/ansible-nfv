@@ -28,8 +28,32 @@
       - 'python-subunit'
       - 'ipdb'
       - 'junitxml'
+      - 'git-review'
     virtualenv: "{{ tempest_venv }}"
     state: latest
+
+- name: Download patches for tempest repos
+  shell:
+    chdir: "{{ tempest_dir }}/{{ item.0.name }}"
+    cmd: |
+      source "{{ tempest_venv }}"/bin/activate
+      git remote add gerrit "{{ item.0.url_gerrit }}"
+      if [[ "{{ item.1.patchsets }}" = *[[:space:]]* ]]; then
+        git config --global user.email "ansible-nfv@noreply.local"
+        git config --global user.name "ansible-nfv"
+        for a_patch in "{{ item.1.patchsets }}"; do
+          git review -x $a_patch
+        done
+      else
+        git review -d "{{ item.1.patchsets }}"
+      fi
+  with_nested:
+    - "{{ tempest_repos }}"
+    - "{{tempest_patchsets}}"
+  when:
+    - tempest_patchsets is defined
+    - item.0.name == item.1.name
+    - item.0.url_gerrit is defined
 
 - name: Install repos in a virtual environment
   pip:
