@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "20154d47_7a22d7cd",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1007976
+      },
+      "writtenOn": "2022-01-19T06:29:41Z",
+      "side": 1,
+      "message": "This is failing on ansible-lint - could not figure out var-spacing issue in the file roles/tester/tempest/tasks/prep_git_tempest.yml:35: var-spacing",
+      "revId": "d804a6dfea80c6470eef8ebc8e00f8c2517b7c76",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
