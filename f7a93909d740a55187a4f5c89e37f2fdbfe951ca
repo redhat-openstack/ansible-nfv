@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "0b08a7c7_97b1295c",
+        "filename": "roles/tester/tempest/tasks/prep_git_tempest.yml",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2022-01-20T14:55:26Z",
+      "side": 1,
+      "message": "I think this should be outside the if scope so in both cases of several patches and one patch it will have email and name configured",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 51
+      },
+      "revId": "f7a93909d740a55187a4f5c89e37f2fdbfe951ca",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
