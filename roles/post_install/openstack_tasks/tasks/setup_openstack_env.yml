@@ -64,6 +64,7 @@
                {%- endif -%}"
   pip:
     name: "{{ packages }}"
+  become: true
 
 - name: Install create virtualenv and openstacksdk packages
   pip:
