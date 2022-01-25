@@ -33,6 +33,24 @@
       "message": "I wonder how we did not hit this issue until now.\nDid something change?",
       "revId": "75b6a448a1703fc66a2dab68390dda5640d57490",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "a91706de_84a17bf3",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1019727
+      },
+      "writtenOn": "2022-01-25T09:02:57Z",
+      "side": 1,
+      "message": "I cannot say why we did not see this issue before. I found the problem when building a job in my personal gate (https://vm-10-0-110-61.hosted.upshift.rdu2.redhat.com:8443/job/DFG-nfv-16.2-director-3cont-2comp-ipv4-geneve-ovn-dpdk-sriov-ctlplane-dataplane-bonding-hybrid/13/consoleFull):\n\n```\nTASK [post_install/openstack_tasks : Install virtualenv module] ****************\ntask path: /var/jenkins_home/workspace/DFG-nfv-16.2-director-3cont-2comp-ipv4-geneve-ovn-dpdk-sriov-ctlplane-dataplane-bonding-hybrid/ansible-nfv/roles/post_install/openstack_tasks/tasks/setup_openstack_env.yml:58\nfatal: [undercloud-0]: FAILED! \u003d\u003e {\n    \"changed\": false,\n    \"cmd\": [\n        \"/usr/bin/pip3\",\n        \"install\",\n        \"setuptools\",\n        \"virtualenv\"\n    ]\n}\n```\n\nI believed that the problem was that modules have to be installed system wide so I tested with `become: true` and works.",
+      "parentUuid": "9bae9a38_808f9bba",
+      "revId": "75b6a448a1703fc66a2dab68390dda5640d57490",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
