@@ -36,6 +36,7 @@ tempest_repos:
         branch: '2.5.0'
   - name: nfv-tempest-plugin
     url: https://github.com/redhat-openstack/nfv-tempest-plugin
+    url_gerrit: https://review.gerrithub.io/redhat-openstack/nfv-tempest-plugin
     version:
       10:
         branch: 'v1.29.0'
