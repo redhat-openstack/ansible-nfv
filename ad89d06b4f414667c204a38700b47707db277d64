@@ -22,6 +22,30 @@
       },
       "revId": "ad89d06b4f414667c204a38700b47707db277d64",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "e3d350a4_b06444b2",
+        "filename": "roles/packet_gen/trex/multiqueue/files/multiqueue.py",
+        "patchSetId": 55
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1016373
+      },
+      "writtenOn": "2022-01-26T10:08:54Z",
+      "side": 1,
+      "message": "setup is the same than in performance, as you comment port0 -\u003e port1 and port1 -\u003e port0\nBut here it is related with packet generation\nIn one direction it would generate\nip1:port1 --\u003e ip2:port2\nIn the other direction it would generate\nip2:port2 --\u003e ip1:port1",
+      "parentUuid": "66ae8f12_b7e13e90",
+      "range": {
+        "startLine": 89,
+        "startChar": 10,
+        "endLine": 89,
+        "endChar": 19
+      },
+      "revId": "ad89d06b4f414667c204a38700b47707db277d64",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }

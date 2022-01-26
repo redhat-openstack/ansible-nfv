@@ -22,6 +22,30 @@
       },
       "revId": "dc9870746e2b9ec2e4ea5a0e0cf4e40ac45756c8",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b4d221bb_a0d07e28",
+        "filename": "playbooks/tripleo/tester/tempest.yml",
+        "patchSetId": 55
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1016373
+      },
+      "writtenOn": "2022-01-26T10:08:54Z",
+      "side": 0,
+      "message": "I removed from here because it is not used now. It is defined again https://review.gerrithub.io/c/redhat-openstack/ansible-nfv/+/527852/55/playbooks/tripleo/tester/tempest.yml#22 and used https://review.gerrithub.io/c/redhat-openstack/ansible-nfv/+/527852/55/playbooks/tripleo/tester/tempest.yml#29",
+      "parentUuid": "cf4dd1d6_30c00487",
+      "range": {
+        "startLine": 8,
+        "startChar": 3,
+        "endLine": 8,
+        "endChar": 25
+      },
+      "revId": "dc9870746e2b9ec2e4ea5a0e0cf4e40ac45756c8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
