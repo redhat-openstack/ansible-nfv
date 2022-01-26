@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "66ae8f12_b7e13e90",
+        "filename": "roles/packet_gen/trex/multiqueue/files/multiqueue.py",
+        "patchSetId": 55
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2022-01-26T09:56:04Z",
+      "side": 1,
+      "message": "Does that mean port0 -\u003e port1 and port1 -\u003e port0?",
+      "range": {
+        "startLine": 89,
+        "startChar": 10,
+        "endLine": 89,
+        "endChar": 19
+      },
+      "revId": "ad89d06b4f414667c204a38700b47707db277d64",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}

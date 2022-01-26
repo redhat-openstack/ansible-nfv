@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "cf4dd1d6_30c00487",
+        "filename": "playbooks/tripleo/tester/tempest.yml",
+        "patchSetId": 55
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2022-01-26T09:56:04Z",
+      "side": 0,
+      "message": "By default we would want to keep resources now after Tempest execution?",
+      "range": {
+        "startLine": 8,
+        "startChar": 3,
+        "endLine": 8,
+        "endChar": 25
+      },
+      "revId": "dc9870746e2b9ec2e4ea5a0e0cf4e40ac45756c8",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
