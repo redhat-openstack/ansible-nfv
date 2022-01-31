@@ -3,6 +3,144 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "cf0563ea_2d0190c9",
+        "filename": "playbooks/tripleo/multiqueue/multiqueue_learning.yml",
+        "patchSetId": 55
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2022-01-31T16:43:52Z",
+      "side": 1,
+      "message": "I think you should combine the parts you can to have a more readable playbook",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 17
+      },
+      "revId": "ad89d06b4f414667c204a38700b47707db277d64",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c9a25f0b_2fe59f6b",
+        "filename": "roles/packet_gen/trex/multiqueue/files/multiqueue.py",
+        "patchSetId": 55
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2022-01-31T16:43:52Z",
+      "side": 1,
+      "message": "importing sys twice",
+      "range": {
+        "startLine": 2,
+        "startChar": 3,
+        "endLine": 3,
+        "endChar": 10
+      },
+      "revId": "ad89d06b4f414667c204a38700b47707db277d64",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2065b7c0_fe230d64",
+        "filename": "roles/packet_gen/trex/multiqueue/files/multiqueue.py",
+        "patchSetId": 55
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2022-01-31T16:43:52Z",
+      "side": 1,
+      "message": "import os twice",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 9
+      },
+      "revId": "ad89d06b4f414667c204a38700b47707db277d64",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2b17183d_3f054d9f",
+        "filename": "roles/packet_gen/trex/multiqueue/files/multiqueue.py",
+        "patchSetId": 55
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2022-01-31T16:43:52Z",
+      "side": 1,
+      "message": "why do you import sleep separately if you import time?",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 7
+      },
+      "revId": "ad89d06b4f414667c204a38700b47707db277d64",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "55b3bff3_a5b3cfda",
+        "filename": "roles/packet_gen/trex/multiqueue/files/multiqueue.py",
+        "patchSetId": 55
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2022-01-31T16:43:52Z",
+      "side": 1,
+      "message": "please use with open syntax:\n\nwith open(\u0027/etc/trex_cfg.yaml\u0027, \u0027r\u0027) as stream:\n    cfg_dict \u003d yaml.safe_load(stream)",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 17
+      },
+      "revId": "ad89d06b4f414667c204a38700b47707db277d64",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "410fa08b_1c81d518",
+        "filename": "roles/packet_gen/trex/multiqueue/files/multiqueue.py",
+        "patchSetId": 55
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2022-01-31T16:43:52Z",
+      "side": 1,
+      "message": "I think enumerate would be better here:\n\nfor index, val in enumerate(cfg_dict[0][\u0027port_info\u0027]):\n    src_mac \u003d val[\u0027src_mac\u0027]\n    dst_mac \u003d val[\u0027dest_mac\u0027]\n    ...",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 19
+      },
+      "revId": "ad89d06b4f414667c204a38700b47707db277d64",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "66ae8f12_b7e13e90",
         "filename": "roles/packet_gen/trex/multiqueue/files/multiqueue.py",
         "patchSetId": 55
@@ -66,6 +204,52 @@
         "startLine": 89,
         "startChar": 10,
         "endLine": 89,
+        "endChar": 19
+      },
+      "revId": "ad89d06b4f414667c204a38700b47707db277d64",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "5c36818c_403a7e52",
+        "filename": "roles/packet_gen/trex/multiqueue/files/multiqueue.py",
+        "patchSetId": 55
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2022-01-31T16:43:52Z",
+      "side": 1,
+      "message": "please give x,y,z meaningful names",
+      "range": {
+        "startLine": 195,
+        "startChar": 16,
+        "endLine": 197,
+        "endChar": 70
+      },
+      "revId": "ad89d06b4f414667c204a38700b47707db277d64",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "d471ed7e_745ef1c9",
+        "filename": "roles/packet_gen/trex/multiqueue/files/multiqueue.py",
+        "patchSetId": 55
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2022-01-31T16:43:52Z",
+      "side": 1,
+      "message": "I think this section should be in a main function",
+      "range": {
+        "startLine": 402,
+        "startChar": 5,
+        "endLine": 455,
         "endChar": 19
       },
       "revId": "ad89d06b4f414667c204a38700b47707db277d64",
