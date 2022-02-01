@@ -24,6 +24,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "4f2d831d_1c6aea6d",
+        "filename": "playbooks/tripleo/multiqueue/multiqueue_learning.yml",
+        "patchSetId": 55
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1016373
+      },
+      "writtenOn": "2022-02-01T17:04:30Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "cf0563ea_2d0190c9",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 17
+      },
+      "revId": "ad89d06b4f414667c204a38700b47707db277d64",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "c9a25f0b_2fe59f6b",
@@ -37,6 +61,30 @@
       "writtenOn": "2022-01-31T16:43:52Z",
       "side": 1,
       "message": "importing sys twice",
+      "range": {
+        "startLine": 2,
+        "startChar": 3,
+        "endLine": 3,
+        "endChar": 10
+      },
+      "revId": "ad89d06b4f414667c204a38700b47707db277d64",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "64889df0_e091c79d",
+        "filename": "roles/packet_gen/trex/multiqueue/files/multiqueue.py",
+        "patchSetId": 55
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1016373
+      },
+      "writtenOn": "2022-02-01T17:04:30Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "c9a25f0b_2fe59f6b",
       "range": {
         "startLine": 2,
         "startChar": 3,
@@ -70,6 +118,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc517d21_1bab6686",
+        "filename": "roles/packet_gen/trex/multiqueue/files/multiqueue.py",
+        "patchSetId": 55
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1016373
+      },
+      "writtenOn": "2022-02-01T17:04:30Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2065b7c0_fe230d64",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 9
+      },
+      "revId": "ad89d06b4f414667c204a38700b47707db277d64",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "2b17183d_3f054d9f",
@@ -83,6 +155,30 @@
       "writtenOn": "2022-01-31T16:43:52Z",
       "side": 1,
       "message": "why do you import sleep separately if you import time?",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 7
+      },
+      "revId": "ad89d06b4f414667c204a38700b47707db277d64",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ed821621_90dcad6b",
+        "filename": "roles/packet_gen/trex/multiqueue/files/multiqueue.py",
+        "patchSetId": 55
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1016373
+      },
+      "writtenOn": "2022-02-01T17:04:30Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "2b17183d_3f054d9f",
       "range": {
         "startLine": 17,
         "startChar": 0,
@@ -116,6 +212,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "11202e2a_88a40f1f",
+        "filename": "roles/packet_gen/trex/multiqueue/files/multiqueue.py",
+        "patchSetId": 55
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1016373
+      },
+      "writtenOn": "2022-02-01T17:04:30Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "55b3bff3_a5b3cfda",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 17
+      },
+      "revId": "ad89d06b4f414667c204a38700b47707db277d64",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "410fa08b_1c81d518",
@@ -129,6 +249,30 @@
       "writtenOn": "2022-01-31T16:43:52Z",
       "side": 1,
       "message": "I think enumerate would be better here:\n\nfor index, val in enumerate(cfg_dict[0][\u0027port_info\u0027]):\n    src_mac \u003d val[\u0027src_mac\u0027]\n    dst_mac \u003d val[\u0027dest_mac\u0027]\n    ...",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 19
+      },
+      "revId": "ad89d06b4f414667c204a38700b47707db277d64",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "ae0db3e6_7deeaea0",
+        "filename": "roles/packet_gen/trex/multiqueue/files/multiqueue.py",
+        "patchSetId": 55
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 1016373
+      },
+      "writtenOn": "2022-02-01T17:04:30Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "410fa08b_1c81d518",
       "range": {
         "startLine": 57,
         "startChar": 0,
@@ -233,6 +377,30 @@
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     },
     {
+      "unresolved": false,
+      "key": {
+        "uuid": "f2b35a91_737c9f7b",
+        "filename": "roles/packet_gen/trex/multiqueue/files/multiqueue.py",
+        "patchSetId": 55
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 1016373
+      },
+      "writtenOn": "2022-02-01T17:04:30Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "5c36818c_403a7e52",
+      "range": {
+        "startLine": 195,
+        "startChar": 16,
+        "endLine": 197,
+        "endChar": 70
+      },
+      "revId": "ad89d06b4f414667c204a38700b47707db277d64",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
       "unresolved": true,
       "key": {
         "uuid": "d471ed7e_745ef1c9",
@@ -246,6 +414,30 @@
       "writtenOn": "2022-01-31T16:43:52Z",
       "side": 1,
       "message": "I think this section should be in a main function",
+      "range": {
+        "startLine": 402,
+        "startChar": 5,
+        "endLine": 455,
+        "endChar": 19
+      },
+      "revId": "ad89d06b4f414667c204a38700b47707db277d64",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f5aa6b7d_71e97212",
+        "filename": "roles/packet_gen/trex/multiqueue/files/multiqueue.py",
+        "patchSetId": 55
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 1016373
+      },
+      "writtenOn": "2022-02-01T17:04:30Z",
+      "side": 1,
+      "message": "Ack",
+      "parentUuid": "d471ed7e_745ef1c9",
       "range": {
         "startLine": 402,
         "startChar": 5,
