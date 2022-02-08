@@ -121,19 +121,7 @@
     - pmd_lb in ['ovs', 'user']
     - pmd_lb_pretest == True
 
-# TODO: Proper print function
-- name: Run Binary Search Script
-  shell: "{{ traffic_cmd }}"
-  register: perf_output
-  until: perf_output.rc == 0
-  retries: 3
-  delay: 10
-  ignore_errors: yes
-  failed_when: False
-  become: True
-
-- debug:
-    var: perf_output
+- include_tasks: binary_search_recursion.yml
 
 - name: Report PMD load balance status and stop it in DuT
   delegate_to: "{{ dut_compute if dut_compute else 'none' }}"
@@ -171,12 +159,6 @@
   when:
     - pmd_lb is defined
     - pmd_lb in ['ovs', 'user']
-
-- name: Save Binary Search Script Result To File
-  copy:
-    content: "{{ perf_output['stdout'] }}"
-    dest: "{{ binary_perf_log }}"
-  delegate_to: "{{ groups['undercloud'] | first }}"
 
 - name: Stop TestPMD On DuT
   shell: "tmux list-sessions -F '#S' | xargs -n1 tmux kill-session -t"
