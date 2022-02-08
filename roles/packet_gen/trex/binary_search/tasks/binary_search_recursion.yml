@@ -1,0 +1,50 @@
+- name: Group of tasks that are tightly coupled
+  vars:
+    binary_search_max_retries: "{{ 3 if binary_search_max_retries is undefined else binary_search_max_retries | int }}"
+    binary_search_retry_delay: "{{ 10 if binary_search_retry_delay is undefined else binary_search_retry_delay | int }}"
+  block:
+  - name: Increment the retry count
+    set_fact:
+      retry_count: "{{ 0 if retry_count is undefined else retry_count | int + 1 }}"
+
+  - name: Run Binary Search Script
+    shell: "{{ traffic_cmd }} > /tmp/binary_search_run.log &"
+    become: True
+    ignore_errors: yes
+    failed_when: False
+  
+  - name: Check binary_search status
+    command: grep -E "timeout|Great success|failed" /tmp/binary_search_run.log
+    register: binary_search_status
+    changed_when: no
+    until: perf_output.rc == 0
+    retries: 300
+    delay: 10
+    ignore_errors: yes
+    failed_when: False
+
+  - fail:
+      msg: "{{ binary_search_status }}"
+    when: binary_search_status.stdout.find('failed') != -1 or binary_search_status.stdout.find('timeout') != -1
+
+  rescue:
+    - fail:
+        msg: Binary search failed Maximum retries reached
+      when: retry_count | int == binary_search_max_retries | int
+
+    - debug:
+        msg: "Binary search failed, retrying"
+
+    - name: Sleep between retries
+      wait_for:
+        timeout: "{{ binary_search_retry_delay }}" # seconds
+      delegate_to: localhost
+      become: false
+
+    - include_tasks: binary_search_recursion.yml.yml
+
+- name: Fetch binary search log
+  fetch:
+    src: /tmp/binary_search_run.log
+    dest: ./binary_search_run.log
+    flat: yes
