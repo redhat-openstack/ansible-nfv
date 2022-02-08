@@ -118,19 +118,7 @@
     - pmd_lb in ['ovs', 'user']
     - pmd_lb_pretest == True
 
-# TODO: Proper print function
-- name: Run Binary Search Script
-  shell: "{{ traffic_cmd }}"
-  register: perf_output
-  until: perf_output.rc == 0
-  retries: 3
-  delay: 10
-  ignore_errors: yes
-  failed_when: False
-  become: True
-
-- debug:
-    var: perf_output
+- include_tasks: binary_search_recursion.yml
 
 - name: Report PMD load balance status and stop it in DuT
   delegate_to: "{{ dut_compute if dut_compute else 'none' }}"
