@@ -1,0 +1,51 @@
+- name: Group of tasks that are tightly coupled
+  vars:
+    binary_search_max_retries: "{{ 3 if binary_search_max_retries is undefined else binary_search_max_retries | int }}"
+    binary_search_retry_delay: "{{ 10 if binary_search_retry_delay is undefined else binary_search_retry_delay | int }}"
+  block:
+  - name: Increment the retry count
+    set_fact:
+      retry_count: "{{ 0 if retry_count is undefined else retry_count | int + 1 }}"
+
+  - name: Run Binary Search Script
+    shell: "{{ traffic_cmd }} > {{ binary_search_run_log }} &"
+    become: True
+    ignore_errors: yes
+    failed_when: False
+
+  - name: Check binary_search status
+    command: grep -E "There is no trial which passed|Finished binary-search|The retry limit for a trial has been reached" {{ binary_search_run_log }}
+    register: binary_search_status
+    changed_when: no
+    retries: "{{ binary_search_status_retry }}"
+    delay: "{{ binary_search_status_delay }}"
+    ignore_errors: yes
+    failed_when: False
+
+  - fail:
+      msg: "{{ binary_search_status }}"
+    when: binary_search_status.stdout is search('The retry limit for a trial has been reached') or binary_search_status.stdout is search('There is no trial which passed')
+
+  rescue:
+    - fail:
+        msg: Binary search failed Maximum retries reached
+      when: retry_count | int == binary_search_max_retries | int
+
+    - debug:
+        msg: "Binary search failed, retrying"
+
+    - name: Sleep between retries
+      wait_for:
+        timeout: "{{ binary_search_retry_delay }}" # seconds
+      delegate_to: localhost
+      become: false
+
+    - include_tasks: binary_search_recursion.yml
+
+- name: Fetch binary search log
+  fetch:
+    src: "{{ binary_search_run_log }}"
+    dest: "{{ binary_perf_log }}"
+    flat: yes
+  delegate_to: "{{ groups['undercloud'] | first }}"
+
