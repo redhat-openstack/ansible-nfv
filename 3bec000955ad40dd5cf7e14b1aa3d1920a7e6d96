@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "60252aac_194d6d49",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1016373
+      },
+      "writtenOn": "2022-02-11T09:25:23Z",
+      "side": 1,
+      "message": "I see this code very complex for the functionality it offers.\nWouldnt be enough to redirect binary search output to a file in trex vm so that we could connect to trex vm and check  what is happening if the task is stuck?\nWhy do we want to avoid timeout and failures? If there are timeouts and failures is because there is a problem we need to debug",
+      "revId": "3bec000955ad40dd5cf7e14b1aa3d1920a7e6d96",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
