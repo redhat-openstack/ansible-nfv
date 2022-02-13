@@ -16,6 +16,24 @@
       "message": "I see this code very complex for the functionality it offers.\nWouldnt be enough to redirect binary search output to a file in trex vm so that we could connect to trex vm and check  what is happening if the task is stuck?\nWhy do we want to avoid timeout and failures? If there are timeouts and failures is because there is a problem we need to debug",
       "revId": "3bec000955ad40dd5cf7e14b1aa3d1920a7e6d96",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "bc8834c3_9b40d7f2",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2022-02-13T07:39:06Z",
+      "side": 1,
+      "message": "The point is to not get it stuck in a pending state with a timeout as we saw, generally, it just writes the output to a file and then reads it to check if it failed/worked/timed out. The reason I\u0027m checking for timeout is to allow the detection of stuck binary search which we encountered last week with the HW offload job. We do not avoid timeout and failure we just re-try 3 times if we encounter any timeout or failure (which is similar to what we did before) then you have the log to read from if you want to debug.",
+      "parentUuid": "60252aac_194d6d49",
+      "revId": "3bec000955ad40dd5cf7e14b1aa3d1920a7e6d96",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
