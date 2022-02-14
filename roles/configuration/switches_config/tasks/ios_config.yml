@@ -5,19 +5,93 @@
     text: "{{ switch_banner }}"
     state: present
 
+<<<<<<< HEAD   (bb4cf5 performance logging)
+=======
+- name: Configure DHCP Relay
+  ios_config:
+    lines:
+      - ip dhcp relay information option
+      - ip dhcp relay information {{ switch_vars['dhcp_relay'] }}
+  retries: "{{ task_retries }}"
+  delay: "{{ task_retry_delay }}"
+  when: "'dhcp_relay' in switch_vars"
+
+>>>>>>> CHANGE (f97860 switches_config: Add Retries To Tasks)
 - name: Set VLANs
   ios_vlan:
     name: "vlan{{ item }}"
     vlan_id: "{{ item }}"
     state: present
+  retries: "{{ task_retries }}"
+  delay: "{{ task_retry_delay }}"
   loop: "{{ vlan_list }}"
 
+<<<<<<< HEAD   (bb4cf5 performance logging)
+=======
+- name: Advanced VLAN Interface Configuration
+  block:
+    - name: Configure IP Address For Vlan Interface
+      ios_config:
+        lines: ip address {{ item['ip_address'] }} {{ item['netmask'] }}
+        parents: "interface {{ item['iface'] }}"
+      retries: "{{ task_retries }}"
+      delay: "{{ task_retry_delay }}"
+      loop: "{{ switch_vars['vlan_interfaces'] }}"
+      when:
+        - "'ip_address' in item"
+        - "'netmask' in item"
+    - name: Configure IP Helper Address For Vlan Interface
+      ios_config:
+        lines: |
+          {%- set commands = [] -%}
+          {%- if item['ip_helper_address'] | type_debug == 'string' -%}
+          {{ commands.append('ip helper-address ' + item['ip_helper_address']) }}
+          {%- elif item['ip_helper_address'] | type_debug == 'list' -%}
+          {%- for helper in item['ip_helper_address'] -%}
+          {{ commands.append('ip helper-address ' + helper) }}
+          {%- endfor -%}
+          {%- endif -%}
+          {{ commands }}
+        parents: "interface {{ item['iface'] }}"
+      retries: "{{ task_retries }}"
+      delay: "{{ task_retry_delay }}"
+      loop: "{{ switch_vars['vlan_interfaces'] }}"
+      when: "'ip_helper_address' in item"
+  when: "'vlan_interfaces' in switch_vars"
+
+- name: Configure route-maps
+  block:
+    # Native Ansible module 'ios_route_maps' shipped with collection
+    # 'cisco.ios' did not appear to work on tested Cisco switch
+    # (Catalyst 3750)
+    # We support a specific scenario for route-map
+    - name: Assign route-map To Interface
+      ios_config:
+        lines:
+          - match ip address {{ item['match_ip_address'] }}
+          - set ip next-hop {{ item['ip_next_hop'] }}
+        parents: "route-map {{ item['route_map_name'] }} permit 10"
+      retries: "{{ task_retries }}"
+      delay: "{{ task_retry_delay }}"
+      loop: "{{ switch_vars['route_maps'] }}"
+    - name: Assign route-map To Interface
+      ios_config:
+        lines: ip policy route-map {{ item['route_map_name'] }}
+        parents: "interface {{ item['interface'] }}"
+      retries: "{{ task_retries }}"
+      delay: "{{ task_retry_delay }}"
+      loop: "{{ switch_vars['route_maps'] }}"
+  when: "'route_maps' in switch_vars"
+
+>>>>>>> CHANGE (f97860 switches_config: Add Retries To Tasks)
 - name: Set interface description and MTU
   ios_interface:
     name: "{{ item.iface }}"
     description: "{{ item.description }}"
     mtu: "{{ item.mtu |default(omit) }}"
     state: present
+  retries: "{{ task_retries }}"
+  delay: "{{ task_retry_delay }}"
   loop: "{{ switch_vars.interfaces }}"
 
 - name: Configure interfaces - mode (access/trunk), vlans
@@ -39,6 +113,8 @@
     trunk_vlans: "{%- if item.iface_mode == 'trunk' -%}
                   {{ trunk_vlans_list }}{% else %}{{ omit }}{% endif %}"
     state: present
+  retries: "{{ task_retries }}"
+  delay: "{{ task_retry_delay }}"
   loop: "{{ switch_vars.interfaces }}"
 
 # TODO: Once moving to 2.9 version, replace the task below with the new ios_l2_interface
@@ -49,9 +125,13 @@
       - switchport trunk encapsulation dot1q
       - switchport mode trunk
     parents: "interface {{ item.iface }}"
+  retries: "{{ task_retries }}"
+  delay: "{{ task_retry_delay }}"
   loop: "{{ switch_vars.interfaces }}"
   when: item.encapsulation is defined and item.encapsulation
 
 - name: Save configuration
   ios_config:
     save_when: always
+  retries: "{{ task_retries }}"
+  delay: "{{ task_retry_delay }}"
