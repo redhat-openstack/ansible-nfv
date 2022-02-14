@@ -12,6 +12,8 @@
         name: "vlan{{ item }}"
         vlan_id: "{{ item }}"
         state: present
+      retries: "{{ task_retries }}"
+      delay: "{{ task_retry_delay }}"
       loop: "{{ vlan_list }}"
 
     - name: Configure interfaces - description, mode (access/trunk), vlans
@@ -54,6 +56,8 @@
                       {{ trunk_vlans_list }}{% else %}{{ omit }}{% endif %}"
         unit: 0
         state: present
+      retries: "{{ task_retries }}"
+      delay: "{{ task_retry_delay }}"
       loop: "{{ switch_vars.interfaces }}"
       when: "'interfaces' in switch_vars"
 
@@ -62,6 +66,8 @@
         name: "{{ item.iface }}"
         mtu: "{{ item.mtu }}"
         state: present
+      retries: "{{ task_retries }}"
+      delay: "{{ task_retry_delay }}"
       loop: "{{ switch_vars.interfaces }}"
       when: item.mtu is defined
 
@@ -72,6 +78,8 @@
       junos_interface:
         name: "{{ item.1 }}"
         state: absent
+      retries: "{{ task_retries }}"
+      delay: "{{ task_retry_delay }}"
       loop: "{{ switch_vars.interfaces | subelements('aggr_members', 'skip_missing=True') }}"
       when: item.0.aggr_members is defined
 
@@ -81,6 +89,8 @@
         description: "{{ item.description }}"
         members: "{{ item.aggr_members }}"
         mode: active
+      retries: "{{ task_retries }}"
+      delay: "{{ task_retry_delay }}"
       loop: "{{ switch_vars.interfaces }}"
       when: item.aggr_members is defined
 
@@ -93,6 +103,8 @@
           junos_config:
             lines:
               - delete protocols igmp-snooping vlan vlan{{ item.vlan }}
+          retries: "{{ task_retries }}"
+          delay: "{{ task_retry_delay }}"
           loop: "{{ switch_vars.igmp_snooping }}"
           when: item.vlan is defined
 
@@ -101,6 +113,8 @@
             lines:
               - "set protocols igmp-snooping vlan vlan{{ item.vlan }}
                  l2-querier source-address {{ item.ip_address }}"
+          retries: "{{ task_retries }}"
+          delay: "{{ task_retry_delay }}"
           loop: "{{ switch_vars.igmp_snooping }}"
           when: item.vlan is defined and item.ip_address is defined
 
@@ -112,6 +126,8 @@
           loop: "{{ switch_vars.igmp_snooping | default([]) |
                  subelements('interfaces', 'skip_missing=True') }}"
           when: item.0.vlan is defined and item.0.interfaces is defined
+      retries: "{{ task_retries }}"
+      delay: "{{ task_retry_delay }}"
       when: switch_vars.igmp_snooping is defined
 
     - name: Configure Layer3(irb) Interfaces
@@ -127,13 +143,19 @@
             name: "{{ item['vlan_interface'] }}"
             l3_interface: "irb.{{ item['unit'] }}"
           loop: "{{ switch_vars['layer3_interfaces'] }}"
+      retries: "{{ task_retries }}"
+      delay: "{{ task_retry_delay }}"
       when: "'layer3_interfaces' in switch_vars"
 
     - name: Save configuration
       junos_config:
         confirm_commit: yes
+      retries: "{{ task_retries }}"
+      delay: "{{ task_retry_delay }}"
 
   rescue:
     - name: Configuration rollback
       junos_config:
         rollback: 1
+      retries: "{{ task_retries }}"
+      delay: "{{ task_retry_delay }}"

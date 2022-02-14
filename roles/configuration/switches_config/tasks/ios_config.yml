@@ -10,6 +10,8 @@
     lines:
       - ip dhcp relay information option
       - ip dhcp relay information {{ switch_vars['dhcp_relay'] }}
+  retries: "{{ task_retries }}"
+  delay: "{{ task_retry_delay }}"
   when: "'dhcp_relay' in switch_vars"
 
 - name: Set VLANs
@@ -17,6 +19,8 @@
     name: "vlan{{ item }}"
     vlan_id: "{{ item }}"
     state: present
+  retries: "{{ task_retries }}"
+  delay: "{{ task_retry_delay }}"
   loop: "{{ vlan_list }}"
 
 - name: Advanced VLAN Interface Configuration
@@ -25,6 +29,8 @@
       ios_config:
         lines: ip address {{ item['ip_address'] }} {{ item['netmask'] }}
         parents: "interface {{ item['iface'] }}"
+      retries: "{{ task_retries }}"
+      delay: "{{ task_retry_delay }}"
       loop: "{{ switch_vars['vlan_interfaces'] }}"
       when:
         - "'ip_address' in item"
@@ -42,6 +48,8 @@
           {%- endif -%}
           {{ commands }}
         parents: "interface {{ item['iface'] }}"
+      retries: "{{ task_retries }}"
+      delay: "{{ task_retry_delay }}"
       loop: "{{ switch_vars['vlan_interfaces'] }}"
       when: "'ip_helper_address' in item"
   when: "'vlan_interfaces' in switch_vars"
@@ -58,11 +66,15 @@
           - match ip address {{ item['match_ip_address'] }}
           - set ip next-hop {{ item['ip_next_hop'] }}
         parents: "route-map {{ item['route_map_name'] }} permit 10"
+      retries: "{{ task_retries }}"
+      delay: "{{ task_retry_delay }}"
       loop: "{{ switch_vars['route_maps'] }}"
     - name: Assign route-map To Interface
       ios_config:
         lines: ip policy route-map {{ item['route_map_name'] }}
         parents: "interface {{ item['interface'] }}"
+      retries: "{{ task_retries }}"
+      delay: "{{ task_retry_delay }}"
       loop: "{{ switch_vars['route_maps'] }}"
   when: "'route_maps' in switch_vars"
 
@@ -72,6 +84,8 @@
     description: "{{ item.description }}"
     mtu: "{{ item.mtu |default(omit) }}"
     state: present
+  retries: "{{ task_retries }}"
+  delay: "{{ task_retry_delay }}"
   loop: "{{ switch_vars.interfaces }}"
 
 - name: Configure interfaces - mode (access/trunk), vlans
@@ -93,6 +107,8 @@
     trunk_vlans: "{%- if item.iface_mode == 'trunk' -%}
                   {{ trunk_vlans_list }}{% else %}{{ omit }}{% endif %}"
     state: present
+  retries: "{{ task_retries }}"
+  delay: "{{ task_retry_delay }}"
   loop: "{{ switch_vars.interfaces }}"
 
 # TODO: Once moving to 2.9 version, replace the task below with the new ios_l2_interface
@@ -103,9 +119,13 @@
       - switchport trunk encapsulation dot1q
       - switchport mode trunk
     parents: "interface {{ item.iface }}"
+  retries: "{{ task_retries }}"
+  delay: "{{ task_retry_delay }}"
   loop: "{{ switch_vars.interfaces }}"
   when: item.encapsulation is defined and item.encapsulation
 
 - name: Save configuration
   ios_config:
     save_when: always
+  retries: "{{ task_retries }}"
+  delay: "{{ task_retry_delay }}"
