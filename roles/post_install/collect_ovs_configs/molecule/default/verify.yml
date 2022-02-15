@@ -17,7 +17,7 @@
 
     - name: Set a variable for each existing file
       set_fact:
-        "{{ item.path | basename }}": "{{ item.path }}"
+        "{{ item.path | basename }}": "{{ item.path }}" # noqa var-naming
       loop: "{{ ovs_output_files_list.files }}"
       register: existing_files
 

@@ -6,6 +6,15 @@
     state: installed
   become: true
 
+- name: enable namespaces for non-root users
+  sysctl:
+    name: user.max_user_namespaces
+    value: 10000
+    state: present
+    sysctl_file: /etc/sysctl.d/42-rootless.conf
+    reload: yes
+  become: true
+
 - name: get NFV podman container from registry
   containers.podman.podman_container:
     image: "{{ container_image }}:{{ container_version | default('latest') }}"

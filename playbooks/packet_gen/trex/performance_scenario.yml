@@ -46,7 +46,7 @@
           loop: "{{ dynamic_instances }}"
       when: cloud_resources == 'external'
 
-- hosts: "{{ dut_compute }}"
+- hosts: "{{ dut_compute | default(omit) }}"
   become: true
   roles:
     - role: roles/packet_gen/trex/compute_tuning
@@ -61,14 +61,14 @@
     - role: roles/packet_gen/trex/trex_instance_config
       when: trex_instance_config | default(True)|bool
 
-- hosts: "{{ dut_group if dut_group else 'none' }}"
+- hosts: "{{ dut_group | default(omit) }}"
   become: true
   roles:
     - role: tuning/cpu_pinning_huge_pages
       vars:
         cpu_pinning_cores: "{{ testpmd_lcores }}"
 
-- hosts: "{{ dut_group if dut_group else 'none' }}"
+- hosts: "{{ dut_group | default(omit) }}"
   roles:
     - role: roles/packet_gen/trex/bind_dpdk_nics
       vars:
@@ -86,6 +86,14 @@
       vars:
         cpu_pinning_cores: "{{ trex_lcores }}"
 
+- hosts: "{{ dut_compute | default(omit) }}"
+  become: true
+  roles:
+    - role: roles/packet_gen/trex/multiqueue_autob_config
+      vars:
+        set_pmd_auto_lb_improvement_threshold: "set"
+      when: pmd_auto_lb_improvement_threshold is defined
+
 - hosts: trex
   roles:
     - role: roles/packet_gen/trex/bind_dpdk_nics
@@ -98,3 +106,11 @@
 
     - role: roles/packet_gen/trex/binary_search
       when: binary_search | default(True)|bool
+
+- hosts: "{{ dut_compute | default(omit) }}"
+  become: true
+  roles:
+    - role: roles/packet_gen/trex/multiqueue_autob_config
+      vars:
+        set_pmd_auto_lb_improvement_threshold: "restore"
+      when: pmd_auto_lb_improvement_threshold is defined
