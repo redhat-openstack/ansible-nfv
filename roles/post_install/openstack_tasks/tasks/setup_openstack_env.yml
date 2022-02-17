@@ -56,15 +56,10 @@
         ansible_python.version.major == 2
 
 - name: Install virtualenv module
-  vars:
-    packages: "{%- if ansible_python.version.major == 2 -%}
-                 virtualenv==16.7.9
-               {%- elif ansible_python.version.major == 3 -%}
-                 setuptools, virtualenv
-               {%- endif -%}"
   pip:
-    name: "{{ packages }}"
+    name: "setuptools, virtualenv"
   become: true
+  when: ansible_python.version.major | int == 3
 
 - name: Install create virtualenv and openstacksdk packages
   pip:
