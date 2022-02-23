@@ -50,6 +50,24 @@
       "message": "wouldn\u0027t it be better to wait for ping?",
       "revId": "7d9a08a95455789648324adda0eb4899476627b5",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b0aa40af_fc3e4098",
+        "filename": "playbooks/tripleo/multiqueue/multiqueue_learning.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1016373
+      },
+      "writtenOn": "2022-02-23T16:33:46Z",
+      "side": 1,
+      "message": "If there is ping but it is not able to connect yet it will fail too. I think it is better to use as it is.",
+      "parentUuid": "b3b0fdca_3e5f4be5",
+      "revId": "7d9a08a95455789648324adda0eb4899476627b5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
