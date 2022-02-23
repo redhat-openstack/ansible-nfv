@@ -33,6 +33,23 @@
       "message": "recheck",
       "revId": "7d9a08a95455789648324adda0eb4899476627b5",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b3b0fdca_3e5f4be5",
+        "filename": "playbooks/tripleo/multiqueue/multiqueue_learning.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2022-02-23T16:28:12Z",
+      "side": 1,
+      "message": "wouldn\u0027t it be better to wait for ping?",
+      "revId": "7d9a08a95455789648324adda0eb4899476627b5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
