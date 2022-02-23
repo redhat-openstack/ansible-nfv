@@ -68,6 +68,24 @@
       "parentUuid": "b3b0fdca_3e5f4be5",
       "revId": "7d9a08a95455789648324adda0eb4899476627b5",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "1116e78e_5a1b3d2a",
+        "filename": "playbooks/tripleo/multiqueue/multiqueue_learning.yml",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2022-02-23T16:52:21Z",
+      "side": 1,
+      "message": "I agree with Miguel.",
+      "parentUuid": "b0aa40af_fc3e4098",
+      "revId": "7d9a08a95455789648324adda0eb4899476627b5",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
