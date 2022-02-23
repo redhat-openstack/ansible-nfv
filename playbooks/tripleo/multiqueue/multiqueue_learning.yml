@@ -14,6 +14,15 @@
       loop: "{{ pmd_rxq_affinity }}"
 
 - hosts: testpmd-dpdk-dut
+  gather_facts: no
+  pre_tasks:
+    - name: wait to be up
+      wait_for_connection:
+        timeout: 180
+
+    - name: Gathering facts
+      setup:
+
   roles:
     - role: tuning/cpu_pinning_huge_pages
       become: true
@@ -33,6 +42,15 @@
       when: launch_testpmd | default(True)|bool
 
 - hosts: trex
+  gather_facts: no
+  pre_tasks:
+    - name: wait to be up
+      wait_for_connection:
+        timeout: 180
+
+    - name: Gathering facts
+      setup:
+
   roles:
     - role: roles/packet_gen/trex/trex_instance_config
       when: trex_instance_config | default(True)|bool
