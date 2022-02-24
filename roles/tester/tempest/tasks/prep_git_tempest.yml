@@ -32,6 +32,14 @@
     virtualenv: "{{ tempest_venv }}"
     state: latest
 
+- name: Create a virtual environment and upgrade it to the latest version
+  pip:
+    name:
+      - ovs==2.6.0
+    virtualenv: "{{ tempest_venv }}"
+    state: installed
+
+
 - name: Download patches for tempest repos
   shell:
     chdir: "{{ tempest_dir }}/{{ item.0.name }}"
