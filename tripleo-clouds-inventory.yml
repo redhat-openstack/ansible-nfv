@@ -1,0 +1,12 @@
+custom_undercloud_user: stack
+host: panther01.qa.lab.tlv.redhat.com
+hypervisor_groups: hypervisor,shade
+other: {}
+overcloud_user: heat-admin
+setup_type: virt
+ssh_key: /home/rhos-ci/.ssh/rhos-jenkins/id_rsa
+ssh_pass: ''
+undercloud_groups: undercloud,tester
+undercloud_only: false
+user: root
+venv_path: /var/tmp/venv_shade
