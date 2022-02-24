@@ -62,10 +62,14 @@
   when: ansible_python.version.major | int == 3
 
 - name: Install create virtualenv and openstacksdk packages
+  vars: 
+    openstacksdk_version: "{%- if ansible_python.version.major == 2 -%}
+                              openstacksdk>=0.39,<0.40.0
+                            {%- elif ansible_python.version.major == 3 -%}
+                              openstacksdk<=0.52 ; python_version >= '3'
+                            {%- endif -%}"
   pip:
-    name:
-      - openstacksdk>=0.39,<0.40.0 ; python_version < '3'
-      - openstacksdk<=0.52 ; python_version >= '3'
+    name: "{{ openstacksdk_version }}"
     virtualenv: "{{ venv_path }}"
     virtualenv_command: "/usr/libexec/platform-python -m virtualenv"
 
