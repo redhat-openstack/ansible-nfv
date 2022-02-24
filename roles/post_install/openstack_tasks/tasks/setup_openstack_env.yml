@@ -23,6 +23,14 @@
   loop: "{{ pkg_ver_list | flatten(levels=1) }}"
   become: true
 
+# - name: Create a symbolic link
+#   ansible.builtin.file:
+#     src: /usr/bin/python3
+#     dest: /usr/libexec/platform-python
+#     owner: root
+#     group: root
+#     state: link
+#   become: true
 - name: Check if python3 pip rpm package installed
   package:
     name: python3-pip
@@ -64,8 +72,7 @@
 - name: Install create virtualenv and openstacksdk packages
   pip:
     name:
-      - openstacksdk>=0.39,<0.40.0 ; python_version < '3'
-      - openstacksdk<=0.52 ; python_version >= '3'
+      - openstacksdk>=0.39,<0.40.0 
     virtualenv: "{{ venv_path }}"
     virtualenv_command: "/usr/libexec/platform-python -m virtualenv"
 
