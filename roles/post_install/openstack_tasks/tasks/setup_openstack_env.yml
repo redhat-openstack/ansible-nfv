@@ -1,73 +1,76 @@
 ---
-- name: Gather facts
-  setup:
+- name: get python
+  block:
+  - name: Gather facts
+    setup:
 
-# Delete the venv in order to avoid packages conflicts
-- name: Delete existing venv if exists
-  file:
-    path: "{{ venv_path }}"
-    state: absent
-  become: true
+  # Delete the venv in order to avoid packages conflicts
+  - name: Delete existing venv if exists
+    file:
+      path: "{{ venv_path }}"
+      state: absent
+    become: true
 
-- name: Install required packages
-  vars:
-    os_version: "{%- if ansible_distribution_major_version == '8' -%}
-                 rhel8
-                 {%- elif ansible_distribution_major_version == '7' -%}
-                 rhel7
-                 {%- endif -%}"
-    pkg_ver_list: "{{ packages[os_version] }}"
-  package:
-    name: "{{ item }}"
-    state: present
-  loop: "{{ pkg_ver_list | flatten(levels=1) }}"
-  become: true
+  - name: Install required packages
+    vars:
+      os_version: "{%- if ansible_distribution_major_version == '8' -%}
+                  rhel8
+                  {%- elif ansible_distribution_major_version == '7' -%}
+                  rhel7
+                  {%- endif -%}"
+      pkg_ver_list: "{{ packages[os_version] }}"
+    package:
+      name: "{{ item }}"
+      state: present
+    loop: "{{ pkg_ver_list | flatten(levels=1) }}"
+    become: true
 
-- name: Check if python3 pip rpm package installed
-  package:
-    name: python3-pip
-    state: present
-  become: true
-  register: rpm_pip3
-  ignore_errors: yes
-  when: ansible_python.version.major == 3
+  - name: Check if python3 pip rpm package installed
+    package:
+      name: python3-pip
+      state: present
+    become: true
+    register: rpm_pip3
+    ignore_errors: yes
+    when: ansible_python.version.major == 3
 
-# Python 2 pip package needs to be installed directory from pypa
-# as it is no longer supported and package does not exists in repos.
-- block:
-    - name: Download pip from pypi
-      vars:
-        pip_pypi: "{%- if ansible_python.version.major == 2 -%}
-                      https://bootstrap.pypa.io/pip/2.7/get-pip.py
-                   {%- elif ansible_python.version.major == 3 -%}
-                      https://bootstrap.pypa.io/pip/get-pip.py
-                   {%- endif -%}"
-      get_url:
-        dest: "/tmp/get-pip.py"
-        url: "{{ pip_pypi }}"
-        timeout: 100
+  # Python 2 pip package needs to be installed directory from pypa
+  # as it is no longer supported and package does not exists in repos.
+  - block:
+      - name: Download pip from pypi
+        vars:
+          pip_pypi: "{%- if ansible_python.version.major == 2 -%}
+                        https://bootstrap.pypa.io/pip/2.7/get-pip.py
+                    {%- elif ansible_python.version.major == 3 -%}
+                        https://bootstrap.pypa.io/pip/get-pip.py
+                    {%- endif -%}"
+        get_url:
+          dest: "/tmp/get-pip.py"
+          url: "{{ pip_pypi }}"
+          timeout: 100
 
-    - name: Install pip
-      vars:
-        ansible_python_interpreter: /usr/libexec/platform-python
-      command: "{{ ansible_python_interpreter }} /tmp/get-pip.py"
-      become: true
-  when: rpm_pip3.rc | default('') != 0 or
-        ansible_python.version.major == 2
+      - name: Install pip
+        vars:
+          ansible_python_interpreter: /usr/libexec/platform-python
+        command: "{{ ansible_python_interpreter }} /tmp/get-pip.py"
+        become: true
+    when: rpm_pip3.rc | default('') != 0 or
+          ansible_python.version.major == 2
 
-- name: Install virtualenv module
-  pip:
-    name: "setuptools, virtualenv"
-  become: true
-  when: ansible_python.version.major | int == 3
+  - name: Install virtualenv module
+    pip:
+      name: "setuptools, virtualenv"
+    become: true
+    when: ansible_python.version.major | int == 3
 
-- name: Install create virtualenv and openstacksdk packages
-  pip:
-    name:
-      - openstacksdk>=0.39,<0.40.0 ; python_version < '3'
-      - openstacksdk<=0.52 ; python_version >= '3'
-    virtualenv: "{{ venv_path }}"
-    virtualenv_command: "/usr/libexec/platform-python -m virtualenv"
+  - name: Install create virtualenv and openstacksdk packages
+    pip:
+      name:
+        - openstacksdk>=0.39,<0.40.0 ; python_version < '3'
+        - openstacksdk<=0.52 ; python_version >= '3'
+      virtualenv: "{{ venv_path }}"
+      virtualenv_command: "/usr/libexec/platform-python -m virtualenv"
+  when: not containerized | bool
 
 - name: Generate clouds.yaml file
   import_tasks: clouds.yml
