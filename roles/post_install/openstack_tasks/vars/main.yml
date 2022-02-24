@@ -14,6 +14,7 @@ packages:
     - git
     - rsync
   rhel7:
+    - python3
     - gcc
     - libffi-devel
     - python-devel
