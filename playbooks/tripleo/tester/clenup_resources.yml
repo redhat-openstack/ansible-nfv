@@ -1,0 +1,10 @@
+- name: Tempest execution
+  hosts: "{{ tester | default('undercloud') }}"
+  gather_facts: False
+  vars:
+    ansible_python_interpreter: /usr/libexec/platform-python
+    keep_resources: false
+  roles:
+    - role: post_install/openstack_tasks
+      resource_state: absent
+      setup_os_env: false
