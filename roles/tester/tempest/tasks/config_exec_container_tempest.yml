@@ -6,18 +6,22 @@
             {{ option }}
           {% endfor %}
         {% endif %}
+        {% if container_accounts_file_path is defined %}
+        auth.test_accounts_file {{ container_accounts_file_path }}
+        auth.use_dynamic_credentials false
+        {% endif %}
         {% if generate_accounts %}
-          auth.test_accounts_file {{ accounts_file_path }}
-          auth.use_dynamic_credentials false
-          nfv_plugin_options.external_resources_output_file {{ external_resources_output_file }}
+        nfv_plugin_options.external_resources_output_file {{ external_resources_output_file }}
         {% endif %}
         {% if enable_test_all_provider_networks %}
           nfv_plugin_options.test_all_provider_networks true
         {% endif %}
         identity.uri {{ rc_vars.osp_auth }}
         identity.admin_password {{ rc_vars.osp_password }}
+        {% if generate_accounts %}     
         nfv_plugin_options.overcloud_node_pkey_file {{ container_tempest }}/{{ ssh_key }}
         nfv_plugin_options.overcloud_node_pkey_file_rsa {{ container_tempest }}/{{ ssh_key }}
+        {% endif %}
         nfv_plugin_options.undercloud_rc_file {{ container_tempest }}/stackrc
         compute.min_microversion {{ min_microversion }}
         compute.max_microversion {{ max_microversion }}
