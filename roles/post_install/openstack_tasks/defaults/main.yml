@@ -129,3 +129,5 @@ resources_output_file: /home/stack/resources_output_file.yml
 venv_path: "/tmp/ansible_venv"
 
 hypervisor_image_dir: /root/images
+
+containerized: False
