@@ -26,5 +26,9 @@ servers:
 {% endif %}
 
 {% for key in keypairs %}
+{% if containerized %}
+key_pair: "{{ external_resources_output_file | dirname }}/{{ key.name }}.key"
+{% else %}
 key_pair: "{{ resources_output_file | dirname }}/{{ key.name }}.key"
+{% endif %}
 {% endfor %}
