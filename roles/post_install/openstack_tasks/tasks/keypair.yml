@@ -11,11 +11,18 @@
   loop: "{{ keypairs }}"
   register: reg_keypair
 
+- name: precreate resources_output_file dir if containerized
+  file:
+    path: "{{ resources_output_file | dirname }}"
+    state: directory
+    mode: '0755'
+    owner: stack
+
 - name: Create private key for vm connection
   copy:
     content: "{{ item.key.private_key }}"
     dest: "{{ resources_output_file | dirname }}/{{ item.item.name }}.key"
-    mode: 0600
+    mode: 0666
   loop: "{{ reg_keypair.results }}"
     # no_log: true
   when: item.changed and item.id is defined
