@@ -15,7 +15,7 @@
   copy:
     content: "{{ item.key.private_key }}"
     dest: "{{ resources_output_file | dirname }}/{{ item.item.name }}.key"
-    mode: 0600
+    mode: 0666
   loop: "{{ reg_keypair.results }}"
   no_log: true
   when: item.changed and item.id is defined
