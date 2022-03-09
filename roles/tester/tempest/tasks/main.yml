@@ -129,7 +129,7 @@
   shell: |
     {% if not containerized|bool %}
       source {{ tempest_dir }}/venv/bin/activate
-      {% endif %}
+    {% endif %}
     {% if overcloud_version | int >= 15 %}
       subunit2junitxml < {{ tempest_dir }}/tempest_results.subunit \
       >> {{ tempest_dir }}/tempest.xml | subunit2pyunit
