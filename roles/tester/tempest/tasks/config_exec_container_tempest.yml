@@ -1,3 +1,9 @@
+- name: write regex to regex file
+  copy:
+    dest: "{{ tempest_dir }}/regression_tests.conf"
+    content: "{{ tests_regex }}"
+  when: tests_regex is defined
+
 - name: tempest.conf file creation
   vars:
     additional_params: |
@@ -6,41 +12,42 @@
             {{ option }}
           {% endfor %}
         {% endif %}
-        {% if generate_accounts %}
-          auth.test_accounts_file {{ accounts_file_path }}
-          auth.use_dynamic_credentials false
-          nfv_plugin_options.external_resources_output_file {{ external_resources_output_file }}
+        {% if container_accounts_file_path is defined %}
+        auth.test_accounts_file {{ container_accounts_file_path }}
+        auth.use_dynamic_credentials false
         {% endif %}
-        {% if enable_test_all_provider_networks %}
-          nfv_plugin_options.test_all_provider_networks true
+        {% if generate_accounts %}
+        nfv_plugin_options.external_resources_output_file {{ external_resources_output_file }}
         {% endif %}
         identity.uri {{ rc_vars.osp_auth }}
         identity.admin_password {{ rc_vars.osp_password }}
+        {% if generate_accounts %}
         nfv_plugin_options.overcloud_node_pkey_file {{ container_tempest }}/{{ ssh_key }}
         nfv_plugin_options.overcloud_node_pkey_file_rsa {{ container_tempest }}/{{ ssh_key }}
+        {% endif %}
         nfv_plugin_options.undercloud_rc_file {{ container_tempest }}/stackrc
         compute.min_microversion {{ min_microversion }}
         compute.max_microversion {{ max_microversion }}
         DEFAULT.use_stderr true
-    image_name: |
+    image_name: |-
         {% if image_for_tempest| bool %}
         {{ images[0].url | basename }}
         {% endif %}
-    external_network: |
+    external_network: |-
         {% if external_net_id %}
         {{ tempest_net_id.openstack_networks.0.id }}
         {% endif %}
-    flavor_name: |
+    flavor_name: |-
         {% if tempest_flavor_name is defined %}
         {{ reg_flavors.results.0.id }}
         {% endif %}
   containers.podman.podman_container:
-    name: tempest_nfv
+    name: nfv-tempest
     image: "{{ container_image }}:{{ container_version | default('latest') }}"
     command: /bin/bash -c './config_generate.sh'
     volume:
-      - "{{ tempest_dir }}:{{ container_tempest }}:Z"
-      - "{{ tempest_dir }}/{{ tempest_etc_dir }}:{{ container_etc }}:Z"
+      - "{{ tempest_dir }}:{{ container_tempest }}:z"
+      - "{{ tempest_dir }}/{{ tempest_etc_dir }}:{{ container_etc }}:z"
     env:
       deployer_input: deployer_input.ini
       additional_params: "{{ additional_params | default(omit) }}"
@@ -61,31 +68,21 @@
 
 - name: Execute the tempest tests and save the results
   containers.podman.podman_container:
-    name: tempest_nfv
+    name: nfv-tempest
     image: "{{ container_image }}:{{ container_version | default('latest') }}"
     volume:
-      - "{{ tempest_dir }}:{{ container_tempest }}:Z"
-      - "{{ tempest_dir }}/{{ tempest_etc_dir }}:{{ container_etc }}:Z"
+      - "{{ tempest_dir }}:{{ container_tempest }}:z"
+      - "{{ tempest_dir }}/{{ tempest_etc_dir }}:{{ container_etc }}:z"
       - "/etc/pki/:/etc/pki/"
     network: host
     detach: false
     rm: true
     privileged: true
-    command: >
-      stestr run --serial --subunit
-      {% if tests_regex %}{{ tests_regex }}{% endif %}
-      {% if overcloud_version | int >= 16 and tests_include_list %}--include-list {{ container_tempest }}/{{ tests_include_list | basename }}
-      {% elif tests_include_list %}--whitelist-file {{ container_tempest }}/{{ tests_include_list | basename }}{% endif %}
-  register: test_run
-
-- name: write results to file
-  copy:
-    dest: "{{ tempest_dir }}/tempest_results.subunit"
-    content: "{{ test_run.stdout }}"
-    mode: 0777
+    command: /opt/app-root/run_tempest.sh regression_tests.conf
+  register: podman_run
 
 - name: write tempest.log
   copy:
     dest: "{{ tempest_dir }}/tempest.log"
-    content: "{{ test_run.stderr }}"
+    content: "{{ podman_run.stderr }}"
     mode: 0777
