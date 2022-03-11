@@ -40,9 +40,9 @@
       {%- endif %}
       --use-src-ip-flows {{ use_src_ip_flows  }}
       --use-dst-ip-flows {{ use_dst_ip_flows }}
-      --use-src-mac-flows {{ use_dst_ip_flows }}
+      --use-src-mac-flows {{ use_src_mac_flows }}
       --use-dst-mac-flows {{ use_dst_mac_flows }}
-      --use-src-port-flows {{ use_dst_mac_flows  }}
+      --use-src-port-flows {{ use_src_port_flows  }}
       --use-dst-port-flows {{ use_dst_port_flows }}
       --validation-runtime {{ trex_validation }}
       --search-runtime {{ trex_search }}
