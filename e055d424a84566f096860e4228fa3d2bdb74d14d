@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c0b99f1b_e0209f1c",
+        "filename": "roles/tester/tempest/tasks/config_exec_container_tempest.yml",
+        "patchSetId": 5
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2022-03-17T12:47:44Z",
+      "side": 1,
+      "message": "Potentially we can re-use podman_container module to perform this:\nhttps://docs.ansible.com/ansible/latest/collections/containers/podman/podman_container_module.html#parameter-state",
+      "range": {
+        "startLine": 85,
+        "startChar": 0,
+        "endLine": 85,
+        "endChar": 32
+      },
+      "revId": "e055d424a84566f096860e4228fa3d2bdb74d14d",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
