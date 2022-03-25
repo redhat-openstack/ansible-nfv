@@ -46,6 +46,9 @@
       --use-dst-port-flows {{ use_dst_port_flows }}
       --validation-runtime {{ trex_validation }}
       --search-runtime {{ trex_search }}
+      {% if trex_max_retries is defined %}
+        --max-retries {{ trex_max_retries }}
+      {%- endif %}
       {% if trex_rate is defined %}
         --rate {{ trex_rate }}
       {%- endif %}
