@@ -46,6 +46,9 @@ trex_validation: 30
 # Tiral period in seconds during binary search
 trex_search: 30
 
+# runtime tolerance (%)
+runtime_tolerance: 5
+
 # Perform PMD load balance before binary search test
 pmd_lb_pretest: False
 
