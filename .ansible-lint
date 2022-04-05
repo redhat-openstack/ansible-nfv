@@ -12,3 +12,4 @@ exclude_paths:
   # accessing an entry in a list under hosts key.
   # hosts: group[0] <-- This is not encouraged but there is no alternative.
   - playbooks/packet_gen/iperf/performance_scenario.yml
+  - playbooks/packet_gen/trex/performance_scenario.yml
