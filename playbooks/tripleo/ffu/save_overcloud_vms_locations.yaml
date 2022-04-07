@@ -5,7 +5,7 @@
   tasks:
 
   - name: Collect info about deployed instances
-    os_server_info:
+    openstack.cloud.server_info:
       cloud: overcloud
       server: instance*
       filters:
@@ -27,5 +27,5 @@
       owner: stack
       group: stack
       mode: '0644'
-    loop: "{{ result.openstack_servers }}"
+    loop: "{{ result['openstack_servers'] }}"
     delegate_to: hypervisor
