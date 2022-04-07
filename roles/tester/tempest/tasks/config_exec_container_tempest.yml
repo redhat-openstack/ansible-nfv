@@ -28,11 +28,11 @@
         {% endif %}
     external_network: |
         {% if external_net_id %}
-        {{ tempest_net_id.openstack_networks.0.id }}
+        {{ tempest_net_id['openstack_networks'][0]['id'] }}
         {% endif %}
     flavor_name: |
         {% if tempest_flavor_name is defined %}
-        {{ reg_flavors.results.0.id }}
+        {{ tempest_flavor_result['flavor']['id'] }}
         {% endif %}
   containers.podman.podman_container:
     name: tempest_nfv
