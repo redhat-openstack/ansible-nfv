@@ -8,44 +8,51 @@
         dir: vars
     # User test
     - name: Fetch user state
-      os_user_facts:
+      openstack.cloud.identity_user_info:
         cloud: "{{ cloud_name }}"
         name: "{{ users[0].name }}"
+      register: users_info
 
     - name: Verify test user creation
       assert:
         that:
-          - "openstack_users[0].name"
-          - "openstack_users[0].name == users[0].name"
+          - "users_info['openstack_users'][0].name"
+          - "users_info['openstack_users'][0].name == users[0].name"
 
     # Flavor test
     - name: Fetch flavor state
-      os_flavor_facts:
+      openstack.cloud.compute_flavor_info:
         cloud: "{{ cloud_name }}"
         name: "{{ flavors[0].name }}"
+      register: flavors_info
 
     - name: Verify test flavor creation
       assert:
         that:
-          - "openstack_flavors[0].name"
-          - "openstack_flavors[0].name == flavors[0].name"
+          - "flavors_info['openstack_flavors'][0]['name']"
+          - "flavors_info['openstack_flavors'][0]['name'] == flavors[0]['name']"
+
+    - name: Fetch extra_specs From Created Flavor
+      command: "openstack --os-cloud {{ cloud_name }} flavor show {{ flavors_info['openstack_flavors'][0]['name'] }} -c 'extra_specs' -f value"
+      register: flavor_creation_extra_specs
 
     - name: Verify test flavor extra specs
       assert:
         that:
-          - "openstack_flavors[0].extra_specs"
+          - "flavor_creation_extra_specs"
 
     # Image test
     - name: Fetch image state
-      os_image_facts:
+      openstack.cloud.image_info:
         cloud: "{{ cloud_name }}"
         image: "{{ images[0].name }}"
+      register: image_info
 
     - name: Verify test image creation
       assert:
         that:
-          - "openstack_image.name"
-          - "openstack_image.name == images[0].name"
+          - "image_info['openstack_image'].name"
+          - "image_info['openstack_image'].name == images[0].name"
 
     # Security group test
     - name: Fetch security group state # noqa risky-shell-pipe
@@ -119,7 +126,7 @@
 
     # Network and subnet test
     - name: Fetch networks state
-      os_networks_facts:
+      openstack.cloud.networks_info:
         cloud: "{{ cloud_name }}"
 
     - name: Exclude HA router network
@@ -129,7 +136,7 @@
       when: item.tenant_id
 
     - name: Fetch subnets state
-      os_subnets_facts:
+      openstack.cloud.subnets_info:
         cloud: "{{ cloud_name }}"
 
     - name: Filter external network
@@ -199,7 +206,7 @@
 
     # Network port test
     - name: Fetch test port
-      os_port_info:
+      openstack.cloud.port_info:
         cloud: "{{ cloud_name }}"
         port: "{{ instances[0].net_ports[0].name }}"
       register: os_net_port
@@ -214,9 +221,10 @@
 
     # Instance test
     - name: Fetch server state
-      os_server_facts:
+      openstack.cloud.server_info:
         cloud: "{{ cloud_name }}"
         detailed: yes
+      register: server_info
 
     - name: Verify instances state
       assert:
@@ -228,7 +236,7 @@
           - "item.0.key_name == item.1.key_name"
           - "item.0.config_drive | bool == item.1.config_drive | bool"
           - "item.0.security_groups[0].name == item.1.sec_groups"
-      loop: "{{ openstack_servers | zip(instances) | list }}"
+      loop: "{{ server_info['openstack_servers'] | zip(instances) | list }}"
 
     # Resources output test
     - name: Test resource output file existance
