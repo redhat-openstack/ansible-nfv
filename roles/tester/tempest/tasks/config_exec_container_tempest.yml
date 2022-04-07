@@ -28,7 +28,7 @@
         {% endif %}
     external_network: |
         {% if external_net_id %}
-        {{ tempest_net_id.openstack_networks.0.id }}
+        {{ tempest_net_id['openstack_networks']['id'] }}
         {% endif %}
     flavor_name: |
         {% if tempest_flavor_name is defined %}
