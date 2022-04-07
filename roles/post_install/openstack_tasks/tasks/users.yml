@@ -5,7 +5,7 @@
 - name: "Projects {{ resource_state }}"
   vars:
     ansible_python_interpreter: "{{ venv_path }}/bin/python"
-  os_project:
+  openstack.cloud.project:
     cloud: "{{ item.cloud_name | default(cloud_name) }}"
     name: "{{ item.project }}"
     domain_id: "{{ item.domain }}"
@@ -17,7 +17,7 @@
 - name: "Users {{ resource_state }}"
   vars:
     ansible_python_interpreter: "{{ venv_path }}/bin/python"
-  os_user:
+  openstack.cloud.identity_user:
     cloud: "{{ item.cloud_name | default(cloud_name) }}"
     name: "{{ item.name }}"
     password: "{{ item.pass }}"
@@ -32,7 +32,7 @@
 - name: Add user to role
   vars:
     ansible_python_interpreter: "{{ venv_path }}/bin/python"
-  os_user_role:
+  openstack.cloud.identity_role:
     cloud: "{{ item.cloud_name | default(cloud_name) }}"
     user: "{{ item.name }}"
     project: "{{ item.project }}"
