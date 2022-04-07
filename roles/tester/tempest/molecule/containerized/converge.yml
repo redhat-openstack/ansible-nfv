@@ -10,5 +10,7 @@
         image_for_tempest: false
         generate_accounts: true
         tests_regex: '^nfv_tempest_plugin(.*basic)'
+        cloud_name: 'overcloud'
+        tempest_flavor_name: 'test_flavor'
       import_role:
         name: roles/tester/tempest

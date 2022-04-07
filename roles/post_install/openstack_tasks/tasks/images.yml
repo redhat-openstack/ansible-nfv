@@ -46,7 +46,7 @@
 - name: Upload images
   vars:
     ansible_python_interpreter: "{{ venv_path }}/bin/python"
-  os_image:
+  openstack.cloud.image:
     cloud: "{{ item.cloud_name | default(cloud_name) }}"
     name: "{{ item.name }}"
     container_format: bare
