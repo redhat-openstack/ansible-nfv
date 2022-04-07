@@ -12,12 +12,12 @@
         --image-disk-format "{{ images[0]['disk_format'] }}" \
         {% endif %}
         {% if external_net_id %}
-        --network-id {{ tempest_net_id.openstack_networks.0.id }} \
+        --network-id {{ tempest_net_id['openstack_networks'][0]['id'] }} \
         {% endif %}
         identity.uri {{ rc_vars.osp_auth }} \
         identity.admin_password {{ rc_vars.osp_password }} \
         {% if tempest_flavor_name is defined %}
-        compute.flavor_ref {{ reg_flavors.results.0.id }} \
+        compute.flavor_ref {{ tempest_flavor_result['openstack_flavors'][0]['id'] }} \
         {% endif %}
         {% if generate_accounts %}
         auth.test_accounts_file {{ accounts_file_path }} \

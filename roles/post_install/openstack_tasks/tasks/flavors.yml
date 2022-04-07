@@ -1,11 +1,8 @@
 ---
-# Note! - The task splitted into two different tasks because
-#         in case one of the flavors provided without extra specs,
-#         it will be ignored and not created.
 - name: "Flavors {{ resource_state }}"
   vars:
     ansible_python_interpreter: "{{ venv_path }}/bin/python"
-  os_nova_flavor:
+  openstack.cloud.compute_flavor:
     cloud: "{{ item.cloud_name | default(cloud_name) }}"
     name: "{{ item.name }}"
     ram: "{{ item.ram }}"
@@ -16,4 +13,23 @@
     state: "{{ resource_state }}"
     flavorid: "{{ item.flavorid | default (omit) }}"
   loop: "{{ flavors }}"
-  register: reg_flavors
+
+# Setting a retry amount in order to ensure that extra_specs are applied.
+- name: "Ensure extra_specs Are Added To Flavor"
+  vars:
+    ansible_python_interpreter: "{{ venv_path }}/bin/python"
+  openstack.cloud.compute_flavor:
+    cloud: "{{ item.cloud_name | default(cloud_name) }}"
+    name: "{{ item.name }}"
+    ram: "{{ item.ram }}"
+    disk: "{{ item.disk }}"
+    vcpus: "{{ item.vcpus }}"
+    extra_specs: "{{ item.extra_specs | default({}) }}"
+    validate_certs: "{{ validate_certs | default(omit) }}"
+    state: 'present'
+    flavorid: "{{ item.flavorid | default (omit) }}"
+  loop: "{{ flavors }}"
+  retries: 10
+  until: item['extra_specs'] == os_flavor.flavor['extra_specs']
+  register: os_flavor
+  when: resource_state == 'present'
