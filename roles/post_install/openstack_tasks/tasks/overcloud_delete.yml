@@ -7,7 +7,7 @@
 - name: Delete Overcloud stack
   vars:
     ansible_python_interpreter: "{{ venv_path }}/bin/python"
-  os_stack:
+  openstack.cloud.stack:
     cloud: "{{ cloud_name }}"
     name: "{{ overcloud_name | default('overcloud') }}"
     state: absent
