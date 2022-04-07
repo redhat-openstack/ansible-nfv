@@ -26,25 +26,26 @@ mkdir $logs_dir
 # In order to minimize the time of tests execution and not to rerun the tripleo_inventory
 # generation for each role, it will be done once when molecule_test.sh script executed.
 # When a role tested separately, it will generate the inventory by itself.
-echo "Generating the inventory for the roles."
-export MOLECULE_INVENTORY_PATH=$(pwd)/inventory
-ansible-playbook playbooks/tripleo/post_install/tripleo_inventory.yml \
--e host="${TEST_HOST}" -e ssh_key="${TEST_SSH_KEY}" -e setup_type=virt
-export TEST_INV_GENERATED=true
-# Adding this to allow using external collection for newer ansible versions
-# this variable set the path to the collection directory
-export ANSIBLE_COLLECTIONS_PATH=/tmp/.collectinos
 
 # Installing required collections
 echo installing requirements
-ansible-galaxy collection install -r requirements.yaml -p $ANSIBLE_COLLECTIONS_PATH
+# Adding this to allow using external collection for newer ansible versions
+# this variable set the path to the collection directory
+export ANSIBLE_COLLECTIONS_PATH=/tmp/.collectinos; export ANSIBLE_COLLECTIONS_PATHS=${ANSIBLE_COLLECTIONS_PATH}
+rm -rf ${ANSIBLE_COLLECTIONS_PATH}; ansible-galaxy collection install -r requirements.yaml -p ${ANSIBLE_COLLECTIONS_PATH}
+
+echo "Generating the inventory for the roles."
+export MOLECULE_INVENTORY_PATH=$(pwd)/inventory
+ANSIBLE_COLLECTIONS_PATHS=$ANSIBLE_COLLECTIONS_PATH ansible-playbook playbooks/tripleo/post_install/tripleo_inventory.yml \
+-e host="${TEST_HOST}" -e ssh_key="${TEST_SSH_KEY}" -e setup_type=virt
+export TEST_INV_GENERATED=true
 
 molecules="$(find roles/ -name molecule -type d)"
 for molecule in $molecules; do
     pushd $(dirname $molecule)
     export ANSIBLE_LOG_PATH=$logs_dir/$(basename $(dirname $molecule)).log
 
-    if ! molecule test --all; then
+    if ! molecule --debug -vvvv test --all; then
         failed_runs=$((failed_runs + 1))
         failed_roles+=($(dirname $molecule))
     fi
@@ -75,5 +76,5 @@ for role in "${tested_roles[@]}"; do
 done
 # Cleaning worker from installed collections
 echo removing requirements installed for test
-rm -rf $ANSIBLE_COLLECTIONS_PATH
+rm -rf ${ANSIBLE_COLLECTIONS_PATH}
 echo -e "################\n"
