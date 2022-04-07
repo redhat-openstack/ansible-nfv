@@ -3,7 +3,7 @@
 - name: "Keypair {{ resource_state }}"
   vars:
     ansible_python_interpreter: "{{ venv_path }}/bin/python"
-  os_keypair:
+  openstack.cloud.keypair:
     cloud: "{{ item.cloud_name | default(cloud_name) }}"
     state: "{{ resource_state }}"
     name: "{{ item.name }}"
@@ -17,7 +17,7 @@
     dest: "{{ resources_output_file | dirname }}/{{ item.item.name }}.key"
     mode: 0600
   loop: "{{ reg_keypair.results }}"
-  no_log: true
+    # no_log: true
   when: item.changed and item.id is defined
 
 - name: Fetch private key from generated keypair
