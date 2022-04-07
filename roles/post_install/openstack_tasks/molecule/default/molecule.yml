@@ -4,6 +4,10 @@ driver:
 lint: |
   set -e
   yamllint -c ../../../.yamllint .
+dependency:
+  name: galaxy
+  options:
+    requirements-file: ../../../../../requirements.yml
 platforms:
   - name: hypervisor
 provisioner:

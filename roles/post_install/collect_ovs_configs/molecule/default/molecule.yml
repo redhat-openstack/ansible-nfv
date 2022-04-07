@@ -4,6 +4,10 @@ driver:
 lint: |
   set -e
   yamllint -c ../../../.yamllint .
+dependency:
+  name: galaxy
+  options:
+    requirements-file: ../../../../../requirements.yml
 platforms:
   - name: instance
     image: "geerlingguy/docker-${MOLECULE_DISTRO:-centos8}-ansible:latest"
