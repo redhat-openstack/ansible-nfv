@@ -18,6 +18,7 @@ provisioner:
   name: ansible
   env:
     ANSIBLE_ROLES_PATH: ../../../../../
+    ANSIBLE_COLLECTIONS_PATHS: ${ANSIBLE_COLLECTIONS_PATH}
 verifier:
   name: ansible
 scenario:

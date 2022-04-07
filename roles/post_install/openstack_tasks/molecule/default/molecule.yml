@@ -11,6 +11,7 @@ provisioner:
   env:
     ANSIBLE_LIBRARY: ../../../../../library
     ANSIBLE_ROLES_PATH: ../../../../../
+    ANSIBLE_COLLECTIONS_PATHS: ${ANSIBLE_COLLECTIONS_PATH}
   inventory:
     links:
       hosts: ${MOLECULE_INVENTORY_PATH:-inventory}
