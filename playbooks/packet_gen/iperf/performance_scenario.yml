@@ -26,7 +26,7 @@
       when: cloud_resources == 'external'
 
     - name: instance facts
-      os_server_facts:
+      openstack.cloud.server_info:
         cloud: "{{ cloud_name | default('overcloud') }}"
         server: "iperf_server"
         validate_certs: "{{ cert_validate | default(False) }}"

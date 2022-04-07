@@ -5,7 +5,7 @@
   tasks:
 
   - name: Collect info about deployed instances
-    os_server_info:
+    openstack.cloud.server_info:
       cloud: overcloud
       server: instance*
       filters:

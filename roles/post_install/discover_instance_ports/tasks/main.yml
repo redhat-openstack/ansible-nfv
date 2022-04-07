@@ -7,7 +7,7 @@
 - name: Gather Instance Facts From OpenStack API
   vars:
     ansible_python_interpreter: "{{ venv_path }}/bin/python"
-  os_server_facts:
+  openstack.cloud.server_info:
     cloud: "{{ query_cloud }}"
     server: "{{ query_instance | mandatory }}"
     validate_certs: "{{ cloud_validate_certs }}"
@@ -21,7 +21,7 @@
 - name: Gather Instance Server Ports
   vars:
     ansible_python_interpreter: "{{ venv_path }}/bin/python"
-  os_port_facts:
+  openstack.cloud.port_info:
     cloud: "{{ query_cloud }}"
     validate_certs: "{{ cloud_validate_certs }}"
     filters:
