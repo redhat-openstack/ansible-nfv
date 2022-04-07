@@ -26,7 +26,7 @@
 - name: Get the external network id
   vars:
     ansible_python_interpreter: "{{ venv_path }}/bin/python"
-  os_networks_info:
+  openstack.cloud.networks_info:
     cloud: "{{ cloud_name }}"
     validate_certs: "{{ validate_certs| default (omit) }}"
     filters:
@@ -45,10 +45,11 @@
 - name: Check for the specific flavor id if it's required
   vars:
     ansible_python_interpreter: "{{ venv_path }}/bin/python"
-  os_flavor_info:
+  openstack.cloud.compute_flavor_info:
     cloud: "{{ cloud_name }}"
     validate_certs: "{{ validate_certs | default (omit) }}"
     name: "{{ tempest_flavor_name }}"
+  register: tempest_flavor_result
   when: tempest_flavor_name is defined
 
 - name: Copying generic config file to the "{{ tempest_dir }}" directory
