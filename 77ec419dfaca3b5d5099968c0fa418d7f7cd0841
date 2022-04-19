@@ -16,6 +16,24 @@
       "message": "gate seems to be failing, can you update?",
       "revId": "77ec419dfaca3b5d5099968c0fa418d7f7cd0841",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3d807bec_5e674d76",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2022-04-19T15:02:35Z",
+      "side": 1,
+      "message": "yes it is unrelated to the change it seems like there is an issue with the gate I\u0027ll look at it but I need this patch for ffu",
+      "parentUuid": "76d0d699_b4a61595",
+      "revId": "77ec419dfaca3b5d5099968c0fa418d7f7cd0841",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
