@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "76d0d699_b4a61595",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1007976
+      },
+      "writtenOn": "2022-04-19T08:09:09Z",
+      "side": 1,
+      "message": "gate seems to be failing, can you update?",
+      "revId": "77ec419dfaca3b5d5099968c0fa418d7f7cd0841",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
