@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "f4d1867e_4d107c26",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 41
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2022-04-24T04:57:37Z",
+      "side": 1,
+      "message": "Hi @Ziv and @Itzik,\n\nIf you are using resource creator please test this patch to see if your automation is not broken.",
+      "revId": "2e5826287ebc28a0b652935d1ec758534d3d9c1f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
