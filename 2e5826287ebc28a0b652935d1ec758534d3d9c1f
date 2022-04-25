@@ -33,6 +33,24 @@
       "message": "Do we need always to set ANSIBLE_VERBOSITY\u003d4? This way when running \"ANSIBLE_VERBOSITY\u003d2 molecule_test.sh\" the intended ANSIBLE_VERBOSITY will be ignored.",
       "revId": "2e5826287ebc28a0b652935d1ec758534d3d9c1f",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "81bf360e_0a1e7aff",
+        "filename": "molecule_test.sh",
+        "patchSetId": 41
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2022-04-25T11:28:55Z",
+      "side": 1,
+      "message": "I assume that you mention the ANSIBLE_VERBOSITY set on each molecule level.\nAfter debugging this gate for a while it was really a pain to have a lower level of verbosity.",
+      "parentUuid": "c813b062_009f29f5",
+      "revId": "2e5826287ebc28a0b652935d1ec758534d3d9c1f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
