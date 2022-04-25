@@ -16,6 +16,23 @@
       "message": "Hi @Ziv and @Itzik,\n\nIf you are using resource creator please test this patch to see if your automation is not broken.",
       "revId": "2e5826287ebc28a0b652935d1ec758534d3d9c1f",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c813b062_009f29f5",
+        "filename": "molecule_test.sh",
+        "patchSetId": 41
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1019727
+      },
+      "writtenOn": "2022-04-25T07:24:08Z",
+      "side": 1,
+      "message": "Do we need always to set ANSIBLE_VERBOSITY\u003d4? This way when running \"ANSIBLE_VERBOSITY\u003d2 molecule_test.sh\" the intended ANSIBLE_VERBOSITY will be ignored.",
+      "revId": "2e5826287ebc28a0b652935d1ec758534d3d9c1f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
