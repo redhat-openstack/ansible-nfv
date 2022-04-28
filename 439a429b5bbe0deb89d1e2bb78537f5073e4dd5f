@@ -16,6 +16,23 @@
       "message": "recheck",
       "revId": "439a429b5bbe0deb89d1e2bb78537f5073e4dd5f",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "65988526_122169ef",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1007976
+      },
+      "writtenOn": "2022-04-28T19:10:55Z",
+      "side": 1,
+      "message": "gate is failing \n1. the log is too verbose, can we reduce that?\n2. Errno 2] No such file or directory: \u0027/opt/app-root/src/tempest/container_tempest/regression_tests.conf\u0027\n",
+      "revId": "439a429b5bbe0deb89d1e2bb78537f5073e4dd5f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
