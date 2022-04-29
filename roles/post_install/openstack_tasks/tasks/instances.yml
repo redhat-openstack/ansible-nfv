@@ -4,7 +4,7 @@
   vars:
     ansible_python_interpreter: "{{ venv_path }}/bin/python"
     all_instances: '{{ instances | default([]) }} + {{ generated_dynamic_instances | default([]) }}'
-  openstack.cloud.server:
+  os_server:
     state: "{{ resource_state }}"
     cloud: "{{ item.cloud_name | default(cloud_name) }}"
     name: "{{ item.name }}"
@@ -35,7 +35,7 @@
   vars:
     ansible_python_interpreter: "{{ venv_path }}/bin/python"
     all_instances: '{{ instances | default([]) }} + {{ generated_dynamic_instances | default([]) }}'
-  openstack.cloud.floating_ip:
+  os_floating_ip:
     state: "{{ resource_state }}"
     cloud: "{{ item.cloud_name | default(cloud_name) }}"
     server: "{{ item.name }}"

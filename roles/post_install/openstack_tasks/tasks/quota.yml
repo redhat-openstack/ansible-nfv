@@ -3,7 +3,7 @@
 - name: Add quota to project
   vars:
     ansible_python_interpreter: "{{ venv_path }}/bin/python"
-  openstack.cloud.quota:
+  os_quota:
     cloud: "{{ item.0.cloud_name | default(cloud_name) }}"
     name: "{{ item.0.project }}"
     cores: "{{ item.1.cores | default(omit) }}"

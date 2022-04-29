@@ -22,17 +22,17 @@
         compute.min_microversion {{ min_microversion }}
         compute.max_microversion {{ max_microversion }}
         DEFAULT.use_stderr true
-    image_name: |-
+    image_name: |
         {% if image_for_tempest| bool %}
         {{ images[0].url | basename }}
         {% endif %}
-    external_network: |-
+    external_network: |
         {% if external_net_id %}
-        {{ tempest_net_id['openstack_networks'][0]['id'] }}
+        {{ tempest_net_id.openstack_networks.0.id }}
         {% endif %}
-    flavor_name: |-
+    flavor_name: |
         {% if tempest_flavor_name is defined %}
-        {{ tempest_flavor_result['openstack_flavors'][0]['id'] }}
+        {{ reg_flavors.results.0.id }}
         {% endif %}
   containers.podman.podman_container:
     name: tempest_nfv

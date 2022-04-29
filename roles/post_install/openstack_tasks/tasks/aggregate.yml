@@ -3,7 +3,7 @@
 - name: Create aggregate groups
   vars:
     ansible_python_interpreter: "{{ venv_path }}/bin/python"
-  openstack.cloud.host_aggregate:
+  os_nova_host_aggregate:
     state: "{{ resource_state }}"
     cloud: "{{ item.0.cloud_name | default(cloud_name) }}"
     name: "{{ item.0.name }}"

@@ -26,16 +26,15 @@
       when: cloud_resources == 'external'
 
     - name: instance facts
-      openstack.cloud.server_info:
+      os_server_facts:
         cloud: "{{ cloud_name | default('overcloud') }}"
         server: "iperf_server"
         validate_certs: "{{ cert_validate | default(False) }}"
-      register: perf_iperf_instance
-      failed_when: perf_iperf_instance['openstack_servers'] == []
+      failed_when: openstack_servers == []
 
     - name: set iperf_server_ip
       set_fact:
-        iperf_server_ip: "{{ perf_iperf_instance['openstack_servers'][0]['addresses'][iperf_network][0]['addr'] }}"
+        iperf_server_ip: "{{ openstack_servers[0]['addresses'][iperf_network][0]['addr'] }}"
 
 - hosts: "{{ dut_compute | default(omit) }}"
   become: true

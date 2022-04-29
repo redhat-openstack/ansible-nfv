@@ -10,7 +10,7 @@
     - name: Create networks
       vars:
         ansible_python_interpreter: "{{ venv_path }}/bin/python"
-      openstack.cloud.network:
+      os_network:
         cloud: "{{ item.cloud_name | default(cloud_name) }}"
         name: "{{ item.name }}"
         provider_network_type: "{{ item.network_type | default(omit) }}"
@@ -26,7 +26,7 @@
     - name: Create subnets
       vars:
         ansible_python_interpreter: "{{ venv_path }}/bin/python"
-      openstack.cloud.subnet:
+      os_subnet:
         cloud: "{{ item.cloud_name | default(cloud_name) }}"
         name: "{{ item.name }}_subnet"
         allocation_pool_start: "{{ item.allocation_pool_start | default(omit) }}"
@@ -45,7 +45,7 @@
     - name: Create router and set router gateway
       vars:
         ansible_python_interpreter: "{{ venv_path }}/bin/python"
-      openstack.cloud.router:
+      os_router:
         cloud: "{{ item.cloud_name | default(cloud_name) }}"
         name: "{{ item.router_name }}"
         network: "{{ item.name }}"
@@ -91,7 +91,7 @@
     - name: Create router if required and set router interfaces
       vars:
         ansible_python_interpreter: "{{ venv_path }}/bin/python"
-      openstack.cloud.router:
+      os_router:
         cloud: "{{ cloud_name }}"
         name: "{{ item.0.0 }}"
         interfaces: "{{ item.1 }}"
@@ -103,7 +103,7 @@
     - name: Create network ports
       vars:
         ansible_python_interpreter: "{{ venv_path }}/bin/python"
-      openstack.cloud.port:
+      os_port:
         cloud: "{{ item.0.cloud_name | default(cloud_name) }}"
         name: "{{ item.1.name }}"
         network: "{{ item.1.network }}"
@@ -112,7 +112,6 @@
         security_groups: "{{ item.1.sec_groups | default(omit) }}"
         port_security_enabled: "{{ item.1.port_security | default(omit) }}"
         validate_certs: "{{ validate_certs | default (omit) }}"
-        tags: "{{ item[1].tags | default(omit) }}"
         state: present
       loop: "{{ instances | subelements('net_ports', 'skip_missing=True') }}"
       when: net_port
@@ -124,7 +123,7 @@
     - name: Delete network ports
       vars:
         ansible_python_interpreter: "{{ venv_path }}/bin/python"
-      openstack.cloud.port:
+      os_port:
         cloud: "{{ item.0.cloud_name | default(cloud_name) }}"
         name: "{{ item.1.name }}"
         network: "{{ item.1.network }}"
@@ -149,7 +148,7 @@
     - name: Delete router
       vars:
         ansible_python_interpreter: "{{ venv_path }}/bin/python"
-      openstack.cloud.router:
+      os_router:
         cloud: "{{ item.cloud_name | default(cloud_name) }}"
         name: "{{ item.router_name }}"
         validate_certs: "{{ validate_certs | default (omit) }}"
@@ -162,7 +161,7 @@
     - name: Delete networks
       vars:
         ansible_python_interpreter: "{{ venv_path }}/bin/python"
-      openstack.cloud.network:
+      os_network:
         cloud: "{{ item.cloud_name | default(cloud_name) }}"
         name: "{{ item.name }}"
         validate_certs: "{{ validate_certs | default (omit) }}"

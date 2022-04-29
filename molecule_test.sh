@@ -26,36 +26,25 @@ mkdir $logs_dir
 # In order to minimize the time of tests execution and not to rerun the tripleo_inventory
 # generation for each role, it will be done once when molecule_test.sh script executed.
 # When a role tested separately, it will generate the inventory by itself.
-
-export ANSIBLE_VERBOSITY=4
-
-# Installing required collections
-echo installing requirements
+echo "Generating the inventory for the roles."
+export MOLECULE_INVENTORY_PATH=$(pwd)/inventory
+ansible-playbook playbooks/tripleo/post_install/tripleo_inventory.yml \
+-e host="${TEST_HOST}" -e ssh_key="${TEST_SSH_KEY}" -e setup_type=virt
+export TEST_INV_GENERATED=true
 # Adding this to allow using external collection for newer ansible versions
 # this variable set the path to the collection directory
 export ANSIBLE_COLLECTIONS_PATH=/tmp/.collectinos
-export ANSIBLE_COLLECTIONS_PATHS=/tmp/.collectinos
-rm -rf ${ANSIBLE_COLLECTIONS_PATH}
-rm -rf ${HOME}/.ansible/collections
-ansible-galaxy collection install -r requirements.yaml -p ${ANSIBLE_COLLECTIONS_PATH}
-# Install docker collection because it is required to execute molecule tests
-ansible-galaxy collection install community.docker -p ${ANSIBLE_COLLECTIONS_PATH}
 
-echo "Generating the inventory for the roles."
-export MOLECULE_INVENTORY_PATH=$(pwd)/inventory
-ANSIBLE_COLLECTIONS_PATHS=$ANSIBLE_COLLECTIONS_PATH ansible-playbook playbooks/tripleo/post_install/tripleo_inventory.yml \
--e host="${TEST_HOST}" -e ssh_key="${TEST_SSH_KEY}" -e setup_type=virt
-export TEST_INV_GENERATED=true
-
-# This is a workaround because molecule for some reason does not parse custom COLLECTION path
-ln -s ${ANSIBLE_COLLECTIONS_PATH} ${HOME}/.ansible/collections
+# Installing required collections
+echo installing requirements
+ansible-galaxy collection install -r requirements.yaml -p $ANSIBLE_COLLECTIONS_PATH
 
 molecules="$(find roles/ -name molecule -type d)"
 for molecule in $molecules; do
     pushd $(dirname $molecule)
     export ANSIBLE_LOG_PATH=$logs_dir/$(basename $(dirname $molecule)).log
 
-    if ! molecule --debug test --all; then
+    if ! molecule test --all; then
         failed_runs=$((failed_runs + 1))
         failed_roles+=($(dirname $molecule))
     fi
@@ -86,6 +75,5 @@ for role in "${tested_roles[@]}"; do
 done
 # Cleaning worker from installed collections
 echo removing requirements installed for test
-rm -rf ${ANSIBLE_COLLECTIONS_PATH}
-rm -rf ${HOME}/.ansible/collections
+rm -rf $ANSIBLE_COLLECTIONS_PATH
 echo -e "################\n"

@@ -108,8 +108,7 @@
 - name: Gather Overcloud nodes data
   vars:
     ansible_python_interpreter: "{{ venv_path }}/bin/python"
-  openstack.cloud.server_info:
+  os_server_facts:
     auth: "{{ creds.stdout | from_yaml }}"
     # Required for SSL
     validate_certs: no
-  register: overcloud_nodes

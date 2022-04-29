@@ -5,13 +5,13 @@
   tasks:
 
   - name: Collect info about deployed instances
-    openstack.cloud.server_info:
+    os_server_info:
       cloud: overcloud
       server: instance*
       filters:
         vm_state: active
       all_projects: yes
-    register: servers_result
+    register: result
 
   - name: Touch file for vm locations
     file:
@@ -27,5 +27,5 @@
       owner: stack
       group: stack
       mode: '0644'
-    loop: "{{ servers_result['openstack_servers'] }}"
+    loop: "{{ result.openstack_servers }}"
     delegate_to: hypervisor
