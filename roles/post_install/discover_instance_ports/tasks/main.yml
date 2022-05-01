@@ -28,7 +28,7 @@
     filters:
       mac_address: "{{ item }}"
   loop: "{{ instance_helper_nic_mac_addresses | flatten(levels=1) }}"
-  failed_when: openstack_ports == []
+  failed_when: instance_ports['openstack_ports'] == []
   register: instance_ports
 
 - name: Populate Server NICs
