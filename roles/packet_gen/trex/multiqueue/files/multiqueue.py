@@ -144,7 +144,12 @@ def parse_pmd_stats(queues_json, pmd_stats, pps):
     :param pmd_stats: pmd stats string after a injection
     :param pps: injection parameter
     :return updated queues_json
-    """
+    ""
+
+    for port in range(len(queues_json)):
+        for queue in queues_json[port]["queues"].keys():
+            queues_json[port][queue]["hyp_queues"] = []
+            queues_json[port][queue]["rate"] = 0
 
     queues = parse_pmd_stats_output(pmd_stats)
     filt_queues = [d for d in queues if d['pmd_usage'] > 0]
@@ -162,7 +167,6 @@ def parse_pmd_stats(queues_json, pmd_stats, pps):
     for port_index, port_value in enumerate(queue_ids):
         for queue_id in range(int(len(port_value)/2)):
             queue = queues_json[port_index]["queues"][str(queue_id)]
-            queue["hyp_queues"] = []
             queue["hyp_queues"].\
                 append(queue_ids[port_index][int(queue_id)*2])
             queue["hyp_queues"].\
