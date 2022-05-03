@@ -24,7 +24,7 @@ tempest_repos:
       13:
         branch: '23.0.0'
       defaults:
-        branch: 'master'
+        branch: '28.0.0'
   - name: python-tempestconf
     url: https://git.openstack.org/openstack/python-tempestconf
     version:
