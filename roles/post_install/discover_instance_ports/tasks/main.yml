@@ -33,7 +33,7 @@
 
 - name: Populate Server NICs
   set_fact:
-    instance_nics: "{{ instance_nics }} + [ {{ item['ansible_facts']['openstack_ports'][0] }} ]"
+    instance_nics: "{{ instance_nics }} + [ {{ item }} ]"
   loop: "{{ instance_ports['results'] | flatten(levels=1) }}"
 
 - name: Attempt To Discover External Floating IP From OpenStack APIs
