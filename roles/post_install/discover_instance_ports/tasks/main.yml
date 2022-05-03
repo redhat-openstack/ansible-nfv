@@ -31,10 +31,14 @@
   failed_when: instance_ports['openstack_ports'] == []
   register: instance_ports
 
+- fail:
+  debug:
+    msg: "{{ instance_nics }}"
+
 - name: Populate Server NICs
   set_fact:
-    instance_nics: "{{ instance_nics }} + [ {{ item['ansible_facts']['openstack_ports'][0] }} ]"
-  loop: "{{ instance_ports['results'] | flatten(levels=1) }}"
+    instance_nics: "{{ instance_nics }} + [ {{ item }} ]"
+  loop: "{{ instance_ports['openstack_ports'] }}"
 
 - name: Attempt To Discover External Floating IP From OpenStack APIs
   block:
