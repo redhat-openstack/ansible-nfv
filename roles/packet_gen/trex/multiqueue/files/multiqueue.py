@@ -140,11 +140,24 @@ def parse_pmd_stats(queues_json, pmd_stats, pps):
     - map queues to queues ids returned by pmd stats
     - include some pps/pmd_usage values
 
+    It is expected a injection like this one:
+    [{'1': 0.3, '0': 1.2, '2': 0.1}, {'1': 0.3, '0': 0.8, '2': 0.1}]
+    - interface 0, queue 0: higher traffic --> map this physical queue
+    with its virtual queue
+    - Remaining physical queue and virtual queue will map together
+    - for each interface each queue have a different rate, so it will
+    be possible to get queue_id based on the cpu reported
+
     :param queues_json: json with queues parsed from testpmd.log
     :param pmd_stats: pmd stats string after a injection
     :param pps: injection parameter
     :return updated queues_json
     """
+
+    for port in range(len(queues_json)):
+        for queue in queues_json[port]["queues"].keys():
+            queues_json[port]["queues"][queue]["hyp_queues"] = []
+            queues_json[port]["queues"][queue]["rate"] = 0
 
     queues = parse_pmd_stats_output(pmd_stats)
     filt_queues = [d for d in queues if d['pmd_usage'] > 0]
@@ -152,21 +165,33 @@ def parse_pmd_stats(queues_json, pmd_stats, pps):
                            key=lambda d: d['pmd_usage'],
                            reverse=True)
     queue_names = []
-    queue_names.append([d["port"] for d in sorted_queues[0:2]])
-    queue_names.append([d["port"] for d in sorted_queues[2:4]])
-    queue_ids = []
-    queue_ids.append([d for d in sorted_queues
-                      if d["port"] in queue_names[0]])
-    queue_ids.append([d for d in sorted_queues if
-                      d["port"] in queue_names[1]])
-    for port_index, port_value in enumerate(queue_ids):
-        for queue_id in range(int(len(port_value)/2)):
+    queue_names.append([[d["port"] for d in sorted_queues
+                         if 'vhu' not in d["port"]][0],
+                        [d["port"] for d in sorted_queues
+                         if 'vhu' in d["port"]][0]])
+    queue_names.append(list(set([d["port"] for d in sorted_queues
+                                 if d["port"] not in queue_names[0]])))
+    queue_ids_phy = []
+    queue_ids_vhu = []
+    queue_ids_phy.append([d for d in sorted_queues
+                         if 'vhu' not in d["port"]
+                          and d["port"] in queue_names[0]])
+    queue_ids_phy.append([d for d in sorted_queues
+                         if 'vhu' not in d["port"]
+                          and d["port"] in queue_names[1]])
+    queue_ids_vhu.append([d for d in sorted_queues
+                         if 'vhu' in d["port"]
+                          and d["port"] in queue_names[0]])
+    queue_ids_vhu.append([d for d in sorted_queues
+                         if 'vhu' in d["port"]
+                          and d["port"] in queue_names[1]])
+    for port_index, port_value in enumerate(queue_ids_phy):
+        for queue_id in range(int(len(port_value))):
             queue = queues_json[port_index]["queues"][str(queue_id)]
-            queue["hyp_queues"] = []
             queue["hyp_queues"].\
-                append(queue_ids[port_index][int(queue_id)*2])
+                append(queue_ids_phy[port_index][queue_id])
             queue["hyp_queues"].\
-                append(queue_ids[port_index][int(queue_id)*2 + 1])
+                append(queue_ids_vhu[port_index][queue_id])
             queue["rate"] = pps[port_index][str(queue_id)]
 
     return queues_json
