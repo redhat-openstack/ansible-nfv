@@ -1,0 +1,8 @@
+Verified+1: Vadim Khitrin <vkhitrin@redhat.com>
+Code-Review+2: Miguel Angel Nieto Jimenez <mnietoji@redhat.com>
+Code-Review+2: Ella Shulman <ellashulman1@gmail.com>
+Submitted-by: Vadim Khitrin <vkhitrin@redhat.com>
+Submitted-at: Tue, 03 May 2022 11:12:34 +0000
+Reviewed-on: https://review.gerrithub.io/c/redhat-openstack/ansible-nfv/+/537516
+Project: redhat-openstack/ansible-nfv
+Branch: refs/heads/devel
