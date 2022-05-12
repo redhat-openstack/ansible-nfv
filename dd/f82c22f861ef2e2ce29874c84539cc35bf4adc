@@ -1,0 +1,7 @@
+Code-Review+2: Miguel Angel Nieto Jimenez <mnietoji@redhat.com>
+Verified+1: Miguel Angel Nieto Jimenez <mnietoji@redhat.com>
+Submitted-by: Miguel Angel Nieto Jimenez <mnietoji@redhat.com>
+Submitted-at: Thu, 12 May 2022 11:01:17 +0000
+Reviewed-on: https://review.gerrithub.io/c/redhat-openstack/ansible-nfv/+/538115
+Project: redhat-openstack/ansible-nfv
+Branch: refs/heads/master
