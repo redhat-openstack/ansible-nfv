@@ -6,6 +6,8 @@
         banner: motd
         text: "{{ switch_banner }}"
         state: present
+      retries: "{{ task_retries }}"
+      delay: "{{ task_retry_delay }}"
 
     - name: Set VLANs
       junos_vlan:

@@ -4,6 +4,8 @@
     banner: motd
     text: "{{ switch_banner }}"
     state: present
+  retries: "{{ task_retries }}"
+  delay: "{{ task_retry_delay }}"
 
 - name: Configure DHCP Relay
   ios_config:
