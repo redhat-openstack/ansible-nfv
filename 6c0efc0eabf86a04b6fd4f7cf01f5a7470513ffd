@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b0bed96f_07ea1fd1",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2022-05-16T13:58:52Z",
+      "side": 1,
+      "message": "Molecule gate failure is unrelated.",
+      "revId": "6c0efc0eabf86a04b6fd4f7cf01f5a7470513ffd",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
