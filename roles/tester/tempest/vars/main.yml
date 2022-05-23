@@ -24,7 +24,7 @@ tempest_repos:
       13:
         branch: '23.0.0'
       16:
-        branch: 'train-last'
+        branch: '30.0.0'
       defaults:
         branch: 'master'
   - name: python-tempestconf
