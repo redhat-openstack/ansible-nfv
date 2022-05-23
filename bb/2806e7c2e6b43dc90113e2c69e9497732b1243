@@ -1,0 +1,7 @@
+Code-Review+2: Vadim Khitrin <vkhitrin@redhat.com>
+Verified+1: Vadim Khitrin <vkhitrin@redhat.com>
+Submitted-by: Vadim Khitrin <vkhitrin@redhat.com>
+Submitted-at: Mon, 23 May 2022 20:04:18 +0000
+Reviewed-on: https://review.gerrithub.io/c/redhat-openstack/ansible-nfv/+/538576
+Project: redhat-openstack/ansible-nfv
+Branch: refs/heads/master
