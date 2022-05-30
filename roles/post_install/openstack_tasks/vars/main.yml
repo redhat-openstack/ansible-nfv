@@ -2,7 +2,7 @@
 ## Openstack variables
 tripleo_undercloud_file: /home/stack/stackrc
 
-clouds_yaml_file_path: ~/.config/openstack/clouds.yaml
+clouds_yaml_file_path: /home/stack/clouds.yaml
 private_key_fetch_location: /tmp
 
 packages:
