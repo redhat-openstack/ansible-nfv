@@ -1,0 +1,9 @@
+Verified+1: rhosqeauto <aopincar+rhosqeauto@redhat.com>
+Code-Review+2: Vadim Khitrin <vkhitrin@redhat.com>
+Code-Review+2: Miguel Angel Nieto Jimenez <mnietoji@redhat.com>
+Code-Review+2: Sanjay Upadhyay <supadhya@redhat.com>
+Submitted-by: <rdiazcam@redhat.com>
+Submitted-at: Tue, 31 May 2022 06:49:30 +0000
+Reviewed-on: https://review.gerrithub.io/c/redhat-openstack/ansible-nfv/+/539006
+Project: redhat-openstack/ansible-nfv
+Branch: refs/heads/devel
