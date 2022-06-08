@@ -1,0 +1,7 @@
+Verified+1: <rdiazcam@redhat.com>
+Code-Review+2: <rdiazcam@redhat.com>
+Submitted-by: <rdiazcam@redhat.com>
+Submitted-at: Wed, 08 Jun 2022 14:24:00 +0000
+Reviewed-on: https://review.gerrithub.io/c/redhat-openstack/ansible-nfv/+/539450
+Project: redhat-openstack/ansible-nfv
+Branch: refs/heads/master
