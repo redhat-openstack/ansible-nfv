@@ -15,7 +15,7 @@
     failed_when: False
 
   - name: Check binary_search status
-    command: grep -E "Binary search aborting due to critical error|There is no trial which passed|Finished binary-search|The retry limit for a trial has been reached" {{ binary_search_run_log }}
+    command: grep -E 'binary\ search\ aborting\ due\ to\ critical\ error|There\ is\ no\ trial\ which\ passed|Finished\ binary-search|The\ retry\ limit\ for\ a\ trial\ has\ been\ reached' {{ binary_search_run_log }}
     register: binary_search_status
     changed_when: no
     retries: "{{ binary_search_status_retry }}"
