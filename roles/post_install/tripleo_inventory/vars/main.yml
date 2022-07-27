@@ -1,4 +1,11 @@
 packages:
+  rhel9:
+    - gcc
+    - libffi-devel
+    - platform-python-devel
+    - platform-python-setuptools
+    - git
+    - rsync
   rhel8:
     - gcc
     - libffi-devel
