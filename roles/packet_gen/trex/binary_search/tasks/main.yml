@@ -188,8 +188,7 @@
   delegate_to: "{{ groups['undercloud'] | first }}"
 
 - name: dut_compute tasks
-  delegate_to: "{{ dut_compute if dut_compute else 'none' }}"
-  when: dut_compute|length > 0
+  delegate_to: "{{ groups['openstack_nodes'] | regex_search('compute.*') | first }}"
   block:
     - name: Fetch OVS version from compute node
       shell: "ovs-vsctl --version | grep 'Open vSwitch' | sed 's/ovs-vsctl \\(.*\\) //'"
