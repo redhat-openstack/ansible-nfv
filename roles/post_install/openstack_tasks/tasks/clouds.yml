@@ -10,7 +10,11 @@
 - name: Retrieve Undercloud Stacks
   shell: |
     source {{ tripleo_undercloud_file }};
+    {% if overcloud_version | int <= 16 %}
     openstack stack list -c 'Stack Name' -f value
+    {% else %}
+    openstack overcloud status | grep -v "^+" | tail -n +2 | awk '{print $2}'
+    {% endif %}
   register: undercloud_stack_output
 
 - name: Parse Undercloud Stack Names If Available
