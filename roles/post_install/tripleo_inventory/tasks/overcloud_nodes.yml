@@ -11,7 +11,9 @@
     - name: Install requirements for pip virtualenv
       vars:
         ansible_python_interpreter: /usr/libexec/platform-python
-        os_version: "{%- if hostvars[groups['undercloud'][0]].ansible_distribution_major_version == '8' -%}
+        os_version: "{%- if hostvars[groups['undercloud'][0]].ansible_distribution_major_version == '9' -%}
+                     rhel9
+                     {%- elif hostvars[groups['undercloud'][0]].ansible_distribution_major_version == '8' -%}
                      rhel8
                      {%- elif hostvars[groups['undercloud'][0]].ansible_distribution_major_version == '7' -%}
                      rhel7
