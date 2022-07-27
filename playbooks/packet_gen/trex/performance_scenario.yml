@@ -8,6 +8,9 @@
         msg: "cloud_resources is not set to correct values: 'create' or 'external', please refer to documentation"
       when: cloud_resources is not defined or cloud_resources not in ['create', 'external']
 
+    - include_role: 
+        name: roles/discover_osp_version
+
     - block:
         - name: Generate Resources
           import_role:
@@ -31,7 +34,7 @@
           vars:
             discover_instance_external_ip: True
           loop: "{{ generated_instances }}"
-      when: cloud_resources == 'create'
+      when: cloud_resources == 'create' and overcloud_version | int <= 16
 
     - name: Use Pre-exisisting Resources
       block:
