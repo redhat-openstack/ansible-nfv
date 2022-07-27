@@ -72,7 +72,7 @@
 - name: Set DuT Destination MAC Addresses
   block:
     - name: Fetch Mac Addresses Of NICs Bound To Kernel
-      shell: 'cat /sys/devices/pci*/*/virtio*/net/*/address'
+      shell: 'find /sys/devices -path "*virtio*" -name "address" -exec cat {} \;'
       register: kernel_nics
 
     - name: Query DuT Server Ports
