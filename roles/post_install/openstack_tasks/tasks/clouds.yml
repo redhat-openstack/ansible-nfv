@@ -9,9 +9,14 @@
 # There is no native Ansible module to retrieve stack information
 - name: Retrieve Undercloud Stacks
   shell: |
-    source {{ tripleo_undercloud_file }};
-    openstack stack list -c 'Stack Name' -f value
+    source {{ tripleo_undercloud_file }} ; openstack stack list -c 'Stack Name' -f value
   register: undercloud_stack_output
+  when: overcloud_version | int <= 16
+
+- name: Retrieve Undercloud Stacks
+  shell: source /home/stack/overcloudrc ; openstack overcloud status | grep -v "^+" | tail -n +2 | awk '{print $2}'
+  register: undercloud_stack_output
+  when: overcloud_version | int >= 17
 
 - name: Parse Undercloud Stack Names If Available
   set_fact:
