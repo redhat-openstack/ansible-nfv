@@ -1,7 +1,7 @@
 # TODO (vkhitrin): Refactor tasks to fetch MACs in single play
 - name: Parse DuT MACs
   set_fact:
-    dut_macs: "{{ hostvars[groups[dut_group][0]]['dut_macs'] }}"
+    dut_macs: "{{ hostvars[groups[dut_group][0]]['dut_macs'] | join(',') }}"
   when:
     - dut_macs is not defined
     - hostvars[groups[dut_group][0]]['dut_macs'] is defined
@@ -188,8 +188,7 @@
   delegate_to: "{{ groups['undercloud'] | first }}"
 
 - name: dut_compute tasks
-  delegate_to: "{{ dut_compute if dut_compute else 'none' }}"
-  when: dut_compute|length > 0
+  delegate_to: '{{ groups["overcloud_nodes"] | select("match", "compute.*1") | list }}'
   block:
     - name: Fetch OVS version from compute node
       shell: "ovs-vsctl --version | grep 'Open vSwitch' | sed 's/ovs-vsctl \\(.*\\) //'"
