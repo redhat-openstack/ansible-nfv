@@ -72,8 +72,13 @@
 - name: Set DuT Destination MAC Addresses
   block:
     - name: Fetch Mac Addresses Of NICs Bound To Kernel
-      shell: 'cat /sys/devices/pci*/*/virtio*/net/*/address'
+      shell: 'cat /sys/class/net/*/address'
       register: kernel_nics
+
+    # - name: Fetch Mac Addresses Of NICs Bound To Kernel
+    #   shell: 'cat /sys/devices/pci*/*/virtio*/net/*/address'
+    #   register: kernel_nics
+    #   when: overcloud_version | int < 17
 
     - name: Query DuT Server Ports
       import_role:

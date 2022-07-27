@@ -187,9 +187,13 @@
         perf_json: "{{ perf_result['content'] | b64decode | replace('RESULT', '') }}"
   delegate_to: "{{ groups['undercloud'] | first }}"
 
+- debug:
+    var: dut_compute
+
 - name: dut_compute tasks
-  delegate_to: "{{ dut_compute if dut_compute else 'none' }}"
-  when: dut_compute|length > 0
+  # delegate_to: "{{ dut_compute if dut_compute else 'none' }}"
+  delegate_to: "computeovsdpdksriov-1"
+  # when: dut_compute|length > 0
   block:
     - name: Fetch OVS version from compute node
       shell: "ovs-vsctl --version | grep 'Open vSwitch' | sed 's/ovs-vsctl \\(.*\\) //'"
