@@ -1,5 +1,9 @@
 ---
 
+- name: Discover OSP version
+  include_role:
+    name: discover_osp_version
+
 - name: Check If undercloudrc File Exists
   stat:
     path: "{{ tripleo_undercloud_file }}"
@@ -7,16 +11,30 @@
   failed_when: not undercloudrc_file_stat['stat']['exists']
 
 # There is no native Ansible module to retrieve stack information
-- name: Retrieve Undercloud Stacks
-  shell: |
-    source {{ tripleo_undercloud_file }};
-    openstack stack list -c 'Stack Name' -f value
-  register: undercloud_stack_output
+- name: Get stack name osp16
+  block:          
+    - name: Retrieve Undercloud Stacks
+      shell: |
+        source {{ tripleo_undercloud_file }} ; openstack stack list -c 'Stack Name' -f value
+      register: undercloud_stack_output
+    - name: Parse Undercloud Stack Names If Available
+      set_fact:
+        undercloud_stack_list: "{{ undercloud_stack_output['stdout_lines'] }}"
+      when: undercloud_stack_output['stdout_lines'] | length > 0
+  when: overcloud_version | int <= 16
 
-- name: Parse Undercloud Stack Names If Available
-  set_fact:
-    undercloud_stack_list: "{{ undercloud_stack_output['stdout_lines'] }}"
-  when: undercloud_stack_output['stdout_lines'] | length > 0
+- name: Get stack name osp17
+  block:          
+    - name: Retrieve Undercloud Stacks
+      shell: |
+        set -o pipefail
+        source /home/stack/overcloudrc ; openstack overcloud status | grep -v "^+" | tail -n +2 | awk '{print $2}'
+      register: undercloud_stack_output
+    - name: Parse Undercloud Stack Names If Available
+      set_fact:
+        undercloud_stack_list: "{{ undercloud_stack_output['stdout_lines'] }}"
+      when: undercloud_stack_output['stdout_lines'] | length > 0
+  when: overcloud_version | int >= 17
 
 # We assume that the default behavior of file naming convention:
 # /home/stack/<stack_name>rc
