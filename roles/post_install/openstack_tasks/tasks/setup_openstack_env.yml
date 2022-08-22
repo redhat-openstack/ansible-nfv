@@ -11,7 +11,9 @@
 
 - name: Install required packages
   vars:
-    os_version: "{%- if ansible_distribution_major_version == '8' -%}
+    os_version: "{%- if ansible_distribution_major_version == '9' -%}
+                 rhel9
+                 {%- elif ansible_distribution_major_version == '8' -%}
                  rhel8
                  {%- elif ansible_distribution_major_version == '7' -%}
                  rhel7
@@ -81,6 +83,11 @@
     virtualenv: "{{ venv_path }}"
     virtualenv_command: "/usr/libexec/platform-python -m virtualenv"
   when: ansible_python.version.major == 2
+
+- name: Discover Undercloud OSP version
+  include_role:
+    name: discover_osp_version
+    tasks_from: undercloud
 
 - name: Generate clouds.yaml file
   import_tasks: clouds.yml
