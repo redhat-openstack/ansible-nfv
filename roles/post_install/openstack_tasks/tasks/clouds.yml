@@ -6,11 +6,18 @@
   register: undercloudrc_file_stat
   failed_when: not undercloudrc_file_stat['stat']['exists']
 
-# There is no native Ansible module to retrieve stack information
+# There is no native Ansible module to retrieve stack information.
+# "openstack stack list" return error with ephemeral heat (OSP >= 17),
+# "openstack overcloud status" could be use not it does not allow to
+# use "-f" and "-c" parameters
 - name: Retrieve Undercloud Stacks
   shell: |
     source {{ tripleo_undercloud_file }};
-    openstack stack list -c 'Stack Name' -f value
+    if [ "{{ undercloud_version | int }}" -lt "17" ];then
+        openstack stack list -c 'Stack Name' -f value
+    else
+        printf "overcloud\n"
+    fi
   register: undercloud_stack_output
 
 - name: Parse Undercloud Stack Names If Available
@@ -59,17 +66,20 @@
 - name: Get Cloud variables
   shell: |
     set -e -o pipefail
-    for key in $(set | awk '{FS="="} /^OS_/ {print $1}'); do unset $key; done
-    source {{ item['value'] }}
-    echo -n "{{ item['key'] }}: \
-      {'auth': \
-        { 'auth-url': '$OS_AUTH_URL', \
-          'username': '$OS_USERNAME', \
-          'password': '$OS_PASSWORD', \
-          $(if [ -n "$OS_USER_DOMAIN_NAME" ]; then echo "'user_domain_name': '${OS_USER_DOMAIN_NAME}',"; fi) \
-          $(if [ -n "$OS_PROJECT_DOMAIN_NAME" ]; then echo "'project_domain_name': '${OS_PROJECT_DOMAIN_NAME}',"; fi) \
-          'project-name': '${OS_PROJECT_NAME:-$OS_TENANT_NAME}' \
-        } $(if [ -n "$OS_IDENTITY_API_VERSION" ]; then echo ", 'identity_api_version': '${OS_IDENTITY_API_VERSION}'"; fi) }"
+    if [ "{{ undercloud_version | int }}" -lt "17" ] || [ "{{ item['key'] }}" != "undercloud" ]
+    then
+      for key in $(set | awk '{FS="="} /^OS_/ {print $1}'); do unset $key; done
+      source {{ item['value'] }}
+      echo -n "{{ item['key'] }}: \
+        {'auth': \
+          { 'auth-url': '$OS_AUTH_URL', \
+            'username': '$OS_USERNAME', \
+            'password': '$OS_PASSWORD', \
+            $(if [ -n "$OS_USER_DOMAIN_NAME" ]; then echo "'user_domain_name': '${OS_USER_DOMAIN_NAME}',"; fi) \
+            $(if [ -n "$OS_PROJECT_DOMAIN_NAME" ]; then echo "'project_domain_name': '${OS_PROJECT_DOMAIN_NAME}',"; fi) \
+            'project-name': '${OS_PROJECT_NAME:-$OS_TENANT_NAME}' \
+          } $(if [ -n "$OS_IDENTITY_API_VERSION" ]; then echo ", 'identity_api_version': '${OS_IDENTITY_API_VERSION}'"; fi) }"
+    fi
   loop: "{{ clouds_dict | dict2items }}"
   register: cloud_details
 
@@ -82,7 +92,7 @@
   file:
     state: directory
     path: "{{ clouds_yaml_file_path | dirname }}"
-    mode: '0775'
+    mode: '0755'
   when: not clouds_yaml_dir.stat.exists
 
 - name: Create clouds.yaml if doesn't exist
@@ -91,7 +101,7 @@
     dest: "{{ clouds_yaml_file_path }}"
     marker: "#{mark} HEADER"
     create: yes
-    mode: 0644
+    mode: 0600
 
 - name: Insert cloud parameters
   blockinfile:
@@ -100,5 +110,5 @@
       {{ item.stdout|from_yaml|to_nice_yaml(indent=4) }}
     insertbefore: "#END {{ item['item']['key'] }} SECTION"
     marker: "#{mark} {{ item['item']['key'] }} PARAMETERS"
-  when: "item.rc != 1"
+  when: item.rc != 1 and item.stdout | length > 0
   loop: "{{ cloud_details.results | flatten(levels=1) }}"

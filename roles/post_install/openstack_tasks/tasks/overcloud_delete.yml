@@ -4,7 +4,7 @@
 #       the delete process of the stack.
 #       As a workaroung, 'ignore_errors' flag and 'pause' task added.
 # TODO: Once fixed, remove this.
-- name: Delete Overcloud stack
+- name: Delete Overcloud stack OSP < 17
   vars:
     ansible_python_interpreter: "{{ venv_path }}/bin/python"
   openstack.cloud.stack:
@@ -17,6 +17,17 @@
   until: stack_absent is success
   retries: 2
   delay: 10
+  when: undercloud_version | int < 17
+
+- name: Delete existing stack OSP >= 17
+  vars:
+    stack_name: "{{ overcloud_name | default('overcloud') }}"
+  shell: |
+    source ~/stackrc
+    openstack overcloud delete -y {{ stack_name }}
+  args:
+    executable: /bin/bash
+  when: undercloud_version | int >= 17
 
 - name: Delete symlink to the template base folder
   vars:
