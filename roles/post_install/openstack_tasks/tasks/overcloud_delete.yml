@@ -4,7 +4,7 @@
 #       the delete process of the stack.
 #       As a workaroung, 'ignore_errors' flag and 'pause' task added.
 # TODO: Once fixed, remove this.
-- name: Delete Overcloud stack
+- name: Delete Overcloud stack OSP < 17
   vars:
     ansible_python_interpreter: "{{ venv_path }}/bin/python"
   openstack.cloud.stack:
@@ -17,6 +17,31 @@
   until: stack_absent is success
   retries: 2
   delay: 10
+  when: undercloud_version | int < 17
+
+- name: Delete existing stack OSP >= 17
+  vars:
+    stack_name: "{{ overcloud_name | default('overcloud') }}"
+  shell: |
+    set -e -o pipefail
+    source ~/stackrc
+    baremetal_deployment_yaml="$(find ~ -name baremetal_deployment.yaml -printf "%T@ %p\n" | sort -n | cut -d' ' -f2 | tail -n1)"
+    openstack overcloud delete -y --baremetal-deployment "${baremetal_deployment_yaml}" --network-ports overcloud
+    rm -f ~/templates/*-deployed.yaml
+  args:
+    executable: /bin/bash
+  when: undercloud_version | int >= 17
+
+- name: Wait for all baremetal nodes to be active OSP >= 17
+  shell: |
+    set -e -o pipefail
+    source ~/stackrc
+    openstack baremetal node list -fvalue -c 'Provisioning State'
+  register: baremetal_node_states
+  retries: 30
+  delay: 10
+  until: baremetal_node_states['stdout_lines']|select('equalto', 'active')|list|length == baremetal_node_states['stdout_lines']|length
+  when: undercloud_version | int >= 17
 
 - name: Delete symlink to the template base folder
   vars:
