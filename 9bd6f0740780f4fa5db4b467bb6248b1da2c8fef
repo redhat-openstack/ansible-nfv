@@ -16,6 +16,24 @@
       "message": "I believe it will fail linter this way ",
       "revId": "9bd6f0740780f4fa5db4b467bb6248b1da2c8fef",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "7cd74819_2a02f9f7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1019727
+      },
+      "writtenOn": "2022-08-30T13:54:45Z",
+      "side": 1,
+      "message": "maybe we need to consider adding an exception then",
+      "parentUuid": "09a08556_e1651be6",
+      "revId": "9bd6f0740780f4fa5db4b467bb6248b1da2c8fef",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
