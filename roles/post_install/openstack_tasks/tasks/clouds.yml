@@ -82,7 +82,6 @@
   file:
     state: directory
     path: "{{ clouds_yaml_file_path | dirname }}"
-    mode: '0775'
   when: not clouds_yaml_dir.stat.exists
 
 - name: Create clouds.yaml if doesn't exist
