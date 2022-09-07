@@ -11,7 +11,9 @@
 
 - name: Install required packages
   vars:
-    os_version: "{%- if ansible_distribution_major_version == '8' -%}
+    os_version: "{%- if ansible_distribution_major_version == '9' -%}
+                 rhel9
+                 {%- elif ansible_distribution_major_version == '8' -%}
                  rhel8
                  {%- elif ansible_distribution_major_version == '7' -%}
                  rhel7
@@ -84,3 +86,4 @@
 
 - name: Generate clouds.yaml file
   import_tasks: clouds.yml
+  when: ansible_distribution_major_version != '9'

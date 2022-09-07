@@ -1,5 +1,12 @@
 ---
 
+# Ensure that undercloud contains all required packages to interact with cloud
+- hosts: undercloud
+  tasks:
+    - import_role:
+        name: roles/post_install/openstack_tasks
+        tasks_from: setup_openstack_env
+
 - hosts: "{{ dut_compute | default(omit) }}"
   become: true
   tasks:
