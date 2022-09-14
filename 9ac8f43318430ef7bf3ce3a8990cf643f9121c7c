@@ -34,6 +34,24 @@
       "parentUuid": "931f2796_2cc0d007",
       "revId": "9ac8f43318430ef7bf3ce3a8990cf643f9121c7c",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "7548fd95_b0a608e1",
+        "filename": "roles/post_install/openstack_tasks/tasks/clouds.yml",
+        "patchSetId": 11
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1019727
+      },
+      "writtenOn": "2022-09-14T14:29:08Z",
+      "side": 1,
+      "message": "my apologies, you are right",
+      "parentUuid": "09412d94_f79ff484",
+      "revId": "9ac8f43318430ef7bf3ce3a8990cf643f9121c7c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
