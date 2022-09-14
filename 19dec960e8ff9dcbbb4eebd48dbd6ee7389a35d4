@@ -26,6 +26,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "005bca5e_604b497f",
+        "filename": "roles/packet_gen/trex/binary_search/tasks/main.yml",
+        "patchSetId": 9
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2022-09-14T13:49:55Z",
+      "side": 1,
+      "message": "this way we fetch the ovs version regardless of if dut compute is defined",
+      "parentUuid": "e08081ce_18d5dcd9",
+      "range": {
+        "startLine": 191,
+        "startChar": 72,
+        "endLine": 191,
+        "endChar": 73
+      },
+      "revId": "19dec960e8ff9dcbbb4eebd48dbd6ee7389a35d4",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "aeb706c8_c8dd1f3f",
         "filename": "roles/post_install/openstack_tasks/tasks/clouds.yml",
         "patchSetId": 9
@@ -37,6 +61,30 @@
       "writtenOn": "2022-09-14T13:39:45Z",
       "side": 1,
       "message": "do we want to keep debug?",
+      "range": {
+        "startLine": 27,
+        "startChar": 2,
+        "endLine": 27,
+        "endChar": 7
+      },
+      "revId": "19dec960e8ff9dcbbb4eebd48dbd6ee7389a35d4",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "13159dc9_bf84e5d0",
+        "filename": "roles/post_install/openstack_tasks/tasks/clouds.yml",
+        "patchSetId": 9
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2022-09-14T13:49:55Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "aeb706c8_c8dd1f3f",
       "range": {
         "startLine": 27,
         "startChar": 2,
