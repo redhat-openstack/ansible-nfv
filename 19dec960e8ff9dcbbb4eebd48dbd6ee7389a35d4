@@ -50,6 +50,30 @@
     {
       "unresolved": true,
       "key": {
+        "uuid": "1cb04040_11339e99",
+        "filename": "roles/packet_gen/trex/binary_search/tasks/main.yml",
+        "patchSetId": 9
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 1016373
+      },
+      "writtenOn": "2022-09-14T13:54:38Z",
+      "side": 1,
+      "message": "but we are relying on the compute name. What if the compute name does not include \"compute\"? I would prefer to define dut_compute variable",
+      "parentUuid": "005bca5e_604b497f",
+      "range": {
+        "startLine": 191,
+        "startChar": 72,
+        "endLine": 191,
+        "endChar": 73
+      },
+      "revId": "19dec960e8ff9dcbbb4eebd48dbd6ee7389a35d4",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
         "uuid": "aeb706c8_c8dd1f3f",
         "filename": "roles/post_install/openstack_tasks/tasks/clouds.yml",
         "patchSetId": 9
