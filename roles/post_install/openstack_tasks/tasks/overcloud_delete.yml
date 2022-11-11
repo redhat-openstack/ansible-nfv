@@ -55,3 +55,21 @@
   file:
     path: '/home/stack/__oc_templates_folder'
     state: absent
+
+- name: Delete Containers OSP < 17
+  shell: |
+    set -e -o pipefail
+    source ~/stackrc
+    openstack container delete -r overcloud
+    openstack container delete -r overcloud-config
+    openstack container delete -r overcloud-messages
+    openstack container delete -r overcloud-swift-rings
+  when: undercloud_version | int < 17
+
+- name: Purge /var/lib/mistral OSP < 17
+  become: true
+  # ansible.builtin.command: rm -rf /var/lib/mistral/overcloud /var/lib/mistral/config-download-latest
+  ansible.builtin.command: rm -rf /var/lib/mistral/overcloud
+  args:
+    removes: /var/lib/mistral/overcloud
+  when: undercloud_version | int < 17
