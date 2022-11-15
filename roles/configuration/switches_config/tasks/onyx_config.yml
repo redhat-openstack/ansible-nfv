@@ -25,6 +25,16 @@
 - name: MLNX-OS non JSON API enabled configuration block
   become: True
   block:
+    - name: Set Login Banner If Required
+      onyx_config:
+        lines: |
+          {%- set commands = [] -%}
+          {%- if 'switch_banner' in switch_vars -%}
+            {{ commands.append('banner motd ' + switch_vars['switch_banner'] | string )}}
+          {%- endif -%}
+          {{ commands }}
+      retries: "{{ task_retries }}"
+      delay: "{{ task_retry_delay }}"
     # Generate all required commands using jinja2 template instead of looping
     # If we loop, unnecessary SSH connections will run which will increase execution time significantly
     - name: Create vlans

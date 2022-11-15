@@ -2,10 +2,11 @@
 - name: Set login banner
   ios_banner:
     banner: motd
-    text: "{{ switch_banner }}"
+    text: "{{ switch_vars['switch_banner'] }}"
     state: present
   retries: "{{ task_retries }}"
   delay: "{{ task_retry_delay }}"
+  when: "'switch_banner' in switch_vars"
 
 - name: Configure DHCP Relay
   ios_config:

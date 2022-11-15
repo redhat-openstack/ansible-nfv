@@ -62,6 +62,9 @@ The names of the switches in the variables should represent the name of the swit
 
 ```
 juniper_switch01:
+  switch_banner: |
+    MOTD can
+    span multiple lines
   vlans:
     - start: 10
       end: 20
@@ -97,6 +100,9 @@ juniper_switch02:
       vlan_interface: 'vlan999'
 
 cisco_switch01:
+  switch_banner: |
+    MOTD can
+    span multiple lines
   # Generates the following commands:
   # route-map Test-RouteMap permit 10
   #   match ip address Test-RouteMap-ACL
@@ -128,6 +134,8 @@ cisco_switch01:
         - 192.168.20.5
 
 mlx_switch01:
+  switch_banner: |
+    "MOTD is in double quotes"
   vlans:
     - start: 110
       end: 119
