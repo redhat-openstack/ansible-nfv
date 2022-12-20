@@ -57,6 +57,8 @@
     state: absent
 
 - name: Delete swift Containers OSP < 17
+  vars:
+    ansible_python_interpreter: "{{ venv_path }}/bin/python"
   openstack.cloud.object_container:
     cloud: undercloud
     container: "{{ item }}"
