@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "85add85d_a379dbcb",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1019630
+      },
+      "writtenOn": "2023-02-09T12:29:20Z",
+      "side": 1,
+      "message": "The issue is found here - http://staging-jenkins2-qe-playground.lab.eng.tlv2.redhat.com/job/DFG-osasinfra-shiftstack_ci-ocp_verification-telco-dpdk-sriov-4.13-ovnkubernetes-upi/4/artifact/.sh/nfv-resources-present.log:\n```\n2023-02-09 10:03:11.123 | TASK [post_install/openstack_tasks : Projects present] *************************\n2023-02-09 10:03:11.127 | task path: /home/rhos-ci/jenkins/workspace/DFG-osasinfra-shiftstack_ci-ocp_verification-telco-dpdk-sriov-4.13-ovnkubernetes-upi/ansible-nfv/roles/post_install/openstack_tasks/tasks/users.yml:5\n2023-02-09 10:03:11.130 | Using module file /tmp/nfv-venv-TmPBwdS/collections/ansible_collections/openstack/cloud/plugins/modules/project.py\n```\n...\n```\n2023-02-09 10:03:11.312 | Incompatible openstacksdk library found: Version MUST be \u003e\u003d1.0 and \u003c\u003dNone, but 0.52.0 is smaller than minimum version 1.0.\n```\nThe patch was verified using the following job - http://staging-jenkins2-qe-playground.lab.eng.tlv2.redhat.com/job/DFG-osasinfra-shiftstack_ci-ocp_verification-telco-dpdk-sriov-4.13-ovnkubernetes-upi/5.",
+      "revId": "0278278764f17ed27a784189a30b1023708875fe",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
