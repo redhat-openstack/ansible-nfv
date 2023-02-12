@@ -1,5 +1,6 @@
 ---
 collections:
-  - containers.podman
-  - ansible.posix
-  - openstack.cloud
+  - name: containers.podman
+  - name: ansible.posix
+  - name: openstack.cloud
+    version: 1.10.0
