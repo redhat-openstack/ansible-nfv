@@ -164,3 +164,7 @@
         rollback: 1
       retries: "{{ task_retries }}"
       delay: "{{ task_retry_delay }}"
+
+    - name: Fail Play
+      ansible.builtin.fail:
+        msg: "Configuration was rollbacked, failing play."
