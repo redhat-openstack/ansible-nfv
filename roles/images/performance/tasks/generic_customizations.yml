@@ -1,5 +1,5 @@
 - name: Install packages inside guest image
-  command: virt-customize -a {{ fetched_image }} --run-command "yum install {{ item }} -y" -v
+  command: virt-customize -a {{ fetched_image }} --run-command "yum install {{ item }} -y"
   loop:
     - git
     - gcc
@@ -14,6 +14,10 @@
     - tmux
     - python3
     - cloud-init
+    - meson
+    - pip
+    - iperf3
+    - mstflint
 
 - name: copy cloud.cfg
   copy:
