@@ -1,27 +1,24 @@
 # Image Variables
-guest_image: 'https://cloud.centos.org/centos/8/x86_64/images/CentOS-8-GenericCloud-8.4.2105-20210603.0.x86_64.qcow2'
+guest_image: 'http://download.eng.tlv.redhat.com/rhel-9/rel-eng/RHEL-9/latest-RHEL-9.2.0/compose/BaseOS/x86_64/images/rhel-guest-image-9.2-20230306.4.x86_64.qcow2'
 guest_image_output: '/tmp/'
 guest_debug: False
 
 # Repo Variables
+repo_urls:
+  - http://download.eng.tlv.redhat.com/rhel-9/rel-eng/RHEL-9/latest-RHEL-9.2.0/repofile.repo
 repo_dir: '/tmp/guest_repos'
-guest_repos:
-  - name: 'base'
-    state: 'present'
-    baseurl: 'http://mirror.centos.org/$contentdir/$releasever/BaseOS/$basearch/os/'
-    mirrorlist: 'http://mirrorlist.centos.org/?release=$releasever&arch=$basearch&repo=BaseOS&infra=$infra'
+guest_repos: []
+
 # DPDK Variables
 dpdk_dir: '/root/dpdk'
 dpdk_customization_log: "{{ dpdk_dir }}/customization.log"
 dpdk_git: 'git://dpdk.org/dpdk'
-dpdk_branch: 'tags/v20.11-rc3'
-dpdk_compile_packages:
-  - meson
+dpdk_branch: 'tags/v22.11'
+dpdk_compile_packages: 
   - pyelftools
-  - ninja
 
 # Trex Variables
-trex_version: 'v2.73'
+trex_version: '	v3.02'
 trex_url: 'https://trex-tgn.cisco.com/trex/release'
 trex_dir: '/opt/trex/'
 

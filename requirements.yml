@@ -1,1 +1,5 @@
-requirements.yaml
+---
+collections:
+  - containers.podman
+  - ansible.posix
+  - openstack.cloud
