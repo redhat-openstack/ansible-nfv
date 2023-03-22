@@ -58,5 +58,5 @@
 
 - name: Wait for server to restart successfully
   wait_for_connection:
-    timeout: 300
+    timeout: 1000
     delay: 5

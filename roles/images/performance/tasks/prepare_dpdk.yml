@@ -1,12 +1,12 @@
 - name: install dpdk compile dependency
-  command: virt-customize -a {{ fetched_image }} --run-command "pip3 install {{ item }}" -v
+  command: virt-customize -a {{ fetched_image }} --run-command "pip3 install {{ item }}"
   loop: "{{ dpdk_compile_packages }}"
 
 - name: compile dpdk and install trafficgen
-  command: virt-customize -a {{ fetched_image }} --run-command "{{ item }}" -v
+  command: virt-customize -a {{ fetched_image }} --run-command "{{ item }}"
   loop:
       - "if [ ! -d {{ dpdk_dir }} ];then git clone {{ dpdk_git }} {{ dpdk_dir }};cd {{ dpdk_dir }};git checkout {{ dpdk_branch }};fi"
       - "if [ ! -d {{ trafficgen_dir }} ];then git clone {{ trafficgen_git }} {{ trafficgen_dir }};cd {{ trafficgen_dir }};git checkout {{ trafficgen_branch }};fi"
       - "sed -i 's/enforcing/{{ selinux_config }}/g' /etc/selinux/config /etc/selinux/config"
-      - "export NINJA=/usr/local/bin/ninja ; cd {{ dpdk_dir }} ; /usr/local/bin/meson build -Dplatform=native ; /usr/local/bin/ninja -C build"
+      - "export NINJA=ninja ; cd {{ dpdk_dir }} ; meson build -Dplatform=native ; ninja -C build"
       - "echo 'DPDK Version: {{ dpdk_branch }}' | tee {{ dpdk_customization_log }}"
