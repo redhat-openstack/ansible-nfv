@@ -1,11 +1,12 @@
-- name: Fetch image from URL
-  get_url:
-    url: "{{ guest_image | mandatory }}"
-    dest: "{{ guest_image_output }}"
-    mode: 0640
-    validate_certs: False
-  register: image_result
+#- name: Fetch image from URL
+#  get_url:
+#    url: "{{ guest_image | mandatory }}"
+#    dest: "{{ guest_image_output }}"
+#    mode: 0640
+#    validate_certs: False
+#  register: image_result
 
 - name: Set path of fetched image
   set_fact:
-    fetched_image: "{{ image_result['dest'] }}"
+#    fetched_image: "{{ image_result['dest'] }}"
+    fetched_image: "/tmp/rhel-guest-image-9.2-20230306.4.x86_64.qcow2"

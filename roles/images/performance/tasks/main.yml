@@ -3,12 +3,12 @@
 - name: Fetch image
   include_tasks: fetch_image.yml
 
-- name: Customize Guest Image - Generic Flow
-  include_tasks: generic_customizations.yml
-
 - name: Prepare repos inside image
   include_tasks: prepare_repos.yml
   when: prepare_repos | default(True) | bool
+
+- name: Customize Guest Image - Generic Flow
+  include_tasks: generic_customizations.yml
 
 - name: Customize Guest Image - DPDK Flow
   include_tasks: prepare_dpdk.yml
