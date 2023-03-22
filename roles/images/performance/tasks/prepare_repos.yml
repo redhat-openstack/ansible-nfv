@@ -1,26 +1,35 @@
-- name: Create directory to store repos
-  file:
-    path: "{{ repo_dir }}"
-    state: directory
-    mode: '0775'
+- name: Create repo files
+  block:
+    - name: Create directory to store repos
+      file:
+        path: "{{ repo_dir }}"
+        state: directory
+        mode: '0775'
 
-- name: Add repos
-  yum_repository:
-    name: "{{ item['name'] }}"
-    description: "{{ item['description'] | default(item['name'] + ' Repo') }}"
-    state: "{{ item['state'] }}"
-    mirrorlist: "{{ item['mirrorlist'] | default(omit) }}"
-    baseurl: "{{ item['baseurl'] }}"
-    gpgcheck: "{{ item['gpgcheck'] | default(False) }}"
-    gpgkey: "{{ item['gpgkey'] | default(omit) }}"
-    file: "{{ item['file'] | default(repo_dir + '/' + item['name']) }}"
-  become: True
-  loop: "{{ guest_repos }}"
-  register: repo_files
+    - name: Add repos
+      yum_repository:
+        name: "{{ item['name'] }}"
+        description: "{{ item['description'] | default(item['name'] + ' Repo') }}"
+        state: "{{ item['state'] }}"
+        mirrorlist: "{{ item['mirrorlist'] | default(omit) }}"
+        baseurl: "{{ item['baseurl'] }}"
+        gpgcheck: "{{ item['gpgcheck'] | default(False) }}"
+        gpgkey: "{{ item['gpgkey'] | default(omit) }}"
+        file: "{{ item['file'] | default(repo_dir + '/' + item['name']) }}"
+      become: True
+      loop: "{{ guest_repos }}"
+      register: repo_files
 
-- debug:
-    msg: "{{ repo_files['results'] }}"
+    - name: Debug
+      debug:
+        msg: "{{ repo_files['results'] }}"
 
-- name: Upload custom repos to guest image
-  command: virt-copy-in -a {{ fetched_image }} "{{ item['diff']['after_header'] }}" /etc/yum.repos.d/
-  loop: "{{ repo_files['results'] }}"
+    - name: Upload custom repos to guest image
+      command: virt-copy-in -a {{ fetched_image }} "{{ item['diff']['after_header'] }}" /etc/yum.repos.d/
+      loop: "{{ repo_files['results'] }}"
+  when: guest_repos is defined and (guest_repos|length>0)
+
+- name: Add repo url
+  command: virt-customize -a {{ fetched_image }} --run-command "yum config-manager --add-repo {{ item }} -y"
+  loop: "{{ repo_urls }}"
+  when: repo_urls is defined and (repo_urls|length>0)
