@@ -3,12 +3,12 @@
 - name: Fetch image
   include_tasks: fetch_image.yml
 
-- name: Customize Guest Image - Generic Flow
-  include_tasks: generic_customizations.yml
-
 - name: Prepare repos inside image
   include_tasks: prepare_repos.yml
   when: prepare_repos | default(True) | bool
+
+- name: Customize Guest Image - Generic Flow
+  include_tasks: generic_customizations.yml
 
 - name: Customize Guest Image - DPDK Flow
   include_tasks: prepare_dpdk.yml
@@ -20,7 +20,7 @@
 
 - name: Customize Guest Image - HCI IO's
   include_tasks: prepare_guest_hci.yml
-  when: prepare_guest_hci | default(True) | bool
+  when: prepare_guest_hci | default(False) | bool
 
 - name: Customize Guest Image - iperf
   include_tasks: prepare_iperf.yml
