@@ -4,3 +4,5 @@
 cpu_pinning_cores: 3-8
 hugepages_size: 1GB
 hugepages_count: 4
+
+reboot_timeout: 700
