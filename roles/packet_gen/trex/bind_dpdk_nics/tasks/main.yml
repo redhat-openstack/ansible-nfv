@@ -23,7 +23,7 @@
   become: True
 
 - name: Retrieve Non Active NICs' PCI Slots
-  shell: "python {{ dpdk_root_dir }}/usertools/dpdk-devbind.py --status | grep -v Active | grep 0000 | cut -d ' ' -f 1 | paste -sd ' '"
+  shell: "python {{ dpdk_root_dir }}/usertools/dpdk-devbind.py --status | grep -A 4 "Network devices using kernel driver" | grep -v Active | grep 0000 | cut -d ' ' -f 1 | paste -sd ' '
   register: instance_nics_pci_slots
   become: True
 
