@@ -70,6 +70,44 @@
     - role: tuning/cpu_pinning_huge_pages
       vars:
         cpu_pinning_cores: "{{ testpmd_lcores }}"
+        ssh_reboot: "{{ not osp_reboot | default(False)|bool }}"
+
+- hosts: undercloud
+  gather_facts: False
+  tasks:
+    - block:
+        - name: get testpmd vm name
+          set_fact:
+            testpmd_vm: "{{ item.name }}"
+          when: item['groups'] == dut_group
+          loop: "{{ instances | flatten(levels=1) }}"
+
+      # tried with this module, but failed with error:
+      # "msg": "value of action must be one of: stop, start, pause, unpause,"
+      # lock, unlock, suspend, resume, rebuild, shelve, shelve_offload,"
+      # unshelve, got: reboot_soft"
+      #- name: Reboot testpmd
+      #  openstack.cloud.server_action:
+      #    cloud: "{{ cloud_name | default('overcloud') }}"
+      #    action: reboot_soft
+      #    server: "{{ testpmd_vm }}"
+      #    timeout: 300
+
+        - name: Reboot testpmd
+          shell: |
+            source /home/stack/overcloudrc ;
+            openstack server reboot --wait "{{ testpmd_vm }}"
+      when: osp_reboot | default(False)|bool
+
+- hosts: "{{ dut_group | default(omit) }}"
+  gather_facts: False
+  become: true
+  tasks:
+    - name: Wait for server to restart successfully
+      wait_for_connection:
+        timeout: 300
+        delay: 5
+      when: osp_reboot | default(False)|bool
 
 - hosts: "{{ dut_group | default(omit) }}"
   roles:
@@ -88,6 +126,33 @@
     - role: tuning/cpu_pinning_huge_pages
       vars:
         cpu_pinning_cores: "{{ trex_lcores }}"
+        ssh_reboot: "{{ not osp_reboot | default(False)|bool }}"
+
+- hosts: undercloud
+  gather_facts: False
+  tasks:
+    - block:
+        - name: get trex vm name
+          set_fact:
+            trex_vm: "{{ item.name }}"
+          when: item['groups'] == "trex"
+          loop: "{{ instances | flatten(levels=1) }}"
+
+        - name: Reboot trex
+          shell: |
+            source /home/stack/overcloudrc ;
+            openstack server reboot --wait "{{ trex_vm }}"
+      when: osp_reboot | default(False)|bool
+
+- hosts: trex
+  gather_facts: False
+  become: true
+  tasks:
+    - name: Wait for server to restart successfully
+      wait_for_connection:
+        timeout: 300
+        delay: 5
+      when: osp_reboot | default(False)|bool
 
 - hosts: "{{ dut_compute | default(omit) }}"
   become: true
