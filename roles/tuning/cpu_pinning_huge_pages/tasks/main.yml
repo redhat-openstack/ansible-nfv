@@ -54,7 +54,7 @@
   async: 1
   poll: 0
   failed_when: False
-  when: makegrub.changed
+  when: makegrub.changed and ssh_reboot
 
 - name: Wait for server to restart successfully
   wait_for_connection:
