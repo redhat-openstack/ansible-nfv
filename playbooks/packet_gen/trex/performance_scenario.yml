@@ -70,6 +70,26 @@
     - role: tuning/cpu_pinning_huge_pages
       vars:
         cpu_pinning_cores: "{{ testpmd_lcores }}"
+        ssh_reboot: "{{ not osp_reboot | default(True)|bool }}"
+
+- hosts: undercloud
+  gather_facts: False
+  tasks:
+    - name: Reboot testpmd
+      shell: |
+        source /home/stack/overcloudrc ;
+        openstack server reboot --wait testpmd-hwoffload-dut
+      when: osp_reboot | default(True)|bool
+
+- hosts: "{{ dut_group | default(omit) }}"
+  gather_facts: False
+  become: true
+  tasks:
+    - name: Wait for server to restart successfully
+      wait_for_connection:
+        timeout: 300
+        delay: 5
+      when: osp_reboot | default(True)|bool
 
 - hosts: "{{ dut_group | default(omit) }}"
   roles:
@@ -88,6 +108,26 @@
     - role: tuning/cpu_pinning_huge_pages
       vars:
         cpu_pinning_cores: "{{ trex_lcores }}"
+        ssh_reboot: "{{ not osp_reboot | default(True)|bool }}"
+
+- hosts: undercloud
+  gather_facts: False
+  tasks:
+    - name: Reboot testpmd
+      shell: |
+        source /home/stack/overcloudrc ;
+        openstack server reboot --wait trex
+      when: osp_reboot | default(True)|bool
+
+- hosts: trex
+  gather_facts: False
+  become: true
+  tasks:
+    - name: Wait for server to restart successfully
+      wait_for_connection:
+        timeout: 300
+        delay: 5
+      when: osp_reboot | default(True)|bool
 
 - hosts: "{{ dut_compute | default(omit) }}"
   become: true
