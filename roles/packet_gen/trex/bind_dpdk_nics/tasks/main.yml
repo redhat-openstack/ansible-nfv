@@ -55,8 +55,11 @@
         state: present
         params: "{{ item['params'] | default(omit) }}"
       loop:
-        - {'name': 'vfio', 'params': 'enable_unsafe_noiommu_mode=1'}
+        - {'name': 'vfio'}
         - {'name': 'vfio-pci'}
+
+    - name: Ensure enable_unsafe_noiommu_mode
+      shell: "echo 1 | sudo tee /sys/module/vfio/parameters/enable_unsafe_noiommu_mode"
 
     - name: Load Mellanox Kernel Modules when configured
       modprobe:
