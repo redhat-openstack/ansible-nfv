@@ -58,6 +58,9 @@
         - {'name': 'vfio', 'params': 'enable_unsafe_noiommu_mode=1'}
         - {'name': 'vfio-pci'}
 
+    - name: Ensure enable_unsafe_noiommu_mode
+      command: "echo 1 > /sys/module/vfio/parameters/enable_unsafe_noiommu_mode"
+
     - name: Load Mellanox Kernel Modules when configured
       modprobe:
         name: mlx5_core
