@@ -6,3 +6,4 @@ hugepages_size: 1GB
 hugepages_count: 4
 
 reboot_timeout: 300
+grubby: true
