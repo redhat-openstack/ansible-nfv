@@ -49,14 +49,14 @@
   when: grub.changed
   register: makegrub
 
-- name: Restart server
-  shell: sleep 2 && shutdown -r now "Ansible updates triggered"
-  async: 1
-  poll: 0
-  failed_when: False
-  when: makegrub.changed
+  #- name: Restart server
+  #shell: sleep 2 && shutdown -r now "Ansible updates triggered"
+  #async: 1
+  #poll: 0
+  #failed_when: False
+  #when: makegrub.changed
 
-- name: Wait for server to restart successfully
-  wait_for_connection:
-    timeout: '{{ reboot_timeout }}'
-    delay: 5
+  #- name: Wait for server to restart successfully
+  #wait_for_connection:
+  #  timeout: '{{ reboot_timeout }}'
+  #  delay: 5
