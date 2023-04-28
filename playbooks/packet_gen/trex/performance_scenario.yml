@@ -71,6 +71,24 @@
       vars:
         cpu_pinning_cores: "{{ testpmd_lcores }}"
 
+- hosts: undercloud
+  gather_facts: False
+  tasks:
+    - name: Reboot testpmd
+      shell: |
+        source /home/stack/overcloudrc ;
+        openstack server reboot --wait testpmd-hwoffload-dut 
+        #openstack server reboot --wait testpmd-sriov-vf-dut
+
+- hosts: "{{ dut_group | default(omit) }}"
+  gather_facts: False
+  become: true
+  tasks:
+    - name: Wait for server to restart successfully
+      wait_for_connection:
+        timeout: 300
+        delay: 5
+
 - hosts: "{{ dut_group | default(omit) }}"
   roles:
     - role: roles/packet_gen/trex/bind_dpdk_nics
@@ -88,6 +106,23 @@
     - role: tuning/cpu_pinning_huge_pages
       vars:
         cpu_pinning_cores: "{{ trex_lcores }}"
+
+- hosts: undercloud
+  gather_facts: False
+  tasks:
+    - name: Reboot testpmd
+      shell: |
+        source /home/stack/overcloudrc ;
+        openstack server reboot --wait trex 
+
+- hosts: trex
+  gather_facts: False
+  become: true
+  tasks:
+    - name: Wait for server to restart successfully
+      wait_for_connection:
+        timeout: 300
+        delay: 5
 
 - hosts: "{{ dut_compute | default(omit) }}"
   become: true
