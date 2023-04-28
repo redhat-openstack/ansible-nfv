@@ -15,7 +15,7 @@
 
 - name: Set t-rex Command
   set_fact:
-    trex_cmd: "{{ symlinked_trex_bin }} -i -c {{ trex_process_threads }} {{ trex_process_extra_args | default('') }} --cfg {{ trex_conf_file }} &>/tmp/trex.log"
+    trex_cmd: "{{ symlinked_trex_bin }} -i -c {{ trex_process_threads }} {{ trex_process_extra_args | default('') }} --cfg {{ trex_conf_file }} --no-ofed-check &>/tmp/trex.log"
   when: trex_cmd is not defined
 
 - name: Log t-rex Command
