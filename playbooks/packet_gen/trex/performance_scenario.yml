@@ -71,6 +71,22 @@
       vars:
         cpu_pinning_cores: "{{ testpmd_lcores }}"
 
+- hosts: undercloud
+  gather_facts: False
+  tasks:
+    - name: Reboot testpmd
+      shell: |
+        source /home/stack/overcloudrc ;
+        openstack server reboot --wait testpmd-hwoffload-dut 
+
+- hosts: "{{ dut_group | default(omit) }}"
+  become: true
+  tasks:
+    - name: Wait for server to restart successfully
+      wait_for_connection:
+        timeout: 300
+        delay: 5
+
 - hosts: "{{ dut_group | default(omit) }}"
   roles:
     - role: roles/packet_gen/trex/bind_dpdk_nics
@@ -89,6 +105,22 @@
       vars:
         cpu_pinning_cores: "{{ trex_lcores }}"
 
+- hosts: undercloud
+  gather_facts: False
+  tasks:
+    - name: Reboot testpmd
+      shell: |
+        source /home/stack/overcloudrc ;
+        openstack server reboot --wait trex 
+
+- hosts: trex
+  become: true
+  tasks:
+    - name: Wait for server to restart successfully
+      wait_for_connection:
+        timeout: 300
+        delay: 5
+
 - hosts: "{{ dut_compute | default(omit) }}"
   become: true
   roles:
@@ -104,11 +136,11 @@
         dpdk_binding_driver: "{{ trex_dpdk_binding_driver | default('vfio-pci') }}"
       when: bind_dpdk_nics | default(True)|bool
 
-    - role: roles/packet_gen/trex/launch_trex
-      when: launch_trex | default(True)|bool
+      #    - role: roles/packet_gen/trex/launch_trex
+      #when: launch_trex | default(True)|bool
 
-    - role: roles/packet_gen/trex/binary_search
-      when: binary_search | default(True)|bool
+      #- role: roles/packet_gen/trex/binary_search
+      #when: binary_search | default(True)|bool
 
 - hosts: "{{ dut_compute | default(omit) }}"
   become: true
