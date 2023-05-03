@@ -63,6 +63,30 @@
       },
       "revId": "98b8dc20b2551a08a2b80fde3b53dc92f2fbfa14",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "3fb4166b_3aaa867f",
+        "filename": "roles/configuration/switches_config/tasks/ios_config.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2023-05-03T00:44:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9aee0ea5_a3e4f4c0",
+      "range": {
+        "startLine": 22,
+        "startChar": 9,
+        "endLine": 22,
+        "endChar": 45
+      },
+      "revId": "98b8dc20b2551a08a2b80fde3b53dc92f2fbfa14",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
