@@ -12,6 +12,12 @@ Supported switch platforms:
 - Juniper
 - Mellanox MLNX-OS (ONYX with JSON API is not supported due to not having access to a compatible switch)
 
+**For Juniper switches, Ansible modules use the `netconf` capability `lock`, which is equivalent to the CLI command `configure exclusive`,
+which means parallel execution is impossible.**.  
+We are doing a hacky check to avoid this if the configuration database is open.
+It will automatically retry 3 times every 15 minutes if it is not open (by default).  
+This hack might not be stable.  
+
 ## Inventory
 The play requires an inventory file that will describe switches that the playbook should run on.  
 **Note** - Switches are static resources that not changing frequently.  

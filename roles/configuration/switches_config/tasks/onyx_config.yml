@@ -33,8 +33,6 @@
             {{ commands.append('banner motd ' + switch_vars['switch_banner'] | string ) }}
           {%- endif -%}
           {{ commands }}
-      retries: "{{ task_retries }}"
-      delay: "{{ task_retry_delay }}"
     # Generate all required commands using jinja2 template instead of looping
     # If we loop, unnecessary SSH connections will run which will increase execution time significantly
     - name: Create vlans
@@ -45,8 +43,6 @@
             {{ commands.append('vlan ' + vlan_id | string + ' name vlan' + vlan_id | string) }}
           {%- endfor -%}
           {{ commands }}
-      retries: "{{ task_retries }}"
-      delay: "{{ task_retry_delay }}"
 
     # Generate all required commands using jinja2 template instead of looping
     # If we loop, unnecessary SSH connections will run which will increase execution time significantly
@@ -100,12 +96,8 @@
             {%- endif -%}
           {%- endfor -%}
           {{ commands }}
-      retries: "{{ task_retries }}"
-      delay: "{{ task_retry_delay }}"
 
     - name: Save configuration
       onyx_config:
         save: True
-      retries: "{{ task_retries }}"
-      delay: "{{ task_retry_delay }}"
   when: not json_api_support
