@@ -22,6 +22,30 @@
       },
       "revId": "6e99f9bc12740e283caf0a2d323d99fb8b44018f",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "56189a34_ed59694f",
+        "filename": "playbooks/packet_gen/trex/performance_scenario.yml",
+        "patchSetId": 34
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 1016373
+      },
+      "writtenOn": "2023-06-19T15:45:55Z",
+      "side": 1,
+      "message": "tried with this module, but failed with error:\n\n      - name: Reboot testpmd                                             \n        openstack.cloud.server_action:\n          cloud: \"{{ cloud_name | default(\u0027overcloud\u0027) }}\"\n          action: reboot_soft\n          server: \"{{ testpmd_vm }}\"       \n          timeout: 300 \n\n\nfatal: [undercloud-0]: FAILED! \u003d\u003e {\n    \"changed\": false,\n    \"invocation\": {\n        \"module_args\": {\n            \"action\": \"reboot_soft\",\n            \"all_projects\": false,\n            \"cloud\": \"overcloud\",\n            \"interface\": \"public\",\n            \"sdk_log_level\": \"INFO\",\n            \"server\": \"testpmd-hwoffload-dut\",\n            \"timeout\": 300,\n            \"wait\": true\n        }\n    },\n    \"msg\": \"value of action must be one of: stop, start, pause, unpause, lock, unlock, suspend, resume, rebuild, shelve, shelve_offload, unshelve, got: reboot_soft\"\n}",
+      "parentUuid": "7830b96a_5680d131",
+      "range": {
+        "startLine": 84,
+        "startChar": 0,
+        "endLine": 89,
+        "endChar": 44
+      },
+      "revId": "6e99f9bc12740e283caf0a2d323d99fb8b44018f",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
