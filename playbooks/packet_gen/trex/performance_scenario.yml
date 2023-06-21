@@ -79,8 +79,8 @@
         - name: get testpmd vm name
           set_fact:
             testpmd_vm: "{{ item.name }}"
-          when: item['groups'] == dut_group
-          loop: "{{ instances | flatten(levels=1) }}"
+          when: dut_group in item['group']
+          loop: "{{ dynamic_instances }}"
 
       # tried with this module, but failed with error:
       # "msg": "value of action must be one of: stop, start, pause, unpause,"
@@ -135,8 +135,8 @@
         - name: get trex vm name
           set_fact:
             trex_vm: "{{ item.name }}"
-          when: item['groups'] == "trex"
-          loop: "{{ instances | flatten(levels=1) }}"
+          when: "'trex' in item['group']"
+          loop: "{{ dynamic_instances }}"
 
         - name: Reboot trex
           shell: |
