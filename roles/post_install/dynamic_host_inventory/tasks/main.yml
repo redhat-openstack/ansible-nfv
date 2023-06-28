@@ -23,6 +23,35 @@
     mgmt_ip: "{{ item['mgmt_ip'] }}"
   when: item['mgmt_ip'] is defined
 
+- block:
+    - name: Set inventory path
+      set_fact:
+        inventory_path: "{{ inv_path | default(lookup('env', 'PWD')) }}"
+
+    - name: set host
+      set_fact:
+        host: "{{ hostvars[groups['hypervisor'][0]].ansible_host }}"
+
+    - name: set undercloud
+      set_fact:
+        undercloud_vm: "{{ hostvars[groups['undercloud'][0]]['ansible_facts']['hostname'] }}"
+
+    - name: Set environment variable
+      set_fact:
+        environment_dir: "{{ inventory_path }}/environments/{{ host }}_env"
+
+    - name: Set jump host config
+      set_fact:
+        common_args: "-o ForwardAgent=yes -o ServerAliveInterval=30 \
+                      -o ControlMaster=auto -o ControlPersist=30 \
+                      -o StrictHostKeyChecking=no \
+                      -o UserKnownHostsFile=/dev/null -o BatchMode=yes \
+                      -o ProxyCommand=\"ssh -o StrictHostKeyChecking=no \
+                      -o UserKnownHostsFile=/dev/null \
+                      -F {{ environment_dir }}/ansible.ssh.config.{{ host }} \
+                      {{ undercloud_vm }} -W {{ mgmt_ip }}:22\""
+  when: jump_host
+
 - name: Add Instance To Ansible In-Memory(Dynamic) Inventory
   add_host:
     name: "{{ mgmt_ip }}"
@@ -31,3 +60,4 @@
     ansible_password: "{{ item['password'] | default(omit) }}"
     ansible_ssh_private_key_file: "{{ private_key_fetch_location }}/{{ ssh_key }}"
     ansible_ssh_pass: "{{ item['ssh_pass'] | default(omit) }}"
+    ansible_ssh_common_args: "{{ common_args | default(omit) }}"
