@@ -22,6 +22,30 @@
       },
       "revId": "2212f85def9dc0a5dc9f8fcea126ff2deba2c08b",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "9b296f47_52270f6e",
+        "filename": "roles/post_install/dynamic_host_inventory/tasks/main.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1016373
+      },
+      "writtenOn": "2023-06-29T16:25:28Z",
+      "side": 1,
+      "message": "It does not fail. Example:\n---\n  - name: Playbook\n    hosts: localhost\n    connection: local\n    tasks:\n    - name: fact1\n      set_fact:\n        myvar: \"dfasf\"\n\n    - name: fact2\n      set_fact:\n        myvar3: \"{{ myvar | default(omit) }}\"\n        myvar4: \"{{ myvar2 | default(omit) }}\"\n\n    - name: debug\n      debug:\n        var: myvar3\n\n    - name: debug\n      debug:\n        var: myvar4\n\n\n\nPLAY [Playbook] *************************************************************************************************************************************************************************\n\nTASK [Gathering Facts] ******************************************************************************************************************************************************************\nok: [localhost]\n\nTASK [fact1] ****************************************************************************************************************************************************************************\nok: [localhost]\n\nTASK [fact2] ****************************************************************************************************************************************************************************\nok: [localhost]\n\nTASK [debug] ****************************************************************************************************************************************************************************\nok: [localhost] \u003d\u003e {\n    \"myvar3\": \"dfasf\"\n}\n\nTASK [debug] ****************************************************************************************************************************************************************************\nok: [localhost] \u003d\u003e {\n    \"myvar4\": \"VARIABLE IS NOT DEFINED!\"\n}\n\nPLAY RECAP ******************************************************************************************************************************************************************************\nlocalhost                  : ok\u003d5    changed\u003d0    unreachable\u003d0    failed\u003d0    skipped\u003d0    rescued\u003d0    ignored\u003d0",
+      "parentUuid": "b68d9064_6944ef37",
+      "range": {
+        "startLine": 59,
+        "startChar": 30,
+        "endLine": 59,
+        "endChar": 63
+      },
+      "revId": "2212f85def9dc0a5dc9f8fcea126ff2deba2c08b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
