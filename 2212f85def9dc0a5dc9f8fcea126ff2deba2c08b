@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "b68d9064_6944ef37",
+        "filename": "roles/post_install/dynamic_host_inventory/tasks/main.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1007976
+      },
+      "writtenOn": "2023-06-29T15:56:58Z",
+      "side": 1,
+      "message": "This might throw error, since common_args is defined inside the block which may not execute when jump_host \u003d false\nansible_ssh_common_args: \"{{ omit if common_args is not defined else common_args }}\"",
+      "range": {
+        "startLine": 59,
+        "startChar": 30,
+        "endLine": 59,
+        "endChar": 63
+      },
+      "revId": "2212f85def9dc0a5dc9f8fcea126ff2deba2c08b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
