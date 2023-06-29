@@ -46,6 +46,30 @@
       },
       "revId": "2212f85def9dc0a5dc9f8fcea126ff2deba2c08b",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b608929c_ad1815c1",
+        "filename": "roles/post_install/dynamic_host_inventory/tasks/main.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1016373
+      },
+      "writtenOn": "2023-06-29T16:27:19Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9b296f47_52270f6e",
+      "range": {
+        "startLine": 59,
+        "startChar": 30,
+        "endLine": 59,
+        "endChar": 63
+      },
+      "revId": "2212f85def9dc0a5dc9f8fcea126ff2deba2c08b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
