@@ -24,17 +24,13 @@
   when: item['mgmt_ip'] is defined
 
 - block:
-    - name: set host
-      set_fact:
-        host: "{{ hostvars[groups['hypervisor'][0]].ansible_host }}"
-
     - name: set undercloud
       set_fact:
         undercloud_vm: "{{ hostvars[groups['undercloud'][0]]['ansible_facts']['hostname'] }}"
 
-    - name: Set environment variable
+    - name: Set ansible_file
       set_fact:
-        environment_dir: "{{ lookup('env', 'PWD') }}/../infrared/environments/{{ host }}_env"
+        ansible_config_file: "{{ lookup('env', 'PWD') }}/../ansible.ssh.config"
 
     - name: Set jump host config
       set_fact:
@@ -44,7 +40,7 @@
                       -o UserKnownHostsFile=/dev/null -o BatchMode=yes \
                       -o ProxyCommand=\"ssh -o StrictHostKeyChecking=no \
                       -o UserKnownHostsFile=/dev/null \
-                      -F {{ environment_dir }}/ansible.ssh.config.{{ host }} \
+                      -F {{ ansible_config_file }} \
                       {{ undercloud_vm }} -W {{ mgmt_ip }}:22\""
   when: jump_host
 
