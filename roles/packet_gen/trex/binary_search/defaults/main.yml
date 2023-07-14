@@ -65,3 +65,7 @@ binary_search_run_log: /tmp/binary_search_run.log
 
 binary_search_status_retry: 300
 binary_search_status_delay: 10
+
+# What to do when negative packet loss is encountered
+# fail,quit,retry-to-fail,retry-to-quit
+negative_packet_loss: retry-to-fail
