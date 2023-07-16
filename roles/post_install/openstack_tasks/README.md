@@ -106,6 +106,11 @@ cloud_name: overcloud
 clouds_yaml_file_path: ~/.config/openstack/clouds.yaml
 ```
 
+#### Force clouds.yaml Creation For OSP > 17.0
+```
+force_clouds_generation: false
+```
+
 #### List of users and projects that should be created
 #### Quotas could be defined for a user if needed.
 ```
