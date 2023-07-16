@@ -49,4 +49,4 @@
 
 - name: Generate clouds.yaml file
   import_tasks: clouds.yml
-  when: undercloud_version | int < 17
+  when: undercloud_version | int < 17 or force_clouds_generation
