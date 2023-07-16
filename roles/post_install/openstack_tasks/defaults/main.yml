@@ -16,6 +16,7 @@ instance: false
 overcloud_delete: false
 resources_output: false
 resource_generate_inventory: False
+force_clouds_generation: false
 
 ### Set the state of the resource.
 ### The state could be 'present' or 'absent'.
@@ -34,7 +35,6 @@ users:
     project: test_project1
     domain: default
     role: member
-
 networks:
   - name: public
     physical_network: public
