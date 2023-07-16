@@ -47,6 +47,13 @@
     name: discover_osp_version
     tasks_from: undercloud
 
+# Relax permissions in case of forcing creation of clouds file
+- name: Ensure Home Directory Includes Group Write Permissions If Required
+  ansible.builtin.file:
+    path: "{{ ansible_user_dir }}"
+    mode: "0750"
+  when: force_clouds_generation
+
 - name: Generate clouds.yaml file
   import_tasks: clouds.yml
-  when: undercloud_version | int < 17
+  when: undercloud_version | int < 17 or force_clouds_generation

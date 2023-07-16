@@ -81,19 +81,19 @@
     source {{ item['value'] }}
     echo -n "{{ item['key'] }}: \
       {'auth': \
-        { 'auth-url': '$OS_AUTH_URL', \
+        { 'auth_url': '$OS_AUTH_URL', \
           'username': '$OS_USERNAME', \
           'password': '$OS_PASSWORD', \
           $(if [ -n "$OS_USER_DOMAIN_NAME" ]; then echo "'user_domain_name': '${OS_USER_DOMAIN_NAME}',"; fi) \
           $(if [ -n "$OS_PROJECT_DOMAIN_NAME" ]; then echo "'project_domain_name': '${OS_PROJECT_DOMAIN_NAME}',"; fi) \
-          'project-name': '${OS_PROJECT_NAME:-$OS_TENANT_NAME}' \
+          'project_name': '${OS_PROJECT_NAME:-$OS_TENANT_NAME}' \
         } $(if [ -n "$OS_IDENTITY_API_VERSION" ]; then echo ", 'identity_api_version': '${OS_IDENTITY_API_VERSION}'"; fi) }"
   loop: "{{ clouds_dict | dict2items }}"
   register: cloud_details
 
 - name: Check existence of the clouds.yaml directory
   stat:
-    path: "{{ clouds_yaml_file_path }}"
+    path: "{{ clouds_yaml_file_path | dirname }}"
   register: clouds_yaml_dir
 
 - name: "Create directory for writing clouds.yaml"
@@ -120,3 +120,10 @@
     marker: "#{mark} {{ item['item']['key'] }} PARAMETERS"
   when: "item.rc != 1"
   loop: "{{ cloud_details.results | flatten(levels=1) }}"
+
+- name: Override TripleO Generated File With User File
+  ansible.builtin.copy:
+    src: "{{ clouds_yaml_file_path }}"
+    dest: "{{ ansible_user_dir }}/.config/openstack/clouds.yaml"
+    remote_src: true
+  when: force_tripleo_clouds_override
