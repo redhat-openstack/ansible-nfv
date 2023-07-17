@@ -49,6 +49,17 @@
         opts: pagesize=1GB
         state: mounted
 
+    # cause negative packet losses in trex
+    - name: Disable IPV6
+      sysctl:
+        name: "{{ item['name'] }}"
+        value: "{{ item['value'] }}"
+        state: present
+      loop:
+        - {'name': 'net.ipv6.conf.all.disable_ipv6', 'value': '1'}
+        - {'name': 'net.ipv6.conf.default.disable_ipv6', 'value': '1'}
+        - {'name': 'net.ipv6.conf.lo.disable_ipv6', 'value': '1'}
+
     - name: Load Required Kernel Modules
       modprobe:
         name: "{{ item['name'] }}"
