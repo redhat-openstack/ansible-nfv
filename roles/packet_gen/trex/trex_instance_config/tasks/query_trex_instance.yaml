@@ -12,10 +12,10 @@
   when: item['binding:vnic_type'] == "direct-physical" or
         item['binding:vnic_type'] == "direct"
 
-- name: Fail If There Are More/Less Than 2 SR-IOV NICs
-  fail:
-    msg: "Current automated flow only supports 2 SR-IOV NICs connected to intance, please provide an instance with the allowed number of NICs"
-  when: trex_instance_sriov_nics | length != 2
+#- name: Fail If There Are More/Less Than 2 SR-IOV NICs
+#  fail:
+#    msg: "Current automated flow only supports 2 SR-IOV NICs connected to intance, please provide an instance with the allowed number of NICs"
+#  when: trex_instance_sriov_nics | length != 2
 
 - name: "Check if DPDK Directory Exists on  Trex Instance"
   stat:

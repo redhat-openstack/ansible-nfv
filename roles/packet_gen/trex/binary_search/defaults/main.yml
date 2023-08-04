@@ -69,3 +69,10 @@ binary_search_status_delay: 10
 # What to do when negative packet loss is encountered
 # fail,quit,retry-to-fail,retry-to-quit
 negative_packet_loss: retry-to-fail
+
+# Perform a warmup trial prior to performing the binary
+# search. The warmup trial results are ignored.
+warmup_trial: False
+
+# trial period in seconds during warmup
+warmup_trial_runtime: 120
