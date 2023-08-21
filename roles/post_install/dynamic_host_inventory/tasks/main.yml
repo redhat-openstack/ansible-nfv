@@ -32,9 +32,19 @@
       set_fact:
         undercloud_vm: "{{ hostvars[groups['undercloud'][0]]['ansible_facts']['hostname'] }}"
 
-    - name: Set environment variable
+    - name: Set ansible file
       set_fact:
-        environment_dir: "{{ lookup('env', 'PWD') }}/../infrared/environments/{{ host }}_env"
+        ansible_conf_file: "{{ lookup('env', 'PWD') }}/../infrared/environments/{{ host }}_env/ansible.ssh.config.{{ host }}"
+
+    - name: check if ansible config file exits
+      stat:
+        path: "{{ ansible_conf_file }}"
+      register: ansible_conf_file_stat
+
+    - name: Create inventory files
+      import_role:
+        name: roles/post_install/tripleo_inventory
+      when: ansible_conf_file_stat.stat.exists == false
 
     - name: Set jump host config
       set_fact:
@@ -44,7 +54,7 @@
                       -o UserKnownHostsFile=/dev/null -o BatchMode=yes \
                       -o ProxyCommand=\"ssh -o StrictHostKeyChecking=no \
                       -o UserKnownHostsFile=/dev/null \
-                      -F {{ environment_dir }}/ansible.ssh.config.{{ host }} \
+                      -F {{ ansible_conf_file }} \
                       {{ undercloud_vm }} -W {{ mgmt_ip }}:22\""
   when: jump_host
 
