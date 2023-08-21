@@ -34,7 +34,7 @@
 
     - name: Set environment variable
       set_fact:
-        environment_dir: "{{ lookup('env', 'PWD') }}/../infrared/environments/{{ host }}_env"
+        environment_dir: "{{ lookup('env', 'PWD') }}"
 
     - name: Set jump host config
       set_fact:
@@ -44,7 +44,7 @@
                       -o UserKnownHostsFile=/dev/null -o BatchMode=yes \
                       -o ProxyCommand=\"ssh -o StrictHostKeyChecking=no \
                       -o UserKnownHostsFile=/dev/null \
-                      -F {{ environment_dir }}/ansible.ssh.config.{{ host }} \
+                      -F {{ environment_dir }}/ansible.ssh.config \
                       {{ undercloud_vm }} -W {{ mgmt_ip }}:22\""
   when: jump_host
 
