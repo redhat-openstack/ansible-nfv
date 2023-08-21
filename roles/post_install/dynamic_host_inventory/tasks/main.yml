@@ -34,7 +34,7 @@
 
     - name: Set environment variable
       set_fact:
-        environment_dir: "{{ lookup('env', 'PWD') }}/../infrared/environments/{{ host }}_env"
+        environment_dir: "{{ lookup('env', 'PWD') }}/environments/{{ host }}_env"
 
     - name: Set jump host config
       set_fact:
