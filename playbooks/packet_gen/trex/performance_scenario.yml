@@ -1,4 +1,12 @@
 ---
+# Needed to connect to instances fip through undercloud in dvr scenario
+- hosts: localhost
+  gather_facts: False
+  tasks:
+    - name: Create inventory files
+      import_role:
+        name: roles/post_install/tripleo_inventory
+    when: jump_host is defined and jump_host
 
 - hosts: undercloud
   gather_facts: False
