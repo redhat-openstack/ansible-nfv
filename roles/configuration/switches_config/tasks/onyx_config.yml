@@ -46,7 +46,8 @@
 
     # Generate all required commands using jinja2 template instead of looping
     # If we loop, unnecessary SSH connections will run which will increase execution time significantly
-    - name: Configure interfaces - description, mode (access/trunk), vlans
+    # If using `hybrid` mode, please exclude the native VLAN from trunk list
+    - name: Configure interfaces - description, mode (access/trunk/hybrid), vlans
       onyx_config:
         lines: |
           {%- set commands = [] -%}
@@ -63,11 +64,20 @@
             {%- if interface['iface_mode'] and interface['vlan'] -%}
               {{ commands.append('interface ' + interface['iface'] + ' switchport mode ' + interface['iface_mode']) }}
               {%- if interface['iface_mode'] == 'trunk' -%}
-                {{ commands.append('interface ' + interface['iface'] + ' switchport trunk allowed-vlan none') }}
+                {%- if 'native_vlan' in interface -%}
+                  {%- set mode = 'hybrid' -%}
+                  {%- set native_commands = ['interface ' + interface['iface'] + ' switchport mode hybrid', 'interface ' + interface['iface'] + ' switchport access vlan ' + interface['native_vlan'] | string] -%}
+                  {%- for command in native_commands -%}
+                    {{ commands.append(command) }}
+                  {%- endfor -%}
+                {%- else -%}
+                  {%- set mode = 'trunk' -%}
+                {%- endif -%}
+                {{ commands.append('interface ' + interface['iface'] + ' switchport ' + mode + ' allowed-vlan none') }}
                 {%- set helper_vlans = [] -%}
                 {%- set vlans = [] -%}
                 {%- if 'all' in interface['vlan'] -%}
-                  {{ commands.append('interface ' + interface['iface'] + ' switchport trunk allowed-vlan all') }}
+                  {{ commands.append('interface ' + interface['iface'] + ' switchport' + mode + 'allowed-vlan all') }}
                 {%- elif ',' in interface['vlan'] -%}
                   {%- for vlan in interface['vlan'].replace(' ', '').split(',') -%}
                     {{ helper_vlans.append(vlan) }}
@@ -85,9 +95,9 @@
                   {%- endif -%}
                 {%- endfor -%}
                 {%- for vlan in vlans | unique -%}
-                  {{ commands.append('interface ' + interface['iface'] + ' switchport trunk allowed-vlan add ' + vlan | string) }}
+                  {{ commands.append('interface ' + interface['iface'] + ' switchport ' + mode + ' allowed-vlan add ' + vlan | string) }}
                 {%- endfor -%}
-                {{ commands.append('interface ' + interface['iface'] + ' switchport trunk allowed-vlan remove 1') }}
+                {{ commands.append('interface ' + interface['iface'] + ' switchport ' + mode + ' allowed-vlan remove 1') }}
               {%- elif interface['iface_mode'] == 'access' -%}
                 {%- if interface['vlan'] | int -%}
                   {{ commands.append('interface ' + interface['iface'] + ' switchport access vlan ' + interface['vlan'] | string) }}
