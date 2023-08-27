@@ -93,6 +93,11 @@
                   {{ commands.append('interface ' + interface['iface'] + ' switchport access vlan ' + interface['vlan'] | string) }}
                 {%- endif -%}
               {%- endif -%}
+              {%- elif interface['native_vlan'] -%}
+                  {{ commands.append('interface ' + interface['iface'] + ' switchport mode hybrid') }}
+                  {{ commands.append('interface ' + interface['iface'] + ' switchport access vlan ' + interface['native_vlan'] | string) }}
+                {%- endif -%}
+              {%- endif -%}
             {%- endif -%}
           {%- endfor -%}
           {{ commands }}
