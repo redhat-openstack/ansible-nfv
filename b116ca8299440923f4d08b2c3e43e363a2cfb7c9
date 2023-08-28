@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "c4f41d1e_1bf42fcc",
+        "filename": "roles/configuration/switches_config/tasks/onyx_config.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1016373
+      },
+      "writtenOn": "2023-08-28T06:53:10Z",
+      "side": 1,
+      "message": "I think this code will never be executed as it will go through the \"trunk\" if (line 65)",
+      "revId": "b116ca8299440923f4d08b2c3e43e363a2cfb7c9",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
