@@ -60,3 +60,14 @@
   wait_for_connection:
     timeout: '{{ reboot_timeout }}'
     delay: 5
+
+- name: Get tunning configuration
+  shell: |
+    cat /proc/cmdline
+    cat /etc/tuned/cpu-partitioning-variables.conf | grep -v "^#"
+    /usr/sbin/tuned-adm active
+  register: tunning_output
+
+- name: Print out tunning configuration
+  debug:
+    msg: "{{ tunning_output.stdout.split('\n') }}"
