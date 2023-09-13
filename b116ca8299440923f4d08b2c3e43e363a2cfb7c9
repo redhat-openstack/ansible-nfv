@@ -16,6 +16,24 @@
       "message": "I think this code will never be executed as it will go through the \"trunk\" if (line 65)",
       "revId": "b116ca8299440923f4d08b2c3e43e363a2cfb7c9",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "b657e94e_55434040",
+        "filename": "roles/configuration/switches_config/tasks/onyx_config.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2023-09-13T19:43:34Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "c4f41d1e_1bf42fcc",
+      "revId": "b116ca8299440923f4d08b2c3e43e363a2cfb7c9",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
