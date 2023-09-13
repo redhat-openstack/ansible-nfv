@@ -14,6 +14,8 @@
     - { regex: 'default_hugepagesz=', context: '{{ hugepages_size }}' }
     - { regex: 'transparent_hugepage=', context: 'never' }
     - { regex: 'hugepages=', context: '{{ hugepages_count }}' }
+    - { regex: 'nohz=on nohz_full=', context: '{{ cpu_pinning_cores }}' }
+    - { regex: 'rcu_nocbs=', context: '{{ cpu_pinning_cores }}' }
 
 - name: Add parameter to grub even  if it didnt exist before
   lineinfile:
@@ -29,6 +31,8 @@
     - { regex: 'default_hugepagesz=', context: '{{ hugepages_size }}' }
     - { regex: 'transparent_hugepage=', context: 'never' }
     - { regex: 'hugepages=', context: '{{ hugepages_count }}' }
+    - { regex: 'nohz=on nohz_full=', context: '{{ cpu_pinning_cores }}' }
+    - { regex: 'rcu_nocbs=', context: '{{ cpu_pinning_cores }}' }
   register: grub
 
 - name: Set the cores to isolate
