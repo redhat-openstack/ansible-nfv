@@ -69,6 +69,8 @@
                       {{ access_vlan }}{% else %}{{ omit }}{% endif %}"
         trunk_vlans: "{%- if item.iface_mode == 'trunk' -%}
                       {{ trunk_vlans_list }}{% else %}{{ omit }}{% endif %}"
+        native_vlan: "{%- if item.iface_mode == 'trunk' and 'native_vlan' in item -%}
+                      {{ item.native_vlan | int }}{% else %}{{ omit }}{% endif %}"
         unit: 0
         state: present
       loop: "{{ switch_vars.interfaces }}"
