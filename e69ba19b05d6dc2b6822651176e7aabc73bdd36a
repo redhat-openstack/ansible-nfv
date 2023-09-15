@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "6f016e01_1ce8df18",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1007976
+      },
+      "writtenOn": "2023-09-15T16:19:21Z",
+      "side": 1,
+      "message": "wondering dpdk2 is part of a bridge  and used in bonding. I am not sure it can be used separately like this. is this working?",
+      "range": {
+        "startLine": 125,
+        "startChar": 0,
+        "endLine": 129,
+        "endChar": 35
+      },
+      "revId": "e69ba19b05d6dc2b6822651176e7aabc73bdd36a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
