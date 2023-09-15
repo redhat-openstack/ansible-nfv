@@ -46,6 +46,30 @@
       },
       "revId": "e69ba19b05d6dc2b6822651176e7aabc73bdd36a",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "86c1fade_03defad1",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1019727
+      },
+      "writtenOn": "2023-09-15T16:36:37Z",
+      "side": 1,
+      "message": "Also we need this:\n~~~\npmd_rxq_affinity:\n  - interface: \"dpdk2\"\n    pmd_rxq_affinity: \"0:3,1:5,2:7\"\n  - interface: \"dpdk4\"\n    pmd_rxq_affinity: \"0:3,1:5,2:7\"\n~~~",
+      "parentUuid": "cf5e3cd7_5e3bc572",
+      "range": {
+        "startLine": 125,
+        "startChar": 0,
+        "endLine": 129,
+        "endChar": 35
+      },
+      "revId": "e69ba19b05d6dc2b6822651176e7aabc73bdd36a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
