@@ -22,6 +22,30 @@
       },
       "revId": "e69ba19b05d6dc2b6822651176e7aabc73bdd36a",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "cf5e3cd7_5e3bc572",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 1019727
+      },
+      "writtenOn": "2023-09-15T16:35:01Z",
+      "side": 1,
+      "message": "Essentially we are testing the same thing. Previous to this change we had this:\n~~~\npmd_rxq_affinity:\n  - interface: \"dpdk2\"\n    pmd_rxq_affinity: \"0:3,1:5,2:7\"\n  - interface: \"dpdk3\"\n    pmd_rxq_affinity: \"0:3,1:5,2:7\"\n~~~\n    \nand this:\n~~~\n- type: ovs_user_bridge\n  name: br-dpdk0\n  mtu: 9000\n  use_dhcp: false\n  members:\n    - type: ovs_dpdk_port\n      name: dpdk2\n      mtu: 9000\n      rx_queue: 3\n      members:\n        - type: interface\n          name: nic5\n\n- type: ovs_user_bridge\n  name: br-dpdk1\n  mtu: 9000\n  use_dhcp: false\n  members:\n    - type: ovs_dpdk_port\n      name: dpdk3\n      mtu: 9000\n      rx_queue: 3\n      members:\n        - type: interface\n          name: nic6\n~~~\n          \nBut if we have this:\n~~~\n- type: ovs_user_bridge\n  name: br-dpdk0\n  mtu: 9000\n  use_dhcp: false\n  members:\n  - type: ovs_dpdk_bond\n    name: dpdkbond1\n    mtu: 9000\n    rx_queue: 3\n    members:\n      - type: ovs_dpdk_port\n        name: dpdk2\n        members:\n          - type: interface\n            name: nic5\n      - type: ovs_dpdk_port\n        name: dpdk3\n        members:\n          - type: interface\n            name: nic6\n\n- type: ovs_user_bridge\n  name: br-dpdk1\n  mtu: 9000\n  use_dhcp: false\n  members:\n    - type: ovs_dpdk_port\n      name: dpdk4\n      mtu: 9000\n      rx_queue: 3\n      members:\n\t- type: interface\n          name: nic4\n~~~\n\nThere is not differences in br-dpdk1 except for nic4 instead of nic6 used. And br-dpdk0 is also the same from the point of view of the traffic received because one of the interfaces of the bond (dpdk3) will be down all traffic will be handled by dpdk2.",
+      "parentUuid": "6f016e01_1ce8df18",
+      "range": {
+        "startLine": 125,
+        "startChar": 0,
+        "endLine": 129,
+        "endChar": 35
+      },
+      "revId": "e69ba19b05d6dc2b6822651176e7aabc73bdd36a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
