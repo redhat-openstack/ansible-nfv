@@ -20,6 +20,12 @@
         value: "{{ item.pmd_rxq_affinity }}"
       loop: "{{ pmd_rxq_affinity }}"
 
+    - name: set down interfaces
+      command:
+        cmd: "ovs-ofctl mod-port {{ item.bridge }} {{ item.interface }} down"
+      loop: "{{ testpmd_down_interfaces | default([]) }}"
+
+
 - hosts: testpmd-dpdk-dut
   gather_facts: no
   pre_tasks:
@@ -142,6 +148,11 @@
       command:
         cmd: "ovs-vsctl remove interface {{ item.interface }} other_config pmd-rxq-affinity"
       loop: "{{ pmd_rxq_affinity }}"
+
+    - name: set up interfaces
+      command:
+        cmd: "ovs-ofctl mod-port {{ item.bridge }} {{ item.interface }} up"
+      loop: "{{ testpmd_down_interfaces | default([]) }}"
 
 - hosts: trex
   become: true
