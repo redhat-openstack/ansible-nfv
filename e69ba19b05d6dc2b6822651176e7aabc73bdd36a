@@ -87,6 +87,24 @@
       "message": "I would not modify the configuration of the system for this. I think it is easier to just configure switch ports.",
       "revId": "e69ba19b05d6dc2b6822651176e7aabc73bdd36a",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "59a30bf0_7916c9f7",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1019727
+      },
+      "writtenOn": "2023-09-18T09:31:36Z",
+      "side": 1,
+      "message": "Why do you thing it\u0027s easier to modify the switch ports? I do not agree because you\u0027ll need to use the switch playbooks. However, doing this way we only to add a task to the MQ learning playbook. And from the point of view of the MQ discovery testing is equivalent. Anyway, this change does not set up any interface by default, only gives you the possibility of doing it.",
+      "parentUuid": "554bfaf8_145c6d91",
+      "revId": "e69ba19b05d6dc2b6822651176e7aabc73bdd36a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
