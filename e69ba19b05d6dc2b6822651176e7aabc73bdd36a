@@ -70,6 +70,23 @@
       },
       "revId": "e69ba19b05d6dc2b6822651176e7aabc73bdd36a",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "554bfaf8_145c6d91",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1016373
+      },
+      "writtenOn": "2023-09-18T09:06:06Z",
+      "side": 1,
+      "message": "I would not modify the configuration of the system for this. I think it is easier to just configure switch ports.",
+      "revId": "e69ba19b05d6dc2b6822651176e7aabc73bdd36a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
