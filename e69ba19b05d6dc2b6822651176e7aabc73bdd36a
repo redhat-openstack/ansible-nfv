@@ -105,6 +105,24 @@
       "parentUuid": "554bfaf8_145c6d91",
       "revId": "e69ba19b05d6dc2b6822651176e7aabc73bdd36a",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "4558fb08_50fc2015",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1016373
+      },
+      "writtenOn": "2023-09-18T10:02:08Z",
+      "side": 1,
+      "message": "You are receiving traffic in both dpdk2, dpdk3 because the switch does not know that both interfaces belong to a bonding. So, in order not to receive traffic duplicated you need to configure a bond in the switch. You can configure lacp too, so, traffic will be sent only through the active interface.\nI think this is a more realistic solution\nThe only thing to resolve is that you will need to configure pmd_rxq_affinity in both of the ports of the switch, because you do dont know which is active, or you configure the bond and look for the active one\nI think that with switch configuration it is not needed to create any code, just configuration",
+      "parentUuid": "59a30bf0_7916c9f7",
+      "revId": "e69ba19b05d6dc2b6822651176e7aabc73bdd36a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
