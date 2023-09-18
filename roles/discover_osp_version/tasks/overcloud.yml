@@ -1,4 +1,4 @@
-- name: Check for /etc/rhosp-release file
+- name: Check for release files
   stat:
     path: "{{ item }}"
   register: rhosp_release_files
@@ -9,7 +9,9 @@
     rhosp_release_file: "{{ item.0.item }}"
     rhosp_version_regexp: "{{ item.1 }}"
   loop: "{{ rhosp_release_files.results|zip(overcloud_version_regexp)|list }}"
-  when: item.0.stat.exists
+  when:
+    - item.0.stat.exists
+    - item.0.stat.size > 0
 
 - name: rhosp release file is missing
   fail:
