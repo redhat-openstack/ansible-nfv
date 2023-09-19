@@ -9,9 +9,9 @@
 
 - name: Parse TRex MACs
   set_fact:
-    trex_macs: "{{ (hostvars[(groups['trex'] | first) ]['trex_instance_nics_info'])|map(attribute='mac_address')|list|join(',') }}"
+    trex_macs: "{{ (hostvars[(groups[trex_host] | first) ]['trex_instance_nics_info'])|map(attribute='mac_address')|list|join(',') }}"
   when:
-    - hostvars[(groups['trex'] | first) ]['trex_instance_nics_info'] is defined
+    - hostvars[(groups[trex_host] | first) ]['trex_instance_nics_info'] is defined
     - trex_macs is not defined
 
 - name: Set testpmd verbosity
