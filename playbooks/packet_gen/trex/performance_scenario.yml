@@ -59,7 +59,7 @@
     - role: roles/packet_gen/trex/launch_fio
       when: launch_hci_stress | default(False)|bool
 
-- hosts: trex
+- hosts: "{{ trex_instances[ dut_group ] | default('trex') }}"
   roles:
     - role: roles/packet_gen/trex/trex_instance_config
       when: trex_instance_config | default(True)|bool
@@ -118,9 +118,11 @@
       when: bind_dpdk_nics | default(True)|bool
 
     - role: roles/packet_gen/trex/launch_testpmd
+      vars:
+        trex_host: "{{ trex_instances[ dut_group ] | default('trex') }}"
       when: launch_testpmd | default(True)|bool
 
-- hosts: trex
+- hosts: "{{ trex_instances[ dut_group ] | default('trex') }}"
   become: true
   roles:
     - role: tuning/cpu_pinning_huge_pages
@@ -135,7 +137,7 @@
         - name: get trex vm name
           set_fact:
             trex_vm: "{{ item.name }}"
-          when: "'trex' in item['group']"
+          when: trex_instances[ dut_group ] | default('trex') }} in item['group']
           loop: "{{ dynamic_instances }}"
 
         - name: Reboot trex
@@ -144,7 +146,7 @@
             openstack server reboot --wait "{{ trex_vm }}"
       when: osp_reboot | default(False)|bool
 
-- hosts: trex
+- hosts: "{{ trex_instances[ dut_group ] | default('trex') }}"
   gather_facts: False
   become: true
   tasks:
@@ -162,7 +164,7 @@
         set_pmd_auto_lb_improvement_threshold: "set"
       when: pmd_auto_lb_improvement_threshold is defined
 
-- hosts: trex
+- hosts: "{{ trex_instances[ dut_group ] | default('trex') }}"
   roles:
     - role: roles/packet_gen/trex/bind_dpdk_nics
       vars:
