@@ -123,6 +123,23 @@
       "parentUuid": "59a30bf0_7916c9f7",
       "revId": "e69ba19b05d6dc2b6822651176e7aabc73bdd36a",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "99e09943_6164d9da",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2023-09-20T13:54:25Z",
+      "side": 1,
+      "message": "I think taking down an interface like this might be problematic but lets run it for a certain time and see if it works consistently",
+      "revId": "e69ba19b05d6dc2b6822651176e7aabc73bdd36a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
