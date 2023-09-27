@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "fbc47387_7641d9f8",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1018675
+      },
+      "writtenOn": "2023-09-27T12:51:28Z",
+      "side": 1,
+      "message": "can you please elaborate on why we require 2 trex instances?",
+      "revId": "ab553d723f29b89ecfd3c9f6e121e0655782a28a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
