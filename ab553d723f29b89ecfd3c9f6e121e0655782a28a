@@ -16,6 +16,24 @@
       "message": "can you please elaborate on why we require 2 trex instances?",
       "revId": "ab553d723f29b89ecfd3c9f6e121e0655782a28a",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "79d13485_6fe1592c",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1016373
+      },
+      "writtenOn": "2023-09-27T13:26:35Z",
+      "side": 1,
+      "message": "Because dut vms are in different computes because i only have 1 e810 nic in each compute. So, I have testpmd for ovs-dpdk in one compute and testpmd for sriov in the other compute and i have one trex traffic in the opposite compute, so i need 2 instances",
+      "parentUuid": "fbc47387_7641d9f8",
+      "revId": "ab553d723f29b89ecfd3c9f6e121e0655782a28a",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
