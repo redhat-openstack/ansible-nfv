@@ -1,0 +1,7 @@
+
+
+- name: Template a file to /etc/file.conf
+  ansible.builtin.template:
+    src: data.j2
+    dest: /tmp/{{ dut_type }}_system_info.json
+
