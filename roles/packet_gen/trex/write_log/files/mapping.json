@@ -1,0 +1,25 @@
+{
+    "properties": {
+        "perf_results": {"type": "float"},
+        "compute_cmdline": {"type": "nested"},
+        "compute_kernel": {"type": "keyword"},
+        "compute_architecture": {"type": "keyword"},
+        "compute_distribution": {"type": "text"},
+        "compute_os_version": {"type": "keyword"},
+        "compute_cpu_model": {"type": "text"},
+        "compute_nics": {"type": "text"},
+        "compute_ovn_version": {"type": "keyword"},
+        "trex_kernel": {"type": "keyword"},
+        "trex_architecture": {"type": "keyword"},
+        "trex_distribution": {"type": "text"},
+        "trex_os_version": {"type": "keyword"},
+        "dut_type": {"type": "keyword"},
+        "RHOS_version": {"type": "keyword"},
+        "core_puddle_version": {"type": "keyword"},
+        "compute_ovs_versions": {"type": "keyword"},
+        "compute_dpdk_versions": {"type": "keyword"},
+        "date": {"type": "date"},
+        "scenario": {"type": "keyword"},
+        "deployment_type": {"type": "keyword"}
+    }
+}

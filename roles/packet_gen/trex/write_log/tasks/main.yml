@@ -1,0 +1,4 @@
+- name: Template collected data
+  ansible.builtin.template:
+    src: data.j2
+    dest: /tmp/{{ dut_type }}_perf_info.json

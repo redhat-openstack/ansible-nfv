@@ -1,0 +1,97 @@
+---
+
+- hosts: undercloud
+  gather_facts: False
+  tasks:
+
+    - include_role:
+        name: roles/discover_osp_version
+
+    - name: Use Pre-exisisting Resources
+      block:
+        - name: Prepare Virtual Environment
+          include_role:
+            name: roles/post_install/openstack_tasks
+            tasks_from: setup_openstack_env
+
+        - name: Add Pre-existing Instances To Dynamic Inventory
+          include_role:
+            name: roles/post_install/dynamic_host_inventory
+          loop: "{{ dynamic_instances }}"
+
+
+- hosts: trex
+  tasks:
+    - name: Collect only facts returned by facter
+      ansible.builtin.setup:
+        gather_subset:
+          - "!all"
+          - architecture
+          - cmdline
+          - devices
+          - distribution
+          - hardware
+          - processor
+          - facter
+      register: trex_info_t
+      become: true
+    - set_fact:
+        trex_info: "{{ trex_info_t }}"
+      delegate_to: localhost
+      delegate_facts: true
+
+- hosts: undercloud
+  gather_facts: False
+  tasks:
+    - block:
+      - name: Collect only facts returned by facter
+        ansible.builtin.setup:
+          gather_subset:
+            - "!all"
+            - architecture
+            - cmdline
+            - devices
+            - distribution
+            - hardware
+            - processor
+            - facter
+        register: compute_info
+        become: true
+
+      - name: get nic info
+        shell: lshw -json -c network | jq ".[] | .product" | sed 's/"//g'
+        register: compute_nics
+
+      - name: get nic info
+        shell: ovs-vswitchd --version
+        register: compute_ovs_versions
+
+      delegate_to: "{{ groups['compute'][0] }}"
+
+    - name: get perf results for scenario
+      shell: grep tx_pps /tmp/{{ dut_type }}_performance.log | awk 'END{ print int(substr($4, 1, length(    $4)-1) *2) }'
+      register: perf_results
+
+    - name: get OVN version for scenario
+      shell: "grep 'OVN_Version:' /tmp/{{ dut_type }}_performance.log | sed 's/.*OVN_Version: //'"
+      register: ovn_version
+
+    - name: Slurp hosts file
+      slurp:
+        src: /etc/rhosp-release
+      register: RHOS_version_b64
+
+    - name: Slurp hosts file
+      slurp:
+        src: /home/stack/core_puddle_version
+      register: core_puddle_version_b64
+
+    - name: base64 encode using ansible filter
+      set_fact:
+        RHOS_version: "{{ RHOS_version_b64.content | b64decode }}"
+        core_puddle_version: "{{ core_puddle_version_b64.content | b64decode }}"
+    - block:
+      - name: write log
+        include_role:
+          name: packet_gen/trex/write_log
+      delegate_to: localhost
