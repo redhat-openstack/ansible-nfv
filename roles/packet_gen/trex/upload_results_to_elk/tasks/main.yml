@@ -1,0 +1,14 @@
+- include_tasks: gather_perf_info.yml
+
+- name: Template collected data
+  ansible.builtin.template:
+    src: data.j2
+    dest: /tmp/{{ dut_type }}_perf_info.json
+    mode: 0644
+
+- name: install elasticsearch pip
+  pip:
+    name: elasticsearch=={{elasticsearch_pip_version}}
+
+- name: upload results to elasticsearch
+  script: upload_to_ELK.py -p /tmp/{{ dut_type }}_perf_info.json
