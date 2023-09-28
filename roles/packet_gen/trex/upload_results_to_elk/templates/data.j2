@@ -1,0 +1,23 @@
+{
+    "perf_results": "{{ perf_results.stdout }}",
+    "compute_cmdline": {{ compute_info["ansible_facts"]["ansible_cmdline"] | replace("'", '"') | replace("True", '"true"') }},
+    "compute_kernel": "{{ compute_info["ansible_facts"]["ansible_kernel"] }}",
+    "compute_architecture": "{{ compute_info["ansible_facts"]["ansible_architecture"] }}",
+    "compute_distribution": "{{ compute_info["ansible_facts"]["ansible_distribution"] }}",
+    "compute_os_version": "{{ compute_info["ansible_facts"]["ansible_distribution_version"] }}",
+    "compute_cpu_model": "{{ compute_info["ansible_facts"]["facter_processors"]["models"][0] }}",
+    "compute_nics": {{ compute_nics.stdout_lines | replace("'", '"') }},
+    "compute_ovn_version": "{{ ovn_version.stdout }}",
+    "trex_kernel": "{{ hostvars["localhost"]["trex_info"]["ansible_facts"]["ansible_kernel"] }}",
+    "trex_architecture": "{{ hostvars["localhost"]["trex_info"]["ansible_facts"]["ansible_architecture"] }}",
+    "trex_distribution": "{{ hostvars["localhost"]["trex_info"]["ansible_facts"]["ansible_distribution"] }}",
+    "trex_os_version": "{{ hostvars["localhost"]["trex_info"]["ansible_facts"]["ansible_distribution_version"] }}",
+    "dut_type": "{{ dut_type }}",
+    "RHOS_version": "{{ RHOS_version | trim }}",
+    "core_puddle_version": "{{ core_puddle_version }}",
+    "compute_ovs_versions": "{{ compute_ovs_versions["stdout_lines"][0] }}",
+    "compute_dpdk_versions": "{{ compute_ovs_versions["stdout_lines"][1] }}",
+    "date": "{{ ansible_date_time.iso8601 }}",
+    "scenario": "{{ scenario }}",
+    "deployment_type": "{{ deployment_type }}"
+}

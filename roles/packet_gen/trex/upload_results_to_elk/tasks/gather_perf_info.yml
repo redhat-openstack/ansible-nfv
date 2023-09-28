@@ -1,0 +1,23 @@
+---
+- name: get perf results for scenario
+  shell: grep tx_pps /tmp/{{ dut_type }}_performance.log | awk 'END{ print int(substr($4, 1, length(    $4)-1) *2) }'
+  register: perf_results
+
+- name: get OVN version for scenario
+  shell: "grep 'OVN_Version:' /tmp/{{ dut_type }}_performance.log | sed 's/.*OVN_Version: //'"
+  register: ovn_version
+
+- name: Slurp hosts file
+  slurp:
+    src: /etc/rhosp-release
+  register: RHOS_version_b64
+
+- name: Slurp hosts file
+  slurp:
+    src: /home/stack/core_puddle_version
+  register: core_puddle_version_b64
+
+- name: base64 encode using ansible filter
+  set_fact:
+    RHOS_version: "{{ RHOS_version_b64.content | b64decode }}"
+    core_puddle_version: "{{ core_puddle_version_b64.content | b64decode }}"
