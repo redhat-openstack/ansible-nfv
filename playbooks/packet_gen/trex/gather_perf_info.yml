@@ -1,0 +1,72 @@
+---
+
+- hosts: undercloud
+  gather_facts: False
+  tasks:
+
+    - include_role:
+        name: roles/discover_osp_version
+
+    - name: Use Pre-exisisting Resources
+      block:
+        - name: Prepare Virtual Environment
+          include_role:
+            name: roles/post_install/openstack_tasks
+            tasks_from: setup_openstack_env
+
+        - name: Add Pre-existing Instances To Dynamic Inventory
+          include_role:
+            name: roles/post_install/dynamic_host_inventory
+          loop: "{{ dynamic_instances }}"
+
+- hosts: trex
+  tasks:
+    - name: Collect only facts returned by facter
+      ansible.builtin.setup:
+        gather_subset:
+          - "!all"
+          - architecture
+          - cmdline
+          - devices
+          - distribution
+          - hardware
+          - processor
+          - facter
+      register: trex_info_t
+      become: true
+    - set_fact:
+        trex_info: "{{ trex_info_t }}"
+      delegate_to: localhost
+      delegate_facts: true
+
+- hosts: undercloud
+  gather_facts: False
+  tasks:
+    - block:
+        - name: Collect only facts returned by facter
+          ansible.builtin.setup:
+            gather_subset:
+              - "!all"
+              - architecture
+              - cmdline
+              - devices
+              - distribution
+              - hardware
+              - processor
+              - facter
+          register: compute_info
+          become: true
+
+        - name: get nic info
+          shell: lshw -json -c network | jq ".[] | .product" | sed 's/"//g'
+          register: compute_nics
+
+        - name: get nic info
+          command: ovs-vswitchd --version
+          register: compute_ovs_versions
+
+      delegate_to: "{{ groups['compute'][0] }}"
+
+    - name: upload_result_to_elk
+      include_role:
+        name: packet_gen/trex/upload_results_to_elk
