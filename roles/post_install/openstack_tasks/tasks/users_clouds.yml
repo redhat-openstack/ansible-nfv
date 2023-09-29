@@ -36,4 +36,5 @@
   set_fact:
     clouds_dict: "{{ clouds_dict | combine({item['name']: stackrc_file | dirname +'/'+ item['name'] + '_rc'}) }}"
   loop: "{{ users }}"
-  when: item.name != 'admin'
+  when:
+    - item.name != 'admin'

@@ -28,6 +28,7 @@ resource_state: present
 ### All "clouds" configuration resides within the "~/.config/openstack/clouds.yaml" file.
 ### A different cloud name could be set on each resource.
 ### As a result multiple users resources could be created at a single playbook run.
+tripleo_default_clouds_file: "{{ ansible_user_dir }}/.config/openstack/clouds.yaml"
 cloud_name: overcloud
 
 users:
