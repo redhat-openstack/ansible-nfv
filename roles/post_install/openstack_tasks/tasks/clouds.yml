@@ -62,9 +62,26 @@
   when: not item['stat']['exists']
   loop: "{{ stacksrc_files_stat['results'] }}"
 
-- name: Generate Clouds Dictionary
+- name: Generate Clouds Dictionary (Undercloud < 17)
   set_fact:
-    clouds_dict: "{{ undercloud_rc | combine(stacks_rc) }}"
+    clouds_dict: |
+      {%- if undercloud_version | int < 17 -%}
+        {{ undercloud_rc | combine(stacks_rc) }}
+      {%- else -%}
+        {{ stacks_rc }}
+      {%- endif -%}
+  # when: undercloud_version | int < 17
+
+- name: Save TripleO Generated Undercloud Cloud Definition (Undercloud >= 17)
+  block:
+    - name: Read TripleO Generated clouds.yaml
+      ansible.builtin.slurp:
+        src: "{{ tripleo_default_clouds_file }}"
+      register: tripleo_default_clouds_content
+    - name: Derive Undercloud Configuration
+      ansible.builtin.set_fact:
+        tripleo_undercloud_cloud_details: "{ 'undercloud': {{ (tripleo_default_clouds_content['content'] | b64decode | from_yaml)['clouds']['undercloud'] }} }"
+  when: undercloud_version | int >= 17
 
 - name: Add users to clouds.yaml
   vars:
@@ -121,9 +138,17 @@
   when: "item.rc != 1"
   loop: "{{ cloud_details.results | flatten(levels=1) }}"
 
+- name: Insert Default Undercloud >= 17
+  blockinfile:
+    dest: "{{ clouds_yaml_file_path }}"
+    block: "{{ tripleo_undercloud_cloud_details | to_nice_yaml(indent=4) }}"
+    insertbefore: "#END UNDERCLOUD SECTION"
+    marker: "#{mark} UNDERCLOUD PARAMETERS"
+  when: undercloud_version | int >= 17
+
 - name: Override TripleO Generated File With User File
   ansible.builtin.copy:
     src: "{{ clouds_yaml_file_path }}"
-    dest: "{{ ansible_user_dir }}/.config/openstack/clouds.yaml"
+    dest: "{{ tripleo_default_clouds_file }}"
     remote_src: true
   when: force_tripleo_clouds_override
