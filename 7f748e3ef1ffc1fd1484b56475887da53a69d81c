@@ -22,6 +22,30 @@
       },
       "revId": "7f748e3ef1ffc1fd1484b56475887da53a69d81c",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "3b624038_0f2f237d",
+        "filename": "roles/packet_gen/trex/upload_results_to_elk/tasks/main.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2023-10-03T11:45:34Z",
+      "side": 1,
+      "message": "Sorry, an ansible variable and not an environment variable.",
+      "parentUuid": "4da110db_bb90a5cb",
+      "range": {
+        "startLine": 11,
+        "startChar": 25,
+        "endLine": 11,
+        "endChar": 30
+      },
+      "revId": "7f748e3ef1ffc1fd1484b56475887da53a69d81c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
