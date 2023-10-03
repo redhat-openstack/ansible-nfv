@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "4da110db_bb90a5cb",
+        "filename": "roles/packet_gen/trex/upload_results_to_elk/tasks/main.yml",
+        "patchSetId": 7
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 1016438
+      },
+      "writtenOn": "2023-10-03T11:45:00Z",
+      "side": 1,
+      "message": "It should be an environment variable since the version of the client matters to the version of the instance,",
+      "range": {
+        "startLine": 11,
+        "startChar": 25,
+        "endLine": 11,
+        "endChar": 30
+      },
+      "revId": "7f748e3ef1ffc1fd1484b56475887da53a69d81c",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
