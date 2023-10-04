@@ -11,4 +11,4 @@
     name: elasticsearch=={{ elasticsearch_pip_version }}
 
 - name: upload results to elasticsearch
-  script: upload_to_ELK.py -p /tmp/{{ dut_type }}_perf_info.json
+  script: upload_to_ELK.py --upload -p /tmp/{{ dut_type }}_perf_info.json
