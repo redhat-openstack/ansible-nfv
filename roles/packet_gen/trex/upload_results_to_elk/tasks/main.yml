@@ -9,6 +9,9 @@
 - name: install elasticsearch pip
   pip:
     name: elasticsearch=={{ elasticsearch_pip_version }}
+  become: true
 
 - name: upload results to elasticsearch
   script: upload_to_ELK.py --upload -p /tmp/{{ dut_type }}_perf_info.json
+  args:
+    executable: python3

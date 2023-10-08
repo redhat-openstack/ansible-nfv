@@ -65,7 +65,7 @@
           command: ovs-vswitchd --version
           register: compute_ovs_versions
 
-      delegate_to: "{{ groups['compute'][0] }}"
+      delegate_to: "{{ dut_compute if dut_compute else 'none' }}"
 
     - name: upload_result_to_elk
       include_role:
