@@ -1,0 +1,28 @@
+- name: Reload os-net-config
+  hosts: overcloud_nodes
+  gather_facts: false
+  tasks:
+    - name: Stat config.yaml.j2
+      stat:
+        path: "{{ os_net_config_reload_path }}/{{ inventory_hostname }}/config.yaml.j2"
+      delegate_to: localhost
+      register: config_yaml_j2
+    - block:
+        - name: Slurp /etc/os-net-config/config.yaml
+          slurp:
+            src: /etc/os-net-config/config.yaml
+          register: os_net_config
+        - name: Get os_net_config
+          set_fact:
+            os_net_config: "{{ os_net_config['content'] | b64decode | from_yaml }}"
+        - name: Get network_config
+          set_fact:
+            network_config: "{{ os_net_config['network_config'] }}"
+        - name: Install /etc/os-net-config.yaml
+          become: yes
+          template:
+            src: "{{ config_yaml_j2.stat.path }}"
+            dest: /etc/os-net-config/config.yaml
+            backup: yes
+            validate: /usr/bin/os-net-config -c %s
+      when: config_yaml_j2.stat.exists
