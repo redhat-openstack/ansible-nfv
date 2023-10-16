@@ -125,6 +125,12 @@ pmd_rxq_affinity: [ {'interface': 'dpdk2', 'pmd_rxq_affinity': '0:3,1:5,2:7'},
                     {'interface': 'dpdk3', 'pmd_rxq_affinity': '0:3,1:5,2:7'} ]
 ```
 
+set down interfaces in OVS bridge
+
+```
+testpmd_down_interfaces: [{'bridge': '<BRIDGE>', 'interface': '<IFACE>'}]
+```
+
 multiqueue config
 
 ```
