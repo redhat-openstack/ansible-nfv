@@ -70,7 +70,8 @@ def arg_parser():
                         help='Path to mapping json file, required when using '
                         '--create-mapping')
     parser.add_argument('--es-url', help='ES URL for uploading results to',
-                        default="http://seal52.lab.eng.tlv2.redhat.com:9200")
+                        default=
+                        "http://rhos-elk.rhev.lab.eng.brq2.redhat.com/:9200")
     parser.add_argument('-i', '--index-name', help='Index name in ES',
                         default='nfv-perf-report-elk')
     parser.add_argument('--upload', action='store_true', help='Upload results')
