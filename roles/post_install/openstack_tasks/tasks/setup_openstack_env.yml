@@ -38,14 +38,10 @@
 
 - name: Install create virtualenv and openstacksdk packages
   pip:
-    name: openstacksdk<=0.52
+    name: openstacksdk<=1.0
     virtualenv: "{{ venv_path }}"
     virtualenv_command: "/usr/bin/python3 -m virtualenv"
 
-- name: Discover Undercloud OSP version
-  include_role:
-    name: discover_osp_version
-    tasks_from: undercloud
 
 # Relax permissions in case of forcing creation of clouds file
 - name: Ensure Home Directory Includes Group Write Permissions If Required
@@ -54,6 +50,5 @@
     mode: "0750"
   when: force_clouds_generation
 
-- name: Generate clouds.yaml file
+- name: Get clouds.yaml file
   import_tasks: clouds.yml
-  when: undercloud_version | int < 17 or force_clouds_generation
