@@ -4,7 +4,7 @@
 venv_path: "/tmp/ansible_venv"
 
 # Name of cloud to be queried
-query_cloud: "overcloud"
+query_cloud: "default"
 
 # Validate HTTPS certs when querying cloud
 cloud_validate_certs: False
