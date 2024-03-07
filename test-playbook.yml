@@ -1,0 +1,11 @@
+- hosts: localhost
+  gather_facts: False
+  tasks:
+
+    - name: Copy /tmp/foo from a remote pod to /tmp/bar locally
+      kubernetes.core.k8s_cp:
+        namespace: openstack 
+        pod: openstackclient
+        remote_path: .config/openstack/clouds.yaml
+        local_path: ~/clouds
+        state: from_pod

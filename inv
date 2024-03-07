@@ -1,0 +1,32 @@
+localhost ansible_connection=local ansible_python_interpreter=python
+
+
+localhost ansible_connection=local ansible_python_interpreter=python
+
+
+undercloud-0 ansible_connection=local ansible_python_interpreter=python
+
+
+[local]
+localhost
+
+[hypervisor]
+hypervisor
+
+
+[openstack_nodes]
+undercloud-0
+
+[undercloud]
+undercloud-0
+
+[undercloud_hypervisors]
+hypervisor
+
+[shade]
+hypervisor
+
+[tester]
+undercloud-0
+
+

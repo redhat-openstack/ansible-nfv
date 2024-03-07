@@ -1,12 +1,11 @@
+- set_fact:
+    trex_instance_nics_info: []
 - name: Populate Trex NICs info variable
   set_fact:
-    trex_instance_nics_info: >-
-      {{ trex_instance_nics_info | default([]) }} + [{
-      'mac_address': '{{ item['mac_address'] }}',
-      'ip': '{{ item['fixed_ips'][0]['ip_address'] }}',
-      'vlan': '{{ item['binding:vif_details']['vlan'] | default(omit) }}'
-      }]
+    trex_instance_nics_info: "{{ trex_instance_nics_info | default([]) + [{'mac_address': item['binding_profile']['device_mac_address'],'ip': item['fixed_ips'][0]['ip_address'], 'vlan': item['binding_vif_details']['vlan'] | default(omit) }] }}"
   loop: "{{ trex_instance_sriov_nics }}"
+- debug:
+    var: ansible_local
 
 - name: Merge Between Dicts To Build Trex NICs Info
   set_fact:
