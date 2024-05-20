@@ -1,8 +1,8 @@
 ---
 ## Openstack variables
 tripleo_undercloud_file: /home/stack/stackrc
-
-clouds_yaml_file_path: /home/stack/clouds.yaml
+kubeconfig: /home/ciuser/src/dev-scripts/ocp/nfv/auth/kubeconfig
+clouds_yaml_file_path: /home/ciuser/clouds.yaml
 private_key_fetch_location: /tmp
 
 packages:

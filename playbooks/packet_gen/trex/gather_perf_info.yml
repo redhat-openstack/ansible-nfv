@@ -1,11 +1,8 @@
 ---
 
-- hosts: undercloud
+- hosts: localhost
   gather_facts: False
   tasks:
-
-    - include_role:
-        name: roles/discover_osp_version
 
     - name: Use Pre-exisisting Resources
       block:
@@ -39,7 +36,7 @@
       delegate_to: localhost
       delegate_facts: true
 
-- hosts: undercloud
+- hosts: localhost
   gather_facts: False
   tasks:
     - block:

@@ -1,19 +1,20 @@
+- set_fact:
+    trex_instance_nics_info: []
 - name: Populate Trex NICs info variable
   set_fact:
-    trex_instance_nics_info: >-
-      {{ trex_instance_nics_info | default([]) }} + [{
-      'mac_address': '{{ item['mac_address'] }}',
-      'ip': '{{ item['fixed_ips'][0]['ip_address'] }}',
-      'vlan': '{{ item['binding:vif_details']['vlan'] | default(omit) }}'
-      }]
+    trex_instance_nics_info: "{{ trex_instance_nics_info | default([]) + [{'mac_address': item['mac_address'],'ip': item['fixed_ips'][0]['ip_address'], 'vlan': item['binding_vif_details']['vlan'] | default(omit) }] }}"
   loop: "{{ trex_instance_sriov_nics }}"
 
+- debug:
+    var: trex_instance_nics_info
+- debug:
+    var: ansible_local["nic_topology"]
 - name: Merge Between Dicts To Build Trex NICs Info
   set_fact:
     trex_full_nic_info: >-
       {%- for nic in trex_instance_nics_info -%}
-        {%- for nic_topo in ansible_local['nic_topology'] -%}
-          {%- if nic['mac_address'] == nic_topo['mac_address'] -%}
+        {%- for nic_topo in ansible_local["nic_topology"] -%}
+          {%- if nic["mac_address"] == nic_topo["mac_address"] -%}
             {{- nic.update(nic_topo) -}}
             {{nic}},
           {%- endif -%}
@@ -27,8 +28,5 @@
 - name: Set Trex config Ports Info
   set_fact:
     trex_port_info: >-
-      {{ trex_port_info | default([]) }} +
-      [{'src_mac': '{{ trex_full_nic_info[0]['mac_address'] }}', 'dest_mac': '{{ trex_full_nic_info[1]['mac_address'] }}',
-      'ip': '{{ trex_full_nic_info[0]['ip'] }}', 'default_gw': '{{ trex_full_nic_info[1]['ip'] }}'}] +
-      [{'src_mac': '{{ trex_full_nic_info[1]['mac_address'] }}', 'dest_mac': '{{ trex_full_nic_info[0]['mac_address'] }}',
-      'ip': '{{ trex_full_nic_info[1]['ip'] }}', 'default_gw': '{{ trex_full_nic_info[0]['ip'] }}'}]
+      {{ trex_port_info | default([]) + [{'src_mac': trex_full_nic_info[0]['mac_address'], 'dest_mac': trex_full_nic_info[1]['mac_address'],'ip': trex_full_nic_info[0]['ip'], 'default_gw': trex_full_nic_info[1]['ip'] }] + [{'src_mac': trex_full_nic_info[1]['mac_address'], 'dest_mac': trex_full_nic_info[0]['mac_address'], 'ip': trex_full_nic_info[1]['ip'], 'default_gw': trex_full_nic_info[0]['ip'] }] }}
+
