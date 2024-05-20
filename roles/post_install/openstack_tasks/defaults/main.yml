@@ -18,6 +18,7 @@ resources_output: false
 resource_generate_inventory: False
 force_clouds_generation: false
 force_tripleo_clouds_override: false
+manual_run: false
 
 ### Set the state of the resource.
 ### The state could be 'present' or 'absent'.
