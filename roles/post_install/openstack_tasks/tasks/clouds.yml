@@ -1,155 +1,34 @@
 ---
-
-- name: Discover OSP version
-  include_role:
-    name: discover_osp_version
-
-- name: Check If undercloudrc File Exists
-  stat:
-    path: "{{ tripleo_undercloud_file }}"
-  register: undercloudrc_file_stat
-  failed_when: not undercloudrc_file_stat['stat']['exists']
-
-# There is no native Ansible module to retrieve stack information
-- name: Get stack name osp16
+- name: copy clouds file from pod for manual run
+  when: manual_run | bool
   block:
-    - name: Retrieve Undercloud Stacks
-      shell: |
-        source {{ tripleo_undercloud_file }} ; openstack stack list -c 'Stack Name' -f value
-      register: undercloud_stack_output
-    - name: Parse Undercloud Stack Names If Available
-      set_fact:
-        undercloud_stack_list: "{{ undercloud_stack_output['stdout_lines'] }}"
-      when: undercloud_stack_output['stdout_lines'] | length > 0
-  when: overcloud_version | int <= 16
+    - name: Check existence of the clouds.yaml directory
+      stat:
+        path: "{{ clouds_yaml_file_path | dirname }}"
+      register: clouds_yaml_dir
 
-- name: Get stack name osp17
-  block:
-    - name: Retrieve Undercloud Stacks
-      shell: |
-        set -o pipefail
-        source /home/stack/overcloudrc ; openstack overcloud status | grep -v "^+" | tail -n +2 | awk '{print $2}'
-      register: undercloud_stack_output
-    - name: Parse Undercloud Stack Names If Available
-      set_fact:
-        undercloud_stack_list: "{{ undercloud_stack_output['stdout_lines'] }}"
-      when: undercloud_stack_output['stdout_lines'] | length > 0
-  when: overcloud_version | int >= 17
+    - name: "Create directory for writing clouds.yaml"
+      file:
+        state: directory
+        path: "{{ clouds_yaml_file_path | dirname }}"
+        mode: '0775'
+      when: not clouds_yaml_dir.stat.exists
 
-# We assume that the default behavior of file naming convention:
-# /home/stack/<stack_name>rc
-- name: Define rc Files
-  set_fact:
-    undercloud_rc:
-      undercloud: "{{ tripleo_undercloud_file }}"
-    stacks_rc: "{%- set helper_dict = dict() -%}
-                {%- if undercloud_stack_list -%}
-                {%- for stack in undercloud_stack_list -%}
-                {{ helper_dict.update({stack: '/home/stack/'+stack+'rc'}) }}
-                {%- endfor -%}
-                {%- endif -%}
-                {{ helper_dict }}"
+    - name: Copy clouds.yaml from pod
+      kubernetes.core.k8s_cp:
+        namespace: openstack
+        pod: openstackclient
+        remote_path: .config/openstack/clouds.yaml
+          #    kubeconfig: "{{ kubeconfig }}" 
+        local_path: "{{ clouds_yaml_file_path | dirname }}/clouds.yml"
+        state: from_pod
 
-- name: Stat Stacks rc Files
-  stat:
-    path: "{{ item }}"
-  register: stacksrc_files_stat
-  loop: "{{ stacks_rc.values() | list }}"
+    - name: Copy clouds.yaml from pod
+      kubernetes.core.k8s_cp:
+        namespace: openstack
+        pod: openstackclient
+        remote_path: .config/openstack/secure.yaml
+          #    kubeconfig: "{{ kubeconfig }}"
+        local_path: "{{ clouds_yaml_file_path | dirname }}/secure.yml"
+        state: from_pod
 
-- name: Fail If Stacks rc Files Don't Exists
-  fail:
-    msg: "File: {{ item['path'] }} does not exists"
-  when: not item['stat']['exists']
-  loop: "{{ stacksrc_files_stat['results'] }}"
-
-- name: Generate Clouds Dictionary (Undercloud < 17)
-  set_fact:
-    clouds_dict: |
-      {%- if undercloud_version | int < 17 -%}
-        {{ undercloud_rc | combine(stacks_rc) }}
-      {%- else -%}
-        {{ stacks_rc }}
-      {%- endif -%}
-  # when: undercloud_version | int < 17
-
-- name: Save TripleO Generated Undercloud Cloud Definition (Undercloud >= 17)
-  block:
-    - name: Read TripleO Generated clouds.yaml
-      ansible.builtin.slurp:
-        src: "{{ tripleo_default_clouds_file }}"
-      register: tripleo_default_clouds_content
-    - name: Derive Undercloud Configuration
-      ansible.builtin.set_fact:
-        tripleo_undercloud_cloud_details: "{ 'undercloud': {{ (tripleo_default_clouds_content['content'] | b64decode | from_yaml)['clouds']['undercloud'] }} }"
-  when: undercloud_version | int >= 17
-
-- name: Add users to clouds.yaml
-  vars:
-    stackrc_file: "{{ stacks_rc.values() | list | first }}"
-  import_tasks: users_clouds.yml
-  when:
-    - user
-    - stacks_rc.values() | list | length > 0
-
-- name: Get Cloud variables
-  shell: |
-    set -e -o pipefail
-    for key in $(set | awk '{FS="="} /^OS_/ {print $1}'); do unset $key; done
-    source {{ item['value'] }}
-    echo -n "{{ item['key'] }}: \
-      {'auth': \
-        { 'auth_url': '$OS_AUTH_URL', \
-          'username': '$OS_USERNAME', \
-          'password': '$OS_PASSWORD', \
-          $(if [ -n "$OS_USER_DOMAIN_NAME" ]; then echo "'user_domain_name': '${OS_USER_DOMAIN_NAME}',"; fi) \
-          $(if [ -n "$OS_PROJECT_DOMAIN_NAME" ]; then echo "'project_domain_name': '${OS_PROJECT_DOMAIN_NAME}',"; fi) \
-          'project_name': '${OS_PROJECT_NAME:-$OS_TENANT_NAME}' \
-        } $(if [ -n "$OS_IDENTITY_API_VERSION" ]; then echo ", 'identity_api_version': '${OS_IDENTITY_API_VERSION}'"; fi) }"
-  loop: "{{ clouds_dict | dict2items }}"
-  register: cloud_details
-
-- name: Check existence of the clouds.yaml directory
-  stat:
-    path: "{{ clouds_yaml_file_path | dirname }}"
-  register: clouds_yaml_dir
-
-- name: "Create directory for writing clouds.yaml"
-  file:
-    state: directory
-    path: "{{ clouds_yaml_file_path | dirname }}"
-    mode: '0775'
-  when: not clouds_yaml_dir.stat.exists
-
-- name: Create clouds.yaml if doesn't exist
-  blockinfile:
-    content: 'clouds:'
-    dest: "{{ clouds_yaml_file_path }}"
-    marker: "#{mark} HEADER"
-    create: yes
-    mode: 0644
-
-- name: Insert cloud parameters
-  blockinfile:
-    dest: "{{ clouds_yaml_file_path }}"
-    block: |1
-      {{ item.stdout|from_yaml|to_nice_yaml(indent=4) }}
-    insertbefore: "#END {{ item['item']['key'] }} SECTION"
-    marker: "#{mark} {{ item['item']['key'] }} PARAMETERS"
-  when: "item.rc != 1"
-  loop: "{{ cloud_details.results | flatten(levels=1) }}"
-
-- name: Insert Default Undercloud >= 17
-  blockinfile:
-    dest: "{{ clouds_yaml_file_path }}"
-    block: |1
-      {{ tripleo_undercloud_cloud_details | to_nice_yaml(indent=4) }}
-    insertbefore: "#END UNDERCLOUD SECTION"
-    marker: "#{mark} UNDERCLOUD PARAMETERS"
-  when: undercloud_version | int >= 17
-
-- name: Override TripleO Generated File With User File
-  ansible.builtin.copy:
-    src: "{{ clouds_yaml_file_path }}"
-    dest: "{{ tripleo_default_clouds_file }}"
-    remote_src: true
-  when: force_tripleo_clouds_override

@@ -26,6 +26,7 @@
     - pmd_lb is defined
     - pmd_lb in ['ovs', 'user']
 
+#TODO: add --dst-ports {{ trex_dest_ports}} if it works
 - name: Set Binary Search Command
   set_fact:
     traffic_cmd: >

@@ -5,4 +5,4 @@ collections:
   # This is the latest supported collection for openstacksdk > 1.0.0
   # DO NOT use newer collection, this will cause unexpected issues
   - name: openstack.cloud
-    version: 1.10.0
+  - name: kubernetes.core

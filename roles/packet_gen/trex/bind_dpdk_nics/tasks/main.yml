@@ -87,7 +87,7 @@
 
     - name: Map DuT NICs To Helper Variable
       set_fact:
-        dut_ports: "{{ dut_ports | default([]) }} + {{ item['openstack_ports'] }}"
+        dut_ports: "{{ dut_ports | default([]) + item['ports'] }}"
       loop: "{{ instance_ports['results'] }}"
 
     - name: Parse DuT Destination Macs
