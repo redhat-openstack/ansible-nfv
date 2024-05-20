@@ -8,46 +8,15 @@
         msg: "cloud_resources is not set to correct values: 'create' or 'external', please refer to documentation"
       when: cloud_resources is not defined or cloud_resources not in ['create', 'external']
 
-    - include_role:
-        name: roles/discover_osp_version
+    - name: Prepare Virtual Environment
+      include_role:
+        name: roles/post_install/openstack_tasks
+        tasks_from: setup_openstack_env
 
-    - block:
-        - name: Generate Resources
-          import_role:
-            name: roles/post_install/openstack_tasks
-
-        # Workaround for adding generated instances to dynamic inventory
-        - meta: refresh_inventory
-
-        - name: Map Instances To Helper Variable
-          set_fact:
-            generated_instances: >-
-              {{ generated_instances | default([]) }} + [{'name': '{{ item['name'] }}',
-              'group': '{{ item['groups'] }}',
-              'user': '{{ connection_user }}',
-              'ssh_key': '{{ private_key_fetch_location |default('/tmp') }}/{{ item['key_name'] }}.key' }]
-          loop: "{{ instances }}"
-
-        - name: Workaround - Add Generated Instances To Dynamic Inventory
-          include_role:
-            name: roles/post_install/dynamic_host_inventory
-          vars:
-            discover_instance_external_ip: True
-          loop: "{{ generated_instances }}"
-      when: cloud_resources == 'create' and overcloud_version | int <= 16
-
-    - name: Use Pre-exisisting Resources
-      block:
-        - name: Prepare Virtual Environment
-          include_role:
-            name: roles/post_install/openstack_tasks
-            tasks_from: setup_openstack_env
-
-        - name: Add Pre-existing Instances To Dynamic Inventory
-          include_role:
-            name: roles/post_install/dynamic_host_inventory
-          loop: "{{ dynamic_instances }}"
-      when: cloud_resources == 'external'
+    - name: Add Pre-existing Instances To Dynamic Inventory
+      include_role:
+        name: roles/post_install/dynamic_host_inventory
+      loop: "{{ dynamic_instances }}"
 
 - hosts: "{{ dut_compute | default(omit) }}"
   become: true
@@ -86,17 +55,17 @@
       # "msg": "value of action must be one of: stop, start, pause, unpause,"
       # lock, unlock, suspend, resume, rebuild, shelve, shelve_offload,"
       # unshelve, got: reboot_soft"
-      #- name: Reboot testpmd
-      #  openstack.cloud.server_action:
-      #    cloud: "{{ cloud_name | default('overcloud') }}"
-      #    action: reboot_soft
-      #    server: "{{ testpmd_vm }}"
-      #    timeout: 300
-
         - name: Reboot testpmd
-          shell: |
-            source /home/stack/overcloudrc ;
-            openstack server reboot --wait "{{ testpmd_vm }}"
+          openstack.cloud.server_action:
+            cloud: "{{ cloud_name | default('overcloud') }}"
+            action: reboot_soft
+            server: "{{ testpmd_vm }}"
+            timeout: 300
+
+            #        - name: Reboot testpmd
+            #shell: |
+            #source /home/stack/overcloudrc ;
+            #openstack server reboot --wait "{{ testpmd_vm }}"
       when: osp_reboot | default(False)|bool
 
 - hosts: "{{ dut_group | default(omit) }}"
@@ -141,9 +110,11 @@
           loop: "{{ dynamic_instances }}"
 
         - name: Reboot trex
-          shell: |
-            source /home/stack/overcloudrc ;
-            openstack server reboot --wait "{{ trex_vm }}"
+          openstack.cloud.server_action:
+            cloud: "{{ cloud_name | default('overcloud') }}"
+            action: reboot_soft
+            server: "{{ trex_vm }}"
+            timeout: 300
       when: osp_reboot | default(False)|bool
 
 - hosts: "{{ trex_instances[ dut_group ] | default('trex') }}"

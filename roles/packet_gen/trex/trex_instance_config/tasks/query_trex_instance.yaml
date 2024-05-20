@@ -3,15 +3,15 @@
     name: roles/post_install/discover_instance_ports
   vars:
     query_instance: "{{ ansible_hostname }}"
-  delegate_to: "{{ groups['undercloud'] | first }}"
-
+  delegate_to: localhost
+- debug:
+    var: instance_nics | flatten(levels=1)
 - name: Parse Trex Server SR-IOV NICs
   set_fact:
-    trex_instance_sriov_nics: "{{ trex_instance_sriov_nics | default([]) }} + [ {{ item }} ]"
+    trex_instance_sriov_nics: "{{ trex_instance_sriov_nics | default([]) + [item] }}"
   loop: "{{ instance_nics | flatten(levels=1) }}"
-  when: item['binding:vnic_type'] == "direct-physical" or
-        item['binding:vnic_type'] == "direct"
-
+  when: item['binding_vnic_type'] == "direct-physical" or
+        item['binding_vnic_type'] == "direct"
 - name: Fail If There Are More/Less Than 2 SR-IOV NICs
   fail:
     msg: "Current automated flow only supports 2 SR-IOV NICs connected to intance, please provide an instance with the allowed number of NICs"
@@ -43,18 +43,10 @@
         state: directory
         recurse: True
       become: True
-
     - name: Retrieve NICs Gathered By Ansible Facts
       set_fact:
-        ans_nics: >-
-          {{ ans_nics | default([]) }} + [{
-          'name': '{{ item }}',
-          'mac_address': '{{ ansible_facts[item]['macaddress'] }}',
-          'pci_slot': '{{ dpdk_devbind_info['stdout'] | regex_search('.{4}:.{2}:.{2}\..*if=' + item + '.*',
-          multiline=True) | regex_search('.{4}:.{2}:.{2}\..') }}'
-          }]
+        ans_nics: "{{ ans_nics | default([]) + [{'name': item, 'mac_address': ansible_facts[item]['macaddress'], 'pci_slot': dpdk_devbind_info['stdout'] | regex_search('[0-9]{4}:[0-9]{2}:[0-9]{2}.*if=' + item,multiline=true) | regex_search('[0-9]{4}:[0-9]{2}:[0-9]{2}.[0-9]')}] }}"
       loop: "{{ ansible_interfaces | difference(['lo']) }}"
-
     - name: Dump Content To File
       copy:
         content: "{{ ans_nics }}"
@@ -63,7 +55,7 @@
 
     - name: Gather Ansible Facts
       setup:
-  when: not trex_nics_topology_fact_file['stat']['exists']
+        #  when: not trex_nics_topology_fact_file['stat']['exists']
 
 - name: Deactivate Non External Kernel NICs
   shell: "ip link set dev {{ item }} down"
