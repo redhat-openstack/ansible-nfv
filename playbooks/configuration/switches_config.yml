@@ -1,5 +1,30 @@
+---
+- name: Switches configuration requirements
+  hosts: "{{ cifmw_target_host | default('localhost') }}"
+  gather_facts: false
+  pre_tasks:
+    # end_play will end this current playbook and go the the next
+    # imported play.
+    - name: Early playbook stop
+      when:
+        - not cifmw_configure_switches | default(true)
+      ansible.builtin.meta: end_play
+  tasks:
+    - name: Install required packages
+      delegate_to: localhost
+      ansible.builtin.pip:
+        name:
+          - paramiko
+          - ncclient
+          - xmltodict
+
 - name: Switches configuration
   hosts: switches
   gather_facts: false
+  pre_tasks:
+    - name: Early playbook stop
+      when:
+        - not cifmw_configure_switches | default(true)
+      ansible.builtin.meta: end_play
   roles:
-    - configuration/switches_config
+    - switch_config

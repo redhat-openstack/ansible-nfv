@@ -1,11 +1,11 @@
 ---
 - name: Collect switch facts
-  onyx_facts:
+  mellanox.onyx.onyx_facts:
   register: onyx_facts
-  failed_when: False
+  failed_when: false
 
 - name: Check if JSON API is supported in switch
-  set_fact:
+  ansible.builtin.set_fact:
     json_api_support: |-
       {%- if onyx_facts['rc'] == 1 and 'command \"json-print\"' in onyx_facts['module_stderr'] -%}
         {{ False | bool }}
@@ -13,20 +13,17 @@
         {{ True | bool }}
       {%- endif -%}
 
-- name: Print JSON API support
-  debug:
-    var: json_api_support
-
 - name: Quit if JSON API is supported
-  fail:
+  ansible.builtin.fail:
     msg: "This playbook was tested on non JSON API enabled switch and not using native onyx modules to perform actions"
   when: json_api_support
 
 - name: MLNX-OS non JSON API enabled configuration block
-  become: True
+  become: true
+  when: not json_api_support
   block:
     - name: Set Login Banner If Required
-      onyx_config:
+      mellanox.onyx.onyx_config:
         lines: |
           {%- set commands = [] -%}
           {%- if 'switch_banner' in switch_vars -%}
@@ -36,7 +33,7 @@
     # Generate all required commands using jinja2 template instead of looping
     # If we loop, unnecessary SSH connections will run which will increase execution time significantly
     - name: Create vlans
-      onyx_config:
+      mellanox.onyx.onyx_config:
         lines: |
           {%- set commands = [] -%}
           {%- for vlan_id in vlan_list -%}
@@ -48,7 +45,7 @@
     # If we loop, unnecessary SSH connections will run which will increase execution time significantly
     # If using `hybrid` mode, please exclude the native VLAN from trunk list
     - name: Configure interfaces - description, mode (access/trunk/hybrid), vlans
-      onyx_config:
+      mellanox.onyx.onyx_config:
         lines: |
           {%- set commands = [] -%}
           {%- for interface in switch_vars['interfaces'] -%}
@@ -108,6 +105,5 @@
           {{ commands }}
 
     - name: Save configuration
-      onyx_config:
-        save: True
-  when: not json_api_support
+      mellanox.onyx.onyx_config:
+        save: true

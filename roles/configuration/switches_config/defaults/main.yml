@@ -1,3 +1,7 @@
 # Amount of retries to supported tasks
-task_retries: 3
-task_retry_delay: 900
+cifmw_switch_config_task_retries: 3
+cifmw_switch_config_task_retry_delay: 900
+cifmw_switch_config_scenario_name: default
+
+# Optional parameters:
+# cifmw_switch_config_scenarios

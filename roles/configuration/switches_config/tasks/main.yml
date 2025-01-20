@@ -1,14 +1,28 @@
 ---
 - name: Load switch configuration
-  set_fact:
-    switch_vars: "{{ (lookup('vars', inventory_hostname, default='')) }}"
+  ansible.builtin.set_fact:
+    switch_vars: >-
+      {{
+        lookup('vars', inventory_hostname, default={}) |
+        default(
+            (
+              (
+                (
+                  hostvars[inventory_hostname]["cifmw_switch_config_scenarios"]
+                  [cifmw_switch_config_scenario_name] | default({})
+                )[inventory_hostname] | default({})
+              )
+            )
+            if ("cifmw_switch_config_scenarios" in hostvars[inventory_hostname]) else {}
+        , true)
+      }}
 
 - name: Create VLANs list
-  set_fact:
+  ansible.builtin.set_fact:
     vlan_list: "{{ vlan_list | default([]) + range(item.start, item.end + 1) | list }}"
   loop: "{{ switch_vars.vlans }}"
   when: "'vlans' in switch_vars"
 
-- name: "Include {{ ansible_network_os }} tasks"
-  include_tasks: "{{ ansible_network_os }}_config.yml"
-  when: switch_vars
+- name: "Include tasks: {{ ansible_network_os }}"
+  ansible.builtin.include_tasks: "{{ ansible_network_os }}_config.yml"
+  when: switch_vars | length > 0
