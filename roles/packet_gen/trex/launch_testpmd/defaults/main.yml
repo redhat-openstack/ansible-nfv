@@ -1,5 +1,5 @@
 # testpmd binary
-testpmd_bin: "{{ dpdk_compiled_dir }}/testpmd"
+testpmd_bin: "/usr/bin/dpdk-testpmd"
 
 # Map list of cores to physical cpu set
 testpmd_lcores: '3,4,7'
@@ -26,10 +26,13 @@ testpmd_rxq: 1
 testpmd_txq: 1
 
 # TestPMD forwarding mode
-forward_mode: io
+forward_mode: mac
 
 # TestPMD verbose
 testpmd_verbose: 0
 
 # TestPMD log file
 testpmd_log: "/tmp/testpmd.log"
+
+# Enable IP forwarding in case L3 needed
+packet_gen_ip_forwarding: false
