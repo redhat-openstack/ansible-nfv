@@ -20,6 +20,26 @@
         {%- endfor -%}
       {%- endfor -%}
 
+- name: fail if no matches for trex nics
+  block:
+    - name: Info from neutron
+      debug:
+        var: trex_instance_nics_info
+
+    - name: Ansible Gathered facts
+      debug:
+        var: ansible_local["nic_topology"]
+
+    - name: Fail if trex_full_nic_info is empty
+      ansible.builtin.fail:
+        msg: >-
+          trex_full_nic_info is empty this issue might be cause either by
+          Trex nics already being counded to dpdk or
+          because of a mismatch between the real mac address of the trex PF and neutron API
+          please make sure nics in trex are not binded and that the PF mac address matches the
+          neutron port.
+  when: trex_full_nic_info | length == 0
+
 - name: Sort Trex NICs Info Dict Based On PCI Slots
   set_fact:
     trex_full_nic_info: "{{ trex_full_nic_info | sort(attribute='pci_slot') }}"

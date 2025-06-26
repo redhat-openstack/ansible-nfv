@@ -34,6 +34,7 @@
       --max-loss-pct {{ trex_max_lost_pct }}
       --send-teaching-warmup
       --dst-macs {{ dut_macs }}
+      --dst-ports {{ dst_ports }}
       --num-flows {{ trex_flows }}
       {% if trex_set_vlan %}
         --vlan-ids {{ trex_vlans }}

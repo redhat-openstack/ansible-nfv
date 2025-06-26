@@ -2,13 +2,16 @@
 binary_perf_log: '/tmp/performance.log'
 
 # Trafficgen repo directory on host
-trafficgen_dir: '/opt/trafficgen'
+trafficgen_dir: '/opt/bench-trafficgen/trafficgen'
 
 # binary-search binary
 binary_search_bin: "{{ trafficgen_dir }}/binary-search.py"
 
 # Frame size in bytes that Trex will generate
 trex_frame_size: 64
+
+# Destination ports, one per device
+dst_ports: 53000,54000
 
 # Max packet lost % acceptable
 trex_max_lost_pct: 0.00
