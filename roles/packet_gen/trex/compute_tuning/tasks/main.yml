@@ -13,3 +13,8 @@
 - name: Query multiqueue value
   import_tasks: query_multiqueue.yml
   when: multiqueue_set is defined and  multiqueue_set
+
+- name: Set tuned cpu-partitioning profile
+  import_tasks: set_tuned_cpu_partitioning.yml
+  when: "{{ ansible_processor is contains('GenuineIntel') and
+        set_tuned_cpu_partitioning is defined and set_tuned_cpu_partitioning }}"

@@ -1,0 +1,25 @@
+- name: Get tuned profile
+  ansible.builtin.command: tuned-adm active
+  register: tuned_active_profile
+  changed_when: false
+  check_mode: no
+
+- name: Parse the active profile name from the command output
+  ansible.builtin.set_fact:
+    tuned_active_profile: "{{ tuned_active_profile.stdout.split(':')[1] | trim }}"
+
+- name: Display the tuned active profile
+  ansible.builtin.debug:
+    msg: "Active tuned profile: {{ tuned_active_profile }}"
+
+- name: Set tuned cpu-partitioning profile
+  become: true
+  block:
+    - name: Set tuned cpu-partitioning profile
+      ansible.builtin.command: tuned-adm profile cpu-partitioning
+
+    - name: Restart tuned service
+      ansible.builtin.service:
+        name: tuned
+        state: restarted
+  when: tuned_active_profile != 'cpu-partitioning'
