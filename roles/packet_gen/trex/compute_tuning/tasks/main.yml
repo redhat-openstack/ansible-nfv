@@ -13,3 +13,7 @@
 - name: Query multiqueue value
   import_tasks: query_multiqueue.yml
   when: multiqueue_set is defined and  multiqueue_set
+
+- name: Enable P-state turbo
+  import_tasks: tuned_enable_pstate_turbo.yml
+  when: tuned_enable_pstate_turbo is defined and tuned_enable_pstate_turbo

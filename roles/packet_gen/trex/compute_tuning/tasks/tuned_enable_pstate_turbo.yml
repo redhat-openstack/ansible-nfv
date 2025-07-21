@@ -1,0 +1,28 @@
+- name: Get tuned profile
+  ansible.builtin.command: tuned-adm active
+  register: tuned_active_profile
+  changed_when: false
+  check_mode: no
+
+- name: Parse the active profile name from the command output
+  ansible.builtin.set_fact:
+    tuned_active_profile: "{{ tuned_active_profile.stdout.split(':')[1] | trim }}"
+
+- name: Display the tuned active profile
+  ansible.builtin.debug:
+    msg: "Active tuned profile: {{ tuned_active_profile }}"
+
+- name: Enable P-state turbo in tuned cpu-partitioning-powersave profile
+  become: true
+  block:
+    - name: Set no_turbo to false in /usr/lib/tuned/cpu-partitioning-powersave/tuned.conf
+      ansible.builtin.lineinfile:
+       dest: /usr/lib/tuned/cpu-partitioning-powersave/tuned.conf
+       regexp: '^no_turbo='
+       line: 'no_turbo=false'
+    - name: Restart tuned service
+      ansible.builtin.service:
+        name: tuned
+        state: restarted
+  when: "{{ ansible_processor is contains('GenuineIntel') and
+        tuned_enable_pstate_turbo is defined and tuned_enable_pstate_turbo }}"
