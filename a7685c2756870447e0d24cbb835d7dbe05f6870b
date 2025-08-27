@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "8ebda63a_8e516b69",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1016373
+      },
+      "writtenOn": "2025-08-27T08:14:40Z",
+      "side": 1,
+      "message": "I cherry pick same commith for osp18 repo and did some minor fixes because ansible version in osp17 is older and there were some incompatibilities",
+      "revId": "a7685c2756870447e0d24cbb835d7dbe05f6870b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    }
+  ]
+}
