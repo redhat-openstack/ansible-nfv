@@ -16,6 +16,23 @@
       "message": "I cherry pick same commith for osp18 repo and did some minor fixes because ansible version in osp17 is older and there were some incompatibilities",
       "revId": "a7685c2756870447e0d24cbb835d7dbe05f6870b",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": true,
+      "key": {
+        "uuid": "2e738ff6_51fa99cb",
+        "filename": "roles/tuning/cpu_pinning_huge_pages/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1016950
+      },
+      "writtenOn": "2025-08-27T08:37:43Z",
+      "side": 1,
+      "message": "a trailing whitespace. And on lines 10 and 12. There is no impact on playbook execution but looks a little untidy. BTW, they were also in the original version of the patch in NFV18 repo but github diff preview there does not highlight them.",
+      "revId": "a7685c2756870447e0d24cbb835d7dbe05f6870b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
