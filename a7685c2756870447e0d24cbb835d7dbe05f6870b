@@ -33,6 +33,24 @@
       "message": "a trailing whitespace. And on lines 10 and 12. There is no impact on playbook execution but looks a little untidy. BTW, they were also in the original version of the patch in NFV18 repo but github diff preview there does not highlight them.",
       "revId": "a7685c2756870447e0d24cbb835d7dbe05f6870b",
       "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
+    },
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "15049eed_310236e3",
+        "filename": "roles/tuning/cpu_pinning_huge_pages/tasks/main.yml",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1016373
+      },
+      "writtenOn": "2025-08-27T10:50:02Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "2e738ff6_51fa99cb",
+      "revId": "a7685c2756870447e0d24cbb835d7dbe05f6870b",
+      "serverId": "d5d70762-12d0-45a1-890d-524b12d3f735"
     }
   ]
 }
