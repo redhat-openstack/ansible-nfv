@@ -2,14 +2,24 @@
   command: virt-customize -a {{ fetched_image }} --run-command "yum install {{ item }} -y"
   loop:
     - git
+    - gcc
+    - make
+    - cmake
+    - gcc-c++
+    - pciutils
+    - glibc-devel
+    - glibc-headers
+    - numactl-devel
     - vim
     - tmux
     - python3
     - cloud-init
+    - meson
     - pip
     - iperf3
     - mstflint
     - tuned-profiles-cpu-partitioning
+    - perl
     - net-tools
 
 - name: create custom users

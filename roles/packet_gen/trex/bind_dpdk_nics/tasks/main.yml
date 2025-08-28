@@ -1,3 +1,10 @@
+- name: Check if DPDK Compiled Binaries Directory Exists
+  stat:
+    path: "{{ dpdk_compiled_dir }}"
+  register: dpdk_dir
+  failed_when: not dpdk_dir['stat']['exists']
+  become: True
+
 - name: Retrieve default NIC
   set_fact:
     nic_def: "{{hostvars[inventory_hostname]['ansible_default_ipv4']['alias']}}"
@@ -15,11 +22,8 @@
   loop: "{{nic_down}}"
   become: True
 
-- name: Retrieve pci slots for nics
-  shell: |
-    for nic in {{ nic_down | join(' ') }}; do
-      ethtool -i $nic | awk '{if ($1 == "bus-info:") print $2}'
-    done
+- name: Retrieve Non Active NICs' PCI Slots
+  shell: "python {{ dpdk_root_dir }}/usertools/dpdk-devbind.py --status | grep -A 5 'Network devices using kernel driver' | grep -v Active | grep 0000 | cut -d ' ' -f 1 | paste -sd ' '"
   register: instance_nics_pci_slots
   become: True
 
@@ -51,8 +55,11 @@
         state: present
         params: "{{ item['params'] | default(omit) }}"
       loop:
-        - {'name': 'vfio', 'params': 'enable_unsafe_noiommu_mode=1'}
+        - {'name': 'vfio'}
         - {'name': 'vfio-pci'}
+
+    - name: Ensure enable_unsafe_noiommu_mode
+      shell: "echo 1 | sudo tee /sys/module/vfio/parameters/enable_unsafe_noiommu_mode"
 
     - name: Load Mellanox Kernel Modules when configured
       modprobe:
@@ -61,8 +68,7 @@
       when: dpdk_binding_driver == "mlx5_core"
 
     - name: Bind DPDK NICs
-      command: "driverctl set-override {{ item }} {{dpdk_binding_driver}}"
-      loop: "{{ instance_nics_pci_slots.stdout_lines }}"
+      command: "{{ dpdk_root_dir }}/usertools/dpdk-devbind.py -b {{dpdk_binding_driver}} {{ instance_nics_pci_slots['stdout'] }}"
 
   become: True
 

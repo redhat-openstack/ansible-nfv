@@ -116,6 +116,9 @@ binary_search: True
 States if config variables should be parsed during run time, if `False`, a user must pass the required trex configuration variables.
 
 `True` by default.
+```
+gather_trex_conf_live: True
+```
 
 Destination out trex config file which will be created on trex instance.
 
@@ -200,6 +203,25 @@ trafficgen_branch: 'master'
 ```
 
 ### DPDK Variables
+
+DPDK root directory on instances(cloned from: 'git://dpdk.org/dpdk').
+
+`/root/dpdk` by default.
+```
+dpdk_root_dir: '/root/dpdk'
+```
+
+Compiled DPDK binaries directory on instances(compiled as part of NFV perf guest image).
+
+Info about what we compile can be found in `prepare_performance_images` [role documentation](/roles/images/performance/README.md#description).
+
+Compilation steps can be found inside `Prepare DPDK binaries inside guest image` [task](/roles/images/performance/tasks/prepare_dpdk.yml).
+
+`{{ dpdk_root_dir }}/build/app` by default.
+```
+dpdk_compiled_dir: '/root/dpdk/build/app'
+```
+
 Binding drivers used by dpdk (vfio-pci, mlx5_core)
 'vfio-pci' by default
 

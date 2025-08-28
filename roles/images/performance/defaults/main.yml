@@ -1,16 +1,24 @@
 # Image Variables
-guest_image: 'http://download.hosts.prod.upshift.rdu2.redhat.com/rhel-9/rel-eng/RHEL-9/latest-RHEL-9.5.0/compose/BaseOS/x86_64/images/rhel-guest-image-9.5-20241009.2.x86_64.qcow2'
+guest_image: 'http://download.eng.tlv.redhat.com/rhel-9/rel-eng/RHEL-9/latest-RHEL-9.2.0/compose/BaseOS/x86_64/images/rhel-guest-image-9.2-20230414.17.x86_64.qcow2'
 guest_image_output: '/tmp/'
 guest_debug: False
 
 # Repo Variables
 repo_urls:
-  - http://download.hosts.prod.upshift.rdu2.redhat.com/rhel-9/rel-eng/RHEL-9/latest-RHEL-9.5.0/repofile.repo
+  - http://download.eng.tlv.redhat.com/rhel-9/rel-eng/RHEL-9/latest-RHEL-9.2.0/repofile.repo
 repo_dir: '/tmp/guest_repos'
 guest_repos: []
 
+# DPDK Variables
+dpdk_dir: '/root/dpdk'
+dpdk_customization_log: "{{ dpdk_dir }}/customization.log"
+dpdk_git: 'git://dpdk.org/dpdk'
+dpdk_branch: 'tags/v22.11'
+dpdk_compile_packages:
+  - pyelftools
+
 # Trex Variables
-trex_version: 'v3.06'
+trex_version: 'v3.02'
 trex_url: 'https://trex-tgn.cisco.com/trex/release'
 trex_dir: '/opt/trex/'
 
@@ -33,3 +41,7 @@ fio_git: 'git://git.kernel.dk/fio.git'
 fio_dir: '/root/fio'
 fio_branch: 'fio-3.9'
 fio_customization_log: "{{ fio_dir }}/customization.log"
+
+# mellanox drivers
+# mlx_iso: http://file.mad.redhat.com/~mnietoji/MLNX_OFED_LINUX-5.9-0.5.6.0-rhel9.1-x86_64.iso
+mlx_iso: ''
