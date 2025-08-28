@@ -1,19 +1,9 @@
 ---
 
 # Workaround since Ansible modules lock the database similar to `configure exclusive`
-- name: "Random Duraion Pause"
-  ansible.builtin.pause:
+- name: "Random Duration Pause to Avoid Database Conflicts"
+  pause:
     seconds: "{{ 90 | random(step=6) }}"
-
-- name: "Check If Junos Database Is Open"
-  ansible.builtin.junos_config:
-    lines:
-      - set system license keys
-  register: junos_config_db_check
-  retries: "{{ task_retries }}"
-  delay: "{{ task_retry_delay }}"
-  # Not filtering specific database issue or taking into account other errors
-  until: (junos_config_db_check['msg'] is not defined)
 
 - name: Junos configuration block
   block:
@@ -114,6 +104,8 @@
               - delete protocols igmp-snooping vlan vlan{{ item.vlan }}
           loop: "{{ switch_vars.igmp_snooping }}"
           when: item.vlan is defined
+          retries: 3
+          delay: 10
 
         - name: Create IGMP querier for each defined vlan
           junos_config:
@@ -122,6 +114,8 @@
                  l2-querier source-address {{ item.ip_address }}"
           loop: "{{ switch_vars.igmp_snooping }}"
           when: item.vlan is defined and item.ip_address is defined
+          retries: 3
+          delay: 10
 
         - name: Configure interfaces in which IGMP queries are broadcasted
           junos_config:
@@ -131,6 +125,8 @@
           loop: "{{ switch_vars.igmp_snooping | default([]) |
                  subelements('interfaces', 'skip_missing=True') }}"
           when: item.0.vlan is defined and item.0.interfaces is defined
+          retries: 3
+          delay: 10
       when: switch_vars.igmp_snooping is defined
 
     - name: Configure Layer3(irb) Interfaces
@@ -151,6 +147,8 @@
     - name: Save configuration
       junos_config:
         confirm_commit: yes
+      retries: 5
+      delay: 15
 
   rescue:
     - name: Configuration rollback
@@ -158,5 +156,5 @@
         rollback: 1
 
     - name: Fail Play
-      ansible.builtin.fail:
+      fail:
         msg: "Configuration was rollbacked, failing play."
