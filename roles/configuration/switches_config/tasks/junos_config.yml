@@ -1,107 +1,110 @@
 ---
 
 # Workaround since Ansible modules lock the database similar to `configure exclusive`
-- name: "Random Duraion Pause"
-  ansible.builtin.pause:
+- name: "Random Duration Pause to Avoid Database Conflicts"
+  pause:
     seconds: "{{ 90 | random(step=6) }}"
-
-- name: "Check If Junos Database Is Open"
-  ansible.builtin.junos_config:
-    lines:
-      - set system license keys
-  register: junos_config_db_check
-  retries: "{{ task_retries }}"
-  delay: "{{ task_retry_delay }}"
-  # Not filtering specific database issue or taking into account other errors
-  until: (junos_config_db_check['msg'] is not defined)
 
 - name: Junos configuration block
   block:
     - name: Set login banner
-      junos_banner:
-        banner: motd
-        text: "{{ switch_vars['switch_banner'] }}"
-        state: present
+      junos_config:
+        lines:
+          - "set system login message \"{{ switch_vars['switch_banner'] }}\""
       when: "'switch_banner' in switch_vars"
+      retries: 3
+      delay: 5
 
     - name: Set VLANs
-      junos_vlan:
-        name: "vlan{{ item }}"
-        vlan_id: "{{ item }}"
-        state: present
+      junos_config:
+        lines:
+          - "set vlans vlan{{ item }} vlan-id {{ item }}"
       loop: "{{ vlan_list }}"
+      retries: 3
+      delay: 5
 
     - name: Configure interfaces - description, mode (access/trunk), vlans
-      vars:
-        iface_vlans: "{%- set iface_vlans = [] -%}
-                      {%- set helper_var = [] -%}
-                      {%- if item.iface_mode == 'trunk'-%}
-                      {%- if ',' in item.vlan -%}
-                      {%- for vlan in item.vlan.replace(' ', '').split(',') -%} {{ helper_var.append(vlan) }} {%- endfor -%}
-                      {%- else -%}
-                      {{ helper_var.append(item.vlan) }}
-                      {%- endif -%}
-                      {%- for vlan in helper_var -%}
-                      {%- if '-' in vlan -%}
-                      {%- for v in range(vlan.split('-')[0] | int, vlan.split('-')[1] | int + 1) -%}
-                      {{ iface_vlans.append(v) }}
-                      {%- endfor -%}
-                      {%- else -%}
-                      {{ iface_vlans.append(vlan | int) }}
-                      {%- endif -%}
-                      {%- endfor -%}
-                      {%- endif -%}
-                      {{ iface_vlans | unique }}"
-        vlans_string: "{%- if iface_vlans -%}
-                       {% for item in iface_vlans %}vlan{{ item }} {% endfor %}
-                       {%- elif item.vlan == 'all' -%}{{ item.vlan }}
-                       {%- else -%}vlan{{ item.vlan }}{% endif %}"
-        trunk_vlans_list: "{%- if vlans_string[0] is defined -%}
-                           {{ vlans_string.split() }}{% else %}{{ item.vlan }}{% endif %}"
-        access_vlan: "{%- if item.iface_mode == 'access' -%}
-                      {{ item.vlan |regex_replace('^(.*)$', 'vlan\\1') }}
-                      {%- endif -%}"
-      junos_l2_interface:
-        name: "{{ item.iface }}"
-        description: "{{ item.description }}"
-        mode: "{{ item.iface_mode }}"
-        access_vlan: "{%- if item.iface_mode == 'access' -%}
-                      {{ access_vlan }}{% else %}{{ omit }}{% endif %}"
-        trunk_vlans: "{%- if item.iface_mode == 'trunk' -%}
-                      {{ trunk_vlans_list }}{% else %}{{ omit }}{% endif %}"
-        native_vlan: "{%- if item.iface_mode == 'trunk' and 'native_vlan' in item -%}
-                      {{ item.native_vlan | int }}{% else %}{{ omit }}{% endif %}"
-        unit: 0
-        state: present
+      junos_config:
+        lines: |
+          {%- set commands = [] -%}
+          {%- set commands = commands + ["set interfaces " + item.iface + " description \"" + item.description + "\""] -%}
+          {%- if item.iface_mode == 'access' -%}
+            {%- set commands = commands + ["set interfaces " + item.iface + " unit 0 family ethernet-switching interface-mode access"] -%}
+            {%- set commands = commands + ["set interfaces " + item.iface + " unit 0 family ethernet-switching vlan members vlan" + item.vlan|string] -%}
+          {%- elif item.iface_mode == 'trunk' -%}
+            {%- set commands = commands + ["set interfaces " + item.iface + " unit 0 family ethernet-switching interface-mode trunk"] -%}
+            {%- if item.vlan == 'all' -%}
+              {%- set commands = commands + ["set interfaces " + item.iface + " unit 0 family ethernet-switching vlan members all"] -%}
+            {%- else -%}
+              {%- set vlan_list = [] -%}
+              {%- if ',' in item.vlan -%}
+                {%- for vlan in item.vlan.replace(' ', '').split(',') -%}
+                  {%- if '-' in vlan -%}
+                    {%- for v in range(vlan.split('-')[0] | int, vlan.split('-')[1] | int + 1) -%}
+                      {%- set vlan_list = vlan_list + [v] -%}
+                    {%- endfor -%}
+                  {%- else -%}
+                    {%- set vlan_list = vlan_list + [vlan|int] -%}
+                  {%- endif -%}
+                {%- endfor -%}
+              {%- else -%}
+                {%- if '-' in item.vlan -%}
+                  {%- for v in range(item.vlan.split('-')[0] | int, item.vlan.split('-')[1] | int + 1) -%}
+                    {%- set vlan_list = vlan_list + [v] -%}
+                  {%- endfor -%}
+                {%- else -%}
+                  {%- set vlan_list = vlan_list + [item.vlan|int] -%}
+                {%- endif -%}
+              {%- endif -%}
+              {%- for vlan in vlan_list | unique -%}
+                {%- set commands = commands + ["set interfaces " + item.iface + " unit 0 family ethernet-switching vlan members vlan" + vlan|string] -%}
+              {%- endfor -%}
+            {%- endif -%}
+            {%- if 'native_vlan' in item -%}
+              {%- set commands = commands + ["set interfaces " + item.iface + " native-vlan-id " + item.native_vlan|string] -%}
+            {%- endif -%}
+          {%- endif -%}
+          {{ commands }}
       loop: "{{ switch_vars.interfaces }}"
       when: "'interfaces' in switch_vars"
+      retries: 3
+      delay: 5
 
     - name: Set MTU value on the interface
-      junos_interface:
-        name: "{{ item.iface }}"
-        mtu: "{{ item.mtu }}"
-        state: present
+      junos_config:
+        lines:
+          - "set interfaces {{ item.iface }} mtu {{ item.mtu }}"
       loop: "{{ switch_vars.interfaces }}"
       when: item.mtu is defined
+      retries: 3
+      delay: 5
 
     # LACP aggregation can't override existing configuration
     # that is not LACP related on the memeber interfaces.
     # Required to delete the config before setting the LACP dependency interface.
     - name: Reset LACP member interface
-      junos_interface:
-        name: "{{ item.1 }}"
-        state: absent
+      junos_config:
+        lines:
+          - "delete interfaces {{ item.1 }}"
       loop: "{{ switch_vars.interfaces | subelements('aggr_members', 'skip_missing=True') }}"
       when: item.0.aggr_members is defined
+      retries: 3
+      delay: 5
 
     - name: Set aggregation for the interface
-      junos_linkagg:
-        name: "{{ item.iface }}"
-        description: "{{ item.description }}"
-        members: "{{ item.aggr_members }}"
-        mode: active
+      junos_config:
+        lines: |
+          {%- set commands = [] -%}
+          {%- set commands = commands + ["set interfaces " + item.iface + " description \"" + item.description + "\""] -%}
+          {%- set commands = commands + ["set interfaces " + item.iface + " aggregated-ether-options lacp active"] -%}
+          {%- for member in item.aggr_members -%}
+            {%- set commands = commands + ["set interfaces " + member + " gigether-options 802.3ad " + item.iface] -%}
+          {%- endfor -%}
+          {{ commands }}
       loop: "{{ switch_vars.interfaces }}"
       when: item.aggr_members is defined
+      retries: 3
+      delay: 5
 
     # For each vlan for which igmp snooping is configured, remove previous
     # configuration if it exists to ensure that applied configuration is
@@ -114,6 +117,8 @@
               - delete protocols igmp-snooping vlan vlan{{ item.vlan }}
           loop: "{{ switch_vars.igmp_snooping }}"
           when: item.vlan is defined
+          retries: 3
+          delay: 10
 
         - name: Create IGMP querier for each defined vlan
           junos_config:
@@ -122,6 +127,8 @@
                  l2-querier source-address {{ item.ip_address }}"
           loop: "{{ switch_vars.igmp_snooping }}"
           when: item.vlan is defined and item.ip_address is defined
+          retries: 3
+          delay: 10
 
         - name: Configure interfaces in which IGMP queries are broadcasted
           junos_config:
@@ -131,26 +138,33 @@
           loop: "{{ switch_vars.igmp_snooping | default([]) |
                  subelements('interfaces', 'skip_missing=True') }}"
           when: item.0.vlan is defined and item.0.interfaces is defined
+          retries: 3
+          delay: 10
       when: switch_vars.igmp_snooping is defined
 
     - name: Configure Layer3(irb) Interfaces
       block:
-        - name: Ensure irb Interfae is configured
-          junos_l3_interface:
-            name: irb
-            unit: "{{ item['unit'] }}"
-            ipv4: "{{ item['ipv4_address'] }}"
+        - name: Ensure irb Interface is configured
+          junos_config:
+            lines:
+              - "set interfaces irb unit {{ item['unit'] }} family inet address {{ item['ipv4_address'] }}"
           loop: "{{ switch_vars['layer3_interfaces'] }}"
+          retries: 3
+          delay: 5
         - name: Assign irb Interface To VLAN Interface
-          junos_vlan:
-            name: "{{ item['vlan_interface'] }}"
-            l3_interface: "irb.{{ item['unit'] }}"
+          junos_config:
+            lines:
+              - "set vlans {{ item['vlan_interface'] }} l3-interface irb.{{ item['unit'] }}"
           loop: "{{ switch_vars['layer3_interfaces'] }}"
+          retries: 3
+          delay: 5
       when: "'layer3_interfaces' in switch_vars"
 
     - name: Save configuration
       junos_config:
         confirm_commit: yes
+      retries: 5
+      delay: 15
 
   rescue:
     - name: Configuration rollback
@@ -158,5 +172,5 @@
         rollback: 1
 
     - name: Fail Play
-      ansible.builtin.fail:
+      fail:
         msg: "Configuration was rollbacked, failing play."
