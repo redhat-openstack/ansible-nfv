@@ -2,18 +2,18 @@
 
 # Workaround since Ansible modules lock the database similar to `configure exclusive`
 - name: "Random Duraion Pause"
-  ansible.builtin.pause:
+  pause:
     seconds: "{{ 90 | random(step=6) }}"
 
 - name: "Check If Junos Database Is Open"
-  ansible.builtin.junos_config:
-    lines:
-      - set system license keys
+  raw: echo "show configuration" | ssh -o StrictHostKeyChecking=no {{ ansible_host }} cli
   register: junos_config_db_check
   retries: "{{ task_retries }}"
   delay: "{{ task_retry_delay }}"
-  # Not filtering specific database issue or taking into account other errors
-  until: (junos_config_db_check['msg'] is not defined)
+  failed_when: false
+  changed_when: false
+  until: junos_config_db_check.rc == 0
+  delegate_to: localhost
 
 - name: Junos configuration block
   block:
@@ -158,5 +158,5 @@
         rollback: 1
 
     - name: Fail Play
-      ansible.builtin.fail:
+      fail:
         msg: "Configuration was rollbacked, failing play."
