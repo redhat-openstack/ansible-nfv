@@ -316,6 +316,7 @@ def gen_stl(devices, traffic, duration, multiplier):
     param multiplier: multiply to each pps to increase rate
     """
     c = STLClient(verbose_level="error")
+    my_ports = []
 
     def signal_handler(sig, frame):
         c.stop(ports=my_ports)
