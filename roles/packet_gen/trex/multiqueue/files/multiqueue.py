@@ -301,7 +301,7 @@ class STLImix(object):
                 streams.append(self.create_stream(float(qratio[queue]["pps"]),
                                                   vm, src_mac, dst_mac, src_ip,
                                                   dst_ip, src_port, dst_port,
-                                                  multiplier))
+                                                  multiplier=multiplier))
         return streams
 
 
