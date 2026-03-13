@@ -175,12 +175,15 @@ def get_tag():
     try:
         config_drive = execute_shell_command('mount /dev/sr0 /mnt')
         logger.info(config_drive)
-        with open('/mnt/openstack/latest/meta_data.json') as json_file:
-            metadata = json.load(json_file)
-        execute_shell_command('umount /mnt')
-        logger.info('Config drive unmounted')
-    except ValueError:
+        try:
+            with open('/mnt/openstack/latest/meta_data.json') as json_file:
+                metadata = json.load(json_file)
+        finally:
+            execute_shell_command('umount /mnt')
+            logger.info('Config drive unmounted')
+    except (ValueError, subprocess.CalledProcessError):
         logger.info('Unable to mount config drive or fetch metadata.')
+        return None
 
     metadata = metadata['devices']
     for meta in metadata:
